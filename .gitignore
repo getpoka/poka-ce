@@ -58,3 +58,8 @@ graphify-out
 # Android Keystore
 *.jks
 key.properties
+
+# AI Customizations & Private Docs
+.agents/
+AGENTS.md
+docs/
