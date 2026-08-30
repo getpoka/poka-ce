@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:forui_phosphor/forui_phosphor.dart';
 import 'package:poka_ce/core/enums.dart';
 import 'package:poka_ce/theme/theme.dart';
 

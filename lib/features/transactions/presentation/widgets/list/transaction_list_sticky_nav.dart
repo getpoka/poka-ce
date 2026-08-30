@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:forui_phosphor/forui_phosphor.dart';
 import 'package:poka_ce/features/transactions/presentation/controllers/transaction_list_notifier.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/theme/theme.dart';

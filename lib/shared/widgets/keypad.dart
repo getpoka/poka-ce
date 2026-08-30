@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:forui/forui.dart';
-import 'package:forui_phosphor/forui_phosphor.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class Keypad extends StatelessWidget {

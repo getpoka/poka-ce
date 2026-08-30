@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:forui_phosphor/forui_phosphor.dart';
 import 'package:poka_ce/app/router/router.dart';
 import 'package:poka_ce/core/utils/log_exporter.dart';
 import 'package:poka_ce/features/settings/presentation/widgets/easter_egg_icon.dart';

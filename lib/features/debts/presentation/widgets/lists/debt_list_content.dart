@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:forui_phosphor/forui_phosphor.dart';
 import 'package:poka_ce/features/debts/domain/debt_model.dart';
 import 'package:poka_ce/features/debts/presentation/widgets/cards/debt_card.dart';
 import 'package:poka_ce/features/debts/presentation/widgets/cards/debt_summary_card.dart';

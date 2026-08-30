@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:forui/forui.dart';
+import 'package:forui_phosphor/forui_phosphor.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:poka_ce/theme/styles/card_style.dart';
@@ -9,6 +10,7 @@ import 'package:poka_ce/theme/styles/tile_group_style.dart';
 import 'package:poka_ce/theme/tailwind.dart';
 
 export 'package:forui/forui.dart';
+export 'package:forui_phosphor/forui_phosphor.dart';
 
 export 'typography_roles.dart';
 

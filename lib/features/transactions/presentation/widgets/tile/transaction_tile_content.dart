@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:forui_phosphor/forui_phosphor.dart';
 import 'package:poka_ce/core/enums.dart';
 import 'package:poka_ce/shared/widgets/poka_amount_text.dart';
 import 'package:poka_ce/theme/theme.dart';

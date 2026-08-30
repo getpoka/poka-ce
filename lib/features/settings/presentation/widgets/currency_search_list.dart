@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:forui_phosphor/forui_phosphor.dart';
 import 'package:poka_ce/features/settings/domain/currency_model.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/poka_menu_group_card.dart';
