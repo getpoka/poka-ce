@@ -10,8 +10,6 @@ import 'package:poka_ce/features/accounts/presentation/controllers/account_list_
 import 'package:poka_ce/features/accounts/presentation/widgets/account_transaction_list.dart';
 import 'package:poka_ce/features/accounts/presentation/widgets/cards/account_hero_card.dart';
 import 'package:poka_ce/features/accounts/presentation/widgets/forms/account_form_sheet.dart';
-import 'package:poka_ce/features/categories/domain/category_model.dart';
-import 'package:poka_ce/features/dashboard/presentation/controllers/balance_visibility_provider.dart';
 import 'package:poka_ce/features/transactions/presentation/controllers/transaction_list_notifier.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/poka_header.dart';
@@ -23,22 +21,16 @@ import 'package:poka_ce/theme/theme.dart';
 class PocketDetailPage extends HookConsumerWidget {
   const PocketDetailPage({
     required this.pocket,
-    required this.categoriesById,
-    required this.accountsById,
     super.key,
   });
 
   final AccountModel pocket;
-  final Map<String, CategoryModel> categoriesById;
-  final Map<String, AccountModel> accountsById;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = context.theme;
     final pocketColor = pocket.color?.toColor() ?? theme.colors.primary;
     final pocketIcon = IconUtil.getIcon(pocket.icon);
-    final isBalanceVisible = ref.watch(balanceVisibilityProvider);
-
     final pocketTransactions = ref.watch(accountTransactionsProvider({pocket.id}));
 
     return FScaffold(
@@ -117,10 +109,8 @@ class PocketDetailPage extends HookConsumerWidget {
               )
             else
               AccountTransactionList(
+                accountId: pocket.id,
                 transactions: pocketTransactions,
-                categoriesById: categoriesById,
-                accountsById: accountsById,
-                isBalanceVisible: isBalanceVisible,
               ).animate().fade(duration: 300.ms, delay: 240.ms).slideY(begin: 0.05, end: 0),
 
             const SizedBox(height: 20),

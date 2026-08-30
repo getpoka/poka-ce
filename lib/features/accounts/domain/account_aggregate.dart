@@ -13,5 +13,17 @@ abstract class AccountAggregate with _$AccountAggregate {
   const AccountAggregate._();
 
   /// Total balance = main account balance + sum of all pockets balance.
-  int get totalBalance => account.balance + pockets.fold<int>(0, (sum, p) => sum + p.balance);
+  int get totalBalance {
+    return account.balance + pockets.fold(0, (sum, pocket) => sum + pocket.balance);
+  }
+
+  double calculateRatio(double totalAssets) {
+    if (totalAssets <= 0) return 0;
+    return (totalBalance / totalAssets).clamp(0, 1);
+  }
+
+  String formatRatioLabel(double totalAssets) {
+    final ratio = calculateRatio(totalAssets);
+    return '${(ratio * 100).toStringAsFixed(0)}% of assets';
+  }
 }

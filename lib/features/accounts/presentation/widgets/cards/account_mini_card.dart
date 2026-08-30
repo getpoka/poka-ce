@@ -178,8 +178,7 @@ class AccountMiniCard extends StatelessWidget {
                 const SizedBox(height: 4),
                 Text(
                   ratioLabel!,
-                  style: theme.typography.body.xs.copyWith(
-                    fontSize: 11,
+                  style: theme.typography.caption.copyWith(
                     color: theme.colors.mutedForeground,
                   ),
                 ),

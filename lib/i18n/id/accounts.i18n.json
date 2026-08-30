@@ -40,5 +40,8 @@
   "noCategoriesAvailable": "No categories available.",
   "noAccountsFound1": "Akun tidak ditemukan",
   "subcategoriesCount": "{{count}} subkategori",
-  "pocketsCount": "{{count}} kantong"
+  "pocketsCount": "{{count}} kantong",
+  "totalActiveAccounts": "Total Akun Aktif",
+  "noAccountsYet": "Belum Ada Akun",
+  "tapTheButtonBelowToAddYourFirstAccount": "Tekan tombol di bawah untuk menambahkan akun pertama Anda"
 }

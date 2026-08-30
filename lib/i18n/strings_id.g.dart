@@ -111,6 +111,9 @@ class _Translations$accounts$id extends Translations$accounts$en {
 	@override String get noAccountsFound1 => 'Akun tidak ditemukan';
 	@override String subcategoriesCount({required Object count}) => '${count} subkategori';
 	@override String pocketsCount({required Object count}) => '${count} kantong';
+	@override String get totalActiveAccounts => 'Total Akun Aktif';
+	@override String get noAccountsYet => 'Belum Ada Akun';
+	@override String get tapTheButtonBelowToAddYourFirstAccount => 'Tekan tombol di bawah untuk menambahkan akun pertama Anda';
 }
 
 // Path: app
@@ -750,6 +753,9 @@ extension on TranslationsId {
 			'accounts.noAccountsFound1' => 'Akun tidak ditemukan',
 			'accounts.subcategoriesCount' => ({required Object count}) => '${count} subkategori',
 			'accounts.pocketsCount' => ({required Object count}) => '${count} kantong',
+			'accounts.totalActiveAccounts' => 'Total Akun Aktif',
+			'accounts.noAccountsYet' => 'Belum Ada Akun',
+			'accounts.tapTheButtonBelowToAddYourFirstAccount' => 'Tekan tombol di bawah untuk menambahkan akun pertama Anda',
 			'app.name' => 'Poka',
 			'app.tagline' => 'Teman keuangan pribadi Anda',
 			'app.nav.home' => 'Beranda',

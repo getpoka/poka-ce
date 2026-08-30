@@ -165,6 +165,16 @@ AccountAggregate? accountAggregate(Ref ref, String accountId) {
 List<TransactionModel> accountTransactions(Ref ref, Set<String> accountIds) {
   final allTransactions = ref.watch(recentTransactionsStreamProvider).value ?? [];
   return allTransactions
-      .where((t) => accountIds.contains(t.accountId) || (t.destinationAccountId != null && accountIds.contains(t.destinationAccountId)))
+      .where(
+        (t) =>
+            accountIds.contains(t.accountId) ||
+            (t.destinationAccountId != null && accountIds.contains(t.destinationAccountId)),
+      )
       .toList();
+}
+
+@riverpod
+Map<String, AccountModel> accountMap(Ref ref) {
+  final accounts = ref.watch(accountsStreamProvider).value ?? [];
+  return {for (final a in accounts) a.id: a};
 }

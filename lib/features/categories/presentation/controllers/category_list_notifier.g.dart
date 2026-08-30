@@ -51,3 +51,45 @@ abstract class _$CategoryListNotifier extends $AsyncNotifier<List<CategoryModel>
     return element.handleCreate(ref, build);
   }
 }
+
+@ProviderFor(categoryMap)
+final categoryMapProvider = CategoryMapProvider._();
+
+final class CategoryMapProvider
+    extends $FunctionalProvider<Map<String, CategoryModel>, Map<String, CategoryModel>, Map<String, CategoryModel>>
+    with $Provider<Map<String, CategoryModel>> {
+  CategoryMapProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'categoryMapProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$categoryMapHash();
+
+  @$internal
+  @override
+  $ProviderElement<Map<String, CategoryModel>> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  Map<String, CategoryModel> create(Ref ref) {
+    return categoryMap(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(Map<String, CategoryModel> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<Map<String, CategoryModel>>(value),
+    );
+  }
+}
+
+String _$categoryMapHash() => r'fdbfc6f7d461681510793534582e4f3ea2defbdf';

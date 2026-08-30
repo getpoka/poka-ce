@@ -1,76 +1,35 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:poka_ce/app/providers/use_case_providers.dart';
 import 'package:poka_ce/core/enums.dart';
 import 'package:poka_ce/core/error/result.dart';
 import 'package:poka_ce/features/accounts/domain/account_model.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-class AccountFormState {
-  const AccountFormState({
-    this.initialAccount,
-    this.name = '',
-    this.type = AccountType.assets,
-    this.balance = 0,
-    this.icon,
-    this.color,
-    this.parentAccountId,
-    this.isActive = true,
-    this.restrictedCategoryIds = const [],
-    this.isSaving = false,
-    this.isSuccess = false,
-    this.error,
-    this.nameError,
-  });
+part 'account_form_notifier.freezed.dart';
+part 'account_form_notifier.g.dart';
 
-  final AccountModel? initialAccount;
-  final String name;
-  final AccountType type;
-  final int balance;
-  final String? icon;
-  final String? color;
-  final String? parentAccountId;
-  final bool isActive;
-  final List<String> restrictedCategoryIds;
-  final bool isSaving;
-  final bool isSuccess;
-  final String? error;
-  final String? nameError;
-
-  AccountFormState copyWith({
+@freezed
+abstract class AccountFormState with _$AccountFormState {
+  const factory AccountFormState({
     AccountModel? initialAccount,
-    String? name,
-    AccountType? type,
-    int? balance,
+    @Default('') String name,
+    @Default(AccountType.assets) AccountType type,
+    @Default(0) int balance,
     String? icon,
     String? color,
     String? parentAccountId,
-    bool? isActive,
-    List<String>? restrictedCategoryIds,
-    bool? isSaving,
-    bool? isSuccess,
+    @Default(true) bool isActive,
+    @Default([]) List<String> restrictedCategoryIds,
+    @Default(false) bool isSaving,
+    @Default(false) bool isSuccess,
     String? error,
     String? nameError,
-    bool clearNameError = false,
-  }) {
-    return AccountFormState(
-      initialAccount: initialAccount ?? this.initialAccount,
-      name: name ?? this.name,
-      type: type ?? this.type,
-      balance: balance ?? this.balance,
-      icon: icon ?? this.icon,
-      color: color ?? this.color,
-      parentAccountId: parentAccountId ?? this.parentAccountId,
-      isActive: isActive ?? this.isActive,
-      restrictedCategoryIds: restrictedCategoryIds ?? this.restrictedCategoryIds,
-      isSaving: isSaving ?? this.isSaving,
-      isSuccess: isSuccess ?? this.isSuccess,
-      error: error ?? this.error,
-      nameError: clearNameError ? null : (nameError ?? this.nameError),
-    );
-  }
+  }) = _AccountFormState;
 }
 
-class AccountFormNotifier extends Notifier<AccountFormState> {
+@riverpod
+class AccountFormNotifier extends _$AccountFormNotifier {
   @override
   AccountFormState build() {
     return const AccountFormState();
@@ -94,7 +53,7 @@ class AccountFormNotifier extends Notifier<AccountFormState> {
     }
   }
 
-  void setName(String name) => state = state.copyWith(name: name, clearNameError: true);
+  void setName(String name) => state = state.copyWith(name: name, nameError: null);
   void setType(AccountType type) => state = state.copyWith(type: type);
   void setBalance(int balance) => state = state.copyWith(balance: balance);
   void setIcon(String icon) => state = state.copyWith(icon: icon);
@@ -166,7 +125,7 @@ class AccountFormNotifier extends Notifier<AccountFormState> {
       return;
     }
 
-    state = state.copyWith(isSaving: true, clearNameError: true);
+    state = state.copyWith(isSaving: true, nameError: null);
     final result = state.initialAccount == null
         ? await ref
               .read(createAccountUseCaseProvider)
@@ -202,7 +161,3 @@ class AccountFormNotifier extends Notifier<AccountFormState> {
     }
   }
 }
-
-final accountFormNotifierProvider = NotifierProvider<AccountFormNotifier, AccountFormState>(() {
-  return AccountFormNotifier();
-});

@@ -196,6 +196,15 @@ class Translations$accounts$en {
 
 	/// en: '{{count}} pocket(s)'
 	String pocketsCount({required Object count}) => '${count} pocket(s)';
+
+	/// en: 'Total Active Accounts'
+	String get totalActiveAccounts => 'Total Active Accounts';
+
+	/// en: 'No Accounts Yet'
+	String get noAccountsYet => 'No Accounts Yet';
+
+	/// en: 'Tap the button below to add your first account'
+	String get tapTheButtonBelowToAddYourFirstAccount => 'Tap the button below to add your first account';
 }
 
 // Path: app
@@ -1681,6 +1690,9 @@ extension on Translations {
 			'accounts.noAccountsFound1' => 'No accounts found',
 			'accounts.subcategoriesCount' => ({required Object count}) => '${count} subcategor(ies)',
 			'accounts.pocketsCount' => ({required Object count}) => '${count} pocket(s)',
+			'accounts.totalActiveAccounts' => 'Total Active Accounts',
+			'accounts.noAccountsYet' => 'No Accounts Yet',
+			'accounts.tapTheButtonBelowToAddYourFirstAccount' => 'Tap the button below to add your first account',
 			'app.name' => 'Poka',
 			'app.tagline' => 'Your personal finance companion',
 			'app.nav.home' => 'Home',

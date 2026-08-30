@@ -69,3 +69,9 @@ class CategoryListNotifier extends _$CategoryListNotifier {
     await repo.reorderCategories(targetCategories);
   }
 }
+
+@riverpod
+Map<String, CategoryModel> categoryMap(Ref ref) {
+  final categories = ref.watch(categoriesStreamProvider).value ?? [];
+  return {for (final c in categories) c.id: c};
+}

@@ -40,5 +40,8 @@
   "noCategoriesAvailable": "No categories available.",
   "noAccountsFound1": "No accounts found",
   "subcategoriesCount": "{{count}} subcategor(ies)",
-  "pocketsCount": "{{count}} pocket(s)"
+  "pocketsCount": "{{count}} pocket(s)",
+  "totalActiveAccounts": "Total Active Accounts",
+  "noAccountsYet": "No Accounts Yet",
+  "tapTheButtonBelowToAddYourFirstAccount": "Tap the button below to add your first account"
 }

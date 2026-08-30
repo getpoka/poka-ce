@@ -1,27 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:poka_ce/features/accounts/domain/account_model.dart';
-import 'package:poka_ce/features/categories/domain/category_model.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:poka_ce/features/accounts/presentation/controllers/account_list_notifier.dart';
+import 'package:poka_ce/features/categories/presentation/controllers/category_list_notifier.dart';
+import 'package:poka_ce/features/dashboard/presentation/controllers/balance_visibility_provider.dart';
 import 'package:poka_ce/features/transactions/domain/transaction_model.dart';
 import 'package:poka_ce/features/transactions/presentation/widgets/tile/transaction_tile.dart';
 
 // ─────────────────────────────────────────────────────────────────────────────
 
-class AccountTransactionList extends StatelessWidget {
+class AccountTransactionList extends HookConsumerWidget {
   const AccountTransactionList({
+    required this.accountId,
     required this.transactions,
-    required this.categoriesById,
-    required this.accountsById,
-    required this.isBalanceVisible,
     super.key,
   });
 
+  final String accountId;
   final List<TransactionModel> transactions;
-  final Map<String, CategoryModel> categoriesById;
-  final Map<String, AccountModel> accountsById;
-  final bool isBalanceVisible;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final categoriesById = ref.watch(categoryMapProvider);
+    final accountsById = ref.watch(accountMapProvider);
+    final isBalanceVisible = ref.watch(balanceVisibilityProvider);
     final displayTransactions = transactions.take(10).toList();
 
     final tiles = <RecentTransactionTile>[];

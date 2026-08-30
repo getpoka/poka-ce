@@ -314,7 +314,7 @@ final class AccountTransactionsProvider
   }
 }
 
-String _$accountTransactionsHash() => r'886e820dfbd3e6454d10851a8cb30d8bb418f513';
+String _$accountTransactionsHash() => r'96c9e099e9d4d0211ac2fdca490e0374bb393a65';
 
 final class AccountTransactionsFamily extends $Family
     with $FunctionalFamilyOverride<List<TransactionModel>, Set<String>> {
@@ -333,3 +333,45 @@ final class AccountTransactionsFamily extends $Family
   @override
   String toString() => r'accountTransactionsProvider';
 }
+
+@ProviderFor(accountMap)
+final accountMapProvider = AccountMapProvider._();
+
+final class AccountMapProvider
+    extends $FunctionalProvider<Map<String, AccountModel>, Map<String, AccountModel>, Map<String, AccountModel>>
+    with $Provider<Map<String, AccountModel>> {
+  AccountMapProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'accountMapProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$accountMapHash();
+
+  @$internal
+  @override
+  $ProviderElement<Map<String, AccountModel>> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  Map<String, AccountModel> create(Ref ref) {
+    return accountMap(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(Map<String, AccountModel> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<Map<String, AccountModel>>(value),
+    );
+  }
+}
+
+String _$accountMapHash() => r'8242408973b46bcbd3d0efdc2c9ca94b051efae5';
