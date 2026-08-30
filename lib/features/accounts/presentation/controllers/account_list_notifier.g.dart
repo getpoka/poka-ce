@@ -95,6 +95,49 @@ final class RegularAccountListProvider
 
 String _$regularAccountListHash() => r'a1d5868b05d5cb390b45e5d863967ac96c356cca';
 
+@ProviderFor(goalAccountList)
+final goalAccountListProvider = GoalAccountListProvider._();
+
+final class GoalAccountListProvider
+    extends
+        $FunctionalProvider<AsyncValue<AccountListState>, AsyncValue<AccountListState>, AsyncValue<AccountListState>>
+    with $Provider<AsyncValue<AccountListState>> {
+  GoalAccountListProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'goalAccountListProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$goalAccountListHash();
+
+  @$internal
+  @override
+  $ProviderElement<AsyncValue<AccountListState>> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  AsyncValue<AccountListState> create(Ref ref) {
+    return goalAccountList(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(AsyncValue<AccountListState> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<AsyncValue<AccountListState>>(value),
+    );
+  }
+}
+
+String _$goalAccountListHash() => r'a318c0b1226ac8a03293de388b06e5d6e06c358c';
+
 @ProviderFor(accountMetrics)
 final accountMetricsProvider = AccountMetricsProvider._();
 

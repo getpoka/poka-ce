@@ -104,6 +104,12 @@ class Translations$accounts$en {
 	/// en: 'Accounts'
 	String get accounts => 'Accounts';
 
+	/// en: 'Main Accounts'
+	String get mainAccounts => 'Main Accounts';
+
+	/// en: 'Goals & Savings'
+	String get goalsAndSavings => 'Goals & Savings';
+
 	/// en: 'Delete Account'
 	String get deleteAccount => 'Delete Account';
 
@@ -1644,6 +1650,8 @@ extension on Translations {
 			'accounts.balance' => 'Balance',
 			'accounts.walletsPockets' => 'Wallets & Pockets',
 			'accounts.accounts' => 'Accounts',
+			'accounts.mainAccounts' => 'Main Accounts',
+			'accounts.goalsAndSavings' => 'Goals & Savings',
 			'accounts.deleteAccount' => 'Delete Account',
 			'accounts.areYouSureYouWantToDeleteThisAccountItWillBeHiddenFromTheApp' => 'Are you sure you want to delete this account? It will be hidden from the app.',
 			'accounts.delete' => 'Delete',

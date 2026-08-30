@@ -80,6 +80,8 @@ class _Translations$accounts$id extends Translations$accounts$en {
 	@override String get balance => 'Balance';
 	@override String get walletsPockets => 'Wallets & Pockets';
 	@override String get accounts => 'Accounts';
+	@override String get mainAccounts => 'Akun Utama';
+	@override String get goalsAndSavings => 'Target & Tabungan';
 	@override String get deleteAccount => 'Delete Account';
 	@override String get areYouSureYouWantToDeleteThisAccountItWillBeHiddenFromTheApp => 'Are you sure you want to delete this account? It will be hidden from the app.';
 	@override String get delete => 'Delete';
@@ -717,6 +719,8 @@ extension on TranslationsId {
 			'accounts.balance' => 'Balance',
 			'accounts.walletsPockets' => 'Wallets & Pockets',
 			'accounts.accounts' => 'Accounts',
+			'accounts.mainAccounts' => 'Akun Utama',
+			'accounts.goalsAndSavings' => 'Target & Tabungan',
 			'accounts.deleteAccount' => 'Delete Account',
 			'accounts.areYouSureYouWantToDeleteThisAccountItWillBeHiddenFromTheApp' => 'Are you sure you want to delete this account? It will be hidden from the app.',
 			'accounts.delete' => 'Delete',

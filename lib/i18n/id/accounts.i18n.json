@@ -10,6 +10,8 @@
   "balance": "Balance",
   "walletsPockets": "Wallets & Pockets",
   "accounts": "Accounts",
+  "mainAccounts": "Akun Utama",
+  "goalsAndSavings": "Target & Tabungan",
   "deleteAccount": "Delete Account",
   "areYouSureYouWantToDeleteThisAccountItWillBeHiddenFromTheApp": "Are you sure you want to delete this account? It will be hidden from the app.",
   "delete": "Delete",

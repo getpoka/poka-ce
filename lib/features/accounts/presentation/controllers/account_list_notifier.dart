@@ -127,6 +127,20 @@ AsyncValue<AccountListState> regularAccountList(Ref ref) {
   });
 }
 
+@riverpod
+AsyncValue<AccountListState> goalAccountList(Ref ref) {
+  final asyncState = ref.watch(accountListProvider);
+  return asyncState.whenData((state) {
+    final goalAccounts = state.accounts.where((a) => a.type == AccountType.goal).toList();
+    final goalAggregates = state.aggregates.where((agg) => agg.account.type == AccountType.goal).toList();
+
+    return AccountListState(
+      accounts: goalAccounts,
+      aggregates: goalAggregates,
+    );
+  });
+}
+
 typedef AccountMetricsData = ({int activeAccountCount, double netWorth, double totalAssets, double totalLiabilities});
 
 @riverpod
@@ -150,5 +164,7 @@ AccountAggregate? accountAggregate(Ref ref, String accountId) {
 @riverpod
 List<TransactionModel> accountTransactions(Ref ref, Set<String> accountIds) {
   final allTransactions = ref.watch(recentTransactionsStreamProvider).value ?? [];
-  return allTransactions.where((t) => accountIds.contains(t.accountId)).toList();
+  return allTransactions
+      .where((t) => accountIds.contains(t.accountId) || (t.destinationAccountId != null && accountIds.contains(t.destinationAccountId)))
+      .toList();
 }

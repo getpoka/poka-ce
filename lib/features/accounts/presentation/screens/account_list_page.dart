@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_reorderable_grid_view/widgets/reorderable_builder.dart';
 import 'package:forui_phosphor/forui_phosphor.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -9,6 +10,7 @@ import 'package:poka_ce/features/accounts/presentation/controllers/account_list_
 import 'package:poka_ce/features/accounts/presentation/widgets/cards/account_mini_card.dart';
 import 'package:poka_ce/features/accounts/presentation/widgets/cards/account_networth_card.dart';
 import 'package:poka_ce/features/accounts/presentation/widgets/forms/account_form_sheet.dart';
+import 'package:poka_ce/features/goals/presentation/controllers/goal_notifier.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/dialogs/poka_confirm_dialog.dart';
 import 'package:poka_ce/shared/widgets/poka_header.dart';
@@ -26,6 +28,11 @@ class AccountListPage extends HookConsumerWidget {
     final asyncState = ref.watch(regularAccountListProvider);
     final state = asyncState.value ?? const AccountListState();
     final aggregates = state.activeAggregates;
+
+    final goalAsyncState = ref.watch(goalAccountListProvider);
+    final goalState = goalAsyncState.value ?? const AccountListState();
+    final goalAggregates = goalState.activeAggregates;
+
     final metrics = ref.watch(accountMetricsProvider);
 
     return FScaffold(
@@ -46,6 +53,11 @@ class AccountListPage extends HookConsumerWidget {
                   else
                     _AccountGrid(
                       aggregates: aggregates,
+                      totalAssets: metrics.totalAssets,
+                    ),
+                  if (goalAggregates.isNotEmpty)
+                    _GoalAccountSection(
+                      aggregates: goalAggregates,
                       totalAssets: metrics.totalAssets,
                     ),
                 ],
@@ -81,7 +93,7 @@ class _AccountListHeader extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                PokaSectionLabel(title: t.accounts.accounts),
+                PokaSectionLabel(title: t.accounts.mainAccounts),
                 GestureDetector(
                   key: const Key('account-add-button'),
                   onTap: onAddAccount,
@@ -206,6 +218,82 @@ class _AccountGrid extends ConsumerWidget {
               onTap: () => AccountDetailRoute(aggregate.account.id).push<void>(context),
             );
           }).toList(),
+        ),
+      ),
+    );
+  }
+}
+
+class _GoalAccountSection extends HookConsumerWidget {
+  const _GoalAccountSection({
+    required this.aggregates,
+    required this.totalAssets,
+  });
+
+  final List<AccountAggregate> aggregates;
+  final double totalAssets;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isExpanded = useState(false);
+    final goals = ref.watch(goalProvider).value ?? [];
+
+    return SliverToBoxAdapter(
+      child: Padding(
+        padding: const EdgeInsets.only(top: 10, bottom: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            GestureDetector(
+              onTap: () => isExpanded.value = !isExpanded.value,
+              behavior: HitTestBehavior.opaque,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: Row(
+                  children: [
+                    Expanded(child: PokaSectionLabel(title: t.accounts.goalsAndSavings)),
+                    Icon(
+                      isExpanded.value ? FPhosphorIcons.caretUp : FPhosphorIcons.caretDown,
+                      size: 16,
+                      color: context.theme.colors.mutedForeground,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            if (isExpanded.value) ...[
+              const SizedBox(height: 12),
+              GridView(
+                shrinkWrap: true,
+                padding: EdgeInsets.zero,
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                  childAspectRatio: 1.3,
+                ),
+                children: aggregates.map((aggregate) {
+                  return AccountMiniCard(
+                    key: ValueKey(aggregate.account.id),
+                    account: aggregate.account,
+                    balance: aggregate.totalBalance,
+                    ratio: aggregate.calculateRatio(totalAssets),
+                    ratioLabel: aggregate.formatRatioLabel(totalAssets),
+                    pocketCount: aggregate.pockets.length,
+                    onTap: () {
+                      final goal = goals.where((g) => g.accountId == aggregate.account.id).firstOrNull;
+                      if (goal != null) {
+                        GoalDetailRoute(goal.id).push<void>(context);
+                      } else {
+                        AccountDetailRoute(aggregate.account.id).push<void>(context);
+                      }
+                    },
+                  );
+                }).toList(),
+              ),
+            ]
+          ],
         ),
       ),
     );
