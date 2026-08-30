@@ -582,7 +582,7 @@ class _Translations$settings$id extends Translations$settings$en {
 	@override String get noLicensesFound => 'Lisensi tidak ditemukan';
 	@override String get pokaCe => 'Poka CE';
 	@override String get communityEdition => 'Edisi Komunitas';
-	@override String get aboutDescription => 'Edisi komunitas open-source gratis dari pendamping keuangan pintar Anda. Pegang kendali penuh atas keuangan harian Anda dengan transparansi absolut.';
+	@override String get aboutDescription => 'Pengelola keuangan pribadi open-source gratis yang dirancang untuk membantu Anda mencatat pengeluaran, mengatur anggaran, dan memantau akun secara lokal.';
 	@override String get copyright => '© 2026 POKA. All rights reserved.';
 	@override String get noResultsFound => 'Tidak Ada Hasil';
 	@override String get weCouldntFindAnyCurrencyMatching => 'Kami tidak menemukan mata uang yang cocok dengan "{search}".';
@@ -1125,7 +1125,7 @@ extension on TranslationsId {
 			'settings.noLicensesFound' => 'Lisensi tidak ditemukan',
 			'settings.pokaCe' => 'Poka CE',
 			'settings.communityEdition' => 'Edisi Komunitas',
-			'settings.aboutDescription' => 'Edisi komunitas open-source gratis dari pendamping keuangan pintar Anda. Pegang kendali penuh atas keuangan harian Anda dengan transparansi absolut.',
+			'settings.aboutDescription' => 'Pengelola keuangan pribadi open-source gratis yang dirancang untuk membantu Anda mencatat pengeluaran, mengatur anggaran, dan memantau akun secara lokal.',
 			'settings.copyright' => '© 2026 POKA. All rights reserved.',
 			'settings.noResultsFound' => 'Tidak Ada Hasil',
 			'settings.weCouldntFindAnyCurrencyMatching' => 'Kami tidak menemukan mata uang yang cocok dengan "{search}".',

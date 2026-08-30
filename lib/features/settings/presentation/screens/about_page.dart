@@ -28,20 +28,21 @@ class AboutPage extends StatelessWidget {
           children: [
             const SizedBox(height: 32),
             Padding(
-              padding: const EdgeInsets.only(top: 48, bottom: 24),
+              padding: const EdgeInsets.only(top: 48, bottom: 36),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const EasterEggIcon(),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 12),
                   Text(
                     t.settings.pokaCe,
-                    style: theme.typography.display.sm.copyWith(
+                    style: theme.typography.display.lg.copyWith(
                       color: theme.colors.foreground,
                       fontWeight: FontWeight.w800,
+                      letterSpacing: -1.0,
                     ),
                   ),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: 12),
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                     decoration: BoxDecoration(

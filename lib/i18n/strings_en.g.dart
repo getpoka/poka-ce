@@ -1372,8 +1372,8 @@ class Translations$settings$en {
 	/// en: 'Community Edition'
 	String get communityEdition => 'Community Edition';
 
-	/// en: 'The free and open-source community edition of your smart finance companion. Take full control of your daily finances with absolute transparency.'
-	String get aboutDescription => 'The free and open-source community edition of your smart finance companion. Take full control of your daily finances with absolute transparency.';
+	/// en: 'A free and open-source personal finance manager designed to help you track expenses, manage budgets, and monitor your accounts locally.'
+	String get aboutDescription => 'A free and open-source personal finance manager designed to help you track expenses, manage budgets, and monitor your accounts locally.';
 
 	/// en: '© 2026 POKA. All rights reserved.'
 	String get copyright => '© 2026 POKA. All rights reserved.';
@@ -2062,7 +2062,7 @@ extension on Translations {
 			'settings.noLicensesFound' => 'No licenses found',
 			'settings.pokaCe' => 'Poka CE',
 			'settings.communityEdition' => 'Community Edition',
-			'settings.aboutDescription' => 'The free and open-source community edition of your smart finance companion. Take full control of your daily finances with absolute transparency.',
+			'settings.aboutDescription' => 'A free and open-source personal finance manager designed to help you track expenses, manage budgets, and monitor your accounts locally.',
 			'settings.copyright' => '© 2026 POKA. All rights reserved.',
 			'settings.noResultsFound' => 'No Results Found',
 			'settings.weCouldntFindAnyCurrencyMatching' => 'We couldn\'t find any currency matching "{search}".',

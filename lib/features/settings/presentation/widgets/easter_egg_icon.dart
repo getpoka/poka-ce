@@ -101,8 +101,8 @@ class _EasterEggIconState extends State<EasterEggIcon> {
         borderRadius: theme.style.borderRadius.xl,
         child: Image.asset(
           'assets/images/logo.png',
-          width: 80,
-          height: 80,
+          width: 96,
+          height: 96,
           fit: BoxFit.cover,
         ),
       ),
