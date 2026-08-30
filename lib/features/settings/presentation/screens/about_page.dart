@@ -39,7 +39,7 @@ class AboutPage extends StatelessWidget {
                     style: theme.typography.display.lg.copyWith(
                       color: theme.colors.foreground,
                       fontWeight: FontWeight.w800,
-                      letterSpacing: -1.0,
+                      letterSpacing: -1,
                     ),
                   ),
                   const SizedBox(height: 12),

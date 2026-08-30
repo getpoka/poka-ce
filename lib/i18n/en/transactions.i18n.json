@@ -1,4 +1,5 @@
 {
+  "searchTransactions": "Search transactions...",
   "failedToLoad": "Failed to load transactions",
   "cancel": "Cancel",
   "delete": "Delete",

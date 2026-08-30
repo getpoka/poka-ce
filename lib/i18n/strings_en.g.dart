@@ -1438,6 +1438,9 @@ class Translations$transactions$en {
 
 	// Translations
 
+	/// en: 'Search transactions...'
+	String get searchTransactions => 'Search transactions...';
+
 	/// en: 'Failed to load transactions'
 	String get failedToLoad => 'Failed to load transactions';
 
@@ -2078,6 +2081,7 @@ extension on Translations {
 			'shared.balance' => 'Balance: ',
 			'shared.optional' => 'Optional',
 			'shared.customColor' => 'Custom Color',
+			'transactions.searchTransactions' => 'Search transactions...',
 			'transactions.failedToLoad' => 'Failed to load transactions',
 			'transactions.cancel' => 'Cancel',
 			'transactions.delete' => 'Delete',

@@ -18,22 +18,26 @@ class TransactionFilter {
     this.types = const {},
     this.accountIds = const {},
     this.categoryIds = const {},
+    this.searchQuery = '',
   });
 
   final Set<TransactionType> types;
   final Set<String> accountIds;
   final Set<String> categoryIds;
+  final String searchQuery;
 
-  bool get isActive => types.isNotEmpty || accountIds.isNotEmpty || categoryIds.isNotEmpty;
+  bool get isActive => types.isNotEmpty || accountIds.isNotEmpty || categoryIds.isNotEmpty || searchQuery.isNotEmpty;
 
   TransactionFilter copyWith({
     Set<TransactionType>? types,
     Set<String>? accountIds,
     Set<String>? categoryIds,
+    String? searchQuery,
   }) => TransactionFilter(
     types: types ?? this.types,
     accountIds: accountIds ?? this.accountIds,
     categoryIds: categoryIds ?? this.categoryIds,
+    searchQuery: searchQuery ?? this.searchQuery,
   );
 }
 
@@ -190,7 +194,23 @@ class TransactionListNotifier extends Notifier<TransactionListState> {
         )
         .listen((result) {
           result.fold(
-            (transactions) => state = state.copyWith(transactions: transactions, isLoading: false),
+            (transactions) {
+              var filtered = transactions;
+              final query = targetState.filter.searchQuery.trim().toLowerCase();
+              if (query.isNotEmpty) {
+                filtered = transactions.where((t) {
+                  final inHeader =
+                      (t.note?.toLowerCase().contains(query) ?? false) || t.amount.toString().contains(query);
+                  if (inHeader) return true;
+
+                  return t.items.any(
+                    (item) =>
+                        (item.note?.toLowerCase().contains(query) ?? false) || item.amount.toString().contains(query),
+                  );
+                }).toList();
+              }
+              state = state.copyWith(transactions: filtered, isLoading: false);
+            },
             (failure) => state = state.copyWith(isLoading: false, errorMessage: failure.message),
           );
         });

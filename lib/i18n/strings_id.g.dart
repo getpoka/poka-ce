@@ -616,6 +616,7 @@ class _Translations$transactions$id extends Translations$transactions$en {
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
+	@override String get searchTransactions => 'Cari transaksi...';
 	@override String get failedToLoad => 'Gagal memuat transaksi';
 	@override String get cancel => 'Batal';
 	@override String get delete => 'Hapus';
@@ -1141,6 +1142,7 @@ extension on TranslationsId {
 			'shared.balance' => 'Balance: ',
 			'shared.optional' => 'Optional',
 			'shared.customColor' => 'Custom Color',
+			'transactions.searchTransactions' => 'Cari transaksi...',
 			'transactions.failedToLoad' => 'Gagal memuat transaksi',
 			'transactions.cancel' => 'Batal',
 			'transactions.delete' => 'Hapus',

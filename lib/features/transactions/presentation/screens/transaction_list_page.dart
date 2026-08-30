@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:forui_phosphor/forui_phosphor.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poka_ce/app/providers/repository_providers.dart';
@@ -21,7 +22,7 @@ import 'package:poka_ce/theme/theme.dart';
 
 /// Transaction list page — displays all transactions for a given date window
 /// with a summary card, sticky date navigator, and advanced filter.
-class TransactionListPage extends ConsumerWidget {
+class TransactionListPage extends HookConsumerWidget {
   /// Creates a [TransactionListPage].
   const TransactionListPage({super.key});
 
@@ -29,6 +30,21 @@ class TransactionListPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(transactionListNotifierProvider);
     final notifier = ref.read(transactionListNotifierProvider.notifier);
+
+    final isSearchVisible = useState(state.filter.searchQuery.isNotEmpty);
+    final searchController = useTextEditingController(text: state.filter.searchQuery);
+    final searchFocusNode = useFocusNode();
+
+    useEffect(() {
+      void listener() {
+        if (state.filter.searchQuery != searchController.text) {
+          notifier.applyFilter(state.filter.copyWith(searchQuery: searchController.text));
+        }
+      }
+
+      searchController.addListener(listener);
+      return () => searchController.removeListener(listener);
+    }, [searchController, notifier, state.filter.searchQuery]);
 
     // Build lookup maps once so each tile doesn't re-subscribe.
     final categoriesById =
@@ -51,10 +67,61 @@ class TransactionListPage extends ConsumerWidget {
             ) ??
         const {};
 
-    return FScaffold(
-      header: PokaHeader(
-        title: t.transactions.transactions,
+    return MediaQuery.removeViewInsets(
+      context: context,
+      removeBottom: true,
+      child: FScaffold(
+        header: FHeader(
+        title: AnimatedSwitcher(
+          duration: const Duration(milliseconds: 200),
+          switchInCurve: Curves.easeOutCubic,
+          switchOutCurve: Curves.easeInCubic,
+          child: isSearchVisible.value
+              ? Align(
+                  key: const ValueKey('search_field'),
+                  alignment: Alignment.centerLeft,
+                  child: FTextField(
+                    hint: t.transactions.searchTransactions,
+                    clearable: (value) => value.text.isNotEmpty,
+                    focusNode: searchFocusNode,
+                    control: FTextFieldControl.managed(
+                      controller: searchController,
+                    ),
+                  ),
+                )
+              : Align(
+                  key: const ValueKey('title_text'),
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    t.transactions.transactions,
+                    style: context.theme.typography.titleScreen,
+                  ),
+                ),
+        ),
         suffixes: [
+          // Search button
+          GestureDetector(
+            onTap: () {
+              isSearchVisible.value = !isSearchVisible.value;
+              if (!isSearchVisible.value) {
+                searchController.clear();
+                searchFocusNode.unfocus();
+              } else {
+                searchFocusNode.requestFocus();
+              }
+            },
+            behavior: HitTestBehavior.opaque,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 8),
+              child: Icon(
+                isSearchVisible.value ? FPhosphorIcons.x : FPhosphorIcons.magnifyingGlass,
+                size: 22,
+                color: isSearchVisible.value
+                    ? context.theme.colors.mutedForeground
+                    : (state.filter.searchQuery.isNotEmpty ? context.theme.colors.primary : context.theme.colors.foreground),
+              ),
+            ),
+          ),
           // Filter button — shows a badge dot when a filter is active.
           GestureDetector(
             onTap: () async {
@@ -157,7 +224,8 @@ class TransactionListPage extends ConsumerWidget {
                     ),
                 ],
               ),
-            ).animate().fade(duration: 400.ms).slideY(begin: 0.05, end: 0),
+            ),
+      ),
     );
   }
 }
