@@ -65,8 +65,14 @@ class MainShellPage extends HookConsumerWidget {
       child: NotificationListener<ScrollUpdateNotification>(
         onNotification: (notification) {
           if (notification.metrics.axis == Axis.vertical) {
-            final dy = notification.scrollDelta ?? 0.0;
+            // Always show the FAB if the user is at or very near the top of the screen
+            if (notification.metrics.pixels <= 50) {
+              if (!isFabVisible.value) isFabVisible.value = true;
+              accumulatedScroll.value = 0.0;
+              return false;
+            }
 
+            final dy = notification.scrollDelta ?? 0.0;
             if ((dy > 0 && accumulatedScroll.value < 0) || (dy < 0 && accumulatedScroll.value > 0)) {
               accumulatedScroll.value = 0.0;
             }
