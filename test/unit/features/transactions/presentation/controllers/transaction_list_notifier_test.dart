@@ -96,6 +96,49 @@ void main() {
       expect(container.read(transactionListNotifierProvider).transactions.first.amount, 1000);
     });
 
+    test('searchQuery filters transactions', () async {
+      final txs = [
+        TransactionModel(
+          id: '1',
+          accountId: 'a1',
+          type: TransactionType.expense,
+          amount: 500,
+          transactionDate: DateTime.utc(2024, 1, 1),
+          createdAt: DateTime.utc(2024, 1, 1),
+          updatedAt: DateTime.utc(2024, 1, 1),
+          note: 'Groceries at market',
+        ),
+        TransactionModel(
+          id: '2',
+          accountId: 'a1',
+          type: TransactionType.income,
+          amount: 1000,
+          transactionDate: DateTime.utc(2024, 1, 1),
+          createdAt: DateTime.utc(2024, 1, 1),
+          updatedAt: DateTime.utc(2024, 1, 1),
+          note: 'Salary',
+        ),
+      ];
+      stubWatch(Success(txs));
+      final container = createContainer();
+      
+      // Initial load
+      await container.read(transactionListNotifierProvider.notifier).refresh();
+      await wait();
+      expect(container.read(transactionListNotifierProvider).transactions.length, 2);
+
+      // Apply search query
+      container.read(transactionListNotifierProvider.notifier).applyFilter(
+        const TransactionFilter(searchQuery: 'groceries'),
+      );
+      await wait();
+
+      // Verify filtered results
+      final filtered = container.read(transactionListNotifierProvider).transactions;
+      expect(filtered.length, 1);
+      expect(filtered.first.id, '1');
+    });
+
     test('copyWith', () {
       final s = TransactionListState(
         transactions: const [],
