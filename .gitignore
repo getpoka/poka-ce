@@ -1,67 +1,57 @@
-# Miscellaneous
-*.class
-*.log
-*.pyc
-*.swp
-.DS_Store
-.atom/
-.build/
-.buildlog/
-.history
-.svn/
-.swiftpm/
-migrate_working_dir/
-mutation-test-report
-
-# IntelliJ related
-*.iml
-*.ipr
-*.iws
-.idea/
-
-# The .vscode folder contains launch configuration and tasks you configure in
-# VS Code which you may wish to be included in version control, so this line
-# is commented out by default.
-#.vscode/
-
-# Flutter/Dart/Pub related
-**/doc/api/
-**/ios/Flutter/.last_build_id
+# ─────────────────────────────────────────────────────────────────────────────
+# 1. Flutter & Dart Core
+# ─────────────────────────────────────────────────────────────────────────────
 .dart_tool/
+.flutter-plugins
 .flutter-plugins-dependencies
 .pub-cache/
 .pub/
 /build/
 /coverage/
+pubspec_overrides.yaml
 
-# Symbolication related
-app.*.symbols
-
-# Obfuscation related
-app.*.map.json
-
-# Android Studio will place build artifacts here
+# ─────────────────────────────────────────────────────────────────────────────
+# 2. Android & iOS Builds
+# ─────────────────────────────────────────────────────────────────────────────
+**/doc/api/
+**/ios/Flutter/.last_build_id
 /android/app/debug
 /android/app/profile
 /android/app/release
-pubspec_overrides.yaml
+app.*.symbols
+app.*.map.json
 
-# .graphifyignore
-*.generated.py
-.opencode
-graphify-out
-# Environment Variables
+# ─────────────────────────────────────────────────────────────────────────────
+# 3. Environment & Security
+# ─────────────────────────────────────────────────────────────────────────────
 .env
-# Widget Preview related
-.widget_preview/
-
-# Android Keystore
 *.jks
 key.properties
 
-# AI Customizations & Private Docs
+# ─────────────────────────────────────────────────────────────────────────────
+# 4. IDEs & OS Files
+# ─────────────────────────────────────────────────────────────────────────────
+.DS_Store
+.idea/
+*.iml
+*.ipr
+*.iws
+.history
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 5. Poka Specific Tools & Generators
+# ─────────────────────────────────────────────────────────────────────────────
+mutation-test-report/
+.widget_preview/
+graphify-out/
+.graphifyignore
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 6. AI Customizations & Private Configs
+# ─────────────────────────────────────────────────────────────────────────────
 .agents/
 AGENTS.md
 docs/
 opencode.json
 tui.json
+.opencode
