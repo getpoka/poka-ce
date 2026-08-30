@@ -55,12 +55,12 @@ jobs:
       - name: Build Universal & Split APKs
         run: |
           # Build Universal Fat APK first
-          flutter build apk --release
+          flutter build apk --release --dart-define=APP_VERSION=${{ github.event.inputs.tag || github.ref_name }}
           # Rename it so it's clear and won't be overwritten
           mv build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/app-universal-release.apk
           
           # Build Split APKs
-          flutter build apk --release --split-per-abi
+          flutter build apk --release --split-per-abi --dart-define=APP_VERSION=${{ github.event.inputs.tag || github.ref_name }}
 
       - name: Upload Release APKs
         uses: actions/upload-artifact@v4

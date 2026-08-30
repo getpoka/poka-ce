@@ -45,13 +45,12 @@ class AboutPage extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                     decoration: BoxDecoration(
-                      color: theme.colors.primary.withValues(alpha: 0.1),
-                      border: Border.all(color: theme.colors.primary.withValues(alpha: 0.2)),
+                      color: theme.colors.muted,
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Text(
-                      t.settings.communityEdition,
-                      style: theme.typography.bodySecondary.copyWith(color: theme.colors.primary),
+                      const String.fromEnvironment('APP_VERSION', defaultValue: 'dev-main'),
+                      style: theme.typography.caption.copyWith(color: theme.colors.mutedForeground),
                     ),
                   ),
                 ],
