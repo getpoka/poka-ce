@@ -1,0 +1,17 @@
+{
+  "expense": "Expense",
+  "income": "Income",
+  "categoryName": "Category Name",
+  "icon": "Icon",
+  "color": "Color",
+  "noCategoriesFound": "No categories found.",
+  "subcategories": "Subcategories",
+  "categories": "Categories",
+  "egFoodDining": "e.g., Food & Dining",
+  "deleteCategory": "Delete Category",
+  "delete": "Delete",
+  "selectIcon": "Select Icon",
+  "noSubcategoriesYet": "No subcategories yet",
+  "noCategoriesFound1": "No categories found",
+  "subcategoriesCount": "{{count}} subcategories"
+}

@@ -1,0 +1,18 @@
+{
+  "confirmPin": "Konfirmasi PIN",
+  "createPin": "Buat PIN",
+  "pinsDoNotMatch": "PIN tidak cocok",
+  "reenterPin": "Masukkan ulang PIN",
+  "enterPinAppLock": "Masukkan PIN untuk Kunci Aplikasi",
+  "incorrectPin": "PIN salah",
+  "verifyIdentity": "Verifikasi Identitas",
+  "retryInSeconds": "Coba lagi dalam {{seconds}} detik",
+  "setupPinTitle": "Atur PIN",
+  "setupPinBody": "Buat PIN dulu sebelum mengaktifkan Kunci Aplikasi atau Biometrik.",
+  "unlocked": "Terbuka",
+  "enter6DigitPin": "Masukkan PIN 6 digit",
+  "enterPin": "Masukkan PIN",
+  "invalidPin": "PIN tidak valid",
+  "tooManyAttempts": "Terlalu banyak percobaan",
+  "temporarilyLocked": "Terkunci sementara"
+}

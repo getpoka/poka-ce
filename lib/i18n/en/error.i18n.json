@@ -1,0 +1,5 @@
+{
+  "generic": "An unexpected error occurred",
+  "network": "Please check your connection and try again",
+  "database": "Failed to access local data"
+}

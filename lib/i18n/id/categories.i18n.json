@@ -1,0 +1,17 @@
+{
+  "expense": "Pengeluaran",
+  "income": "Pemasukan",
+  "categoryName": "Nama Kategori",
+  "icon": "Ikon",
+  "color": "Warna",
+  "noCategoriesFound": "Kategori tidak ditemukan.",
+  "subcategories": "Subcategories",
+  "categories": "Categories",
+  "egFoodDining": "e.g., Food & Dining",
+  "deleteCategory": "Delete Category",
+  "delete": "Delete",
+  "selectIcon": "Pilih Ikon",
+  "noSubcategoriesYet": "No subcategories yet",
+  "noCategoriesFound1": "Kategori tidak ditemukan",
+  "subcategoriesCount": "{{count}} subkategori"
+}

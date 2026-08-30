@@ -1,0 +1,79 @@
+name: Release Build
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Target Release Tag (e.g. v1.0.0)'
+        required: true
+        type: string
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+          cache: 'gradle'
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Install Dependencies
+        run: flutter pub get
+
+      - name: Decode Keystore
+        env:
+          ENCODED_STRING: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+        run: |
+          echo $ENCODED_STRING | base64 -d > android/app/keystore.jks
+
+      - name: Create key.properties
+        env:
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+          ANDROID_STORE_PASSWORD: ${{ secrets.ANDROID_STORE_PASSWORD }}
+        run: |
+          echo "storePassword=$ANDROID_STORE_PASSWORD" > android/key.properties
+          echo "keyPassword=$ANDROID_KEY_PASSWORD" >> android/key.properties
+          echo "keyAlias=$ANDROID_KEY_ALIAS" >> android/key.properties
+          echo "storeFile=keystore.jks" >> android/key.properties
+
+      - name: Build Universal & Split APKs
+        run: |
+          # Build Universal Fat APK first
+          flutter build apk --release
+          # Rename it so it's clear and won't be overwritten
+          mv build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/app-universal-release.apk
+          
+          # Build Split APKs
+          flutter build apk --release --split-per-abi
+
+      - name: Upload Release APKs
+        uses: actions/upload-artifact@v4
+        with:
+          name: poka-ce-release
+          path: build/app/outputs/flutter-apk/app-*-release.apk
+
+      - name: Attach APKs to Release
+        if: github.event_name == 'release' || github.event_name == 'workflow_dispatch'
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: build/app/outputs/flutter-apk/app-*-release.apk
+          file_glob: true
+          tag: ${{ github.event.inputs.tag || github.ref_name }}
+          overwrite: true

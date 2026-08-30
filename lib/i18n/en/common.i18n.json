@@ -1,0 +1,13 @@
+{
+  "save": "Save",
+  "cancel": "Cancel",
+  "delete": "Delete",
+  "edit": "Edit",
+  "confirm": "Confirm",
+  "back": "Back",
+  "loading": "Loading...",
+  "error": "An error occurred",
+  "retry": "Retry",
+  "empty": "No data yet",
+  "cannotBeUndone": "This action cannot be undone."
+}

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Mutation testing targets: all domain Use Cases (saldo awal, split transaction, transfer).
+     Only logic-heavy regions are whitelisted per file to avoid mutating generic type syntax. -->
+<mutations version="1.2">
+  <files>
+    <file>lib/features/accounts/domain/use_cases/create_account_use_case.dart
+      <lines begin="31" end="36"/>
+      <lines begin="61" end="61"/>
+      <lines begin="68" end="71"/>
+      <lines begin="78" end="80"/>
+      <lines begin="91" end="91"/>
+    </file>
+    <file>lib/features/accounts/domain/use_cases/update_account_use_case.dart
+      <lines begin="19" end="20"/>
+      <lines begin="27" end="28"/>
+    </file>
+    <file>lib/features/transactions/domain/use_cases/create_transaction_use_case.dart
+      <lines begin="21" end="22"/>
+      <lines begin="32" end="33"/>
+      <lines begin="42" end="46"/>
+    </file>
+    <file>lib/features/transactions/domain/use_cases/transfer_funds_use_case.dart
+      <lines begin="25" end="29"/>
+      <lines begin="41" end="42"/>
+      <lines begin="52" end="52"/>
+    </file>
+    <file>lib/features/debts/data/debt_repository_impl.dart
+      <lines begin="58" end="71"/>
+    </file>
+  </files>
+  <commands>
+    <command group="test" expected-return="0" working-directory="." timeout="180">flutter test test/features/accounts/domain/use_cases test/features/transactions/domain/use_cases test/features/debts/data --reporter compact</command>
+  </commands>
+  <rules>
+    <!-- Boundary / equality operators -->
+    <literal text="==" id="op.eq">
+      <mutation text="!="/>
+    </literal>
+    <literal text="!=" id="op.neq">
+      <mutation text="=="/>
+    </literal>
+    <literal text="&lt;=" id="op.le">
+      <mutation text="&lt;"/>
+    </literal>
+    <literal text="&lt;" id="op.lt">
+      <mutation text="&lt;="/>
+    </literal>
+    <!-- Validation negation -->
+    <literal text="isEmpty" id="validation.is_empty">
+      <mutation text="isNotEmpty"/>
+    </literal>
+    <!-- Business constants -->
+    <literal text="'Saldo Awal'" id="const.initial_balance_note">
+      <mutation text="'Mutated Note'"/>
+    </literal>
+  </rules>
+</mutations>

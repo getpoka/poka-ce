@@ -1,0 +1,97 @@
+name: poka_ce
+description: "Poka CE — Community Edition core package for the Poka financial app."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.13.1
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  # UI
+  forui: ^0.26.0
+  flutter_animate: ^4.5.2
+  fl_chart: ^1.2.0
+
+  # State Management
+  hooks_riverpod: ^3.4.2
+  flutter_hooks: ^0.21.3+1
+
+  # Routing
+  go_router: ^18.0.0
+
+  # Database
+  drift: ^2.34.3
+  drift_flutter: ^0.3.1
+  path_provider: ^2.1.6
+  path: ^1.9.1
+
+  # Domain Models
+  freezed_annotation: ^3.1.0
+  json_annotation: ^4.12.0
+
+  # Localization
+  slang: ^4.19.0
+  slang_flutter: ^4.19.0
+  intl: ^0.20.2
+
+  # Utilities
+  uuid: ^4.6.0
+  result_dart: ^2.2.0
+  rxdart: ^0.28.0
+  talker_flutter: ^5.1.20
+
+  flutter_riverpod: any
+  google_fonts: ^8.2.1
+  shared_preferences: ^2.5.5
+  flutter_markdown_plus: ^1.0.12
+  flutter_secure_storage: ^11.0.0
+  local_auth: ^3.0.2
+  cryptography: ^2.9.0
+  url_launcher: ^6.3.2
+  file_picker: ^12.0.0
+  share_plus: ^13.3.0
+  flutter_slidable: ^4.0.3
+  forui_phosphor: ^0.26.0
+  material_ui: any
+  riverpod: any
+  math_expressions: ^3.2.0
+  cupertino_ui: any
+  riverpod_annotation: ^4.0.6
+  flutter_reorderable_grid_view: ^5.7.0
+  flutter_local_notifications: ^22.3.0
+  cryptography_flutter: ^2.3.4
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^6.0.0
+  very_good_analysis: ^10.3.0
+
+  # Code Generators
+  build_runner: ^2.15.1
+  freezed: ^4.0.0
+  json_serializable: ^6.9.5
+  drift_dev: ^2.34.0
+  slang_build_runner: any
+  forui_cli: ^0.26.0
+
+  # Testing
+  mocktail: ^1.0.5
+  mutation_test: ^1.8.0
+  go_router_builder: ^4.4.0
+  riverpod_generator: ^4.0.8
+  flutter_launcher_icons: ^0.14.4
+  flutter_native_splash: ^2.4.1
+flutter:
+  uses-material-design: true
+
+  assets:
+    - lib/i18n/
+    - assets/images/
+    - assets/data/

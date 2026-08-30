@@ -1,0 +1,13 @@
+{
+  "save": "Simpan",
+  "cancel": "Batal",
+  "delete": "Hapus",
+  "edit": "Edit",
+  "confirm": "Konfirmasi",
+  "back": "Kembali",
+  "loading": "Memuat...",
+  "error": "Terjadi kesalahan",
+  "retry": "Coba lagi",
+  "empty": "Belum ada data",
+  "cannotBeUndone": "Tindakan ini tidak dapat dibatalkan."
+}

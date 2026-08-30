@@ -1,0 +1,20 @@
+targets:
+  $default:
+    builders:
+      slang_build_runner:
+        options:
+          base_locale: en
+          input_directory: lib/i18n
+          input_file_pattern: .i18n.json
+          locale_handling: true
+          namespaces: true
+
+
+          output_directory: lib/i18n
+          output_file_name: strings.g.dart
+          translate_var: t
+          enum_name: AppLocale
+          string_interpolation: double_braces
+          fallback_strategy: base_locale
+          maps:
+            - error

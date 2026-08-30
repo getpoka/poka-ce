@@ -1,0 +1,18 @@
+{
+  "confirmPin": "Confirm PIN",
+  "createPin": "Create PIN",
+  "pinsDoNotMatch": "PINs do not match",
+  "reenterPin": "Re-enter PIN",
+  "enterPinAppLock": "Enter PIN for App Lock",
+  "incorrectPin": "Incorrect PIN",
+  "verifyIdentity": "Verify Identity",
+  "retryInSeconds": "Try again in {{seconds}} seconds",
+  "setupPinTitle": "Setup PIN",
+  "setupPinBody": "Please create a PIN first before enabling App Lock or Biometrics.",
+  "unlocked": "Unlocked",
+  "enter6DigitPin": "Enter 6-digit PIN",
+  "enterPin": "Enter PIN",
+  "invalidPin": "Invalid PIN",
+  "tooManyAttempts": "Too many attempts",
+  "temporarilyLocked": "Temporarily locked"
+}

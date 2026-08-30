@@ -1,0 +1,15 @@
+{
+  "title": "Backup & Restore",
+  "backupAction": "Backup",
+  "restoreAction": "Restore",
+  "password": "Password",
+  "confirmPassword": "Confirm Password",
+  "passwordsDoNotMatch": "Passwords do not match",
+  "backupSuccess": "Backup successful",
+  "restoreSuccess": "Restore successful",
+  "incorrectPassword": "Incorrect password or corrupted file",
+  "enterPasswordToEncrypt": "Enter password to encrypt backup",
+  "enterPasswordToDecrypt": "Enter password to decrypt backup",
+  "pleaseRestart": "Please restart the app to apply changes.",
+  "passwordRequired": "Password is required"
+}

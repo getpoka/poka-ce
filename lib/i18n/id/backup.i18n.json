@@ -1,0 +1,15 @@
+{
+  "title": "Cadangkan & Pulihkan",
+  "backupAction": "Cadangkan",
+  "restoreAction": "Pulihkan",
+  "password": "Kata Sandi",
+  "confirmPassword": "Konfirmasi Kata Sandi",
+  "passwordsDoNotMatch": "Kata sandi tidak cocok",
+  "backupSuccess": "Pencadangan berhasil",
+  "restoreSuccess": "Pemulihan berhasil",
+  "incorrectPassword": "Kata sandi salah atau file rusak",
+  "enterPasswordToEncrypt": "Masukkan kata sandi untuk mengenkripsi cadangan",
+  "enterPasswordToDecrypt": "Masukkan kata sandi untuk mendekripsi cadangan",
+  "pleaseRestart": "Silakan mulai ulang aplikasi untuk menerapkan perubahan.",
+  "passwordRequired": "Kata sandi wajib diisi"
+}

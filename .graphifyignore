@@ -1,0 +1,28 @@
+# .graphifyignore
+# Flutter / Dart
+build/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+
+# Generated files
+*.g.dart
+*.freezed.dart
+*.chopper.dart
+*.mocks.dart
+*.config.dart
+*.reflectable.dart
+*.gql.dart
+*.part.dart
+
+# Graphify
+graphify-out/
+.opencode
+
+# Platform specific
+ios/Pods/
+macos/Pods/
+android/.gradle/

@@ -1,0 +1,14 @@
+{
+  "authRequired": "Dibutuhkan Autentikasi",
+  "hexColorCode": "Kode Warna Hex",
+  "apply": "Terapkan",
+  "enterAmount": "Enter Amount",
+  "selectCategory": "Pilih Kategori",
+  "egFf5733": "e.g., FF5733",
+  "amount": "Amount",
+  "noCategoriesAvailable": "No categories available.",
+  "noWalletsFoundPleaseCreateOneFirst": "No wallets found. Please create one first.",
+  "balance": "Balance: ",
+  "optional": "Optional",
+  "customColor": "Custom Color"
+}

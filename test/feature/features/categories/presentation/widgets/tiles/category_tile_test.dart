@@ -1,0 +1,44 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:forui/forui.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:poka_ce/core/enums.dart';
+import 'package:poka_ce/features/categories/domain/category_model.dart';
+import 'package:poka_ce/features/categories/presentation/widgets/tiles/category_tile.dart';
+import 'package:poka_ce/theme/theme.dart';
+
+void main() {
+  Widget buildTestApp(Widget child) {
+    return ProviderScope(
+      child: MaterialApp(
+        builder: (context, child) => FTheme(
+          data: lightTheme,
+          child: child!,
+        ),
+        home: Scaffold(body: child),
+      ),
+    );
+  }
+
+  testWidgets('CategoryTile renders category correctly', (tester) async {
+    final cat = CategoryModel(
+      id: 'c1',
+      name: 'Food',
+      type: CategoryType.expense,
+      icon: 'food',
+      color: '#FF0000',
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+    );
+
+    await tester.pumpWidget(
+      buildTestApp(
+        CategoryTile(
+          category: cat,
+        ),
+      ),
+    );
+
+    expect(find.text('Food'), findsOneWidget);
+  });
+}

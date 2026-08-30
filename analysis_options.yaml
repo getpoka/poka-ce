@@ -1,0 +1,102 @@
+# This file configures the Dart analyzer and linter for Poka CE.
+# Enforces very_good_analysis — the strictest recommended Flutter lint set.
+# All rules are intentional. Do NOT disable rules without team approval.
+#
+# Docs: https://dart.dev/guides/language/analysis-options
+# VGA : https://pub.dev/packages/very_good_analysis
+
+include: package:very_good_analysis/analysis_options.yaml
+
+formatter:
+  page_width: 120
+
+analyzer:
+  # ── Exclude generated files from analysis ─────────────────────────────────
+  exclude:
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+    - "**/*.gen.dart"
+    - "lib/generated/**"
+    - "lib/shared/theme/**"   # Forui CLI-generated — do not modify inline
+    - "lib/i18n/strings*.g.dart"
+    - "build/**"
+    - ".dart_tool/**"
+    - "test/**"
+    - android/**
+    - ios/**
+    - web/**
+    - windows/**
+    - macos/**
+    - linux/**
+
+  # ── Treat specific hints/warnings as errors ────────────────────────────────
+  errors:
+    # Null safety violations
+    argument_type_not_assignable:            error
+    return_of_invalid_type:                  error
+    invalid_assignment:                      error
+    # Dead code
+    dead_code:                               error
+    # Unused code
+    unused_import:                           error
+    unused_local_variable:                   warning
+    unused_element:                          warning
+    # Deprecated API usage
+    deprecated_member_use:                   warning
+    deprecated_member_use_from_same_package: warning
+    # Missing required params
+    missing_required_param:                  error
+    missing_return:                          error
+
+  language:
+    strict-casts:        true   # No implicit dynamic casts
+    strict-inference:    true   # No implicit dynamic inference
+    strict-raw-types:    true   # No raw generic types
+
+# ── Linter rules ──────────────────────────────────────────────────────────────
+# very_good_analysis already enables a comprehensive set.
+# Below we layer on top or make explicit overrides.
+linter:
+  rules:
+    # ── Custom ───────────────────────────────────────────────────────────────
+    public_member_api_docs:            false
+    sort_pub_dependencies:             false
+    lines_longer_than_80_chars:        false
+
+    # ── Style ────────────────────────────────────────────────────────────────
+    prefer_single_quotes:              true
+    require_trailing_commas:           true
+    sort_constructors_first:           true
+    sort_unnamed_constructors_first:   true
+    use_decorated_box:                 true
+    use_colored_box:                   true
+    sized_box_for_whitespace:          true
+    avoid_redundant_argument_values:   true
+
+    # ── Safety ───────────────────────────────────────────────────────────────
+    avoid_dynamic_calls:               false # Handled via DTOs, GraphQL parsing is inherently dynamic
+    discarded_futures:                 false # Too noisy for Navigator/GoRouter calls
+    avoid_type_to_string:              true
+    no_runtimeType_toString:           true
+    avoid_print:                       true  # use talker/logger
+    avoid_catches_without_on_clauses:  true
+    only_throw_errors:                 true
+    use_rethrow_when_possible:         true
+    cancel_subscriptions:              true
+    close_sinks:                       true
+
+    # ── Performance ──────────────────────────────────────────────────────────
+    avoid_unnecessary_containers:      true
+    prefer_const_constructors:         true
+    prefer_const_declarations:         true
+    prefer_const_literals_to_create_immutables: true
+
+    # ── Riverpod / Flutter ───────────────────────────────────────────────────
+    use_build_context_synchronously:   true  # no async gap before context use
+    no_logic_in_create_state:          true
+
+    # ── Intentional disables (justified) ─────────────────────────────────────
+    # public_member_api_docs: false
+    #   ↳ Enabled in CI only — too noisy during feature development.
+    # lines_longer_than_80_chars: false
+    #   ↳ Handled by dart format (configured to 120 via formatter config), not the linter.

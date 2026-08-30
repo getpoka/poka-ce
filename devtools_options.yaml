@@ -1,0 +1,18 @@
+# Flutter DevTools configuration for SIOPEN Merchant.
+# Controls which DevTools extensions and performance overlays are active.
+#
+# Docs: https://docs.flutter.dev/tools/devtools/extensions
+
+extensions:
+  # ── Riverpod DevTools ──────────────────────────────────────────────────────
+  # Inspect provider graph, watch state changes in real-time.
+  # Requires: flutter_riverpod >= 2.4.0 (ships built-in DevTools extension)
+  riverpod: true
+
+  # ── Performance ────────────────────────────────────────────────────────────
+  # Show performance overlay directly in DevTools timeline.
+  performance_overlay: false   # Enable manually when profiling
+
+# ── Memory & CPU tracking defaults ────────────────────────────────────────────
+# These are suggestions for the DevTools UI defaults.
+# Actual thresholds enforced in CI via `flutter test --reporter json`.

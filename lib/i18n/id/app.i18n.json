@@ -1,0 +1,13 @@
+{
+  "name": "Poka",
+  "tagline": "Teman keuangan pribadi Anda",
+  "nav": {
+    "home": "Beranda",
+    "transactions": "Transaksi",
+    "reports": "Laporan",
+    "accounts": "Akun",
+    "settings": "Pengaturan"
+  },
+  "termsOfService": "Syarat Layanan",
+  "privacyPolicy": "Kebijakan Privasi"
+}
