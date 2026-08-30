@@ -637,7 +637,7 @@ class _Translations$transactions$id extends Translations$transactions$en {
 	@override String get filter => 'Filter';
 	@override String get backToToday => 'Back to today';
 	@override String get deleteTransaction => 'Delete Transaction';
-	@override String get areYouSureYouWantToDeleteThisTransactionThisActionCannotBeUndone => 'Are you sure you want to delete this transaction? This action cannot be undone.';
+	@override String get deleteTransactionWarning => 'Menghapus transaksi ini akan mengembalikan saldo akun dan budget Anda seperti semula.';
 	@override String get out => 'Out ';
 	@override String get noTransactions => 'No transactions';
 	@override String get addNote => 'Add note';
@@ -1157,7 +1157,7 @@ extension on TranslationsId {
 			'transactions.filter' => 'Filter',
 			'transactions.backToToday' => 'Back to today',
 			'transactions.deleteTransaction' => 'Delete Transaction',
-			'transactions.areYouSureYouWantToDeleteThisTransactionThisActionCannotBeUndone' => 'Are you sure you want to delete this transaction? This action cannot be undone.',
+			'transactions.deleteTransactionWarning' => 'Menghapus transaksi ini akan mengembalikan saldo akun dan budget Anda seperti semula.',
 			'transactions.out' => 'Out ',
 			'transactions.noTransactions' => 'No transactions',
 			'transactions.addNote' => 'Add note',

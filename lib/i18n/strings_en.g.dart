@@ -1501,8 +1501,8 @@ class Translations$transactions$en {
 	/// en: 'Delete Transaction'
 	String get deleteTransaction => 'Delete Transaction';
 
-	/// en: 'Are you sure you want to delete this transaction? This action cannot be undone.'
-	String get areYouSureYouWantToDeleteThisTransactionThisActionCannotBeUndone => 'Are you sure you want to delete this transaction? This action cannot be undone.';
+	/// en: 'Deleting this transaction will revert your account balance and budget to their previous state.'
+	String get deleteTransactionWarning => 'Deleting this transaction will revert your account balance and budget to their previous state.';
 
 	/// en: 'Out '
 	String get out => 'Out ';
@@ -2084,7 +2084,7 @@ extension on Translations {
 			'transactions.filter' => 'Filter',
 			'transactions.backToToday' => 'Back to today',
 			'transactions.deleteTransaction' => 'Delete Transaction',
-			'transactions.areYouSureYouWantToDeleteThisTransactionThisActionCannotBeUndone' => 'Are you sure you want to delete this transaction? This action cannot be undone.',
+			'transactions.deleteTransactionWarning' => 'Deleting this transaction will revert your account balance and budget to their previous state.',
 			'transactions.out' => 'Out ',
 			'transactions.noTransactions' => 'No transactions',
 			'transactions.addNote' => 'Add note',

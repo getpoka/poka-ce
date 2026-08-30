@@ -14,6 +14,7 @@ import 'package:poka_ce/features/transactions/presentation/widgets/forms/transac
 import 'package:poka_ce/features/transactions/presentation/widgets/list/transaction_list_summary_card.dart';
 import 'package:poka_ce/features/transactions/presentation/widgets/tile/transaction_tile.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
+import 'package:poka_ce/shared/widgets/dialogs/poka_confirm_dialog.dart';
 import 'package:poka_ce/shared/widgets/poka_amount_text.dart';
 import 'package:poka_ce/shared/widgets/poka_header.dart';
 import 'package:poka_ce/theme/theme.dart';
@@ -426,55 +427,15 @@ class _TransactionGroupSliver extends ConsumerWidget {
                     onEdit: () {
                       TransactionFormSheet.show(context, initialTransaction: tx);
                     },
-                    onDelete: () {
-                      showFDialog<void>(
-                        context: context,
-                        builder: (ctx, style, animation) => FDialog(
-                          animation: animation,
-                          builder: (dialogCtx, dialogStyle) {
-                            return Padding(
-                              padding: const EdgeInsets.all(24),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                children: [
-                                  Text(
-                                    t.transactions.deleteTransaction,
-                                    style: ctx.theme.typography.display.sm.copyWith(fontWeight: FontWeight.w700),
-                                  ),
-                                  const SizedBox(height: 14),
-                                  Text(
-                                    t.transactions.areYouSureYouWantToDeleteThisTransactionThisActionCannotBeUndone,
-                                  ),
-                                  const SizedBox(height: 24),
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        child: FButton(
-                                          variant: FButtonVariant.outline,
-                                          onPress: () => Navigator.of(ctx).pop(),
-                                          child: Text(t.transactions.cancel),
-                                        ),
-                                      ),
-                                      const SizedBox(width: 12),
-                                      Expanded(
-                                        child: FButton(
-                                          onPress: () {
-                                            Navigator.of(ctx).pop();
-                                            ref.read(transactionListNotifierProvider.notifier).deleteTransaction(tx.id);
-                                          },
-                                          // Note: Forui currently doesn't have a destructive variant, so we just use the default
-                                          child: Text(t.transactions.delete),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                        ),
+                    onDelete: () async {
+                      final confirmed = await showPokaConfirmDialog(
+                        context,
+                        title: t.transactions.deleteTransaction,
+                        body: t.transactions.deleteTransactionWarning,
                       );
+                      if (confirmed == true) {
+                        await ref.read(transactionListNotifierProvider.notifier).deleteTransaction(tx.id);
+                      }
                     },
                   );
 
