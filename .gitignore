@@ -63,3 +63,5 @@ key.properties
 .agents/
 AGENTS.md
 docs/
+opencode.json
+tui.json
