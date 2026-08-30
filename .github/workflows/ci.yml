@@ -1,16 +1,7 @@
 name: CI
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - 'lib/**'
-      - 'test/**'
-      - 'android/**'
-      - 'pubspec.yaml'
-      - 'pubspec.lock'
-      - '.github/workflows/ci.yml'
+  workflow_dispatch:
   pull_request:
     branches:
       - main
