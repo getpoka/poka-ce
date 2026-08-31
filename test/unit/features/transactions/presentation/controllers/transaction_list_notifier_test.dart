@@ -121,16 +121,18 @@ void main() {
       ];
       stubWatch(Success(txs));
       final container = createContainer();
-      
+
       // Initial load
       await container.read(transactionListNotifierProvider.notifier).refresh();
       await wait();
       expect(container.read(transactionListNotifierProvider).transactions.length, 2);
 
       // Apply search query
-      container.read(transactionListNotifierProvider.notifier).applyFilter(
-        const TransactionFilter(searchQuery: 'groceries'),
-      );
+      container
+          .read(transactionListNotifierProvider.notifier)
+          .applyFilter(
+            const TransactionFilter(searchQuery: 'groceries'),
+          );
       await wait();
 
       // Verify filtered results

@@ -13,15 +13,28 @@ import 'package:poka_ce/shared/widgets/sheets/poka_sheet.dart';
 class CategoryFormSheet extends HookConsumerWidget {
   const CategoryFormSheet({
     this.initialCategory,
+    this.parentId,
+    this.initialType,
     super.key,
   });
 
   final CategoryModel? initialCategory;
+  final String? parentId;
+  final CategoryType? initialType;
 
-  static Future<void> show(BuildContext context, {CategoryModel? category}) {
+  static Future<void> show(
+    BuildContext context, {
+    CategoryModel? category,
+    String? parentId,
+    CategoryType? initialType,
+  }) {
     return showPokaSheet(
       context: context,
-      builder: (context) => CategoryFormSheet(initialCategory: category),
+      builder: (context) => CategoryFormSheet(
+        initialCategory: category,
+        parentId: parentId,
+        initialType: initialType,
+      ),
     );
   }
 
@@ -32,10 +45,14 @@ class CategoryFormSheet extends HookConsumerWidget {
 
     useEffect(() {
       Future.microtask(() {
-        notifier.init(initialCategory);
+        notifier.init(
+          initialCategory,
+          parentId: parentId,
+          type: initialType,
+        );
       });
       return null;
-    }, [initialCategory]);
+    }, [initialCategory, parentId, initialType]);
 
     final nameController = useTextEditingController(text: initialCategory?.name ?? state.name);
 
@@ -110,8 +127,15 @@ class CategoryFormSheet extends HookConsumerWidget {
       ],
     );
 
+    final String title;
+    if (initialCategory == null) {
+      title = parentId != null ? 'New Sub Category' : 'New Category';
+    } else {
+      title = initialCategory!.parentId != null ? 'Edit Sub Category' : 'Edit Category';
+    }
+
     return PokaSheet(
-      title: initialCategory == null ? 'New Category' : 'Edit Category',
+      title: title,
       child: FTabs(
         control: FTabControl.lifted(
           index: state.type == CategoryType.income ? 1 : 0,

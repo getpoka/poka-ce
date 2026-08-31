@@ -38,14 +38,8 @@ class CategoryDetailPage extends ConsumerWidget {
             icon: const Icon(FPhosphorIcons.plus, size: 20),
             onPress: () => CategoryFormSheet.show(
               context,
-              category: CategoryModel(
-                id: '', // Will be generated on save if it's new
-                name: '',
-                type: category.type, // Inherit type
-                parentId: category.id, // Pre-fill parent
-                createdAt: DateTime.now(),
-                updatedAt: DateTime.now(),
-              ),
+              parentId: category.id,
+              initialType: category.type,
             ),
           ),
         ],
