@@ -50,17 +50,14 @@ class GoalListPage extends HookConsumerWidget {
       child: asyncGoals.when(
         data: (_) {
           if (goalStates.isEmpty) {
-            return Padding(
-              padding: const EdgeInsets.only(top: 4),
-              child: Builder(
-                builder: (context) => PokaEmptyView(
-                  icon: FPhosphorIcons.piggyBank,
-                  title: t.goals.noGoalsYet,
-                  subtitle: t.goals.setSavingsTargetsADedicatedPocketIsCreatedAutomaticallyForEachGoal,
-                  actionLabel: t.goals.createGoal,
-                  actionKey: const Key('goal-add-button'),
-                  onAction: () => GoalFormSheet.show(context),
-                ),
+            return Builder(
+              builder: (context) => PokaEmptyView(
+                icon: FPhosphorIcons.piggyBank,
+                title: t.goals.noGoalsYet,
+                subtitle: t.goals.setSavingsTargetsADedicatedPocketIsCreatedAutomaticallyForEachGoal,
+                actionLabel: t.goals.createGoal,
+                actionKey: const Key('goal-add-button'),
+                onAction: () => GoalFormSheet.show(context),
               ),
             );
           }

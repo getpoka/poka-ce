@@ -13,7 +13,7 @@ class AccountListHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 8, bottom: 20),
+      padding: const EdgeInsets.only(bottom: 20),
       child: Column(
         children: [
           AccountNetworthCard(

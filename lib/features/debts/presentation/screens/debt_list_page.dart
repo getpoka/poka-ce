@@ -30,32 +30,29 @@ class DebtListPage extends ConsumerWidget {
           return SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
             padding: EdgeInsets.zero,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: FTabs(
-                children: [
-                  FTabEntry(
-                    label: Text(t.debts.iOwe),
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 12),
-                      child: DebtListContent(
-                        debts: iOweList,
-                        isPayable: true,
-                      ).animate().fade(duration: 300.ms).slideY(begin: 0.05, end: 0),
-                    ),
+            child: FTabs(
+              children: [
+                FTabEntry(
+                  label: Text(t.debts.iOwe),
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 12),
+                    child: DebtListContent(
+                      debts: iOweList,
+                      isPayable: true,
+                    ).animate().fade(duration: 300.ms).slideY(begin: 0.05, end: 0),
                   ),
-                  FTabEntry(
-                    label: Text(t.debts.theyOwe),
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 12),
-                      child: DebtListContent(
-                        debts: theyOweList,
-                        isPayable: false,
-                      ).animate().fade(duration: 300.ms).slideY(begin: 0.05, end: 0),
-                    ),
+                ),
+                FTabEntry(
+                  label: Text(t.debts.theyOwe),
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 12),
+                    child: DebtListContent(
+                      debts: theyOweList,
+                      isPayable: false,
+                    ).animate().fade(duration: 300.ms).slideY(begin: 0.05, end: 0),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           );
         },
