@@ -5,9 +5,9 @@ import 'package:poka_ce/features/accounts/presentation/controllers/account_list_
 import 'package:poka_ce/features/accounts/presentation/widgets/forms/account_form_sheet.dart';
 import 'package:poka_ce/features/accounts/presentation/widgets/lists/account_grid.dart';
 import 'package:poka_ce/features/accounts/presentation/widgets/lists/account_list_header.dart';
-import 'package:poka_ce/features/accounts/presentation/widgets/placeholders/empty_account_state.dart';
 import 'package:poka_ce/features/accounts/presentation/widgets/sections/goal_account_section.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
+import 'package:poka_ce/shared/widgets/poka_empty_view.dart';
 import 'package:poka_ce/shared/widgets/poka_header.dart';
 import 'package:poka_ce/shared/widgets/poka_section_label.dart';
 import 'package:poka_ce/theme/theme.dart';
@@ -35,9 +35,16 @@ class AccountListPage extends HookConsumerWidget {
           ),
 
           if (!hasRegularAccounts && !hasGoalAccounts)
-            const SliverFillRemaining(
+            SliverFillRemaining(
               hasScrollBody: false,
-              child: EmptyAccountState(),
+              child: PokaEmptyViewCentered(
+                icon: FPhosphorIcons.wallet,
+                title: t.accounts.noAccountsYet,
+                subtitle: t.accounts.tapTheButtonBelowToAddYourFirstAccount,
+                actionLabel: t.accounts.addAccount,
+                onAction: () => AccountFormSheet.show(context),
+                actionKey: const Key('account-empty-add-button'),
+              ),
             )
           else ...[
             SliverToBoxAdapter(

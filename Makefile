@@ -1,4 +1,4 @@
-.PHONY: help run build clean generate assets check fix keystore test test\:unit test\:e2e test\:feature
+.PHONY: help run uninstall build clean generate assets check fix keystore test test\:unit test\:e2e test\:feature
 
 # Default target
 help:
@@ -6,6 +6,7 @@ help:
 	@echo "--------------------------------------------------------"
 	@echo "Development:"
 	@echo "  make run      - Run the app on a connected emulator/device"
+	@echo "  make uninstall- Uninstall the app from connected Android emulator/device"
 	@echo "  make generate - Run build_runner to generate files (Riverpod, Freezed, Drift)"
 	@echo "  make assets   - Generate launcher icons and native splash screens"
 	@echo "  make clean    - Clean the cache and fetch dependencies"
@@ -29,6 +30,9 @@ help:
 
 run:
 	flutter run --dart-define-from-file=.env
+
+uninstall:
+	adb uninstall dev.octopy.poka.ce
 
 generate:
 	rm -f lib/i18n/*.g.dart

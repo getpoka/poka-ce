@@ -9,6 +9,7 @@ import 'package:poka_ce/features/dashboard/presentation/controllers/dashboard_no
 import 'package:poka_ce/features/transactions/domain/transaction_model.dart';
 import 'package:poka_ce/features/transactions/presentation/widgets/tile/transaction_tile.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
+import 'package:poka_ce/shared/widgets/poka_empty_view.dart';
 import 'package:poka_ce/shared/widgets/poka_section_label.dart';
 import 'package:poka_ce/theme/theme.dart';
 
@@ -53,10 +54,11 @@ class DashboardRecentTransactions extends ConsumerWidget {
 
         // ── List or empty state ───────────────────────────────────────────
         if (transactions.isEmpty)
-          Padding(
-            padding: const EdgeInsets.all(24),
-            child: Center(child: Text(context.t.dashboard.noRecentTransactions)),
-          ).animate().fade(duration: 300.ms).scale(begin: const Offset(0.95, 0.95), end: const Offset(1, 1))
+          PokaEmptyView(
+            icon: FPhosphorIcons.receipt,
+            title: context.t.dashboard.noRecentTransactions,
+            hasBorder: true,
+          ).animate().fade(duration: 300.ms).slideY(begin: 0.05, end: 0)
         else
           _buildFlatTransactions(
             context,

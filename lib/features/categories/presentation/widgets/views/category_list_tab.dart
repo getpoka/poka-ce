@@ -29,17 +29,12 @@ class CategoryListTab extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     if (categories.isEmpty) {
-      final screenHeight = MediaQuery.sizeOf(context).height;
-      return Container(
-        height: screenHeight * 0.6, // Force height to center it visually
-        alignment: Alignment.center,
-        child: PokaEmptyView(
-          icon: FPhosphorIcons.tag,
-          title: t.categories.noCategoriesFound,
-          subtitle: t.categories.emptyCategorySubtitle,
-          actionLabel: t.categories.addCategory,
-          onAction: () => CategoryFormSheet.show(context, initialType: type),
-        ),
+      return PokaEmptyViewCentered(
+        icon: FPhosphorIcons.tag,
+        title: t.categories.noCategoriesFound,
+        subtitle: t.categories.emptyCategorySubtitle,
+        actionLabel: t.categories.addCategory,
+        onAction: () => CategoryFormSheet.show(context, initialType: type),
       ).animate().fade(duration: 300.ms);
     }
 

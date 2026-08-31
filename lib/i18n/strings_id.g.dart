@@ -336,8 +336,8 @@ class _Translations$debts$id extends Translations$debts$en {
 	@override String get receivable => 'Piutang';
 	@override String get noDebtsRecorded => 'Belum ada utang dicatat';
 	@override String get noLoansRecorded => 'Belum ada piutang dicatat';
-	@override String get trackMoneyYouOweToOthersAndLogRepayments => 'Lacak uang yang Anda pinjam dan catat pembayarannya.';
-	@override String get trackMoneyOthersOweYouAndLogCollections => 'Lacak uang yang dipinjam orang lain dan catat penagihannya.';
+	@override String get trackMoneyYouOweToOthersAndLogRepayments => 'Lacak uang yang Anda pinjam dari orang lain dan catat semua riwayat pembayarannya dengan mudah di sini.';
+	@override String get trackMoneyOthersOweYouAndLogCollections => 'Lacak uang yang dipinjam oleh orang lain dan catat semua riwayat penagihannya dengan mudah di sini.';
 }
 
 // Path: goals
@@ -935,8 +935,8 @@ extension on TranslationsId {
 			'debts.receivable' => 'Piutang',
 			'debts.noDebtsRecorded' => 'Belum ada utang dicatat',
 			'debts.noLoansRecorded' => 'Belum ada piutang dicatat',
-			'debts.trackMoneyYouOweToOthersAndLogRepayments' => 'Lacak uang yang Anda pinjam dan catat pembayarannya.',
-			'debts.trackMoneyOthersOweYouAndLogCollections' => 'Lacak uang yang dipinjam orang lain dan catat penagihannya.',
+			'debts.trackMoneyYouOweToOthersAndLogRepayments' => 'Lacak uang yang Anda pinjam dari orang lain dan catat semua riwayat pembayarannya dengan mudah di sini.',
+			'debts.trackMoneyOthersOweYouAndLogCollections' => 'Lacak uang yang dipinjam oleh orang lain dan catat semua riwayat penagihannya dengan mudah di sini.',
 			'error.generic' => 'Terjadi kesalahan yang tidak terduga',
 			'error.network' => 'Periksa koneksi Anda dan coba lagi',
 			'error.database' => 'Gagal mengakses data lokal',

@@ -48,7 +48,7 @@ class _BudgetContent extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     if (budgets.isEmpty) {
       return Builder(
-        builder: (context) => PokaEmptyView(
+        builder: (context) => PokaEmptyViewCentered(
           icon: FPhosphorIcons.chartPieSlice,
           title: t.budgets.noBudgetsYet,
           subtitle: t.budgets.setSpendingLimitsToTrackWhereYourMoneyGoesEachPeriod,

@@ -11,6 +11,7 @@ import 'package:poka_ce/features/accounts/presentation/widgets/cards/account_her
 import 'package:poka_ce/features/accounts/presentation/widgets/forms/account_form_sheet.dart';
 import 'package:poka_ce/features/transactions/presentation/controllers/transaction_list_notifier.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
+import 'package:poka_ce/shared/widgets/poka_empty_view.dart';
 import 'package:poka_ce/shared/widgets/poka_header.dart';
 import 'package:poka_ce/shared/widgets/poka_section_label.dart';
 import 'package:poka_ce/theme/theme.dart';
@@ -43,78 +44,75 @@ class PocketDetailPage extends HookConsumerWidget {
           ),
         ],
       ),
-      child: SingleChildScrollView(
-        padding: EdgeInsets.zero,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            AccountHeroCard(
-              account: pocket,
-              balance: pocket.balance,
-              accentColor: pocketColor,
-              accountIcon: pocketIcon,
-              label: t.accounts.balance,
-              transactionCount: pocketTransactions.length,
-            ).animate().fade(duration: 300.ms).slideY(begin: 0.05, end: 0),
-            const SizedBox(height: 20),
+      child: CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.zero,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  AccountHeroCard(
+                    account: pocket,
+                    balance: pocket.balance,
+                    accentColor: pocketColor,
+                    accountIcon: pocketIcon,
+                    label: t.accounts.balance,
+                    transactionCount: pocketTransactions.length,
+                  ).animate().fade(duration: 300.ms).slideY(begin: 0.05, end: 0),
+                  const SizedBox(height: 20),
 
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                PokaSectionLabel(
-                  title: pocketTransactions.isEmpty
-                      ? 'Recent Transactions'
-                      : 'Recent Transactions (${pocketTransactions.length})',
-                ),
-                GestureDetector(
-                  onTap: () {
-                    ref
-                        .read(transactionListNotifierProvider.notifier)
-                        .applyFilter(TransactionFilter(accountIds: {pocket.id}));
-                    const TransactionListRoute().go(context);
-                    Navigator.of(context, rootNavigator: true).popUntil((route) => route.isFirst);
-                  },
-                  child: Text(
-                    t.accounts.seeAll,
-                    style: theme.typography.bodySecondary.copyWith(
-                      color: theme.colors.primary,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-              ],
-            ).animate().fade(duration: 300.ms, delay: 180.ms).slideY(begin: 0.05, end: 0),
-            const SizedBox(height: 8),
-
-            // ── Transactions list ─────────────────────────────────────────
-            if (pocketTransactions.isEmpty)
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 24),
-                child: Center(
-                  child: Column(
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Icon(FPhosphorIcons.receipt, size: 36, color: theme.colors.mutedForeground)
-                          .animate()
-                          .fade(duration: 300.ms, delay: 240.ms)
-                          .scale(begin: const Offset(0.8, 0.8), end: const Offset(1, 1), curve: Curves.easeOutBack),
-                      const SizedBox(height: 8),
-                      Text(
-                        t.accounts.noTransactionsYet,
-                        style: theme.typography.body.md.copyWith(color: theme.colors.mutedForeground),
-                      ).animate().fade(duration: 300.ms, delay: 280.ms).slideY(begin: 0.1, end: 0),
+                      PokaSectionLabel(
+                        title: pocketTransactions.isEmpty
+                            ? 'Recent Transactions'
+                            : 'Recent Transactions (${pocketTransactions.length})',
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          ref
+                              .read(transactionListNotifierProvider.notifier)
+                              .applyFilter(TransactionFilter(accountIds: {pocket.id}));
+                          const TransactionListRoute().go(context);
+                          Navigator.of(context, rootNavigator: true).popUntil((route) => route.isFirst);
+                        },
+                        child: Text(
+                          t.accounts.seeAll,
+                          style: theme.typography.bodySecondary.copyWith(
+                            color: theme.colors.primary,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
                     ],
-                  ),
-                ),
-              )
-            else
-              AccountTransactionList(
+                  ).animate().fade(duration: 300.ms, delay: 180.ms).slideY(begin: 0.05, end: 0),
+                  const SizedBox(height: 8),
+
+                  // ── Transactions list ─────────────────────────────────────────
+                ],
+              ),
+            ),
+          ),
+          if (pocketTransactions.isEmpty)
+            SliverToBoxAdapter(
+              child: PokaEmptyView(
+                icon: FPhosphorIcons.receipt,
+                title: t.accounts.noTransactionsYet,
+                hasBorder: true,
+              ).animate().fade(duration: 300.ms, delay: 240.ms).slideY(begin: 0.05, end: 0),
+            )
+          else
+            SliverToBoxAdapter(
+              child: AccountTransactionList(
                 accountId: pocket.id,
                 transactions: pocketTransactions,
               ).animate().fade(duration: 300.ms, delay: 240.ms).slideY(begin: 0.05, end: 0),
+            ),
 
-            const SizedBox(height: 20),
-          ],
-        ),
+          const SliverToBoxAdapter(child: SizedBox(height: 20)),
+        ],
       ),
     );
   }

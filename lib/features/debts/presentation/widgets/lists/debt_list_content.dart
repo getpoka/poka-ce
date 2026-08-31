@@ -22,7 +22,7 @@ class DebtListContent extends StatelessWidget {
   Widget build(BuildContext context) {
     if (debts.isEmpty) {
       return Builder(
-        builder: (context) => PokaEmptyView(
+        builder: (context) => PokaEmptyViewCentered(
           icon: isPayable ? FPhosphorIcons.arrowUpRight : FPhosphorIcons.arrowDownLeft,
           title: isPayable ? t.debts.noDebtsRecorded : t.debts.noLoansRecorded,
           subtitle: isPayable
