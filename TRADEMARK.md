@@ -1,40 +1,83 @@
 # Trademark and Branding Guidelines
 
-The Poka Community Edition (CE) source code is open-source and freely available for you to use, modify, and distribute under the terms of its license. However, the open-source license does **not** grant you the right to use our trademarks, brand names, or logos.
+Poka CE is open-source software, and you are free to use, modify, and distribute it under the terms of the Apache
+License 2.0. However, the open-source license does **not** grant any rights to the brand identities, names, logos, or
+visual assets associated with this project.
 
-This document outlines the policy regarding the use of our brand identities, specifically **Octopy ID** and the **Poka** product line, including their associated domains, logos, icons, and visual assets.
+This document defines the community policy for using the **Octopy ID** and **Poka** brand identities.
 
-Our goal is to encourage community contributions and forks while protecting users from confusion, phishing, and unofficial apps masquerading as the official software.
-
-## 1. Reserved Names, Brands, and Domains
-The following names and domains are reserved and represent our core brand identities. Even though we operate independently (non-corporate/unincorporated entity), these brands have been our established identity for a decade and remain exclusively ours:
-
-* **Octopy ID** (`octopy.dev`): Our primary umbrella brand and creator identity, established over 10 years ago.
-* **Poka** / **Poka CE** / **GetPoka** (`getpoka.app`): The specific product brand and domain associated with this project.
-
-## 2. Unacceptable Uses (What You Cannot Do)
-If you fork, modify, or distribute this software (or a modified version of it), you **MUST NOT**:
-* **Use Reserved Names in App Stores:** You cannot publish your application to the Apple App Store, Google Play Store, or any other application directory using "Poka", "GetPoka", or "Octopy" in the app's title, subtitle, or developer name.
-* **Use Reserved Names or Domains:** You cannot register or use domains that contain our trademarks or easily confused variations (e.g., `poka-app-unofficial.com`, `getpoka-community.net`, `octopy-dev.org`) for websites related to your fork.
-* **Use Reserved Names in Namespaces:** You must change the application's package name and namespaces (e.g., you cannot use `app.getpoka.poka` or `dev.octopy.poka`). You must use your own unique reverse-domain namespace.
-* **Use Official Logos:** You must replace all official Poka, GetPoka, and Octopy logos, app icons, and branding assets with your own original graphics before distributing your version of the app.
-* **Claim Affiliation:** You cannot suggest, either directly or indirectly, that your project is official, endorsed by, or affiliated with Octopy ID or the official Poka team.
-
-## 3. Acceptable Uses (What You Can Do)
-You are encouraged to build upon the Poka Community Edition! When doing so, you **MAY**:
-* **Choose a New Name:** Give your forked project a completely new, unique name (e.g., "BudgetTracker by [Your Name]").
-* **Provide Accurate Attribution:** You may mention that your project is based on the Poka Community Edition codebase. 
-  * *Correct usage:* "This application is built on top of the open-source Poka CE codebase."
-  * *Incorrect usage:* "Unofficial Poka App" or "Poka Alternative Edition."
-* **Discuss the Project:** You are free to use the names Poka, GetPoka, or Octopy ID in articles, blog posts, or tutorials when accurately referring to our official project or identity.
-
-## 4. Why Do We Have This Policy?
-We want to keep the Poka CE codebase open for developers to learn from and build upon. However, when users download an app called "Poka," they expect it to be secure, maintained, and officially supported by our team. 
-
-By enforcing strict branding boundaries, we protect the 10-year legacy of the Octopy brand, prevent malicious actors from distributing scam/phishing applications under our product names, and ensure that users always know whether they are using the official app or a community-driven fork.
-
-## 5. Contact Us
-If you have a special use case, want to build an official integration, or have any questions about this policy, please reach out to the core maintainers.
+> **Note on legal standing:** Octopy ID is not a registered legal entity or incorporated company. These guidelines
+> constitute a *community brand policy*, not a legally enforceable trademark registration. We ask the community to respect
+> them in good faith — to protect users from confusion and to preserve the integrity of a brand that has been built over
+> 10 years.
 
 ---
-*By interacting with, forking, or redistributing this repository, you agree to comply with these Trademark and Branding Guidelines alongside the project's open-source license.*
+
+## Our Brand Identities
+
+| Brand                                | Domain        | Description                                              |
+|--------------------------------------|---------------|----------------------------------------------------------|
+| **Octopy ID**                        | `octopy.dev`  | Primary creator identity, established for over 10 years. |
+| **Poka** / **Poka CE** / **GetPoka** | `getpoka.app` | The product brand for this application.                  |
+
+---
+
+## What You Can Do
+
+You are encouraged to fork, study, and build upon Poka CE. When doing so, you **may**:
+
+- **Fork and modify freely** — The code is yours to use under Apache 2.0.
+- **Self-host or distribute** a modified version under a different name.
+- **Attribute accurately** — You may state that your project is *"built on top of the open-source Poka CE codebase."*
+- **Write and publish** articles, tutorials, or blog posts that reference Poka, GetPoka, or Octopy ID when accurately
+  describing this project.
+- **Contribute upstream** — Pull requests, bug reports, and discussions are always welcome.
+
+---
+
+## What You Cannot Do
+
+If you fork or distribute a modified version of this software, you **must not**:
+
+- **Publish to app stores using reserved names** — Do not submit your build to the Apple App Store, Google Play Store,
+  or any other app directory under the name "Poka," "GetPoka," "Octopy," or "Octopy ID" in the app title, subtitle, or
+  developer name.
+- **Register confusable domains** — If you are distributing a fork or derivative of this codebase, do not use domains
+  that include our brand names or close variations (e.g., `poka-app.com`, `getpoka.xyz`, `octopy-dev.org`). This applies
+  only to projects derived from this repository, not to independent products that happen to be in the same category.
+- **Use reserved package namespaces** — You must replace the application's package identifier. Do not use
+  `app.getpoka.*` or `dev.octopy.*`; use your own unique reverse-domain namespace.
+- **Use official visual assets** — Replace all Poka, GetPoka, and Octopy logos, icons, and branding graphics with your
+  own originals before any public distribution.
+- **Imply affiliation or endorsement** — Do not suggest, directly or indirectly, that your fork is official, endorsed
+  by, or affiliated with the Poka team or Octopy ID.
+
+**The distinction matters:** Calling your fork *"Unofficial Poka App"* or *"Poka Alternative"* still implies a
+relationship with our brand and is not acceptable. Use a completely different name instead.
+
+---
+
+## Why This Policy Exists
+
+Keeping Poka CE open-source is a deliberate choice — we want developers to learn from it, contribute to it, and build on
+top of it. However, when a user downloads an app called "Poka," they have a reasonable expectation that it is secure,
+maintained, and officially supported.
+
+This policy exists to:
+
+- Protect users from confusion and from unofficial builds that may be insecure or unmaintained.
+- Prevent bad actors from distributing scam or phishing applications under our established name.
+- Preserve the decade-long identity of the Octopy brand.
+
+---
+
+## Contact
+
+If you have a special use case, want to discuss an official integration, or have questions about this policy, please
+reach out to the core maintainers via the repository's issue tracker or at the contact listed
+on [getpoka.app](https://getpoka.app).
+
+---
+
+*By interacting with, forking, or redistributing this repository, you agree to respect these Trademark and Branding
+Guidelines alongside the project's open-source license.*
