@@ -95,3 +95,4 @@ flutter:
     - lib/i18n/
     - assets/images/
     - assets/data/
+    - assets/fonts/
