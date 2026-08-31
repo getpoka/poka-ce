@@ -42,7 +42,7 @@ void main() {
       await db.categoriesDao.insertCategory(
         CategoriesCompanion.insert(id: const Value('c2'), name: 'B', type: CategoryType.income),
       );
-      await db.categoriesDao.deactivateCategory('c2');
+      await db.categoriesDao.toggleCategoryActiveStatus('c2', isActive: false);
       final active = await db.categoriesDao.getActiveCategories();
       expect(active.length, 1);
       expect(active.first.id, 'c1');
@@ -68,7 +68,7 @@ void main() {
       await db.categoriesDao.insertCategory(
         CategoriesCompanion.insert(id: const Value('c1'), name: 'Food', type: CategoryType.expense),
       );
-      await db.categoriesDao.deactivateCategory('c1');
+      await db.categoriesDao.toggleCategoryActiveStatus('c1', isActive: false);
       final cat = await db.categoriesDao.getCategory('c1');
       expect(cat!.isActive, false);
     });
@@ -80,7 +80,7 @@ void main() {
       await db.categoriesDao.insertCategory(
         CategoriesCompanion.insert(id: const Value('c2'), name: 'B', type: CategoryType.expense),
       );
-      await db.categoriesDao.deactivateCategory('c2');
+      await db.categoriesDao.toggleCategoryActiveStatus('c2', isActive: false);
       final all = await db.categoriesDao.getAllCategories();
       expect(all.length, 2);
     });

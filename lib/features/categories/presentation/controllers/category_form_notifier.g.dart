@@ -40,7 +40,7 @@ final class CategoryFormNotifierProvider extends $NotifierProvider<CategoryFormN
   }
 }
 
-String _$categoryFormNotifierHash() => r'580beba45a6e72010348a9809afe29a0585cde44';
+String _$categoryFormNotifierHash() => r'21797f677e8b00fca4782fc6b22722d14cf847d1';
 
 abstract class _$CategoryFormNotifier extends $Notifier<CategoryFormState> {
   CategoryFormState build();

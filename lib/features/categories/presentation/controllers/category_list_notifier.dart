@@ -6,23 +6,26 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'category_list_notifier.g.dart';
 
+/// StateNotifier for managing the list of categories.
+/// Handles fetching, refreshing, toggling active status, deleting, and reordering.
 @riverpod
 class CategoryListNotifier extends _$CategoryListNotifier {
   @override
   Future<List<CategoryModel>> build() async {
     final repo = ref.read(categoryRepositoryProvider);
-    final result = await repo.getActiveCategories();
+    final result = await repo.getCategories();
     return switch (result) {
       Success(value: final categories) => categories,
       ErrorResult(error: final failure) => throw Exception(failure.message),
     };
   }
 
+  /// Refreshes the category list from the repository.
   Future<void> refresh() async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       final repo = ref.read(categoryRepositoryProvider);
-      final result = await repo.getActiveCategories();
+      final result = await repo.getCategories();
       return switch (result) {
         Success(value: final categories) => categories,
         ErrorResult(error: final failure) => throw Exception(failure.message),
@@ -30,14 +33,16 @@ class CategoryListNotifier extends _$CategoryListNotifier {
     });
   }
 
-  Future<void> deactivateCategory(String id) async {
+  /// Toggles the active status of a specific category and refreshes the list upon success.
+  Future<void> toggleActive(CategoryModel category, {required bool isActive}) async {
     final repo = ref.read(categoryRepositoryProvider);
-    final result = await repo.deactivateCategory(id);
+    final result = await repo.toggleCategoryActiveStatus(category.id, isActive: isActive);
     if (result is Success) {
       await refresh();
     }
   }
 
+  /// Deletes a category and refreshes the list upon success.
   Future<void> deleteCategory(String id) async {
     final repo = ref.read(categoryRepositoryProvider);
     final result = await repo.deleteCategory(id);
@@ -46,6 +51,8 @@ class CategoryListNotifier extends _$CategoryListNotifier {
     }
   }
 
+  /// Reorders categories of a specific type (and optionally under a specific parent).
+  /// Optimistically updates the local state before saving to the database.
   Future<void> reorderCategories(int oldIndex, int newIndex, CategoryType type, {String? parentId}) async {
     final currentCategories = state.value ?? <CategoryModel>[];
     if (currentCategories.isEmpty) return;
@@ -70,6 +77,7 @@ class CategoryListNotifier extends _$CategoryListNotifier {
   }
 }
 
+/// Provides a quick lookup map of categories by their ID, fed from the reactive stream.
 @riverpod
 Map<String, CategoryModel> categoryMap(Ref ref) {
   final categories = ref.watch(categoriesStreamProvider).value ?? [];

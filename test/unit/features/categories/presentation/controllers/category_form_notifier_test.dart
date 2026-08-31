@@ -8,6 +8,7 @@ import 'package:poka_ce/core/error/result.dart';
 import 'package:poka_ce/features/categories/domain/category_model.dart';
 import 'package:poka_ce/features/categories/domain/i_category_repository.dart';
 import 'package:poka_ce/features/categories/presentation/controllers/category_form_notifier.dart';
+import 'package:poka_ce/i18n/strings.g.dart';
 
 class MockCategoryRepository extends Mock implements ICategoryRepository {}
 
@@ -80,7 +81,7 @@ void main() {
       final n = container.read(categoryFormProvider.notifier);
       n.setName('   ');
       await n.save();
-      expect(container.read(categoryFormProvider).error, 'Name cannot be empty');
+      expect(container.read(categoryFormProvider).nameError, t.accounts.nameCannotBeEmpty);
     });
 
     test('save create success', () async {

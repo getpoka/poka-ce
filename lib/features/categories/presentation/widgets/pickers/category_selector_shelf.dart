@@ -5,6 +5,7 @@ import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/poka_pill.dart';
 import 'package:poka_ce/theme/theme.dart';
 
+/// A shelf widget displaying a horizontal list of selectable categories.
 class CategorySelectorShelf extends StatelessWidget {
   const CategorySelectorShelf({
     required this.categories,

@@ -213,6 +213,7 @@ class _Translations$categories$id extends Translations$categories$en {
 	@override String get noSubcategoriesYet => 'No subcategories yet';
 	@override String get noCategoriesFound1 => 'Kategori tidak ditemukan';
 	@override String subcategoriesCount({required Object count}) => '${count} subkategori';
+	@override String get addSubcategory => 'Tambah Subkategori';
 }
 
 // Path: common
@@ -824,6 +825,7 @@ extension on TranslationsId {
 			'categories.noSubcategoriesYet' => 'No subcategories yet',
 			'categories.noCategoriesFound1' => 'Kategori tidak ditemukan',
 			'categories.subcategoriesCount' => ({required Object count}) => '${count} subkategori',
+			'categories.addSubcategory' => 'Tambah Subkategori',
 			'common.save' => 'Simpan',
 			'common.cancel' => 'Batal',
 			'common.delete' => 'Hapus',

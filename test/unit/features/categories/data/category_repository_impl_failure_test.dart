@@ -92,10 +92,47 @@ void main() {
     );
   });
 
-  test('deactivateCategory returns DatabaseFailure when DAO throws', () async {
-    when(() => dao.deactivateCategory(any())).thenThrow(Exception('boom'));
+  test('toggleCategoryActiveStatus returns DatabaseFailure when DAO throws', () async {
+    when(() => dao.toggleCategoryActiveStatus(any(), isActive: any(named: 'isActive'))).thenThrow(Exception('boom'));
 
-    final result = await repository.deactivateCategory('cat-1');
+    final result = await repository.toggleCategoryActiveStatus('cat-1', isActive: false);
+
+    expect(result, isA<ErrorResult<void, Failure>>());
+    result.fold(
+      (_) => fail('Should not succeed'),
+      (error) => expect(error, isA<DatabaseFailure>()),
+    );
+  });
+
+  test('watchCategories returns DatabaseFailure when DAO throws', () async {
+    when(() => dao.watchAllCategories()).thenAnswer((_) => Stream.error(Exception('boom')));
+
+    final stream = repository.watchCategories();
+    final result = await stream.first;
+
+    expect(result, isA<ErrorResult<List<CategoryModel>, Failure>>());
+    result.fold(
+      (_) => fail('Should not succeed'),
+      (error) => expect(error, isA<DatabaseFailure>()),
+    );
+  });
+
+  test('deleteCategory returns DatabaseFailure when DAO throws', () async {
+    when(() => dao.deleteCategory(any())).thenThrow(Exception('boom'));
+
+    final result = await repository.deleteCategory('cat-1');
+
+    expect(result, isA<ErrorResult<void, Failure>>());
+    result.fold(
+      (_) => fail('Should not succeed'),
+      (error) => expect(error, isA<DatabaseFailure>()),
+    );
+  });
+
+  test('reorderCategories returns DatabaseFailure when DAO throws', () async {
+    when(() => dao.updateCategoriesSort(any())).thenThrow(Exception('boom'));
+
+    final result = await repository.reorderCategories([_buildCategory()]);
 
     expect(result, isA<ErrorResult<void, Failure>>());
     result.fold(

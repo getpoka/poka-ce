@@ -3,15 +3,19 @@ import 'package:poka_ce/core/enums.dart';
 import 'package:poka_ce/core/extensions/string_extension.dart';
 import 'package:poka_ce/core/utils/icon_util.dart';
 import 'package:poka_ce/features/categories/domain/category_model.dart';
+import 'package:poka_ce/shared/widgets/poka_switch.dart';
 import 'package:poka_ce/theme/theme.dart';
 
+/// A prominent card widget displaying a category's icon, name, and background color.
 class CategoryHeroCard extends StatelessWidget {
   const CategoryHeroCard({
     required this.category,
+    this.onToggleActive,
     super.key,
   });
 
   final CategoryModel category;
+  final ValueChanged<bool>? onToggleActive;
 
   @override
   Widget build(BuildContext context) {
@@ -75,6 +79,11 @@ class CategoryHeroCard extends StatelessWidget {
               ],
             ),
           ),
+          if (onToggleActive != null)
+            PokaSwitch(
+              value: category.isActive,
+              onChange: onToggleActive!,
+            ),
         ],
       ),
     );

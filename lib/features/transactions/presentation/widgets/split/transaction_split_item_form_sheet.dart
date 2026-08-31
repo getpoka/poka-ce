@@ -203,6 +203,7 @@ class _TransactionSplitItemFormSheetState extends ConsumerState<TransactionSplit
     // Filter categories by type
     final allCategories = ref.watch(categoryListProvider).value ?? <CategoryModel>[];
     final filteredCategories = allCategories.where((c) {
+      if (!c.isActive) return false;
       if (widget.transactionType == TransactionType.income) return c.type == CategoryType.income;
       if (widget.transactionType == TransactionType.expense) return c.type == CategoryType.expense;
       return false;
