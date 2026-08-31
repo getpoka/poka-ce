@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:poka_ce/features/accounts/presentation/widgets/forms/account_form_sheet.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/theme/theme.dart';
 
@@ -30,6 +31,11 @@ class EmptyAccountState extends StatelessWidget {
               textAlign: TextAlign.center,
               style: theme.typography.bodySecondary.copyWith(color: theme.colors.mutedForeground),
             ).animate().fade(duration: 300.ms, delay: 200.ms),
+            const SizedBox(height: 24),
+            FButton(
+              onPress: () => AccountFormSheet.show(context),
+              child: Text(t.accounts.addAccount),
+            ).animate().fade(duration: 300.ms, delay: 250.ms).slideY(begin: 0.1, end: 0),
           ],
         ),
       ),

@@ -48,6 +48,7 @@ void main() {
       ],
     );
     addTearDown(container.dispose);
+    container.listen(accountFormProvider, (_, __) {});
     return container;
   }
 
@@ -64,7 +65,7 @@ void main() {
   group('AccountFormNotifier', () {
     test('initial state defaults', () {
       final container = createContainer();
-      final state = container.read(accountFormNotifierProvider);
+      final state = container.read(accountFormProvider);
       expect(state.name, '');
       expect(state.type, AccountType.assets);
       expect(state.balance, 0);
@@ -74,17 +75,17 @@ void main() {
 
     test('init(null) resets', () {
       final container = createContainer();
-      final notifier = container.read(accountFormNotifierProvider.notifier);
+      final notifier = container.read(accountFormProvider.notifier);
       notifier.setName('tmp');
       notifier.init(null);
-      expect(container.read(accountFormNotifierProvider).name, '');
+      expect(container.read(accountFormProvider).name, '');
     });
 
     test('init(with model) populates', () {
       final container = createContainer();
-      final notifier = container.read(accountFormNotifierProvider.notifier);
+      final notifier = container.read(accountFormProvider.notifier);
       notifier.init(sampleAccount());
-      final s = container.read(accountFormNotifierProvider);
+      final s = container.read(accountFormProvider);
       expect(s.name, 'Cash');
       expect(s.balance, 1000);
       expect(s.initialAccount, isNotNull);
@@ -92,11 +93,11 @@ void main() {
 
     test('setters update state', () {
       final container = createContainer();
-      final notifier = container.read(accountFormNotifierProvider.notifier);
+      final notifier = container.read(accountFormProvider.notifier);
       notifier.setName('Bank');
       notifier.setType(AccountType.liability);
       notifier.setBalance(5000);
-      final s = container.read(accountFormNotifierProvider);
+      final s = container.read(accountFormProvider);
       expect(s.name, 'Bank');
       expect(s.type, AccountType.liability);
       expect(s.balance, 5000);
@@ -104,10 +105,10 @@ void main() {
 
     test('save validation empty name', () async {
       final container = createContainer();
-      final notifier = container.read(accountFormNotifierProvider.notifier);
+      final notifier = container.read(accountFormProvider.notifier);
       notifier.setName('');
       await notifier.save();
-      expect(container.read(accountFormNotifierProvider).nameError, 'Name cannot be empty');
+      expect(container.read(accountFormProvider).nameError, 'Name cannot be empty');
     });
 
     test('save create success', () async {
@@ -119,16 +120,17 @@ void main() {
           balance: any(named: 'balance'),
           icon: any(named: 'icon'),
           color: any(named: 'color'),
+          parentId: any(named: 'parentId'),
           isActive: any(named: 'isActive'),
+          restrictedCategoryIds: any(named: 'restrictedCategoryIds'),
         ),
       ).thenAnswer((_) async => Success(created));
       final container = createContainer();
-      final notifier = container.read(accountFormNotifierProvider.notifier);
+      final notifier = container.read(accountFormProvider.notifier);
       notifier.setName('NewAcc');
       notifier.setBalance(100);
       await notifier.save();
-      await Future.delayed(const Duration(milliseconds: 50));
-      final s = container.read(accountFormNotifierProvider);
+      final s = container.read(accountFormProvider);
       expect(s.isSuccess, true);
       expect(s.isSaving, false);
       verify(
@@ -138,7 +140,9 @@ void main() {
           balance: 100,
           icon: null,
           color: null,
+          parentId: null,
           isActive: true,
+          restrictedCategoryIds: [],
         ),
       ).called(1);
     });
@@ -151,16 +155,17 @@ void main() {
           balance: any(named: 'balance'),
           icon: any(named: 'icon'),
           color: any(named: 'color'),
+          parentId: any(named: 'parentId'),
           isActive: any(named: 'isActive'),
+          restrictedCategoryIds: any(named: 'restrictedCategoryIds'),
         ),
       ).thenAnswer((_) async => const ErrorResult<AccountModel, Failure>(DatabaseFailure('db fail')));
       final container = createContainer();
-      final notifier = container.read(accountFormNotifierProvider.notifier);
+      final notifier = container.read(accountFormProvider.notifier);
       notifier.setName('NewAcc');
       await notifier.save();
-      await Future.delayed(const Duration(milliseconds: 20));
-      expect(container.read(accountFormNotifierProvider).error, 'db fail');
-      expect(container.read(accountFormNotifierProvider).isSaving, false);
+      expect(container.read(accountFormProvider).error, 'db fail');
+      expect(container.read(accountFormProvider).isSaving, false);
     });
 
     test('save update success', () async {
@@ -177,12 +182,11 @@ void main() {
         ),
       ).thenAnswer((_) async => Success(updated));
       final container = createContainer();
-      final notifier = container.read(accountFormNotifierProvider.notifier);
+      final notifier = container.read(accountFormProvider.notifier);
       notifier.init(existing);
       notifier.setName('Updated');
       await notifier.save();
-      await Future.delayed(const Duration(milliseconds: 50));
-      expect(container.read(accountFormNotifierProvider).isSuccess, true);
+      expect(container.read(accountFormProvider).isSuccess, true);
     });
 
     test('save update failure', () async {
@@ -198,11 +202,11 @@ void main() {
         ),
       ).thenAnswer((_) async => const ErrorResult<AccountModel, Failure>(ValidationFailure('invalid')));
       final container = createContainer();
-      final notifier = container.read(accountFormNotifierProvider.notifier);
+      final notifier = container.read(accountFormProvider.notifier);
       notifier.init(existing);
       notifier.setName('Updated');
       await notifier.save();
-      expect(container.read(accountFormNotifierProvider).error, 'invalid');
+      expect(container.read(accountFormProvider).error, 'invalid');
     });
 
     test('copyWith', () {
@@ -212,7 +216,7 @@ void main() {
       expect(c.isSaving, true);
       expect(c.nameError, 'err');
 
-      final c2 = s.copyWith(clearNameError: true);
+      final c2 = s.copyWith(nameError: null);
       expect(c2.nameError, isNull);
     });
   });

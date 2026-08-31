@@ -100,6 +100,6 @@ void main() {
     expect(find.text('My E2E Budget Edited'), findsNothing);
 
     print('BUDGET TEST FINISHED');
-    await db.close();
+    await tearDownAppForTesting(tester, db);
   });
 }

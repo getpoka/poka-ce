@@ -117,6 +117,6 @@ void main() {
     expect(find.text('My E2E Account Edited'), findsNothing);
 
     print('ACCOUNT TEST FINISHED');
-    await db.close();
+    await tearDownAppForTesting(tester, db);
   });
 }

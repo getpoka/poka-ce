@@ -130,6 +130,6 @@ void main() {
     expect(find.text('Jane Doe'), findsNothing);
 
     print('DEBTS TEST FINISHED');
-    await db.close();
+    await tearDownAppForTesting(tester, db);
   });
 }

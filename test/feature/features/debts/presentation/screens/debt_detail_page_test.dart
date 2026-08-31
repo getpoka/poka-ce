@@ -140,7 +140,7 @@ void main() {
       await tester.pumpWidget(wrap(activeDebt: debt()));
       await tester.pumpAndSettle();
 
-      expect(find.text(t.debts.debtDetails), findsOneWidget);
+      expect(find.text('Debt Details'), findsOneWidget);
       expect(find.text('Budi'), findsWidgets);
       expect(find.text(t.debts.addRepayment), findsOneWidget);
       expect(find.text(t.debts.noHistoryFoundForThis(type: t.debts.payable)), findsOneWidget);
@@ -150,7 +150,7 @@ void main() {
       await tester.pumpWidget(wrap(activeDebt: debt(type: DebtType.loan)));
       await tester.pumpAndSettle();
 
-      expect(find.text(t.debts.debtDetails), findsOneWidget);
+      expect(find.text('Loan Details'), findsOneWidget);
       expect(find.text(t.debts.noHistoryFoundForThis(type: t.debts.receivable)), findsOneWidget);
     });
 

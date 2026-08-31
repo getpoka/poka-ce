@@ -151,6 +151,6 @@ void main() {
     expect(find.text('E2E Transaction Edited'), findsNothing);
 
     print('TRANSACTIONS TEST FINISHED');
-    await db.close();
+    await tearDownAppForTesting(tester, db);
   });
 }

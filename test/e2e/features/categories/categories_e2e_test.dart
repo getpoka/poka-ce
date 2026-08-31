@@ -80,6 +80,6 @@ void main() {
     expect(find.text('Test Food Edited'), findsNothing);
 
     print('TEST FINISHED');
-    await db.close();
+    await tearDownAppForTesting(tester, db);
   });
 }

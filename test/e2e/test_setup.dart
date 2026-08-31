@@ -52,3 +52,15 @@ Future<AppDatabase> pumpAppForTesting(WidgetTester tester) async {
 
   return memoryDb;
 }
+
+/// Safely tears down the application and database in a test environment.
+/// This prevents hanging (deadlock) where Drift's `db.close()` waits for
+/// active streams to close, which in turn require `FakeAsync` timers to run.
+Future<void> tearDownAppForTesting(WidgetTester tester, AppDatabase db) async {
+  // Unmount the application to cancel all Riverpod stream listeners
+  await tester.pumpWidget(Container());
+  // Process any pending FakeAsync timers (like Drift's stream debouncers)
+  await tester.pumpAndSettle();
+  // Now it's safe to close the database without hanging
+  await db.close();
+}

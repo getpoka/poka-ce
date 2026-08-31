@@ -100,6 +100,6 @@ void main() {
     expect(find.text('My E2E Goal Edited'), findsNothing);
 
     print('GOAL TEST FINISHED');
-    await db.close();
+    await tearDownAppForTesting(tester, db);
   });
 }

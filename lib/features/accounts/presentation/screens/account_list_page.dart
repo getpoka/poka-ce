@@ -48,6 +48,7 @@ class AccountListPage extends HookConsumerWidget {
                   children: [
                     PokaSectionLabel(title: t.accounts.mainAccounts),
                     GestureDetector(
+                      key: const Key('account-add-button'),
                       onTap: () => AccountFormSheet.show(context),
                       behavior: HitTestBehavior.opaque,
                       child: Row(
