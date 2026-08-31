@@ -23,15 +23,17 @@ class CategoryDetailPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(categoryListProvider);
+    final map = ref.watch(categoryMapProvider);
+    final activeCategory = map[category.id] ?? category;
     final theme = context.theme;
 
     // Find subcategories belonging to this parent
     final categories = state.value ?? <CategoryModel>[];
-    final subcategories = categories.where((c) => c.parentId == category.id).toList();
+    final subcategories = categories.where((c) => c.parentId == activeCategory.id).toList();
 
     return FScaffold(
       header: PokaHeader(
-        title: category.name,
+        title: activeCategory.name,
         showBack: true,
       ),
       child: RefreshIndicator(
@@ -44,9 +46,9 @@ class CategoryDetailPage extends ConsumerWidget {
             children: [
               // Parent Hero Info
               CategoryHeroCard(
-                category: category,
+                category: activeCategory,
                 onToggleActive: (value) {
-                  ref.read(categoryListProvider.notifier).toggleActive(category, isActive: value);
+                  ref.read(categoryListProvider.notifier).toggleActive(activeCategory, isActive: value);
                 },
               ),
               const SizedBox(height: 24),
@@ -60,8 +62,8 @@ class CategoryDetailPage extends ConsumerWidget {
                       key: const Key('subcategory-add-button'),
                       onTap: () => CategoryFormSheet.show(
                         context,
-                        parentId: category.id,
-                        initialType: category.type,
+                        parentId: activeCategory.id,
+                        initialType: activeCategory.type,
                       ),
                       child: Row(
                         children: [
@@ -118,8 +120,8 @@ class CategoryDetailPage extends ConsumerWidget {
                         .reorderCategories(
                           oldIndex,
                           newIndex,
-                          category.type,
-                          parentId: category.id,
+                          activeCategory.type,
+                          parentId: activeCategory.id,
                         );
                   },
                   itemBuilder: (context, index) {

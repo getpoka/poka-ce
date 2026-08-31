@@ -38,7 +38,7 @@ class CategoryFormNotifier extends _$CategoryFormNotifier {
     return const CategoryFormState();
   }
 
-  /// Initializes the form with either an existing category (for editing) 
+  /// Initializes the form with either an existing category (for editing)
   /// or default values (for creation).
   void init(
     CategoryModel? category, {
@@ -68,7 +68,7 @@ class CategoryFormNotifier extends _$CategoryFormNotifier {
   void setColor(String? color) => state = state.copyWith(color: color);
   void setParentId(String? parentId) => state = state.copyWith(parentId: parentId);
 
-  /// Validates and saves the category. 
+  /// Validates and saves the category.
   /// Updates the database via repository and triggers a refresh of the list provider on success.
   Future<void> save() async {
     if (state.name.trim().isEmpty) {

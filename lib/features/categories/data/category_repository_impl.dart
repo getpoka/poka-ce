@@ -111,7 +111,7 @@ class CategoryRepositoryImpl implements ICategoryRepository {
     }
   }
 
-  /// Updates an existing category. Validates depth to prevent making a parent 
+  /// Updates an existing category. Validates depth to prevent making a parent
   /// with children into a sub-category.
   @override
   Future<Result<void, Failure>> updateCategory(CategoryModel model) async {
@@ -149,7 +149,7 @@ class CategoryRepositoryImpl implements ICategoryRepository {
     }
   }
 
-  /// Toggles the active status of a category. Cascade updates to children 
+  /// Toggles the active status of a category. Cascade updates to children
   /// are handled in the DAO layer.
   @override
   Future<Result<void, Failure>> toggleCategoryActiveStatus(String id, {required bool isActive}) async {

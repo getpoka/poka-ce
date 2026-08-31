@@ -71,7 +71,7 @@ class CategoriesDao extends DatabaseAccessor<AppDatabase> with _$CategoriesDaoMi
     });
   }
 
-  /// Synchronizes account category restrictions so that any account restricting 
+  /// Synchronizes account category restrictions so that any account restricting
   /// the parent category will automatically restrict the child category as well.
   Future<void> syncSubCategoryToAccounts(String parentId, String childId) async {
     return transaction(() async {
