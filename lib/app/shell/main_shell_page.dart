@@ -29,6 +29,13 @@ class MainShellPage extends HookConsumerWidget {
     final isFabVisible = useState(true);
     final accumulatedScroll = useState<double>(0);
 
+    // Reset FAB visibility when changing tabs
+    useEffect(() {
+      isFabVisible.value = true;
+      accumulatedScroll.value = 0.0;
+      return null;
+    }, [navigationShell.currentIndex]);
+
     return FScaffold(
       childPad: false,
       footer: FBottomNavigationBar(
