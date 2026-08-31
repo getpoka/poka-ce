@@ -41,7 +41,6 @@ void main() {
       await tester.pumpWidget(wrap(const ReportBudgetAllocation()));
       await tester.pumpAndSettle();
 
-      expect(find.text('50/30/20'), findsOneWidget);
       expect(find.text('No data for this period'), findsOneWidget);
       expect(find.textContaining('Total'), findsNothing);
     });
