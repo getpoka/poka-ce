@@ -8,9 +8,9 @@ import 'package:poka_ce/features/dashboard/presentation/controllers/dashboard_no
 import 'package:poka_ce/features/debts/domain/debt_model.dart';
 import 'package:poka_ce/features/debts/presentation/controllers/debt_form_notifier.dart';
 import 'package:poka_ce/features/debts/presentation/controllers/debt_list_notifier.dart';
-import 'package:poka_ce/features/debts/presentation/widgets/forms/debt_date_picker.dart';
-import 'package:poka_ce/features/debts/presentation/widgets/forms/debt_type_selector.dart';
-import 'package:poka_ce/features/debts/presentation/widgets/tiles/debt_scope_tile.dart';
+import 'package:poka_ce/features/debts/presentation/widgets/debt_date_picker.dart';
+import 'package:poka_ce/features/debts/presentation/widgets/debt_scope_tile.dart';
+import 'package:poka_ce/features/debts/presentation/widgets/debt_type_selector.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/poka_category_selector.dart';
 import 'package:poka_ce/shared/widgets/poka_form_label.dart';

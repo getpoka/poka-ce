@@ -6,7 +6,7 @@ import 'package:forui_phosphor/forui_phosphor.dart';
 import '../../test_setup.dart';
 
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:poka_ce/features/goals/presentation/widgets/cards/goal_card.dart';
+import 'package:poka_ce/features/goals/presentation/widgets/goal_card.dart';
 
 void main() {
   testWidgets('Goal CRUD operations', (tester) async {

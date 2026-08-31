@@ -5,7 +5,7 @@ import 'package:forui_phosphor/forui_phosphor.dart';
 
 import '../../test_setup.dart';
 
-import 'package:poka_ce/features/debts/presentation/widgets/cards/debt_card.dart';
+import 'package:poka_ce/features/debts/presentation/widgets/debt_card.dart';
 
 void main() {
   testWidgets('Debts CRUD operations', (tester) async {

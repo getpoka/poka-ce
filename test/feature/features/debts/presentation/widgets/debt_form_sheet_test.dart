@@ -15,7 +15,7 @@ import 'package:poka_ce/features/dashboard/presentation/controllers/dashboard_no
 import 'package:poka_ce/features/debts/domain/debt_model.dart';
 import 'package:poka_ce/features/debts/domain/i_debt_repository.dart';
 import 'package:poka_ce/features/debts/presentation/controllers/debt_form_notifier.dart';
-import 'package:poka_ce/features/debts/presentation/widgets/forms/debt_form_sheet.dart';
+import 'package:poka_ce/features/debts/presentation/widgets/debt_form_sheet.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/theme/theme.dart';
 

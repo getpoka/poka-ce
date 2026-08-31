@@ -9,8 +9,8 @@ import 'package:poka_ce/features/categories/presentation/controllers/category_li
 import 'package:poka_ce/features/goals/domain/goal_model.dart';
 import 'package:poka_ce/features/goals/presentation/controllers/goal_detail_notifier.dart';
 import 'package:poka_ce/features/goals/presentation/controllers/goal_notifier.dart';
-import 'package:poka_ce/features/goals/presentation/widgets/cards/goal_card.dart';
-import 'package:poka_ce/features/goals/presentation/widgets/forms/goal_form_sheet.dart';
+import 'package:poka_ce/features/goals/presentation/widgets/goal_card.dart';
+import 'package:poka_ce/features/goals/presentation/widgets/goal_form_sheet.dart';
 import 'package:poka_ce/features/transactions/presentation/widgets/tile/transaction_tile.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/poka_empty_view.dart';

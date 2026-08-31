@@ -3,7 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poka_ce/core/enums.dart';
 import 'package:poka_ce/features/budgets/presentation/controllers/budget_progress_provider.dart';
 import 'package:poka_ce/features/reports/presentation/controllers/report_notifier.dart';
-import 'package:poka_ce/features/reports/presentation/widgets/tiles/budget_item_tile.dart';
+import 'package:poka_ce/features/reports/presentation/widgets/budget_item_tile.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/poka_amount_text.dart';
 import 'package:poka_ce/shared/widgets/poka_empty_view.dart';

@@ -3,7 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poka_ce/features/goals/domain/goal_model.dart';
 import 'package:poka_ce/features/goals/presentation/controllers/goal_form_notifier.dart';
-import 'package:poka_ce/features/goals/presentation/widgets/pickers/goal_date_picker_tile.dart';
+import 'package:poka_ce/features/goals/presentation/widgets/goal_date_picker_tile.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/sheets/poka_sheet.dart';
 import 'package:poka_ce/theme/theme.dart';

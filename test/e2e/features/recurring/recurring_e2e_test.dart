@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:forui/forui.dart';
 import 'package:forui_phosphor/forui_phosphor.dart';
-import 'package:poka_ce/features/recurring/presentation/widgets/cards/recurring_card.dart';
+import 'package:poka_ce/features/recurring/presentation/widgets/recurring_card.dart';
 
 import '../../test_setup.dart';
 
