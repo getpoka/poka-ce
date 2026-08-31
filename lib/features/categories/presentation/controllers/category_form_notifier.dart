@@ -33,7 +33,11 @@ class CategoryFormNotifier extends _$CategoryFormNotifier {
     return const CategoryFormState();
   }
 
-  void init(CategoryModel? category) {
+  void init(
+    CategoryModel? category, {
+    String? parentId,
+    CategoryType? type,
+  }) {
     if (category != null) {
       state = CategoryFormState(
         initialCategory: category,
@@ -44,7 +48,10 @@ class CategoryFormNotifier extends _$CategoryFormNotifier {
         parentId: category.parentId,
       );
     } else {
-      state = const CategoryFormState();
+      state = CategoryFormState(
+        parentId: parentId,
+        type: type ?? CategoryType.expense,
+      );
     }
   }
 
