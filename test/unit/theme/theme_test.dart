@@ -5,6 +5,7 @@ import 'package:poka_ce/theme/tailwind.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+  GoogleFonts.config.allowRuntimeFetching = false;
   group('Theme coverage', () {
     test('lightTheme and darkTheme are constructed', () {
       final light = lightTheme;
