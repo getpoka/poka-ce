@@ -39,11 +39,12 @@ jobs:
         run: make check
 
   test:
+    needs: analyze
     if: github.event.pull_request.draft != true
     runs-on: ubuntu-latest
     timeout-minutes: 15
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
         test-suite: [unit, feature, e2e]
     
