@@ -7,8 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v0.1.0-beta.2] - 2026-09-01
+
 ### Added
 
+- Bundled Google Fonts offline to preserve visual consistency without network dependencies.
 - Transaction list search — find transactions by note or amount directly from the list.
 - Category management with strict hierarchy and improved UX (parent/child constraints, better empty states).
 - Goal accounts shown in a dedicated section on the accounts screen.
@@ -16,6 +19,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Standardized empty states across the application.
+- Removed extra top padding on list screens for better visual consistency.
 - Theme icon set migrated from Lucide to Phosphor for consistent iconography.
 - Category screens: reactive detail updates, synced sheet tabs, standardized hero card radius, and cleaner empty states.
 - Sub-category sheets hide expense/income tabs and use a clearer "Sub-category" title.
@@ -26,6 +31,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Resolved Google Fonts network exception in theme coverage tests.
+- Fixed e2e test timeout caused by active stream listeners.
+- Fixed empty state test assertions.
 - Sub-category creation flow corrected and bottom sheet title updated.
 
 ### Docs
@@ -56,5 +64,6 @@ All core features are feature-complete and ready to be explored:
 
 > **⚠️ Important Note:** This version is still under testing. Deep edge cases (such as editing or deleting complex interconnected data) have not been fully verified. Unexpected bugs may occur — we recommend trying it with dummy data first, or regularly backing up your data from the Settings menu. Help us reach v1.0 by reporting bugs via the [Issues](https://github.com/getpoka/poka-ce/issues) tab.
 
-[Unreleased]: https://github.com/getpoka/poka-ce/compare/v0.1.0-beta.1...main
+[Unreleased]: https://github.com/getpoka/poka-ce/compare/v0.1.0-beta.2...main
+[v0.1.0-beta.2]: https://github.com/getpoka/poka-ce/compare/v0.1.0-beta.1...v0.1.0-beta.2
 [v0.1.0-beta.1]: https://github.com/getpoka/poka-ce/releases/tag/v0.1.0-beta.1
