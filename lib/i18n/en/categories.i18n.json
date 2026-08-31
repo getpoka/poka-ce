@@ -14,5 +14,8 @@
   "noSubcategoriesYet": "No subcategories yet",
   "noCategoriesFound1": "No categories found",
   "subcategoriesCount": "{{count}} subcategories",
-  "addSubcategory": "Add Subcategory"
+  "addSubcategory": "Add Subcategory",
+  "addCategory": "Add Category",
+  "emptyCategorySubtitle": "Start tracking your spending by adding a category",
+  "emptySubcategorySubtitle": "Break down your category into smaller parts"
 }

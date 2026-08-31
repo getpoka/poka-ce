@@ -214,6 +214,9 @@ class _Translations$categories$id extends Translations$categories$en {
 	@override String get noCategoriesFound1 => 'Kategori tidak ditemukan';
 	@override String subcategoriesCount({required Object count}) => '${count} subkategori';
 	@override String get addSubcategory => 'Tambah Subkategori';
+	@override String get addCategory => 'Tambah Kategori';
+	@override String get emptyCategorySubtitle => 'Mulai catat pengeluaran dengan menambahkan kategori';
+	@override String get emptySubcategorySubtitle => 'Pecah kategori ini menjadi bagian yang lebih spesifik';
 }
 
 // Path: common
@@ -826,6 +829,9 @@ extension on TranslationsId {
 			'categories.noCategoriesFound1' => 'Kategori tidak ditemukan',
 			'categories.subcategoriesCount' => ({required Object count}) => '${count} subkategori',
 			'categories.addSubcategory' => 'Tambah Subkategori',
+			'categories.addCategory' => 'Tambah Kategori',
+			'categories.emptyCategorySubtitle' => 'Mulai catat pengeluaran dengan menambahkan kategori',
+			'categories.emptySubcategorySubtitle' => 'Pecah kategori ini menjadi bagian yang lebih spesifik',
 			'common.save' => 'Simpan',
 			'common.cancel' => 'Batal',
 			'common.delete' => 'Hapus',

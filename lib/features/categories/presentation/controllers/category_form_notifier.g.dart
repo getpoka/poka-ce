@@ -8,11 +8,17 @@ part of 'category_form_notifier.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
+/// Notifier for the category creation and editing form.
+/// Manages form state, validation (e.g., empty name), and orchestrates save operations.
 
 @ProviderFor(CategoryFormNotifier)
 final categoryFormProvider = CategoryFormNotifierProvider._();
 
+/// Notifier for the category creation and editing form.
+/// Manages form state, validation (e.g., empty name), and orchestrates save operations.
 final class CategoryFormNotifierProvider extends $NotifierProvider<CategoryFormNotifier, CategoryFormState> {
+  /// Notifier for the category creation and editing form.
+  /// Manages form state, validation (e.g., empty name), and orchestrates save operations.
   CategoryFormNotifierProvider._()
     : super(
         from: null,
@@ -41,6 +47,9 @@ final class CategoryFormNotifierProvider extends $NotifierProvider<CategoryFormN
 }
 
 String _$categoryFormNotifierHash() => r'21797f677e8b00fca4782fc6b22722d14cf847d1';
+
+/// Notifier for the category creation and editing form.
+/// Manages form state, validation (e.g., empty name), and orchestrates save operations.
 
 abstract class _$CategoryFormNotifier extends $Notifier<CategoryFormState> {
   CategoryFormState build();

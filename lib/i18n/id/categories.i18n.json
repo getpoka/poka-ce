@@ -14,5 +14,8 @@
   "noSubcategoriesYet": "No subcategories yet",
   "noCategoriesFound1": "Kategori tidak ditemukan",
   "subcategoriesCount": "{{count}} subkategori",
-  "addSubcategory": "Tambah Subkategori"
+  "addSubcategory": "Tambah Subkategori",
+  "addCategory": "Tambah Kategori",
+  "emptyCategorySubtitle": "Mulai catat pengeluaran dengan menambahkan kategori",
+  "emptySubcategorySubtitle": "Pecah kategori ini menjadi bagian yang lebih spesifik"
 }

@@ -8,11 +8,17 @@ part of 'category_list_notifier.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
+/// StateNotifier for managing the list of categories.
+/// Handles fetching, refreshing, toggling active status, deleting, and reordering.
 
 @ProviderFor(CategoryListNotifier)
 final categoryListProvider = CategoryListNotifierProvider._();
 
+/// StateNotifier for managing the list of categories.
+/// Handles fetching, refreshing, toggling active status, deleting, and reordering.
 final class CategoryListNotifierProvider extends $AsyncNotifierProvider<CategoryListNotifier, List<CategoryModel>> {
+  /// StateNotifier for managing the list of categories.
+  /// Handles fetching, refreshing, toggling active status, deleting, and reordering.
   CategoryListNotifierProvider._()
     : super(
         from: null,
@@ -34,6 +40,9 @@ final class CategoryListNotifierProvider extends $AsyncNotifierProvider<Category
 
 String _$categoryListNotifierHash() => r'9808309d774dc75ab01b61f68bcd9d62ed973d29';
 
+/// StateNotifier for managing the list of categories.
+/// Handles fetching, refreshing, toggling active status, deleting, and reordering.
+
 abstract class _$CategoryListNotifier extends $AsyncNotifier<List<CategoryModel>> {
   FutureOr<List<CategoryModel>> build();
   @$mustCallSuper
@@ -52,12 +61,17 @@ abstract class _$CategoryListNotifier extends $AsyncNotifier<List<CategoryModel>
   }
 }
 
+/// Provides a quick lookup map of categories by their ID, fed from the reactive stream.
+
 @ProviderFor(categoryMap)
 final categoryMapProvider = CategoryMapProvider._();
+
+/// Provides a quick lookup map of categories by their ID, fed from the reactive stream.
 
 final class CategoryMapProvider
     extends $FunctionalProvider<Map<String, CategoryModel>, Map<String, CategoryModel>, Map<String, CategoryModel>>
     with $Provider<Map<String, CategoryModel>> {
+  /// Provides a quick lookup map of categories by their ID, fed from the reactive stream.
   CategoryMapProvider._()
     : super(
         from: null,
