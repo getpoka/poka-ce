@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:forui_phosphor/forui_phosphor.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poka_ce/core/enums.dart';
 import 'package:poka_ce/features/categories/domain/category_model.dart';
@@ -9,6 +10,7 @@ import 'package:poka_ce/features/categories/presentation/screens/category_detail
 import 'package:poka_ce/features/categories/presentation/widgets/forms/category_form_sheet.dart';
 import 'package:poka_ce/features/categories/presentation/widgets/tiles/category_tile.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
+import 'package:poka_ce/shared/widgets/poka_empty_view.dart';
 
 /// A tab view displaying a list of categories (e.g., Expense or Income).
 /// Handles reordering functionality and navigation to category details.
@@ -27,9 +29,17 @@ class CategoryListTab extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     if (categories.isEmpty) {
-      return Padding(
-        padding: const EdgeInsets.all(32),
-        child: Center(child: Text(t.categories.noCategoriesFound)),
+      final screenHeight = MediaQuery.sizeOf(context).height;
+      return Container(
+        height: screenHeight * 0.6, // Force height to center it visually
+        alignment: Alignment.center,
+        child: PokaEmptyView(
+          icon: FPhosphorIcons.tag,
+          title: t.categories.noCategoriesFound,
+          subtitle: t.categories.emptyCategorySubtitle,
+          actionLabel: t.categories.addCategory,
+          onAction: () => CategoryFormSheet.show(context, initialType: type),
+        ),
       ).animate().fade(duration: 300.ms);
     }
 

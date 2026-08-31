@@ -432,6 +432,15 @@ class Translations$categories$en {
 
 	/// en: 'Add Subcategory'
 	String get addSubcategory => 'Add Subcategory';
+
+	/// en: 'Add Category'
+	String get addCategory => 'Add Category';
+
+	/// en: 'Start tracking your spending by adding a category'
+	String get emptyCategorySubtitle => 'Start tracking your spending by adding a category';
+
+	/// en: 'Break down your category into smaller parts'
+	String get emptySubcategorySubtitle => 'Break down your category into smaller parts';
 }
 
 // Path: common
@@ -1767,6 +1776,9 @@ extension on Translations {
 			'categories.noCategoriesFound1' => 'No categories found',
 			'categories.subcategoriesCount' => ({required Object count}) => '${count} subcategories',
 			'categories.addSubcategory' => 'Add Subcategory',
+			'categories.addCategory' => 'Add Category',
+			'categories.emptyCategorySubtitle' => 'Start tracking your spending by adding a category',
+			'categories.emptySubcategorySubtitle' => 'Break down your category into smaller parts',
 			'common.save' => 'Save',
 			'common.cancel' => 'Cancel',
 			'common.delete' => 'Delete',

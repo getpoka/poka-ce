@@ -7,6 +7,7 @@ import 'package:poka_ce/features/categories/presentation/widgets/cards/category_
 import 'package:poka_ce/features/categories/presentation/widgets/forms/category_form_sheet.dart';
 import 'package:poka_ce/features/categories/presentation/widgets/tiles/category_tile.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
+import 'package:poka_ce/shared/widgets/poka_empty_view.dart';
 import 'package:poka_ce/shared/widgets/poka_header.dart';
 import 'package:poka_ce/shared/widgets/poka_section_label.dart';
 import 'package:poka_ce/theme/theme.dart';
@@ -25,7 +26,6 @@ class CategoryDetailPage extends ConsumerWidget {
     final state = ref.watch(categoryListProvider);
     final map = ref.watch(categoryMapProvider);
     final activeCategory = map[category.id] ?? category;
-    final theme = context.theme;
 
     // Find subcategories belonging to this parent
     final categories = state.value ?? <CategoryModel>[];
@@ -85,19 +85,16 @@ class CategoryDetailPage extends ConsumerWidget {
               const SizedBox(height: 8),
 
               if (subcategories.isEmpty)
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 24),
-                  child: Center(
-                    child: Column(
-                      children: [
-                        Icon(FPhosphorIcons.tag, size: 36, color: theme.colors.mutedForeground),
-                        const SizedBox(height: 8),
-                        Text(
-                          t.categories.noSubcategoriesYet,
-                          style: theme.typography.body.md.copyWith(color: theme.colors.mutedForeground),
-                        ),
-                      ],
-                    ),
+                PokaEmptyView(
+                  icon: FPhosphorIcons.tag,
+                  title: t.categories.noSubcategoriesYet,
+                  subtitle: t.categories.emptySubcategorySubtitle,
+                  actionLabel: t.categories.addSubcategory,
+                  hasBorder: true,
+                  onAction: () => CategoryFormSheet.show(
+                    context,
+                    parentId: activeCategory.id,
+                    initialType: activeCategory.type,
                   ),
                 )
               else

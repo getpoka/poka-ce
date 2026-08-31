@@ -286,4 +286,21 @@ Action sheets (e.g. bottom sheets presenting a list of actions like Edit/Delete 
 
 ---
 
+## 5. Layout & Empty States
+
+### 5.1 Empty State Variations
+`PokaEmptyView` must be styled differently depending on its context to maintain visual hierarchy:
+
+1. **Page-Level Empty States (Full Screen / Tab)**
+   - Must be centered vertically in the available viewport.
+   - Must **not** have a border (`hasBorder: false`).
+   - *Rationale*: When the screen is completely empty, the empty state is the primary focus. A border creates a confined box that looks artificially cramped in a large white space.
+
+2. **Component-Level Empty States (Inline / Sections)**
+   - Must be positioned inline below the section header (not vertically centered on the screen).
+   - Must have a border (`hasBorder: true`).
+   - *Rationale*: When placed alongside other populated UI components (like a Hero Card), the border acts as a bounding box to clearly define where the missing content belongs. Without a border, the text appears to float randomly.
+
+---
+
 *Last updated: 2026-08-29. Maintained by the Poka CE core team.*

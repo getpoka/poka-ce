@@ -24,6 +24,7 @@ class PokaEmptyView extends StatelessWidget {
     this.actionLabel,
     this.onAction,
     this.actionKey,
+    this.hasBorder = false,
     super.key,
   }) : assert(
          (actionLabel == null) == (onAction == null),
@@ -48,6 +49,9 @@ class PokaEmptyView extends StatelessWidget {
   /// Optional key forwarded to the [FButton] for testing.
   final Key? actionKey;
 
+  /// Whether to show a border around the empty view.
+  final bool hasBorder;
+
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;
@@ -58,7 +62,10 @@ class PokaEmptyView extends StatelessWidget {
     return Container(
       width: double.infinity,
       decoration: ShapeDecoration(
-        shape: RoundedSuperellipseBorder(borderRadius: style.borderRadius.lg),
+        shape: RoundedSuperellipseBorder(
+          borderRadius: style.borderRadius.lg,
+          side: hasBorder ? BorderSide(color: colors.border) : BorderSide.none,
+        ),
         color: colors.card,
       ),
       padding: const EdgeInsets.symmetric(vertical: 36, horizontal: 24),
