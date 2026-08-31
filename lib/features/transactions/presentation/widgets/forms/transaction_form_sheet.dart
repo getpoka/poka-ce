@@ -279,6 +279,7 @@ class TransactionFormSheet extends HookConsumerWidget {
             allocation: state.allocation,
             currencyCode: currencyCode,
             categories: categories.where((c) {
+              if (!c.isActive) return false;
               if (state.type == TransactionType.income) return c.type == CategoryType.income;
               if (state.type == TransactionType.expense) return c.type == CategoryType.expense;
               return false;

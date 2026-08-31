@@ -429,6 +429,9 @@ class Translations$categories$en {
 
 	/// en: '{{count}} subcategories'
 	String subcategoriesCount({required Object count}) => '${count} subcategories';
+
+	/// en: 'Add Subcategory'
+	String get addSubcategory => 'Add Subcategory';
 }
 
 // Path: common
@@ -1763,6 +1766,7 @@ extension on Translations {
 			'categories.noSubcategoriesYet' => 'No subcategories yet',
 			'categories.noCategoriesFound1' => 'No categories found',
 			'categories.subcategoriesCount' => ({required Object count}) => '${count} subcategories',
+			'categories.addSubcategory' => 'Add Subcategory',
 			'common.save' => 'Save',
 			'common.cancel' => 'Cancel',
 			'common.delete' => 'Delete',

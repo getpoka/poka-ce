@@ -11,8 +11,11 @@ import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/dialogs/poka_confirm_dialog.dart';
 import 'package:poka_ce/shared/widgets/poka_icon.dart';
 import 'package:poka_ce/shared/widgets/poka_slidable_action.dart';
+import 'package:poka_ce/shared/widgets/poka_switch.dart';
 import 'package:poka_ce/theme/theme.dart';
 
+/// A list tile representing a category in a list view.
+/// Shows the icon, name, and an optional toggle switch or sub-categories.
 class CategoryTile extends ConsumerWidget with FTileMixin {
   const CategoryTile({
     required this.category,
@@ -20,6 +23,7 @@ class CategoryTile extends ConsumerWidget with FTileMixin {
     this.onEdit,
     this.onDelete,
     this.onPress,
+    this.onToggleActive,
     this.isFirst = false,
     this.isLast = false,
     super.key,
@@ -30,6 +34,7 @@ class CategoryTile extends ConsumerWidget with FTileMixin {
   final VoidCallback? onEdit;
   final VoidCallback? onDelete;
   final VoidCallback? onPress;
+  final ValueChanged<bool>? onToggleActive;
   final bool isFirst;
   final bool isLast;
 
@@ -120,13 +125,24 @@ class CategoryTile extends ConsumerWidget with FTileMixin {
                   ),
                 )
               : null,
-          suffix: onPress != null
-              ? Icon(
+          suffix: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (onToggleActive != null)
+                PokaSwitch(
+                  value: category.isActive,
+                  onChange: onToggleActive!,
+                ),
+              if (onPress != null) ...[
+                if (onToggleActive != null) const SizedBox(width: 8),
+                Icon(
                   FPhosphorIcons.caretRight,
                   color: theme.colors.mutedForeground,
                   size: 16,
-                )
-              : null,
+                ),
+              ],
+            ],
+          ),
         ),
       ),
     );

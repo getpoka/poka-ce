@@ -7,6 +7,7 @@ import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/pickers/poka_icon_picker.dart';
 import 'package:poka_ce/shared/widgets/sheets/poka_sheet.dart';
 
+/// A button widget for opening an icon picker to select an icon for a category.
 class CategoryIconPickerButton extends StatelessWidget {
   const CategoryIconPickerButton({
     required this.selectedIcon,

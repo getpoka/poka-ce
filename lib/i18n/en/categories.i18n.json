@@ -13,5 +13,6 @@
   "selectIcon": "Select Icon",
   "noSubcategoriesYet": "No subcategories yet",
   "noCategoriesFound1": "No categories found",
-  "subcategoriesCount": "{{count}} subcategories"
+  "subcategoriesCount": "{{count}} subcategories",
+  "addSubcategory": "Add Subcategory"
 }

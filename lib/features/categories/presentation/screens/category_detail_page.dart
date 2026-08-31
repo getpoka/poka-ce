@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:forui/forui.dart';
-import 'package:forui_phosphor/forui_phosphor.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poka_ce/features/categories/domain/category_model.dart';
 import 'package:poka_ce/features/categories/presentation/controllers/category_list_notifier.dart';
@@ -11,7 +9,9 @@ import 'package:poka_ce/features/categories/presentation/widgets/tiles/category_
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/poka_header.dart';
 import 'package:poka_ce/shared/widgets/poka_section_label.dart';
+import 'package:poka_ce/theme/theme.dart';
 
+/// Screen for displaying details of a specific category and its sub-categories.
 class CategoryDetailPage extends ConsumerWidget {
   const CategoryDetailPage({
     required this.category,
@@ -33,16 +33,6 @@ class CategoryDetailPage extends ConsumerWidget {
       header: PokaHeader(
         title: category.name,
         showBack: true,
-        suffixes: [
-          FHeaderAction(
-            icon: const Icon(FPhosphorIcons.plus, size: 20),
-            onPress: () => CategoryFormSheet.show(
-              context,
-              parentId: category.id,
-              initialType: category.type,
-            ),
-          ),
-        ],
       ),
       child: RefreshIndicator(
         onRefresh: () => ref.read(categoryListProvider.notifier).refresh(),
@@ -53,10 +43,43 @@ class CategoryDetailPage extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               // Parent Hero Info
-              CategoryHeroCard(category: category),
+              CategoryHeroCard(
+                category: category,
+                onToggleActive: (value) {
+                  ref.read(categoryListProvider.notifier).toggleActive(category, isActive: value);
+                },
+              ),
               const SizedBox(height: 24),
 
-              PokaSectionLabel(title: t.categories.subcategories),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  PokaSectionLabel(title: t.categories.subcategories),
+                  Builder(
+                    builder: (context) => GestureDetector(
+                      key: const Key('subcategory-add-button'),
+                      onTap: () => CategoryFormSheet.show(
+                        context,
+                        parentId: category.id,
+                        initialType: category.type,
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(FPhosphorIcons.plus, size: 14, color: context.theme.colors.primary),
+                          const SizedBox(width: 4),
+                          Text(
+                            t.categories.addSubcategory,
+                            style: context.theme.typography.bodySecondary.copyWith(
+                              color: context.theme.colors.primary,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
               const SizedBox(height: 8),
 
               if (subcategories.isEmpty)
@@ -109,6 +132,9 @@ class CategoryDetailPage extends ConsumerWidget {
                         isFirst: index == 0,
                         isLast: index == subcategories.length - 1,
                         onEdit: () => CategoryFormSheet.show(context, category: subcat),
+                        onToggleActive: (value) {
+                          ref.read(categoryListProvider.notifier).toggleActive(subcat, isActive: value);
+                        },
                       ),
                     );
                   },

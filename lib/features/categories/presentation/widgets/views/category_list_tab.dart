@@ -10,6 +10,8 @@ import 'package:poka_ce/features/categories/presentation/widgets/forms/category_
 import 'package:poka_ce/features/categories/presentation/widgets/tiles/category_tile.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 
+/// A tab view displaying a list of categories (e.g., Expense or Income).
+/// Handles reordering functionality and navigation to category details.
 class CategoryListTab extends ConsumerWidget {
   const CategoryListTab({
     required this.categories,

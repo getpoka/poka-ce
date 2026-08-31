@@ -10,6 +10,7 @@ import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/pickers/poka_color_picker.dart';
 import 'package:poka_ce/shared/widgets/sheets/poka_sheet.dart';
 
+/// Bottom sheet for creating or editing a category.
 class CategoryFormSheet extends HookConsumerWidget {
   const CategoryFormSheet({
     this.initialCategory,
@@ -92,6 +93,7 @@ class CategoryFormSheet extends HookConsumerWidget {
           control: FTextFieldControl.managed(controller: nameController),
           label: Text(t.categories.categoryName),
           hint: t.categories.egFoodDining,
+          error: state.nameError != null ? Text(state.nameError!) : null,
         ),
         const SizedBox(height: 12),
         Row(

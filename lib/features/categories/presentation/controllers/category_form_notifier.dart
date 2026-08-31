@@ -5,12 +5,14 @@ import 'package:poka_ce/core/error/result.dart';
 import 'package:poka_ce/core/utils/datetime_utils.dart';
 import 'package:poka_ce/features/categories/domain/category_model.dart';
 import 'package:poka_ce/features/categories/presentation/controllers/category_list_notifier.dart';
+import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:uuid/uuid.dart';
 
 part 'category_form_notifier.freezed.dart';
 part 'category_form_notifier.g.dart';
 
+/// State representing the category form data, validation errors, and submission status.
 @freezed
 abstract class CategoryFormState with _$CategoryFormState {
   const factory CategoryFormState({
@@ -23,9 +25,12 @@ abstract class CategoryFormState with _$CategoryFormState {
     @Default(false) bool isSaving,
     @Default(false) bool isSuccess,
     String? error,
+    String? nameError,
   }) = _CategoryFormState;
 }
 
+/// Notifier for the category creation and editing form.
+/// Manages form state, validation (e.g., empty name), and orchestrates save operations.
 @riverpod
 class CategoryFormNotifier extends _$CategoryFormNotifier {
   @override
@@ -33,6 +38,8 @@ class CategoryFormNotifier extends _$CategoryFormNotifier {
     return const CategoryFormState();
   }
 
+  /// Initializes the form with either an existing category (for editing) 
+  /// or default values (for creation).
   void init(
     CategoryModel? category, {
     String? parentId,
@@ -55,15 +62,17 @@ class CategoryFormNotifier extends _$CategoryFormNotifier {
     }
   }
 
-  void setName(String name) => state = state.copyWith(name: name);
+  void setName(String name) => state = state.copyWith(name: name, nameError: null);
   void setType(CategoryType type) => state = state.copyWith(type: type);
   void setIcon(String? icon) => state = state.copyWith(icon: icon);
   void setColor(String? color) => state = state.copyWith(color: color);
   void setParentId(String? parentId) => state = state.copyWith(parentId: parentId);
 
+  /// Validates and saves the category. 
+  /// Updates the database via repository and triggers a refresh of the list provider on success.
   Future<void> save() async {
     if (state.name.trim().isEmpty) {
-      state = state.copyWith(error: 'Name cannot be empty');
+      state = state.copyWith(nameError: t.accounts.nameCannotBeEmpty);
       return;
     }
 
