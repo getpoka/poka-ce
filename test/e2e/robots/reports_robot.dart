@@ -2,12 +2,12 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'robot_base.dart';
 
-import 'package:poka_ce/features/reports/presentation/widgets/cards/report_budget_utilization.dart';
-import 'package:poka_ce/features/reports/presentation/widgets/cards/report_spending_allocation.dart';
-import 'package:poka_ce/features/reports/presentation/widgets/cards/report_summary_card.dart';
-import 'package:poka_ce/features/reports/presentation/widgets/charts/report_cashflow_chart.dart';
-import 'package:poka_ce/features/reports/presentation/widgets/charts/report_category_chart.dart';
-import 'package:poka_ce/features/reports/presentation/widgets/pickers/report_period_selector.dart';
+import 'package:poka_ce/features/reports/presentation/widgets/report_budget_utilization.dart';
+import 'package:poka_ce/features/reports/presentation/widgets/report_spending_allocation.dart';
+import 'package:poka_ce/features/reports/presentation/widgets/report_summary_card.dart';
+import 'package:poka_ce/features/reports/presentation/widgets/report_cashflow_chart.dart';
+import 'package:poka_ce/features/reports/presentation/widgets/report_category_chart.dart';
+import 'package:poka_ce/features/reports/presentation/widgets/report_period_selector.dart';
 
 class ReportsRobot extends RobotBase {
   const ReportsRobot(super.tester);

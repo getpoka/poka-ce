@@ -8,8 +8,8 @@ import 'package:poka_ce/features/categories/presentation/controllers/category_li
 import 'package:poka_ce/features/recurring/domain/recurring_model.dart';
 import 'package:poka_ce/features/recurring/presentation/controllers/recurring_detail_notifier.dart';
 import 'package:poka_ce/features/recurring/presentation/controllers/recurring_list_notifier.dart';
-import 'package:poka_ce/features/recurring/presentation/widgets/cards/recurring_card.dart';
-import 'package:poka_ce/features/recurring/presentation/widgets/forms/recurring_form_sheet.dart';
+import 'package:poka_ce/features/recurring/presentation/widgets/recurring_card.dart';
+import 'package:poka_ce/features/recurring/presentation/widgets/recurring_form_sheet.dart';
 import 'package:poka_ce/features/transactions/presentation/widgets/tile/transaction_tile.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/dialogs/poka_confirm_dialog.dart';

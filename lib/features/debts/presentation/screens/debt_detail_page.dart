@@ -9,9 +9,9 @@ import 'package:poka_ce/features/categories/presentation/controllers/category_li
 import 'package:poka_ce/features/debts/domain/debt_model.dart';
 import 'package:poka_ce/features/debts/presentation/controllers/debt_detail_notifier.dart';
 import 'package:poka_ce/features/debts/presentation/controllers/debt_list_notifier.dart';
-import 'package:poka_ce/features/debts/presentation/widgets/cards/debt_card.dart';
-import 'package:poka_ce/features/debts/presentation/widgets/forms/debt_form_sheet.dart';
-import 'package:poka_ce/features/debts/presentation/widgets/forms/debt_repayment_sheet.dart';
+import 'package:poka_ce/features/debts/presentation/widgets/debt_card.dart';
+import 'package:poka_ce/features/debts/presentation/widgets/debt_form_sheet.dart';
+import 'package:poka_ce/features/debts/presentation/widgets/debt_repayment_sheet.dart';
 import 'package:poka_ce/features/transactions/presentation/widgets/tile/transaction_tile.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/poka_empty_view.dart';

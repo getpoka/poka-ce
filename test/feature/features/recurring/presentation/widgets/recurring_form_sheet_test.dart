@@ -14,7 +14,7 @@ import 'package:poka_ce/features/recurring/domain/i_recurring_repository.dart';
 import 'package:poka_ce/features/recurring/domain/recurring_model.dart';
 import 'package:poka_ce/features/recurring/presentation/controllers/recurring_form_notifier.dart';
 import 'package:poka_ce/features/recurring/presentation/controllers/recurring_list_notifier.dart';
-import 'package:poka_ce/features/recurring/presentation/widgets/forms/recurring_form_sheet.dart';
+import 'package:poka_ce/features/recurring/presentation/widgets/recurring_form_sheet.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class MockRecurringRepository extends Mock implements IRecurringRepository {}
