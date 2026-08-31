@@ -82,6 +82,8 @@ class CategoryFormSheet extends HookConsumerWidget {
       },
     );
 
+    final isSubCategory = parentId != null || initialCategory?.parentId != null;
+
     final formContent = Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -122,7 +124,7 @@ class CategoryFormSheet extends HookConsumerWidget {
           mainAxisSize: MainAxisSize.min,
           onPress: state.isSaving ? null : notifier.save,
           prefix: state.isSaving ? const FCircularProgress() : null,
-          child: Text(state.isSaving ? 'Please wait' : 'Save Category'),
+          child: Text(state.isSaving ? 'Please wait' : (isSubCategory ? 'Save Sub Category' : 'Save Category')),
         ),
       ],
     );
@@ -136,24 +138,26 @@ class CategoryFormSheet extends HookConsumerWidget {
 
     return PokaSheet(
       title: title,
-      child: FTabs(
-        control: FTabControl.lifted(
-          index: state.type == CategoryType.income ? 1 : 0,
-          onChange: (index) {
-            notifier.setType(index == 1 ? CategoryType.income : CategoryType.expense);
-          },
-        ),
-        children: [
-          FTabEntry(
-            label: Text(t.accounts.expense),
-            child: formContent,
-          ),
-          FTabEntry(
-            label: Text(t.accounts.income),
-            child: formContent,
-          ),
-        ],
-      ),
+      child: isSubCategory
+          ? formContent
+          : FTabs(
+              control: FTabControl.lifted(
+                index: state.type == CategoryType.income ? 1 : 0,
+                onChange: (index) {
+                  notifier.setType(index == 1 ? CategoryType.income : CategoryType.expense);
+                },
+              ),
+              children: [
+                FTabEntry(
+                  label: Text(t.accounts.expense),
+                  child: formContent,
+                ),
+                FTabEntry(
+                  label: Text(t.accounts.income),
+                  child: formContent,
+                ),
+              ],
+            ),
     );
   }
 }
