@@ -14,6 +14,7 @@ import 'package:poka_ce/features/debts/presentation/widgets/forms/debt_form_shee
 import 'package:poka_ce/features/debts/presentation/widgets/forms/debt_repayment_sheet.dart';
 import 'package:poka_ce/features/transactions/presentation/widgets/tile/transaction_tile.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
+import 'package:poka_ce/shared/widgets/poka_empty_view.dart';
 import 'package:poka_ce/shared/widgets/poka_header.dart';
 import 'package:poka_ce/shared/widgets/poka_section_label.dart';
 import 'package:poka_ce/theme/theme.dart';
@@ -118,16 +119,9 @@ class DebtDetailPage extends ConsumerWidget {
             data: (transactions) {
               if (transactions.isEmpty) {
                 return SliverToBoxAdapter(
-                  child: Center(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 32),
-                      child: Text(
-                        t.debts.noHistoryFoundForThis(type: isPayable ? t.debts.payable : t.debts.receivable),
-                        style: context.theme.typography.bodyPrimary.copyWith(
-                          color: context.theme.colors.mutedForeground,
-                        ),
-                      ),
-                    ),
+                  child: PokaEmptyViewCentered(
+                    icon: FPhosphorIcons.receipt,
+                    title: t.debts.noHistoryFoundForThis(type: isPayable ? t.debts.payable : t.debts.receivable),
                   ),
                 );
               }

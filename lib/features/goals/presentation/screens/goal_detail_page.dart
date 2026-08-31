@@ -13,6 +13,7 @@ import 'package:poka_ce/features/goals/presentation/widgets/cards/goal_card.dart
 import 'package:poka_ce/features/goals/presentation/widgets/forms/goal_form_sheet.dart';
 import 'package:poka_ce/features/transactions/presentation/widgets/tile/transaction_tile.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
+import 'package:poka_ce/shared/widgets/poka_empty_view.dart';
 import 'package:poka_ce/shared/widgets/poka_header.dart';
 import 'package:poka_ce/shared/widgets/poka_section_label.dart';
 import 'package:poka_ce/theme/theme.dart';
@@ -113,16 +114,9 @@ class GoalDetailPage extends ConsumerWidget {
             data: (transactions) {
               if (transactions.isEmpty) {
                 return SliverToBoxAdapter(
-                  child: Center(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 32),
-                      child: Text(
-                        t.goals.noTransactionsFoundForThisGoal,
-                        style: context.theme.typography.bodyPrimary.copyWith(
-                          color: context.theme.colors.mutedForeground,
-                        ),
-                      ),
-                    ),
+                  child: PokaEmptyViewCentered(
+                    icon: FPhosphorIcons.receipt,
+                    title: t.goals.noTransactionsFoundForThisGoal,
                   ),
                 );
               }

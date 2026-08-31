@@ -16,6 +16,7 @@ import 'package:poka_ce/features/transactions/presentation/widgets/tile/transact
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/dialogs/poka_confirm_dialog.dart';
 import 'package:poka_ce/shared/widgets/poka_amount_text.dart';
+import 'package:poka_ce/shared/widgets/poka_empty_view.dart';
 import 'package:poka_ce/shared/widgets/poka_header.dart';
 import 'package:poka_ce/theme/theme.dart';
 
@@ -210,8 +211,7 @@ class TransactionListPage extends HookConsumerWidget {
 
                     // ── 3. Transaction groups OR empty state ──────────────
                     if (state.transactions.isEmpty && state.errorMessage == null)
-                      SliverFillRemaining(
-                        hasScrollBody: false,
+                      SliverToBoxAdapter(
                         child: _EmptyPeriod(
                           state: state,
                           onToday: notifier.goToToday,
@@ -641,44 +641,13 @@ class _EmptyPeriod extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.theme;
-
     return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(32),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              FPhosphorIcons.receipt,
-              size: 48,
-              color: theme.colors.mutedForeground,
-            ),
-            const SizedBox(height: 16),
-            Text(
-              t.transactions.noTransactions,
-              style: theme.typography.body.lg.copyWith(
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              t.transactions.nothingRecordedFor(period: state.periodLabel.toLowerCase()),
-              textAlign: TextAlign.center,
-              style: theme.typography.bodyPrimary.copyWith(
-                color: theme.colors.mutedForeground,
-              ),
-            ),
-            if (!state.isCurrentPeriod) ...[
-              const SizedBox(height: 20),
-              FButton(
-                variant: .outline,
-                onPress: onToday,
-                child: Text(t.transactions.goToToday),
-              ),
-            ],
-          ],
-        ),
+      child: PokaEmptyView(
+        icon: FPhosphorIcons.receipt,
+        title: t.transactions.noTransactions,
+        subtitle: t.transactions.nothingRecordedFor(period: state.periodLabel.toLowerCase()),
+        actionLabel: state.isCurrentPeriod ? null : t.transactions.goToToday,
+        onAction: state.isCurrentPeriod ? null : onToday,
       ),
     );
   }

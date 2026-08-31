@@ -9,6 +9,7 @@ import 'package:poka_ce/features/accounts/presentation/widgets/cards/account_min
 import 'package:poka_ce/features/accounts/presentation/widgets/forms/account_form_sheet.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/dialogs/poka_confirm_dialog.dart';
+import 'package:poka_ce/shared/widgets/poka_empty_view.dart';
 import 'package:poka_ce/shared/widgets/poka_section_label.dart';
 import 'package:poka_ce/theme/theme.dart';
 
@@ -55,30 +56,12 @@ class AccountPocketsSection extends HookConsumerWidget {
         ).animate().fade(duration: 300.ms, delay: 60.ms).slideY(begin: 0.05, end: 0),
         const SizedBox(height: 8),
         if (pockets.isEmpty)
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 24),
-            child: Center(
-              child: Column(
-                children: [
-                  Icon(FPhosphorIcons.wallet, size: 36, color: theme.colors.mutedForeground)
-                      .animate()
-                      .fade(duration: 300.ms, delay: 120.ms)
-                      .scale(begin: const Offset(0.8, 0.8), end: const Offset(1, 1), curve: Curves.easeOutBack),
-                  const SizedBox(height: 8),
-                  Text(
-                    t.accounts.noPocketsYet,
-                    style: theme.typography.body.md.copyWith(color: theme.colors.mutedForeground),
-                  ).animate().fade(duration: 300.ms, delay: 160.ms).slideY(begin: 0.1, end: 0),
-                  const SizedBox(height: 4),
-                  Text(
-                    t.accounts.pocketsHelpYouSplitYourWalletIntoCategories,
-                    textAlign: TextAlign.center,
-                    style: theme.typography.bodySecondary.copyWith(color: theme.colors.mutedForeground),
-                  ).animate().fade(duration: 300.ms, delay: 200.ms),
-                ],
-              ),
-            ),
-          )
+          PokaEmptyView(
+            icon: FPhosphorIcons.wallet,
+            title: t.accounts.noPocketsYet,
+            subtitle: t.accounts.pocketsHelpYouSplitYourWalletIntoCategories,
+            hasBorder: true,
+          ).animate().fade(duration: 300.ms, delay: 120.ms).slideY(begin: 0.05, end: 0)
         else
           ReorderableBuilder<Widget>(
             dragChildBoxDecoration: const BoxDecoration(),

@@ -7,6 +7,7 @@ import 'package:poka_ce/features/reports/domain/services/report_analytics_servic
 import 'package:poka_ce/features/reports/presentation/controllers/report_notifier.dart';
 import 'package:poka_ce/features/reports/presentation/widgets/tiles/category_item_tile.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
+import 'package:poka_ce/shared/widgets/poka_icon.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 /// Category breakdown with Expense / Income tab toggle.
@@ -89,15 +90,16 @@ class ReportCategoryChart extends HookConsumerWidget {
                         child: Center(
                           child: Column(
                             children: [
-                              Icon(
-                                FPhosphorIcons.chartPieSlice,
-                                size: 32,
-                                color: theme.colors.mutedForeground.withValues(alpha: 0.3),
+                              const PokaIcon(
+                                icon: FPhosphorIcons.chartPieSlice,
+                                shape: PokaIconShape.circle,
                               ),
-                              const SizedBox(height: 8),
+                              const SizedBox(height: 12),
                               Text(
                                 t.noData,
-                                style: theme.typography.bodyPrimary.copyWith(color: theme.colors.mutedForeground),
+                                style: theme.typography.bodyPrimary.copyWith(
+                                  color: theme.colors.mutedForeground,
+                                ),
                               ),
                             ],
                           ),

@@ -4,6 +4,7 @@ import 'package:poka_ce/core/extensions/num_extension.dart';
 import 'package:poka_ce/features/reports/presentation/controllers/report_notifier.dart';
 import 'package:poka_ce/features/reports/presentation/widgets/tiles/allocation_row_tile.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
+import 'package:poka_ce/shared/widgets/poka_empty_view.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 /// 50/30/20 rule spending allocation (Need / Want / Save).
@@ -23,6 +24,14 @@ class ReportSpendingAllocation extends ConsumerWidget {
     final wantColor = theme.colors.app.warning;
     final savingColor = theme.colors.app.success;
 
+    if (!hasData) {
+      return PokaEmptyView(
+        icon: FPhosphorIcons.chartPieSlice,
+        title: t.noData,
+        hasBorder: true,
+      );
+    }
+
     return FCard(
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -33,15 +42,12 @@ class ReportSpendingAllocation extends ConsumerWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                if (hasData)
-                  Text(
-                    '${t.total}: ${alloc.total.toCompactFormat()}',
-                    style: theme.typography.bodySecondary.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  )
-                else
-                  const SizedBox.shrink(),
+                Text(
+                  '${t.total}: ${alloc.total.toCompactFormat()}',
+                  style: theme.typography.bodySecondary.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                   decoration: BoxDecoration(
@@ -59,88 +65,61 @@ class ReportSpendingAllocation extends ConsumerWidget {
             const SizedBox(height: 16),
 
             // ── Stacked Horizontal Bar ─────────────────────────────────────
-            if (hasData)
-              ClipRRect(
-                borderRadius: BorderRadius.circular(6),
-                child: SizedBox(
-                  height: 12,
-                  child: Row(
-                    children: [
-                      if (alloc.needRatio > 0)
-                        Expanded(
-                          flex: (alloc.needRatio * 1000).toInt(),
-                          child: Container(color: needColor),
-                        ),
-                      if (alloc.wantRatio > 0)
-                        Expanded(
-                          flex: (alloc.wantRatio * 1000).toInt(),
-                          child: Container(color: wantColor),
-                        ),
-                      if (alloc.savingRatio > 0)
-                        Expanded(
-                          flex: (alloc.savingRatio * 1000).toInt(),
-                          child: Container(color: savingColor),
-                        ),
-                    ],
-                  ),
-                ),
-              ),
-            if (hasData) const SizedBox(height: 16),
-
-            // ── Allocation rows ─────────────────────────────────────
-            if (hasData)
-              Column(
-                children: [
-                  AllocationRowTile(
-                    label: t.needs,
-                    hint: t.percent50,
-                    amount: alloc.need,
-                    color: needColor,
-                    ratio: alloc.needRatio,
-                  ),
-                  const SizedBox(height: 10),
-                  AllocationRowTile(
-                    label: t.wants,
-                    hint: t.percent30,
-                    amount: alloc.want,
-                    color: wantColor,
-                    ratio: alloc.wantRatio,
-                  ),
-                  const SizedBox(height: 10),
-                  AllocationRowTile(
-                    label: t.savings,
-                    hint: t.percent20,
-                    amount: alloc.saving,
-                    color: savingColor,
-                    ratio: alloc.savingRatio,
-                  ),
-                ],
-              ),
-
-            // ── Empty state guidance ────────────────────────────────────
-            if (!hasData)
-              Container(
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: theme.colors.muted,
-                  borderRadius: theme.style.borderRadius.sm,
-                  border: Border.all(color: theme.colors.border.withValues(alpha: 0.4)),
-                ),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(6),
+              child: SizedBox(
+                height: 12,
                 child: Row(
                   children: [
-                    Icon(FPhosphorIcons.info, size: 14, color: theme.colors.mutedForeground),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: Text(
-                        t.noData,
-                        style: theme.typography.bodySecondary.copyWith(
-                          color: theme.colors.mutedForeground,
-                        ),
+                    if (alloc.needRatio > 0)
+                      Expanded(
+                        flex: (alloc.needRatio * 1000).toInt(),
+                        child: Container(color: needColor),
                       ),
-                    ),
+                    if (alloc.wantRatio > 0)
+                      Expanded(
+                        flex: (alloc.wantRatio * 1000).toInt(),
+                        child: Container(color: wantColor),
+                      ),
+                    if (alloc.savingRatio > 0)
+                      Expanded(
+                        flex: (alloc.savingRatio * 1000).toInt(),
+                        child: Container(color: savingColor),
+                      ),
                   ],
                 ),
               ),
+            ),
+            const SizedBox(height: 16),
+
+            // ── Allocation rows ─────────────────────────────────────
+            Column(
+              children: [
+                AllocationRowTile(
+                  label: t.needs,
+                  hint: t.percent50,
+                  amount: alloc.need,
+                  color: needColor,
+                  ratio: alloc.needRatio,
+                ),
+                const SizedBox(height: 10),
+                AllocationRowTile(
+                  label: t.wants,
+                  hint: t.percent30,
+                  amount: alloc.want,
+                  color: wantColor,
+                  ratio: alloc.wantRatio,
+                ),
+                const SizedBox(height: 10),
+                AllocationRowTile(
+                  label: t.savings,
+                  hint: t.percent20,
+                  amount: alloc.saving,
+                  color: savingColor,
+                  ratio: alloc.savingRatio,
+                ),
+              ],
+            ),
           ],
         ),
       ),

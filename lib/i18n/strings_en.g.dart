@@ -742,11 +742,11 @@ class Translations$debts$en {
 	/// en: 'No loans recorded'
 	String get noLoansRecorded => 'No loans recorded';
 
-	/// en: 'Track money you owe to others and log repayments.'
-	String get trackMoneyYouOweToOthersAndLogRepayments => 'Track money you owe to others and log repayments.';
+	/// en: 'Track money you owe to others and easily log all your repayments here.'
+	String get trackMoneyYouOweToOthersAndLogRepayments => 'Track money you owe to others and easily log all your repayments here.';
 
-	/// en: 'Track money others owe you and log collections.'
-	String get trackMoneyOthersOweYouAndLogCollections => 'Track money others owe you and log collections.';
+	/// en: 'Track money others owe you and easily log all your collections here.'
+	String get trackMoneyOthersOweYouAndLogCollections => 'Track money others owe you and easily log all your collections here.';
 }
 
 // Path: goals
@@ -1882,8 +1882,8 @@ extension on Translations {
 			'debts.receivable' => 'Receivable',
 			'debts.noDebtsRecorded' => 'No debts recorded',
 			'debts.noLoansRecorded' => 'No loans recorded',
-			'debts.trackMoneyYouOweToOthersAndLogRepayments' => 'Track money you owe to others and log repayments.',
-			'debts.trackMoneyOthersOweYouAndLogCollections' => 'Track money others owe you and log collections.',
+			'debts.trackMoneyYouOweToOthersAndLogRepayments' => 'Track money you owe to others and easily log all your repayments here.',
+			'debts.trackMoneyOthersOweYouAndLogCollections' => 'Track money others owe you and easily log all your collections here.',
 			'error.generic' => 'An unexpected error occurred',
 			'error.network' => 'Please check your connection and try again',
 			'error.database' => 'Failed to access local data',

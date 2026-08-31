@@ -6,6 +6,7 @@ import 'package:poka_ce/features/reports/presentation/controllers/report_notifie
 import 'package:poka_ce/features/reports/presentation/widgets/tiles/budget_item_tile.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/poka_amount_text.dart';
+import 'package:poka_ce/shared/widgets/poka_empty_view.dart';
 import 'package:poka_ce/theme/theme.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -36,11 +37,11 @@ class ReportBudgetUtilization extends ConsumerWidget {
     final t = context.t.reports;
 
     if (budgets.isEmpty) {
-      return FCard(
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: _EmptyBudgetsState(t: t),
-        ),
+      return PokaEmptyView(
+        icon: FPhosphorIcons.chartPieSlice,
+        title: t.noBudgets,
+        subtitle: t.noBudgetsDesc,
+        hasBorder: true,
       );
     }
 
@@ -179,38 +180,6 @@ class _ProgressBar extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-
-class _EmptyBudgetsState extends StatelessWidget {
-  const _EmptyBudgetsState({required this.t});
-  final dynamic t;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = context.theme;
-    return Column(
-      children: [
-        Icon(
-          FPhosphorIcons.chartPieSlice,
-          size: 32,
-          color: theme.colors.mutedForeground.withValues(alpha: 0.3),
-        ),
-        const SizedBox(height: 8),
-        Text(
-          context.t.reports.noBudgets,
-          style: theme.typography.titleCard,
-        ),
-        const SizedBox(height: 4),
-        Text(
-          context.t.reports.noBudgetsDesc,
-          style: theme.typography.bodySecondary.copyWith(color: theme.colors.mutedForeground),
-          textAlign: TextAlign.center,
-        ),
-      ],
     );
   }
 }

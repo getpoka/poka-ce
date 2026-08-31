@@ -51,7 +51,7 @@ class GoalListPage extends HookConsumerWidget {
         data: (_) {
           if (goalStates.isEmpty) {
             return Builder(
-              builder: (context) => PokaEmptyView(
+              builder: (context) => PokaEmptyViewCentered(
                 icon: FPhosphorIcons.piggyBank,
                 title: t.goals.noGoalsYet,
                 subtitle: t.goals.setSavingsTargetsADedicatedPocketIsCreatedAutomaticallyForEachGoal,

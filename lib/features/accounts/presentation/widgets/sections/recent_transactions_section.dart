@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poka_ce/app/router/router.dart';
 import 'package:poka_ce/features/accounts/presentation/widgets/account_transaction_list.dart';
 import 'package:poka_ce/features/transactions/domain/transaction_model.dart';
 import 'package:poka_ce/features/transactions/presentation/controllers/transaction_list_notifier.dart';
+import 'package:poka_ce/i18n/strings.g.dart';
+import 'package:poka_ce/shared/widgets/poka_empty_view.dart';
 import 'package:poka_ce/shared/widgets/poka_section_label.dart';
 import 'package:poka_ce/theme/theme.dart';
 
@@ -57,11 +60,18 @@ class RecentTransactionsSection extends HookConsumerWidget {
             ),
           ],
         ),
-        const SizedBox(height: 12),
-        AccountTransactionList(
-          accountId: accountId,
-          transactions: accountTransactions.take(10).toList(), // Show max 10
-        ),
+        const SizedBox(height: 8),
+        if (accountTransactions.isEmpty)
+          PokaEmptyView(
+            icon: FPhosphorIcons.receipt,
+            title: t.accounts.noTransactionsYet,
+            hasBorder: true,
+          ).animate().fade(duration: 300.ms, delay: 120.ms).slideY(begin: 0.05, end: 0)
+        else
+          AccountTransactionList(
+            accountId: accountId,
+            transactions: accountTransactions.take(10).toList(), // Show max 10
+          ),
       ],
     );
   }

@@ -36,7 +36,7 @@ class RecurringListPage extends ConsumerWidget {
           ? const Center(child: FCircularProgress())
           : state.recurrings.isEmpty
           ? Builder(
-              builder: (context) => PokaEmptyView(
+              builder: (context) => PokaEmptyViewCentered(
                 icon: FPhosphorIcons.repeat,
                 title: t.recurring.noRecurringTransactions,
                 subtitle: t.recurring.automateBillsLikeSubscriptionsOrSalary,
