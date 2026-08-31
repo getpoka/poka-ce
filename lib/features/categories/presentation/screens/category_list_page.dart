@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:forui/forui.dart';
 import 'package:forui_phosphor/forui_phosphor.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -10,15 +11,16 @@ import 'package:poka_ce/features/categories/presentation/widgets/views/category_
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/poka_header.dart';
 
-/// Main screen for managing all categories. 
+/// Main screen for managing all categories.
 /// Contains tabs for displaying Expense and Income categories.
-class CategoryListPage extends ConsumerWidget {
+class CategoryListPage extends HookConsumerWidget {
   const CategoryListPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(categoryListProvider);
     final categories = state.value ?? <CategoryModel>[];
+    final tabIndex = useState(0);
 
     // Only show parent categories
     final incomeCategories = categories.where((c) => c.type == CategoryType.income && c.parentId == null).toList();
@@ -32,7 +34,10 @@ class CategoryListPage extends ConsumerWidget {
           FHeaderAction(
             key: const Key('category-add-button'),
             icon: const Icon(FPhosphorIcons.plus, size: 20),
-            onPress: () => CategoryFormSheet.show(context),
+            onPress: () => CategoryFormSheet.show(
+              context,
+              initialType: tabIndex.value == 1 ? CategoryType.income : CategoryType.expense,
+            ),
           ),
         ],
       ),
@@ -43,6 +48,10 @@ class CategoryListPage extends ConsumerWidget {
             physics: const AlwaysScrollableScrollPhysics(),
             padding: EdgeInsets.zero,
             child: FTabs(
+              control: FTabControl.lifted(
+                index: tabIndex.value,
+                onChange: (index) => tabIndex.value = index,
+              ),
               children: [
                 FTabEntry(
                   label: Text(t.accounts.expense),

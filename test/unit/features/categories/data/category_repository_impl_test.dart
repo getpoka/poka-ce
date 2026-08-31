@@ -155,9 +155,9 @@ void main() {
     await repo.createCategory(mk('r2'));
     final c1 = (await repo.getCategoryById('r1')).fold((l) => l, (r) => throw Exception());
     final c2 = (await repo.getCategoryById('r2')).fold((l) => l, (r) => throw Exception());
-    
+
     await repo.reorderCategories([c2, c1]);
-    
+
     final allRes = await repo.getCategories();
     allRes.fold((v) {
       // It relies on DB order which might not be strictly sorted without an explicit ORDER BY in getCategories
