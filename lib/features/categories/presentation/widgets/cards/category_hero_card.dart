@@ -32,7 +32,7 @@ class CategoryHeroCard extends StatelessWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: theme.style.borderRadius.lg,
       ),
       padding: const EdgeInsets.all(24),
       child: Row(
@@ -41,7 +41,7 @@ class CategoryHeroCard extends StatelessWidget {
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
               color: Colors.white.withValues(alpha: 0.2),
-              borderRadius: BorderRadius.circular(14),
+              borderRadius: theme.style.borderRadius.md,
             ),
             child: Icon(parentIcon, color: Colors.white, size: 28),
           ),
