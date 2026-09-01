@@ -40,7 +40,7 @@ final class DebtFormProvider extends $NotifierProvider<DebtForm, DebtFormState> 
   }
 }
 
-String _$debtFormHash() => r'ba10f4464ecc29a9db93927f396bc56c4fbaf042';
+String _$debtFormHash() => r'e6608128d2a9bc26f2441a6248789ca2e8faab62';
 
 abstract class _$DebtForm extends $Notifier<DebtFormState> {
   DebtFormState build();

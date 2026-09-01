@@ -61,6 +61,14 @@ class DebtForm extends _$DebtForm {
   void setNote(String? note) => state = state.copyWith(note: note);
 
   Future<void> save() async {
+    if (state.personName.trim().isEmpty) {
+      state = state.copyWith(error: 'Person name cannot be empty', isSaving: false);
+      return;
+    }
+    if (state.amount <= 0) {
+      state = state.copyWith(error: 'Amount must be greater than 0', isSaving: false);
+      return;
+    }
     state = state.copyWith(
       isSaving: true,
       error: null,

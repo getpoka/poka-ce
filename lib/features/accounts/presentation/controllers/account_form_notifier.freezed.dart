@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$AccountFormState {
 
- AccountModel? get initialAccount; String get name; AccountType get type; int get balance; String? get icon; String? get color; String? get parentAccountId; bool get isActive; List<String> get restrictedCategoryIds; bool get isSaving; bool get isSuccess; String? get error;
+ AccountModel? get initialAccount; String get name; AccountType get type; int get balance; String? get icon; String? get color; String? get parentAccountId; bool get isActive; List<String> get restrictedCategoryIds; bool get isSaving; bool get isSuccess; String? get error; String? get nameError;
 /// Create a copy of AccountFormState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -27,20 +27,20 @@ $AccountFormStateCopyWith<AccountFormState> get copyWith => _$AccountFormStateCo
 @override
 bool operator ==(Object other) {
   final _this = this as AccountFormState;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AccountFormState&&(identical(other.initialAccount, _this.initialAccount) || other.initialAccount == _this.initialAccount)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.type, _this.type) || other.type == _this.type)&&(identical(other.balance, _this.balance) || other.balance == _this.balance)&&(identical(other.icon, _this.icon) || other.icon == _this.icon)&&(identical(other.color, _this.color) || other.color == _this.color)&&(identical(other.parentAccountId, _this.parentAccountId) || other.parentAccountId == _this.parentAccountId)&&(identical(other.isActive, _this.isActive) || other.isActive == _this.isActive)&&const DeepCollectionEquality().equals(other.restrictedCategoryIds, _this.restrictedCategoryIds)&&(identical(other.isSaving, _this.isSaving) || other.isSaving == _this.isSaving)&&(identical(other.isSuccess, _this.isSuccess) || other.isSuccess == _this.isSuccess)&&(identical(other.error, _this.error) || other.error == _this.error));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AccountFormState&&(identical(other.initialAccount, _this.initialAccount) || other.initialAccount == _this.initialAccount)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.type, _this.type) || other.type == _this.type)&&(identical(other.balance, _this.balance) || other.balance == _this.balance)&&(identical(other.icon, _this.icon) || other.icon == _this.icon)&&(identical(other.color, _this.color) || other.color == _this.color)&&(identical(other.parentAccountId, _this.parentAccountId) || other.parentAccountId == _this.parentAccountId)&&(identical(other.isActive, _this.isActive) || other.isActive == _this.isActive)&&const DeepCollectionEquality().equals(other.restrictedCategoryIds, _this.restrictedCategoryIds)&&(identical(other.isSaving, _this.isSaving) || other.isSaving == _this.isSaving)&&(identical(other.isSuccess, _this.isSuccess) || other.isSuccess == _this.isSuccess)&&(identical(other.error, _this.error) || other.error == _this.error)&&(identical(other.nameError, _this.nameError) || other.nameError == _this.nameError));
 }
 
 
 @override
 int get hashCode {
   final _this = this as AccountFormState;
-  return Object.hash(runtimeType,_this.initialAccount,_this.name,_this.type,_this.balance,_this.icon,_this.color,_this.parentAccountId,_this.isActive,const DeepCollectionEquality().hash(_this.restrictedCategoryIds),_this.isSaving,_this.isSuccess,_this.error);
+  return Object.hash(runtimeType,_this.initialAccount,_this.name,_this.type,_this.balance,_this.icon,_this.color,_this.parentAccountId,_this.isActive,const DeepCollectionEquality().hash(_this.restrictedCategoryIds),_this.isSaving,_this.isSuccess,_this.error,_this.nameError);
 }
 
 @override
 String toString() {
   final _this = this as AccountFormState;
-  return 'AccountFormState(initialAccount: ${_this.initialAccount}, name: ${_this.name}, type: ${_this.type}, balance: ${_this.balance}, icon: ${_this.icon}, color: ${_this.color}, parentAccountId: ${_this.parentAccountId}, isActive: ${_this.isActive}, restrictedCategoryIds: ${_this.restrictedCategoryIds}, isSaving: ${_this.isSaving}, isSuccess: ${_this.isSuccess}, error: ${_this.error})';
+  return 'AccountFormState(initialAccount: ${_this.initialAccount}, name: ${_this.name}, type: ${_this.type}, balance: ${_this.balance}, icon: ${_this.icon}, color: ${_this.color}, parentAccountId: ${_this.parentAccountId}, isActive: ${_this.isActive}, restrictedCategoryIds: ${_this.restrictedCategoryIds}, isSaving: ${_this.isSaving}, isSuccess: ${_this.isSuccess}, error: ${_this.error}, nameError: ${_this.nameError})';
 }
 
 
@@ -51,7 +51,7 @@ abstract mixin class $AccountFormStateCopyWith<$Res>  {
   factory $AccountFormStateCopyWith(AccountFormState value, $Res Function(AccountFormState) _then) = _$AccountFormStateCopyWithImpl;
 @useResult
 $Res call({
- AccountModel? initialAccount, String name, AccountType type, int balance, String? icon, String? color, String? parentAccountId, bool isActive, List<String> restrictedCategoryIds, bool isSaving, bool isSuccess, String? error
+ AccountModel? initialAccount, String name, AccountType type, int balance, String? icon, String? color, String? parentAccountId, bool isActive, List<String> restrictedCategoryIds, bool isSaving, bool isSuccess, String? error, String? nameError
 });
 
 
@@ -68,7 +68,7 @@ class _$AccountFormStateCopyWithImpl<$Res>
 
 /// Create a copy of AccountFormState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? initialAccount = freezed,Object? name = null,Object? type = null,Object? balance = null,Object? icon = freezed,Object? color = freezed,Object? parentAccountId = freezed,Object? isActive = null,Object? restrictedCategoryIds = null,Object? isSaving = null,Object? isSuccess = null,Object? error = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? initialAccount = freezed,Object? name = null,Object? type = null,Object? balance = null,Object? icon = freezed,Object? color = freezed,Object? parentAccountId = freezed,Object? isActive = null,Object? restrictedCategoryIds = null,Object? isSaving = null,Object? isSuccess = null,Object? error = freezed,Object? nameError = freezed,}) {
   return _then(AccountFormState(
 initialAccount: freezed == initialAccount ? _self.initialAccount : initialAccount // ignore: cast_nullable_to_non_nullable
 as AccountModel?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -82,6 +82,7 @@ as bool,restrictedCategoryIds: null == restrictedCategoryIds ? _self.restrictedC
 as List<String>,isSaving: null == isSaving ? _self.isSaving : isSaving // ignore: cast_nullable_to_non_nullable
 as bool,isSuccess: null == isSuccess ? _self.isSuccess : isSuccess // ignore: cast_nullable_to_non_nullable
 as bool,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
+as String?,nameError: freezed == nameError ? _self.nameError : nameError // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
@@ -179,10 +180,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( AccountModel? initialAccount,  String name,  AccountType type,  int balance,  String? icon,  String? color,  String? parentAccountId,  bool isActive,  List<String> restrictedCategoryIds,  bool isSaving,  bool isSuccess,  String? error)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( AccountModel? initialAccount,  String name,  AccountType type,  int balance,  String? icon,  String? color,  String? parentAccountId,  bool isActive,  List<String> restrictedCategoryIds,  bool isSaving,  bool isSuccess,  String? error,  String? nameError)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AccountFormState() when $default != null:
-return $default(_that.initialAccount,_that.name,_that.type,_that.balance,_that.icon,_that.color,_that.parentAccountId,_that.isActive,_that.restrictedCategoryIds,_that.isSaving,_that.isSuccess,_that.error);case _:
+return $default(_that.initialAccount,_that.name,_that.type,_that.balance,_that.icon,_that.color,_that.parentAccountId,_that.isActive,_that.restrictedCategoryIds,_that.isSaving,_that.isSuccess,_that.error,_that.nameError);case _:
   return orElse();
 
 }
@@ -200,10 +201,10 @@ return $default(_that.initialAccount,_that.name,_that.type,_that.balance,_that.i
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( AccountModel? initialAccount,  String name,  AccountType type,  int balance,  String? icon,  String? color,  String? parentAccountId,  bool isActive,  List<String> restrictedCategoryIds,  bool isSaving,  bool isSuccess,  String? error)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( AccountModel? initialAccount,  String name,  AccountType type,  int balance,  String? icon,  String? color,  String? parentAccountId,  bool isActive,  List<String> restrictedCategoryIds,  bool isSaving,  bool isSuccess,  String? error,  String? nameError)  $default,) {final _that = this;
 switch (_that) {
 case _AccountFormState():
-return $default(_that.initialAccount,_that.name,_that.type,_that.balance,_that.icon,_that.color,_that.parentAccountId,_that.isActive,_that.restrictedCategoryIds,_that.isSaving,_that.isSuccess,_that.error);case _:
+return $default(_that.initialAccount,_that.name,_that.type,_that.balance,_that.icon,_that.color,_that.parentAccountId,_that.isActive,_that.restrictedCategoryIds,_that.isSaving,_that.isSuccess,_that.error,_that.nameError);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -220,10 +221,10 @@ return $default(_that.initialAccount,_that.name,_that.type,_that.balance,_that.i
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( AccountModel? initialAccount,  String name,  AccountType type,  int balance,  String? icon,  String? color,  String? parentAccountId,  bool isActive,  List<String> restrictedCategoryIds,  bool isSaving,  bool isSuccess,  String? error)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( AccountModel? initialAccount,  String name,  AccountType type,  int balance,  String? icon,  String? color,  String? parentAccountId,  bool isActive,  List<String> restrictedCategoryIds,  bool isSaving,  bool isSuccess,  String? error,  String? nameError)?  $default,) {final _that = this;
 switch (_that) {
 case _AccountFormState() when $default != null:
-return $default(_that.initialAccount,_that.name,_that.type,_that.balance,_that.icon,_that.color,_that.parentAccountId,_that.isActive,_that.restrictedCategoryIds,_that.isSaving,_that.isSuccess,_that.error);case _:
+return $default(_that.initialAccount,_that.name,_that.type,_that.balance,_that.icon,_that.color,_that.parentAccountId,_that.isActive,_that.restrictedCategoryIds,_that.isSaving,_that.isSuccess,_that.error,_that.nameError);case _:
   return null;
 
 }
@@ -235,7 +236,7 @@ return $default(_that.initialAccount,_that.name,_that.type,_that.balance,_that.i
 
 
 class _AccountFormState implements AccountFormState {
-  const _AccountFormState({this.initialAccount, this.name = '', this.type = AccountType.assets, this.balance = 0, this.icon, this.color, this.parentAccountId, this.isActive = true,  List<String> restrictedCategoryIds = const [], this.isSaving = false, this.isSuccess = false, this.error}): _restrictedCategoryIds = restrictedCategoryIds;
+  const _AccountFormState({this.initialAccount, this.name = '', this.type = AccountType.assets, this.balance = 0, this.icon, this.color, this.parentAccountId, this.isActive = true,  List<String> restrictedCategoryIds = const [], this.isSaving = false, this.isSuccess = false, this.error, this.nameError}): _restrictedCategoryIds = restrictedCategoryIds;
   
 
 @override final  AccountModel? initialAccount;
@@ -256,6 +257,7 @@ class _AccountFormState implements AccountFormState {
 @override@JsonKey() final  bool isSaving;
 @override@JsonKey() final  bool isSuccess;
 @override final  String? error;
+@override final  String? nameError;
 
 /// Create a copy of AccountFormState
 /// with the given fields replaced by the non-null parameter values.
@@ -267,18 +269,18 @@ _$AccountFormStateCopyWith<_AccountFormState> get copyWith => __$AccountFormStat
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _AccountFormState&&(identical(other.initialAccount, initialAccount) || other.initialAccount == initialAccount)&&(identical(other.name, name) || other.name == name)&&(identical(other.type, type) || other.type == type)&&(identical(other.balance, balance) || other.balance == balance)&&(identical(other.icon, icon) || other.icon == icon)&&(identical(other.color, color) || other.color == color)&&(identical(other.parentAccountId, parentAccountId) || other.parentAccountId == parentAccountId)&&(identical(other.isActive, isActive) || other.isActive == isActive)&&const DeepCollectionEquality().equals(other.restrictedCategoryIds, _restrictedCategoryIds)&&(identical(other.isSaving, isSaving) || other.isSaving == isSaving)&&(identical(other.isSuccess, isSuccess) || other.isSuccess == isSuccess)&&(identical(other.error, error) || other.error == error));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _AccountFormState&&(identical(other.initialAccount, initialAccount) || other.initialAccount == initialAccount)&&(identical(other.name, name) || other.name == name)&&(identical(other.type, type) || other.type == type)&&(identical(other.balance, balance) || other.balance == balance)&&(identical(other.icon, icon) || other.icon == icon)&&(identical(other.color, color) || other.color == color)&&(identical(other.parentAccountId, parentAccountId) || other.parentAccountId == parentAccountId)&&(identical(other.isActive, isActive) || other.isActive == isActive)&&const DeepCollectionEquality().equals(other.restrictedCategoryIds, _restrictedCategoryIds)&&(identical(other.isSaving, isSaving) || other.isSaving == isSaving)&&(identical(other.isSuccess, isSuccess) || other.isSuccess == isSuccess)&&(identical(other.error, error) || other.error == error)&&(identical(other.nameError, nameError) || other.nameError == nameError));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,initialAccount,name,type,balance,icon,color,parentAccountId,isActive,const DeepCollectionEquality().hash(_restrictedCategoryIds),isSaving,isSuccess,error);
+    return Object.hash(runtimeType,initialAccount,name,type,balance,icon,color,parentAccountId,isActive,const DeepCollectionEquality().hash(_restrictedCategoryIds),isSaving,isSuccess,error,nameError);
 }
 
 @override
 String toString() {
-    return 'AccountFormState(initialAccount: $initialAccount, name: $name, type: $type, balance: $balance, icon: $icon, color: $color, parentAccountId: $parentAccountId, isActive: $isActive, restrictedCategoryIds: $restrictedCategoryIds, isSaving: $isSaving, isSuccess: $isSuccess, error: $error)';
+    return 'AccountFormState(initialAccount: $initialAccount, name: $name, type: $type, balance: $balance, icon: $icon, color: $color, parentAccountId: $parentAccountId, isActive: $isActive, restrictedCategoryIds: $restrictedCategoryIds, isSaving: $isSaving, isSuccess: $isSuccess, error: $error, nameError: $nameError)';
 }
 
 
@@ -289,7 +291,7 @@ abstract mixin class _$AccountFormStateCopyWith<$Res> implements $AccountFormSta
   factory _$AccountFormStateCopyWith(_AccountFormState value, $Res Function(_AccountFormState) _then) = __$AccountFormStateCopyWithImpl;
 @override @useResult
 $Res call({
- AccountModel? initialAccount, String name, AccountType type, int balance, String? icon, String? color, String? parentAccountId, bool isActive, List<String> restrictedCategoryIds, bool isSaving, bool isSuccess, String? error
+ AccountModel? initialAccount, String name, AccountType type, int balance, String? icon, String? color, String? parentAccountId, bool isActive, List<String> restrictedCategoryIds, bool isSaving, bool isSuccess, String? error, String? nameError
 });
 
 
@@ -306,7 +308,7 @@ class __$AccountFormStateCopyWithImpl<$Res>
 
 /// Create a copy of AccountFormState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? initialAccount = freezed,Object? name = null,Object? type = null,Object? balance = null,Object? icon = freezed,Object? color = freezed,Object? parentAccountId = freezed,Object? isActive = null,Object? restrictedCategoryIds = null,Object? isSaving = null,Object? isSuccess = null,Object? error = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? initialAccount = freezed,Object? name = null,Object? type = null,Object? balance = null,Object? icon = freezed,Object? color = freezed,Object? parentAccountId = freezed,Object? isActive = null,Object? restrictedCategoryIds = null,Object? isSaving = null,Object? isSuccess = null,Object? error = freezed,Object? nameError = freezed,}) {
   return _then(_AccountFormState(
 initialAccount: freezed == initialAccount ? _self.initialAccount : initialAccount // ignore: cast_nullable_to_non_nullable
 as AccountModel?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -320,6 +322,7 @@ as bool,restrictedCategoryIds: null == restrictedCategoryIds ? _self._restricted
 as List<String>,isSaving: null == isSaving ? _self.isSaving : isSaving // ignore: cast_nullable_to_non_nullable
 as bool,isSuccess: null == isSuccess ? _self.isSuccess : isSuccess // ignore: cast_nullable_to_non_nullable
 as bool,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
+as String?,nameError: freezed == nameError ? _self.nameError : nameError // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
