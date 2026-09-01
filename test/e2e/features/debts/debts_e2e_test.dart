@@ -33,7 +33,7 @@ void main() {
     await settle();
 
     // Fill the form
-    final textFields = find.byType(FTextField);
+    final textFields = find.byType(FTextFormField);
     // Person name
     await tester.ensureVisible(textFields.at(0));
     await tester.enterText(textFields.at(0), 'John Doe');
@@ -93,7 +93,7 @@ void main() {
     await settle();
 
     // Change Person Name
-    final editTextFields = find.byType(FTextField);
+    final editTextFields = find.byType(FTextFormField);
     await tester.ensureVisible(editTextFields.at(0));
     await tester.enterText(editTextFields.at(0), 'Jane Doe');
     await tester.pump(const Duration(milliseconds: 100));

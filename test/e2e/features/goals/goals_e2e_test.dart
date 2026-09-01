@@ -33,7 +33,7 @@ void main() {
     await settle();
 
     // Find text fields (0 = name, 1 = amount)
-    final textFields = find.byType(FTextField);
+    final textFields = find.byType(FTextFormField);
     await tester.enterText(textFields.at(0), 'My E2E Goal');
     await tester.enterText(textFields.at(1), '5000000');
     await settle();
@@ -64,7 +64,7 @@ void main() {
     await settle();
 
     // Edit text
-    final editTextFields = find.byType(FTextField);
+    final editTextFields = find.byType(FTextFormField);
     await tester.enterText(editTextFields.at(0), 'My E2E Goal Edited');
     await settle();
 

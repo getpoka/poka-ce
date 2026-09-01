@@ -218,7 +218,7 @@ class DebtFormSheet extends HookConsumerWidget {
               onClear: () => notifier.setDueDate(null),
             ),
             const SizedBox(height: 12),
-            FTextField(
+            FTextFormField(
               control: FTextFieldControl.managed(controller: noteController),
               label: const PokaFormLabel('Note', isOptional: true),
               hint: t.debts.egDinnerLastFriday,
