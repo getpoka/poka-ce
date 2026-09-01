@@ -64,16 +64,7 @@ class BudgetFormNotifier extends _$BudgetFormNotifier {
   void setAccountId(String? accountId) => state = state.copyWith(accountId: accountId);
 
   Future<void> save() async {
-    if (state.name.trim().isEmpty) {
-      state = state.copyWith(error: 'Name cannot be empty');
-      return;
-    }
-    if (state.amount <= 0) {
-      state = state.copyWith(error: 'Amount must be greater than 0');
-      return;
-    }
-
-    state = state.copyWith(isSaving: true, error: null);
+    state = state.copyWith(isSaving: true);
     final repo = ref.read(budgetRepositoryProvider);
 
     final now = DateTimeUtils.nowUtc();

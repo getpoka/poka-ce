@@ -92,6 +92,7 @@ class DebtFormSheet extends HookConsumerWidget {
     final selectedAccount = accounts.where((a) => a.id == state.accountId).firstOrNull;
 
     final isEditing = initialDebt != null;
+    final formKey = useMemoized(GlobalKey<FormState>.new);
 
     return PokaSheet(
       title: isEditing ? 'Edit Record' : 'New Record',
@@ -111,108 +112,132 @@ class DebtFormSheet extends HookConsumerWidget {
               ),
             )
           : null,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          DebtTypeSelector(
-            selected: state.type,
-            onChanged: isEditing ? null : notifier.setType,
-          ),
-          const SizedBox(height: 12),
-          FTextField(
-            control: FTextFieldControl.managed(controller: personController),
-            label: Text(t.debts.personName),
-            hint: t.debts.egJohnDoe,
-          ),
-          const SizedBox(height: 12),
-          FTextField(
-            control: FTextFieldControl.managed(controller: amountController),
-            label: Text(t.debts.principalAmount),
-            hint: '0',
-            keyboardType: TextInputType.number,
-          ),
-          const SizedBox(height: 12),
-          if (!isEditing) ...[
-            FLabel(
-              layout: FLabelLayout.vertical,
-              label: Text(t.debts.transactionBinding),
-              child: FCard(
-                child: Column(
-                  children: [
-                    DebtScopeTile(
-                      key: const Key('debt-category-selector'),
-                      icon: FPhosphorIcons.tag,
-                      label: t.debts.category,
-                      value: selectedCategory?.name ?? 'Select category',
-                      hasValue: selectedCategory != null,
-                      onTap: () async {
-                        final cat = await PokaCategorySelector.show(context, categories: categories);
-                        if (cat != null) notifier.setCategoryId(cat.id);
-                      },
+      child: Form(
+        key: formKey,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            DebtTypeSelector(
+              selected: state.type,
+              onChanged: isEditing ? null : notifier.setType,
+            ),
+            const SizedBox(height: 12),
+            FTextFormField(
+              control: FTextFieldControl.managed(controller: personController),
+              label: Text(t.debts.personName),
+              hint: t.debts.egJohnDoe,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              validator: (value) => value == null || value.trim().isEmpty ? 'Person name cannot be empty' : null,
+            ),
+            const SizedBox(height: 12),
+            FTextFormField(
+              control: FTextFieldControl.managed(controller: amountController),
+              label: Text(t.debts.principalAmount),
+              hint: '0',
+              keyboardType: TextInputType.number,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              validator: (value) {
+                final amount = int.tryParse(value ?? '');
+                if (amount == null || amount <= 0) return 'Amount must be greater than 0';
+                return null;
+              },
+            ),
+            const SizedBox(height: 12),
+            if (!isEditing) ...[
+              FormField<String>(
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                initialValue: state.categoryId.isEmpty ? null : state.categoryId,
+                validator: (value) => (value == null || value.isEmpty) ? 'Please select a category and account' : null,
+                builder: (fieldState) => FLabel(
+                  layout: FLabelLayout.vertical,
+                  label: Text(t.debts.transactionBinding),
+                  error: fieldState.hasError ? Text(fieldState.errorText!) : null,
+                  child: FCard(
+                    child: Column(
+                      children: [
+                        DebtScopeTile(
+                          key: const Key('debt-category-selector'),
+                          icon: FPhosphorIcons.tag,
+                          label: t.debts.category,
+                          value: selectedCategory?.name ?? 'Select category',
+                          hasValue: selectedCategory != null,
+                          onTap: () async {
+                            final cat = await PokaCategorySelector.show(context, categories: categories);
+                            if (cat != null) {
+                              notifier.setCategoryId(cat.id);
+                              fieldState.didChange(cat.id);
+                            }
+                          },
+                        ),
+                        Divider(height: 1, color: context.theme.colors.border),
+                        DebtScopeTile(
+                          key: const Key('debt-account-selector'),
+                          icon: FPhosphorIcons.wallet,
+                          label: t.debts.account,
+                          value: selectedAccount?.name ?? 'Select account',
+                          hasValue: selectedAccount != null,
+                          onTap: () async {
+                            final acc = await PokaPocketSelector.show(context, accounts: accounts);
+                            if (acc != null) notifier.setAccountId(acc.id);
+                          },
+                        ),
+                      ],
                     ),
-                    Divider(height: 1, color: context.theme.colors.border),
-                    DebtScopeTile(
-                      key: const Key('debt-account-selector'),
-                      icon: FPhosphorIcons.wallet,
-                      label: t.debts.account,
-                      value: selectedAccount?.name ?? 'Select account',
-                      hasValue: selectedAccount != null,
-                      onTap: () async {
-                        final acc = await PokaPocketSelector.show(context, accounts: accounts);
-                        if (acc != null) notifier.setAccountId(acc.id);
-                      },
+                  ),
+                ),
+              ),
+              const SizedBox(height: 12),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                decoration: BoxDecoration(
+                  color: context.theme.colors.muted,
+                  borderRadius: context.theme.style.borderRadius.sm,
+                ),
+                child: Row(
+                  children: [
+                    Icon(FPhosphorIcons.info, size: 14, color: context.theme.colors.mutedForeground),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        state.type == DebtType.debt
+                            ? 'Recording this debt adds money to the account (income transaction).'
+                            : 'Recording this loan removes money from the account (expense transaction).',
+                        style: context.theme.typography.bodySecondary.copyWith(
+                          color: context.theme.colors.mutedForeground,
+                        ),
+                      ),
                     ),
                   ],
                 ),
               ),
+              const SizedBox(height: 12),
+            ],
+            DebtDatePicker(
+              date: state.dueDate,
+              onChanged: notifier.setDueDate,
+              onClear: () => notifier.setDueDate(null),
             ),
             const SizedBox(height: 12),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-              decoration: BoxDecoration(
-                color: context.theme.colors.muted,
-                borderRadius: context.theme.style.borderRadius.sm,
-              ),
-              child: Row(
-                children: [
-                  Icon(FPhosphorIcons.info, size: 14, color: context.theme.colors.mutedForeground),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: Text(
-                      state.type == DebtType.debt
-                          ? 'Recording this debt adds money to the account (income transaction).'
-                          : 'Recording this loan removes money from the account (expense transaction).',
-                      style: context.theme.typography.bodySecondary.copyWith(
-                        color: context.theme.colors.mutedForeground,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+            FTextField(
+              control: FTextFieldControl.managed(controller: noteController),
+              label: const PokaFormLabel('Note', isOptional: true),
+              hint: t.debts.egDinnerLastFriday,
+              maxLines: 3,
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 20),
+            if (state.isSaving)
+              const Center(child: FCircularProgress())
+            else
+              FButton(
+                onPress: () {
+                  if (formKey.currentState!.validate()) {
+                    notifier.save();
+                  }
+                },
+                child: Text(isEditing ? 'Save Changes' : 'Create Record'),
+              ),
           ],
-          DebtDatePicker(
-            date: state.dueDate,
-            onChanged: notifier.setDueDate,
-            onClear: () => notifier.setDueDate(null),
-          ),
-          const SizedBox(height: 12),
-          FTextField(
-            control: FTextFieldControl.managed(controller: noteController),
-            label: const PokaFormLabel('Note', isOptional: true),
-            hint: t.debts.egDinnerLastFriday,
-            maxLines: 3,
-          ),
-          const SizedBox(height: 20),
-          if (state.isSaving)
-            const Center(child: FCircularProgress())
-          else
-            FButton(
-              onPress: notifier.save,
-              child: Text(isEditing ? 'Save Changes' : 'Create Record'),
-            ),
-        ],
+        ),
       ),
     );
   }

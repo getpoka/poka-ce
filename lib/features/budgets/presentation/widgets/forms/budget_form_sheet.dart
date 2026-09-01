@@ -112,119 +112,135 @@ class BudgetFormSheet extends HookConsumerWidget {
     final selectedCategory = allCategories.where((c) => c.id == state.categoryId).firstOrNull;
 
     final isEditing = initialBudget != null;
+    final formKey = useMemoized(GlobalKey<FormState>.new);
 
     return PokaSheet(
       title: isEditing ? 'Edit Budget' : 'New Budget',
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          FTextField(
-            control: FTextFieldControl.managed(controller: nameController),
-            label: Text(t.budgets.budgetName),
-            hint: t.budgets.egGroceriesEntertainment,
-          ),
-          const SizedBox(height: 12),
-          FTextField(
-            control: FTextFieldControl.managed(controller: amountController),
-            label: Text(t.budgets.spendingLimit),
-            hint: '0',
-            keyboardType: TextInputType.number,
-          ),
-          const SizedBox(height: 12),
-          FTextField(
-            control: FTextFieldControl.managed(controller: alertThresholdController),
-            label: const PokaFormLabel('Alert threshold (%)', isOptional: true),
-            hint: t.budgets.eg80,
-            keyboardType: TextInputType.number,
-          ),
-          const SizedBox(height: 12),
-          FLabel(
-            layout: FLabelLayout.vertical,
-            label: Text(t.budgets.period),
-            child: PeriodSelector(
-              selected: state.period,
-              onChanged: notifier.setPeriod,
+      child: Form(
+        key: formKey,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            FTextFormField(
+              control: FTextFieldControl.managed(controller: nameController),
+              label: Text(t.budgets.budgetName),
+              hint: t.budgets.egGroceriesEntertainment,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              validator: (value) => value == null || value.trim().isEmpty ? 'Name cannot be empty' : null,
             ),
-          ),
-          const SizedBox(height: 12),
-          if (state.period == BudgetPeriod.monthly) ...[
-            FTextField(
-              control: FTextFieldControl.managed(controller: resetDayController),
-              label: Text(t.budgets.resetDay),
-              hint: '1',
+            const SizedBox(height: 12),
+            FTextFormField(
+              control: FTextFieldControl.managed(controller: amountController),
+              label: Text(t.budgets.spendingLimit),
+              hint: '0',
+              keyboardType: TextInputType.number,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              validator: (value) {
+                final amount = int.tryParse(value ?? '');
+                if (amount == null || amount <= 0) return 'Amount must be greater than 0';
+                return null;
+              },
+            ),
+            const SizedBox(height: 12),
+            FTextFormField(
+              control: FTextFieldControl.managed(controller: alertThresholdController),
+              label: const PokaFormLabel('Alert threshold (%)', isOptional: true),
+              hint: t.budgets.eg80,
               keyboardType: TextInputType.number,
             ),
             const SizedBox(height: 12),
-          ],
-          if (state.period == BudgetPeriod.custom) ...[
-            DatePickerButton(
-              date: state.endDate,
-              onChanged: notifier.setEndDate,
-            ),
-            const SizedBox(height: 12),
-          ],
-          FLabel(
-            layout: FLabelLayout.vertical,
-            label: const PokaFormLabel('Scope', isOptional: true),
-            child: FCard(
-              child: Column(
-                children: [
-                  ScopeTile(
-                    defaultIcon: FPhosphorIcons.tag,
-                    prefixWidget: selectedCategory != null
-                        ? PokaIcon(
-                            icon: IconUtil.getIcon(selectedCategory.icon),
-                            color: selectedCategory.color?.toColor() ?? context.theme.colors.primary,
-                            size: PokaIconSize.small,
-                            useThemeBorderColor: true,
-                          )
-                        : null,
-                    label: t.budgets.category,
-                    value: selectedCategory?.name ?? 'Any category',
-                    hasValue: selectedCategory != null,
-                    onClear: () => notifier.setCategoryId(null),
-                    onTap: () async {
-                      final cat = await PokaCategorySelector.show(context, categories: expenseCategories);
-                      if (cat != null) {
-                        notifier.setCategoryId(cat.id);
-                      }
-                    },
-                  ),
-                  Divider(height: 1, color: context.theme.colors.border),
-                  ScopeTile(
-                    defaultIcon: FPhosphorIcons.wallet,
-                    prefixWidget: selectedAccount != null
-                        ? PokaIcon(
-                            icon: IconUtil.getIcon(selectedAccount.icon),
-                            color: selectedAccount.color?.toColor() ?? context.theme.colors.primary,
-                            size: PokaIconSize.small,
-                            useThemeBorderColor: true,
-                          )
-                        : null,
-                    label: t.budgets.account,
-                    value: selectedAccount?.name ?? 'Any account',
-                    hasValue: selectedAccount != null,
-                    onClear: () => notifier.setAccountId(null),
-                    onTap: () async {
-                      final acc = await PokaPocketSelector.show(context, accounts: budgetAccounts);
-                      if (acc != null) {
-                        notifier.setAccountId(acc.id);
-                      }
-                    },
-                  ),
-                ],
+            FLabel(
+              layout: FLabelLayout.vertical,
+              label: Text(t.budgets.period),
+              child: PeriodSelector(
+                selected: state.period,
+                onChanged: notifier.setPeriod,
               ),
             ),
-          ),
-          const SizedBox(height: 20),
-          if (state.isSaving)
-            const Center(child: FCircularProgress())
-          else
-            FButton(
-              onPress: notifier.save,
-              child: Text(isEditing ? 'Save Changes' : 'Create Budget'),
+            const SizedBox(height: 12),
+            if (state.period == BudgetPeriod.monthly) ...[
+              FTextFormField(
+                control: FTextFieldControl.managed(controller: resetDayController),
+                label: Text(t.budgets.resetDay),
+                hint: '1',
+                keyboardType: TextInputType.number,
+              ),
+              const SizedBox(height: 12),
+            ],
+            if (state.period == BudgetPeriod.custom) ...[
+              DatePickerButton(
+                date: state.endDate,
+                onChanged: notifier.setEndDate,
+              ),
+              const SizedBox(height: 12),
+            ],
+            FLabel(
+              layout: FLabelLayout.vertical,
+              label: const PokaFormLabel('Scope', isOptional: true),
+              child: FCard(
+                child: Column(
+                  children: [
+                    ScopeTile(
+                      defaultIcon: FPhosphorIcons.tag,
+                      prefixWidget: selectedCategory != null
+                          ? PokaIcon(
+                              icon: IconUtil.getIcon(selectedCategory.icon),
+                              color: selectedCategory.color?.toColor() ?? context.theme.colors.primary,
+                              size: PokaIconSize.small,
+                              useThemeBorderColor: true,
+                            )
+                          : null,
+                      label: t.budgets.category,
+                      value: selectedCategory?.name ?? 'Any category',
+                      hasValue: selectedCategory != null,
+                      onClear: () => notifier.setCategoryId(null),
+                      onTap: () async {
+                        final cat = await PokaCategorySelector.show(context, categories: expenseCategories);
+                        if (cat != null) {
+                          notifier.setCategoryId(cat.id);
+                        }
+                      },
+                    ),
+                    Divider(height: 1, color: context.theme.colors.border),
+                    ScopeTile(
+                      defaultIcon: FPhosphorIcons.wallet,
+                      prefixWidget: selectedAccount != null
+                          ? PokaIcon(
+                              icon: IconUtil.getIcon(selectedAccount.icon),
+                              color: selectedAccount.color?.toColor() ?? context.theme.colors.primary,
+                              size: PokaIconSize.small,
+                              useThemeBorderColor: true,
+                            )
+                          : null,
+                      label: t.budgets.account,
+                      value: selectedAccount?.name ?? 'Any account',
+                      hasValue: selectedAccount != null,
+                      onClear: () => notifier.setAccountId(null),
+                      onTap: () async {
+                        final acc = await PokaPocketSelector.show(context, accounts: budgetAccounts);
+                        if (acc != null) {
+                          notifier.setAccountId(acc.id);
+                        }
+                      },
+                    ),
+                  ],
+                ),
+              ),
             ),
-        ],
+            const SizedBox(height: 20),
+            if (state.isSaving)
+              const Center(child: FCircularProgress())
+            else
+              FButton(
+                onPress: () {
+                  if (formKey.currentState!.validate()) {
+                    notifier.save();
+                  }
+                },
+                child: Text(isEditing ? 'Save Changes' : 'Create Budget'),
+              ),
+          ],
+        ),
       ),
     );
   }

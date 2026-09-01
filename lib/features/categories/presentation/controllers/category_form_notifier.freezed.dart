@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$CategoryFormState {
 
- CategoryModel? get initialCategory; String get name; CategoryType get type; String? get icon; String? get color; String? get parentId; bool get isSaving; bool get isSuccess; String? get error; String? get nameError;
+ CategoryModel? get initialCategory; String get name; CategoryType get type; String? get icon; String? get color; String? get parentId; bool get isSaving; bool get isSuccess; String? get error;
 /// Create a copy of CategoryFormState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -27,20 +27,20 @@ $CategoryFormStateCopyWith<CategoryFormState> get copyWith => _$CategoryFormStat
 @override
 bool operator ==(Object other) {
   final _this = this as CategoryFormState;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CategoryFormState&&(identical(other.initialCategory, _this.initialCategory) || other.initialCategory == _this.initialCategory)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.type, _this.type) || other.type == _this.type)&&(identical(other.icon, _this.icon) || other.icon == _this.icon)&&(identical(other.color, _this.color) || other.color == _this.color)&&(identical(other.parentId, _this.parentId) || other.parentId == _this.parentId)&&(identical(other.isSaving, _this.isSaving) || other.isSaving == _this.isSaving)&&(identical(other.isSuccess, _this.isSuccess) || other.isSuccess == _this.isSuccess)&&(identical(other.error, _this.error) || other.error == _this.error)&&(identical(other.nameError, _this.nameError) || other.nameError == _this.nameError));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CategoryFormState&&(identical(other.initialCategory, _this.initialCategory) || other.initialCategory == _this.initialCategory)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.type, _this.type) || other.type == _this.type)&&(identical(other.icon, _this.icon) || other.icon == _this.icon)&&(identical(other.color, _this.color) || other.color == _this.color)&&(identical(other.parentId, _this.parentId) || other.parentId == _this.parentId)&&(identical(other.isSaving, _this.isSaving) || other.isSaving == _this.isSaving)&&(identical(other.isSuccess, _this.isSuccess) || other.isSuccess == _this.isSuccess)&&(identical(other.error, _this.error) || other.error == _this.error));
 }
 
 
 @override
 int get hashCode {
   final _this = this as CategoryFormState;
-  return Object.hash(runtimeType,_this.initialCategory,_this.name,_this.type,_this.icon,_this.color,_this.parentId,_this.isSaving,_this.isSuccess,_this.error,_this.nameError);
+  return Object.hash(runtimeType,_this.initialCategory,_this.name,_this.type,_this.icon,_this.color,_this.parentId,_this.isSaving,_this.isSuccess,_this.error);
 }
 
 @override
 String toString() {
   final _this = this as CategoryFormState;
-  return 'CategoryFormState(initialCategory: ${_this.initialCategory}, name: ${_this.name}, type: ${_this.type}, icon: ${_this.icon}, color: ${_this.color}, parentId: ${_this.parentId}, isSaving: ${_this.isSaving}, isSuccess: ${_this.isSuccess}, error: ${_this.error}, nameError: ${_this.nameError})';
+  return 'CategoryFormState(initialCategory: ${_this.initialCategory}, name: ${_this.name}, type: ${_this.type}, icon: ${_this.icon}, color: ${_this.color}, parentId: ${_this.parentId}, isSaving: ${_this.isSaving}, isSuccess: ${_this.isSuccess}, error: ${_this.error})';
 }
 
 
@@ -51,7 +51,7 @@ abstract mixin class $CategoryFormStateCopyWith<$Res>  {
   factory $CategoryFormStateCopyWith(CategoryFormState value, $Res Function(CategoryFormState) _then) = _$CategoryFormStateCopyWithImpl;
 @useResult
 $Res call({
- CategoryModel? initialCategory, String name, CategoryType type, String? icon, String? color, String? parentId, bool isSaving, bool isSuccess, String? error, String? nameError
+ CategoryModel? initialCategory, String name, CategoryType type, String? icon, String? color, String? parentId, bool isSaving, bool isSuccess, String? error
 });
 
 
@@ -68,7 +68,7 @@ class _$CategoryFormStateCopyWithImpl<$Res>
 
 /// Create a copy of CategoryFormState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? initialCategory = freezed,Object? name = null,Object? type = null,Object? icon = freezed,Object? color = freezed,Object? parentId = freezed,Object? isSaving = null,Object? isSuccess = null,Object? error = freezed,Object? nameError = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? initialCategory = freezed,Object? name = null,Object? type = null,Object? icon = freezed,Object? color = freezed,Object? parentId = freezed,Object? isSaving = null,Object? isSuccess = null,Object? error = freezed,}) {
   return _then(CategoryFormState(
 initialCategory: freezed == initialCategory ? _self.initialCategory : initialCategory // ignore: cast_nullable_to_non_nullable
 as CategoryModel?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -79,7 +79,6 @@ as String?,parentId: freezed == parentId ? _self.parentId : parentId // ignore: 
 as String?,isSaving: null == isSaving ? _self.isSaving : isSaving // ignore: cast_nullable_to_non_nullable
 as bool,isSuccess: null == isSuccess ? _self.isSuccess : isSuccess // ignore: cast_nullable_to_non_nullable
 as bool,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
-as String?,nameError: freezed == nameError ? _self.nameError : nameError // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
@@ -177,10 +176,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( CategoryModel? initialCategory,  String name,  CategoryType type,  String? icon,  String? color,  String? parentId,  bool isSaving,  bool isSuccess,  String? error,  String? nameError)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( CategoryModel? initialCategory,  String name,  CategoryType type,  String? icon,  String? color,  String? parentId,  bool isSaving,  bool isSuccess,  String? error)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CategoryFormState() when $default != null:
-return $default(_that.initialCategory,_that.name,_that.type,_that.icon,_that.color,_that.parentId,_that.isSaving,_that.isSuccess,_that.error,_that.nameError);case _:
+return $default(_that.initialCategory,_that.name,_that.type,_that.icon,_that.color,_that.parentId,_that.isSaving,_that.isSuccess,_that.error);case _:
   return orElse();
 
 }
@@ -198,10 +197,10 @@ return $default(_that.initialCategory,_that.name,_that.type,_that.icon,_that.col
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( CategoryModel? initialCategory,  String name,  CategoryType type,  String? icon,  String? color,  String? parentId,  bool isSaving,  bool isSuccess,  String? error,  String? nameError)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( CategoryModel? initialCategory,  String name,  CategoryType type,  String? icon,  String? color,  String? parentId,  bool isSaving,  bool isSuccess,  String? error)  $default,) {final _that = this;
 switch (_that) {
 case _CategoryFormState():
-return $default(_that.initialCategory,_that.name,_that.type,_that.icon,_that.color,_that.parentId,_that.isSaving,_that.isSuccess,_that.error,_that.nameError);case _:
+return $default(_that.initialCategory,_that.name,_that.type,_that.icon,_that.color,_that.parentId,_that.isSaving,_that.isSuccess,_that.error);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -218,10 +217,10 @@ return $default(_that.initialCategory,_that.name,_that.type,_that.icon,_that.col
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( CategoryModel? initialCategory,  String name,  CategoryType type,  String? icon,  String? color,  String? parentId,  bool isSaving,  bool isSuccess,  String? error,  String? nameError)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( CategoryModel? initialCategory,  String name,  CategoryType type,  String? icon,  String? color,  String? parentId,  bool isSaving,  bool isSuccess,  String? error)?  $default,) {final _that = this;
 switch (_that) {
 case _CategoryFormState() when $default != null:
-return $default(_that.initialCategory,_that.name,_that.type,_that.icon,_that.color,_that.parentId,_that.isSaving,_that.isSuccess,_that.error,_that.nameError);case _:
+return $default(_that.initialCategory,_that.name,_that.type,_that.icon,_that.color,_that.parentId,_that.isSaving,_that.isSuccess,_that.error);case _:
   return null;
 
 }
@@ -233,7 +232,7 @@ return $default(_that.initialCategory,_that.name,_that.type,_that.icon,_that.col
 
 
 class _CategoryFormState implements CategoryFormState {
-  const _CategoryFormState({this.initialCategory, this.name = '', this.type = CategoryType.expense, this.icon, this.color, this.parentId, this.isSaving = false, this.isSuccess = false, this.error, this.nameError});
+  const _CategoryFormState({this.initialCategory, this.name = '', this.type = CategoryType.expense, this.icon, this.color, this.parentId, this.isSaving = false, this.isSuccess = false, this.error});
   
 
 @override final  CategoryModel? initialCategory;
@@ -245,7 +244,6 @@ class _CategoryFormState implements CategoryFormState {
 @override@JsonKey() final  bool isSaving;
 @override@JsonKey() final  bool isSuccess;
 @override final  String? error;
-@override final  String? nameError;
 
 /// Create a copy of CategoryFormState
 /// with the given fields replaced by the non-null parameter values.
@@ -257,18 +255,18 @@ _$CategoryFormStateCopyWith<_CategoryFormState> get copyWith => __$CategoryFormS
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _CategoryFormState&&(identical(other.initialCategory, initialCategory) || other.initialCategory == initialCategory)&&(identical(other.name, name) || other.name == name)&&(identical(other.type, type) || other.type == type)&&(identical(other.icon, icon) || other.icon == icon)&&(identical(other.color, color) || other.color == color)&&(identical(other.parentId, parentId) || other.parentId == parentId)&&(identical(other.isSaving, isSaving) || other.isSaving == isSaving)&&(identical(other.isSuccess, isSuccess) || other.isSuccess == isSuccess)&&(identical(other.error, error) || other.error == error)&&(identical(other.nameError, nameError) || other.nameError == nameError));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _CategoryFormState&&(identical(other.initialCategory, initialCategory) || other.initialCategory == initialCategory)&&(identical(other.name, name) || other.name == name)&&(identical(other.type, type) || other.type == type)&&(identical(other.icon, icon) || other.icon == icon)&&(identical(other.color, color) || other.color == color)&&(identical(other.parentId, parentId) || other.parentId == parentId)&&(identical(other.isSaving, isSaving) || other.isSaving == isSaving)&&(identical(other.isSuccess, isSuccess) || other.isSuccess == isSuccess)&&(identical(other.error, error) || other.error == error));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,initialCategory,name,type,icon,color,parentId,isSaving,isSuccess,error,nameError);
+    return Object.hash(runtimeType,initialCategory,name,type,icon,color,parentId,isSaving,isSuccess,error);
 }
 
 @override
 String toString() {
-    return 'CategoryFormState(initialCategory: $initialCategory, name: $name, type: $type, icon: $icon, color: $color, parentId: $parentId, isSaving: $isSaving, isSuccess: $isSuccess, error: $error, nameError: $nameError)';
+    return 'CategoryFormState(initialCategory: $initialCategory, name: $name, type: $type, icon: $icon, color: $color, parentId: $parentId, isSaving: $isSaving, isSuccess: $isSuccess, error: $error)';
 }
 
 
@@ -279,7 +277,7 @@ abstract mixin class _$CategoryFormStateCopyWith<$Res> implements $CategoryFormS
   factory _$CategoryFormStateCopyWith(_CategoryFormState value, $Res Function(_CategoryFormState) _then) = __$CategoryFormStateCopyWithImpl;
 @override @useResult
 $Res call({
- CategoryModel? initialCategory, String name, CategoryType type, String? icon, String? color, String? parentId, bool isSaving, bool isSuccess, String? error, String? nameError
+ CategoryModel? initialCategory, String name, CategoryType type, String? icon, String? color, String? parentId, bool isSaving, bool isSuccess, String? error
 });
 
 
@@ -296,7 +294,7 @@ class __$CategoryFormStateCopyWithImpl<$Res>
 
 /// Create a copy of CategoryFormState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? initialCategory = freezed,Object? name = null,Object? type = null,Object? icon = freezed,Object? color = freezed,Object? parentId = freezed,Object? isSaving = null,Object? isSuccess = null,Object? error = freezed,Object? nameError = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? initialCategory = freezed,Object? name = null,Object? type = null,Object? icon = freezed,Object? color = freezed,Object? parentId = freezed,Object? isSaving = null,Object? isSuccess = null,Object? error = freezed,}) {
   return _then(_CategoryFormState(
 initialCategory: freezed == initialCategory ? _self.initialCategory : initialCategory // ignore: cast_nullable_to_non_nullable
 as CategoryModel?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -307,7 +305,6 @@ as String?,parentId: freezed == parentId ? _self.parentId : parentId // ignore: 
 as String?,isSaving: null == isSaving ? _self.isSaving : isSaving // ignore: cast_nullable_to_non_nullable
 as bool,isSuccess: null == isSuccess ? _self.isSuccess : isSuccess // ignore: cast_nullable_to_non_nullable
 as bool,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
-as String?,nameError: freezed == nameError ? _self.nameError : nameError // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }

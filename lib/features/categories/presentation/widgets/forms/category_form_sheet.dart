@@ -85,50 +85,62 @@ class CategoryFormSheet extends HookConsumerWidget {
 
     final isSubCategory = parentId != null || initialCategory?.parentId != null;
 
-    final formContent = Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        FTextField(
-          control: FTextFieldControl.managed(controller: nameController),
-          label: Text(t.categories.categoryName),
-          hint: t.categories.egFoodDining,
-          error: state.nameError != null ? Text(state.nameError!) : null,
-        ),
-        const SizedBox(height: 12),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            FLabel(
-              layout: FLabelLayout.vertical,
-              label: Text(t.accounts.icon),
-              child: CategoryIconPickerButton(
-                selectedIcon: state.icon,
-                selectedColor: state.color,
-                onIconSelected: notifier.setIcon,
-              ),
-            ),
-            const SizedBox(width: 20),
-            Expanded(
-              child: FLabel(
+    final formKey = useMemoized(GlobalKey<FormState>.new);
+
+    final formContent = Form(
+      key: formKey,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          FTextFormField(
+            control: FTextFieldControl.managed(controller: nameController),
+            label: Text(t.categories.categoryName),
+            hint: t.categories.egFoodDining,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            validator: (value) => value == null || value.trim().isEmpty ? t.accounts.nameCannotBeEmpty : null,
+          ),
+          const SizedBox(height: 12),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              FLabel(
                 layout: FLabelLayout.vertical,
-                label: Text(t.accounts.color),
-                child: PokaColorPicker(
+                label: Text(t.accounts.icon),
+                child: CategoryIconPickerButton(
+                  selectedIcon: state.icon,
                   selectedColor: state.color,
-                  onColorSelected: notifier.setColor,
+                  onIconSelected: notifier.setIcon,
                 ),
               ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 20),
-        FButton(
-          mainAxisSize: MainAxisSize.min,
-          onPress: state.isSaving ? null : notifier.save,
-          prefix: state.isSaving ? const FCircularProgress() : null,
-          child: Text(state.isSaving ? 'Please wait' : (isSubCategory ? 'Save Sub Category' : 'Save Category')),
-        ),
-      ],
+              const SizedBox(width: 20),
+              Expanded(
+                child: FLabel(
+                  layout: FLabelLayout.vertical,
+                  label: Text(t.accounts.color),
+                  child: PokaColorPicker(
+                    selectedColor: state.color,
+                    onColorSelected: notifier.setColor,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 20),
+          FButton(
+            mainAxisSize: MainAxisSize.min,
+            onPress: state.isSaving
+                ? null
+                : () {
+                    if (formKey.currentState!.validate()) {
+                      notifier.save();
+                    }
+                  },
+            prefix: state.isSaving ? const FCircularProgress() : null,
+            child: Text(state.isSaving ? 'Please wait' : (isSubCategory ? 'Save Sub Category' : 'Save Category')),
+          ),
+        ],
+      ),
     );
 
     final String title;

@@ -75,76 +75,92 @@ class GoalFormSheet extends HookConsumerWidget {
     });
 
     final isEditing = initialGoal != null;
+    final formKey = useMemoized(GlobalKey<FormState>.new);
 
     return PokaSheet(
       title: isEditing ? 'Edit Goal' : 'New Goal',
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          // ── Goal name ────────────────────────────────────────────
-          FTextField(
-            control: FTextFieldControl.managed(controller: nameController),
-            label: Text(t.goals.goalName),
-            hint: t.goals.egEmergencyFundNewLaptop,
-          ),
-          const SizedBox(height: 12),
+      child: Form(
+        key: formKey,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // ── Goal name ────────────────────────────────────────────
+            FTextFormField(
+              control: FTextFieldControl.managed(controller: nameController),
+              label: Text(t.goals.goalName),
+              hint: t.goals.egEmergencyFundNewLaptop,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              validator: (value) => value == null || value.trim().isEmpty ? 'Name cannot be empty' : null,
+            ),
+            const SizedBox(height: 12),
 
-          // ── Target amount ────────────────────────────────────────────
-          FTextField(
-            control: FTextFieldControl.managed(controller: amountController),
-            label: Text(t.goals.targetAmount),
-            hint: '0',
-            keyboardType: TextInputType.number,
-          ),
-          const SizedBox(height: 12),
+            // ── Target amount ────────────────────────────────────────────
+            FTextFormField(
+              control: FTextFieldControl.managed(controller: amountController),
+              label: Text(t.goals.targetAmount),
+              hint: '0',
+              keyboardType: TextInputType.number,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              validator: (value) {
+                final amount = int.tryParse(value ?? '');
+                if (amount == null || amount <= 0) return 'Target amount must be greater than 0';
+                return null;
+              },
+            ),
+            const SizedBox(height: 12),
 
-          // ── Target date (optional) ───────────────────────────────────────
-          GoalDatePickerTile(
-            date: state.targetDate,
-            onChanged: notifier.setTargetDate,
-            onClear: () => notifier.setTargetDate(null),
-          ),
-          const SizedBox(height: 12),
+            // ── Target date (optional) ───────────────────────────────────────
+            GoalDatePickerTile(
+              date: state.targetDate,
+              onChanged: notifier.setTargetDate,
+              onClear: () => notifier.setTargetDate(null),
+            ),
+            const SizedBox(height: 12),
 
-          // ── Info note about auto pocket ──────────────────────────────────
-          if (!isEditing)
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: context.theme.colors.muted,
-                borderRadius: context.theme.style.borderRadius.sm,
-              ),
-              child: Row(
-                children: [
-                  Icon(
-                    FPhosphorIcons.info,
-                    size: 16,
-                    color: context.theme.colors.mutedForeground,
-                  ),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: Text(
-                      t.goals.aDedicatedPocketAccountWillBeCreatedAutomaticallyToTrackThisGoal,
-                      style: context.theme.typography.bodySecondary.copyWith(
-                        color: context.theme.colors.mutedForeground,
+            // ── Info note about auto pocket ──────────────────────────────────
+            if (!isEditing)
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: context.theme.colors.muted,
+                  borderRadius: context.theme.style.borderRadius.sm,
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      FPhosphorIcons.info,
+                      size: 16,
+                      color: context.theme.colors.mutedForeground,
+                    ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Text(
+                        t.goals.aDedicatedPocketAccountWillBeCreatedAutomaticallyToTrackThisGoal,
+                        style: context.theme.typography.bodySecondary.copyWith(
+                          color: context.theme.colors.mutedForeground,
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
 
-          const SizedBox(height: 20),
+            const SizedBox(height: 20),
 
-          // ── Save button ──────────────────────────────────────────────
-          if (state.isSaving)
-            const Center(child: FCircularProgress())
-          else
-            FButton(
-              onPress: notifier.save,
-              child: Text(isEditing ? 'Save Changes' : 'Create Goal'),
-            ),
-        ],
+            // ── Save button ──────────────────────────────────────────────
+            if (state.isSaving)
+              const Center(child: FCircularProgress())
+            else
+              FButton(
+                onPress: () {
+                  if (formKey.currentState!.validate()) {
+                    notifier.save();
+                  }
+                },
+                child: Text(isEditing ? 'Save Changes' : 'Create Goal'),
+              ),
+          ],
+        ),
       ),
     );
   }

@@ -61,26 +61,10 @@ class DebtForm extends _$DebtForm {
   void setNote(String? note) => state = state.copyWith(note: note);
 
   Future<void> save() async {
-    if (state.personName.trim().isEmpty) {
-      state = state.copyWith(error: 'Person name cannot be empty');
-      return;
-    }
-    if (state.amount <= 0) {
-      state = state.copyWith(error: 'Amount must be greater than 0');
-      return;
-    }
-    if (state.initialDebt == null) {
-      if (state.accountId.isEmpty) {
-        state = state.copyWith(error: 'Please select an account');
-        return;
-      }
-      if (state.categoryId.isEmpty) {
-        state = state.copyWith(error: 'Please select a category');
-        return;
-      }
-    }
-
-    state = state.copyWith(isSaving: true, error: null);
+    state = state.copyWith(
+      isSaving: true,
+      error: null,
+    );
     final repo = ref.read(debtRepositoryProvider);
 
     final now = DateTimeUtils.nowUtc();
