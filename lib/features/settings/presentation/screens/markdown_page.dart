@@ -25,7 +25,11 @@ class MarkdownPage extends StatelessWidget {
         showBack: true,
       ),
       child: FutureBuilder<String>(
-        future: rootBundle.loadString(assetPath),
+        future: rootBundle
+            .loadString(assetPath)
+            .catchError(
+              (_) => rootBundle.loadString('packages/poka_ce/$assetPath'),
+            ),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: FCircularProgress());

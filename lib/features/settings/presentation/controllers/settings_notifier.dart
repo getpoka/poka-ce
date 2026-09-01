@@ -31,19 +31,27 @@ class SettingsState {
 
 @riverpod
 class SettingsNotifier extends _$SettingsNotifier {
+  bool _disposed = false;
+
   @override
   SettingsState build() {
+    ref.onDispose(() {
+      _disposed = true;
+    });
     Future.microtask(_loadSettings);
     return const SettingsState(isLoading: true);
   }
 
   Future<void> _loadSettings() async {
+    if (_disposed) return;
     state = state.copyWith(isLoading: true);
     try {
       final repo = ref.read(settingsRepositoryProvider);
       final settings = await repo.getSettings();
+      if (_disposed) return;
       state = state.copyWith(settings: settings, isLoading: false);
     } on Exception catch (e) {
+      if (_disposed) return;
       state = state.copyWith(error: e.toString(), isLoading: false);
     }
   }

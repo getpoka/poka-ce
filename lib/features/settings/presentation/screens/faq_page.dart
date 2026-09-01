@@ -25,7 +25,11 @@ class FaqPage extends StatelessWidget {
         showBack: true,
       ),
       child: FutureBuilder<String>(
-        future: rootBundle.loadString('assets/data/faq.md'),
+        future: rootBundle
+            .loadString('assets/data/faq.md')
+            .catchError(
+              (_) => rootBundle.loadString('packages/poka_ce/assets/data/faq.md'),
+            ),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: FCircularProgress());

@@ -750,7 +750,9 @@ class DatabaseSeeder {
     if (existing.isNotEmpty) return;
 
     try {
-      final raw = await rootBundle.loadString('assets/data/categories.json');
+      final raw = await rootBundle
+          .loadString('assets/data/categories.json')
+          .catchError((_) => rootBundle.loadString('packages/poka_ce/assets/data/categories.json'));
       final decoded = jsonDecode(raw) as List<dynamic>;
       final rows = decoded.cast<Map<String, dynamic>>();
 
