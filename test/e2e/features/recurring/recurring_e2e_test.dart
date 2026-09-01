@@ -28,7 +28,7 @@ void main() {
     await settle();
 
     // Fill the form
-    final textFields = find.byType(FTextField);
+    final textFields = find.byType(FTextFormField);
 
     // Amount (index 0)
     await tester.ensureVisible(textFields.at(0));
@@ -96,7 +96,7 @@ void main() {
     await settle();
 
     // Change Note
-    final editTextFields = find.byType(FTextField);
+    final editTextFields = find.byType(FTextFormField);
     await tester.ensureVisible(editTextFields.at(2));
     await tester.enterText(editTextFields.at(2), 'Updated Subscription');
     await tester.pump(const Duration(milliseconds: 100));

@@ -150,6 +150,7 @@ class RecurringFormSheet extends HookConsumerWidget {
 
             // ── Account + Category / Destination ───────────────────────────
             FormField<String>(
+              key: ValueKey(state.accountId),
               autovalidateMode: AutovalidateMode.onUserInteraction,
               initialValue: state.accountId.isEmpty ? null : state.accountId,
               validator: (value) => (value == null || value.isEmpty) ? 'Must select an account' : null,
@@ -358,6 +359,14 @@ class _AmountTile extends HookWidget {
     );
 
     useEffect(() {
+      final newText = amount > 0 ? amount.toString() : '';
+      if (controller.text != newText && newText.isNotEmpty) {
+        Future.microtask(() => controller.text = newText);
+      }
+      return null;
+    }, [amount]);
+
+    useEffect(() {
       void listener() {
         final parsed = int.tryParse(controller.text) ?? 0;
         onChanged(parsed);
@@ -456,7 +465,11 @@ class _DatePickerTile extends HookWidget {
     final controller = useTextEditingController(text: text);
 
     useEffect(() {
-      controller.text = text;
+      if (controller.text != text) {
+        Future.microtask(() {
+          if (context.mounted) controller.text = text;
+        });
+      }
       return null;
     }, [text]);
 

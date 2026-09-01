@@ -29,7 +29,7 @@ void main() {
     await settle();
 
     // Find the text field and enter name
-    final nameField = find.byType(FTextField).first;
+    final nameField = find.byType(FTextFormField).first;
     await tester.enterText(nameField, 'Test Food');
     await settle();
 
@@ -51,7 +51,7 @@ void main() {
     await settle();
 
     // Edit text
-    final editNameField = find.byType(FTextField).first;
+    final editNameField = find.byType(FTextFormField).first;
     await tester.enterText(editNameField, 'Test Food Edited');
     await settle();
 

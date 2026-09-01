@@ -36,7 +36,7 @@ void main() {
     await settle();
 
     // Find the text field and enter name (Assume it's the first text field for name)
-    final nameField = find.byType(FTextField).first;
+    final nameField = find.byType(FTextFormField).first;
     await tester.enterText(nameField, 'My E2E Account');
     await settle();
 
@@ -73,7 +73,7 @@ void main() {
     await settle();
 
     // Edit text
-    final editNameField = find.byType(FTextField).first;
+    final editNameField = find.byType(FTextFormField).first;
     await tester.enterText(editNameField, 'My E2E Account Edited');
     await settle();
 
