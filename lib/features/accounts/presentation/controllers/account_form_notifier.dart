@@ -23,6 +23,7 @@ abstract class AccountFormState with _$AccountFormState {
     @Default(false) bool isSaving,
     @Default(false) bool isSuccess,
     String? error,
+    String? nameError,
   }) = _AccountFormState;
 }
 
@@ -51,7 +52,7 @@ class AccountFormNotifier extends _$AccountFormNotifier {
     }
   }
 
-  void setName(String name) => state = state.copyWith(name: name);
+  void setName(String name) => state = state.copyWith(name: name, nameError: null);
   void setType(AccountType type) => state = state.copyWith(type: type);
   void setBalance(int balance) => state = state.copyWith(balance: balance);
   void setIcon(String icon) => state = state.copyWith(icon: icon);
@@ -118,7 +119,11 @@ class AccountFormNotifier extends _$AccountFormNotifier {
   }
 
   Future<void> save() async {
-    state = state.copyWith(isSaving: true);
+    if (state.name.trim().isEmpty) {
+      state = state.copyWith(nameError: 'Name cannot be empty', isSaving: false);
+      return;
+    }
+    state = state.copyWith(isSaving: true, error: null, nameError: null);
     final result = state.initialAccount == null
         ? await ref
               .read(createAccountUseCaseProvider)

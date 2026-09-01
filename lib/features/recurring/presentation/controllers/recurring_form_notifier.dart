@@ -80,6 +80,14 @@ class RecurringFormNotifier extends _$RecurringFormNotifier {
   void setNextDate(DateTime nextDate) => state = state.copyWith(nextDate: nextDate);
 
   Future<void> save() async {
+    if (state.amount <= 0) {
+      state = state.copyWith(error: 'Amount must be greater than 0', isSaving: false);
+      return;
+    }
+    if (state.accountId.isEmpty) {
+      state = state.copyWith(error: 'Must select an account', isSaving: false);
+      return;
+    }
     state = state.copyWith(isSaving: true, error: null);
     final repo = ref.read(recurringRepositoryProvider);
 

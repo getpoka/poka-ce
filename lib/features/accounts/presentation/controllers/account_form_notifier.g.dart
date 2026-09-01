@@ -40,7 +40,7 @@ final class AccountFormNotifierProvider extends $NotifierProvider<AccountFormNot
   }
 }
 
-String _$accountFormNotifierHash() => r'72159126f43bb83390de81b1dbefd192388faa70';
+String _$accountFormNotifierHash() => r'e066d1a7e205ebf41b0c884d4cd41b3f3795e5d2';
 
 abstract class _$AccountFormNotifier extends $Notifier<AccountFormState> {
   AccountFormState build();
