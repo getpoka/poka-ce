@@ -43,8 +43,50 @@ class FaqPage extends StatelessWidget {
           final items = _parseFaq(content);
 
           return SingleChildScrollView(
+            padding: EdgeInsets.zero,
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 20,
+                  ),
+                  child: Column(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: theme.colors.primary.withValues(alpha: 0.1),
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(
+                          FPhosphorIcons.question,
+                          size: 48,
+                          color: theme.colors.primary,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      Text(
+                        t.settings.faq,
+                        style: theme.typography.display.sm.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: theme.colors.foreground,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        t.settings.faqDesc,
+                        style: theme.typography.bodyPrimary.copyWith(
+                          color: theme.colors.mutedForeground,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                ),
+                const FDivider(),
                 FAccordion(
                   children: items.map((item) {
                     return FAccordionItem(
@@ -67,7 +109,7 @@ class FaqPage extends StatelessWidget {
                     );
                   }).toList(),
                 ),
-                const SizedBox(height: 48),
+                const SizedBox(height: 20),
               ],
             ),
           );

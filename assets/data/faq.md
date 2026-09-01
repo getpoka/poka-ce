@@ -1,11 +1,11 @@
 ## What is Poka CE?
-**Poka CE (Community Edition)** is a 100% free, open-source, and offline-only personal finance manager. It is designed for maximum privacy, meaning your data never leaves your device and no account is required.
+**Poka CE (Community Edition)** is a 100% free, open-source, and offline-first personal finance manager. It is designed for maximum privacy, meaning your data never leaves your device and no account is required.
 
 ## What is included in Poka CE?
-Poka CE is a self-contained local finance manager. It does not include login, cloud sync, collaboration, AI input, or remote backups.
+Poka CE is a self-contained local finance manager. It includes multi-account management, income/expense tracking, budgeting, goal tracking, debt/loan management, and split transactions. It strictly does not include cloud sync or remote backups.
 
 ## Is my data stored online?
-No. Poka CE stores everything locally on your device using a local SQLite database. Absolutely nothing is transmitted, uploaded, or synced to any external server.
+No. Poka CE stores everything locally on your device using an internal SQLite database. Absolutely nothing is transmitted, uploaded, or synced to any external server.
 
 ## Do I need an account to use Poka CE?
 No. Because Poka CE works fully offline, there is no registration, login, or email verification required. You can start using it immediately.
@@ -20,9 +20,9 @@ To do this:
 1. Go to **Settings** > **Backup & Restore**.
 2. Tap **Backup Database**.
 3. Enter and confirm a backup passphrase.
-4. Use the system share sheet to store the encrypted `.pokabk` file in a location you control.
+4. Use the system share sheet to store the encrypted `.sqlite` file in a location you control.
 
-When you change phones or reinstall the app, open **Backup & Restore**, choose **Restore From Backup**, enter the same passphrase, and select the `.pokabk` file.
+When you change phones or reinstall the app, open **Backup & Restore**, choose **Restore From Backup**, enter the same passphrase, and select the `.sqlite` file.
 
 ## Can I sync Poka CE across multiple devices?
 No. Poka CE is strictly an offline-first app, meaning your data stays only on the device you use. There is no cloud synchronization. To move data between devices, create an encrypted database backup and restore it manually on the other device.

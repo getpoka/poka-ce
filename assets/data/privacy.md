@@ -14,7 +14,7 @@ We do not use any third-party analytics, crash reporting tools, telemetry, or tr
 - **Storage:** Only requested when you actively choose to export or import your database backup file.
 
 ## 5. Third-Party Links
-Poka CE may contain standard web links to our GitHub repository or the official premium app. We do not track your clicks or inject any tracking parameters into these links.
+Poka CE may contain standard web links to our official GitHub repository. We do not track your clicks or inject any tracking parameters into these links.
 
 ## 6. Your Responsibility
 Because Poka CE is fully offline and does not sync to the cloud, **you are entirely responsible for backing up your own data**. If you lose your device, uninstall the app without a manual backup, or clear the app data, your data cannot be recovered by the creators or contributors of Poka CE.
