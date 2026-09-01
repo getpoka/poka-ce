@@ -3,7 +3,6 @@ import 'package:poka_ce/app/providers/use_case_providers.dart';
 import 'package:poka_ce/core/enums.dart';
 import 'package:poka_ce/core/error/result.dart';
 import 'package:poka_ce/features/accounts/domain/account_model.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'account_form_notifier.freezed.dart';
@@ -24,7 +23,6 @@ abstract class AccountFormState with _$AccountFormState {
     @Default(false) bool isSaving,
     @Default(false) bool isSuccess,
     String? error,
-    String? nameError,
   }) = _AccountFormState;
 }
 
@@ -53,7 +51,7 @@ class AccountFormNotifier extends _$AccountFormNotifier {
     }
   }
 
-  void setName(String name) => state = state.copyWith(name: name, nameError: null);
+  void setName(String name) => state = state.copyWith(name: name);
   void setType(AccountType type) => state = state.copyWith(type: type);
   void setBalance(int balance) => state = state.copyWith(balance: balance);
   void setIcon(String icon) => state = state.copyWith(icon: icon);
@@ -120,12 +118,7 @@ class AccountFormNotifier extends _$AccountFormNotifier {
   }
 
   Future<void> save() async {
-    if (state.name.isEmpty) {
-      state = state.copyWith(nameError: t.accounts.nameCannotBeEmpty);
-      return;
-    }
-
-    state = state.copyWith(isSaving: true, nameError: null);
+    state = state.copyWith(isSaving: true);
     final result = state.initialAccount == null
         ? await ref
               .read(createAccountUseCaseProvider)

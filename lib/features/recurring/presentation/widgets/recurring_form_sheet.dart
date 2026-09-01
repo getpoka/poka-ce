@@ -95,6 +95,7 @@ class RecurringFormSheet extends HookConsumerWidget {
     final selectedCategory = categories.where((c) => c.id == state.categoryId).firstOrNull;
 
     final isTransfer = state.type == TransactionType.transfer;
+    final formKey = useMemoized(GlobalKey<FormState>.new);
 
     return PokaSheet(
       title: isEditing ? 'Edit Recurring' : 'New Recurring',
@@ -114,201 +115,217 @@ class RecurringFormSheet extends HookConsumerWidget {
               ),
             )
           : null,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          // ── Type selector ─────────────────────────────────────────────
-          TransactionTypeSwitcher(
-            selectedType: state.type,
-            onChanged: notifier.setType,
-          ),
-          const SizedBox(height: 12),
+      child: Form(
+        key: formKey,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // ── Type selector ─────────────────────────────────────────────
+            TransactionTypeSwitcher(
+              selectedType: state.type,
+              onChanged: notifier.setType,
+            ),
+            const SizedBox(height: 12),
 
-          // ── Amount ────────────────────────────────────────────────────
-          _AmountTile(
-            amount: state.amount,
-            onChanged: notifier.setAmount,
-          ),
-          const SizedBox(height: 12),
+            // ── Amount ─────────────────────────────────────────────
+            _AmountTile(
+              amount: state.amount,
+              onChanged: notifier.setAmount,
+            ),
+            const SizedBox(height: 12),
 
-          // ── Period ────────────────────────────────────────────────────
-          _PeriodSelector(
-            selected: state.period,
-            onChanged: notifier.setPeriod,
-          ),
-          const SizedBox(height: 12),
+            // ── Period ────────────────────────────────────────────────────
+            _PeriodSelector(
+              selected: state.period,
+              onChanged: notifier.setPeriod,
+            ),
+            const SizedBox(height: 12),
 
-          // ── Start date ────────────────────────────────────────────────
-          _DatePickerTile(
-            date: state.nextDate,
-            onChanged: notifier.setNextDate,
-          ),
-          const SizedBox(height: 12),
+            // ── Start date ────────────────────────────────────────────
+            _DatePickerTile(
+              date: state.nextDate,
+              onChanged: notifier.setNextDate,
+            ),
+            const SizedBox(height: 12),
 
-          // ── Account + Category / Destination ──────────────────────────
-          FLabel(
-            layout: FLabelLayout.vertical,
-            label: Text(t.recurring.transactionDetails),
-            child: FCard(
-              child: Column(
-                children: [
-                  _ScopeTile(
-                    key: const Key('recurring-account-selector'),
-                    icon: FPhosphorIcons.wallet,
-                    customIcon: selectedAccount != null
-                        ? PokaIcon(
-                            icon: IconUtil.getIcon(selectedAccount.icon),
-                            color: selectedAccount.color?.toColor() ?? context.theme.colors.mutedForeground,
-                            size: PokaIconSize.small,
-                            useThemeBorderColor: true,
-                          )
-                        : null,
-                    label: isTransfer ? 'Source Account' : 'Account',
-                    value: selectedAccount?.name ?? 'Select account',
-                    hasValue: selectedAccount != null,
-                    onTap: () async {
-                      final acc = await PokaPocketSelector.show(
-                        context,
-                        accounts: accounts,
-                      );
-                      if (acc != null) notifier.setAccountId(acc.id);
-                    },
-                  ),
-                  if (isTransfer) ...[
-                    Divider(height: 1, color: context.theme.colors.border),
-                    _ScopeTile(
-                      icon: FPhosphorIcons.arrowRight,
-                      customIcon: selectedDestAccount != null
-                          ? PokaIcon(
-                              icon: IconUtil.getIcon(selectedDestAccount.icon),
-                              color: selectedDestAccount.color?.toColor() ?? context.theme.colors.mutedForeground,
-                              size: PokaIconSize.small,
-                              useThemeBorderColor: true,
-                            )
-                          : null,
-                      label: t.recurring.destinationAccount,
-                      value: selectedDestAccount?.name ?? 'Select destination',
-                      hasValue: selectedDestAccount != null,
-                      onTap: () async {
-                        final acc = await PokaPocketSelector.show(
-                          context,
-                          accounts: accounts,
-                        );
-                        if (acc != null) {
-                          notifier.setDestinationAccountId(acc.id);
-                        }
-                      },
-                    ),
-                  ] else ...[
-                    Divider(height: 1, color: context.theme.colors.border),
-                    _ScopeTile(
-                      key: const Key('recurring-category-selector'),
-                      icon: FPhosphorIcons.tag,
-                      customIcon: selectedCategory != null
-                          ? PokaIcon(
-                              icon: IconUtil.getIcon(selectedCategory.icon),
-                              color: selectedCategory.color?.toColor() ?? context.theme.colors.mutedForeground,
-                              size: PokaIconSize.small,
-                              useThemeBorderColor: true,
-                            )
-                          : null,
-                      label: t.recurring.category,
-                      value: selectedCategory?.name ?? 'Select category (optional)',
-                      hasValue: selectedCategory != null,
-                      onClear: () => notifier.setCategoryId(null),
-                      onTap: () async {
-                        final filtered = _filteredCategories(
-                          categories,
-                          state.type,
-                        );
-                        final cat = await PokaCategorySelector.show(
-                          context,
-                          categories: filtered,
-                        );
-                        if (cat != null) notifier.setCategoryId(cat.id);
-                      },
-                    ),
-                    if (state.type == TransactionType.expense) ...[
-                      Divider(height: 1, color: context.theme.colors.border),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-                        child: Row(
-                          children: [
-                            Container(
-                              width: 36,
-                              height: 36,
-                              decoration: BoxDecoration(
-                                color: context.theme.colors.muted,
-                                borderRadius: context.theme.style.borderRadius.sm,
-                              ),
-                              child: Center(
-                                child: Icon(
-                                  FPhosphorIcons.chartPie,
-                                  size: 18,
-                                  color: context.theme.colors.mutedForeground,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(width: 12),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    t.recurring.allocation,
-                                    style: context.theme.typography.bodySecondary.copyWith(
+            // ── Account + Category / Destination ───────────────────────────
+            FormField<String>(
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              initialValue: state.accountId.isEmpty ? null : state.accountId,
+              validator: (value) => (value == null || value.isEmpty) ? 'Must select an account' : null,
+              builder: (fieldState) => FLabel(
+                layout: FLabelLayout.vertical,
+                label: Text(t.recurring.transactionDetails),
+                error: fieldState.hasError ? Text(fieldState.errorText!) : null,
+                child: FCard(
+                  child: Column(
+                    children: [
+                      _ScopeTile(
+                        key: const Key('recurring-account-selector'),
+                        icon: FPhosphorIcons.wallet,
+                        customIcon: selectedAccount != null
+                            ? PokaIcon(
+                                icon: IconUtil.getIcon(selectedAccount.icon),
+                                color: selectedAccount.color?.toColor() ?? context.theme.colors.mutedForeground,
+                                size: PokaIconSize.small,
+                                useThemeBorderColor: true,
+                              )
+                            : null,
+                        label: isTransfer ? 'Source Account' : 'Account',
+                        value: selectedAccount?.name ?? 'Select account',
+                        hasValue: selectedAccount != null,
+                        onTap: () async {
+                          final acc = await PokaPocketSelector.show(
+                            context,
+                            accounts: accounts,
+                          );
+                          if (acc != null) {
+                            notifier.setAccountId(acc.id);
+                            fieldState.didChange(acc.id);
+                          }
+                        },
+                      ),
+                      if (isTransfer) ...[
+                        Divider(height: 1, color: context.theme.colors.border),
+                        _ScopeTile(
+                          icon: FPhosphorIcons.arrowRight,
+                          customIcon: selectedDestAccount != null
+                              ? PokaIcon(
+                                  icon: IconUtil.getIcon(selectedDestAccount.icon),
+                                  color: selectedDestAccount.color?.toColor() ?? context.theme.colors.mutedForeground,
+                                  size: PokaIconSize.small,
+                                  useThemeBorderColor: true,
+                                )
+                              : null,
+                          label: t.recurring.destinationAccount,
+                          value: selectedDestAccount?.name ?? 'Select destination',
+                          hasValue: selectedDestAccount != null,
+                          onTap: () async {
+                            final acc = await PokaPocketSelector.show(
+                              context,
+                              accounts: accounts,
+                            );
+                            if (acc != null) {
+                              notifier.setDestinationAccountId(acc.id);
+                            }
+                          },
+                        ),
+                      ] else ...[
+                        Divider(height: 1, color: context.theme.colors.border),
+                        _ScopeTile(
+                          key: const Key('recurring-category-selector'),
+                          icon: FPhosphorIcons.tag,
+                          customIcon: selectedCategory != null
+                              ? PokaIcon(
+                                  icon: IconUtil.getIcon(selectedCategory.icon),
+                                  color: selectedCategory.color?.toColor() ?? context.theme.colors.mutedForeground,
+                                  size: PokaIconSize.small,
+                                  useThemeBorderColor: true,
+                                )
+                              : null,
+                          label: t.recurring.category,
+                          value: selectedCategory?.name ?? 'Select category (optional)',
+                          hasValue: selectedCategory != null,
+                          onClear: () => notifier.setCategoryId(null),
+                          onTap: () async {
+                            final filtered = _filteredCategories(
+                              categories,
+                              state.type,
+                            );
+                            final cat = await PokaCategorySelector.show(
+                              context,
+                              categories: filtered,
+                            );
+                            if (cat != null) notifier.setCategoryId(cat.id);
+                          },
+                        ),
+                        if (state.type == TransactionType.expense) ...[
+                          Divider(height: 1, color: context.theme.colors.border),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+                            child: Row(
+                              children: [
+                                Container(
+                                  width: 36,
+                                  height: 36,
+                                  decoration: BoxDecoration(
+                                    color: context.theme.colors.muted,
+                                    borderRadius: context.theme.style.borderRadius.sm,
+                                  ),
+                                  child: Center(
+                                    child: Icon(
+                                      FPhosphorIcons.chartPie,
+                                      size: 18,
                                       color: context.theme.colors.mutedForeground,
                                     ),
                                   ),
-                                  const SizedBox(height: 4),
-                                  TransactionAllocationSelector(
-                                    allocation: state.allocation,
-                                    onChanged: notifier.setAllocation,
+                                ),
+                                const SizedBox(width: 12),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        t.recurring.allocation,
+                                        style: context.theme.typography.bodySecondary.copyWith(
+                                          color: context.theme.colors.mutedForeground,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 4),
+                                      TransactionAllocationSelector(
+                                        allocation: state.allocation,
+                                        onChanged: notifier.setAllocation,
+                                      ),
+                                    ],
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                      ),
+                          ),
+                        ],
+                      ],
                     ],
-                  ],
-                ],
+                  ),
+                ),
               ),
             ),
-          ),
-          const SizedBox(height: 12),
+            const SizedBox(height: 12),
 
-          // ── Note ──────────────────────────────────────────────────────
-          FTextField(
-            control: FTextFieldControl.managed(controller: noteController),
-            label: const PokaFormLabel('Note', isOptional: true),
-            hint: t.recurring.egNetflixSubscription,
-            maxLines: 2,
-          ),
-          const SizedBox(height: 12),
-
-          // ── Active toggle ─────────────────────────────────────────────
-          _ActiveToggle(
-            isActive: state.isActive,
-            onChanged: (v) => notifier.setIsActive(isActive: v),
-          ),
-
-          // ── Info banner ───────────────────────────────────────────────
-          const SizedBox(height: 12),
-          _InfoBanner(),
-
-          const SizedBox(height: 20),
-
-          // ── Save button ───────────────────────────────────────────────
-          if (state.isSaving)
-            const Center(child: FCircularProgress())
-          else
-            FButton(
-              onPress: notifier.save,
-              child: Text(isEditing ? 'Save Changes' : 'Create Recurring'),
+            // ── Note ─────────────────────────────────────────────
+            FTextFormField(
+              control: FTextFieldControl.managed(controller: noteController),
+              label: const PokaFormLabel('Note', isOptional: true),
+              hint: t.recurring.egNetflixSubscription,
+              maxLines: 2,
             ),
-        ],
+            const SizedBox(height: 12),
+
+            // ── Active toggle ─────────────────────────────────────────────
+            _ActiveToggle(
+              isActive: state.isActive,
+              onChanged: (v) => notifier.setIsActive(isActive: v),
+            ),
+
+            // ── Info banner ───────────────────────────────────────────────
+            const SizedBox(height: 12),
+            _InfoBanner(),
+
+            const SizedBox(height: 20),
+
+            // ── Save button ───────────────────────────────────────────────
+            if (state.isSaving)
+              const Center(child: FCircularProgress())
+            else
+              FButton(
+                onPress: () {
+                  if (formKey.currentState!.validate()) {
+                    notifier.save();
+                  }
+                },
+                child: Text(isEditing ? 'Save Changes' : 'Create Recurring'),
+              ),
+          ],
+        ),
       ),
     );
   }
@@ -350,11 +367,17 @@ class _AmountTile extends HookWidget {
       return () => controller.removeListener(listener);
     }, [controller]);
 
-    return FTextField(
+    return FTextFormField(
       control: FTextFieldControl.managed(controller: controller),
       label: Text(t.recurring.amount),
       hint: '0',
       keyboardType: TextInputType.number,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      validator: (value) {
+        final amount = int.tryParse(value ?? '');
+        if (amount == null || amount <= 0) return 'Amount must be greater than 0';
+        return null;
+      },
     );
   }
 }
@@ -439,11 +462,13 @@ class _DatePickerTile extends HookWidget {
 
     return FPopover(
       builder: (context, popoverController, child) {
-        return FTextField(
+        return FTextFormField(
           control: FTextFieldControl.managed(controller: controller),
           label: Text(t.recurring.startDate),
           hint: t.recurring.selectFirstDueDate,
           readOnly: true,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          validator: (value) => (value == null || value.isEmpty) ? 'Must select a start date' : null,
           onTap: () {
             FocusScope.of(context).unfocus();
             popoverController.toggle();

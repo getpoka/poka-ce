@@ -86,15 +86,6 @@ class GoalFormNotifier extends _$GoalFormNotifier {
   }
 
   Future<void> save() async {
-    if (state.name.trim().isEmpty) {
-      state = state.copyWith(error: 'Name cannot be empty');
-      return;
-    }
-    if (state.targetAmount <= 0) {
-      state = state.copyWith(error: 'Target amount must be greater than 0');
-      return;
-    }
-
     state = state.copyWith(isSaving: true);
     final repo = ref.read(goalRepositoryProvider);
 

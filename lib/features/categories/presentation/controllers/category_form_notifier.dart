@@ -5,7 +5,6 @@ import 'package:poka_ce/core/error/result.dart';
 import 'package:poka_ce/core/utils/datetime_utils.dart';
 import 'package:poka_ce/features/categories/domain/category_model.dart';
 import 'package:poka_ce/features/categories/presentation/controllers/category_list_notifier.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:uuid/uuid.dart';
 
@@ -25,7 +24,6 @@ abstract class CategoryFormState with _$CategoryFormState {
     @Default(false) bool isSaving,
     @Default(false) bool isSuccess,
     String? error,
-    String? nameError,
   }) = _CategoryFormState;
 }
 
@@ -62,7 +60,7 @@ class CategoryFormNotifier extends _$CategoryFormNotifier {
     }
   }
 
-  void setName(String name) => state = state.copyWith(name: name, nameError: null);
+  void setName(String name) => state = state.copyWith(name: name);
   void setType(CategoryType type) => state = state.copyWith(type: type);
   void setIcon(String? icon) => state = state.copyWith(icon: icon);
   void setColor(String? color) => state = state.copyWith(color: color);
@@ -71,12 +69,7 @@ class CategoryFormNotifier extends _$CategoryFormNotifier {
   /// Validates and saves the category.
   /// Updates the database via repository and triggers a refresh of the list provider on success.
   Future<void> save() async {
-    if (state.name.trim().isEmpty) {
-      state = state.copyWith(nameError: t.accounts.nameCannotBeEmpty);
-      return;
-    }
-
-    state = state.copyWith(isSaving: true, error: null);
+    state = state.copyWith(isSaving: true);
     final repo = ref.read(categoryRepositoryProvider);
 
     final now = DateTimeUtils.nowUtc();

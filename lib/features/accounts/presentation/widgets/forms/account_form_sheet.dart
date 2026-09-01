@@ -95,120 +95,132 @@ class AccountFormSheet extends HookConsumerWidget {
       },
     );
 
-    final formContent = Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        FTextField(
-          control: FTextFieldControl.managed(controller: nameController),
-          label: Text(t.accounts.accountName),
-          hint: t.accounts.egMainWallet,
-          error: state.nameError != null ? Text(state.nameError!) : null,
-        ),
-        const SizedBox(height: 12),
-        FTextField(
-          control: FTextFieldControl.managed(controller: balanceController),
-          label: Text(t.accounts.initialBalance),
-          hint: '0',
-          keyboardType: TextInputType.number,
-        ),
-        const SizedBox(height: 12),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            FLabel(
-              layout: FLabelLayout.vertical,
-              label: Text(t.accounts.icon),
-              child: GestureDetector(
-                onTap: () {
-                  showPokaSheet<void>(
-                    context: context,
-                    builder: (context) => PokaSheet(
-                      title: t.accounts.selectIcon,
-                      child: PokaIconPicker(
-                        selectedIcon: state.icon,
-                        onIconSelected: (icon) {
-                          notifier.setIcon(icon);
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                    ),
-                  );
-                },
-                child: Container(
-                  width: 84,
-                  height: 84,
-                  decoration: BoxDecoration(
-                    color: (state.color?.toColor() ?? context.theme.colors.primary).withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(16),
-                    border: Border.all(
-                      color: (state.color?.toColor() ?? context.theme.colors.primary).withValues(alpha: 0.2),
-                    ),
-                  ),
-                  child: Stack(
-                    clipBehavior: Clip.none,
-                    children: [
-                      Center(
-                        child: Icon(
-                          IconUtil.getIcon(state.icon),
-                          size: 40,
-                          color: state.color?.toColor() ?? context.theme.colors.primary,
-                        ),
-                      ),
-                      Positioned(
-                        bottom: -4,
-                        right: -4,
-                        child: Container(
-                          padding: const EdgeInsets.all(4),
-                          decoration: BoxDecoration(
-                            color: context.theme.colors.background,
-                            shape: BoxShape.circle,
-                            border: Border.all(color: context.theme.colors.border),
-                          ),
-                          child: Icon(
-                            FPhosphorIcons.pencilSimple,
-                            size: 16,
-                            color: context.theme.colors.foreground,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(width: 20),
-            Expanded(
-              child: FLabel(
-                layout: FLabelLayout.vertical,
-                label: Text(t.accounts.color),
-                child: PokaColorPicker(
-                  selectedColor: state.color,
-                  onColorSelected: notifier.setColor,
-                ),
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 12),
-        ActiveAccountToggle(
-          isActive: state.isActive,
-          onChanged: (val) => notifier.setIsActive(isActive: val),
-        ),
-        const SizedBox(height: 12),
-        if (state.parentAccountId == null) ...[
-          CategorySelectionField(
-            notifier: notifier,
-            restrictedCategoryIds: state.restrictedCategoryIds.toSet(),
+    final formKey = useMemoized(GlobalKey<FormState>.new);
+
+    final formContent = Form(
+      key: formKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          FTextFormField(
+            control: FTextFieldControl.managed(controller: nameController),
+            label: Text(t.accounts.accountName),
+            hint: t.accounts.egMainWallet,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            validator: (value) => value == null || value.trim().isEmpty ? t.accounts.nameCannotBeEmpty : null,
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 12),
+          FTextFormField(
+            control: FTextFieldControl.managed(controller: balanceController),
+            label: Text(t.accounts.initialBalance),
+            hint: '0',
+            keyboardType: TextInputType.number,
+          ),
+          const SizedBox(height: 12),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              FLabel(
+                layout: FLabelLayout.vertical,
+                label: Text(t.accounts.icon),
+                child: GestureDetector(
+                  onTap: () {
+                    showPokaSheet<void>(
+                      context: context,
+                      builder: (context) => PokaSheet(
+                        title: t.accounts.selectIcon,
+                        child: PokaIconPicker(
+                          selectedIcon: state.icon,
+                          onIconSelected: (icon) {
+                            notifier.setIcon(icon);
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    width: 84,
+                    height: 84,
+                    decoration: BoxDecoration(
+                      color: (state.color?.toColor() ?? context.theme.colors.primary).withValues(alpha: 0.1),
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(
+                        color: (state.color?.toColor() ?? context.theme.colors.primary).withValues(alpha: 0.2),
+                      ),
+                    ),
+                    child: Stack(
+                      clipBehavior: Clip.none,
+                      children: [
+                        Center(
+                          child: Icon(
+                            IconUtil.getIcon(state.icon),
+                            size: 40,
+                            color: state.color?.toColor() ?? context.theme.colors.primary,
+                          ),
+                        ),
+                        Positioned(
+                          bottom: -4,
+                          right: -4,
+                          child: Container(
+                            padding: const EdgeInsets.all(4),
+                            decoration: BoxDecoration(
+                              color: context.theme.colors.background,
+                              shape: BoxShape.circle,
+                              border: Border.all(color: context.theme.colors.border),
+                            ),
+                            child: Icon(
+                              FPhosphorIcons.pencilSimple,
+                              size: 16,
+                              color: context.theme.colors.foreground,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 20),
+              Expanded(
+                child: FLabel(
+                  layout: FLabelLayout.vertical,
+                  label: Text(t.accounts.color),
+                  child: PokaColorPicker(
+                    selectedColor: state.color,
+                    onColorSelected: notifier.setColor,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          ActiveAccountToggle(
+            isActive: state.isActive,
+            onChanged: (val) => notifier.setIsActive(isActive: val),
+          ),
+          const SizedBox(height: 12),
+          if (state.parentAccountId == null) ...[
+            CategorySelectionField(
+              notifier: notifier,
+              restrictedCategoryIds: state.restrictedCategoryIds.toSet(),
+            ),
+            const SizedBox(height: 20),
+          ],
+          FButton(
+            mainAxisSize: MainAxisSize.min,
+            onPress: state.isSaving
+                ? null
+                : () {
+                    if (formKey.currentState!.validate()) {
+                      notifier.save();
+                    }
+                  },
+            prefix: state.isSaving ? const FCircularProgress() : null,
+            child: Text(state.isSaving ? 'Please wait' : 'Save'),
+          ),
         ],
-        FButton(
-          mainAxisSize: MainAxisSize.min,
-          onPress: state.isSaving ? null : notifier.save,
-          prefix: state.isSaving ? const FCircularProgress() : null,
-          child: Text(state.isSaving ? 'Please wait' : 'Save'),
-        ),
-      ],
+      ),
     );
 
     return PokaSheet(
