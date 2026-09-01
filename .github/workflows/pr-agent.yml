@@ -19,14 +19,16 @@ jobs:
       - name: PR Agent action step
         uses: the-pr-agent/pr-agent@main
         env:
-          # PR-Agent primarily looks for OPENAI_KEY to pass to LiteLLM
-          OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
+
+          # DeepSeek API key — stored under OPENAI_KEY secret in this repo
+          OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
+          DEEPSEEK_API_KEY: ${{ secrets.OPENAI_KEY }}
+
           # LiteLLM Configuration for DeepSeek
           CONFIG.MODEL: deepseek/deepseek-v4-flash
           CONFIG.FALLBACK_MODELS: '["deepseek/deepseek-v4-flash"]'
-          
+
           # Auto-trigger behaviors on PR events
           GITHUB_ACTION_CONFIG.AUTO_REVIEW: true
           GITHUB_ACTION_CONFIG.AUTO_DESCRIBE: true
