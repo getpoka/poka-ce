@@ -12,8 +12,7 @@ part of 'balance_visibility_provider.dart';
 @ProviderFor(BalanceVisibility)
 final balanceVisibilityProvider = BalanceVisibilityProvider._();
 
-final class BalanceVisibilityProvider
-    extends $NotifierProvider<BalanceVisibility, bool> {
+final class BalanceVisibilityProvider extends $NotifierProvider<BalanceVisibility, bool> {
   BalanceVisibilityProvider._()
     : super(
         from: null,
@@ -49,14 +48,7 @@ abstract class _$BalanceVisibility extends $Notifier<bool> {
   @override
   WhenComplete runBuild() {
     final ref = this.ref as $Ref<bool, bool>;
-    final element =
-        ref.element
-            as $ClassProviderElement<
-              AnyNotifier<bool, bool>,
-              bool,
-              Object?,
-              Object?
-            >;
+    final element = ref.element as $ClassProviderElement<AnyNotifier<bool, bool>, bool, Object?, Object?>;
     return element.handleCreate(ref, build);
   }
 }

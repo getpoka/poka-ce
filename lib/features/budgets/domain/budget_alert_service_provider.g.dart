@@ -13,12 +13,7 @@ part of 'budget_alert_service_provider.dart';
 final budgetAlertServiceProvider = BudgetAlertServiceProvider._();
 
 final class BudgetAlertServiceProvider
-    extends
-        $FunctionalProvider<
-          BudgetAlertService,
-          BudgetAlertService,
-          BudgetAlertService
-        >
+    extends $FunctionalProvider<BudgetAlertService, BudgetAlertService, BudgetAlertService>
     with $Provider<BudgetAlertService> {
   BudgetAlertServiceProvider._()
     : super(
@@ -54,5 +49,4 @@ final class BudgetAlertServiceProvider
   }
 }
 
-String _$budgetAlertServiceHash() =>
-    r'bc8fdb21d6fd583caa44609a10706f8600506c85';
+String _$budgetAlertServiceHash() => r'bc8fdb21d6fd583caa44609a10706f8600506c85';

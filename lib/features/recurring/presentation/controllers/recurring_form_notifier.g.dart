@@ -12,8 +12,7 @@ part of 'recurring_form_notifier.dart';
 @ProviderFor(RecurringFormNotifier)
 final recurringFormProvider = RecurringFormNotifierProvider._();
 
-final class RecurringFormNotifierProvider
-    extends $NotifierProvider<RecurringFormNotifier, RecurringFormState> {
+final class RecurringFormNotifierProvider extends $NotifierProvider<RecurringFormNotifier, RecurringFormState> {
   RecurringFormNotifierProvider._()
     : super(
         from: null,
@@ -41,8 +40,7 @@ final class RecurringFormNotifierProvider
   }
 }
 
-String _$recurringFormNotifierHash() =>
-    r'6987359b58f026a5192ed5235fc0194c583dbdd9';
+String _$recurringFormNotifierHash() => r'6987359b58f026a5192ed5235fc0194c583dbdd9';
 
 abstract class _$RecurringFormNotifier extends $Notifier<RecurringFormState> {
   RecurringFormState build();

@@ -12,8 +12,7 @@ part of 'backup_form_notifier.dart';
 @ProviderFor(BackupFormNotifier)
 final backupFormProvider = BackupFormNotifierProvider._();
 
-final class BackupFormNotifierProvider
-    extends $NotifierProvider<BackupFormNotifier, BackupFormState> {
+final class BackupFormNotifierProvider extends $NotifierProvider<BackupFormNotifier, BackupFormState> {
   BackupFormNotifierProvider._()
     : super(
         from: null,
@@ -41,8 +40,7 @@ final class BackupFormNotifierProvider
   }
 }
 
-String _$backupFormNotifierHash() =>
-    r'a3d9e038571e6a92fa484b62d5a4712796fb9b04';
+String _$backupFormNotifierHash() => r'a3d9e038571e6a92fa484b62d5a4712796fb9b04';
 
 abstract class _$BackupFormNotifier extends $Notifier<BackupFormState> {
   BackupFormState build();
@@ -52,12 +50,7 @@ abstract class _$BackupFormNotifier extends $Notifier<BackupFormState> {
     final ref = this.ref as $Ref<BackupFormState, BackupFormState>;
     final element =
         ref.element
-            as $ClassProviderElement<
-              AnyNotifier<BackupFormState, BackupFormState>,
-              BackupFormState,
-              Object?,
-              Object?
-            >;
+            as $ClassProviderElement<AnyNotifier<BackupFormState, BackupFormState>, BackupFormState, Object?, Object?>;
     return element.handleCreate(ref, build);
   }
 }

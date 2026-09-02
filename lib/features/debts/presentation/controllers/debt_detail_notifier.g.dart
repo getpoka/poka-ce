@@ -14,14 +14,8 @@ final debtTransactionsProvider = DebtTransactionsFamily._();
 
 final class DebtTransactionsProvider
     extends
-        $FunctionalProvider<
-          AsyncValue<List<TransactionModel>>,
-          List<TransactionModel>,
-          Stream<List<TransactionModel>>
-        >
-    with
-        $FutureModifier<List<TransactionModel>>,
-        $StreamProvider<List<TransactionModel>> {
+        $FunctionalProvider<AsyncValue<List<TransactionModel>>, List<TransactionModel>, Stream<List<TransactionModel>>>
+    with $FutureModifier<List<TransactionModel>>, $StreamProvider<List<TransactionModel>> {
   DebtTransactionsProvider._({
     required DebtTransactionsFamily super.from,
     required DebtModel super.argument,
@@ -79,8 +73,7 @@ final class DebtTransactionsFamily extends $Family
         isAutoDispose: true,
       );
 
-  DebtTransactionsProvider call(DebtModel debt) =>
-      DebtTransactionsProvider._(argument: debt, from: this);
+  DebtTransactionsProvider call(DebtModel debt) => DebtTransactionsProvider._(argument: debt, from: this);
 
   @override
   String toString() => r'debtTransactionsProvider';
@@ -89,8 +82,7 @@ final class DebtTransactionsFamily extends $Family
 @ProviderFor(DebtDetailNotifier)
 final debtDetailProvider = DebtDetailNotifierProvider._();
 
-final class DebtDetailNotifierProvider
-    extends $NotifierProvider<DebtDetailNotifier, void> {
+final class DebtDetailNotifierProvider extends $NotifierProvider<DebtDetailNotifier, void> {
   DebtDetailNotifierProvider._()
     : super(
         from: null,
@@ -118,8 +110,7 @@ final class DebtDetailNotifierProvider
   }
 }
 
-String _$debtDetailNotifierHash() =>
-    r'9e3931f8b264b601ec485cc38cbb85e67d49d47c';
+String _$debtDetailNotifierHash() => r'9e3931f8b264b601ec485cc38cbb85e67d49d47c';
 
 abstract class _$DebtDetailNotifier extends $Notifier<void> {
   void build();
@@ -127,14 +118,7 @@ abstract class _$DebtDetailNotifier extends $Notifier<void> {
   @override
   WhenComplete runBuild() {
     final ref = this.ref as $Ref<void, void>;
-    final element =
-        ref.element
-            as $ClassProviderElement<
-              AnyNotifier<void, void>,
-              void,
-              Object?,
-              Object?
-            >;
+    final element = ref.element as $ClassProviderElement<AnyNotifier<void, void>, void, Object?, Object?>;
     return element.handleCreate(ref, build);
   }
 }

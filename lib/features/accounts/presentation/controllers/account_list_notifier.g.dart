@@ -12,8 +12,7 @@ part of 'account_list_notifier.dart';
 @ProviderFor(AccountListNotifier)
 final accountListProvider = AccountListNotifierProvider._();
 
-final class AccountListNotifierProvider
-    extends $StreamNotifierProvider<AccountListNotifier, AccountListState> {
+final class AccountListNotifierProvider extends $StreamNotifierProvider<AccountListNotifier, AccountListState> {
   AccountListNotifierProvider._()
     : super(
         from: null,
@@ -33,16 +32,14 @@ final class AccountListNotifierProvider
   AccountListNotifier create() => AccountListNotifier();
 }
 
-String _$accountListNotifierHash() =>
-    r'39ef2379c54b16dbcd706c33ac33211889a23236';
+String _$accountListNotifierHash() => r'39ef2379c54b16dbcd706c33ac33211889a23236';
 
 abstract class _$AccountListNotifier extends $StreamNotifier<AccountListState> {
   Stream<AccountListState> build();
   @$mustCallSuper
   @override
   WhenComplete runBuild() {
-    final ref =
-        this.ref as $Ref<AsyncValue<AccountListState>, AccountListState>;
+    final ref = this.ref as $Ref<AsyncValue<AccountListState>, AccountListState>;
     final element =
         ref.element
             as $ClassProviderElement<
@@ -60,11 +57,7 @@ final regularAccountListProvider = RegularAccountListProvider._();
 
 final class RegularAccountListProvider
     extends
-        $FunctionalProvider<
-          AsyncValue<AccountListState>,
-          AsyncValue<AccountListState>,
-          AsyncValue<AccountListState>
-        >
+        $FunctionalProvider<AsyncValue<AccountListState>, AsyncValue<AccountListState>, AsyncValue<AccountListState>>
     with $Provider<AsyncValue<AccountListState>> {
   RegularAccountListProvider._()
     : super(
@@ -100,19 +93,14 @@ final class RegularAccountListProvider
   }
 }
 
-String _$regularAccountListHash() =>
-    r'a1d5868b05d5cb390b45e5d863967ac96c356cca';
+String _$regularAccountListHash() => r'a1d5868b05d5cb390b45e5d863967ac96c356cca';
 
 @ProviderFor(goalAccountList)
 final goalAccountListProvider = GoalAccountListProvider._();
 
 final class GoalAccountListProvider
     extends
-        $FunctionalProvider<
-          AsyncValue<AccountListState>,
-          AsyncValue<AccountListState>,
-          AsyncValue<AccountListState>
-        >
+        $FunctionalProvider<AsyncValue<AccountListState>, AsyncValue<AccountListState>, AsyncValue<AccountListState>>
     with $Provider<AsyncValue<AccountListState>> {
   GoalAccountListProvider._()
     : super(
@@ -154,12 +142,7 @@ String _$goalAccountListHash() => r'a318c0b1226ac8a03293de388b06e5d6e06c358c';
 final accountMetricsProvider = AccountMetricsProvider._();
 
 final class AccountMetricsProvider
-    extends
-        $FunctionalProvider<
-          AccountMetricsData,
-          AccountMetricsData,
-          AccountMetricsData
-        >
+    extends $FunctionalProvider<AccountMetricsData, AccountMetricsData, AccountMetricsData>
     with $Provider<AccountMetricsData> {
   AccountMetricsProvider._()
     : super(
@@ -201,12 +184,7 @@ String _$accountMetricsHash() => r'b99b90e64c5d1cdf47707d5726e89c662c4375b4';
 final accountAggregateProvider = AccountAggregateFamily._();
 
 final class AccountAggregateProvider
-    extends
-        $FunctionalProvider<
-          AccountAggregate?,
-          AccountAggregate?,
-          AccountAggregate?
-        >
+    extends $FunctionalProvider<AccountAggregate?, AccountAggregate?, AccountAggregate?>
     with $Provider<AccountAggregate?> {
   AccountAggregateProvider._({
     required AccountAggregateFamily super.from,
@@ -262,8 +240,7 @@ final class AccountAggregateProvider
 
 String _$accountAggregateHash() => r'5aff591642a0874d8915f55cde24a8e8463bdd19';
 
-final class AccountAggregateFamily extends $Family
-    with $FunctionalFamilyOverride<AccountAggregate?, String> {
+final class AccountAggregateFamily extends $Family with $FunctionalFamilyOverride<AccountAggregate?, String> {
   AccountAggregateFamily._()
     : super(
         retry: null,
@@ -273,8 +250,7 @@ final class AccountAggregateFamily extends $Family
         isAutoDispose: true,
       );
 
-  AccountAggregateProvider call(String accountId) =>
-      AccountAggregateProvider._(argument: accountId, from: this);
+  AccountAggregateProvider call(String accountId) => AccountAggregateProvider._(argument: accountId, from: this);
 
   @override
   String toString() => r'accountAggregateProvider';
@@ -284,12 +260,7 @@ final class AccountAggregateFamily extends $Family
 final accountTransactionsProvider = AccountTransactionsFamily._();
 
 final class AccountTransactionsProvider
-    extends
-        $FunctionalProvider<
-          List<TransactionModel>,
-          List<TransactionModel>,
-          List<TransactionModel>
-        >
+    extends $FunctionalProvider<List<TransactionModel>, List<TransactionModel>, List<TransactionModel>>
     with $Provider<List<TransactionModel>> {
   AccountTransactionsProvider._({
     required AccountTransactionsFamily super.from,
@@ -343,8 +314,7 @@ final class AccountTransactionsProvider
   }
 }
 
-String _$accountTransactionsHash() =>
-    r'96c9e099e9d4d0211ac2fdca490e0374bb393a65';
+String _$accountTransactionsHash() => r'96c9e099e9d4d0211ac2fdca490e0374bb393a65';
 
 final class AccountTransactionsFamily extends $Family
     with $FunctionalFamilyOverride<List<TransactionModel>, Set<String>> {
@@ -368,12 +338,7 @@ final class AccountTransactionsFamily extends $Family
 final accountMapProvider = AccountMapProvider._();
 
 final class AccountMapProvider
-    extends
-        $FunctionalProvider<
-          Map<String, AccountModel>,
-          Map<String, AccountModel>,
-          Map<String, AccountModel>
-        >
+    extends $FunctionalProvider<Map<String, AccountModel>, Map<String, AccountModel>, Map<String, AccountModel>>
     with $Provider<Map<String, AccountModel>> {
   AccountMapProvider._()
     : super(

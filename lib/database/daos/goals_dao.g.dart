@@ -12,8 +12,6 @@ mixin _$GoalsDaoMixin on DatabaseAccessor<AppDatabase> {
 class GoalsDaoManager {
   final _$GoalsDaoMixin _db;
   GoalsDaoManager(this._db);
-  $$AccountsTableTableManager get accounts =>
-      $$AccountsTableTableManager(_db.attachedDatabase, _db.accounts);
-  $$GoalsTableTableManager get goals =>
-      $$GoalsTableTableManager(_db.attachedDatabase, _db.goals);
+  $$AccountsTableTableManager get accounts => $$AccountsTableTableManager(_db.attachedDatabase, _db.accounts);
+  $$GoalsTableTableManager get goals => $$GoalsTableTableManager(_db.attachedDatabase, _db.goals);
 }

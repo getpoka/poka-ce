@@ -12,8 +12,7 @@ part of 'budget_form_notifier.dart';
 @ProviderFor(BudgetFormNotifier)
 final budgetFormProvider = BudgetFormNotifierProvider._();
 
-final class BudgetFormNotifierProvider
-    extends $NotifierProvider<BudgetFormNotifier, BudgetFormState> {
+final class BudgetFormNotifierProvider extends $NotifierProvider<BudgetFormNotifier, BudgetFormState> {
   BudgetFormNotifierProvider._()
     : super(
         from: null,
@@ -41,8 +40,7 @@ final class BudgetFormNotifierProvider
   }
 }
 
-String _$budgetFormNotifierHash() =>
-    r'685138d2aef7b65fa31c04ed68b0b63f65be75b9';
+String _$budgetFormNotifierHash() => r'685138d2aef7b65fa31c04ed68b0b63f65be75b9';
 
 abstract class _$BudgetFormNotifier extends $Notifier<BudgetFormState> {
   BudgetFormState build();
@@ -52,12 +50,7 @@ abstract class _$BudgetFormNotifier extends $Notifier<BudgetFormState> {
     final ref = this.ref as $Ref<BudgetFormState, BudgetFormState>;
     final element =
         ref.element
-            as $ClassProviderElement<
-              AnyNotifier<BudgetFormState, BudgetFormState>,
-              BudgetFormState,
-              Object?,
-              Object?
-            >;
+            as $ClassProviderElement<AnyNotifier<BudgetFormState, BudgetFormState>, BudgetFormState, Object?, Object?>;
     return element.handleCreate(ref, build);
   }
 }

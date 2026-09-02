@@ -48,14 +48,7 @@ abstract class _$DailyBudget extends $Notifier<double> {
   @override
   WhenComplete runBuild() {
     final ref = this.ref as $Ref<double, double>;
-    final element =
-        ref.element
-            as $ClassProviderElement<
-              AnyNotifier<double, double>,
-              double,
-              Object?,
-              Object?
-            >;
+    final element = ref.element as $ClassProviderElement<AnyNotifier<double, double>, double, Object?, Object?>;
     return element.handleCreate(ref, build);
   }
 }

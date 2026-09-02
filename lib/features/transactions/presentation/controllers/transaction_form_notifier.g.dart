@@ -12,8 +12,7 @@ part of 'transaction_form_notifier.dart';
 @ProviderFor(TransactionFormNotifier)
 final transactionFormProvider = TransactionFormNotifierFamily._();
 
-final class TransactionFormNotifierProvider
-    extends $NotifierProvider<TransactionFormNotifier, TransactionFormState> {
+final class TransactionFormNotifierProvider extends $NotifierProvider<TransactionFormNotifier, TransactionFormState> {
   TransactionFormNotifierProvider._({
     required TransactionFormNotifierFamily super.from,
     required TransactionFormArgs super.argument,
@@ -49,8 +48,7 @@ final class TransactionFormNotifierProvider
 
   @override
   bool operator ==(Object other) {
-    return other is TransactionFormNotifierProvider &&
-        other.argument == argument;
+    return other is TransactionFormNotifierProvider && other.argument == argument;
   }
 
   @override
@@ -59,8 +57,7 @@ final class TransactionFormNotifierProvider
   }
 }
 
-String _$transactionFormNotifierHash() =>
-    r'4713c39d5436609e2f5336f0763452d1abc491d5';
+String _$transactionFormNotifierHash() => r'4713c39d5436609e2f5336f0763452d1abc491d5';
 
 final class TransactionFormNotifierFamily extends $Family
     with
@@ -87,8 +84,7 @@ final class TransactionFormNotifierFamily extends $Family
   String toString() => r'transactionFormProvider';
 }
 
-abstract class _$TransactionFormNotifier
-    extends $Notifier<TransactionFormState> {
+abstract class _$TransactionFormNotifier extends $Notifier<TransactionFormState> {
   late final _$args = ref.$arg as TransactionFormArgs;
   TransactionFormArgs get args => _$args;
 
