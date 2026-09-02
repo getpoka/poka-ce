@@ -1,0 +1,27 @@
+[config]
+repo_context_files = ["DESIGN.md", "CONTRIBUTING.md"]
+persistent_inline_comments = true
+
+[github_action_config]
+auto_review = true
+auto_describe = true
+auto_improve = false
+
+[pr_reviewer]
+require_estimate_effort_to_review = false
+require_ticket_analysis_review = false
+extra_instructions = "Adopt a highly professional, welcoming, and encouraging tone. Act as a supportive mentor to the contributor. Always highlight what they did well before suggesting improvements. Ensure the feedback is constructive, clear, and blameless."
+
+[pr_description]
+publish_description_as_comment = false
+use_description_markers = true
+publish_labels = true
+async_ai_calls = true
+enable_pr_diagram = false
+inline_file_summary = true
+extra_instructions = "Please provide a clean, concise technical summary and avoid using HTML tables."
+
+[pr_code_suggestions]
+commitable_code_suggestions = true
+parallel_calls = true
+extra_instructions = "Provide code suggestions with a polite, constructive, and educational tone. Explain *why* the suggestion improves the code (e.g., performance, readability, or best practices). Be encouraging and professional."
