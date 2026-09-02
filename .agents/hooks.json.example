@@ -1,0 +1,123 @@
+{
+  "dart-autofix": {
+    "PostToolUse": [
+      {
+        "matcher": "write_to_file|replace_file_content|multi_replace_file_content",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c 'INPUT=$(cat); FILE=$(echo \"$INPUT\" | python3 -c \"import sys,json; d=json.load(sys.stdin); print(d.get(\\\"toolCall\\\",{}).get(\\\"args\\\",{}).get(\\\"TargetFile\\\",\\\"\\\"))\" 2>/dev/null); if echo \"$FILE\" | grep -q \"\\.dart$\"; then cd ${workspace.path} && dart fix --apply --suppress-analytics 2>/dev/null; fi; echo {}'",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  },
+  "material-widget-guard": {
+    "PostToolUse": [
+      {
+        "matcher": "write_to_file|replace_file_content|multi_replace_file_content",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c 'INPUT=$(cat); FILE=$(echo \"$INPUT\" | python3 -c \"import sys,json; d=json.load(sys.stdin); print(d.get(\\\"toolCall\\\",{}).get(\\\"args\\\",{}).get(\\\"TargetFile\\\",\\\"\\\"))\" 2>/dev/null); if echo \"$FILE\" | grep -q \"\\.dart$\"; then HITS=$(grep -nE \"\\b(Scaffold|AppBar|BottomAppBar|ElevatedButton|FloatingActionButton|BottomNavigationBar|NavigationBar|MaterialApp|DrawerHeader)\\b\" \"$FILE\" 2>/dev/null | grep -v \"//\" | head -5); if [ -n \"$HITS\" ]; then echo \"{\\\"decision\\\":\\\"\\\",\\\"reason\\\":\\\"⛔ VIOLATION — Material widget in $FILE. Use ForUI: FScaffold, FButton, etc.\\\\nLines: $HITS\\\"}\"; else echo {}; fi; else echo {}; fi'",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  },
+  "shadow-guard": {
+    "PostToolUse": [
+      {
+        "matcher": "write_to_file|replace_file_content|multi_replace_file_content",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c 'INPUT=$(cat); FILE=$(echo \"$INPUT\" | python3 -c \"import sys,json; d=json.load(sys.stdin); print(d.get(\\\"toolCall\\\",{}).get(\\\"args\\\",{}).get(\\\"TargetFile\\\",\\\"\\\"))\" 2>/dev/null); if echo \"$FILE\" | grep -q \"\\.dart$\"; then HITS=$(grep -nE \"boxShadow|PhysicalModel|elevation:\\s*[1-9]\" \"$FILE\" 2>/dev/null | grep -v \"//\" | head -5); if [ -n \"$HITS\" ]; then echo \"{\\\"decision\\\":\\\"\\\",\\\"reason\\\":\\\"⛔ VIOLATION — Shadow/elevation in $FILE. Poka CE is strictly flat design — no boxShadow, no elevation.\\\\nLines: $HITS\\\"}\"; else echo {}; fi; else echo {}; fi'",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  },
+  "color-guard": {
+    "PostToolUse": [
+      {
+        "matcher": "write_to_file|replace_file_content|multi_replace_file_content",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c 'INPUT=$(cat); FILE=$(echo \"$INPUT\" | python3 -c \"import sys,json; d=json.load(sys.stdin); print(d.get(\\\"toolCall\\\",{}).get(\\\"args\\\",{}).get(\\\"TargetFile\\\",\\\"\\\"))\" 2>/dev/null); if echo \"$FILE\" | grep -q \"\\.dart$\"; then THEME=$(echo \"$FILE\" | grep -q \"lib/theme/\" && echo yes || echo no); if [ \"$THEME\" = \"no\" ]; then HITS=$(grep -nE \"Color\\(0x|Colors\\.(white|black|grey|red|blue|green|amber|orange|purple|teal|cyan|pink|lime|indigo|brown|deep)\" \"$FILE\" 2>/dev/null | grep -v \"//\" | head -5); if [ -n \"$HITS\" ]; then echo \"{\\\"decision\\\":\\\"\\\",\\\"reason\\\":\\\"⛔ VIOLATION — Hardcoded color in $FILE (outside lib/theme/). Use theme color tokens only.\\\\nLines: $HITS\\\"}\"; else echo {}; fi; else echo {}; fi; else echo {}; fi'",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  },
+  "typography-guard": {
+    "PostToolUse": [
+      {
+        "matcher": "write_to_file|replace_file_content|multi_replace_file_content",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c 'INPUT=$(cat); FILE=$(echo \"$INPUT\" | python3 -c \"import sys,json; d=json.load(sys.stdin); print(d.get(\\\"toolCall\\\",{}).get(\\\"args\\\",{}).get(\\\"TargetFile\\\",\\\"\\\"))\" 2>/dev/null); if echo \"$FILE\" | grep -q \"\\.dart$\"; then THEME=$(echo \"$FILE\" | grep -q \"lib/theme/\" && echo yes || echo no); if [ \"$THEME\" = \"no\" ]; then HITS=$(grep -nE \"TextStyle\\s*\\(|fontSize\\s*:|fontWeight\\s*:|letterSpacing\\s*:|fontFamily\\s*:\" \"$FILE\" 2>/dev/null | grep -v \"//\" | head -5); if [ -n \"$HITS\" ]; then echo \"{\\\"decision\\\":\\\"\\\",\\\"reason\\\":\\\"⛔ VIOLATION — Inline TextStyle in $FILE (outside lib/theme/). Use typography roles from lib/theme/typography_roles.dart instead.\\\\nLines: $HITS\\\"}\"; else echo {}; fi; else echo {}; fi; else echo {}; fi'",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  },
+  "throw-guard": {
+    "PostToolUse": [
+      {
+        "matcher": "write_to_file|replace_file_content|multi_replace_file_content",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c 'INPUT=$(cat); FILE=$(echo \"$INPUT\" | python3 -c \"import sys,json; d=json.load(sys.stdin); print(d.get(\\\"toolCall\\\",{}).get(\\\"args\\\",{}).get(\\\"TargetFile\\\",\\\"\\\"))\" 2>/dev/null); if echo \"$FILE\" | grep -qE \"(_repository|_notifier|_controller)\\.dart$\"; then HITS=$(grep -nE \"^\\s*throw \" \"$FILE\" 2>/dev/null | grep -v \"//\" | head -5); if [ -n \"$HITS\" ]; then echo \"{\\\"decision\\\":\\\"\\\",\\\"reason\\\":\\\"⛔ VIOLATION — `throw` inside repository/notifier in $FILE. Return Result<T, Failure> instead.\\\\nLines: $HITS\\\"}\"; else echo {}; fi; else echo {}; fi'",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  },
+  "print-guard": {
+    "PostToolUse": [
+      {
+        "matcher": "write_to_file|replace_file_content|multi_replace_file_content",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c 'INPUT=$(cat); FILE=$(echo \"$INPUT\" | python3 -c \"import sys,json; d=json.load(sys.stdin); print(d.get(\\\"toolCall\\\",{}).get(\\\"args\\\",{}).get(\\\"TargetFile\\\",\\\"\\\"))\" 2>/dev/null); if echo \"$FILE\" | grep -q \"\\.dart$\"; then HITS=$(grep -nE \"^\\s*(print|debugPrint)\\s*\\(\" \"$FILE\" 2>/dev/null | grep -v \"//\" | head -5); if [ -n \"$HITS\" ]; then echo \"{\\\"decision\\\":\\\"\\\",\\\"reason\\\":\\\"⛔ VIOLATION — print()/debugPrint() in $FILE. Use talker: _talker.info() or _talker.error().\\\\nLines: $HITS\\\"}\"; else echo {}; fi; else echo {}; fi'",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  },
+  "dynamic-guard": {
+    "PostToolUse": [
+      {
+        "matcher": "write_to_file|replace_file_content|multi_replace_file_content",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c 'INPUT=$(cat); FILE=$(echo \"$INPUT\" | python3 -c \"import sys,json; d=json.load(sys.stdin); print(d.get(\\\"toolCall\\\",{}).get(\\\"args\\\",{}).get(\\\"TargetFile\\\",\\\"\\\"))\" 2>/dev/null); if echo \"$FILE\" | grep -q \"\\.dart$\"; then HITS=$(grep -nE \"\\bdynamic\\b\" \"$FILE\" 2>/dev/null | grep -v \"//\" | head -5); if [ -n \"$HITS\" ]; then echo \"{\\\"decision\\\":\\\"\\\",\\\"reason\\\":\\\"⛔ VIOLATION — `dynamic` type in $FILE. Use explicit generic types (e.g. Object?, Map<String, int>).\\\\nLines: $HITS\\\"}\"; else echo {}; fi; else echo {}; fi'",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  },
+  "done-checklist": {
+    "Stop": [
+      {
+        "type": "command",
+        "command": "echo '{\"decision\":\"\",\"reason\":\"✅ Before this session ends — verify:\\n1. dart fix --apply\\n2. flutter analyze → No issues found!\\n3. Every new lib/ file has a matching test/ file\\n4. No Material widgets (Scaffold, AppBar, Card, ElevatedButton)\\n5. No shadows (boxShadow, elevation > 0, PhysicalModel)\\n6. No hardcoded colors (Color(0xFF...), Colors.white/black/grey)\\n7. No inline TextStyle / typography outside lib/theme/\\n8. No print() or debugPrint() — use talker\\n9. No throw in repositories or notifiers\\n10. No dynamic type anywhere\"}'",
+        "timeout": 5
+      }
+    ]
+  }
+}

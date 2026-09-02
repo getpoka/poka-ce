@@ -57,3 +57,9 @@ docs/
 opencode.json
 tui.json
 .opencode
+
+# Private agent configs & rules
+.agents/**/private.*
+.agents/**/private-*
+.agents/hooks.json
+.agents/mcp_config.json
