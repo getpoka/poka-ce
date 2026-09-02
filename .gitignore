@@ -49,8 +49,10 @@ graphify-out/
 # ─────────────────────────────────────────────────────────────────────────────
 # 6. AI Customizations & Private Configs
 # ─────────────────────────────────────────────────────────────────────────────
-.agents/
-AGENTS.md
+# AGENTS.md and .agents/ are committed publicly (contributor guidelines)
+!AGENTS.md
+!.agents/
+.agents/.private/
 docs/
 opencode.json
 tui.json

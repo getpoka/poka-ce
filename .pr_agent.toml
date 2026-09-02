@@ -1,5 +1,5 @@
 [config]
-repo_context_files = ["DESIGN.md", "CONTRIBUTING.md"]
+repo_context_files = ["CONTRIBUTING.md", "AGENTS.md", ".agents/rules/architecture.md", ".agents/rules/coding-standards.md", ".agents/rules/forui-rules.md", ".agents/rules/database-schema.md"]
 persistent_inline_comments = true
 
 [github_action_config]
