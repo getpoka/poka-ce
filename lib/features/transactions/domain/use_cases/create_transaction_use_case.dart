@@ -28,7 +28,7 @@ class CreateTransactionUseCase {
   }) async {
     final nowUtc = DateTimeUtils.nowUtc();
     final txDateUtc = transactionDate?.toUtc() ?? nowUtc;
-    final transactionId = const Uuid().v4();
+    final transactionId = const Uuid().v7();
 
     final txItems = <TransactionItemModel>[];
     var totalAmount = 0;
@@ -39,7 +39,7 @@ class CreateTransactionUseCase {
         totalAmount += item.amount;
         txItems.add(
           TransactionItemModel(
-            id: const Uuid().v4(),
+            id: const Uuid().v7(),
             transactionId: transactionId,
             amount: item.amount,
             createdAt: nowUtc,
@@ -57,7 +57,7 @@ class CreateTransactionUseCase {
       totalAmount = amount;
       txItems.add(
         TransactionItemModel(
-          id: const Uuid().v4(),
+          id: const Uuid().v7(),
           transactionId: transactionId,
           amount: amount,
           createdAt: nowUtc,

@@ -38,7 +38,7 @@ class TransferFundsUseCase {
       return await _unitOfWork.execute(() async {
         final nowUtc = DateTimeUtils.nowUtc();
         final txDateUtc = transactionDate?.toUtc() ?? nowUtc;
-        final transactionId = const Uuid().v4();
+        final transactionId = const Uuid().v7();
 
         final transaction = TransactionModel(
           id: transactionId,
@@ -52,7 +52,7 @@ class TransferFundsUseCase {
           note: note,
           items: [
             TransactionItemModel(
-              id: const Uuid().v4(),
+              id: const Uuid().v7(),
               transactionId: transactionId,
               amount: amount,
               createdAt: nowUtc,

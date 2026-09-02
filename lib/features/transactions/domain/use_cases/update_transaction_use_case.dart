@@ -41,7 +41,7 @@ class UpdateTransactionUseCase {
         txItems.add(
           TransactionItemModel(
             id: const Uuid()
-                .v4(), // We regenerate IDs for split items for simplicity since old ones are deleted by cascade
+                .v7(), // We regenerate IDs for split items for simplicity since old ones are deleted by cascade
             transactionId: transactionId,
             amount: item.amount,
             createdAt: nowUtc,
@@ -59,7 +59,7 @@ class UpdateTransactionUseCase {
       totalAmount = amount;
       txItems.add(
         TransactionItemModel(
-          id: const Uuid().v4(),
+          id: const Uuid().v7(),
           transactionId: transactionId,
           amount: amount,
           createdAt: nowUtc,
