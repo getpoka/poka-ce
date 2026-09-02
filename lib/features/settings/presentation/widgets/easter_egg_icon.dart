@@ -59,6 +59,7 @@ class _EasterEggIconState extends State<EasterEggIcon> {
                     borderRadius: context.theme.style.borderRadius.lg,
                     child: Image.asset(
                       'assets/images/hasbullah.gif',
+                      package: 'poka_ce',
                       width: 280,
                       fit: BoxFit.cover,
                     ),

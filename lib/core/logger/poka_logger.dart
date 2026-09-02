@@ -1,3 +1,1 @@
-import 'package:talker_flutter/talker_flutter.dart';
-
-final Talker talker = TalkerFlutter.init();
+export 'package:poka_ce/core/utils/logger.dart';
