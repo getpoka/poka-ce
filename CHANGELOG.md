@@ -7,6 +7,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v0.1.0-beta.3] - 2026-09-02
+
+### Added
+
+- `dashboardHeaderBuilderProvider` to allow dynamic injection of custom dashboard headers via Riverpod, preserving CE blindness.
+- Integrated Codium PR Agent workflow using DeepSeek via LiteLLM for automated code reviews.
+
+### Changed
+
+- Refactored `DashboardQuickActions` to display a maximum of 5 items horizontally centered, with text overflow handled via `ellipsis`.
+- Migrated all form sheets across the app to use proper Form-based validation logic.
+- Refined Markdown typography and beautified the FAQ page layout.
+- Flattened presentation widget structures for smaller, more focused features.
+- Switched to UUIDv7 for deterministic, time-sorted transaction IDs.
+
+### Fixed
+
+- Resolved asset loading path bugs and state lifecycle issues.
+- Ensured form inputs are properly validated inside notifiers before triggering save actions.
+- Reset FAB (Floating Action Button) visibility states correctly when switching tabs in the main shell.
+- Fixed e2e test failures introduced by the new form validation migration.
+
+### CI & Chores
+
+- Formatted and organized `pubspec.yaml` dependencies.
+- Optimized GitHub Actions workflows to save runner minutes by only triggering when a PR is marked as "Ready for Review".
+
 ## [v0.1.0-beta.2] - 2026-09-01
 
 ### Added
@@ -64,6 +91,7 @@ All core features are feature-complete and ready to be explored:
 
 > **⚠️ Important Note:** This version is still under testing. Deep edge cases (such as editing or deleting complex interconnected data) have not been fully verified. Unexpected bugs may occur — we recommend trying it with dummy data first, or regularly backing up your data from the Settings menu. Help us reach v1.0 by reporting bugs via the [Issues](https://github.com/getpoka/poka-ce/issues) tab.
 
-[Unreleased]: https://github.com/getpoka/poka-ce/compare/v0.1.0-beta.2...main
+[Unreleased]: https://github.com/getpoka/poka-ce/compare/v0.1.0-beta.3...main
+[v0.1.0-beta.3]: https://github.com/getpoka/poka-ce/compare/v0.1.0-beta.2...v0.1.0-beta.3
 [v0.1.0-beta.2]: https://github.com/getpoka/poka-ce/compare/v0.1.0-beta.1...v0.1.0-beta.2
 [v0.1.0-beta.1]: https://github.com/getpoka/poka-ce/releases/tag/v0.1.0-beta.1
