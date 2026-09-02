@@ -12,7 +12,8 @@ part of 'goal_form_notifier.dart';
 @ProviderFor(GoalFormNotifier)
 final goalFormProvider = GoalFormNotifierProvider._();
 
-final class GoalFormNotifierProvider extends $NotifierProvider<GoalFormNotifier, GoalFormState> {
+final class GoalFormNotifierProvider
+    extends $NotifierProvider<GoalFormNotifier, GoalFormState> {
   GoalFormNotifierProvider._()
     : super(
         from: null,
@@ -40,7 +41,7 @@ final class GoalFormNotifierProvider extends $NotifierProvider<GoalFormNotifier,
   }
 }
 
-String _$goalFormNotifierHash() => r'a64fd685f659fd555dd36f0a39cd6bc8a0af2bfb';
+String _$goalFormNotifierHash() => r'87104741e54a8bae629b3021d41b7941ef212fdd';
 
 abstract class _$GoalFormNotifier extends $Notifier<GoalFormState> {
   GoalFormState build();
@@ -50,7 +51,12 @@ abstract class _$GoalFormNotifier extends $Notifier<GoalFormState> {
     final ref = this.ref as $Ref<GoalFormState, GoalFormState>;
     final element =
         ref.element
-            as $ClassProviderElement<AnyNotifier<GoalFormState, GoalFormState>, GoalFormState, Object?, Object?>;
+            as $ClassProviderElement<
+              AnyNotifier<GoalFormState, GoalFormState>,
+              GoalFormState,
+              Object?,
+              Object?
+            >;
     return element.handleCreate(ref, build);
   }
 }

@@ -12,7 +12,8 @@ part of 'report_budget_utilization.dart';
 @ProviderFor(reportBudgetTotalSpent)
 final reportBudgetTotalSpentProvider = ReportBudgetTotalSpentProvider._();
 
-final class ReportBudgetTotalSpentProvider extends $FunctionalProvider<AsyncValue<int>, int, FutureOr<int>>
+final class ReportBudgetTotalSpentProvider
+    extends $FunctionalProvider<AsyncValue<int>, int, FutureOr<int>>
     with $FutureModifier<int>, $FutureProvider<int> {
   ReportBudgetTotalSpentProvider._()
     : super(
@@ -30,7 +31,8 @@ final class ReportBudgetTotalSpentProvider extends $FunctionalProvider<AsyncValu
 
   @$internal
   @override
-  $FutureProviderElement<int> $createElement($ProviderPointer pointer) => $FutureProviderElement(pointer);
+  $FutureProviderElement<int> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
 
   @override
   FutureOr<int> create(Ref ref) {
@@ -38,4 +40,5 @@ final class ReportBudgetTotalSpentProvider extends $FunctionalProvider<AsyncValu
   }
 }
 
-String _$reportBudgetTotalSpentHash() => r'ad0a6a59b580ca6f6df25980bf13725a39bc41d2';
+String _$reportBudgetTotalSpentHash() =>
+    r'ad0a6a59b580ca6f6df25980bf13725a39bc41d2';

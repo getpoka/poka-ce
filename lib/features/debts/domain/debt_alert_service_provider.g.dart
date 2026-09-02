@@ -12,7 +12,13 @@ part of 'debt_alert_service_provider.dart';
 @ProviderFor(debtAlertService)
 final debtAlertServiceProvider = DebtAlertServiceProvider._();
 
-final class DebtAlertServiceProvider extends $FunctionalProvider<DebtAlertService, DebtAlertService, DebtAlertService>
+final class DebtAlertServiceProvider
+    extends
+        $FunctionalProvider<
+          DebtAlertService,
+          DebtAlertService,
+          DebtAlertService
+        >
     with $Provider<DebtAlertService> {
   DebtAlertServiceProvider._()
     : super(
@@ -30,7 +36,8 @@ final class DebtAlertServiceProvider extends $FunctionalProvider<DebtAlertServic
 
   @$internal
   @override
-  $ProviderElement<DebtAlertService> $createElement($ProviderPointer pointer) => $ProviderElement(pointer);
+  $ProviderElement<DebtAlertService> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
 
   @override
   DebtAlertService create(Ref ref) {

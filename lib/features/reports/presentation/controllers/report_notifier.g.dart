@@ -12,7 +12,8 @@ part of 'report_notifier.dart';
 @ProviderFor(ReportNotifier)
 final reportProvider = ReportNotifierProvider._();
 
-final class ReportNotifierProvider extends $NotifierProvider<ReportNotifier, ReportState> {
+final class ReportNotifierProvider
+    extends $NotifierProvider<ReportNotifier, ReportState> {
   ReportNotifierProvider._()
     : super(
         from: null,
@@ -49,7 +50,13 @@ abstract class _$ReportNotifier extends $Notifier<ReportState> {
   WhenComplete runBuild() {
     final ref = this.ref as $Ref<ReportState, ReportState>;
     final element =
-        ref.element as $ClassProviderElement<AnyNotifier<ReportState, ReportState>, ReportState, Object?, Object?>;
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<ReportState, ReportState>,
+              ReportState,
+              Object?,
+              Object?
+            >;
     return element.handleCreate(ref, build);
   }
 }

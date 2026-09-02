@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:forui_phosphor/forui_phosphor.dart';
 import 'package:poka_ce/features/dashboard/presentation/widgets/sections/dashboard_quick_actions.dart';
@@ -14,14 +15,16 @@ void main() {
   });
 
   Widget createWidget() {
-    return TranslationProvider(
-      child: MaterialApp(
-        builder: (context, child) => FTheme(
-          data: lightTheme,
-          child: child!,
-        ),
-        home: const Scaffold(
-          body: DashboardQuickActions(),
+    return ProviderScope(
+      child: TranslationProvider(
+        child: MaterialApp(
+          builder: (context, child) => FTheme(
+            data: lightTheme,
+            child: child!,
+          ),
+          home: const Scaffold(
+            body: DashboardQuickActions(),
+          ),
         ),
       ),
     );

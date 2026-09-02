@@ -3,6 +3,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:forui/forui.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poka_ce/features/accounts/presentation/widgets/cards/account_networth_card.dart';
+import 'package:poka_ce/features/dashboard/presentation/controllers/dashboard_header_provider.dart';
 import 'package:poka_ce/features/dashboard/presentation/controllers/dashboard_notifier.dart';
 import 'package:poka_ce/features/dashboard/presentation/widgets/cards/dashboard_analytics_carousel.dart';
 import 'package:poka_ce/features/dashboard/presentation/widgets/cards/dashboard_spending_chart.dart';
@@ -17,12 +18,17 @@ class DashboardPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(dashboardProvider);
+    final customHeaderBuilder = ref.watch(dashboardHeaderBuilderProvider);
+
+    final header = customHeaderBuilder != null
+        ? customHeaderBuilder(context)
+        : PokaHeader(
+            subtitle: context.t.dashboard.overview,
+            title: context.t.dashboard.myFinances,
+          );
 
     return FScaffold(
-      header: PokaHeader(
-        subtitle: context.t.dashboard.overview,
-        title: context.t.dashboard.myFinances,
-      ),
+      header: header,
       child: state.isLoading && state.accounts.isEmpty
           ? const Center(child: FCircularProgress())
           : RefreshIndicator(

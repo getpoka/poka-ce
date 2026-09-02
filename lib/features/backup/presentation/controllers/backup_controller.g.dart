@@ -12,7 +12,8 @@ part of 'backup_controller.dart';
 @ProviderFor(BackupController)
 final backupControllerProvider = BackupControllerProvider._();
 
-final class BackupControllerProvider extends $AsyncNotifierProvider<BackupController, void> {
+final class BackupControllerProvider
+    extends $AsyncNotifierProvider<BackupController, void> {
   BackupControllerProvider._()
     : super(
         from: null,
@@ -41,7 +42,13 @@ abstract class _$BackupController extends $AsyncNotifier<void> {
   WhenComplete runBuild() {
     final ref = this.ref as $Ref<AsyncValue<void>, void>;
     final element =
-        ref.element as $ClassProviderElement<AnyNotifier<AsyncValue<void>, void>, AsyncValue<void>, Object?, Object?>;
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AsyncValue<void>, void>,
+              AsyncValue<void>,
+              Object?,
+              Object?
+            >;
     return element.handleCreate(ref, build);
   }
 }

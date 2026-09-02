@@ -12,7 +12,8 @@ part of 'backup_service.dart';
 @ProviderFor(backupService)
 final backupServiceProvider = BackupServiceProvider._();
 
-final class BackupServiceProvider extends $FunctionalProvider<BackupService, BackupService, BackupService>
+final class BackupServiceProvider
+    extends $FunctionalProvider<BackupService, BackupService, BackupService>
     with $Provider<BackupService> {
   BackupServiceProvider._()
     : super(
@@ -30,7 +31,8 @@ final class BackupServiceProvider extends $FunctionalProvider<BackupService, Bac
 
   @$internal
   @override
-  $ProviderElement<BackupService> $createElement($ProviderPointer pointer) => $ProviderElement(pointer);
+  $ProviderElement<BackupService> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
 
   @override
   BackupService create(Ref ref) {

@@ -12,7 +12,8 @@ part of 'recurring_list_notifier.dart';
 @ProviderFor(RecurringListNotifier)
 final recurringListProvider = RecurringListNotifierProvider._();
 
-final class RecurringListNotifierProvider extends $NotifierProvider<RecurringListNotifier, RecurringListState> {
+final class RecurringListNotifierProvider
+    extends $NotifierProvider<RecurringListNotifier, RecurringListState> {
   RecurringListNotifierProvider._()
     : super(
         from: null,
@@ -40,7 +41,8 @@ final class RecurringListNotifierProvider extends $NotifierProvider<RecurringLis
   }
 }
 
-String _$recurringListNotifierHash() => r'03eb65b234863f5ab79499257717d7f2f810b084';
+String _$recurringListNotifierHash() =>
+    r'03eb65b234863f5ab79499257717d7f2f810b084';
 
 abstract class _$RecurringListNotifier extends $Notifier<RecurringListState> {
   RecurringListState build();

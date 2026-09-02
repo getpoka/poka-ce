@@ -12,7 +12,8 @@ part of 'settings_notifier.dart';
 @ProviderFor(SettingsNotifier)
 final settingsProvider = SettingsNotifierProvider._();
 
-final class SettingsNotifierProvider extends $NotifierProvider<SettingsNotifier, SettingsState> {
+final class SettingsNotifierProvider
+    extends $NotifierProvider<SettingsNotifier, SettingsState> {
   SettingsNotifierProvider._()
     : super(
         from: null,
@@ -40,7 +41,7 @@ final class SettingsNotifierProvider extends $NotifierProvider<SettingsNotifier,
   }
 }
 
-String _$settingsNotifierHash() => r'e2e3cdf58138580ec7ac4f356a43f0ccb3a56ee9';
+String _$settingsNotifierHash() => r'17ec5304121f056a4e9b6a6a8a169a7737d5b918';
 
 abstract class _$SettingsNotifier extends $Notifier<SettingsState> {
   SettingsState build();
@@ -50,7 +51,12 @@ abstract class _$SettingsNotifier extends $Notifier<SettingsState> {
     final ref = this.ref as $Ref<SettingsState, SettingsState>;
     final element =
         ref.element
-            as $ClassProviderElement<AnyNotifier<SettingsState, SettingsState>, SettingsState, Object?, Object?>;
+            as $ClassProviderElement<
+              AnyNotifier<SettingsState, SettingsState>,
+              SettingsState,
+              Object?,
+              Object?
+            >;
     return element.handleCreate(ref, build);
   }
 }
