@@ -28,14 +28,7 @@ class CategoryHeroCard extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            parentColor,
-            Color.lerp(parentColor, Colors.black, 0.35) ?? parentColor,
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
+        gradient: PokaGradients.hero(parentColor),
         borderRadius: theme.style.borderRadius.lg,
       ),
       padding: const EdgeInsets.all(24),

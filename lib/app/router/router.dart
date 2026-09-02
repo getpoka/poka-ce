@@ -44,12 +44,12 @@ class GoRouterObserver extends NavigatorObserver {
   final Talker talker;
 
   @override
-  void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) {
+  void didPush(Route<Object?> route, Route<Object?>? previousRoute) {
     talker.info('Route pushed: ${route.settings.name}');
   }
 
   @override
-  void didPop(Route<dynamic> route, Route<dynamic>? previousRoute) {
+  void didPop(Route<Object?> route, Route<Object?>? previousRoute) {
     talker.info('Route popped: ${route.settings.name}');
   }
 }

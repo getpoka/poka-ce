@@ -54,14 +54,7 @@ class PokaHeroCard extends StatelessWidget {
           shape: ((theme.cardStyle.decoration as ShapeDecoration).shape as OutlinedBorder).copyWith(
             side: BorderSide.none,
           ),
-          gradient: LinearGradient(
-            colors: [
-              primaryColor,
-              Color.lerp(primaryColor, Colors.black, 0.35) ?? primaryColor,
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
+          gradient: PokaGradients.hero(primaryColor),
         ),
         titleTextStyle: theme.cardStyle.titleTextStyle,
         subtitleTextStyle: theme.cardStyle.subtitleTextStyle,

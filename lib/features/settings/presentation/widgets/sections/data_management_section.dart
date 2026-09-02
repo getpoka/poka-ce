@@ -132,7 +132,7 @@ class DataManagementSection extends ConsumerWidget {
                       );
                   if (!success) {
                     final err = container.read(backupControllerProvider).error;
-                    if (err != null) throw Exception(err.toString());
+                    if (err != null) return Future.error(err);
                   }
                   return success;
                 },

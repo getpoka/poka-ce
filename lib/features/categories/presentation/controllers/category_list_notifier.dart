@@ -16,7 +16,7 @@ class CategoryListNotifier extends _$CategoryListNotifier {
     final result = await repo.getCategories();
     return switch (result) {
       Success(value: final categories) => categories,
-      ErrorResult(error: final failure) => throw Exception(failure.message),
+      ErrorResult(error: final failure) => Future.error(failure, StackTrace.current),
     };
   }
 
@@ -28,7 +28,7 @@ class CategoryListNotifier extends _$CategoryListNotifier {
       final result = await repo.getCategories();
       return switch (result) {
         Success(value: final categories) => categories,
-        ErrorResult(error: final failure) => throw Exception(failure.message),
+        ErrorResult(error: final failure) => Future.error(failure, StackTrace.current),
       };
     });
   }

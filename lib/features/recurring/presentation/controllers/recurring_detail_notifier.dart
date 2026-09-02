@@ -13,10 +13,10 @@ Stream<List<TransactionModel>> recurringTransactions(Ref ref, RecurringTransacti
       .watchTransactions(
         recurringIds: {recurring.id},
       )
-      .map((result) {
+      .asyncMap((result) {
         return switch (result) {
           Success(value: final transactions) => transactions,
-          ErrorResult(error: final failure) => throw Exception(failure.toString()),
+          ErrorResult(error: final failure) => Future.error(failure, StackTrace.current),
         };
       });
 }

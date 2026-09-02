@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:poka_ce/app/router/router.dart';
 import 'package:poka_ce/core/utils/log_exporter.dart';
+import 'package:poka_ce/core/utils/logger.dart';
 import 'package:poka_ce/features/settings/presentation/widgets/easter_egg_icon.dart';
 import 'package:poka_ce/features/settings/presentation/widgets/settings_menu_item.dart';
 import 'package:poka_ce/features/settings/presentation/widgets/settings_menu_section.dart';
@@ -146,8 +147,8 @@ class AboutPage extends StatelessWidget {
     final uri = Uri.parse(url);
     try {
       await launchUrl(uri, mode: LaunchMode.externalApplication);
-    } on Exception catch (e) {
-      debugPrint('Could not launch $url: $e');
+    } on Exception catch (e, st) {
+      talker.error('Could not launch $url', e, st);
     }
   }
 }
