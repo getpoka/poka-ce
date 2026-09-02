@@ -12,13 +12,7 @@ part of 'goal_list_view_notifier.dart';
 @ProviderFor(goalListView)
 final goalListViewProvider = GoalListViewProvider._();
 
-final class GoalListViewProvider
-    extends
-        $FunctionalProvider<
-          GoalListViewState,
-          GoalListViewState,
-          GoalListViewState
-        >
+final class GoalListViewProvider extends $FunctionalProvider<GoalListViewState, GoalListViewState, GoalListViewState>
     with $Provider<GoalListViewState> {
   GoalListViewProvider._()
     : super(

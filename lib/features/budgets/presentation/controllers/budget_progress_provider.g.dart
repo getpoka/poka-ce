@@ -12,8 +12,7 @@ part of 'budget_progress_provider.dart';
 @ProviderFor(budgetProgress)
 final budgetProgressProvider = BudgetProgressFamily._();
 
-final class BudgetProgressProvider
-    extends $FunctionalProvider<AsyncValue<int>, int, FutureOr<int>>
+final class BudgetProgressProvider extends $FunctionalProvider<AsyncValue<int>, int, FutureOr<int>>
     with $FutureModifier<int>, $FutureProvider<int> {
   BudgetProgressProvider._({
     required BudgetProgressFamily super.from,
@@ -38,8 +37,7 @@ final class BudgetProgressProvider
 
   @$internal
   @override
-  $FutureProviderElement<int> $createElement($ProviderPointer pointer) =>
-      $FutureProviderElement(pointer);
+  $FutureProviderElement<int> $createElement($ProviderPointer pointer) => $FutureProviderElement(pointer);
 
   @override
   FutureOr<int> create(Ref ref) {
@@ -60,8 +58,7 @@ final class BudgetProgressProvider
 
 String _$budgetProgressHash() => r'5d43323347de03a8b8c5789ac2a53c9be9b2ca46';
 
-final class BudgetProgressFamily extends $Family
-    with $FunctionalFamilyOverride<FutureOr<int>, BudgetModel> {
+final class BudgetProgressFamily extends $Family with $FunctionalFamilyOverride<FutureOr<int>, BudgetModel> {
   BudgetProgressFamily._()
     : super(
         retry: null,
@@ -71,8 +68,7 @@ final class BudgetProgressFamily extends $Family
         isAutoDispose: true,
       );
 
-  BudgetProgressProvider call(BudgetModel budget) =>
-      BudgetProgressProvider._(argument: budget, from: this);
+  BudgetProgressProvider call(BudgetModel budget) => BudgetProgressProvider._(argument: budget, from: this);
 
   @override
   String toString() => r'budgetProgressProvider';

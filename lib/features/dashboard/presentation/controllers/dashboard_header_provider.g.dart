@@ -22,12 +22,7 @@ final dashboardHeaderBuilderProvider = DashboardHeaderBuilderProvider._();
 /// Poka PE overrides this to inject a custom header (e.g., with avatar and greeting).
 
 final class DashboardHeaderBuilderProvider
-    extends
-        $FunctionalProvider<
-          DashboardHeaderBuilder?,
-          DashboardHeaderBuilder?,
-          DashboardHeaderBuilder?
-        >
+    extends $FunctionalProvider<DashboardHeaderBuilder?, DashboardHeaderBuilder?, DashboardHeaderBuilder?>
     with $Provider<DashboardHeaderBuilder?> {
   /// Provides a custom header builder for the Dashboard.
   ///
@@ -67,5 +62,4 @@ final class DashboardHeaderBuilderProvider
   }
 }
 
-String _$dashboardHeaderBuilderHash() =>
-    r'690318f16b9fd65b68a62ed6fe911611ec20dcd9';
+String _$dashboardHeaderBuilderHash() => r'690318f16b9fd65b68a62ed6fe911611ec20dcd9';

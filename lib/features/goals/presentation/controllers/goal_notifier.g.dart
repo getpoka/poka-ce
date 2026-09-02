@@ -12,8 +12,7 @@ part of 'goal_notifier.dart';
 @ProviderFor(GoalNotifier)
 final goalProvider = GoalNotifierProvider._();
 
-final class GoalNotifierProvider
-    extends $StreamNotifierProvider<GoalNotifier, List<GoalModel>> {
+final class GoalNotifierProvider extends $StreamNotifierProvider<GoalNotifier, List<GoalModel>> {
   GoalNotifierProvider._()
     : super(
         from: null,
@@ -57,12 +56,7 @@ abstract class _$GoalNotifier extends $StreamNotifier<List<GoalModel>> {
 final goalListStatesProvider = GoalListStatesProvider._();
 
 final class GoalListStatesProvider
-    extends
-        $FunctionalProvider<
-          List<GoalItemState>,
-          List<GoalItemState>,
-          List<GoalItemState>
-        >
+    extends $FunctionalProvider<List<GoalItemState>, List<GoalItemState>, List<GoalItemState>>
     with $Provider<List<GoalItemState>> {
   GoalListStatesProvider._()
     : super(
@@ -103,13 +97,7 @@ String _$goalListStatesHash() => r'eea5a1f6624e353431c3d3f480a2fc8dab1b8863';
 @ProviderFor(goalSummary)
 final goalSummaryProvider = GoalSummaryProvider._();
 
-final class GoalSummaryProvider
-    extends
-        $FunctionalProvider<
-          GoalSummaryState,
-          GoalSummaryState,
-          GoalSummaryState
-        >
+final class GoalSummaryProvider extends $FunctionalProvider<GoalSummaryState, GoalSummaryState, GoalSummaryState>
     with $Provider<GoalSummaryState> {
   GoalSummaryProvider._()
     : super(
@@ -127,8 +115,7 @@ final class GoalSummaryProvider
 
   @$internal
   @override
-  $ProviderElement<GoalSummaryState> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
+  $ProviderElement<GoalSummaryState> $createElement($ProviderPointer pointer) => $ProviderElement(pointer);
 
   @override
   GoalSummaryState create(Ref ref) {

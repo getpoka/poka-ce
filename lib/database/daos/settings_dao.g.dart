@@ -12,8 +12,6 @@ mixin _$SettingsDaoMixin on DatabaseAccessor<AppDatabase> {
 class SettingsDaoManager {
   final _$SettingsDaoMixin _db;
   SettingsDaoManager(this._db);
-  $$SettingsTableTableManager get settings =>
-      $$SettingsTableTableManager(_db.attachedDatabase, _db.settings);
-  $$CurrenciesTableTableManager get currencies =>
-      $$CurrenciesTableTableManager(_db.attachedDatabase, _db.currencies);
+  $$SettingsTableTableManager get settings => $$SettingsTableTableManager(_db.attachedDatabase, _db.settings);
+  $$CurrenciesTableTableManager get currencies => $$CurrenciesTableTableManager(_db.attachedDatabase, _db.currencies);
 }
