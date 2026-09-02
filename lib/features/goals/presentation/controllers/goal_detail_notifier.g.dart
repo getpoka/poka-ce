@@ -14,8 +14,14 @@ final goalTransactionsProvider = GoalTransactionsFamily._();
 
 final class GoalTransactionsProvider
     extends
-        $FunctionalProvider<AsyncValue<List<TransactionModel>>, List<TransactionModel>, Stream<List<TransactionModel>>>
-    with $FutureModifier<List<TransactionModel>>, $StreamProvider<List<TransactionModel>> {
+        $FunctionalProvider<
+          AsyncValue<List<TransactionModel>>,
+          List<TransactionModel>,
+          Stream<List<TransactionModel>>
+        >
+    with
+        $FutureModifier<List<TransactionModel>>,
+        $StreamProvider<List<TransactionModel>> {
   GoalTransactionsProvider._({
     required GoalTransactionsFamily super.from,
     required GoalModel super.argument,
@@ -73,7 +79,8 @@ final class GoalTransactionsFamily extends $Family
         isAutoDispose: true,
       );
 
-  GoalTransactionsProvider call(GoalModel goal) => GoalTransactionsProvider._(argument: goal, from: this);
+  GoalTransactionsProvider call(GoalModel goal) =>
+      GoalTransactionsProvider._(argument: goal, from: this);
 
   @override
   String toString() => r'goalTransactionsProvider';
@@ -82,7 +89,8 @@ final class GoalTransactionsFamily extends $Family
 @ProviderFor(GoalDetailNotifier)
 final goalDetailProvider = GoalDetailNotifierProvider._();
 
-final class GoalDetailNotifierProvider extends $NotifierProvider<GoalDetailNotifier, void> {
+final class GoalDetailNotifierProvider
+    extends $NotifierProvider<GoalDetailNotifier, void> {
   GoalDetailNotifierProvider._()
     : super(
         from: null,
@@ -110,7 +118,8 @@ final class GoalDetailNotifierProvider extends $NotifierProvider<GoalDetailNotif
   }
 }
 
-String _$goalDetailNotifierHash() => r'7434a4afd1b45e0de3e512f56673aa7c4a049ffb';
+String _$goalDetailNotifierHash() =>
+    r'7434a4afd1b45e0de3e512f56673aa7c4a049ffb';
 
 abstract class _$GoalDetailNotifier extends $Notifier<void> {
   void build();
@@ -118,7 +127,14 @@ abstract class _$GoalDetailNotifier extends $Notifier<void> {
   @override
   WhenComplete runBuild() {
     final ref = this.ref as $Ref<void, void>;
-    final element = ref.element as $ClassProviderElement<AnyNotifier<void, void>, void, Object?, Object?>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<void, void>,
+              void,
+              Object?,
+              Object?
+            >;
     return element.handleCreate(ref, build);
   }
 }

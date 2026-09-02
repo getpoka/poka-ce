@@ -12,7 +12,8 @@ part of 'debt_form_notifier.dart';
 @ProviderFor(DebtForm)
 final debtFormProvider = DebtFormProvider._();
 
-final class DebtFormProvider extends $NotifierProvider<DebtForm, DebtFormState> {
+final class DebtFormProvider
+    extends $NotifierProvider<DebtForm, DebtFormState> {
   DebtFormProvider._()
     : super(
         from: null,
@@ -50,7 +51,12 @@ abstract class _$DebtForm extends $Notifier<DebtFormState> {
     final ref = this.ref as $Ref<DebtFormState, DebtFormState>;
     final element =
         ref.element
-            as $ClassProviderElement<AnyNotifier<DebtFormState, DebtFormState>, DebtFormState, Object?, Object?>;
+            as $ClassProviderElement<
+              AnyNotifier<DebtFormState, DebtFormState>,
+              DebtFormState,
+              Object?,
+              Object?
+            >;
     return element.handleCreate(ref, build);
   }
 }

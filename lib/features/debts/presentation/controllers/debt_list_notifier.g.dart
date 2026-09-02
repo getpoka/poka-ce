@@ -12,7 +12,8 @@ part of 'debt_list_notifier.dart';
 @ProviderFor(DebtList)
 final debtListProvider = DebtListProvider._();
 
-final class DebtListProvider extends $StreamNotifierProvider<DebtList, List<DebtModel>> {
+final class DebtListProvider
+    extends $StreamNotifierProvider<DebtList, List<DebtModel>> {
   DebtListProvider._()
     : super(
         from: null,

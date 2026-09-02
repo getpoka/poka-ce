@@ -12,7 +12,8 @@ part of 'debt_repayment_notifier.dart';
 @ProviderFor(DebtRepaymentNotifier)
 final debtRepaymentProvider = DebtRepaymentNotifierProvider._();
 
-final class DebtRepaymentNotifierProvider extends $NotifierProvider<DebtRepaymentNotifier, DebtRepaymentState> {
+final class DebtRepaymentNotifierProvider
+    extends $NotifierProvider<DebtRepaymentNotifier, DebtRepaymentState> {
   DebtRepaymentNotifierProvider._()
     : super(
         from: null,
@@ -40,7 +41,8 @@ final class DebtRepaymentNotifierProvider extends $NotifierProvider<DebtRepaymen
   }
 }
 
-String _$debtRepaymentNotifierHash() => r'0238a61b8f9f7049089d5030eb297b1255aa4117';
+String _$debtRepaymentNotifierHash() =>
+    r'0238a61b8f9f7049089d5030eb297b1255aa4117';
 
 abstract class _$DebtRepaymentNotifier extends $Notifier<DebtRepaymentState> {
   DebtRepaymentState build();

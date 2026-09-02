@@ -16,7 +16,12 @@ final dashboardQuickActionsProvider = DashboardQuickActionsProvider._();
 /// Provides the default CE list of quick actions.
 
 final class DashboardQuickActionsProvider
-    extends $FunctionalProvider<List<DashboardQuickAction>, List<DashboardQuickAction>, List<DashboardQuickAction>>
+    extends
+        $FunctionalProvider<
+          List<DashboardQuickAction>,
+          List<DashboardQuickAction>,
+          List<DashboardQuickAction>
+        >
     with $Provider<List<DashboardQuickAction>> {
   /// Provides the default CE list of quick actions.
   DashboardQuickActionsProvider._()
@@ -53,4 +58,5 @@ final class DashboardQuickActionsProvider
   }
 }
 
-String _$dashboardQuickActionsHash() => r'bf6dee01d272ee4a0feca27bb7debc7a90ac0242';
+String _$dashboardQuickActionsHash() =>
+    r'41f373143ef314a8dff39007e8f873287877b0bc';

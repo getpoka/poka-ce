@@ -22,7 +22,8 @@ final appLockSuppressionProvider = AppLockSuppressionProvider._();
 /// Used around system share sheets and file pickers (backup/restore) which
 /// briefly pause the app — locking in the middle of those flows would abort
 /// the operation.
-final class AppLockSuppressionProvider extends $NotifierProvider<AppLockSuppression, bool> {
+final class AppLockSuppressionProvider
+    extends $NotifierProvider<AppLockSuppression, bool> {
   /// While `true`, the app is not re-locked when it is backgrounded.
   ///
   /// Used around system share sheets and file pickers (backup/restore) which
@@ -55,7 +56,8 @@ final class AppLockSuppressionProvider extends $NotifierProvider<AppLockSuppress
   }
 }
 
-String _$appLockSuppressionHash() => r'cb70d0912f3d4fbaf4756050ed4b47b642c1b79f';
+String _$appLockSuppressionHash() =>
+    r'cb70d0912f3d4fbaf4756050ed4b47b642c1b79f';
 
 /// While `true`, the app is not re-locked when it is backgrounded.
 ///
@@ -69,7 +71,14 @@ abstract class _$AppLockSuppression extends $Notifier<bool> {
   @override
   WhenComplete runBuild() {
     final ref = this.ref as $Ref<bool, bool>;
-    final element = ref.element as $ClassProviderElement<AnyNotifier<bool, bool>, bool, Object?, Object?>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<bool, bool>,
+              bool,
+              Object?,
+              Object?
+            >;
     return element.handleCreate(ref, build);
   }
 }
@@ -88,7 +97,8 @@ final appLockControllerProvider = AppLockControllerProvider._();
 /// The PIN is never stored in plaintext: only a PBKDF2-HMAC-SHA256 hash with a
 /// random per-install salt is kept in secure storage. Repeated failed attempts
 /// trigger a temporary lockout to slow down brute-force guessing.
-final class AppLockControllerProvider extends $NotifierProvider<AppLockController, AppLockState> {
+final class AppLockControllerProvider
+    extends $NotifierProvider<AppLockController, AppLockState> {
   /// Manages the app-lock state, including PIN verification and biometric unlock.
   ///
   /// The PIN is never stored in plaintext: only a PBKDF2-HMAC-SHA256 hash with a
@@ -136,7 +146,13 @@ abstract class _$AppLockController extends $Notifier<AppLockState> {
   WhenComplete runBuild() {
     final ref = this.ref as $Ref<AppLockState, AppLockState>;
     final element =
-        ref.element as $ClassProviderElement<AnyNotifier<AppLockState, AppLockState>, AppLockState, Object?, Object?>;
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AppLockState, AppLockState>,
+              AppLockState,
+              Object?,
+              Object?
+            >;
     return element.handleCreate(ref, build);
   }
 }

@@ -12,7 +12,8 @@ part of 'dashboard_notifier.dart';
 @ProviderFor(DashboardNotifier)
 final dashboardProvider = DashboardNotifierProvider._();
 
-final class DashboardNotifierProvider extends $NotifierProvider<DashboardNotifier, DashboardState> {
+final class DashboardNotifierProvider
+    extends $NotifierProvider<DashboardNotifier, DashboardState> {
   DashboardNotifierProvider._()
     : super(
         from: null,
@@ -50,7 +51,12 @@ abstract class _$DashboardNotifier extends $Notifier<DashboardState> {
     final ref = this.ref as $Ref<DashboardState, DashboardState>;
     final element =
         ref.element
-            as $ClassProviderElement<AnyNotifier<DashboardState, DashboardState>, DashboardState, Object?, Object?>;
+            as $ClassProviderElement<
+              AnyNotifier<DashboardState, DashboardState>,
+              DashboardState,
+              Object?,
+              Object?
+            >;
     return element.handleCreate(ref, build);
   }
 }
