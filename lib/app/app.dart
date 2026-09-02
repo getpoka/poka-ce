@@ -3,6 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:material_ui/material_ui.dart' hide GlobalMaterialLocalizations;
 import 'package:poka_ce/app/router/router.dart';
+import 'package:poka_ce/core/services/quick_actions_service.dart';
 import 'package:poka_ce/features/debts/domain/debt_alert_service_provider.dart';
 import 'package:poka_ce/features/settings/presentation/controllers/settings_notifier.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
@@ -41,6 +42,10 @@ class PokaApp extends HookConsumerWidget {
     useEffect(() {
       // Run debt alerts check on startup
       ref.read(debtAlertServiceProvider).checkAlerts();
+
+      // Initialize quick actions
+      QuickActionsService.instance.initialize();
+
       return null;
     }, const []);
 

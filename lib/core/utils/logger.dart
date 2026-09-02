@@ -11,9 +11,7 @@ AnsiPen _penFromColor(Color color) {
 /// Global singleton instance of Talker for logging.
 /// Use `talker.info`, `talker.error`, `talker.handle`, etc.
 final Talker talker = TalkerFlutter.init(
-  settings: TalkerSettings(
-    
-  ),
+  settings: TalkerSettings(),
   logger: TalkerLogger(
     settings: TalkerLoggerSettings(
       colors: {
