@@ -64,10 +64,10 @@ final budgetTransactionsProvider = StreamProvider.autoDispose.family<List<Transa
         accountIds: budget.accountId != null ? {budget.accountId!} : const {},
         types: {TransactionType.expense},
       )
-      .map((result) {
+      .asyncMap((result) {
         return switch (result) {
           Success(value: final transactions) => transactions,
-          ErrorResult(error: final failure) => throw Exception(failure.message),
+          ErrorResult(error: final failure) => Future.error(failure, StackTrace.current),
         };
       });
 });
@@ -86,12 +86,7 @@ class BudgetDetailPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // If we have budget from extra, use it, otherwise find it from state.
     final budgetState = ref.watch(budgetListProvider);
-    final activeBudget =
-        budget ??
-        budgetState.asData?.value.firstWhere(
-          (b) => b.id == id,
-          orElse: () => throw Exception('Budget not found'),
-        );
+    final activeBudget = budget ?? budgetState.asData?.value.where((b) => b.id == id).firstOrNull;
 
     if (activeBudget == null) {
       return FScaffold(

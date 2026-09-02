@@ -81,7 +81,7 @@ class ReportSummaryCard extends ConsumerWidget {
                     color: theme.colors.mutedForeground,
                   ),
                 ),
-                _StatusBadge(isOnTrack: isOnTrack, t: t),
+                _StatusBadge(isOnTrack: isOnTrack),
               ],
             ),
             const SizedBox(height: 12),
@@ -189,10 +189,9 @@ class ReportSummaryCard extends ConsumerWidget {
 // ─────────────────────────────────────────────────────────────────────────────
 
 class _StatusBadge extends StatelessWidget {
-  const _StatusBadge({required this.isOnTrack, required this.t});
+  const _StatusBadge({required this.isOnTrack});
 
   final bool isOnTrack;
-  final dynamic t;
 
   @override
   Widget build(BuildContext context) {

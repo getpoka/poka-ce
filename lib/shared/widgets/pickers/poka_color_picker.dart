@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:forui/forui.dart';
-import 'package:forui_phosphor/forui_phosphor.dart';
 import 'package:poka_ce/core/extensions/string_extension.dart';
 import 'package:poka_ce/core/utils/color_util.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
+import 'package:poka_ce/theme/theme.dart';
 
 class PokaColorPicker extends StatelessWidget {
   const PokaColorPicker({
@@ -248,18 +247,12 @@ class _VisualColorPickerSheet extends HookWidget {
                         children: [
                           Container(
                             decoration: const BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [Colors.white, Colors.transparent],
-                              ),
+                              gradient: PokaGradients.hsvSaturation,
                             ),
                           ),
                           Container(
                             decoration: const BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [Colors.transparent, Colors.black],
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                              ),
+                              gradient: PokaGradients.hsvValue,
                             ),
                           ),
                           Positioned(
@@ -296,17 +289,7 @@ class _VisualColorPickerSheet extends HookWidget {
                       height: height,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16),
-                        gradient: const LinearGradient(
-                          colors: [
-                            Color(0xFFFF0000), // 0
-                            Color(0xFFFFFF00), // 60
-                            Color(0xFF00FF00), // 120
-                            Color(0xFF00FFFF), // 180
-                            Color(0xFF0000FF), // 240
-                            Color(0xFFFF00FF), // 300
-                            Color(0xFFFF0000), // 360
-                          ],
-                        ),
+                        gradient: PokaGradients.hsvHue,
                       ),
                       child: Stack(
                         clipBehavior: Clip.none,

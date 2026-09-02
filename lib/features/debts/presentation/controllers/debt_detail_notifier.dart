@@ -18,10 +18,10 @@ Stream<List<TransactionModel>> debtTransactions(Ref ref, DebtModel debt) {
       .watchTransactions(
         debtIds: {debt.id},
       )
-      .map((result) {
+      .asyncMap((result) {
         return switch (result) {
           Success(value: final transactions) => transactions,
-          ErrorResult(error: final failure) => throw Exception(failure.toString()),
+          ErrorResult(error: final failure) => Future.error(failure, StackTrace.current),
         };
       });
 }
