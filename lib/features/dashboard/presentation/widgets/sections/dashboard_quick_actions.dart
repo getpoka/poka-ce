@@ -78,7 +78,7 @@ class _QuickActionItem extends StatelessWidget {
             textAlign: TextAlign.center,
             maxLines: 1,
             softWrap: false,
-            overflow: TextOverflow.visible,
+            overflow: TextOverflow.ellipsis,
           ),
         ],
       ),
