@@ -18,6 +18,19 @@ void main() {
       expect(newState.period, ReportPeriod.last3Months);
       expect(newState.isLoading, false);
     });
+
+    test('previousPeriodLabel per period', () {
+      const thisMonth = ReportState(period: ReportPeriod.thisMonth);
+      expect(thisMonth.previousPeriodLabel, 'last month');
+      const lastMonth = ReportState(period: ReportPeriod.lastMonth);
+      expect(lastMonth.previousPeriodLabel, 'prev month');
+      const last3 = ReportState(period: ReportPeriod.last3Months);
+      expect(last3.previousPeriodLabel, 'prev 3 mo');
+      const last6 = ReportState(period: ReportPeriod.last6Months);
+      expect(last6.previousPeriodLabel, 'prev 6 mo');
+      const custom = ReportState(period: ReportPeriod.custom);
+      expect(custom.previousPeriodLabel, 'prev period');
+    });
   });
 
   group('ReportNotifier', () {
@@ -54,6 +67,25 @@ void main() {
 
       final state = container.read(reportProvider);
       expect(state.period, ReportPeriod.last3Months);
+    });
+
+    test('setPeriod to non-custom clears custom range', () async {
+      final container = makeContainer();
+      final notifier = container.read(reportProvider.notifier);
+
+      notifier.setCustomRange(DateTime.utc(2024, 1, 1), DateTime.utc(2024, 1, 31));
+      await Future.delayed(Duration.zero);
+      var state = container.read(reportProvider);
+      expect(state.period, ReportPeriod.custom);
+      expect(state.customDateStart, DateTime.utc(2024, 1, 1));
+      expect(state.customDateEnd, DateTime.utc(2024, 1, 31));
+
+      notifier.setPeriod(ReportPeriod.thisMonth);
+      await Future.delayed(Duration.zero);
+      state = container.read(reportProvider);
+      expect(state.period, ReportPeriod.thisMonth);
+      expect(state.customDateStart, isNull);
+      expect(state.customDateEnd, isNull);
     });
   });
 }

@@ -4,6 +4,7 @@ import 'package:forui/forui.dart';
 import 'package:poka_ce/features/settings/domain/currency_model.dart';
 import 'package:poka_ce/features/settings/presentation/sheets/currency_picker_sheet.dart';
 import 'package:poka_ce/features/settings/presentation/sheets/language_picker_sheet.dart';
+import 'package:poka_ce/features/settings/presentation/sheets/number_format_picker_sheet.dart';
 import 'package:poka_ce/features/settings/presentation/sheets/theme_picker_sheet.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/theme/theme.dart';
@@ -26,6 +27,59 @@ void main() {
   }
 
   group('Settings Sheets', () {
+    testWidgets('NumberFormatPickerSheet renders and pops value', (tester) async {
+      String? result;
+      await tester.pumpWidget(
+        buildTestableWidget(
+          Builder(
+            builder: (context) => FButton(
+              onPress: () async {
+                result = await showNumberFormatPickerSheet(context, 'system');
+              },
+              child: const Text('Show'),
+            ),
+          ),
+        ),
+      );
+
+      await tester.tap(find.text('Show'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('App Default'), findsOneWidget);
+      expect(find.text('1.000.000,00'), findsOneWidget);
+      expect(find.text('1,000,000.00'), findsOneWidget);
+      expect(find.text('1 000 000,00'), findsOneWidget);
+
+      await tester.tap(find.text('1.000.000,00'));
+      await tester.pumpAndSettle();
+
+      expect(result, 'id_ID');
+    });
+
+    testWidgets('NumberFormatPickerSheet pops system format', (tester) async {
+      String? result;
+      await tester.pumpWidget(
+        buildTestableWidget(
+          Builder(
+            builder: (context) => FButton(
+              onPress: () async {
+                result = await showNumberFormatPickerSheet(context, 'en_US');
+              },
+              child: const Text('Show'),
+            ),
+          ),
+        ),
+      );
+
+      await tester.tap(find.text('Show'));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('App Default'));
+      await tester.pumpAndSettle();
+
+      expect(result, 'system');
+    });
+
     testWidgets('ThemePickerSheet renders and pops value', (tester) async {
       String? result;
       await tester.pumpWidget(

@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:poka_ce/core/services/preferences_service.dart';
@@ -51,6 +52,28 @@ void main() {
       when(() => mockPrefs.clear()).thenAnswer((_) async => true);
       await service.clear();
       verify(() => mockPrefs.clear()).called(1);
+    });
+  });
+
+  group('Preferences providers', () {
+    test('sharedPreferencesProvider throws when not overridden', () {
+      final container = ProviderContainer();
+      addTearDown(container.dispose);
+      expect(
+        () => container.read(sharedPreferencesProvider),
+        throwsA(
+          predicate((e) => e.toString().contains('UnimplementedError')),
+        ),
+      );
+    });
+
+    test('preferencesServiceProvider builds from overridden prefs', () {
+      final container = ProviderContainer(
+        overrides: [sharedPreferencesProvider.overrideWithValue(mockPrefs)],
+      );
+      addTearDown(container.dispose);
+      final resolved = container.read(preferencesServiceProvider);
+      expect(resolved, isA<PreferencesService>());
     });
   });
 }

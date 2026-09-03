@@ -93,6 +93,55 @@ void main() {
       expect(r!.amount, 999);
     });
 
+    test('getDueRecurring returns only active rows due on or before asOf', () async {
+      await seedAccount('acc1');
+      final now = DateTime.now().toUtc();
+      await db.recurringDao.insertRecurring(
+        RecurringTransactionsCompanion.insert(
+          id: const Value('due1'),
+          accountId: 'acc1',
+          type: TransactionType.expense,
+          amount: 100,
+          period: RecurringPeriod.monthly,
+          nextDate: now.subtract(const Duration(days: 2)),
+        ),
+      );
+      await db.recurringDao.insertRecurring(
+        RecurringTransactionsCompanion.insert(
+          id: const Value('dueToday'),
+          accountId: 'acc1',
+          type: TransactionType.expense,
+          amount: 200,
+          period: RecurringPeriod.monthly,
+          nextDate: now,
+        ),
+      );
+      await db.recurringDao.insertRecurring(
+        RecurringTransactionsCompanion.insert(
+          id: const Value('future'),
+          accountId: 'acc1',
+          type: TransactionType.expense,
+          amount: 300,
+          period: RecurringPeriod.monthly,
+          nextDate: now.add(const Duration(days: 2)),
+        ),
+      );
+      await db.recurringDao.insertRecurring(
+        RecurringTransactionsCompanion.insert(
+          id: const Value('inactiveDue'),
+          accountId: 'acc1',
+          type: TransactionType.expense,
+          amount: 400,
+          period: RecurringPeriod.monthly,
+          nextDate: now.subtract(const Duration(days: 1)),
+          isActive: const Value(false),
+        ),
+      );
+
+      final due = await db.recurringDao.getDueRecurring(now);
+      expect(due.map((r) => r.id).toSet(), {'due1', 'dueToday'});
+    });
+
     test('deleteRecurring removes', () async {
       await seedAccount('acc1');
       await db.recurringDao.insertRecurring(

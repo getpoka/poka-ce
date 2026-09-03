@@ -197,6 +197,66 @@ void main() {
       expect(acc!.balance, 0);
     });
 
+    test('deleteAccount removes row', () async {
+      await db.accountsDao.insertAccount(
+        AccountsCompanion.insert(
+          id: const Value('a-del'),
+          name: 'Trash',
+          type: AccountType.assets,
+        ),
+      );
+      expect(await db.accountsDao.getAccount('a-del'), isNotNull);
+      await db.accountsDao.deleteAccount('a-del');
+      expect(await db.accountsDao.getAccount('a-del'), isNull);
+    });
+
+    test('updateAccountsSort persists custom order', () async {
+      await db.accountsDao.insertAccount(
+        AccountsCompanion.insert(id: const Value('s1'), name: 'One', type: AccountType.assets, sort: const Value(0)),
+      );
+      await db.accountsDao.insertAccount(
+        AccountsCompanion.insert(id: const Value('s2'), name: 'Two', type: AccountType.assets, sort: const Value(1)),
+      );
+      await db.accountsDao.insertAccount(
+        AccountsCompanion.insert(id: const Value('s3'), name: 'Three', type: AccountType.assets, sort: const Value(2)),
+      );
+
+      final all = await db.accountsDao.getAllAccounts();
+      final reordered = all.map((a) {
+        if (a.id == 's1') return a.copyWith(sort: 2);
+        if (a.id == 's3') return a.copyWith(sort: 0);
+        return a;
+      }).toList();
+      await db.accountsDao.updateAccountsSort(reordered);
+
+      final s1 = await db.accountsDao.getAccount('s1');
+      final s3 = await db.accountsDao.getAccount('s3');
+      expect(s1!.sort, 2);
+      expect(s3!.sort, 0);
+    });
+
+    test('getAllAccountCategoriesMap groups categories per account', () async {
+      await db
+          .into(db.accounts)
+          .insert(AccountsCompanion.insert(id: const Value('accA'), name: 'A', type: AccountType.assets));
+      await db
+          .into(db.accounts)
+          .insert(AccountsCompanion.insert(id: const Value('accB'), name: 'B', type: AccountType.assets));
+      await db
+          .into(db.categories)
+          .insert(CategoriesCompanion.insert(id: const Value('c1'), name: 'Food', type: CategoryType.expense));
+      await db
+          .into(db.categories)
+          .insert(CategoriesCompanion.insert(id: const Value('c2'), name: 'Bus', type: CategoryType.expense));
+
+      await db.accountsDao.setAccountCategories('accA', ['c1', 'c2']);
+      await db.accountsDao.setAccountCategories('accB', ['c1']);
+
+      final map = await db.accountsDao.getAllAccountCategoriesMap();
+      expect(map['accA'], containsAll(['c1', 'c2']));
+      expect(map['accB'], ['c1']);
+    });
+
     test('parent pocket cascade delete via FK', () async {
       await db.accountsDao.insertAccount(
         AccountsCompanion.insert(

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart' show FontWeight;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:poka_ce/theme/theme.dart';
@@ -58,14 +59,101 @@ void main() {
       expect(lightColors.app.transfer, TWind.indigo600);
     });
 
-    test('FStyle extensions', () {
-      final light = lightTheme;
-      expect(light.style.app.iconBgOpacity, 0.12);
+    test('AppStyle spacing scale getters', () {
+      const s = AppStyle();
+      expect(s.xs, 8);
+      expect(s.sm, 12);
+      expect(s.md, 16);
+      expect(s.lg, 20);
+      expect(s.xl, 24);
+      expect(s.xxl, 32);
+      expect(s.xl3, 40);
+      expect(s.xl4, 48);
+      expect(s.section, 20);
+      expect(s.sectionContent, 16);
     });
 
-    test('TW categories', () {
-      expect(TWind.slate900, isNotNull);
-      expect(TWind.white, isNotNull);
+    test('AppStyle copyWith only iconBorderOpacity keeps iconBgOpacity', () {
+      const s = AppStyle(iconBgOpacity: 0.3, iconBorderOpacity: 0.4);
+      final s2 = s.copyWith(iconBorderOpacity: 0.9);
+      expect(s2.iconBgOpacity, 0.3);
+      expect(s2.iconBorderOpacity, 0.9);
+    });
+
+    test('AppStyle equality considers iconBorderOpacity', () {
+      const a = AppStyle(iconBgOpacity: 0.1, iconBorderOpacity: 0.2);
+      const b = AppStyle(iconBgOpacity: 0.1, iconBorderOpacity: 0.3);
+      expect(a == b, isFalse);
+      const c = AppStyle(iconBgOpacity: 0.1, iconBorderOpacity: 0.2);
+      expect(a == c, isTrue);
+    });
+
+    test('FColors copyWith keeps other fields', () {
+      const a = AppColors(
+        income: TWind.emerald600,
+        expense: TWind.red600,
+        transfer: TWind.blue500,
+        success: TWind.emerald500,
+        warning: TWind.amber500,
+      );
+      final b = a.copyWith(expense: TWind.red400);
+      expect(b.expense, TWind.red400);
+      expect(b.income, TWind.emerald600);
+    });
+  });
+
+  group('PokaTypographyRoles', () {
+    final typography = lightTheme.typography;
+
+    test('amountHero is display.xl2 bold with tight tracking', () {
+      final style = typography.amountHero;
+      expect(style.fontSize, typography.display.xl2.fontSize);
+      expect(style.fontWeight, FontWeight.w800);
+      expect(style.letterSpacing, -1);
+      expect(style.height, 1);
+    });
+
+    test('amountSection is display.xl bold', () {
+      final style = typography.amountSection;
+      expect(style.fontSize, typography.display.xl.fontSize);
+      expect(style.fontWeight, FontWeight.w700);
+      expect(style.letterSpacing, -0.5);
+      expect(style.height, 1);
+    });
+
+    test('title roles derive from display/body scales', () {
+      expect(typography.titleScreen.fontWeight, FontWeight.w600);
+      expect(typography.titleCard.fontWeight, FontWeight.w600);
+      expect(typography.titleItem.fontWeight, FontWeight.w600);
+      expect(typography.titleScreen.fontSize, typography.display.lg.fontSize);
+    });
+
+    test('body roles map to body scale', () {
+      expect(typography.bodyPrimary, typography.body.sm);
+      expect(typography.bodySecondary, typography.body.xs);
+    });
+
+    test('label roles have semantic styling', () {
+      expect(typography.labelSection.fontSize, 12);
+      expect(typography.labelSection.fontWeight, FontWeight.w700);
+      expect(typography.labelField.fontSize, 12);
+      expect(typography.labelField.fontWeight, FontWeight.w600);
+      expect(typography.caption, typography.body.xs2);
+      expect(typography.labelBadge.fontSize, 9);
+    });
+
+    test('amount roles have semantic styling', () {
+      expect(typography.amountTile.fontSize, 13);
+      expect(typography.amountTile.fontWeight, FontWeight.w600);
+      expect(typography.amountCard.fontSize, 15);
+      expect(typography.amountCard.fontWeight, FontWeight.w700);
+    });
+
+    test('dark theme exposes the same roles', () {
+      final dark = darkTheme.typography;
+      expect(dark.amountHero.fontWeight, FontWeight.w800);
+      expect(dark.amountSection.fontWeight, FontWeight.w700);
+      expect(dark.titleScreen.fontWeight, FontWeight.w600);
     });
   });
 }

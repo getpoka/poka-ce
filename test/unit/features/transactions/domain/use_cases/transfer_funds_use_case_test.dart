@@ -12,104 +12,132 @@ class MockUnitOfWork extends Mock implements IUnitOfWork {}
 
 class MockTransactionRepository extends Mock implements ITransactionRepository {}
 
-class FakeTransactionModel extends Fake implements TransactionModel {}
-
 void main() {
-  TestWidgetsFlutterBinding.ensureInitialized();
+  late MockUnitOfWork unitOfWork;
+  late MockTransactionRepository repository;
   late TransferFundsUseCase useCase;
-  late MockUnitOfWork mockUoW;
-  late MockTransactionRepository mockTransactionRepo;
 
   setUpAll(() {
-    registerFallbackValue(FakeTransactionModel());
-    registerFallbackValue(() async => Success<TransactionModel, Failure>(FakeTransactionModel()));
+    registerFallbackValue(
+      TransactionModel(
+        id: 'fallback',
+        accountId: 'fallback',
+        type: TransactionType.transfer,
+        amount: 0,
+        transactionDate: DateTime.utc(2026),
+        createdAt: DateTime.utc(2026),
+        updatedAt: DateTime.utc(2026),
+        items: const [],
+      ),
+    );
+    registerFallbackValue(
+      () async => TransactionModel(
+        id: 'fallback',
+        accountId: 'fallback',
+        type: TransactionType.transfer,
+        amount: 0,
+        transactionDate: DateTime.utc(2026),
+        createdAt: DateTime.utc(2026),
+        updatedAt: DateTime.utc(2026),
+        items: const [],
+      ),
+    );
   });
 
   setUp(() {
-    mockUoW = MockUnitOfWork();
-    mockTransactionRepo = MockTransactionRepository();
-    useCase = TransferFundsUseCase(mockUoW, mockTransactionRepo);
-
-    when(() => mockUoW.execute<Result<TransactionModel, Failure>>(any())).thenAnswer((i) async {
-      final callback = i.positionalArguments[0] as Future<Result<TransactionModel, Failure>> Function();
-      return await callback();
+    unitOfWork = MockUnitOfWork();
+    repository = MockTransactionRepository();
+    useCase = TransferFundsUseCase(unitOfWork, repository);
+    when(() => unitOfWork.execute<Result<TransactionModel, Failure>>(any())).thenAnswer((inv) async {
+      final action = inv.positionalArguments.first as Future<Result<TransactionModel, Failure>> Function();
+      return action();
     });
   });
 
-  test('returns ValidationFailure if amount <= 0', () async {
-    final result = await useCase.execute(
-      amount: 0,
-      sourceAccountId: 'a1',
-      destinationAccountId: 'a2',
-    );
+  TransactionModel capturedTransaction() {
+    final result = verify(() => repository.createTransaction(captureAny())).captured.single as TransactionModel;
+    return result;
+  }
 
-    expect(result, isA<ErrorResult>());
-    expect((result as ErrorResult).error, isA<ValidationFailure>());
-  });
+  group('TransferFundsUseCase.execute', () {
+    test('rejects non-positive amount', () async {
+      final result = await useCase.execute(amount: 0, sourceAccountId: 'a', destinationAccountId: 'b');
+      expect(result, isA<ErrorResult<TransactionModel, Failure>>());
+      final error = (result as ErrorResult<TransactionModel, Failure>).error;
+      expect(error, isA<ValidationFailure>());
+      verifyNever(() => repository.createTransaction(any()));
+    });
 
-  test('returns ValidationFailure if amount is negative', () async {
-    final result = await useCase.execute(
-      amount: -5000,
-      sourceAccountId: 'a1',
-      destinationAccountId: 'a2',
-    );
+    test('rejects negative amount', () async {
+      final result = await useCase.execute(amount: -5, sourceAccountId: 'a', destinationAccountId: 'b');
+      expect(result, isA<ErrorResult<TransactionModel, Failure>>());
+    });
 
-    expect(result, isA<ErrorResult>());
-    expect((result as ErrorResult).error, isA<ValidationFailure>());
-  });
+    test('rejects same source and destination account', () async {
+      final result = await useCase.execute(amount: 100, sourceAccountId: 'same', destinationAccountId: 'same');
+      expect(result, isA<ErrorResult<TransactionModel, Failure>>());
+      final error = (result as ErrorResult<TransactionModel, Failure>).error;
+      expect(error, isA<ValidationFailure>());
+      verifyNever(() => repository.createTransaction(any()));
+    });
 
-  test('returns ValidationFailure if source == dest', () async {
-    final result = await useCase.execute(
-      amount: 1000,
-      sourceAccountId: 'a1',
-      destinationAccountId: 'a1',
-    );
+    test('creates transfer transaction with single matching item', () async {
+      when(() => repository.createTransaction(any())).thenAnswer((_) async => const Success<void, Failure>(null));
 
-    expect(result, isA<ErrorResult>());
-    expect((result as ErrorResult).error, isA<ValidationFailure>());
-  });
+      final date = DateTime.utc(2026, 1, 15, 10);
+      final result = await useCase.execute(
+        amount: 25000,
+        sourceAccountId: 'wallet',
+        destinationAccountId: 'pocket',
+        note: 'weekly top up',
+        transactionDate: date,
+      );
 
-  test('creates transfer transaction successfully', () async {
-    when(() => mockTransactionRepo.createTransaction(any())).thenAnswer((_) async => const Success(null));
+      expect(result, isA<Success<TransactionModel, Failure>>());
+      final tx = (result as Success<TransactionModel, Failure>).value;
+      expect(tx.type, TransactionType.transfer);
+      expect(tx.accountId, 'wallet');
+      expect(tx.destinationAccountId, 'pocket');
+      expect(tx.amount, 25000);
+      expect(tx.note, 'weekly top up');
+      expect(tx.transactionDate, date);
+      expect(tx.items.length, 1);
+      expect(tx.items.first.amount, 25000);
+      expect(tx.items.first.transactionId, tx.id);
+      expect(tx.id, isNotEmpty);
+    });
 
-    final result = await useCase.execute(
-      amount: 50000,
-      sourceAccountId: 'a1',
-      destinationAccountId: 'a2',
-      note: 'transfer note',
-    );
+    test('uses UTC current date when transactionDate omitted', () async {
+      when(() => repository.createTransaction(any())).thenAnswer((_) async => const Success<void, Failure>(null));
 
-    expect(result, isA<Success>());
+      final before = DateTime.now().toUtc();
+      final result = await useCase.execute(amount: 100, sourceAccountId: 'a', destinationAccountId: 'b');
+      final after = DateTime.now().toUtc();
 
-    final captured =
-        verify(() => mockTransactionRepo.createTransaction(captureAny())).captured.first as TransactionModel;
-    expect(captured.amount, 50000);
-    expect(captured.type, TransactionType.transfer);
-    expect(captured.accountId, 'a1');
-    expect(captured.destinationAccountId, 'a2');
-    expect(captured.note, 'transfer note');
-    expect(captured.items.length, 1);
-    expect(captured.items.first.amount, 50000);
-  });
+      final tx = (result as Success<TransactionModel, Failure>).value;
+      expect(tx.transactionDate.isAfter(before.subtract(const Duration(seconds: 1))), isTrue);
+      expect(tx.transactionDate.isBefore(after.add(const Duration(seconds: 1))), isTrue);
+      expect(tx.transactionDate.isUtc, isTrue);
+    });
 
-  test('returns DatabaseFailure when repository fails inside transaction', () async {
-    when(
-      () => mockTransactionRepo.createTransaction(any()),
-    ).thenAnswer((_) async => const ErrorResult<void, Failure>(DatabaseFailure('transfer insert failed')));
+    test('propagates repository failure', () async {
+      when(() => repository.createTransaction(any())).thenAnswer(
+        (_) async => const ErrorResult<void, Failure>(DatabaseFailure('insert failed')),
+      );
 
-    final result = await useCase.execute(
-      amount: 50000,
-      sourceAccountId: 'a1',
-      destinationAccountId: 'a2',
-    );
+      final result = await useCase.execute(amount: 100, sourceAccountId: 'a', destinationAccountId: 'b');
+      expect(result, isA<ErrorResult<TransactionModel, Failure>>());
+      final error = (result as ErrorResult<TransactionModel, Failure>).error;
+      expect(error, isA<DatabaseFailure>());
+    });
 
-    // The use case must throw inside the unit of work so the DB transaction rolls back,
-    // then translate that exception into a DatabaseFailure for the caller.
-    expect(result, isA<ErrorResult<TransactionModel, Failure>>());
-    result.fold(
-      (_) => fail('Should not succeed'),
-      (error) => expect(error, isA<DatabaseFailure>()),
-    );
-    verify(() => mockTransactionRepo.createTransaction(any())).called(1);
+    test('wraps unexpected exception into DatabaseFailure', () async {
+      when(() => unitOfWork.execute<Result<TransactionModel, Failure>>(any())).thenThrow(Exception('boom'));
+
+      final result = await useCase.execute(amount: 100, sourceAccountId: 'a', destinationAccountId: 'b');
+      expect(result, isA<ErrorResult<TransactionModel, Failure>>());
+      final error = (result as ErrorResult<TransactionModel, Failure>).error;
+      expect(error, isA<DatabaseFailure>());
+    });
   });
 }
