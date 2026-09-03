@@ -219,5 +219,92 @@ void main() {
       final c2 = s.copyWith(nameError: null);
       expect(c2.nameError, isNull);
     });
+
+    test('setIcon, setColor, setIsActive update state', () {
+      final container = createContainer();
+      final notifier = container.read(accountFormProvider.notifier);
+      notifier.setIcon('wallet');
+      notifier.setColor('#FF5733');
+      notifier.setIsActive(isActive: false);
+      final s = container.read(accountFormProvider);
+      expect(s.icon, 'wallet');
+      expect(s.color, '#FF5733');
+      expect(s.isActive, false);
+    });
+
+    test('init(null, parentAccountId) seeds pocket parent', () {
+      final container = createContainer();
+      final notifier = container.read(accountFormProvider.notifier);
+      notifier.init(null, parentAccountId: 'parent-1');
+      expect(container.read(accountFormProvider).parentAccountId, 'parent-1');
+    });
+
+    test('init(with model) preserves restricted categories and parent', () {
+      final container = createContainer();
+      final notifier = container.read(accountFormProvider.notifier);
+      notifier.init(
+        sampleAccount().copyWith(
+          parentId: 'p1',
+          restrictedCategoryIds: const ['c1', 'c2'],
+          icon: 'wallet',
+          color: '#FFFFFF',
+        ),
+      );
+      final s = container.read(accountFormProvider);
+      expect(s.parentAccountId, 'p1');
+      expect(s.restrictedCategoryIds, ['c1', 'c2']);
+      expect(s.icon, 'wallet');
+      expect(s.color, '#FFFFFF');
+    });
+
+    test('toggleRestrictedCategory adds and removes', () {
+      final container = createContainer();
+      final notifier = container.read(accountFormProvider.notifier);
+      notifier.toggleRestrictedCategory('c1');
+      expect(container.read(accountFormProvider).restrictedCategoryIds, ['c1']);
+      notifier.toggleRestrictedCategory('c1');
+      expect(container.read(accountFormProvider).restrictedCategoryIds, isEmpty);
+    });
+
+    test('toggleParentCategory selects parent with all children', () {
+      final container = createContainer();
+      final notifier = container.read(accountFormProvider.notifier);
+      notifier.toggleParentCategory('parent', ['c1', 'c2']);
+      expect(container.read(accountFormProvider).restrictedCategoryIds.toSet(), {'parent', 'c1', 'c2'});
+
+      notifier.toggleParentCategory('parent', ['c1', 'c2']);
+      expect(container.read(accountFormProvider).restrictedCategoryIds, isEmpty);
+    });
+
+    test('toggleParentCategory avoids duplicates when child preselected', () {
+      final container = createContainer();
+      final notifier = container.read(accountFormProvider.notifier);
+      notifier.toggleRestrictedCategory('c1');
+      notifier.toggleParentCategory('parent', ['c1', 'c2']);
+      final ids = container.read(accountFormProvider).restrictedCategoryIds;
+      expect(ids.toSet(), {'parent', 'c1', 'c2'});
+      expect(ids.where((id) => id == 'c1').length, 1);
+    });
+
+    test('toggleChildCategory auto-selects parent when all siblings selected', () {
+      final container = createContainer();
+      final notifier = container.read(accountFormProvider.notifier);
+      notifier.toggleChildCategory(categoryId: 'c1', parentId: 'parent', allSiblingIds: ['c1', 'c2']);
+      expect(container.read(accountFormProvider).restrictedCategoryIds, ['c1']);
+
+      notifier.toggleChildCategory(categoryId: 'c2', parentId: 'parent', allSiblingIds: ['c1', 'c2']);
+      expect(container.read(accountFormProvider).restrictedCategoryIds.toSet(), {'c1', 'c2', 'parent'});
+    });
+
+    test('toggleChildCategory deselects parent when a sibling is unchecked', () {
+      final container = createContainer();
+      final notifier = container.read(accountFormProvider.notifier);
+      notifier.toggleParentCategory('parent', ['c1', 'c2']);
+      expect(container.read(accountFormProvider).restrictedCategoryIds.toSet(), {'parent', 'c1', 'c2'});
+
+      notifier.toggleChildCategory(categoryId: 'c1', parentId: 'parent', allSiblingIds: ['c1', 'c2']);
+      final ids = container.read(accountFormProvider).restrictedCategoryIds;
+      expect(ids.toSet(), {'c2'});
+    });
   });
 }
