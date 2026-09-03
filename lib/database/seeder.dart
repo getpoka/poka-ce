@@ -11,15 +11,23 @@ import 'package:uuid/uuid.dart';
 class DatabaseSeeder {
   static const _defaultCashAccountId = '01a031e6-4383-70cc-9328-111111111111';
 
+  /// Optional global overrides for seeding behavior.
+  static bool? globalOverrideSeedEssentials;
+  static bool? globalOverrideSeedDummyData;
+
   static Future<void> seed(AppDatabase db, {bool? overrideSeedDummyData, bool? overrideSeedEssentials}) async {
-    if (overrideSeedEssentials ?? AppConfig.seedEssentials) {
-      await _seedCurrencies(db);
+    // Static ISO master catalog and base settings always seed for offline usability
+    await _seedCurrencies(db);
+    await _seedSettings(db);
+
+    final shouldSeedEssentials = overrideSeedEssentials ?? globalOverrideSeedEssentials ?? AppConfig.seedEssentials;
+    if (shouldSeedEssentials) {
       await _seedCategories(db);
-      await _seedSettings(db);
       await _seedEssentialAccounts(db);
     }
 
-    if (overrideSeedDummyData ?? AppConfig.seedDummyData) {
+    final shouldSeedDummy = overrideSeedDummyData ?? globalOverrideSeedDummyData ?? AppConfig.seedDummyData;
+    if (shouldSeedDummy) {
       await _seedDummyData(db);
     }
   }

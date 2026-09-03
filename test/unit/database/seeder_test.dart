@@ -71,5 +71,24 @@ void main() {
       expect((await db.select(db.transactions).get()).length, 23); // Updated to match actual seeder data
       expect((await db.select(db.transactionItems).get()).length, 13); // Unchanged items in seeder
     });
+
+    test('seed skips accounts, categories, and dummy data when disabled', () async {
+      DatabaseSeeder.globalOverrideSeedEssentials = false;
+      DatabaseSeeder.globalOverrideSeedDummyData = false;
+
+      final cleanDb = AppDatabase(connection: NativeDatabase.memory());
+      try {
+        expect(await cleanDb.select(cleanDb.accounts).get(), isEmpty);
+        expect(await cleanDb.select(cleanDb.categories).get(), isEmpty);
+        expect(await cleanDb.select(cleanDb.transactions).get(), isEmpty);
+        expect(await cleanDb.select(cleanDb.budgets).get(), isEmpty);
+        expect((await cleanDb.select(cleanDb.currencies).get()).length, greaterThanOrEqualTo(26));
+        expect(await cleanDb.select(cleanDb.settings).get(), isNotEmpty);
+      } finally {
+        await cleanDb.close();
+        DatabaseSeeder.globalOverrideSeedEssentials = null;
+        DatabaseSeeder.globalOverrideSeedDummyData = null;
+      }
+    });
   });
 }
