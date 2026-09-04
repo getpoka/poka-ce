@@ -14,7 +14,7 @@ import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/dialogs/poka_confirm_dialog.dart';
 
 /// Renders transactions as grouped date sections inside a [SliverList].
-class TransactionGroupSliver extends StatelessWidget {
+class TransactionGroupSliver extends HookWidget {
   const TransactionGroupSliver({
     required this.transactions,
     required this.categoriesById,
@@ -28,16 +28,28 @@ class TransactionGroupSliver extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final collapsedDates = useState<Set<String>>({});
     final groups = TransactionGroupingService.groupTransactions(transactions);
 
     return SliverList.builder(
       itemCount: groups.length,
       itemBuilder: (context, index) {
         final group = groups[index];
+        final isExpanded = !collapsedDates.value.contains(group.dateStr);
 
         return _SliverDateGroupSection(
           key: ValueKey(group.dateStr),
           group: group,
+          isExpanded: isExpanded,
+          onToggle: () {
+            final next = Set<String>.from(collapsedDates.value);
+            if (next.contains(group.dateStr)) {
+              next.remove(group.dateStr);
+            } else {
+              next.add(group.dateStr);
+            }
+            collapsedDates.value = next;
+          },
           categoriesById: categoriesById,
           accountsById: accountsById,
         );
@@ -46,22 +58,24 @@ class TransactionGroupSliver extends StatelessWidget {
   }
 }
 
-class _SliverDateGroupSection extends HookConsumerWidget {
+class _SliverDateGroupSection extends ConsumerWidget {
   const _SliverDateGroupSection({
     required this.group,
+    required this.isExpanded,
+    required this.onToggle,
     required this.categoriesById,
     required this.accountsById,
     super.key,
   });
 
   final TransactionGroup group;
+  final bool isExpanded;
+  final VoidCallback onToggle;
   final Map<String, CategoryModel> categoriesById;
   final Map<String, AccountModel> accountsById;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isExpanded = useState(true);
-
     return Padding(
       padding: const EdgeInsets.only(bottom: 20),
       child: Column(
@@ -72,14 +86,14 @@ class _SliverDateGroupSection extends HookConsumerWidget {
             dateStr: group.dateStr,
             income: group.totalIncome,
             expense: group.totalExpense,
-            isExpanded: isExpanded.value,
+            isExpanded: isExpanded,
             itemCount: group.transactions.length,
-            onToggle: () => isExpanded.value = !isExpanded.value,
+            onToggle: onToggle,
           ),
 
           // ── Collapsible Tiles ────────────────────────────────────
           TweenAnimationBuilder<double>(
-            tween: Tween<double>(begin: 1, end: isExpanded.value ? 1.0 : 0.0),
+            tween: Tween<double>(begin: isExpanded ? 1.0 : 0.0, end: isExpanded ? 1.0 : 0.0),
             duration: const Duration(milliseconds: 250),
             curve: Curves.easeInOut,
             builder: (context, value, child) {

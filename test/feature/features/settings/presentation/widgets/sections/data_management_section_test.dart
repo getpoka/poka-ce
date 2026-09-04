@@ -68,6 +68,9 @@ base class MyPlatformFile extends PlatformFile {
   Future<int> length() async => 1024;
 
   @override
+  int? lengthSync() => 1024;
+
+  @override
   XFile get xFile => XFile('/mock/path/file.json');
 
   @override

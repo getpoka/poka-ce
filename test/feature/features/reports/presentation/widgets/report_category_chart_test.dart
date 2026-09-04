@@ -56,8 +56,8 @@ void main() {
 
       expect(find.text('Food'), findsWidgets);
       expect(find.text('Transport'), findsWidgets);
-      expect(find.text('50%'), findsWidgets);
-      expect(find.text('30%'), findsWidgets);
+      expect(find.text('50.0%'), findsWidgets);
+      expect(find.text('30.0%'), findsWidgets);
       expect(find.text('500'), findsOneWidget);
       expect(find.text('300'), findsOneWidget);
     });
@@ -105,7 +105,7 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text('Broken'), findsWidgets);
-      expect(find.text('100%'), findsWidgets);
+      expect(find.text('100.0%'), findsWidgets);
     });
   });
 }
