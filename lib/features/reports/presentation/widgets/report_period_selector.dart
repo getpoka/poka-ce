@@ -24,7 +24,7 @@ class ReportPeriodSelector extends ConsumerWidget {
     ];
 
     return SizedBox(
-      height: 36,
+      height: 30,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -147,7 +147,7 @@ class _PeriodChip extends StatelessWidget {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         alignment: Alignment.center,
-        padding: const EdgeInsets.symmetric(horizontal: 14),
+        padding: const EdgeInsets.symmetric(horizontal: 10),
         decoration: BoxDecoration(
           color: isSelected ? theme.colors.primary : theme.colors.muted,
           borderRadius: BorderRadius.circular(20),
@@ -157,7 +157,7 @@ class _PeriodChip extends StatelessWidget {
         ),
         child: Text(
           label,
-          style: theme.typography.bodySecondary.copyWith(
+          style: theme.typography.caption.copyWith(
             color: isSelected ? theme.colors.primaryForeground : theme.colors.mutedForeground,
             fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
           ),

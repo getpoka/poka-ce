@@ -54,10 +54,8 @@ class TransactionListSummaryCard extends ConsumerWidget {
       amount: PokaAmountText(
         amount: net.abs(),
         type: isPositive ? TransactionType.income : TransactionType.expense,
-        style: theme.typography.display.sm.copyWith(
+        style: theme.typography.amountSection.copyWith(
           color: theme.colors.primaryForeground,
-          fontWeight: FontWeight.bold,
-          height: 1,
         ),
       ),
       // No progress bar

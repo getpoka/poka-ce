@@ -69,7 +69,7 @@ class TransactionTileContent extends StatelessWidget {
                       catLabel,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: theme.typography.titleItem,
+                      style: theme.typography.bodySecondary.copyWith(fontWeight: FontWeight.w600),
                     ),
                   ),
                   if (hasMultipleItems) ...[

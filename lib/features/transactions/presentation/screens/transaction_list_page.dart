@@ -555,12 +555,12 @@ class _DateHeader extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          margin: const EdgeInsets.only(top: 6),
-          width: 8,
-          height: 8,
+          margin: const EdgeInsets.only(top: 2),
+          width: 4,
+          height: 16,
           decoration: BoxDecoration(
             color: theme.colors.primary,
-            shape: BoxShape.circle,
+            borderRadius: theme.style.borderRadius.xs,
           ),
         ),
         const SizedBox(width: 8),

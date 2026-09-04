@@ -130,7 +130,7 @@ class _CashflowBarChart extends StatelessWidget {
                   padding: const EdgeInsets.only(right: 4),
                   child: Text(
                     value.toCompactFormat(),
-                    style: theme.typography.labelBadge.copyWith(
+                    style: theme.typography.caption.copyWith(
                       color: theme.colors.mutedForeground,
                     ),
                     textAlign: TextAlign.right,
@@ -150,7 +150,7 @@ class _CashflowBarChart extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 6),
                   child: Text(
                     points[idx].label,
-                    style: theme.typography.labelBadge.copyWith(
+                    style: theme.typography.caption.copyWith(
                       color: theme.colors.mutedForeground,
                     ),
                   ),
@@ -220,7 +220,7 @@ class _LegendDot extends StatelessWidget {
         const SizedBox(width: 4),
         Text(
           label,
-          style: theme.typography.bodySecondary.copyWith(color: theme.colors.mutedForeground),
+          style: theme.typography.bodyPrimary.copyWith(color: theme.colors.mutedForeground),
         ),
       ],
     );
@@ -248,7 +248,7 @@ class _QuickStat extends StatelessWidget {
       children: [
         Text(
           label,
-          style: theme.typography.bodySecondary.copyWith(color: theme.colors.mutedForeground),
+          style: theme.typography.caption.copyWith(color: theme.colors.mutedForeground),
         ),
         Text(
           value,

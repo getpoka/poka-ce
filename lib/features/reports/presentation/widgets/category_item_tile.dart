@@ -48,7 +48,7 @@ class CategoryItemTile extends StatelessWidget {
         Expanded(
           child: Text(
             item.name,
-            style: theme.typography.titleItem,
+            style: theme.typography.bodyPrimary.copyWith(fontWeight: FontWeight.w500),
             overflow: TextOverflow.ellipsis,
           ),
         ),
@@ -63,7 +63,7 @@ class CategoryItemTile extends StatelessWidget {
             ),
             Text(
               '${(item.ratio * 100).toStringAsFixed(1)}%',
-              style: theme.typography.labelBadge.copyWith(color: theme.colors.mutedForeground),
+              style: theme.typography.caption.copyWith(color: theme.colors.mutedForeground),
             ),
           ],
         ),

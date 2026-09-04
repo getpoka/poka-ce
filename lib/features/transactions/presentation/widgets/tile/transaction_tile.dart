@@ -293,16 +293,7 @@ class RecentTransactionTile extends HookConsumerWidget with FTileMixin {
         FCollapsible(
           value: isExpanded.value ? 1.0 : 0.0,
           child: Container(
-            margin: const EdgeInsets.only(left: 37, top: 8),
-            padding: const EdgeInsets.only(left: 16),
-            decoration: BoxDecoration(
-              border: Border(
-                left: BorderSide(
-                  color: theme.colors.border,
-                  width: 1.2,
-                ),
-              ),
-            ),
+            margin: const EdgeInsets.only(left: 16, top: 8),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,

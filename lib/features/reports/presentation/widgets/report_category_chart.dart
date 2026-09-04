@@ -237,69 +237,26 @@ class _CategoryPieChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // The ranked list below already serves as the full legend (dot + name + amount + %).
+    // Removing the duplicate legend panel here lets the pie chart use the full width.
     return SizedBox(
-      height: 140,
-      child: Row(
-        children: [
-          // Pie chart
-          Expanded(
-            child: PieChart(
-              PieChartData(
-                sectionsSpace: 2,
-                centerSpaceRadius: 36,
-                startDegreeOffset: -90,
-                sections: items.map((item) {
-                  return PieChartSectionData(
-                    value: item.ratio,
-                    color: _parseColor(context, item.color),
-                    radius: 30,
-                    showTitle: false,
-                  );
-                }).toList(),
-              ),
-              duration: const Duration(milliseconds: 600),
-              curve: Curves.easeOutCubic,
-            ),
-          ),
-          const SizedBox(width: 16),
-
-          // Legend
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: items.take(5).map((item) {
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 6),
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 8,
-                        height: 8,
-                        decoration: BoxDecoration(
-                          color: _parseColor(context, item.color),
-                          shape: BoxShape.circle,
-                        ),
-                      ),
-                      const SizedBox(width: 6),
-                      Expanded(
-                        child: Text(
-                          item.name,
-                          style: theme.typography.labelBadge,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                      Text(
-                        '${(item.ratio * 100).toStringAsFixed(0)}%',
-                        style: theme.typography.bodySecondary.copyWith(color: theme.colors.mutedForeground),
-                      ),
-                    ],
-                  ),
-                );
-              }).toList(),
-            ),
-          ),
-        ],
+      height: 160,
+      child: PieChart(
+        PieChartData(
+          sectionsSpace: 2,
+          centerSpaceRadius: 44,
+          startDegreeOffset: -90,
+          sections: items.map((item) {
+            return PieChartSectionData(
+              value: item.ratio,
+              color: _parseColor(context, item.color),
+              radius: 38,
+              showTitle: false,
+            );
+          }).toList(),
+        ),
+        duration: const Duration(milliseconds: 600),
+        curve: Curves.easeOutCubic,
       ),
     );
   }

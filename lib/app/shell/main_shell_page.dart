@@ -136,17 +136,26 @@ class _AddTransactionFab extends StatelessWidget {
         HapticFeedback.lightImpact();
         TransactionFormSheet.show(context);
       },
+      // Outer ring in card color creates a visual halo that separates
+      // the FAB from same-colored chart elements behind it.
       child: Container(
-        width: 48,
-        height: 48,
+        padding: const EdgeInsets.all(3),
         decoration: BoxDecoration(
-          color: theme.colors.primary,
+          color: theme.colors.card,
           shape: BoxShape.circle,
         ),
-        child: Icon(
-          FPhosphorIcons.plus,
-          size: 20,
-          color: theme.colors.primaryForeground,
+        child: Container(
+          width: 48,
+          height: 48,
+          decoration: BoxDecoration(
+            color: theme.colors.primary,
+            shape: BoxShape.circle,
+          ),
+          child: Icon(
+            FPhosphorIcons.plus,
+            size: 20,
+            color: theme.colors.primaryForeground,
+          ),
         ),
       ),
     );

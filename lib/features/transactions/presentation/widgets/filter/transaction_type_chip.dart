@@ -46,7 +46,7 @@ class TransactionTypeChip extends StatelessWidget {
           borderRadius: theme.style.borderRadius.sm,
           border: Border.all(
             color: isSelected ? color : theme.colors.border,
-            width: isSelected ? 1.5 : theme.style.borderWidth,
+            width: theme.style.borderWidth,
           ),
         ),
         child: Column(
