@@ -7,6 +7,38 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v0.1.0-beta.4] - 2026-09-05
+
+### Added
+
+- Android App Shortcuts for home screen quick navigation (`Add Transaction`, `Add Account`, `Add Category`, `Add Goal`) with dedicated adaptive vector icons.
+- Interactive collapsible daily transaction groups with smooth expanding/collapsing animations, rotating carets, and transaction count badges.
+- Standardized dual-font typography system: **Plus Jakarta Sans** for UI text and **Tabular Inter** for all financial numbers and amounts.
+- Global currency master catalog decoupled from essential database seeding for faster app initialization.
+
+### Changed
+
+- Refined balance and hero card typography to 22px (`amountSection`) across Home Net Worth, Account Hero, and Transaction Summary cards.
+- Polished transaction list item styling: standardized 14px semibold category label, removed split tree lines in favor of clean 16px YAML-style indentation.
+- Replaced 8×8 circular date bullets with 4×16px vertical accent bars matching `PokaSectionLabel`.
+- Streamlined Transaction Filter sheet by removing redundant labels and normalizing active chip borders.
+
+### Fixed
+
+- Preserved date group collapse states across `SliverList.builder` viewport recycling and data mutations.
+- Resolved codebase architectural violations (eliminated `dynamic`, removed `throw` inside repositories/notifiers, centralized inline styling).
+- Updated mock interfaces and assertions across reports, filters, and settings test suites.
+
+### Testing & Quality
+
+- Raised test suite code coverage past 85% across models, repositories, and UI widgets.
+
+### Docs & Chores
+
+- Established CE-specific architectural boundary rules, coding standards, and contribution guidelines.
+- Configured automated PR-Agent workflow with custom review guidelines and enhanced PR template.
+- Suppressed Gradle deprecation warnings and added branding asset generation scripts.
+
 ## [v0.1.0-beta.3] - 2026-09-02
 
 ### Added
@@ -91,7 +123,8 @@ All core features are feature-complete and ready to be explored:
 
 > **⚠️ Important Note:** This version is still under testing. Deep edge cases (such as editing or deleting complex interconnected data) have not been fully verified. Unexpected bugs may occur — we recommend trying it with dummy data first, or regularly backing up your data from the Settings menu. Help us reach v1.0 by reporting bugs via the [Issues](https://github.com/getpoka/poka-ce/issues) tab.
 
-[Unreleased]: https://github.com/getpoka/poka-ce/compare/v0.1.0-beta.3...main
+[Unreleased]: https://github.com/getpoka/poka-ce/compare/v0.1.0-beta.4...main
+[v0.1.0-beta.4]: https://github.com/getpoka/poka-ce/compare/v0.1.0-beta.3...v0.1.0-beta.4
 [v0.1.0-beta.3]: https://github.com/getpoka/poka-ce/compare/v0.1.0-beta.2...v0.1.0-beta.3
 [v0.1.0-beta.2]: https://github.com/getpoka/poka-ce/compare/v0.1.0-beta.1...v0.1.0-beta.2
 [v0.1.0-beta.1]: https://github.com/getpoka/poka-ce/releases/tag/v0.1.0-beta.1
