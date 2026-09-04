@@ -160,4 +160,49 @@ class DashboardAnalyticsService {
       incomeDelta: incomeDelta,
     );
   }
+
+  /// Calculates the cumulative Net Worth trend across the specified number of days (default: 7).
+  /// Reconstructs historical points by subtracting income and adding back expenses
+  /// that occurred between each historical day and the present.
+  static List<double> calculateNetWorthTrend({
+    required double currentNetWorth,
+    required List<TransactionModel> transactions,
+    int days = 7,
+  }) {
+    if (days <= 0) return const [];
+
+    final now = DateTime.now().toUtc();
+    final todayMidnight = DateTime.utc(now.year, now.month, now.day);
+
+    // Group transactions by daysAgo (0 = today, 1 = yesterday, ..., days - 1 = days - 1 days ago)
+    final dailyNetChanges = List<double>.filled(days, 0);
+
+    for (final tx in transactions) {
+      final txDate = tx.transactionDate.toUtc();
+      final txMidnight = DateTime.utc(txDate.year, txDate.month, txDate.day);
+      final daysAgo = todayMidnight.difference(txMidnight).inDays;
+
+      if (daysAgo >= 0 && daysAgo < days) {
+        if (tx.type == TransactionType.income) {
+          dailyNetChanges[daysAgo] += tx.amount;
+        } else if (tx.type == TransactionType.expense) {
+          dailyNetChanges[daysAgo] -= tx.amount;
+        }
+      }
+    }
+
+    final result = List<double>.filled(days, 0);
+    var runningNetWorth = currentNetWorth;
+    // Today's end-of-day net worth is currentNetWorth
+    result[days - 1] = runningNetWorth;
+
+    // Moving backward in time:
+    for (var i = 1; i < days; i++) {
+      final daysAgo = i - 1; // transactions of day (i - 1)
+      runningNetWorth -= dailyNetChanges[daysAgo];
+      result[days - 1 - i] = runningNetWorth;
+    }
+
+    return result;
+  }
 }

@@ -4,10 +4,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:forui_phosphor/forui_phosphor.dart';
 import 'package:poka_ce/features/accounts/presentation/widgets/cards/account_networth_card.dart';
 import 'package:poka_ce/features/dashboard/presentation/controllers/balance_visibility_provider.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/features/settings/presentation/controllers/settings_notifier.dart';
-import 'package:poka_ce/features/settings/domain/settings_model.dart';
 import 'package:poka_ce/features/settings/domain/currency_model.dart';
+import 'package:poka_ce/features/settings/domain/settings_model.dart';
+import 'package:poka_ce/features/settings/presentation/controllers/settings_notifier.dart';
+import 'package:poka_ce/i18n/strings.g.dart';
+import 'package:poka_ce/shared/widgets/poka_sparkline.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 void main() {
@@ -24,6 +25,7 @@ void main() {
     int activeAccountCount = 2,
     String currency = 'USD',
     bool isBalanceVisible = true,
+    List<double>? sparklineData,
   }) {
     return ProviderScope(
       overrides: [
@@ -43,6 +45,7 @@ void main() {
                 totalAssets: totalAssets,
                 totalLiabilities: totalLiabilities,
                 activeAccountCount: activeAccountCount,
+                sparklineData: sparklineData,
               ),
             ),
           ),
@@ -175,6 +178,17 @@ void main() {
         findsOneWidget,
       );
       // divider removed from UI
+    });
+
+    testWidgets('renders sparkline in background when sparklineData is provided', (tester) async {
+      await tester.pumpWidget(
+        createWidgetUnderTest(
+          sparklineData: [1000, 1100, 1050, 1200, 1150, 1300, 1400],
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.byType(PokaSparkline), findsOneWidget);
     });
   });
 }

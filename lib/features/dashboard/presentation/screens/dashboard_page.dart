@@ -44,6 +44,7 @@ class DashboardPage extends HookConsumerWidget {
                       totalAssets: state.totalAssets,
                       totalLiabilities: state.totalLiabilities,
                       activeAccountCount: state.activeAccountCount,
+                      sparklineData: state.netWorthTrend,
                     ).animate().fade(duration: 400.ms).slideY(begin: 0.05, end: 0),
                     const SizedBox(height: 20),
                     const DashboardQuickActions()
