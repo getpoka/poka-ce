@@ -12,7 +12,7 @@ class PokaSparkline extends StatelessWidget {
     this.strokeWidth = 2.0,
     this.showEndDot = true,
     this.isCurved = true,
-    this.padding = const EdgeInsets.symmetric(vertical: 12),
+    this.padding = const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
     super.key,
   });
 

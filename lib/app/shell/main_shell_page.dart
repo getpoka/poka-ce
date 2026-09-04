@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:forui/forui.dart';
 import 'package:forui_phosphor/forui_phosphor.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poka_ce/features/recurring/presentation/controllers/recurring_runner_notifier.dart';
-import 'package:poka_ce/features/transactions/presentation/widgets/forms/transaction_form_sheet.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
+import 'package:poka_ce/shared/widgets/poka_add_transaction_fab.dart';
 
 /// Main shell page hosting the bottom navigation bar.
 /// Also triggers the recurring automation runner on every app startup.
@@ -113,49 +112,11 @@ class MainShellPage extends HookConsumerWidget {
                     duration: const Duration(milliseconds: 300),
                     curve: Curves.easeOutCubic,
                     opacity: isFabVisible.value ? 1.0 : 0.0,
-                    child: _AddTransactionFab(),
+                    child: const PokaAddTransactionFab(),
                   ),
                 ),
               ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-/// Circular FAB for adding a new transaction, using the theme primary color.
-class _AddTransactionFab extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final theme = context.theme;
-
-    return GestureDetector(
-      key: const Key('transaction-add-button'),
-      onTap: () {
-        HapticFeedback.lightImpact();
-        TransactionFormSheet.show(context);
-      },
-      // Outer ring in card color creates a visual halo that separates
-      // the FAB from same-colored chart elements behind it.
-      child: Container(
-        padding: const EdgeInsets.all(3),
-        decoration: BoxDecoration(
-          color: theme.colors.card,
-          shape: BoxShape.circle,
-        ),
-        child: Container(
-          width: 48,
-          height: 48,
-          decoration: BoxDecoration(
-            color: theme.colors.primary,
-            shape: BoxShape.circle,
-          ),
-          child: Icon(
-            FPhosphorIcons.plus,
-            size: 20,
-            color: theme.colors.primaryForeground,
-          ),
         ),
       ),
     );

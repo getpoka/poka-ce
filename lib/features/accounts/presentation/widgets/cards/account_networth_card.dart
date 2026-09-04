@@ -42,7 +42,7 @@ class AccountNetworthCard extends ConsumerWidget {
                 height: 90,
                 child: PokaSparkline(
                   points: sparklineData!,
-                  padding: const EdgeInsets.only(top: 8, bottom: 8),
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                 ),
               ),
             )
