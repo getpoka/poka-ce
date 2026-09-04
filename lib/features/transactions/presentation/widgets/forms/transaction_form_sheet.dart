@@ -31,6 +31,9 @@ class TransactionFormSheet extends HookConsumerWidget {
     this.initialAmount,
     this.initialNote,
     this.initialAccountId,
+    this.initialDestinationAccountId,
+    this.initialCategoryId,
+    this.initialDate,
   });
 
   final TransactionType? initialType;
@@ -38,6 +41,9 @@ class TransactionFormSheet extends HookConsumerWidget {
   final String? initialAmount;
   final String? initialNote;
   final String? initialAccountId;
+  final String? initialDestinationAccountId;
+  final String? initialCategoryId;
+  final DateTime? initialDate;
 
   static Future<bool?> show(
     BuildContext context, {
@@ -46,6 +52,9 @@ class TransactionFormSheet extends HookConsumerWidget {
     String? initialAmount,
     String? initialNote,
     String? initialAccountId,
+    String? initialDestinationAccountId,
+    String? initialCategoryId,
+    DateTime? initialDate,
   }) {
     return showPokaSheet<bool>(
       context: context,
@@ -59,6 +68,9 @@ class TransactionFormSheet extends HookConsumerWidget {
           initialAmount: initialAmount,
           initialNote: initialNote,
           initialAccountId: initialAccountId,
+          initialDestinationAccountId: initialDestinationAccountId,
+          initialCategoryId: initialCategoryId,
+          initialDate: initialDate,
         ),
       ),
     );
@@ -74,6 +86,9 @@ class TransactionFormSheet extends HookConsumerWidget {
       initialAmount: initialAmount,
       initialNote: initialNote,
       initialAccountId: initialAccountId,
+      initialDestinationAccountId: initialDestinationAccountId,
+      initialCategoryId: initialCategoryId,
+      initialDate: initialDate,
     );
 
     final provider = transactionFormProvider(args);

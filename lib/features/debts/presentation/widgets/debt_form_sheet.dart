@@ -19,14 +19,50 @@ import 'package:poka_ce/shared/widgets/sheets/poka_sheet.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class DebtFormSheet extends HookConsumerWidget {
-  const DebtFormSheet({super.key, this.initialDebt});
+  const DebtFormSheet({
+    super.key,
+    this.initialDebt,
+    this.initialPersonName,
+    this.initialType,
+    this.initialAmount,
+    this.initialDueDate,
+    this.initialNote,
+    this.initialAccountId,
+    this.initialCategoryId,
+  });
 
   final DebtModel? initialDebt;
+  final String? initialPersonName;
+  final DebtType? initialType;
+  final int? initialAmount;
+  final DateTime? initialDueDate;
+  final String? initialNote;
+  final String? initialAccountId;
+  final String? initialCategoryId;
 
-  static Future<void> show(BuildContext context, {DebtModel? initialDebt}) {
+  static Future<void> show(
+    BuildContext context, {
+    DebtModel? initialDebt,
+    String? initialPersonName,
+    DebtType? initialType,
+    int? initialAmount,
+    DateTime? initialDueDate,
+    String? initialNote,
+    String? initialAccountId,
+    String? initialCategoryId,
+  }) {
     return showPokaSheet(
       context: context,
-      builder: (context) => DebtFormSheet(initialDebt: initialDebt),
+      builder: (context) => DebtFormSheet(
+        initialDebt: initialDebt,
+        initialPersonName: initialPersonName,
+        initialType: initialType,
+        initialAmount: initialAmount,
+        initialDueDate: initialDueDate,
+        initialNote: initialNote,
+        initialAccountId: initialAccountId,
+        initialCategoryId: initialCategoryId,
+      ),
     );
   }
 
@@ -35,18 +71,47 @@ class DebtFormSheet extends HookConsumerWidget {
     final notifier = ref.read(debtFormProvider.notifier);
     final state = ref.watch(debtFormProvider);
 
-    useEffect(() {
-      Future.microtask(() => notifier.init(initialDebt));
-      return null;
-    }, [initialDebt]);
+    useEffect(
+      () {
+        Future.microtask(
+          () => notifier.init(
+            initialDebt,
+            initialPersonName: initialPersonName,
+            initialType: initialType,
+            initialAmount: initialAmount,
+            initialDueDate: initialDueDate,
+            initialNote: initialNote,
+            initialAccountId: initialAccountId,
+            initialCategoryId: initialCategoryId,
+          ),
+        );
+        return null;
+      },
+      [
+        initialDebt,
+        initialPersonName,
+        initialType,
+        initialAmount,
+        initialDueDate,
+        initialNote,
+        initialAccountId,
+        initialCategoryId,
+      ],
+    );
 
-    final personController = useTextEditingController(text: initialDebt?.personName ?? state.personName);
+    final personController = useTextEditingController(
+      text: initialDebt?.personName ?? initialPersonName ?? state.personName,
+    );
     final amountController = useTextEditingController(
       text: initialDebt != null && initialDebt!.amount > 0
           ? initialDebt!.amount.toString()
-          : (state.amount > 0 ? state.amount.toString() : ''),
+          : (initialAmount != null && initialAmount! > 0
+                ? initialAmount.toString()
+                : (state.amount > 0 ? state.amount.toString() : '')),
     );
-    final noteController = useTextEditingController(text: initialDebt?.note ?? state.note ?? '');
+    final noteController = useTextEditingController(
+      text: initialDebt?.note ?? initialNote ?? state.note ?? '',
+    );
 
     useEffect(() {
       void onPerson() {

@@ -22,14 +22,42 @@ import 'package:poka_ce/shared/widgets/poka_pocket_selector.dart';
 import 'package:poka_ce/shared/widgets/sheets/poka_sheet.dart';
 
 class BudgetFormSheet extends HookConsumerWidget {
-  const BudgetFormSheet({super.key, this.initialBudget});
+  const BudgetFormSheet({
+    super.key,
+    this.initialBudget,
+    this.initialName,
+    this.initialAmount,
+    this.initialPeriod,
+    this.initialCategoryId,
+    this.initialAccountId,
+  });
 
   final BudgetModel? initialBudget;
+  final String? initialName;
+  final int? initialAmount;
+  final BudgetPeriod? initialPeriod;
+  final String? initialCategoryId;
+  final String? initialAccountId;
 
-  static Future<void> show(BuildContext context, {BudgetModel? initialBudget}) {
+  static Future<void> show(
+    BuildContext context, {
+    BudgetModel? initialBudget,
+    String? initialName,
+    int? initialAmount,
+    BudgetPeriod? initialPeriod,
+    String? initialCategoryId,
+    String? initialAccountId,
+  }) {
     return showPokaSheet(
       context: context,
-      builder: (context) => BudgetFormSheet(initialBudget: initialBudget),
+      builder: (context) => BudgetFormSheet(
+        initialBudget: initialBudget,
+        initialName: initialName,
+        initialAmount: initialAmount,
+        initialPeriod: initialPeriod,
+        initialCategoryId: initialCategoryId,
+        initialAccountId: initialAccountId,
+      ),
     );
   }
 
@@ -39,15 +67,26 @@ class BudgetFormSheet extends HookConsumerWidget {
     final state = ref.watch(budgetFormProvider);
 
     useEffect(() {
-      Future.microtask(() => notifier.init(initialBudget));
+      Future.microtask(
+        () => notifier.init(
+          initialBudget,
+          initialName: initialName,
+          initialAmount: initialAmount,
+          initialPeriod: initialPeriod,
+          initialCategoryId: initialCategoryId,
+          initialAccountId: initialAccountId,
+        ),
+      );
       return null;
-    }, [initialBudget]);
+    }, [initialBudget, initialName, initialAmount, initialPeriod, initialCategoryId, initialAccountId]);
 
-    final nameController = useTextEditingController(text: initialBudget?.name ?? state.name);
+    final nameController = useTextEditingController(text: initialBudget?.name ?? initialName ?? state.name);
     final amountController = useTextEditingController(
       text: initialBudget != null && initialBudget!.amount > 0
           ? initialBudget!.amount.toString()
-          : (state.amount > 0 ? state.amount.toString() : ''),
+          : (initialAmount != null && initialAmount! > 0
+                ? initialAmount.toString()
+                : (state.amount > 0 ? state.amount.toString() : '')),
     );
     final resetDayController = useTextEditingController(
       text: initialBudget?.resetDay?.toString() ?? (state.resetDay != null ? state.resetDay.toString() : ''),

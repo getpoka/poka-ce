@@ -19,6 +19,9 @@ class TransactionFormArgs {
     this.initialAmount,
     this.initialNote,
     this.initialAccountId,
+    this.initialDestinationAccountId,
+    this.initialCategoryId,
+    this.initialDate,
   });
 
   final TransactionType? initialType;
@@ -26,6 +29,9 @@ class TransactionFormArgs {
   final String? initialAmount;
   final String? initialNote;
   final String? initialAccountId;
+  final String? initialDestinationAccountId;
+  final String? initialCategoryId;
+  final DateTime? initialDate;
 
   @override
   bool operator ==(Object other) =>
@@ -36,7 +42,10 @@ class TransactionFormArgs {
           initialTransaction == other.initialTransaction &&
           initialAmount == other.initialAmount &&
           initialNote == other.initialNote &&
-          initialAccountId == other.initialAccountId;
+          initialAccountId == other.initialAccountId &&
+          initialDestinationAccountId == other.initialDestinationAccountId &&
+          initialCategoryId == other.initialCategoryId &&
+          initialDate == other.initialDate;
 
   @override
   int get hashCode =>
@@ -44,7 +53,10 @@ class TransactionFormArgs {
       initialTransaction.hashCode ^
       initialAmount.hashCode ^
       initialNote.hashCode ^
-      initialAccountId.hashCode;
+      initialAccountId.hashCode ^
+      initialDestinationAccountId.hashCode ^
+      initialCategoryId.hashCode ^
+      initialDate.hashCode;
 }
 
 @immutable
@@ -136,7 +148,7 @@ class TransactionFormNotifier extends _$TransactionFormNotifier {
         ? initialTransaction.items.first.allocation
         : null;
 
-    final initialDate = initialTransaction?.transactionDate.toLocal() ?? DateTime.now();
+    final initialDate = initialTransaction?.transactionDate.toLocal() ?? args.initialDate ?? DateTime.now();
 
     return TransactionFormState(
       type: initialTransaction?.type ?? args.initialType ?? TransactionType.expense,
@@ -144,8 +156,10 @@ class TransactionFormNotifier extends _$TransactionFormNotifier {
       note: initialTransaction?.note ?? args.initialNote ?? '',
       date: initialDate,
       accountId: initialTransaction?.accountId ?? args.initialAccountId,
-      destinationAccountId: initialTransaction?.destinationAccountId,
-      categoryId: initialTransaction?.items.isNotEmpty == true ? initialTransaction?.items.first.categoryId : null,
+      destinationAccountId: initialTransaction?.destinationAccountId ?? args.initialDestinationAccountId,
+      categoryId: initialTransaction?.items.isNotEmpty == true
+          ? initialTransaction?.items.first.categoryId
+          : args.initialCategoryId,
       allocation: initialAllocation,
       splitItems: initialSplits,
     );
