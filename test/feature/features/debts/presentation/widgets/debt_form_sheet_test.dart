@@ -409,7 +409,16 @@ class _FakeDebtFormNotifier extends DebtForm {
   @override
   DebtFormState build() => _state;
   @override
-  void init(DebtModel? debt) {}
+  void init(
+    DebtModel? debt, {
+    String? initialPersonName,
+    DebtType? initialType,
+    int? initialAmount,
+    DateTime? initialDueDate,
+    String? initialNote,
+    String? initialAccountId,
+    String? initialCategoryId,
+  }) {}
   @override
   Future<void> save() async {}
 }

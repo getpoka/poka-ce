@@ -44,6 +44,7 @@ class CategoryFormNotifier extends _$CategoryFormNotifier {
     CategoryModel? category, {
     String? parentId,
     CategoryType? type,
+    String? initialName,
   }) {
     if (category != null) {
       state = CategoryFormState(
@@ -56,6 +57,7 @@ class CategoryFormNotifier extends _$CategoryFormNotifier {
       );
     } else {
       state = CategoryFormState(
+        name: initialName ?? '',
         parentId: parentId,
         type: type ?? CategoryType.expense,
       );

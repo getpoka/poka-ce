@@ -11,15 +11,35 @@ import 'package:poka_ce/theme/theme.dart';
 /// Bottom sheet for creating or editing a savings goal.
 /// When creating, the system automatically generates a linked Pocket account.
 class GoalFormSheet extends HookConsumerWidget {
-  const GoalFormSheet({super.key, this.initialGoal});
+  const GoalFormSheet({
+    super.key,
+    this.initialGoal,
+    this.initialName,
+    this.initialTargetAmount,
+    this.initialTargetDate,
+  });
 
   final GoalModel? initialGoal;
+  final String? initialName;
+  final int? initialTargetAmount;
+  final DateTime? initialTargetDate;
 
   /// Shows the sheet and returns when the user dismisses or saves.
-  static Future<void> show(BuildContext context, {GoalModel? initialGoal}) {
+  static Future<void> show(
+    BuildContext context, {
+    GoalModel? initialGoal,
+    String? initialName,
+    int? initialTargetAmount,
+    DateTime? initialTargetDate,
+  }) {
     return showPokaSheet(
       context: context,
-      builder: (context) => GoalFormSheet(initialGoal: initialGoal),
+      builder: (context) => GoalFormSheet(
+        initialGoal: initialGoal,
+        initialName: initialName,
+        initialTargetAmount: initialTargetAmount,
+        initialTargetDate: initialTargetDate,
+      ),
     );
   }
 
@@ -30,15 +50,24 @@ class GoalFormSheet extends HookConsumerWidget {
 
     // Initialise the notifier once with the given goal.
     useEffect(() {
-      Future.microtask(() => notifier.init(initialGoal));
+      Future.microtask(
+        () => notifier.init(
+          initialGoal,
+          initialName: initialName,
+          initialTargetAmount: initialTargetAmount,
+          initialTargetDate: initialTargetDate,
+        ),
+      );
       return null;
-    }, [initialGoal]);
+    }, [initialGoal, initialName, initialTargetAmount, initialTargetDate]);
 
-    final nameController = useTextEditingController(text: initialGoal?.name ?? state.name);
+    final nameController = useTextEditingController(text: initialGoal?.name ?? initialName ?? state.name);
     final amountController = useTextEditingController(
       text: initialGoal != null && initialGoal!.targetAmount > 0
           ? initialGoal!.targetAmount.toString()
-          : (state.targetAmount > 0 ? state.targetAmount.toString() : ''),
+          : (initialTargetAmount != null && initialTargetAmount! > 0
+                ? initialTargetAmount.toString()
+                : (state.targetAmount > 0 ? state.targetAmount.toString() : '')),
     );
 
     // Sync controllers → notifier.

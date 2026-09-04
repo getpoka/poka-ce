@@ -35,7 +35,16 @@ class DebtForm extends _$DebtForm {
     return const DebtFormState();
   }
 
-  void init(DebtModel? debt) {
+  void init(
+    DebtModel? debt, {
+    String? initialPersonName,
+    DebtType? initialType,
+    int? initialAmount,
+    DateTime? initialDueDate,
+    String? initialNote,
+    String? initialAccountId,
+    String? initialCategoryId,
+  }) {
     if (debt != null) {
       state = DebtFormState(
         initialDebt: debt,
@@ -47,7 +56,15 @@ class DebtForm extends _$DebtForm {
         note: debt.note,
       );
     } else {
-      state = const DebtFormState();
+      state = DebtFormState(
+        accountId: initialAccountId ?? '',
+        categoryId: initialCategoryId ?? '',
+        personName: initialPersonName ?? '',
+        type: initialType ?? DebtType.debt,
+        amount: initialAmount ?? 0,
+        dueDate: initialDueDate,
+        note: initialNote,
+      );
     }
   }
 

@@ -458,7 +458,14 @@ class _FakeBudgetFormNotifier extends BudgetFormNotifier {
   @override
   BudgetFormState build() => _state;
   @override
-  void init(BudgetModel? budget) {}
+  void init(
+    BudgetModel? budget, {
+    String? initialName,
+    int? initialAmount,
+    BudgetPeriod? initialPeriod,
+    String? initialCategoryId,
+    String? initialAccountId,
+  }) {}
   @override
   Future<void> save() async {}
 }

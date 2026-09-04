@@ -16,18 +16,21 @@ class CategoryFormSheet extends HookConsumerWidget {
     this.initialCategory,
     this.parentId,
     this.initialType,
+    this.initialName,
     super.key,
   });
 
   final CategoryModel? initialCategory;
   final String? parentId;
   final CategoryType? initialType;
+  final String? initialName;
 
   static Future<void> show(
     BuildContext context, {
     CategoryModel? category,
     String? parentId,
     CategoryType? initialType,
+    String? initialName,
   }) {
     return showPokaSheet(
       context: context,
@@ -35,6 +38,7 @@ class CategoryFormSheet extends HookConsumerWidget {
         initialCategory: category,
         parentId: parentId,
         initialType: initialType,
+        initialName: initialName,
       ),
     );
   }
@@ -50,12 +54,13 @@ class CategoryFormSheet extends HookConsumerWidget {
           initialCategory,
           parentId: parentId,
           type: initialType,
+          initialName: initialName,
         );
       });
       return null;
-    }, [initialCategory, parentId, initialType]);
+    }, [initialCategory, parentId, initialType, initialName]);
 
-    final nameController = useTextEditingController(text: initialCategory?.name ?? state.name);
+    final nameController = useTextEditingController(text: initialCategory?.name ?? initialName ?? state.name);
 
     useEffect(() {
       void listener() {

@@ -36,7 +36,14 @@ class BudgetFormNotifier extends _$BudgetFormNotifier {
     return const BudgetFormState();
   }
 
-  void init(BudgetModel? budget) {
+  void init(
+    BudgetModel? budget, {
+    String? initialName,
+    int? initialAmount,
+    BudgetPeriod? initialPeriod,
+    String? initialCategoryId,
+    String? initialAccountId,
+  }) {
     if (budget != null) {
       state = BudgetFormState(
         initialBudget: budget,
@@ -50,7 +57,13 @@ class BudgetFormNotifier extends _$BudgetFormNotifier {
         accountId: budget.accountId,
       );
     } else {
-      state = const BudgetFormState();
+      state = BudgetFormState(
+        name: initialName ?? '',
+        amount: initialAmount ?? 0,
+        period: initialPeriod ?? BudgetPeriod.monthly,
+        categoryId: initialCategoryId,
+        accountId: initialAccountId,
+      );
     }
   }
 

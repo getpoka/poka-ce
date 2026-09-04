@@ -54,7 +54,12 @@ class GoalFormNotifier extends _$GoalFormNotifier {
     return const GoalFormState();
   }
 
-  void init(GoalModel? goal) {
+  void init(
+    GoalModel? goal, {
+    String? initialName,
+    int? initialTargetAmount,
+    DateTime? initialTargetDate,
+  }) {
     if (goal != null) {
       state = GoalFormState(
         initialGoal: goal,
@@ -63,7 +68,11 @@ class GoalFormNotifier extends _$GoalFormNotifier {
         targetDate: goal.targetDate,
       );
     } else {
-      state = const GoalFormState();
+      state = GoalFormState(
+        name: initialName ?? '',
+        targetAmount: initialTargetAmount ?? 0,
+        targetDate: initialTargetDate,
+      );
     }
   }
 
