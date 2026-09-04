@@ -25,6 +25,7 @@ class DashboardState {
     this.dailySpending = const [0, 0, 0, 0, 0, 0, 0],
     this.maxDailySpending = 0.0,
     this.normalizedDailySpending = const [0, 0, 0, 0, 0, 0, 0],
+    this.netWorthTrend = const [0, 0, 0, 0, 0, 0, 0],
     this.expenseDelta = 0.0,
     this.incomeDelta = 0.0,
     this.categoriesById = const {},
@@ -45,6 +46,7 @@ class DashboardState {
   final List<double> dailySpending;
   final double maxDailySpending;
   final List<double> normalizedDailySpending;
+  final List<double> netWorthTrend;
   final double expenseDelta;
   final double incomeDelta;
   final Map<String, CategoryModel> categoriesById;
@@ -65,6 +67,7 @@ class DashboardState {
     List<double>? dailySpending,
     double? maxDailySpending,
     List<double>? normalizedDailySpending,
+    List<double>? netWorthTrend,
     double? expenseDelta,
     double? incomeDelta,
     Map<String, CategoryModel>? categoriesById,
@@ -85,6 +88,7 @@ class DashboardState {
       dailySpending: dailySpending ?? this.dailySpending,
       maxDailySpending: maxDailySpending ?? this.maxDailySpending,
       normalizedDailySpending: normalizedDailySpending ?? this.normalizedDailySpending,
+      netWorthTrend: netWorthTrend ?? this.netWorthTrend,
       expenseDelta: expenseDelta ?? this.expenseDelta,
       incomeDelta: incomeDelta ?? this.incomeDelta,
       categoriesById: categoriesById ?? this.categoriesById,
@@ -109,6 +113,10 @@ class DashboardNotifier extends _$DashboardNotifier {
 
     final accountMetrics = DashboardAnalyticsService.calculateAccountMetrics(accounts);
     final txMetrics = DashboardAnalyticsService.calculateTransactionMetrics(transactions, categories);
+    final netWorthTrend = DashboardAnalyticsService.calculateNetWorthTrend(
+      currentNetWorth: accountMetrics.netWorth,
+      transactions: transactions,
+    );
 
     return DashboardState(
       accounts: accounts,
@@ -125,6 +133,7 @@ class DashboardNotifier extends _$DashboardNotifier {
       dailySpending: txMetrics.dailySpending,
       maxDailySpending: txMetrics.maxDailySpending,
       normalizedDailySpending: txMetrics.normalizedDailySpending,
+      netWorthTrend: netWorthTrend,
       expenseDelta: txMetrics.expenseDelta,
       incomeDelta: txMetrics.incomeDelta,
       categoriesById: {for (final c in categories) c.id: c},

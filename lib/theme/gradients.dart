@@ -39,4 +39,16 @@ abstract final class PokaGradients {
       Color(0xFFFF0000), // 360
     ],
   );
+
+  /// Vertical fade-out gradient for sparklines on hero cards and background charts.
+  static LinearGradient sparklineFill(Color color) {
+    return LinearGradient(
+      colors: [
+        color.withValues(alpha: 0.18),
+        color.withValues(alpha: 0),
+      ],
+      begin: Alignment.topCenter,
+      end: Alignment.bottomCenter,
+    );
+  }
 }

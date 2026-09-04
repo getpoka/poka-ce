@@ -5,6 +5,7 @@ import 'package:poka_ce/features/dashboard/presentation/controllers/balance_visi
 import 'package:poka_ce/features/settings/presentation/controllers/settings_notifier.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/poka_hero_card.dart';
+import 'package:poka_ce/shared/widgets/poka_sparkline.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class AccountNetworthCard extends ConsumerWidget {
@@ -13,6 +14,7 @@ class AccountNetworthCard extends ConsumerWidget {
     required this.totalAssets,
     required this.totalLiabilities,
     required this.activeAccountCount,
+    this.sparklineData,
     super.key,
   });
 
@@ -20,6 +22,7 @@ class AccountNetworthCard extends ConsumerWidget {
   final double totalAssets;
   final double totalLiabilities;
   final int activeAccountCount;
+  final List<double>? sparklineData;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -32,6 +35,18 @@ class AccountNetworthCard extends ConsumerWidget {
     final localeFormat = settingsState.settings?.numberFormat ?? 'system';
 
     return PokaHeroCard(
+      background: sparklineData != null && sparklineData!.isNotEmpty
+          ? Align(
+              alignment: Alignment.bottomCenter,
+              child: SizedBox(
+                height: 90,
+                child: PokaSparkline(
+                  points: sparklineData!,
+                  padding: const EdgeInsets.only(top: 8, bottom: 8),
+                ),
+              ),
+            )
+          : null,
       pills: [
         PokaHeroCardPill(
           icon: FPhosphorIcons.wallet,

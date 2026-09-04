@@ -15,6 +15,7 @@ class PokaHeroCard extends StatelessWidget {
     this.trailing,
     this.progress,
     this.cardColor,
+    this.background,
     super.key,
   });
 
@@ -42,6 +43,9 @@ class PokaHeroCard extends StatelessWidget {
   /// The primary color of the card gradient. Defaults to theme primary color.
   final Color? cardColor;
 
+  /// Optional background widget layered behind the card content (e.g., sparkline chart).
+  final Widget? background;
+
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;
@@ -59,54 +63,65 @@ class PokaHeroCard extends StatelessWidget {
         titleTextStyle: theme.cardStyle.titleTextStyle,
         subtitleTextStyle: theme.cardStyle.subtitleTextStyle,
       ),
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(16),
+        child: Stack(
           children: [
-            // ── Top Row (Pills & Trailing) ───────────────────────────────
-            Row(
-              children: [
-                ...pills,
-                const Spacer(),
-                ?trailing,
-              ],
-            ),
-            const SizedBox(height: 16),
-
-            // ── Middle Section (Label & Amount) ──────────────────────────
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: theme.typography.bodySecondary.copyWith(
-                    color: theme.colors.primaryForeground.withValues(alpha: 0.7),
+            if (background != null)
+              Positioned.fill(
+                child: background!,
+              ),
+            Container(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // ── Top Row (Pills & Trailing) ───────────────────────────────
+                  Row(
+                    children: [
+                      ...pills,
+                      const Spacer(),
+                      ?trailing,
+                    ],
                   ),
-                ),
-                const SizedBox(height: 6),
-                amount,
-              ],
-            ),
+                  const SizedBox(height: 16),
 
-            // ── Progress & Spacing ───────────────────────────────────────
-            if (progress != null) ...[
-              const SizedBox(height: 12),
-              _HeroCardProgressBar(progress: progress!),
-              const SizedBox(height: 12),
-            ] else ...[
-              // Maintain the exact height of (12 + 6 + 12 = 30) for cards without progress
-              const SizedBox(height: 30),
-            ],
+                  // ── Middle Section (Label & Amount) ──────────────────────────
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title,
+                        style: theme.typography.bodySecondary.copyWith(
+                          color: theme.colors.primaryForeground.withValues(alpha: 0.7),
+                        ),
+                      ),
+                      const SizedBox(height: 6),
+                      amount,
+                    ],
+                  ),
 
-            // ── Bottom Row (Sub Amounts) ─────────────────────────────────
-            Row(
-              children: [
-                Expanded(child: leftSubAmount),
-                const SizedBox(width: 24),
-                Expanded(child: rightSubAmount),
-              ],
+                  // ── Progress & Spacing ───────────────────────────────────────
+                  if (progress != null) ...[
+                    const SizedBox(height: 12),
+                    _HeroCardProgressBar(progress: progress!),
+                    const SizedBox(height: 12),
+                  ] else ...[
+                    // Maintain the exact height of (12 + 6 + 12 = 30) for cards without progress
+                    const SizedBox(height: 30),
+                  ],
+
+                  // ── Bottom Row (Sub Amounts) ─────────────────────────────────
+                  Row(
+                    children: [
+                      Expanded(child: leftSubAmount),
+                      const SizedBox(width: 24),
+                      Expanded(child: rightSubAmount),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ],
         ),
