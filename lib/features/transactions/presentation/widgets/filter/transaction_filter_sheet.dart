@@ -82,30 +82,26 @@ class TransactionFilterSheet extends HookConsumerWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           // ── Transaction type ──────────────────────────────────────────────
-          FLabel(
-            layout: FLabelLayout.vertical,
-            label: Text(t.transactions.transactionType),
-            child: Row(
-              children: TransactionType.values.map((type) {
-                final isSelected = selectedTypes.value.contains(type);
-                return Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                      right: type != TransactionType.values.last ? 8 : 0,
-                    ),
-                    child: TransactionTypeChip(
-                      type: type,
-                      isSelected: isSelected,
-                      onTap: () {
-                        final next = Set<TransactionType>.from(selectedTypes.value);
-                        isSelected ? next.remove(type) : next.add(type);
-                        selectedTypes.value = next;
-                      },
-                    ),
+          Row(
+            children: TransactionType.values.map((type) {
+              final isSelected = selectedTypes.value.contains(type);
+              return Expanded(
+                child: Padding(
+                  padding: EdgeInsets.only(
+                    right: type != TransactionType.values.last ? 8 : 0,
                   ),
-                );
-              }).toList(),
-            ),
+                  child: TransactionTypeChip(
+                    type: type,
+                    isSelected: isSelected,
+                    onTap: () {
+                      final next = Set<TransactionType>.from(selectedTypes.value);
+                      isSelected ? next.remove(type) : next.add(type);
+                      selectedTypes.value = next;
+                    },
+                  ),
+                ),
+              );
+            }).toList(),
           ),
 
           // ── Account ───────────────────────────────────────────────────────

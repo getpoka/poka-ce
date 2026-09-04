@@ -77,9 +77,7 @@ class ReportSummaryCard extends ConsumerWidget {
               children: [
                 Text(
                   t.cashflow,
-                  style: theme.typography.bodyPrimary.copyWith(
-                    color: theme.colors.mutedForeground,
-                  ),
+                  style: theme.typography.titleCard,
                 ),
                 _StatusBadge(isOnTrack: isOnTrack),
               ],
@@ -91,27 +89,27 @@ class ReportSummaryCard extends ConsumerWidget {
               children: [
                 // Donut (fl_chart PieChart)
                 SizedBox(
-                  width: 90,
-                  height: 90,
+                  width: 100,
+                  height: 100,
                   child: Stack(
                     alignment: Alignment.center,
                     children: [
                       PieChart(
                         PieChartData(
                           sectionsSpace: 2,
-                          centerSpaceRadius: 30,
+                          centerSpaceRadius: 34,
                           startDegreeOffset: -90,
                           sections: [
                             PieChartSectionData(
                               value: incomeVal,
                               color: incomeColor,
-                              radius: 14,
+                              radius: 16,
                               showTitle: false,
                             ),
                             PieChartSectionData(
                               value: expenseVal,
                               color: expenseColor,
-                              radius: 14,
+                              radius: 16,
                               showTitle: false,
                             ),
                           ],

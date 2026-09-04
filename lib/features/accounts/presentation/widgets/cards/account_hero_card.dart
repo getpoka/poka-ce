@@ -76,11 +76,8 @@ class AccountHeroCard extends ConsumerWidget {
         amount: balance,
         type: balance >= 0 ? TransactionType.income : TransactionType.expense,
         isObscured: !isVisible,
-        style: theme.typography.display.sm.copyWith(
+        style: theme.typography.amountSection.copyWith(
           color: Colors.white,
-          fontWeight: FontWeight.w800,
-          letterSpacing: -1,
-          height: 1,
         ),
       ),
       leftSubAmount: PokaHeroCardSubAmount(

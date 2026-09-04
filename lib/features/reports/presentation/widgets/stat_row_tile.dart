@@ -28,13 +28,13 @@ class StatRowTile extends StatelessWidget {
     return Row(
       children: [
         Container(
-          width: 28,
-          height: 28,
+          width: 34,
+          height: 34,
           decoration: BoxDecoration(
             color: iconColor.withValues(alpha: 0.1),
-            borderRadius: BorderRadius.circular(7),
+            borderRadius: BorderRadius.circular(8),
           ),
-          child: Icon(icon, size: 14, color: iconColor),
+          child: Icon(icon, size: 16, color: iconColor),
         ),
         const SizedBox(width: 8),
         Expanded(
@@ -43,15 +43,21 @@ class StatRowTile extends StatelessWidget {
             children: [
               Text(
                 label,
-                style: theme.typography.labelBadge.copyWith(color: theme.colors.mutedForeground),
+                style: theme.typography.caption.copyWith(
+                  color: theme.colors.mutedForeground,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
               Text(
                 value,
                 style: theme.typography.bodyPrimary.copyWith(fontWeight: FontWeight.w700),
                 overflow: TextOverflow.ellipsis,
               ),
-              if (delta != 0)
-                Padding(
+              // Always reserve the delta row height to prevent layout shift
+              // when switching between periods with and without comparison data.
+              Opacity(
+                opacity: delta != 0 ? 1.0 : 0.0,
+                child: Padding(
                   padding: const EdgeInsets.only(top: 2),
                   child: Row(
                     children: [
@@ -64,6 +70,7 @@ class StatRowTile extends StatelessWidget {
                     ],
                   ),
                 ),
+              ),
             ],
           ),
         ),
