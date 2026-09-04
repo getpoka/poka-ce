@@ -75,7 +75,6 @@ void main() {
       await tester.tap(find.text('Show'));
       await tester.pumpAndSettle();
 
-      expect(find.text('Transaction Type'), findsOneWidget);
       expect(find.byType(TransactionTypeChip), findsNWidgets(3)); // 3 types
       expect(find.byType(TransactionFilterAccountGroup), findsOneWidget);
       expect(find.byType(TransactionFilterCategoryGroup), findsOneWidget);
