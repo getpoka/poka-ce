@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:forui/forui.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poka_ce/features/accounts/domain/account_model.dart';
 import 'package:poka_ce/features/categories/domain/category_model.dart';
@@ -12,7 +14,7 @@ import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/dialogs/poka_confirm_dialog.dart';
 
 /// Renders transactions as grouped date sections inside a [SliverList].
-class TransactionGroupSliver extends ConsumerWidget {
+class TransactionGroupSliver extends StatelessWidget {
   const TransactionGroupSliver({
     required this.transactions,
     required this.categoriesById,
@@ -25,7 +27,7 @@ class TransactionGroupSliver extends ConsumerWidget {
   final Map<String, AccountModel> accountsById;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final groups = TransactionGroupingService.groupTransactions(transactions);
 
     return SliverList.builder(
@@ -33,64 +35,106 @@ class TransactionGroupSliver extends ConsumerWidget {
       itemBuilder: (context, index) {
         final group = groups[index];
 
-        return Padding(
-          padding: const EdgeInsets.only(bottom: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              // ── Date group header ───────────────────────────────────
-              TransactionDateHeader(
-                dateStr: group.dateStr,
-                income: group.totalIncome,
-                expense: group.totalExpense,
-              ),
-              const SizedBox(height: 8),
-
-              // ── Tiles ───────────────────────────────────────────────
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: List.generate(group.transactions.length, (i) {
-                  final tx = group.transactions[i];
-                  final firstCatId = tx.items.isNotEmpty ? tx.items.first.categoryId : null;
-                  final category = firstCatId != null ? categoriesById[firstCatId] : null;
-                  final account = accountsById[tx.accountId];
-
-                  final tile = RecentTransactionTile(
-                    transaction: tx,
-                    isBalanceVisible: true,
-                    categoriesById: categoriesById,
-                    category: category,
-                    account: account,
-                    isFirst: i == 0,
-                    isLast: i == group.transactions.length - 1,
-                    onEdit: () {
-                      TransactionFormSheet.show(context, initialTransaction: tx);
-                    },
-                    onDelete: () async {
-                      final confirmed = await showPokaConfirmDialog(
-                        context,
-                        title: t.transactions.deleteTransaction,
-                        body: t.transactions.deleteTransactionWarning,
-                      );
-                      if (confirmed == true) {
-                        await ref.read(transactionListNotifierProvider.notifier).deleteTransaction(tx.id);
-                      }
-                    },
-                  );
-
-                  if (i < group.transactions.length - 1) {
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 8),
-                      child: tile,
-                    );
-                  }
-                  return tile;
-                }),
-              ),
-            ],
-          ),
+        return _SliverDateGroupSection(
+          key: ValueKey(group.dateStr),
+          group: group,
+          categoriesById: categoriesById,
+          accountsById: accountsById,
         );
       },
+    );
+  }
+}
+
+class _SliverDateGroupSection extends HookConsumerWidget {
+  const _SliverDateGroupSection({
+    required this.group,
+    required this.categoriesById,
+    required this.accountsById,
+    super.key,
+  });
+
+  final TransactionGroup group;
+  final Map<String, CategoryModel> categoriesById;
+  final Map<String, AccountModel> accountsById;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isExpanded = useState(true);
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          // ── Date group header ───────────────────────────────────
+          TransactionDateHeader(
+            dateStr: group.dateStr,
+            income: group.totalIncome,
+            expense: group.totalExpense,
+            isExpanded: isExpanded.value,
+            itemCount: group.transactions.length,
+            onToggle: () => isExpanded.value = !isExpanded.value,
+          ),
+
+          // ── Collapsible Tiles ────────────────────────────────────
+          TweenAnimationBuilder<double>(
+            tween: Tween<double>(begin: 1, end: isExpanded.value ? 1.0 : 0.0),
+            duration: const Duration(milliseconds: 250),
+            curve: Curves.easeInOut,
+            builder: (context, value, child) {
+              if (value == 0.0) return const SizedBox.shrink();
+              return FCollapsible(
+                value: value,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 8),
+                  child: child,
+                ),
+              );
+            },
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: List.generate(group.transactions.length, (i) {
+                final tx = group.transactions[i];
+                final firstCatId = tx.items.isNotEmpty ? tx.items.first.categoryId : null;
+                final category = firstCatId != null ? categoriesById[firstCatId] : null;
+                final account = accountsById[tx.accountId];
+
+                final tile = RecentTransactionTile(
+                  transaction: tx,
+                  isBalanceVisible: true,
+                  categoriesById: categoriesById,
+                  category: category,
+                  account: account,
+                  isFirst: i == 0,
+                  isLast: i == group.transactions.length - 1,
+                  onEdit: () {
+                    TransactionFormSheet.show(context, initialTransaction: tx);
+                  },
+                  onDelete: () async {
+                    final confirmed = await showPokaConfirmDialog(
+                      context,
+                      title: t.transactions.deleteTransaction,
+                      body: t.transactions.deleteTransactionWarning,
+                    );
+                    if (confirmed == true) {
+                      await ref.read(transactionListNotifierProvider.notifier).deleteTransaction(tx.id);
+                    }
+                  },
+                );
+
+                if (i < group.transactions.length - 1) {
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 8),
+                    child: tile,
+                  );
+                }
+                return tile;
+              }),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

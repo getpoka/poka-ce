@@ -443,7 +443,7 @@ class _StickyNavDelegate extends SliverPersistentHeaderDelegate {
 // ─────────────────────────────────────────────────────────────────────────────
 
 /// Renders transactions as grouped date sections inside a [SliverList].
-class _TransactionGroupSliver extends ConsumerWidget {
+class _TransactionGroupSliver extends StatelessWidget {
   const _TransactionGroupSliver({
     required this.transactions,
     required this.categoriesById,
@@ -455,7 +455,7 @@ class _TransactionGroupSliver extends ConsumerWidget {
   final Map<String, AccountModel> accountsById;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final groups = TransactionGroupingService.groupTransactions(transactions);
 
     return SliverList.builder(
@@ -463,68 +463,113 @@ class _TransactionGroupSliver extends ConsumerWidget {
       itemBuilder: (context, index) {
         final group = groups[index];
 
-        return Padding(
-          padding: const EdgeInsets.only(bottom: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              // ── Date group header ───────────────────────────────────
-              _DateHeader(
-                dateStr: group.dateStr,
-                income: group.totalIncome,
-                expense: group.totalExpense,
-              ).animate().fade(duration: 250.ms, delay: (index * 50).ms).slideY(begin: 0.05, end: 0),
-              const SizedBox(height: 8),
-
-              // ── Tiles ───────────────────────────────────────────────
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: List.generate(group.transactions.length, (i) {
-                  final tx = group.transactions[i];
-                  final firstCatId = tx.items.isNotEmpty ? tx.items.first.categoryId : null;
-                  final category = firstCatId != null ? categoriesById[firstCatId] : null;
-                  final account = accountsById[tx.accountId];
-
-                  final tile = RecentTransactionTile(
-                    transaction: tx,
-                    isBalanceVisible: true,
-                    categoriesById: categoriesById,
-                    category: category,
-                    account: account,
-                    isFirst: i == 0,
-                    isLast: i == group.transactions.length - 1,
-                    onEdit: () {
-                      TransactionFormSheet.show(context, initialTransaction: tx);
-                    },
-                    onDelete: () async {
-                      final confirmed = await showPokaConfirmDialog(
-                        context,
-                        title: t.transactions.deleteTransaction,
-                        body: t.transactions.deleteTransactionWarning,
-                      );
-                      if (confirmed == true) {
-                        await ref.read(transactionListNotifierProvider.notifier).deleteTransaction(tx.id);
-                      }
-                    },
-                  );
-
-                  final tileWidget = i < group.transactions.length - 1
-                      ? Padding(
-                          padding: const EdgeInsets.only(bottom: 8),
-                          child: tile,
-                        )
-                      : tile;
-
-                  return tileWidget
-                      .animate()
-                      .fade(duration: 250.ms, delay: (80 + i * 40).ms)
-                      .slideX(begin: 0.05, end: 0, duration: 250.ms, delay: (80 + i * 40).ms);
-                }),
-              ),
-            ],
-          ),
+        return _DateGroupSection(
+          key: ValueKey(group.dateStr),
+          group: group,
+          categoriesById: categoriesById,
+          accountsById: accountsById,
+          groupIndex: index,
         );
       },
+    );
+  }
+}
+
+class _DateGroupSection extends HookConsumerWidget {
+  const _DateGroupSection({
+    required this.group,
+    required this.categoriesById,
+    required this.accountsById,
+    required this.groupIndex,
+    super.key,
+  });
+
+  final TransactionGroup group;
+  final Map<String, CategoryModel> categoriesById;
+  final Map<String, AccountModel> accountsById;
+  final int groupIndex;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isExpanded = useState(true);
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          // ── Date group header ───────────────────────────────────
+          _DateHeader(
+            dateStr: group.dateStr,
+            income: group.totalIncome,
+            expense: group.totalExpense,
+            isExpanded: isExpanded.value,
+            itemCount: group.transactions.length,
+            onToggle: () => isExpanded.value = !isExpanded.value,
+          ).animate().fade(duration: 250.ms, delay: (groupIndex * 50).ms).slideY(begin: 0.05, end: 0),
+
+          // ── Collapsible Tiles ────────────────────────────────────
+          TweenAnimationBuilder<double>(
+            tween: Tween<double>(begin: 1, end: isExpanded.value ? 1.0 : 0.0),
+            duration: const Duration(milliseconds: 250),
+            curve: Curves.easeInOut,
+            builder: (context, value, child) {
+              if (value == 0.0) return const SizedBox.shrink();
+              return FCollapsible(
+                value: value,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 8),
+                  child: child,
+                ),
+              );
+            },
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: List.generate(group.transactions.length, (i) {
+                final tx = group.transactions[i];
+                final firstCatId = tx.items.isNotEmpty ? tx.items.first.categoryId : null;
+                final category = firstCatId != null ? categoriesById[firstCatId] : null;
+                final account = accountsById[tx.accountId];
+
+                final tile = RecentTransactionTile(
+                  transaction: tx,
+                  isBalanceVisible: true,
+                  categoriesById: categoriesById,
+                  category: category,
+                  account: account,
+                  isFirst: i == 0,
+                  isLast: i == group.transactions.length - 1,
+                  onEdit: () {
+                    TransactionFormSheet.show(context, initialTransaction: tx);
+                  },
+                  onDelete: () async {
+                    final confirmed = await showPokaConfirmDialog(
+                      context,
+                      title: t.transactions.deleteTransaction,
+                      body: t.transactions.deleteTransactionWarning,
+                    );
+                    if (confirmed == true) {
+                      await ref.read(transactionListNotifierProvider.notifier).deleteTransaction(tx.id);
+                    }
+                  },
+                );
+
+                final tileWidget = i < group.transactions.length - 1
+                    ? Padding(
+                        padding: const EdgeInsets.only(bottom: 8),
+                        child: tile,
+                      )
+                    : tile;
+
+                return tileWidget
+                    .animate()
+                    .fade(duration: 250.ms, delay: (80 + i * 40).ms)
+                    .slideX(begin: 0.05, end: 0, duration: 250.ms, delay: (80 + i * 40).ms);
+              }),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -539,11 +584,17 @@ class _DateHeader extends StatelessWidget {
     required this.dateStr,
     required this.income,
     required this.expense,
+    this.isExpanded = true,
+    this.itemCount = 0,
+    this.onToggle,
   });
 
   final String dateStr;
   final int income;
   final int expense;
+  final bool isExpanded;
+  final int itemCount;
+  final VoidCallback? onToggle;
 
   @override
   Widget build(BuildContext context) {
@@ -551,79 +602,107 @@ class _DateHeader extends StatelessWidget {
     final total = income - expense;
     final totalType = total >= 0 ? TransactionType.income : TransactionType.expense;
 
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          margin: const EdgeInsets.only(top: 2),
-          width: 4,
-          height: 16,
-          decoration: BoxDecoration(
-            color: theme.colors.primary,
-            borderRadius: theme.style.borderRadius.xs,
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: onToggle,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            margin: const EdgeInsets.only(top: 2),
+            width: 4,
+            height: 16,
+            decoration: BoxDecoration(
+              color: theme.colors.primary,
+              borderRadius: theme.style.borderRadius.xs,
+            ),
           ),
-        ),
-        const SizedBox(width: 8),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                dateStr,
-                style: theme.typography.titleItem,
-              ),
-              if (income > 0 || expense > 0) ...[
-                const SizedBox(height: 2),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
                 Row(
                   children: [
-                    if (income > 0) ...[
-                      Text(
-                        t.transactions.incoming,
-                        style: theme.typography.labelBadge.copyWith(
-                          color: theme.colors.app.income,
-                        ),
-                      ),
-                      PokaAmountText(
-                        amount: income,
-                        type: TransactionType.income,
-                        style: theme.typography.amountTile,
-                      ),
-                    ],
-                    if (income > 0 && expense > 0) const SizedBox(width: 8),
-                    if (expense > 0) ...[
-                      Text(
-                        t.transactions.out,
-                        style: theme.typography.labelBadge.copyWith(
-                          color: theme.colors.app.expense,
-                        ),
-                      ),
-                      PokaAmountText(
-                        amount: expense,
-                        type: TransactionType.expense,
-                        style: theme.typography.amountTile,
-                      ),
-                    ],
-                    const Spacer(),
-                    if (total != 0) ...[
-                      Icon(
-                        FPhosphorIcons.sigma,
-                        size: 12,
+                    Text(
+                      dateStr,
+                      style: theme.typography.titleItem,
+                    ),
+                    const SizedBox(width: 4),
+                    AnimatedRotation(
+                      turns: isExpanded ? 0 : -0.25,
+                      duration: const Duration(milliseconds: 200),
+                      curve: Curves.easeInOut,
+                      child: Icon(
+                        FPhosphorIcons.caretDown,
+                        size: 13,
                         color: theme.colors.mutedForeground,
                       ),
-                      const SizedBox(width: 4),
-                      PokaAmountText(
-                        amount: total.abs(),
-                        type: totalType,
-                        style: theme.typography.amountTile,
+                    ),
+                    if (!isExpanded && itemCount > 0) ...[
+                      const SizedBox(width: 6),
+                      Text(
+                        '•  ${t.transactions.itemsCount(count: itemCount)}',
+                        style: theme.typography.caption.copyWith(
+                          color: theme.colors.mutedForeground,
+                        ),
                       ),
                     ],
                   ],
                 ),
+                if (income > 0 || expense > 0) ...[
+                  const SizedBox(height: 2),
+                  Row(
+                    children: [
+                      if (income > 0) ...[
+                        Text(
+                          t.transactions.incoming,
+                          style: theme.typography.labelBadge.copyWith(
+                            color: theme.colors.app.income,
+                          ),
+                        ),
+                        PokaAmountText(
+                          amount: income,
+                          type: TransactionType.income,
+                          style: theme.typography.amountTile,
+                        ),
+                      ],
+                      if (income > 0 && expense > 0) const SizedBox(width: 8),
+                      if (expense > 0) ...[
+                        Text(
+                          t.transactions.out,
+                          style: theme.typography.labelBadge.copyWith(
+                            color: theme.colors.app.expense,
+                          ),
+                        ),
+                        PokaAmountText(
+                          amount: expense,
+                          type: TransactionType.expense,
+                          style: theme.typography.amountTile,
+                        ),
+                      ],
+                      const Spacer(),
+                      if (total != 0) ...[
+                        Icon(
+                          FPhosphorIcons.sigma,
+                          size: 12,
+                          color: theme.colors.mutedForeground,
+                        ),
+                        const SizedBox(width: 4),
+                        PokaAmountText(
+                          amount: total.abs(),
+                          type: totalType,
+                          style: theme.typography.amountTile,
+                        ),
+                      ],
+                    ],
+                  ),
+                ],
               ],
-            ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

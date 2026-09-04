@@ -111,4 +111,62 @@ void main() {
     // Test that something is rendered, e.g. the transaction amount
     expect(find.byType(CustomScrollView), findsWidgets);
   });
+
+  testWidgets('TransactionListPage collapses and expands date group on tap', (tester) async {
+    final now = DateTime.now();
+    final transaction = TransactionModel(
+      id: 't1',
+      accountId: 'a1',
+      type: TransactionType.expense,
+      amount: 500,
+      transactionDate: now,
+      createdAt: now,
+      updatedAt: now,
+      items: [
+        TransactionItemModel(
+          id: 'i1',
+          transactionId: 't1',
+          categoryId: 'c1',
+          amount: 500,
+          allocation: TransactionAllocation.need,
+          createdAt: now,
+          updatedAt: now,
+        ),
+      ],
+    );
+
+    final container = ProviderContainer(
+      overrides: [
+        transactionListNotifierProvider.overrideWith(() => MockTransactionListNotifier([transaction], false)),
+        categoryListProvider.overrideWith(() => MockCategoryListNotifier()),
+        categoriesStreamProvider.overrideWith((ref) => const Stream.empty()),
+        accountsStreamProvider.overrideWith((ref) => const Stream.empty()),
+      ],
+    );
+    await tester.pumpWidget(buildTestApp(container));
+    await tester.pumpAndSettle();
+
+    // Default: expanded, FCollapsible has value: 1.0, tile is visible
+    expect(find.byType(FCollapsible), findsOneWidget);
+    final collapsible = tester.widget<FCollapsible>(find.byType(FCollapsible));
+    expect(collapsible.value, 1.0);
+
+    // Tap header to collapse
+    final headerFinder = find.ancestor(
+      of: find.byIcon(FPhosphorIcons.caretDown),
+      matching: find.byType(GestureDetector),
+    );
+    await tester.tap(headerFinder);
+    await tester.pumpAndSettle();
+
+    // Now collapsed, item count badge appears
+    expect(find.textContaining('1 item'), findsOneWidget);
+
+    // Tap header again to re-expand
+    await tester.tap(headerFinder);
+    await tester.pumpAndSettle();
+
+    final reExpanded = tester.widget<FCollapsible>(find.byType(FCollapsible));
+    expect(reExpanded.value, 1.0);
+  });
 }
