@@ -60,10 +60,13 @@ class PokaAmountText extends ConsumerWidget {
 
     final shouldObscure = isObscured || !isBalanceVisible;
 
-    // If caller provides an explicit color via style, respect it.
-    // However, if the color is just the default foreground color from the theme,
-    // we assume it wasn't an explicit override and apply the type-based color.
-    final baseStyle = style ?? context.theme.typography.body.md;
+    final rawBaseStyle = style ?? context.theme.typography.amountTile;
+    final baseStyle = rawBaseStyle.copyWith(
+      fontFeatures: [
+        ...?rawBaseStyle.fontFeatures?.where((f) => f.feature != 'tnum'),
+        const FontFeature.tabularFigures(),
+      ],
+    );
     final hasExplicitColor = style?.color != null && style!.color != context.theme.colors.foreground;
 
     final effectiveStyle = hasExplicitColor ? baseStyle : baseStyle.copyWith(color: color);

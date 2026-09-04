@@ -58,10 +58,8 @@ class AccountNetworthCard extends ConsumerWidget {
           locale: localeFormat,
           isVisible: isBalanceVisible,
         ),
-        style: theme.typography.display.sm.copyWith(
+        style: theme.typography.amountSection.copyWith(
           color: theme.colors.primaryForeground,
-          fontWeight: FontWeight.bold,
-          height: 1,
         ),
       ),
       // No progress bar
@@ -75,9 +73,8 @@ class AccountNetworthCard extends ConsumerWidget {
             locale: localeFormat,
             isVisible: isBalanceVisible,
           ),
-          style: theme.typography.bodyPrimary.copyWith(
+          style: theme.typography.amountCard.copyWith(
             color: theme.colors.primaryForeground,
-            fontWeight: FontWeight.w600,
           ),
         ),
       ),
@@ -91,9 +88,8 @@ class AccountNetworthCard extends ConsumerWidget {
             locale: localeFormat,
             isVisible: isBalanceVisible,
           ),
-          style: theme.typography.bodyPrimary.copyWith(
+          style: theme.typography.amountCard.copyWith(
             color: theme.colors.primaryForeground,
-            fontWeight: FontWeight.w600,
           ),
         ),
       ),

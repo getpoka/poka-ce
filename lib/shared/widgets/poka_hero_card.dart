@@ -198,9 +198,8 @@ class PokaHeroCardSubAmount extends StatelessWidget {
             amount: amount!,
             type: type ?? TransactionType.income,
             isObscured: isObscured,
-            style: theme.typography.bodyPrimary.copyWith(
+            style: theme.typography.amountCard.copyWith(
               color: theme.colors.primaryForeground,
-              fontWeight: FontWeight.w600,
             ),
           ),
       ],

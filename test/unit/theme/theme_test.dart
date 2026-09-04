@@ -1,8 +1,10 @@
+import 'dart:ui' show FontFeature;
+
 import 'package:flutter/material.dart' show FontWeight;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:poka_ce/theme/theme.dart';
 import 'package:poka_ce/theme/tailwind.dart';
+import 'package:poka_ce/theme/theme.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -105,25 +107,36 @@ void main() {
   group('PokaTypographyRoles', () {
     final typography = lightTheme.typography;
 
-    test('amountHero is display.xl2 bold with tight tracking', () {
+    test('font families are configured for display (Plus Jakarta Sans) and body (Inter)', () {
+      expect(typography.display.md.fontFamily, contains('PlusJakartaSans'));
+      expect(typography.body.md.fontFamily, contains('Inter'));
+      expect(typography.display.md.fontFeatures, contains(const FontFeature.tabularFigures()));
+      expect(typography.body.md.fontFeatures, contains(const FontFeature.tabularFigures()));
+    });
+
+    test('amountHero is body.xl2 bold with tight tracking and tabular figures', () {
       final style = typography.amountHero;
-      expect(style.fontSize, typography.display.xl2.fontSize);
+      expect(style.fontSize, typography.body.xl2.fontSize);
       expect(style.fontWeight, FontWeight.w800);
       expect(style.letterSpacing, -1);
       expect(style.height, 1);
+      expect(style.fontFeatures, contains(const FontFeature.tabularFigures()));
     });
 
-    test('amountSection is display.xl bold', () {
+    test('amountSection is body.xl bold with tabular figures', () {
       final style = typography.amountSection;
-      expect(style.fontSize, typography.display.xl.fontSize);
+      expect(style.fontSize, typography.body.xl.fontSize);
       expect(style.fontWeight, FontWeight.w700);
       expect(style.letterSpacing, -0.5);
       expect(style.height, 1);
+      expect(style.fontFeatures, contains(const FontFeature.tabularFigures()));
     });
 
     test('title roles derive from display/body scales', () {
       expect(typography.titleScreen.fontWeight, FontWeight.w600);
+      expect(typography.titleScreen.fontFamily, contains('PlusJakartaSans'));
       expect(typography.titleCard.fontWeight, FontWeight.w600);
+      expect(typography.titleCard.fontFamily, contains('PlusJakartaSans'));
       expect(typography.titleItem.fontWeight, FontWeight.w600);
       expect(typography.titleScreen.fontSize, typography.display.lg.fontSize);
     });
@@ -131,29 +144,35 @@ void main() {
     test('body roles map to body scale', () {
       expect(typography.bodyPrimary, typography.body.sm);
       expect(typography.bodySecondary, typography.body.xs);
+      expect(typography.bodyPrimary.fontFamily, contains('Inter'));
     });
 
     test('label roles have semantic styling', () {
       expect(typography.labelSection.fontSize, 12);
       expect(typography.labelSection.fontWeight, FontWeight.w700);
+      expect(typography.labelSection.fontFamily, contains('PlusJakartaSans'));
       expect(typography.labelField.fontSize, 12);
       expect(typography.labelField.fontWeight, FontWeight.w600);
       expect(typography.caption, typography.body.xs2);
       expect(typography.labelBadge.fontSize, 9);
     });
 
-    test('amount roles have semantic styling', () {
+    test('amount roles have semantic styling with tabular figures', () {
       expect(typography.amountTile.fontSize, 13);
       expect(typography.amountTile.fontWeight, FontWeight.w600);
+      expect(typography.amountTile.fontFeatures, contains(const FontFeature.tabularFigures()));
       expect(typography.amountCard.fontSize, 15);
       expect(typography.amountCard.fontWeight, FontWeight.w700);
+      expect(typography.amountCard.fontFeatures, contains(const FontFeature.tabularFigures()));
     });
 
     test('dark theme exposes the same roles', () {
       final dark = darkTheme.typography;
       expect(dark.amountHero.fontWeight, FontWeight.w800);
+      expect(dark.amountHero.fontFeatures, contains(const FontFeature.tabularFigures()));
       expect(dark.amountSection.fontWeight, FontWeight.w700);
       expect(dark.titleScreen.fontWeight, FontWeight.w600);
+      expect(dark.labelSection.fontFamily, contains('PlusJakartaSans'));
     });
   });
 }
