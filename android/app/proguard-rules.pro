@@ -13,3 +13,10 @@
 
 -dontwarn io.flutter.plugin.**
 -dontwarn com.google.android.play.core.**
+
+# Quick Actions and Shortcuts
+-keep class io.flutter.plugins.quickactions.** { *; }
+-keep class androidx.core.content.pm.ShortcutInfoCompat** { *; }
+-keep class androidx.core.content.pm.ShortcutManagerCompat** { *; }
+-keep class androidx.core.graphics.drawable.IconCompat** { *; }
+
