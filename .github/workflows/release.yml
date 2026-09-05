@@ -77,3 +77,15 @@ jobs:
           file_glob: true
           tag: ${{ github.event.inputs.tag || github.ref_name }}
           overwrite: true
+
+      - name: Trigger Poka Landing Redeploy
+        if: always() && (github.event_name == 'release' || github.event_name == 'workflow_dispatch')
+        env:
+          DEPLOY_HOOK: ${{ secrets.CLOUDFLARE_DEPLOY_HOOK }}
+        run: |
+          if [ -n "$DEPLOY_HOOK" ]; then
+            echo "Triggering Cloudflare Deploy Hook for Poka Landing..."
+            curl -s -X POST "$DEPLOY_HOOK"
+          else
+            echo "CLOUDFLARE_DEPLOY_HOOK secret is not set, skipping."
+          fi
