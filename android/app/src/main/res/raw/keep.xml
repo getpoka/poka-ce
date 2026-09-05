@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:keep="@drawable/ic_shortcut_*,@drawable/ic_shortcut_add_account,@drawable/ic_shortcut_add_category,@drawable/ic_shortcut_add_goal,@drawable/ic_shortcut_add_transaction" />
