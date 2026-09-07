@@ -2362,7 +2362,7 @@ class $BudgetsTable extends Budgets with TableInfo<$BudgetsTable, Budget> {
     type: DriftSqlType.string,
     requiredDuringInsert: false,
     defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'REFERENCES accounts (id)',
+      'REFERENCES accounts (id) ON DELETE SET NULL',
     ),
   );
   @override
@@ -3497,7 +3497,7 @@ class $RecurringTransactionsTable extends RecurringTransactions
     type: DriftSqlType.string,
     requiredDuringInsert: true,
     defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'REFERENCES accounts (id)',
+      'REFERENCES accounts (id) ON DELETE CASCADE',
     ),
   );
   static const VerificationMeta _destinationAccountIdMeta = const VerificationMeta('destinationAccountId');
@@ -3509,7 +3509,7 @@ class $RecurringTransactionsTable extends RecurringTransactions
     type: DriftSqlType.string,
     requiredDuringInsert: false,
     defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'REFERENCES accounts (id)',
+      'REFERENCES accounts (id) ON DELETE SET NULL',
     ),
   );
   static const VerificationMeta _categoryIdMeta = const VerificationMeta(
@@ -3523,7 +3523,7 @@ class $RecurringTransactionsTable extends RecurringTransactions
     type: DriftSqlType.string,
     requiredDuringInsert: false,
     defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'REFERENCES categories (id)',
+      'REFERENCES categories (id) ON DELETE SET NULL',
     ),
   );
   @override
@@ -4941,7 +4941,7 @@ class $TransactionsTable extends Transactions with TableInfo<$TransactionsTable,
     type: DriftSqlType.string,
     requiredDuringInsert: false,
     defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'REFERENCES recurring_transactions (id)',
+      'REFERENCES recurring_transactions (id) ON DELETE SET NULL',
     ),
   );
   static const VerificationMeta _debtIdMeta = const VerificationMeta('debtId');
@@ -4953,7 +4953,7 @@ class $TransactionsTable extends Transactions with TableInfo<$TransactionsTable,
     type: DriftSqlType.string,
     requiredDuringInsert: false,
     defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'REFERENCES debts (id)',
+      'REFERENCES debts (id) ON DELETE SET NULL',
     ),
   );
   static const VerificationMeta _createdAtMeta = const VerificationMeta(
@@ -6726,6 +6726,13 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     ),
     WritePropagation(
       on: TableUpdateQuery.onTableName(
+        'accounts',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('budgets', kind: UpdateKind.update)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
         'budgets',
         limitUpdateKind: UpdateKind.delete,
       ),
@@ -6736,6 +6743,27 @@ abstract class _$AppDatabase extends GeneratedDatabase {
         'accounts',
         limitUpdateKind: UpdateKind.delete,
       ),
+      result: [TableUpdate('recurring_transactions', kind: UpdateKind.delete)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'accounts',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('recurring_transactions', kind: UpdateKind.update)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'categories',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('recurring_transactions', kind: UpdateKind.update)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'accounts',
+        limitUpdateKind: UpdateKind.delete,
+      ),
       result: [TableUpdate('transactions', kind: UpdateKind.delete)],
     ),
     WritePropagation(
@@ -6744,6 +6772,20 @@ abstract class _$AppDatabase extends GeneratedDatabase {
         limitUpdateKind: UpdateKind.delete,
       ),
       result: [TableUpdate('transactions', kind: UpdateKind.delete)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'recurring_transactions',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('transactions', kind: UpdateKind.update)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'debts',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('transactions', kind: UpdateKind.update)],
     ),
     WritePropagation(
       on: TableUpdateQuery.onTableName(

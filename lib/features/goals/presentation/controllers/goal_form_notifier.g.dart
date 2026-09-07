@@ -40,7 +40,7 @@ final class GoalFormNotifierProvider extends $NotifierProvider<GoalFormNotifier,
   }
 }
 
-String _$goalFormNotifierHash() => r'87104741e54a8bae629b3021d41b7941ef212fdd';
+String _$goalFormNotifierHash() => r'bc200a4ba361abfeda2c5c46e210747cbdd06a34';
 
 abstract class _$GoalFormNotifier extends $Notifier<GoalFormState> {
   GoalFormState build();

@@ -209,6 +209,20 @@ class TransactionFormSheet extends HookConsumerWidget {
       );
     }
 
+    final selectedAccount = accounts.where((a) => a.id == state.accountId).firstOrNull;
+    final parentAccount = selectedAccount?.parentId != null
+        ? accounts.where((a) => a.id == selectedAccount!.parentId).firstOrNull
+        : null;
+    final allowedCategoryIds = selectedAccount?.effectiveRestrictedCategoryIds(parentAccount) ?? const <String>[];
+
+    final filteredCategories = categories.where((c) {
+      if (!c.isActive) return false;
+      if (state.type == TransactionType.income && c.type != CategoryType.income) return false;
+      if (state.type == TransactionType.expense && c.type != CategoryType.expense) return false;
+      if (allowedCategoryIds.isNotEmpty && !allowedCategoryIds.contains(c.id)) return false;
+      return true;
+    }).toList();
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -293,12 +307,7 @@ class TransactionFormSheet extends HookConsumerWidget {
             typeColor: typeColor,
             allocation: state.allocation,
             currencyCode: currencyCode,
-            categories: categories.where((c) {
-              if (!c.isActive) return false;
-              if (state.type == TransactionType.income) return c.type == CategoryType.income;
-              if (state.type == TransactionType.expense) return c.type == CategoryType.expense;
-              return false;
-            }).toList(),
+            categories: filteredCategories,
             selectedCategoryId: state.categoryId,
             isLoading: state.isLoading,
             showSplitButton: state.type == TransactionType.expense,

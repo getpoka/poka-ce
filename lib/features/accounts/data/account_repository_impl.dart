@@ -65,6 +65,7 @@ class AccountRepositoryImpl implements IAccountRepository {
           name: model.name,
           type: model.type,
           balance: Value(model.balance),
+          initialBalance: Value(model.initialBalance),
           icon: Value(model.icon),
           color: Value(model.color),
           parentId: Value(model.parentId),
@@ -94,6 +95,7 @@ class AccountRepositoryImpl implements IAccountRepository {
           name: Value(model.name),
           type: Value(model.type),
           balance: Value(model.balance),
+          initialBalance: Value(model.initialBalance),
           icon: Value(model.icon),
           color: Value(model.color),
           parentId: Value(model.parentId),
@@ -103,9 +105,7 @@ class AccountRepositoryImpl implements IAccountRepository {
         ),
       );
 
-      if (model.restrictedCategoryIds.isNotEmpty) {
-        await _dao.setAccountCategories(model.id, model.restrictedCategoryIds);
-      }
+      await _dao.setAccountCategories(model.id, model.restrictedCategoryIds);
       return const Success(null);
     } on Exception catch (e, st) {
       talker.handle(e, st, 'AccountRepositoryImpl.updateAccount');

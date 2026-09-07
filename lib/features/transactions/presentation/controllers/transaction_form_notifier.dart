@@ -282,6 +282,7 @@ class TransactionFormNotifier extends _$TransactionFormNotifier {
                 sourceAccountId: state.accountId!,
                 destinationAccountId: catId!, // Reusing categoryId as destination for transfer
                 note: state.note.isNotEmpty ? state.note : null,
+                transactionDate: state.date,
               );
         }
       } else {
@@ -352,6 +353,7 @@ class TransactionFormNotifier extends _$TransactionFormNotifier {
               type: state.type,
               accountId: state.accountId!,
               transactionDate: state.date,
+              note: state.note.isNotEmpty ? state.note : null,
               splitItems: splitData,
             );
       } else {
@@ -362,6 +364,7 @@ class TransactionFormNotifier extends _$TransactionFormNotifier {
               type: state.type,
               accountId: state.accountId!,
               transactionDate: state.date,
+              note: state.note.isNotEmpty ? state.note : null,
               splitItems: splitData,
             );
       }

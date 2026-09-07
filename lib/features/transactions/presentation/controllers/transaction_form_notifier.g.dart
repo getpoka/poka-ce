@@ -57,7 +57,7 @@ final class TransactionFormNotifierProvider extends $NotifierProvider<Transactio
   }
 }
 
-String _$transactionFormNotifierHash() => r'4713c39d5436609e2f5336f0763452d1abc491d5';
+String _$transactionFormNotifierHash() => r'b23c76ff47eaae665bf1827f070bc66f0406e9a6';
 
 final class TransactionFormNotifierFamily extends $Family
     with

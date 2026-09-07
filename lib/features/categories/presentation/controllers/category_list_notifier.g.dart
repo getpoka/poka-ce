@@ -38,7 +38,7 @@ final class CategoryListNotifierProvider extends $AsyncNotifierProvider<Category
   CategoryListNotifier create() => CategoryListNotifier();
 }
 
-String _$categoryListNotifierHash() => r'9808309d774dc75ab01b61f68bcd9d62ed973d29';
+String _$categoryListNotifierHash() => r'05f7e3f47590be9540d79e0f0623a3148e1e0859';
 
 /// StateNotifier for managing the list of categories.
 /// Handles fetching, refreshing, toggling active status, deleting, and reordering.

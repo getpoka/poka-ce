@@ -8,7 +8,7 @@ import '../../test_setup.dart';
 
 void main() {
   testWidgets('Recurring CRUD operations', (tester) async {
-    await pumpAppForTesting(tester);
+    final db = await pumpAppForTesting(tester);
     Future<void> settle() => tester.pumpAndSettle(const Duration(milliseconds: 200));
     await settle();
 
@@ -131,5 +131,7 @@ void main() {
 
     // Verify it is deleted
     expect(find.text('Updated Subscription'), findsNothing);
+
+    await tearDownAppForTesting(tester, db);
   });
 }

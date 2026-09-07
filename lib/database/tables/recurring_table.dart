@@ -8,11 +8,11 @@ import 'package:uuid/uuid.dart';
 class RecurringTransactions extends Table {
   TextColumn get id => text().clientDefault(() => const Uuid().v7())();
   @ReferenceName('recurringSource')
-  TextColumn get accountId => text().references(Accounts, #id)();
+  TextColumn get accountId => text().references(Accounts, #id, onDelete: KeyAction.cascade)();
 
   @ReferenceName('recurringDestination')
-  TextColumn get destinationAccountId => text().nullable().references(Accounts, #id)();
-  TextColumn get categoryId => text().nullable().references(Categories, #id)();
+  TextColumn get destinationAccountId => text().nullable().references(Accounts, #id, onDelete: KeyAction.setNull)();
+  TextColumn get categoryId => text().nullable().references(Categories, #id, onDelete: KeyAction.setNull)();
   TextColumn get allocation => text().map(const EnumNameConverter(TransactionAllocation.values)).nullable()();
   TextColumn get type => text().map(const EnumNameConverter(TransactionType.values))();
   IntColumn get amount => integer()();

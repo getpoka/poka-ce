@@ -156,22 +156,30 @@ class TransactionsDao extends DatabaseAccessor<AppDatabase> with _$TransactionsD
       }
 
       final accountId = transactionHeader.accountId.value;
-      final account = await (select(accounts)..where((a) => a.id.equals(accountId))).getSingle();
+      final account = await (select(accounts)..where((a) => a.id.equals(accountId))).getSingleOrNull();
 
       // Accessing string value directly since it was mapped by EnumNameConverter
       // We will assume the type string equals to lowercase enum name
       final typeStr = transactionHeader.type.value.toString().split('.').last;
       final amount = transactionHeader.amount.value;
 
-      if (typeStr == 'income') {
-        await (update(
-          accounts,
-        )..where((a) => a.id.equals(accountId))).write(AccountsCompanion(balance: Value(account.balance + amount)));
-      } else if (typeStr == 'expense') {
-        await (update(
-          accounts,
-        )..where((a) => a.id.equals(accountId))).write(AccountsCompanion(balance: Value(account.balance - amount)));
+      if (account != null) {
+        if (typeStr == 'income') {
+          await (update(
+            accounts,
+          )..where((a) => a.id.equals(accountId))).write(AccountsCompanion(balance: Value(account.balance + amount)));
+        } else if (typeStr == 'expense') {
+          await (update(
+            accounts,
+          )..where((a) => a.id.equals(accountId))).write(AccountsCompanion(balance: Value(account.balance - amount)));
+        } else if (typeStr == 'transfer') {
+          await (update(
+            accounts,
+          )..where((a) => a.id.equals(accountId))).write(AccountsCompanion(balance: Value(account.balance - amount)));
+        }
+      }
 
+      if (typeStr == 'expense') {
         // Accurate Deduction for budgets
         final date = transactionHeader.transactionDate.value;
         for (final item in items) {
@@ -199,29 +207,31 @@ class TransactionsDao extends DatabaseAccessor<AppDatabase> with _$TransactionsD
           }
         }
       } else if (typeStr == 'transfer') {
-        await (update(
-          accounts,
-        )..where((a) => a.id.equals(accountId))).write(AccountsCompanion(balance: Value(account.balance - amount)));
-
         if (transactionHeader.destinationAccountId.present && transactionHeader.destinationAccountId.value != null) {
           final destId = transactionHeader.destinationAccountId.value!;
-          final destAccount = await (select(accounts)..where((a) => a.id.equals(destId))).getSingle();
-          await (update(
-            accounts,
-          )..where((a) => a.id.equals(destId))).write(AccountsCompanion(balance: Value(destAccount.balance + amount)));
+          final destAccount = await (select(accounts)..where((a) => a.id.equals(destId))).getSingleOrNull();
+          if (destAccount != null) {
+            await (update(
+              accounts,
+            )..where((a) => a.id.equals(destId))).write(
+              AccountsCompanion(balance: Value(destAccount.balance + amount)),
+            );
+          }
         }
       }
 
       // Debt repayment tracking
       if (transactionHeader.debtId.present && transactionHeader.debtId.value != null) {
         final debtId = transactionHeader.debtId.value!;
-        final debtRow = await (select(debts)..where((d) => d.id.equals(debtId))).getSingle();
-        // Since repayment reduces the remaining amount:
-        final newRemaining = (debtRow.remainingAmount - amount).clamp(0, debtRow.amount);
-        final newStatus = newRemaining == 0 ? DebtStatus.paid : DebtStatus.active;
-        await (update(debts)..where((d) => d.id.equals(debtId))).write(
-          DebtsCompanion(remainingAmount: Value(newRemaining), status: Value(newStatus)),
-        );
+        final debtRow = await (select(debts)..where((d) => d.id.equals(debtId))).getSingleOrNull();
+        if (debtRow != null) {
+          // Since repayment reduces the remaining amount:
+          final newRemaining = (debtRow.remainingAmount - amount).clamp(0, debtRow.amount);
+          final newStatus = newRemaining == 0 ? DebtStatus.paid : DebtStatus.active;
+          await (update(debts)..where((d) => d.id.equals(debtId))).write(
+            DebtsCompanion(remainingAmount: Value(newRemaining), status: Value(newStatus)),
+          );
+        }
       }
     });
   }
@@ -232,20 +242,28 @@ class TransactionsDao extends DatabaseAccessor<AppDatabase> with _$TransactionsD
       if (tx == null) return;
 
       final accountId = tx.accountId;
-      final account = await (select(accounts)..where((a) => a.id.equals(accountId))).getSingle();
+      final account = await (select(accounts)..where((a) => a.id.equals(accountId))).getSingleOrNull();
 
       final typeStr = tx.type.toString().split('.').last;
       final amount = tx.amount;
 
-      if (typeStr == 'income') {
-        await (update(
-          accounts,
-        )..where((a) => a.id.equals(accountId))).write(AccountsCompanion(balance: Value(account.balance - amount)));
-      } else if (typeStr == 'expense') {
-        await (update(
-          accounts,
-        )..where((a) => a.id.equals(accountId))).write(AccountsCompanion(balance: Value(account.balance + amount)));
+      if (account != null) {
+        if (typeStr == 'income') {
+          await (update(
+            accounts,
+          )..where((a) => a.id.equals(accountId))).write(AccountsCompanion(balance: Value(account.balance - amount)));
+        } else if (typeStr == 'expense') {
+          await (update(
+            accounts,
+          )..where((a) => a.id.equals(accountId))).write(AccountsCompanion(balance: Value(account.balance + amount)));
+        } else if (typeStr == 'transfer') {
+          await (update(
+            accounts,
+          )..where((a) => a.id.equals(accountId))).write(AccountsCompanion(balance: Value(account.balance + amount)));
+        }
+      }
 
+      if (typeStr == 'expense') {
         // Revert budget deductions
         final date = tx.transactionDate;
         final items = await getTransactionItems(id);
@@ -275,29 +293,31 @@ class TransactionsDao extends DatabaseAccessor<AppDatabase> with _$TransactionsD
           }
         }
       } else if (typeStr == 'transfer') {
-        await (update(
-          accounts,
-        )..where((a) => a.id.equals(accountId))).write(AccountsCompanion(balance: Value(account.balance + amount)));
-
         if (tx.destinationAccountId != null) {
           final destId = tx.destinationAccountId!;
-          final destAccount = await (select(accounts)..where((a) => a.id.equals(destId))).getSingle();
-          await (update(
-            accounts,
-          )..where((a) => a.id.equals(destId))).write(AccountsCompanion(balance: Value(destAccount.balance - amount)));
+          final destAccount = await (select(accounts)..where((a) => a.id.equals(destId))).getSingleOrNull();
+          if (destAccount != null) {
+            await (update(
+              accounts,
+            )..where((a) => a.id.equals(destId))).write(
+              AccountsCompanion(balance: Value(destAccount.balance - amount)),
+            );
+          }
         }
       }
 
       // Revert debt repayment
       if (tx.debtId != null) {
         final debtId = tx.debtId!;
-        final debtRow = await (select(debts)..where((d) => d.id.equals(debtId))).getSingle();
-        // Since repayment was deleted, we increase the remaining amount
-        final newRemaining = (debtRow.remainingAmount + amount).clamp(0, debtRow.amount);
-        final newStatus = newRemaining == 0 ? DebtStatus.paid : DebtStatus.active;
-        await (update(debts)..where((d) => d.id.equals(debtId))).write(
-          DebtsCompanion(remainingAmount: Value(newRemaining), status: Value(newStatus)),
-        );
+        final debtRow = await (select(debts)..where((d) => d.id.equals(debtId))).getSingleOrNull();
+        if (debtRow != null) {
+          // Since repayment was deleted, we increase the remaining amount
+          final newRemaining = (debtRow.remainingAmount + amount).clamp(0, debtRow.amount);
+          final newStatus = newRemaining == 0 ? DebtStatus.paid : DebtStatus.active;
+          await (update(debts)..where((d) => d.id.equals(debtId))).write(
+            DebtsCompanion(remainingAmount: Value(newRemaining), status: Value(newStatus)),
+          );
+        }
       }
 
       await (delete(transactions)..where((t) => t.id.equals(id))).go();

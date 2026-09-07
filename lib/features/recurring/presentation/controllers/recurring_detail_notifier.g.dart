@@ -60,7 +60,7 @@ final class RecurringTransactionsProvider
   }
 }
 
-String _$recurringTransactionsHash() => r'26a9c0db7a7ea9cc1baa6c895e61c60f15d3ec5d';
+String _$recurringTransactionsHash() => r'678daf4133a51e195353df7c7b3bea5af1012f24';
 
 final class RecurringTransactionsFamily extends $Family
     with $FunctionalFamilyOverride<Stream<List<TransactionModel>>, RecurringTransactionModel> {

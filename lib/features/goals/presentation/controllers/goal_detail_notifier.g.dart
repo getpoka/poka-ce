@@ -60,7 +60,7 @@ final class GoalTransactionsProvider
   }
 }
 
-String _$goalTransactionsHash() => r'eab7d2207015a5435fcda57c96943a84b88908e2';
+String _$goalTransactionsHash() => r'c38f6d823473ece186f45bed0e924b0ccae31816';
 
 final class GoalTransactionsFamily extends $Family
     with $FunctionalFamilyOverride<Stream<List<TransactionModel>>, GoalModel> {
