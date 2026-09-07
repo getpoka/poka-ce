@@ -1932,6 +1932,21 @@ class Translations$transactions$en {
 
 	/// en: 'Week {{weekNum}} · {{date}}'
 	String weekNumber({required Object weekNum, required Object date}) => 'Week ${weekNum} · ${date}';
+
+	/// en: 'Insufficient Balance'
+	String get insufficientBalance => 'Insufficient Balance';
+
+	/// en: 'The amount ({{amount}}) exceeds the current balance in {{account}} ({{balance}}). Perhaps you forgot to record income first?'
+	String insufficientBalanceWarning({required Object amount, required Object account, required Object balance}) => 'The amount (${amount}) exceeds the current balance in ${account} (${balance}). Perhaps you forgot to record income first?';
+
+	/// en: 'Your account balance will become negative if you proceed.'
+	String get insufficientBalanceConsequence => 'Your account balance will become negative if you proceed.';
+
+	/// en: 'Continue Anyway'
+	String get continueAnyway => 'Continue Anyway';
+
+	/// en: 'Check Again'
+	String get checkAgain => 'Check Again';
 }
 
 // Path: app.nav
@@ -2619,6 +2634,11 @@ extension on Translations {
 			'transactions.recurring' => 'Recurring',
 			'transactions.transfer' => 'Transfer',
 			'transactions.weekNumber' => ({required Object weekNum, required Object date}) => 'Week ${weekNum} · ${date}',
+			'transactions.insufficientBalance' => 'Insufficient Balance',
+			'transactions.insufficientBalanceWarning' => ({required Object amount, required Object account, required Object balance}) => 'The amount (${amount}) exceeds the current balance in ${account} (${balance}). Perhaps you forgot to record income first?',
+			'transactions.insufficientBalanceConsequence' => 'Your account balance will become negative if you proceed.',
+			'transactions.continueAnyway' => 'Continue Anyway',
+			'transactions.checkAgain' => 'Check Again',
 			_ => null,
 		};
 	}

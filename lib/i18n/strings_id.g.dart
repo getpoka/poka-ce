@@ -782,6 +782,11 @@ class _Translations$transactions$id extends Translations$transactions$en {
 	@override String get recurring => 'Berulang';
 	@override String get transfer => 'Transfer';
 	@override String weekNumber({required Object weekNum, required Object date}) => 'Minggu ${weekNum} · ${date}';
+	@override String get insufficientBalance => 'Saldo Tidak Cukup';
+	@override String insufficientBalanceWarning({required Object amount, required Object account, required Object balance}) => 'Jumlah transaksi (${amount}) melebihi saldo akun ${account} (${balance}). Mungkin kamu belum mencatat pemasukan terlebih dahulu?';
+	@override String get insufficientBalanceConsequence => 'Saldo akun kamu akan menjadi minus jika tetap melanjutkan.';
+	@override String get continueAnyway => 'Tetap Simpan';
+	@override String get checkAgain => 'Periksa Kembali';
 }
 
 // Path: app.nav
@@ -1433,6 +1438,11 @@ extension on TranslationsId {
 			'transactions.recurring' => 'Berulang',
 			'transactions.transfer' => 'Transfer',
 			'transactions.weekNumber' => ({required Object weekNum, required Object date}) => 'Minggu ${weekNum} · ${date}',
+			'transactions.insufficientBalance' => 'Saldo Tidak Cukup',
+			'transactions.insufficientBalanceWarning' => ({required Object amount, required Object account, required Object balance}) => 'Jumlah transaksi (${amount}) melebihi saldo akun ${account} (${balance}). Mungkin kamu belum mencatat pemasukan terlebih dahulu?',
+			'transactions.insufficientBalanceConsequence' => 'Saldo akun kamu akan menjadi minus jika tetap melanjutkan.',
+			'transactions.continueAnyway' => 'Tetap Simpan',
+			'transactions.checkAgain' => 'Periksa Kembali',
 			_ => null,
 		};
 	}

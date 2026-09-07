@@ -59,5 +59,10 @@
   "debt": "Debt",
   "recurring": "Recurring",
   "transfer": "Transfer",
-  "weekNumber": "Week {{weekNum}} · {{date}}"
+  "weekNumber": "Week {{weekNum}} · {{date}}",
+  "insufficientBalance": "Insufficient Balance",
+  "insufficientBalanceWarning": "The amount ({{amount}}) exceeds the current balance in {{account}} ({{balance}}). Perhaps you forgot to record income first?",
+  "insufficientBalanceConsequence": "Your account balance will become negative if you proceed.",
+  "continueAnyway": "Continue Anyway",
+  "checkAgain": "Check Again"
 }
