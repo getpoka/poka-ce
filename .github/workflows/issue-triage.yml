@@ -1,0 +1,57 @@
+name: Issue Triage & Bug Checker
+
+on:
+  issues:
+    types: [opened]
+  issue_comment:
+    types: [created]
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  triage_job:
+    if: |
+      github.event.sender.type != 'Bot' &&
+      (
+        (
+          github.event_name == 'issues' &&
+          (github.event.issue.author_association == 'OWNER' || github.event.issue.author_association == 'MEMBER')
+        ) ||
+        (
+          github.event_name == 'issue_comment' &&
+          !github.event.issue.pull_request &&
+          (github.event.comment.author_association == 'OWNER' || github.event.comment.author_association == 'MEMBER') &&
+          (
+            contains(github.event.comment.body, '/triage') ||
+            contains(github.event.comment.body, '/check')
+          )
+        )
+      )
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Generate OctopyID Token
+        id: octopy
+        uses: actions/create-github-app-token@v1
+        continue-on-error: true
+        with:
+          app-id: ${{ secrets.OCTOPY_APP_ID }}
+          private-key: ${{ secrets.OCTOPY_APP_PRIVATE_KEY }}
+
+      - name: Run Triage & Check Bug
+        env:
+          GITHUB_TOKEN: ${{ steps.octopy.outputs.token || secrets.GITHUB_TOKEN }}
+          OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
+          DEEPSEEK_API_KEY: ${{ secrets.OPENAI_KEY }}
+          PR_AGENT_MODEL: ${{ vars.PR_AGENT_MODEL || 'deepseek-chat' }}
+          OPENAI_BASE_URL: ${{ vars.OPENAI_BASE_URL || 'https://api.deepseek.com' }}
+        run: node .github/scripts/triage-issue.js

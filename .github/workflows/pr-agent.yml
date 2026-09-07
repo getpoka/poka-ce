@@ -13,7 +13,12 @@ permissions:
 
 jobs:
   pr_agent_job:
-    if: ${{ github.event.sender.type != 'Bot' }}
+    if: |
+      github.event.sender.type != 'Bot' &&
+      (
+        github.event_name == 'pull_request' ||
+        github.event.issue.pull_request
+      )
     runs-on: ubuntu-latest
     steps:
       - name: Generate OctopyID Token
