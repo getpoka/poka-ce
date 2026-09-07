@@ -187,24 +187,33 @@ class DashboardSpendingChart extends HookConsumerWidget {
 
   Widget _buildBar(BuildContext context, String day, double heightRatio, bool isActive) {
     final theme = context.theme;
-    final targetHeight = 12 + (48 * heightRatio);
+    final targetHeight = (8.0 + (52.0 * heightRatio)).clamp(8.0, 60.0);
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        TweenAnimationBuilder<double>(
-          tween: Tween<double>(begin: 0, end: targetHeight),
-          duration: const Duration(milliseconds: 700),
-          curve: Curves.easeOutCubic,
-          builder: (context, height, _) {
-            return Container(
-              width: 32,
-              height: height,
-              decoration: BoxDecoration(
-                color: isActive ? theme.colors.primary : theme.colors.primary.withValues(alpha: 0.2),
-                borderRadius: BorderRadius.circular(6),
-              ),
-            );
-          },
+        Container(
+          width: 28,
+          height: 60,
+          decoration: BoxDecoration(
+            color: theme.colors.muted.withValues(alpha: 0.4),
+            borderRadius: BorderRadius.circular(6),
+          ),
+          alignment: Alignment.bottomCenter,
+          child: TweenAnimationBuilder<double>(
+            tween: Tween<double>(begin: 0, end: targetHeight),
+            duration: const Duration(milliseconds: 700),
+            curve: Curves.easeOutCubic,
+            builder: (context, height, _) {
+              return Container(
+                width: 28,
+                height: height,
+                decoration: BoxDecoration(
+                  color: isActive ? theme.colors.primary : theme.colors.primary.withValues(alpha: 0.35),
+                  borderRadius: BorderRadius.circular(6),
+                ),
+              );
+            },
+          ),
         ),
         const SizedBox(height: 8),
         Text(

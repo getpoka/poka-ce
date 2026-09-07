@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:forui/forui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:poka_ce/features/dashboard/presentation/widgets/cards/views/dashboard_budget_view.dart';
-import 'package:poka_ce/features/dashboard/presentation/widgets/cards/views/carousel_shared.dart';
+import 'package:poka_ce/shared/widgets/poka_donut_chart.dart';
 import 'package:poka_ce/theme/theme.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/features/dashboard/presentation/controllers/dashboard_notifier.dart';
@@ -41,7 +41,7 @@ void main() {
       await tester.pumpWidget(createWidget(const DashboardState()));
       await tester.pump();
 
-      expect(find.byWidgetPredicate((w) => w is CustomPaint && w.painter is DonutChartPainter), findsOneWidget);
+      expect(find.byType(PokaDonutChart), findsOneWidget);
       expect(find.text('Needs (50%)'), findsOneWidget);
       expect(find.text('Wants (30%)'), findsOneWidget);
       expect(find.text('Savings (20%)'), findsOneWidget);
@@ -67,7 +67,7 @@ void main() {
       );
       await tester.pump();
 
-      expect(find.byWidgetPredicate((w) => w is CustomPaint && w.painter is DonutChartPainter), findsOneWidget);
+      expect(find.byType(PokaDonutChart), findsOneWidget);
       expect(find.text('Needs (50%)'), findsOneWidget);
       expect(find.text('Wants (30%)'), findsOneWidget);
       expect(find.text('Savings (20%)'), findsOneWidget);
@@ -95,7 +95,7 @@ void main() {
       );
       await tester.pump();
 
-      expect(find.byWidgetPredicate((w) => w is CustomPaint && w.painter is DonutChartPainter), findsOneWidget);
+      expect(find.byType(PokaDonutChart), findsOneWidget);
       expect(find.text('Needs (50%)'), findsOneWidget);
       // want and saving should be 0
       expect(find.text('0'), findsNWidgets(2));
@@ -114,7 +114,7 @@ void main() {
         ),
       );
       await tester.pump();
-      expect(find.byWidgetPredicate((w) => w is CustomPaint && w.painter is DonutChartPainter), findsOneWidget);
+      expect(find.byType(PokaDonutChart), findsOneWidget);
       expect(find.byType(LinearProgressIndicator), findsNWidgets(3));
     });
 
@@ -131,7 +131,7 @@ void main() {
         ),
       );
       await tester.pump();
-      expect(find.byWidgetPredicate((w) => w is CustomPaint && w.painter is DonutChartPainter), findsOneWidget);
+      expect(find.byType(PokaDonutChart), findsOneWidget);
     });
   });
 }

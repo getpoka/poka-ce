@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Reusable `PokaDonutChart` component unifying donut chart styling across Home and Reports with modern slim geometry and crisp section dividers.
+
+### Changed
+
+- Modernized dashboard spending bar chart with subtle background tracks, bottom-aligned fill, and unified 6px border radius.
+- Elevated reports cashflow bar chart with widened rods (13px), consistent top corner radius (6px), and softer gridlines.
+- Harmonized category breakdown chart and summary hero card in reports with unified donut styling.
+
 ## [v0.1.0-beta.5] - 2026-09-08
 
 Comprehensive bilingual localization (English & Indonesian), visual Net Worth sparkline trends, entity creation prefill support, and critical database integrity fixes for transaction reversals and recurring schedules.

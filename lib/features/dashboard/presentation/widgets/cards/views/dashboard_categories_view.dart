@@ -5,6 +5,7 @@ import 'package:poka_ce/core/extensions/string_extension.dart';
 import 'package:poka_ce/features/dashboard/presentation/controllers/dashboard_notifier.dart';
 import 'package:poka_ce/features/dashboard/presentation/widgets/cards/views/carousel_shared.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
+import 'package:poka_ce/shared/widgets/poka_donut_chart.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class DashboardCategoriesView extends ConsumerWidget {
@@ -58,15 +59,8 @@ class DashboardCategoriesView extends ConsumerWidget {
 
     return Row(
       children: [
-        SizedBox(
-          width: 100,
-          height: 100,
-          child: CustomPaint(
-            painter: DonutChartPainter(
-              proportions: categoryData.isEmpty ? [1.0] : categoryData.map((e) => e.ratio).toList(),
-              colors: categoryData.isEmpty ? [theme.colors.border] : categoryData.map((e) => e.color).toList(),
-            ),
-          ),
+        PokaDonutChart(
+          sections: categoryData.map((e) => PokaDonutSection(value: e.ratio, color: e.color)).toList(),
         ),
         const SizedBox(width: 24),
         Expanded(

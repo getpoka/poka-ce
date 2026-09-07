@@ -5,6 +5,7 @@ import 'package:poka_ce/core/extensions/num_extension.dart';
 import 'package:poka_ce/features/dashboard/presentation/controllers/dashboard_notifier.dart';
 import 'package:poka_ce/features/dashboard/presentation/widgets/cards/views/carousel_shared.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
+import 'package:poka_ce/shared/widgets/poka_donut_chart.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class DashboardBudgetView extends ConsumerWidget {
@@ -23,19 +24,12 @@ class DashboardBudgetView extends ConsumerWidget {
 
     return Row(
       children: [
-        SizedBox(
-          width: 100,
-          height: 100,
-          child: CustomPaint(
-            painter: DonutChartPainter(
-              proportions: total == 1.0 && needAmt == 0 && wantAmt == 0 && saveAmt == 0
-                  ? [1.0]
-                  : [needAmt / total, wantAmt / total, saveAmt / total],
-              colors: total == 1.0 && needAmt == 0 && wantAmt == 0 && saveAmt == 0
-                  ? [theme.colors.border]
-                  : [theme.colors.primary, theme.colors.app.warning, theme.colors.border],
-            ),
-          ),
+        PokaDonutChart(
+          sections: [
+            if (needAmt > 0) PokaDonutSection(value: needAmt, color: theme.colors.primary),
+            if (wantAmt > 0) PokaDonutSection(value: wantAmt, color: theme.colors.app.warning),
+            if (saveAmt > 0) PokaDonutSection(value: saveAmt, color: theme.colors.border),
+          ],
         ),
         const SizedBox(width: 24),
         Expanded(
