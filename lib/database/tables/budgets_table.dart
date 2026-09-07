@@ -10,7 +10,7 @@ class Budgets extends Table {
   TextColumn get name => text()();
   IntColumn get amount => integer()();
   TextColumn get categoryId => text().nullable().references(Categories, #id, onDelete: KeyAction.setNull)();
-  TextColumn get accountId => text().nullable().references(Accounts, #id)();
+  TextColumn get accountId => text().nullable().references(Accounts, #id, onDelete: KeyAction.setNull)();
   TextColumn get period => text().map(const EnumNameConverter(BudgetPeriod.values))();
   IntColumn get resetDay => integer().nullable()();
   IntColumn get alertThreshold => integer().nullable()();

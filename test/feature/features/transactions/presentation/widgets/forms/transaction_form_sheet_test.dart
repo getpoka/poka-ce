@@ -260,6 +260,7 @@ void main() {
           sourceAccountId: any(named: 'sourceAccountId'),
           destinationAccountId: any(named: 'destinationAccountId'),
           note: any(named: 'note'),
+          transactionDate: any(named: 'transactionDate'),
         ),
       );
     });
@@ -316,6 +317,7 @@ void main() {
           sourceAccountId: any(named: 'sourceAccountId'),
           destinationAccountId: any(named: 'destinationAccountId'),
           note: any(named: 'note'),
+          transactionDate: any(named: 'transactionDate'),
         ),
       ).thenAnswer((_) async => Success(sampleTx().copyWith(type: TransactionType.transfer)));
 
@@ -339,6 +341,7 @@ void main() {
           sourceAccountId: any(named: 'sourceAccountId'),
           destinationAccountId: any(named: 'destinationAccountId'),
           note: any(named: 'note'),
+          transactionDate: any(named: 'transactionDate'),
         ),
       ).called(1);
     });
@@ -468,6 +471,7 @@ void main() {
           sourceAccountId: any(named: 'sourceAccountId'),
           destinationAccountId: any(named: 'destinationAccountId'),
           note: any(named: 'note'),
+          transactionDate: any(named: 'transactionDate'),
         ),
       );
     });
@@ -479,6 +483,7 @@ void main() {
           sourceAccountId: any(named: 'sourceAccountId'),
           destinationAccountId: any(named: 'destinationAccountId'),
           note: any(named: 'note'),
+          transactionDate: any(named: 'transactionDate'),
         ),
       ).thenAnswer((_) async => const ErrorResult<TransactionModel, Failure>(DatabaseFailure('db error')));
 
@@ -499,6 +504,7 @@ void main() {
           sourceAccountId: any(named: 'sourceAccountId'),
           destinationAccountId: any(named: 'destinationAccountId'),
           note: any(named: 'note'),
+          transactionDate: any(named: 'transactionDate'),
         ),
       ).called(1);
     });

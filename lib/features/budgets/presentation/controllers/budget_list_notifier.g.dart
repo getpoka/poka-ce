@@ -32,7 +32,7 @@ final class BudgetListNotifierProvider extends $AsyncNotifierProvider<BudgetList
   BudgetListNotifier create() => BudgetListNotifier();
 }
 
-String _$budgetListNotifierHash() => r'94eb9ac9c385600806669935a85cb38459ca3435';
+String _$budgetListNotifierHash() => r'b367f8af97e0d2c614793f16369585253e7ffbda';
 
 abstract class _$BudgetListNotifier extends $AsyncNotifier<List<BudgetModel>> {
   FutureOr<List<BudgetModel>> build();

@@ -18,8 +18,9 @@ class Transactions extends Table {
   IntColumn get amount => integer()();
   DateTimeColumn get transactionDate => dateTime()();
   TextColumn get note => text().nullable()();
-  TextColumn get recurringTransactionId => text().nullable().references(RecurringTransactions, #id)();
-  TextColumn get debtId => text().nullable().references(Debts, #id)();
+  TextColumn get recurringTransactionId =>
+      text().nullable().references(RecurringTransactions, #id, onDelete: KeyAction.setNull)();
+  TextColumn get debtId => text().nullable().references(Debts, #id, onDelete: KeyAction.setNull)();
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
   DateTimeColumn get updatedAt => dateTime().withDefault(currentDateAndTime)();
 

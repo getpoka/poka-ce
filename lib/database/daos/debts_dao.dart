@@ -1,12 +1,13 @@
 import 'package:drift/drift.dart';
 import 'package:poka_ce/database/database.dart';
 import 'package:poka_ce/database/tables/accounts_table.dart';
+import 'package:poka_ce/database/tables/budgets_table.dart';
 import 'package:poka_ce/database/tables/debts_table.dart';
 import 'package:poka_ce/database/tables/transactions_table.dart';
 
 part 'debts_dao.g.dart';
 
-@DriftAccessor(tables: [Debts, Transactions, TransactionItems, Accounts])
+@DriftAccessor(tables: [Debts, Transactions, TransactionItems, Accounts, Budgets, BudgetRecords])
 class DebtsDao extends DatabaseAccessor<AppDatabase> with _$DebtsDaoMixin {
   DebtsDao(super.attachedDatabase);
 
@@ -38,15 +39,17 @@ class DebtsDao extends DatabaseAccessor<AppDatabase> with _$DebtsDaoMixin {
       final amount = transactionHeader.amount.value;
       final typeStr = transactionHeader.type.value.toString().split('.').last;
 
-      final account = await (select(accounts)..where((a) => a.id.equals(accountId))).getSingle();
-      if (typeStr == 'income') {
-        await (update(
-          accounts,
-        )..where((a) => a.id.equals(accountId))).write(AccountsCompanion(balance: Value(account.balance + amount)));
-      } else if (typeStr == 'expense') {
-        await (update(
-          accounts,
-        )..where((a) => a.id.equals(accountId))).write(AccountsCompanion(balance: Value(account.balance - amount)));
+      final account = await (select(accounts)..where((a) => a.id.equals(accountId))).getSingleOrNull();
+      if (account != null) {
+        if (typeStr == 'income') {
+          await (update(
+            accounts,
+          )..where((a) => a.id.equals(accountId))).write(AccountsCompanion(balance: Value(account.balance + amount)));
+        } else if (typeStr == 'expense') {
+          await (update(
+            accounts,
+          )..where((a) => a.id.equals(accountId))).write(AccountsCompanion(balance: Value(account.balance - amount)));
+        }
       }
     });
   }
@@ -59,16 +62,48 @@ class DebtsDao extends DatabaseAccessor<AppDatabase> with _$DebtsDaoMixin {
       final relatedTransactions = await (select(transactions)..where((t) => t.debtId.equals(id))).get();
 
       for (final tx in relatedTransactions) {
-        final account = await (select(accounts)..where((a) => a.id.equals(tx.accountId))).getSingle();
+        final account = await (select(accounts)..where((a) => a.id.equals(tx.accountId))).getSingleOrNull();
         final typeStr = tx.type.toString().split('.').last;
-        if (typeStr == 'income') {
-          await (update(accounts)..where((a) => a.id.equals(tx.accountId))).write(
-            AccountsCompanion(balance: Value(account.balance - tx.amount)),
-          );
-        } else if (typeStr == 'expense') {
-          await (update(accounts)..where((a) => a.id.equals(tx.accountId))).write(
-            AccountsCompanion(balance: Value(account.balance + tx.amount)),
-          );
+        if (account != null) {
+          if (typeStr == 'income') {
+            await (update(accounts)..where((a) => a.id.equals(tx.accountId))).write(
+              AccountsCompanion(balance: Value(account.balance - tx.amount)),
+            );
+          } else if (typeStr == 'expense') {
+            await (update(accounts)..where((a) => a.id.equals(tx.accountId))).write(
+              AccountsCompanion(balance: Value(account.balance + tx.amount)),
+            );
+          }
+        }
+
+        if (typeStr == 'expense') {
+          final date = tx.transactionDate;
+          final items = await (select(transactionItems)..where((ti) => ti.transactionId.equals(tx.id))).get();
+
+          for (final item in items) {
+            final itemAmount = item.amount;
+            final catId = item.categoryId;
+
+            final matchingRecords =
+                await (select(budgetRecords).join([
+                        innerJoin(budgets, budgets.id.equalsExp(budgetRecords.budgetId)),
+                      ])
+                      ..where(budgets.accountId.isNull() | budgets.accountId.equals(tx.accountId))
+                      ..where(
+                        budgets.categoryId.isNull() |
+                            (catId == null ? budgets.categoryId.isNull() : budgets.categoryId.equals(catId)),
+                      )
+                      ..where(budgetRecords.periodStart.isSmallerOrEqualValue(date))
+                      ..where(budgetRecords.periodEnd.isBiggerOrEqualValue(date)))
+                    .get();
+
+            for (final recordRow in matchingRecords) {
+              final record = recordRow.readTable(budgetRecords);
+              await (update(budgetRecords)..where((r) => r.id.equals(record.id))).write(
+                BudgetRecordsCompanion(spentAmount: Value(record.spentAmount - itemAmount)),
+              );
+            }
+          }
         }
       }
 

@@ -173,6 +173,7 @@ void main() {
           sourceAccountId: any(named: 'sourceAccountId'),
           destinationAccountId: any(named: 'destinationAccountId'),
           note: any(named: 'note'),
+          transactionDate: any(named: 'transactionDate'),
         ),
       ).thenAnswer((_) async => Success(sampleTx().copyWith(type: TransactionType.transfer)));
       final container = createContainer();
@@ -195,6 +196,7 @@ void main() {
           sourceAccountId: any(named: 'sourceAccountId'),
           destinationAccountId: any(named: 'destinationAccountId'),
           note: any(named: 'note'),
+          transactionDate: any(named: 'transactionDate'),
         ),
       ).thenAnswer((_) async => const ErrorResult<TransactionModel, Failure>(DatabaseFailure('db')));
       final container = createContainer();
@@ -583,6 +585,7 @@ void main() {
           accountId: any(named: 'accountId'),
           transactionDate: any(named: 'transactionDate'),
           splitItems: any(named: 'splitItems'),
+          note: any(named: 'note'),
         ),
       ).thenAnswer((_) async => Success(splitTx()));
 

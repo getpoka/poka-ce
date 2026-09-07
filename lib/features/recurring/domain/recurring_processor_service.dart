@@ -114,22 +114,37 @@ class RecurringProcessorService {
     return switch (period) {
       RecurringPeriod.daily => current.add(const Duration(days: 1)),
       RecurringPeriod.weekly => current.add(const Duration(days: 7)),
-      RecurringPeriod.monthly => DateTime.utc(
-        current.year,
-        current.month + 1,
-        current.day,
-        current.hour,
-        current.minute,
-        current.second,
-      ),
-      RecurringPeriod.yearly => DateTime.utc(
-        current.year + 1,
-        current.month,
-        current.day,
-        current.hour,
-        current.minute,
-        current.second,
-      ),
+      RecurringPeriod.monthly => () {
+        var nextYear = current.year;
+        var nextMonth = current.month + 1;
+        if (nextMonth > 12) {
+          nextMonth = 1;
+          nextYear++;
+        }
+        final daysInNextMonth = DateTime.utc(nextYear, nextMonth + 1, 0).day;
+        final nextDay = current.day > daysInNextMonth ? daysInNextMonth : current.day;
+        return DateTime.utc(
+          nextYear,
+          nextMonth,
+          nextDay,
+          current.hour,
+          current.minute,
+          current.second,
+        );
+      }(),
+      RecurringPeriod.yearly => () {
+        final nextYear = current.year + 1;
+        final daysInTargetMonth = DateTime.utc(nextYear, current.month + 1, 0).day;
+        final nextDay = current.day > daysInTargetMonth ? daysInTargetMonth : current.day;
+        return DateTime.utc(
+          nextYear,
+          current.month,
+          nextDay,
+          current.hour,
+          current.minute,
+          current.second,
+        );
+      }(),
     };
   }
 }

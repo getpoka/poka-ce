@@ -163,5 +163,64 @@ void main() {
       expect(list.length, 1);
       expect(list.first.items.length, 2);
     });
+
+    test('deleteTransaction when account is already deleted does not throw', () async {
+      await addAccount('acc1', 10000);
+      await db.transactionsDao.insertTransactionWithItems(
+        TransactionsCompanion.insert(
+          id: const Value('txn1'),
+          accountId: 'acc1',
+          type: TransactionType.income,
+          amount: 5000,
+          transactionDate: DateTime.now().toUtc(),
+        ),
+        [],
+      );
+      // Hard delete the account row directly
+      await (db.delete(db.accounts)..where((a) => a.id.equals('acc1'))).go();
+
+      // Deleting transaction should handle missing account safely without StateError
+      await expectLater(
+        db.transactionsDao.deleteTransaction('txn1'),
+        completes,
+      );
+      expect(await db.transactionsDao.getTransaction('txn1'), isNull);
+    });
+
+    test('deleteTransaction with debtId when debt is already deleted does not throw', () async {
+      await addAccount('acc1', 10000);
+      await db
+          .into(db.debts)
+          .insert(
+            DebtsCompanion.insert(
+              id: const Value('debt1'),
+              personName: 'Bob',
+              type: DebtType.debt,
+              amount: 5000,
+              remainingAmount: 5000,
+              status: DebtStatus.active,
+            ),
+          );
+      await db.transactionsDao.insertTransactionWithItems(
+        TransactionsCompanion.insert(
+          id: const Value('txn1'),
+          accountId: 'acc1',
+          type: TransactionType.income,
+          amount: 5000,
+          debtId: const Value('debt1'),
+          transactionDate: DateTime.now().toUtc(),
+        ),
+        [],
+      );
+      // Delete the debt row first
+      await (db.delete(db.debts)..where((d) => d.id.equals('debt1'))).go();
+
+      // Deleting transaction should handle missing debt safely
+      await expectLater(
+        db.transactionsDao.deleteTransaction('txn1'),
+        completes,
+      );
+      expect(await db.transactionsDao.getTransaction('txn1'), isNull);
+    });
   });
 }

@@ -46,7 +46,7 @@ final class CategoryFormNotifierProvider extends $NotifierProvider<CategoryFormN
   }
 }
 
-String _$categoryFormNotifierHash() => r'6ea130ea5f22e3b1cde40110083ecf4ffb0a2ada';
+String _$categoryFormNotifierHash() => r'ae20726264e8047db540260b8791cc45ddbba8f8';
 
 /// Notifier for the category creation and editing form.
 /// Manages form state, validation (e.g., empty name), and orchestrates save operations.

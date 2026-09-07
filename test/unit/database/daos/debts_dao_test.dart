@@ -160,5 +160,107 @@ void main() {
       expect(d!.dueDate!.toUtc(), due.toUtc());
       expect(d.note, 'urgent');
     });
+
+    test('insertDebtWithTransaction for debt creates income and increases balance', () async {
+      await db
+          .into(db.accounts)
+          .insert(
+            AccountsCompanion.insert(
+              id: const Value('acc1'),
+              name: 'Wallet',
+              type: AccountType.assets,
+              balance: const Value(50000),
+            ),
+          );
+
+      final debt = DebtsCompanion.insert(
+        id: const Value('d1'),
+        personName: 'Charlie',
+        type: DebtType.debt,
+        amount: 20000,
+        remainingAmount: 20000,
+        status: DebtStatus.active,
+      );
+
+      final tx = TransactionsCompanion.insert(
+        id: const Value('tx1'),
+        accountId: 'acc1',
+        type: TransactionType.income,
+        amount: 20000,
+        debtId: const Value('d1'),
+        transactionDate: DateTime.now().toUtc(),
+      );
+
+      final item = TransactionItemsCompanion.insert(
+        id: const Value('item1'),
+        transactionId: 'tx1',
+        amount: 20000,
+      );
+
+      await db.debtsDao.insertDebtWithTransaction(debt, tx, item);
+
+      final savedDebt = await db.debtsDao.getDebt('d1');
+      expect(savedDebt, isNotNull);
+      expect(savedDebt!.amount, 20000);
+
+      final savedTx = await db.transactionsDao.getTransaction('tx1');
+      expect(savedTx, isNotNull);
+      expect(savedTx!.amount, 20000);
+
+      final acc = await (db.select(db.accounts)..where((a) => a.id.equals('acc1'))).getSingle();
+      expect(acc.balance, 70000);
+    });
+
+    test('deleteDebtWithTransactionReversal reverts account balance and deletes transactions', () async {
+      await db
+          .into(db.accounts)
+          .insert(
+            AccountsCompanion.insert(
+              id: const Value('acc1'),
+              name: 'Wallet',
+              type: AccountType.assets,
+              balance: const Value(100000),
+            ),
+          );
+
+      // Loan -> expense of 30,000 -> balance becomes 70,000
+      final debt = DebtsCompanion.insert(
+        id: const Value('d1'),
+        personName: 'Dave',
+        type: DebtType.loan,
+        amount: 30000,
+        remainingAmount: 30000,
+        status: DebtStatus.active,
+      );
+
+      final tx = TransactionsCompanion.insert(
+        id: const Value('tx1'),
+        accountId: 'acc1',
+        type: TransactionType.expense,
+        amount: 30000,
+        debtId: const Value('d1'),
+        transactionDate: DateTime.now().toUtc(),
+      );
+
+      final item = TransactionItemsCompanion.insert(
+        id: const Value('item1'),
+        transactionId: 'tx1',
+        amount: 30000,
+      );
+
+      await db.debtsDao.insertDebtWithTransaction(debt, tx, item);
+      var acc = await (db.select(db.accounts)..where((a) => a.id.equals('acc1'))).getSingle();
+      expect(acc.balance, 70000);
+
+      // Delete debt with reversal
+      await db.debtsDao.deleteDebtWithTransactionReversal('d1');
+
+      expect(await db.debtsDao.getDebt('d1'), isNull);
+      expect(await db.transactionsDao.getTransaction('tx1'), isNull);
+
+      // Balance should be reverted back to 100,000
+      acc = await (db.select(db.accounts)..where((a) => a.id.equals('acc1'))).getSingle();
+      expect(acc.balance, 100000);
+    });
   });
 }

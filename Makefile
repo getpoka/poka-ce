@@ -37,6 +37,7 @@ uninstall:
 generate:
 	rm -f lib/i18n/*.g.dart
 	dart run build_runner build
+	dart run slang
 	dart format .
 
 assets:

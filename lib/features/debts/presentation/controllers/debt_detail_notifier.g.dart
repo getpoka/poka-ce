@@ -60,7 +60,7 @@ final class DebtTransactionsProvider
   }
 }
 
-String _$debtTransactionsHash() => r'3773a86994d979998ccbcb2432ade641b432f21f';
+String _$debtTransactionsHash() => r'c7a343ff8ab18e30fdda8263ba69aff33d656dff';
 
 final class DebtTransactionsFamily extends $Family
     with $FunctionalFamilyOverride<Stream<List<TransactionModel>>, DebtModel> {
