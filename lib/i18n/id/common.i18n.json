@@ -9,5 +9,13 @@
   "error": "Terjadi kesalahan",
   "retry": "Coba lagi",
   "empty": "Belum ada data",
-  "cannotBeUndone": "Tindakan ini tidak dapat dibatalkan."
+  "cannotBeUndone": "Tindakan ini tidak dapat dibatalkan.",
+  "pleaseWait": "Harap tunggu",
+  "today": "Hari ini",
+  "yesterday": "Kemarin",
+  "dueToday": "Jatuh tempo hari ini",
+  "overdue": "Lewat jatuh tempo",
+  "uncategorized": "Tanpa Kategori",
+  "unknown": "Tidak diketahui",
+  "notSet": "Belum Diatur"
 }

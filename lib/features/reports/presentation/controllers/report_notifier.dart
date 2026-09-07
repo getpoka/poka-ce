@@ -3,6 +3,7 @@ import 'package:poka_ce/app/providers/repository_providers.dart';
 import 'package:poka_ce/features/budgets/domain/budget_model.dart';
 import 'package:poka_ce/features/budgets/presentation/controllers/budget_list_notifier.dart';
 import 'package:poka_ce/features/reports/domain/services/report_analytics_service.dart';
+import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'report_notifier.g.dart';
@@ -27,11 +28,11 @@ abstract class ReportState with _$ReportState {
 
   /// Human-readable label for the previous period (used by comparison banner).
   String get previousPeriodLabel => switch (period) {
-    ReportPeriod.thisMonth => 'last month',
-    ReportPeriod.lastMonth => 'prev month',
-    ReportPeriod.last3Months => 'prev 3 mo',
-    ReportPeriod.last6Months => 'prev 6 mo',
-    ReportPeriod.custom => 'prev period',
+    ReportPeriod.thisMonth => t.reports.prevLastMonth,
+    ReportPeriod.lastMonth => t.reports.prevMonth,
+    ReportPeriod.last3Months => t.reports.prev3Months,
+    ReportPeriod.last6Months => t.reports.prev6Months,
+    ReportPeriod.custom => t.reports.prevPeriod,
   };
 }
 

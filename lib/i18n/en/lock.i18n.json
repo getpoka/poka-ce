@@ -14,5 +14,6 @@
   "enterPin": "Enter PIN",
   "invalidPin": "Invalid PIN",
   "tooManyAttempts": "Too many attempts",
-  "temporarilyLocked": "Temporarily locked"
+  "temporarilyLocked": "Temporarily locked",
+  "authenticateReason": "Authenticate to access Poka"
 }

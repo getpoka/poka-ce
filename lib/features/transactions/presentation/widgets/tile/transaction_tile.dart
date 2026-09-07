@@ -18,6 +18,7 @@ import 'package:poka_ce/features/transactions/domain/transaction_model.dart';
 import 'package:poka_ce/features/transactions/presentation/widgets/split/transaction_split_item_form_sheet.dart';
 import 'package:poka_ce/features/transactions/presentation/widgets/tile/transaction_tile_content.dart';
 import 'package:poka_ce/features/transactions/presentation/widgets/tile/transaction_tile_icon.dart';
+import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/poka_slidable_action.dart';
 import 'package:poka_ce/theme/theme.dart';
 
@@ -159,7 +160,9 @@ class RecentTransactionTile extends HookConsumerWidget with FTileMixin {
     var catIcon = IconUtil.getIcon(category?.icon);
 
     // ── Category label ─────────────────────────────────────────────────────
-    var catLabel = category?.name ?? (transaction.type == TransactionType.transfer ? 'Transfer' : 'Uncategorized');
+    var catLabel =
+        category?.name ??
+        (transaction.type == TransactionType.transfer ? t.transactions.transfer : t.common.uncategorized);
 
     IconData? subCatIcon;
     Color? subCatColor;
@@ -178,7 +181,7 @@ class RecentTransactionTile extends HookConsumerWidget with FTileMixin {
     }
 
     // ── Account label + icon + color ───────────────────────────────────────
-    final accLabel = isSubItem ? null : (account?.name ?? 'Unknown');
+    final accLabel = isSubItem ? null : (account?.name ?? t.common.unknown);
     final accIcon = isSubItem ? null : IconUtil.getIcon(account?.icon);
     final accColor = isSubItem ? null : (account?.color?.toColor() ?? theme.colors.primary);
 

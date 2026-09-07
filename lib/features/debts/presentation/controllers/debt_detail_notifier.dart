@@ -38,8 +38,9 @@ class DebtDetailNotifier extends _$DebtDetailNotifier {
     final confirm = await showPokaConfirmDialog(
       context,
       title: t.debts.deleteDebt,
-      body:
-          'Are you sure you want to delete this ${isPayable ? "debt" : "loan"}? Its record will be permanently deleted. This action cannot be undone.',
+      body: t.debts.deleteConfirm(
+        type: isPayable ? t.debts.debtTypeDebt.toLowerCase() : t.debts.debtTypeLoan.toLowerCase(),
+      ),
       confirmText: t.debts.delete,
     );
 

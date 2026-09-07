@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:poka_ce/core/enums.dart';
+import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 /// A selectable chip for a [TransactionType] in the filter sheet.
@@ -22,9 +23,9 @@ class TransactionTypeChip extends StatelessWidget {
   };
 
   String get _label => switch (type) {
-    TransactionType.income => 'Income',
-    TransactionType.expense => 'Expense',
-    TransactionType.transfer => 'Transfer',
+    TransactionType.income => t.transactions.income,
+    TransactionType.expense => t.transactions.expense,
+    TransactionType.transfer => t.transactions.transfer,
   };
 
   @override

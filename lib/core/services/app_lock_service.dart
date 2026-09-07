@@ -2,6 +2,7 @@ import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:poka_ce/core/utils/logger.dart';
+import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 final appLockServiceProvider = Provider<AppLockService>((ref) {
@@ -55,7 +56,7 @@ class AppLockService {
       final biometricOnly = biometrics.isNotEmpty;
 
       final result = await _auth.authenticate(
-        localizedReason: 'Authenticate to access Poka',
+        localizedReason: t.lock.authenticateReason,
         // Keep the prompt alive when the user briefly backgrounds the app
         // (e.g. notification shade appears during fingerprint scan).
         persistAcrossBackgrounding: true,

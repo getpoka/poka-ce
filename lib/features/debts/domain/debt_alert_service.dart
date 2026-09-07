@@ -35,25 +35,32 @@ class DebtAlertService {
 
         final difference = dueDay.difference(today).inDays;
 
+        final isLoan = debt.type == DebtType.loan;
+        final typeString = isLoan ? t.debts.debtTypeLoan : t.debts.debtTypeDebt;
+        final actionString = isLoan ? t.debts.actionCollect : t.debts.actionPay;
+
         if (difference <= 3 && difference >= 0) {
-          final typeString = debt.type == DebtType.loan ? 'Piutang' : 'Hutang';
-          final actionString = debt.type == DebtType.loan ? 'ditagih' : 'dibayar';
-          final whenString = difference == 0 ? 'hari ini' : 'dalam $difference hari';
+          final whenString = difference == 0 ? t.debts.today : t.debts.inDays(days: difference);
 
           await notificationService.showNotification(
             id: debt.id.hashCode,
             title: t.debts.reminder(type: typeString, name: debt.personName),
-            body: '$typeString sejumlah ${debt.remainingAmount} harus $actionString $whenString.',
+            body: t.debts.reminderAlert(
+              type: typeString,
+              amount: debt.remainingAmount.toString(),
+              action: actionString,
+              when: whenString,
+            ),
           );
         } else if (difference < 0) {
-          final typeString = debt.type == DebtType.loan ? 'Piutang' : 'Hutang';
-          final actionString = debt.type == DebtType.loan ? 'ditagih' : 'dibayar';
-
           await notificationService.showNotification(
             id: debt.id.hashCode,
             title: t.debts.due(type: typeString, name: debt.personName),
-            body:
-                '$typeString sejumlah ${debt.remainingAmount} telah lewat jatuh tempo dan harus segera $actionString.',
+            body: t.debts.overdueAlert(
+              type: typeString,
+              amount: debt.remainingAmount.toString(),
+              action: actionString,
+            ),
           );
         }
       }

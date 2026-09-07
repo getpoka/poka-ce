@@ -72,8 +72,8 @@ class CategoryTile extends ConsumerWidget with FTileMixin {
                   context,
                   title: t.categories.deleteCategory,
                   body: childCount > 0
-                      ? 'Are you sure you want to delete this category? Its $childCount subcategor${childCount > 1 ? 'ies' : 'y'} will become main categor${childCount > 1 ? 'ies' : 'y'}, and its own transactions will become uncategorized.'
-                      : 'Are you sure you want to delete this category? All its transactions will become uncategorized.',
+                      ? t.categories.deleteConfirmWithChildren(count: childCount)
+                      : t.categories.deleteConfirmNoChildren,
                   confirmText: t.categories.delete,
                 );
                 if (confirm == true) {

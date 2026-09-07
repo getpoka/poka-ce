@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:poka_ce/core/enums.dart';
+import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/poka_amount_text.dart';
 import 'package:poka_ce/theme/theme.dart';
 
@@ -201,7 +202,7 @@ class TransactionTileContent extends StatelessWidget {
                     ),
                     const SizedBox(width: 3),
                     Text(
-                      hasDebt ? 'Debt' : 'Recurring',
+                      hasDebt ? t.transactions.debt : t.transactions.recurring,
                       style: theme.typography.labelBadge.copyWith(
                         color: hasDebt ? theme.colors.destructive : theme.colors.primary,
                       ),
@@ -228,7 +229,11 @@ class TransactionTileContent extends StatelessWidget {
                     Icon(FPhosphorIcons.chartPieSlice, size: 9, color: theme.colors.primary),
                     const SizedBox(width: 3),
                     Text(
-                      '${allocation!.name[0].toUpperCase()}${allocation!.name.substring(1)}',
+                      switch (allocation!) {
+                        TransactionAllocation.need => t.transactions.need,
+                        TransactionAllocation.want => t.transactions.want,
+                        TransactionAllocation.saving => t.transactions.saving,
+                      },
                       style: theme.typography.labelBadge.copyWith(
                         color: theme.colors.primary,
                       ),

@@ -16,8 +16,8 @@ class PreferencesSection extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final settingsState = ref.watch(settingsProvider);
-    final currentCurrency = settingsState.settings?.baseCurrency?.code ?? 'Not Set';
-    final currentTheme = settingsState.settings?.themeMode ?? 'System';
+    final currentCurrency = settingsState.settings?.baseCurrency?.code ?? context.t.settings.notSet;
+    final currentTheme = settingsState.settings?.themeMode ?? 'system';
     final currentLanguage = settingsState.settings?.language ?? 'system';
     final currentNumberFormat = settingsState.settings?.numberFormat ?? 'system';
 

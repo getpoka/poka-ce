@@ -223,10 +223,10 @@ class _PeriodBadge extends StatelessWidget {
   final BudgetPeriod period;
 
   String get _label => switch (period) {
-    BudgetPeriod.monthly => 'Monthly',
-    BudgetPeriod.weekly => 'Weekly',
-    BudgetPeriod.yearly => 'Yearly',
-    BudgetPeriod.custom => 'Custom',
+    BudgetPeriod.monthly => t.budgets.periodMonthly,
+    BudgetPeriod.weekly => t.budgets.periodWeekly,
+    BudgetPeriod.yearly => t.budgets.periodYearly,
+    BudgetPeriod.custom => t.budgets.periodCustom,
   };
 
   @override

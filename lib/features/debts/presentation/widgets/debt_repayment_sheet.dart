@@ -74,7 +74,7 @@ class DebtRepaymentSheet extends HookConsumerWidget {
                       ),
                       const SizedBox(height: 12),
                       Text(
-                        t.debts.jumlahPembayaranTidakBolehMelebihiSisaUtang,
+                        t.debts.paymentCannotExceedRemaining,
                         style: ctx.theme.typography.body.md,
                         textAlign: TextAlign.center,
                       ),

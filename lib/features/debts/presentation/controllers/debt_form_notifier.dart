@@ -4,6 +4,7 @@ import 'package:poka_ce/core/enums.dart';
 import 'package:poka_ce/core/error/result.dart';
 import 'package:poka_ce/core/utils/datetime_utils.dart';
 import 'package:poka_ce/features/debts/domain/debt_model.dart';
+import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:uuid/uuid.dart';
 
@@ -79,11 +80,11 @@ class DebtForm extends _$DebtForm {
 
   Future<void> save() async {
     if (state.personName.trim().isEmpty) {
-      state = state.copyWith(error: 'Person name cannot be empty', isSaving: false);
+      state = state.copyWith(error: t.debts.personNameCannotBeEmpty, isSaving: false);
       return;
     }
     if (state.amount <= 0) {
-      state = state.copyWith(error: 'Amount must be greater than 0', isSaving: false);
+      state = state.copyWith(error: t.debts.amountGreaterThanZero, isSaving: false);
       return;
     }
     state = state.copyWith(

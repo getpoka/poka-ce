@@ -66,7 +66,10 @@ class BudgetAlertService {
             await notificationService.showNotification(
               id: budget.id.hashCode,
               title: t.budgets.budgetAlert(name: budget.name),
-              body: 'You have used ${percentage.toStringAsFixed(1)}% of your ${budget.name} budget.',
+              body: t.budgets.budgetExceededAlert(
+                percentage: percentage.toStringAsFixed(1),
+                name: budget.name,
+              ),
             );
           }
         }

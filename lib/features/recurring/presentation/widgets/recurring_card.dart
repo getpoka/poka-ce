@@ -163,8 +163,8 @@ class RecurringCard extends ConsumerWidget {
   }
 
   String _typeLabel(TransactionType type) => switch (type) {
-    TransactionType.income => 'Recurring Income',
-    TransactionType.expense => 'Recurring Expense',
-    TransactionType.transfer => 'Recurring Transfer',
+    TransactionType.income => t.recurring.recurringIncome,
+    TransactionType.expense => t.recurring.recurringExpense,
+    TransactionType.transfer => t.recurring.recurringTransfer,
   };
 }

@@ -3,6 +3,7 @@ import 'package:poka_ce/app/providers/use_case_providers.dart';
 import 'package:poka_ce/core/enums.dart';
 import 'package:poka_ce/core/error/result.dart';
 import 'package:poka_ce/features/accounts/domain/account_model.dart';
+import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'account_form_notifier.freezed.dart';
@@ -120,7 +121,7 @@ class AccountFormNotifier extends _$AccountFormNotifier {
 
   Future<void> save() async {
     if (state.name.trim().isEmpty) {
-      state = state.copyWith(nameError: 'Name cannot be empty', isSaving: false);
+      state = state.copyWith(nameError: t.accounts.nameCannotBeEmpty, isSaving: false);
       return;
     }
     state = state.copyWith(isSaving: true, error: null, nameError: null);

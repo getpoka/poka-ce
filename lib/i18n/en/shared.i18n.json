@@ -10,5 +10,6 @@
   "noWalletsFoundPleaseCreateOneFirst": "No wallets found. Please create one first.",
   "balance": "Balance: ",
   "optional": "Optional",
-  "customColor": "Custom Color"
+  "customColor": "Custom Color",
+  "selectWallet": "Select Wallet"
 }

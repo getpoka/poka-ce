@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:poka_ce/core/extensions/string_extension.dart';
 import 'package:poka_ce/core/utils/icon_util.dart';
 import 'package:poka_ce/features/accounts/domain/account_model.dart';
+import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/poka_icon.dart';
 import 'package:poka_ce/theme/theme.dart';
 
@@ -50,7 +51,7 @@ class AccountTile extends StatelessWidget with FTileMixin {
           ),
           subtitle: pocketCount > 0
               ? Text(
-                  '$pocketCount pocket${pocketCount > 1 ? 's' : ''}',
+                  t.accounts.pocketsCount(count: pocketCount),
                   style: theme.typography.bodyPrimary.copyWith(
                     color: theme.colors.mutedForeground,
                   ),

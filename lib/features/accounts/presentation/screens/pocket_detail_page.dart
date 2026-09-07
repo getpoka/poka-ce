@@ -67,8 +67,8 @@ class PocketDetailPage extends HookConsumerWidget {
                     children: [
                       PokaSectionLabel(
                         title: pocketTransactions.isEmpty
-                            ? 'Recent Transactions'
-                            : 'Recent Transactions (${pocketTransactions.length})',
+                            ? t.accounts.recentTransactions
+                            : t.accounts.recentTransactionsCount(count: pocketTransactions.length),
                       ),
                       GestureDetector(
                         onTap: () {

@@ -80,7 +80,7 @@ class AccountMiniCard extends StatelessWidget {
                             borderRadius: theme.style.borderRadius.sm,
                           ),
                           child: Text(
-                            '$pocketCount pocket${pocketCount! > 1 ? 's' : ''}',
+                            t.accounts.pocketsCount(count: pocketCount!),
                             style: theme.typography.labelBadge.copyWith(color: accentColor),
                           ),
                         ),

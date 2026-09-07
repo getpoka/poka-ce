@@ -213,7 +213,7 @@ class _TransactionSplitItemFormSheetState extends ConsumerState<TransactionSplit
     final currencyCode = settings?.baseCurrency?.symbol;
 
     return PokaSheet(
-      title: isEditing ? 'Edit Item' : 'New Item',
+      title: isEditing ? t.transactions.editItem : t.transactions.newItem,
       isScrollable: false,
       padding: EdgeInsets.zero,
       child: TransactionCalculatorBody(

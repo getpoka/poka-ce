@@ -32,7 +32,7 @@ class DebtDatePicker extends HookWidget {
       builder: (context, popoverController, child) {
         return FTextField(
           control: FTextFieldControl.managed(controller: controller),
-          label: const PokaFormLabel('Due Date', isOptional: true),
+          label: PokaFormLabel(t.debts.dueDateLabel, isOptional: true),
           hint: t.debts.selectDueDate,
           readOnly: true,
           onTap: () {

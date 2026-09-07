@@ -7,6 +7,7 @@ import 'package:poka_ce/core/utils/icon_util.dart';
 import 'package:poka_ce/features/categories/domain/category_model.dart';
 import 'package:poka_ce/features/categories/presentation/controllers/category_list_notifier.dart';
 import 'package:poka_ce/features/transactions/domain/split_item.dart';
+import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/poka_amount_text.dart';
 import 'package:poka_ce/shared/widgets/poka_slidable_action.dart';
 import 'package:poka_ce/theme/theme.dart';
@@ -81,7 +82,7 @@ class _SplitItemCard extends ConsumerWidget {
         ? Color(int.parse(categoryData!.color!.replaceFirst('#', '0xFF')))
         : colors.primary;
     final catIcon = categoryData?.icon != null ? IconUtil.getIcon(categoryData!.icon) : FPhosphorIcons.tag;
-    final catName = item.categoryName ?? categoryData?.name ?? 'Uncategorized';
+    final catName = item.categoryName ?? categoryData?.name ?? t.common.uncategorized;
 
     final borderRadius = theme.style.borderRadius.lg;
 

@@ -49,7 +49,7 @@ class TransactionTransferSelector extends StatelessWidget {
     Future<void> pickAccount({required bool isFrom}) async {
       final acc = await PokaPocketSelector.show(
         context,
-        title: isFrom ? 'From Account' : 'To Account',
+        title: isFrom ? t.transactions.fromAccount : t.transactions.toAccount,
         accounts: accounts,
         selectedId: isFrom ? effectiveFrom.id : effectiveTo.id,
       );

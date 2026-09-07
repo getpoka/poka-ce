@@ -60,7 +60,7 @@ class TransactionFormSheet extends HookConsumerWidget {
       context: context,
       isScrollControlled: true,
       builder: (context) => PokaSheet(
-        title: initialTransaction != null ? 'Edit Transaction' : 'New Transaction',
+        title: initialTransaction != null ? t.transactions.editTransaction : t.transactions.newTransaction,
         padding: EdgeInsets.zero,
         child: TransactionFormSheet(
           initialType: initialType,

@@ -98,7 +98,7 @@ class RecurringFormSheet extends HookConsumerWidget {
     final formKey = useMemoized(GlobalKey<FormState>.new);
 
     return PokaSheet(
-      title: isEditing ? 'Edit Recurring' : 'New Recurring',
+      title: isEditing ? t.recurring.editRecurring : t.recurring.newRecurring,
       trailing: isEditing
           ? GestureDetector(
               onTap: () async {
@@ -153,7 +153,7 @@ class RecurringFormSheet extends HookConsumerWidget {
               key: ValueKey(state.accountId),
               autovalidateMode: AutovalidateMode.onUserInteraction,
               initialValue: state.accountId.isEmpty ? null : state.accountId,
-              validator: (value) => (value == null || value.isEmpty) ? 'Must select an account' : null,
+              validator: (value) => (value == null || value.isEmpty) ? t.recurring.mustSelectAccount : null,
               builder: (fieldState) => FLabel(
                 layout: FLabelLayout.vertical,
                 label: Text(t.recurring.transactionDetails),
@@ -172,8 +172,8 @@ class RecurringFormSheet extends HookConsumerWidget {
                                 useThemeBorderColor: true,
                               )
                             : null,
-                        label: isTransfer ? 'Source Account' : 'Account',
-                        value: selectedAccount?.name ?? 'Select account',
+                        label: isTransfer ? t.recurring.sourceAccount : t.recurring.account,
+                        value: selectedAccount?.name ?? t.recurring.selectAccountPrompt,
                         hasValue: selectedAccount != null,
                         onTap: () async {
                           final acc = await PokaPocketSelector.show(
@@ -199,7 +199,7 @@ class RecurringFormSheet extends HookConsumerWidget {
                                 )
                               : null,
                           label: t.recurring.destinationAccount,
-                          value: selectedDestAccount?.name ?? 'Select destination',
+                          value: selectedDestAccount?.name ?? t.recurring.selectDestinationPrompt,
                           hasValue: selectedDestAccount != null,
                           onTap: () async {
                             final acc = await PokaPocketSelector.show(
@@ -225,7 +225,7 @@ class RecurringFormSheet extends HookConsumerWidget {
                                 )
                               : null,
                           label: t.recurring.category,
-                          value: selectedCategory?.name ?? 'Select category (optional)',
+                          value: selectedCategory?.name ?? t.recurring.selectCategoryOptional,
                           hasValue: selectedCategory != null,
                           onClear: () => notifier.setCategoryId(null),
                           onTap: () async {
@@ -295,7 +295,7 @@ class RecurringFormSheet extends HookConsumerWidget {
             // ── Note ─────────────────────────────────────────────
             FTextFormField(
               control: FTextFieldControl.managed(controller: noteController),
-              label: const PokaFormLabel('Note', isOptional: true),
+              label: PokaFormLabel(t.recurring.noteLabel, isOptional: true),
               hint: t.recurring.egNetflixSubscription,
               maxLines: 2,
             ),
@@ -323,7 +323,7 @@ class RecurringFormSheet extends HookConsumerWidget {
                     notifier.save();
                   }
                 },
-                child: Text(isEditing ? 'Save Changes' : 'Create Recurring'),
+                child: Text(isEditing ? t.recurring.saveChanges : t.recurring.createRecurring),
               ),
           ],
         ),
@@ -384,7 +384,7 @@ class _AmountTile extends HookWidget {
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: (value) {
         final amount = int.tryParse(value ?? '');
-        if (amount == null || amount <= 0) return 'Amount must be greater than 0';
+        if (amount == null || amount <= 0) return t.recurring.amountGreaterThanZero;
         return null;
       },
     );
@@ -442,10 +442,10 @@ class _PeriodSelector extends StatelessWidget {
   }
 
   String _label(RecurringPeriod period) => switch (period) {
-    RecurringPeriod.daily => 'Daily',
-    RecurringPeriod.weekly => 'Weekly',
-    RecurringPeriod.monthly => 'Monthly',
-    RecurringPeriod.yearly => 'Yearly',
+    RecurringPeriod.daily => t.recurring.periodDaily,
+    RecurringPeriod.weekly => t.recurring.periodWeekly,
+    RecurringPeriod.monthly => t.recurring.periodMonthly,
+    RecurringPeriod.yearly => t.recurring.periodYearly,
   };
 }
 
@@ -481,7 +481,7 @@ class _DatePickerTile extends HookWidget {
           hint: t.recurring.selectFirstDueDate,
           readOnly: true,
           autovalidateMode: AutovalidateMode.onUserInteraction,
-          validator: (value) => (value == null || value.isEmpty) ? 'Must select a start date' : null,
+          validator: (value) => (value == null || value.isEmpty) ? t.recurring.mustSelectStartDate : null,
           onTap: () {
             FocusScope.of(context).unfocus();
             popoverController.toggle();
@@ -650,7 +650,7 @@ class _ActiveToggle extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    isActive ? 'Will auto-generate transactions' : 'Paused — no transactions will be generated',
+                    isActive ? t.recurring.autoGenerateActive : t.recurring.autoGeneratePaused,
                     style: theme.typography.bodySecondary.copyWith(
                       color: theme.colors.mutedForeground,
                     ),

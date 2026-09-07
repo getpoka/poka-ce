@@ -160,7 +160,7 @@ class DebtFormSheet extends HookConsumerWidget {
     final formKey = useMemoized(GlobalKey<FormState>.new);
 
     return PokaSheet(
-      title: isEditing ? 'Edit Record' : 'New Record',
+      title: isEditing ? t.debts.editRecord : t.debts.newRecord,
       trailing: isEditing
           ? GestureDetector(
               onTap: () async {
@@ -192,7 +192,7 @@ class DebtFormSheet extends HookConsumerWidget {
               label: Text(t.debts.personName),
               hint: t.debts.egJohnDoe,
               autovalidateMode: AutovalidateMode.onUserInteraction,
-              validator: (value) => value == null || value.trim().isEmpty ? 'Person name cannot be empty' : null,
+              validator: (value) => value == null || value.trim().isEmpty ? t.debts.personNameCannotBeEmpty : null,
             ),
             const SizedBox(height: 12),
             FTextFormField(
@@ -203,7 +203,7 @@ class DebtFormSheet extends HookConsumerWidget {
               autovalidateMode: AutovalidateMode.onUserInteraction,
               validator: (value) {
                 final amount = int.tryParse(value ?? '');
-                if (amount == null || amount <= 0) return 'Amount must be greater than 0';
+                if (amount == null || amount <= 0) return t.debts.amountGreaterThanZero;
                 return null;
               },
             ),
@@ -212,7 +212,7 @@ class DebtFormSheet extends HookConsumerWidget {
               FormField<String>(
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 initialValue: state.categoryId.isEmpty ? null : state.categoryId,
-                validator: (value) => (value == null || value.isEmpty) ? 'Please select a category and account' : null,
+                validator: (value) => (value == null || value.isEmpty) ? t.debts.selectCategoryAndAccount : null,
                 builder: (fieldState) => FLabel(
                   layout: FLabelLayout.vertical,
                   label: Text(t.debts.transactionBinding),
@@ -224,7 +224,7 @@ class DebtFormSheet extends HookConsumerWidget {
                           key: const Key('debt-category-selector'),
                           icon: FPhosphorIcons.tag,
                           label: t.debts.category,
-                          value: selectedCategory?.name ?? 'Select category',
+                          value: selectedCategory?.name ?? t.debts.selectCategoryPrompt,
                           hasValue: selectedCategory != null,
                           onTap: () async {
                             final cat = await PokaCategorySelector.show(context, categories: categories);
@@ -239,7 +239,7 @@ class DebtFormSheet extends HookConsumerWidget {
                           key: const Key('debt-account-selector'),
                           icon: FPhosphorIcons.wallet,
                           label: t.debts.account,
-                          value: selectedAccount?.name ?? 'Select account',
+                          value: selectedAccount?.name ?? t.debts.selectAccountPrompt,
                           hasValue: selectedAccount != null,
                           onTap: () async {
                             final acc = await PokaPocketSelector.show(context, accounts: accounts);
@@ -264,9 +264,7 @@ class DebtFormSheet extends HookConsumerWidget {
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
-                        state.type == DebtType.debt
-                            ? 'Recording this debt adds money to the account (income transaction).'
-                            : 'Recording this loan removes money from the account (expense transaction).',
+                        state.type == DebtType.debt ? t.debts.debtBindingHelp : t.debts.loanBindingHelp,
                         style: context.theme.typography.bodySecondary.copyWith(
                           color: context.theme.colors.mutedForeground,
                         ),
@@ -285,7 +283,7 @@ class DebtFormSheet extends HookConsumerWidget {
             const SizedBox(height: 12),
             FTextFormField(
               control: FTextFieldControl.managed(controller: noteController),
-              label: const PokaFormLabel('Note', isOptional: true),
+              label: PokaFormLabel(t.debts.noteLabel, isOptional: true),
               hint: t.debts.egDinnerLastFriday,
               maxLines: 3,
             ),
@@ -299,7 +297,7 @@ class DebtFormSheet extends HookConsumerWidget {
                     notifier.save();
                   }
                 },
-                child: Text(isEditing ? 'Save Changes' : 'Create Record'),
+                child: Text(isEditing ? t.debts.saveChanges : t.debts.createRecord),
               ),
           ],
         ),

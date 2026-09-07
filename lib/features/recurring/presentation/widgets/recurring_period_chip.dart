@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:poka_ce/core/enums.dart';
+import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class RecurringPeriodChip extends StatelessWidget {
@@ -11,10 +12,10 @@ class RecurringPeriodChip extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = context.theme;
     final label = switch (period) {
-      RecurringPeriod.daily => 'Daily',
-      RecurringPeriod.weekly => 'Weekly',
-      RecurringPeriod.monthly => 'Monthly',
-      RecurringPeriod.yearly => 'Yearly',
+      RecurringPeriod.daily => t.recurring.periodDaily,
+      RecurringPeriod.weekly => t.recurring.periodWeekly,
+      RecurringPeriod.monthly => t.recurring.periodMonthly,
+      RecurringPeriod.yearly => t.recurring.periodYearly,
     };
 
     return Container(

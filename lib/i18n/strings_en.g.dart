@@ -194,8 +194,11 @@ class Translations$accounts$en {
 	/// en: '{{count}} subcategor(ies)'
 	String subcategoriesCount({required Object count}) => '${count} subcategor(ies)';
 
-	/// en: '{{count}} pocket(s)'
-	String pocketsCount({required Object count}) => '${count} pocket(s)';
+	/// en: '(one) {1 pocket} (other) {{{count}} pockets}'
+	String pocketsCount({required num count}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(count,
+		one: '1 pocket',
+		other: '${count} pockets',
+	);
 
 	/// en: 'Total Active Accounts'
 	String get totalActiveAccounts => 'Total Active Accounts';
@@ -205,6 +208,27 @@ class Translations$accounts$en {
 
 	/// en: 'Tap the button below to add your first account'
 	String get tapTheButtonBelowToAddYourFirstAccount => 'Tap the button below to add your first account';
+
+	/// en: 'All categories allowed'
+	String get allCategoriesAllowed => 'All categories allowed';
+
+	/// en: '{{count}} categories selected'
+	String categoriesSelected({required Object count}) => '${count} categories selected';
+
+	/// en: '{{percent}}% of account'
+	String ratioOfAccount({required Object percent}) => '${percent}% of account';
+
+	/// en: 'No main accounts yet.'
+	String get noMainAccountsYet => 'No main accounts yet.';
+
+	/// en: '{{percent}}% of assets'
+	String percentOfAssets({required Object percent}) => '${percent}% of assets';
+
+	/// en: 'Recent Transactions'
+	String get recentTransactions => 'Recent Transactions';
+
+	/// en: 'Recent Transactions ({{count}})'
+	String recentTransactionsCount({required Object count}) => 'Recent Transactions (${count})';
 }
 
 // Path: app
@@ -375,6 +399,48 @@ class Translations$budgets$en {
 
 	/// en: '{{count}} budget(s)'
 	String budgetsCount({required Object count}) => '${count} budget(s)';
+
+	/// en: 'Edit Budget'
+	String get editBudget => 'Edit Budget';
+
+	/// en: 'New Budget'
+	String get newBudget => 'New Budget';
+
+	/// en: 'Name cannot be empty'
+	String get nameCannotBeEmpty => 'Name cannot be empty';
+
+	/// en: 'Amount must be greater than 0'
+	String get amountGreaterThanZero => 'Amount must be greater than 0';
+
+	/// en: 'Alert threshold (%)'
+	String get alertThresholdLabel => 'Alert threshold (%)';
+
+	/// en: 'Scope'
+	String get scope => 'Scope';
+
+	/// en: 'Any category'
+	String get anyCategory => 'Any category';
+
+	/// en: 'Any account'
+	String get anyAccount => 'Any account';
+
+	/// en: 'Save Changes'
+	String get saveChanges => 'Save Changes';
+
+	/// en: 'Weekly'
+	String get periodWeekly => 'Weekly';
+
+	/// en: 'Monthly'
+	String get periodMonthly => 'Monthly';
+
+	/// en: 'Yearly'
+	String get periodYearly => 'Yearly';
+
+	/// en: 'Custom'
+	String get periodCustom => 'Custom';
+
+	/// en: 'You have used {{percentage}}% of your {{name}} budget.'
+	String budgetExceededAlert({required Object percentage, required Object name}) => 'You have used ${percentage}% of your ${name} budget.';
 }
 
 // Path: categories
@@ -441,6 +507,30 @@ class Translations$categories$en {
 
 	/// en: 'Break down your category into smaller parts'
 	String get emptySubcategorySubtitle => 'Break down your category into smaller parts';
+
+	/// en: 'Save Sub Category'
+	String get saveSubCategory => 'Save Sub Category';
+
+	/// en: 'Save Category'
+	String get saveCategory => 'Save Category';
+
+	/// en: 'New Sub Category'
+	String get newSubCategory => 'New Sub Category';
+
+	/// en: 'New Category'
+	String get newCategory => 'New Category';
+
+	/// en: 'Edit Sub Category'
+	String get editSubCategory => 'Edit Sub Category';
+
+	/// en: 'Edit Category'
+	String get editCategory => 'Edit Category';
+
+	/// en: 'Are you sure you want to delete this category? Its {{count}} subcategor(ies) will become main categor(ies), and its own transactions will become uncategorized.'
+	String deleteConfirmWithChildren({required Object count}) => 'Are you sure you want to delete this category? Its ${count} subcategor(ies) will become main categor(ies), and its own transactions will become uncategorized.';
+
+	/// en: 'Are you sure you want to delete this category? All its transactions will become uncategorized.'
+	String get deleteConfirmNoChildren => 'Are you sure you want to delete this category? All its transactions will become uncategorized.';
 }
 
 // Path: common
@@ -483,6 +573,30 @@ class Translations$common$en {
 
 	/// en: 'This action cannot be undone.'
 	String get cannotBeUndone => 'This action cannot be undone.';
+
+	/// en: 'Please wait'
+	String get pleaseWait => 'Please wait';
+
+	/// en: 'Today'
+	String get today => 'Today';
+
+	/// en: 'Yesterday'
+	String get yesterday => 'Yesterday';
+
+	/// en: 'Due today'
+	String get dueToday => 'Due today';
+
+	/// en: 'Overdue'
+	String get overdue => 'Overdue';
+
+	/// en: 'Uncategorized'
+	String get uncategorized => 'Uncategorized';
+
+	/// en: 'Unknown'
+	String get unknown => 'Unknown';
+
+	/// en: 'Not Set'
+	String get notSet => 'Not Set';
 }
 
 // Path: dashboard
@@ -646,6 +760,9 @@ class Translations$debts$en {
 	/// en: 'Add Record'
 	String get addRecord => 'Add Record';
 
+	/// en: 'Create Record'
+	String get createRecord => 'Create Record';
+
 	/// en: 'Debt Details'
 	String get debtDetails => 'Debt Details';
 
@@ -697,8 +814,8 @@ class Translations$debts$en {
 	/// en: 'Action Denied'
 	String get actionDenied => 'Action Denied';
 
-	/// en: 'Jumlah pembayaran tidak boleh melebihi sisa utang.'
-	String get jumlahPembayaranTidakBolehMelebihiSisaUtang => 'Jumlah pembayaran tidak boleh melebihi sisa utang.';
+	/// en: 'Payment amount cannot exceed the remaining debt.'
+	String get paymentCannotExceedRemaining => 'Payment amount cannot exceed the remaining debt.';
 
 	/// en: 'Add note'
 	String get addNote => 'Add note';
@@ -747,6 +864,78 @@ class Translations$debts$en {
 
 	/// en: 'Track money others owe you and easily log all your collections here.'
 	String get trackMoneyOthersOweYouAndLogCollections => 'Track money others owe you and easily log all your collections here.';
+
+	/// en: 'Edit Record'
+	String get editRecord => 'Edit Record';
+
+	/// en: 'New Record'
+	String get newRecord => 'New Record';
+
+	/// en: 'Person name cannot be empty'
+	String get personNameCannotBeEmpty => 'Person name cannot be empty';
+
+	/// en: 'Amount must be greater than 0'
+	String get amountGreaterThanZero => 'Amount must be greater than 0';
+
+	/// en: 'Please select a category and account'
+	String get selectCategoryAndAccount => 'Please select a category and account';
+
+	/// en: 'Select category'
+	String get selectCategoryPrompt => 'Select category';
+
+	/// en: 'Select account'
+	String get selectAccountPrompt => 'Select account';
+
+	/// en: 'Recording this debt adds money to the account (income transaction).'
+	String get debtBindingHelp => 'Recording this debt adds money to the account (income transaction).';
+
+	/// en: 'Recording this loan removes money from the account (expense transaction).'
+	String get loanBindingHelp => 'Recording this loan removes money from the account (expense transaction).';
+
+	/// en: 'Note'
+	String get noteLabel => 'Note';
+
+	/// en: 'Due Date'
+	String get dueDateLabel => 'Due Date';
+
+	/// en: 'Save Changes'
+	String get saveChanges => 'Save Changes';
+
+	/// en: 'Are you sure you want to delete this {{type}}? Its record will be permanently deleted. This action cannot be undone.'
+	String deleteConfirm({required Object type}) => 'Are you sure you want to delete this ${type}? Its record will be permanently deleted. This action cannot be undone.';
+
+	/// en: '{{type}} Details'
+	String debtDetailsTitle({required Object type}) => '${type} Details';
+
+	/// en: 'Loan'
+	String get debtTypeLoan => 'Loan';
+
+	/// en: 'Debt'
+	String get debtTypeDebt => 'Debt';
+
+	/// en: '{{type}} of {{amount}} must be {{action}} {{when}}.'
+	String reminderAlert({required Object type, required Object amount, required Object action, required Object when}) => '${type} of ${amount} must be ${action} ${when}.';
+
+	/// en: '{{type}} of {{amount}} is overdue and must be {{action}} immediately.'
+	String overdueAlert({required Object type, required Object amount, required Object action}) => '${type} of ${amount} is overdue and must be ${action} immediately.';
+
+	/// en: 'collected'
+	String get actionCollect => 'collected';
+
+	/// en: 'paid'
+	String get actionPay => 'paid';
+
+	/// en: 'today'
+	String get today => 'today';
+
+	/// en: 'in {{days}} days'
+	String inDays({required Object days}) => 'in ${days} days';
+
+	/// en: '{{count}} owed'
+	String owedCount({required Object count}) => '${count} owed';
+
+	/// en: '{{count}} receivable'
+	String receivableCount({required Object count}) => '${count} receivable';
 }
 
 // Path: goals
@@ -787,8 +976,8 @@ class Translations$goals$en {
 	/// en: 'Action Denied'
 	String get actionDenied => 'Action Denied';
 
-	/// en: 'Kosongkan saldo (transfer keluar) sebelum menghapus Goal ini.'
-	String get kosongkanSaldoTransferKeluarSebelumMenghapusGoalIni => 'Kosongkan saldo (transfer keluar) sebelum menghapus Goal ini.';
+	/// en: 'Empty balance (transfer out) before deleting this Goal.'
+	String get emptyBalanceBeforeDelete => 'Empty balance (transfer out) before deleting this Goal.';
 
 	/// en: 'OK'
 	String get ok => 'OK';
@@ -864,6 +1053,24 @@ class Translations$goals$en {
 
 	/// en: 'Goals you complete will appear here.'
 	String get completedGoalsWillAppearHere => 'Goals you complete will appear here.';
+
+	/// en: 'Edit Goal'
+	String get editGoal => 'Edit Goal';
+
+	/// en: 'New Goal'
+	String get newGoal => 'New Goal';
+
+	/// en: 'Name cannot be empty'
+	String get nameCannotBeEmpty => 'Name cannot be empty';
+
+	/// en: 'Target amount must be greater than 0'
+	String get targetAmountGreaterThanZero => 'Target amount must be greater than 0';
+
+	/// en: 'Save Changes'
+	String get saveChanges => 'Save Changes';
+
+	/// en: 'Target Date'
+	String get targetDateLabel => 'Target Date';
 }
 
 // Path: lock
@@ -921,6 +1128,9 @@ class Translations$lock$en {
 
 	/// en: 'Temporarily locked'
 	String get temporarilyLocked => 'Temporarily locked';
+
+	/// en: 'Authenticate to access Poka'
+	String get authenticateReason => 'Authenticate to access Poka';
 }
 
 // Path: onboarding
@@ -1029,6 +1239,75 @@ class Translations$recurring$en {
 
 	/// en: '{{count}} paused'
 	String pausedCount({required Object count}) => '${count} paused';
+
+	/// en: 'Edit Recurring'
+	String get editRecurring => 'Edit Recurring';
+
+	/// en: 'New Recurring'
+	String get newRecurring => 'New Recurring';
+
+	/// en: 'Must select an account'
+	String get mustSelectAccount => 'Must select an account';
+
+	/// en: 'Source Account'
+	String get sourceAccount => 'Source Account';
+
+	/// en: 'Account'
+	String get account => 'Account';
+
+	/// en: 'Select account'
+	String get selectAccountPrompt => 'Select account';
+
+	/// en: 'Select destination'
+	String get selectDestinationPrompt => 'Select destination';
+
+	/// en: 'Select category (optional)'
+	String get selectCategoryOptional => 'Select category (optional)';
+
+	/// en: 'Note'
+	String get noteLabel => 'Note';
+
+	/// en: 'Save Changes'
+	String get saveChanges => 'Save Changes';
+
+	/// en: 'Create Recurring'
+	String get createRecurring => 'Create Recurring';
+
+	/// en: 'Amount must be greater than 0'
+	String get amountGreaterThanZero => 'Amount must be greater than 0';
+
+	/// en: 'Must select a start date'
+	String get mustSelectStartDate => 'Must select a start date';
+
+	/// en: 'Daily'
+	String get periodDaily => 'Daily';
+
+	/// en: 'Weekly'
+	String get periodWeekly => 'Weekly';
+
+	/// en: 'Monthly'
+	String get periodMonthly => 'Monthly';
+
+	/// en: 'Yearly'
+	String get periodYearly => 'Yearly';
+
+	/// en: 'Will auto-generate transactions'
+	String get autoGenerateActive => 'Will auto-generate transactions';
+
+	/// en: 'Paused — no transactions will be generated'
+	String get autoGeneratePaused => 'Paused — no transactions will be generated';
+
+	/// en: 'Recurring Income'
+	String get recurringIncome => 'Recurring Income';
+
+	/// en: 'Recurring Expense'
+	String get recurringExpense => 'Recurring Expense';
+
+	/// en: 'Recurring Transfer'
+	String get recurringTransfer => 'Recurring Transfer';
+
+	/// en: 'Next: {{date}}'
+	String nextDateLabel({required Object date}) => 'Next: ${date}';
 }
 
 // Path: reports
@@ -1200,6 +1479,21 @@ class Translations$reports$en {
 
 	/// en: '50/30/20'
 	String get rule503020 => '50/30/20';
+
+	/// en: 'last month'
+	String get prevLastMonth => 'last month';
+
+	/// en: 'prev month'
+	String get prevMonth => 'prev month';
+
+	/// en: 'prev 3 mo'
+	String get prev3Months => 'prev 3 mo';
+
+	/// en: 'prev 6 mo'
+	String get prev6Months => 'prev 6 mo';
+
+	/// en: 'prev period'
+	String get prevPeriod => 'prev period';
 }
 
 // Path: settings
@@ -1395,6 +1689,9 @@ class Translations$settings$en {
 
 	/// en: 'We couldn't find any currency matching "{search}".'
 	String get weCouldntFindAnyCurrencyMatching => 'We couldn\'t find any currency matching "{search}".';
+
+	/// en: 'Not Set'
+	String get notSet => 'Not Set';
 }
 
 // Path: shared
@@ -1440,6 +1737,9 @@ class Translations$shared$en {
 
 	/// en: 'Custom Color'
 	String get customColor => 'Custom Color';
+
+	/// en: 'Select Wallet'
+	String get selectWallet => 'Select Wallet';
 }
 
 // Path: transactions
@@ -1572,6 +1872,66 @@ class Translations$transactions$en {
 
 	/// en: '{{count}} transactions'
 	String transactionsCount({required Object count}) => '${count} transactions';
+
+	/// en: 'Edit Transaction'
+	String get editTransaction => 'Edit Transaction';
+
+	/// en: 'New Transaction'
+	String get newTransaction => 'New Transaction';
+
+	/// en: 'From Account'
+	String get fromAccount => 'From Account';
+
+	/// en: 'To Account'
+	String get toAccount => 'To Account';
+
+	/// en: 'Need'
+	String get need => 'Need';
+
+	/// en: 'Want'
+	String get want => 'Want';
+
+	/// en: 'Saving'
+	String get saving => 'Saving';
+
+	/// en: 'Add note...'
+	String get addNoteEllipsis => 'Add note...';
+
+	/// en: 'Edit Item'
+	String get editItem => 'Edit Item';
+
+	/// en: 'New Item'
+	String get newItem => 'New Item';
+
+	/// en: 'Day'
+	String get viewModeDay => 'Day';
+
+	/// en: 'Week'
+	String get viewModeWeek => 'Week';
+
+	/// en: 'Month'
+	String get viewModeMonth => 'Month';
+
+	/// en: 'Daily'
+	String get viewModeDaily => 'Daily';
+
+	/// en: 'Weekly'
+	String get viewModeWeekly => 'Weekly';
+
+	/// en: 'Monthly'
+	String get viewModeMonthly => 'Monthly';
+
+	/// en: 'Debt'
+	String get debt => 'Debt';
+
+	/// en: 'Recurring'
+	String get recurring => 'Recurring';
+
+	/// en: 'Transfer'
+	String get transfer => 'Transfer';
+
+	/// en: 'Week {{weekNum}} · {{date}}'
+	String weekNumber({required Object weekNum, required Object date}) => 'Week ${weekNum} · ${date}';
 }
 
 // Path: app.nav
@@ -1704,10 +2064,17 @@ extension on Translations {
 			'accounts.noCategoriesAvailable' => 'No categories available.',
 			'accounts.noAccountsFound1' => 'No accounts found',
 			'accounts.subcategoriesCount' => ({required Object count}) => '${count} subcategor(ies)',
-			'accounts.pocketsCount' => ({required Object count}) => '${count} pocket(s)',
+			'accounts.pocketsCount' => ({required num count}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(count, one: '1 pocket', other: '${count} pockets', ), 
 			'accounts.totalActiveAccounts' => 'Total Active Accounts',
 			'accounts.noAccountsYet' => 'No Accounts Yet',
 			'accounts.tapTheButtonBelowToAddYourFirstAccount' => 'Tap the button below to add your first account',
+			'accounts.allCategoriesAllowed' => 'All categories allowed',
+			'accounts.categoriesSelected' => ({required Object count}) => '${count} categories selected',
+			'accounts.ratioOfAccount' => ({required Object percent}) => '${percent}% of account',
+			'accounts.noMainAccountsYet' => 'No main accounts yet.',
+			'accounts.percentOfAssets' => ({required Object percent}) => '${percent}% of assets',
+			'accounts.recentTransactions' => 'Recent Transactions',
+			'accounts.recentTransactionsCount' => ({required Object count}) => 'Recent Transactions (${count})',
 			'app.name' => 'Poka',
 			'app.tagline' => 'Your personal finance companion',
 			'app.nav.home' => 'Home',
@@ -1760,6 +2127,20 @@ extension on Translations {
 			'budgets.budgetAlert' => ({required Object name}) => 'Budget Alert: ${name}',
 			'budgets.percentOf' => ({required Object percent}) => '${percent}% of ',
 			'budgets.budgetsCount' => ({required Object count}) => '${count} budget(s)',
+			'budgets.editBudget' => 'Edit Budget',
+			'budgets.newBudget' => 'New Budget',
+			'budgets.nameCannotBeEmpty' => 'Name cannot be empty',
+			'budgets.amountGreaterThanZero' => 'Amount must be greater than 0',
+			'budgets.alertThresholdLabel' => 'Alert threshold (%)',
+			'budgets.scope' => 'Scope',
+			'budgets.anyCategory' => 'Any category',
+			'budgets.anyAccount' => 'Any account',
+			'budgets.saveChanges' => 'Save Changes',
+			'budgets.periodWeekly' => 'Weekly',
+			'budgets.periodMonthly' => 'Monthly',
+			'budgets.periodYearly' => 'Yearly',
+			'budgets.periodCustom' => 'Custom',
+			'budgets.budgetExceededAlert' => ({required Object percentage, required Object name}) => 'You have used ${percentage}% of your ${name} budget.',
 			'categories.expense' => 'Expense',
 			'categories.income' => 'Income',
 			'categories.categoryName' => 'Category Name',
@@ -1779,6 +2160,14 @@ extension on Translations {
 			'categories.addCategory' => 'Add Category',
 			'categories.emptyCategorySubtitle' => 'Start tracking your spending by adding a category',
 			'categories.emptySubcategorySubtitle' => 'Break down your category into smaller parts',
+			'categories.saveSubCategory' => 'Save Sub Category',
+			'categories.saveCategory' => 'Save Category',
+			'categories.newSubCategory' => 'New Sub Category',
+			'categories.newCategory' => 'New Category',
+			'categories.editSubCategory' => 'Edit Sub Category',
+			'categories.editCategory' => 'Edit Category',
+			'categories.deleteConfirmWithChildren' => ({required Object count}) => 'Are you sure you want to delete this category? Its ${count} subcategor(ies) will become main categor(ies), and its own transactions will become uncategorized.',
+			'categories.deleteConfirmNoChildren' => 'Are you sure you want to delete this category? All its transactions will become uncategorized.',
 			'common.save' => 'Save',
 			'common.cancel' => 'Cancel',
 			'common.delete' => 'Delete',
@@ -1790,6 +2179,14 @@ extension on Translations {
 			'common.retry' => 'Retry',
 			'common.empty' => 'No data yet',
 			'common.cannotBeUndone' => 'This action cannot be undone.',
+			'common.pleaseWait' => 'Please wait',
+			'common.today' => 'Today',
+			'common.yesterday' => 'Yesterday',
+			'common.dueToday' => 'Due today',
+			'common.overdue' => 'Overdue',
+			'common.uncategorized' => 'Uncategorized',
+			'common.unknown' => 'Unknown',
+			'common.notSet' => 'Not Set',
 			'dashboard.overview' => 'Overview',
 			'dashboard.myFinances' => 'My Finances',
 			'dashboard.netWorth' => 'Net Worth',
@@ -1850,6 +2247,7 @@ extension on Translations {
 			'debts.save' => 'Save',
 			'debts.ok' => 'OK',
 			'debts.addRecord' => 'Add Record',
+			'debts.createRecord' => 'Create Record',
 			'debts.debtDetails' => 'Debt Details',
 			'debts.repaymentHistory' => 'Repayment History',
 			'debts.debtsLoans' => 'Debts & Loans',
@@ -1867,7 +2265,7 @@ extension on Translations {
 			'debts.paid' => 'Paid',
 			'debts.principal' => 'Principal',
 			'debts.actionDenied' => 'Action Denied',
-			'debts.jumlahPembayaranTidakBolehMelebihiSisaUtang' => 'Jumlah pembayaran tidak boleh melebihi sisa utang.',
+			'debts.paymentCannotExceedRemaining' => 'Payment amount cannot exceed the remaining debt.',
 			'debts.addNote' => 'Add note',
 			'debts.payInFull' => 'Pay in Full',
 			'debts.remaining' => 'remaining',
@@ -1884,6 +2282,30 @@ extension on Translations {
 			'debts.noLoansRecorded' => 'No loans recorded',
 			'debts.trackMoneyYouOweToOthersAndLogRepayments' => 'Track money you owe to others and easily log all your repayments here.',
 			'debts.trackMoneyOthersOweYouAndLogCollections' => 'Track money others owe you and easily log all your collections here.',
+			'debts.editRecord' => 'Edit Record',
+			'debts.newRecord' => 'New Record',
+			'debts.personNameCannotBeEmpty' => 'Person name cannot be empty',
+			'debts.amountGreaterThanZero' => 'Amount must be greater than 0',
+			'debts.selectCategoryAndAccount' => 'Please select a category and account',
+			'debts.selectCategoryPrompt' => 'Select category',
+			'debts.selectAccountPrompt' => 'Select account',
+			'debts.debtBindingHelp' => 'Recording this debt adds money to the account (income transaction).',
+			'debts.loanBindingHelp' => 'Recording this loan removes money from the account (expense transaction).',
+			'debts.noteLabel' => 'Note',
+			'debts.dueDateLabel' => 'Due Date',
+			'debts.saveChanges' => 'Save Changes',
+			'debts.deleteConfirm' => ({required Object type}) => 'Are you sure you want to delete this ${type}? Its record will be permanently deleted. This action cannot be undone.',
+			'debts.debtDetailsTitle' => ({required Object type}) => '${type} Details',
+			'debts.debtTypeLoan' => 'Loan',
+			'debts.debtTypeDebt' => 'Debt',
+			'debts.reminderAlert' => ({required Object type, required Object amount, required Object action, required Object when}) => '${type} of ${amount} must be ${action} ${when}.',
+			'debts.overdueAlert' => ({required Object type, required Object amount, required Object action}) => '${type} of ${amount} is overdue and must be ${action} immediately.',
+			'debts.actionCollect' => 'collected',
+			'debts.actionPay' => 'paid',
+			'debts.today' => 'today',
+			'debts.inDays' => ({required Object days}) => 'in ${days} days',
+			'debts.owedCount' => ({required Object count}) => '${count} owed',
+			'debts.receivableCount' => ({required Object count}) => '${count} receivable',
 			'error.generic' => 'An unexpected error occurred',
 			'error.network' => 'Please check your connection and try again',
 			'error.database' => 'Failed to access local data',
@@ -1897,7 +2319,7 @@ extension on Translations {
 			'goals.active' => 'Active',
 			'goals.past' => 'Past',
 			'goals.actionDenied' => 'Action Denied',
-			'goals.kosongkanSaldoTransferKeluarSebelumMenghapusGoalIni' => 'Kosongkan saldo (transfer keluar) sebelum menghapus Goal ini.',
+			'goals.emptyBalanceBeforeDelete' => 'Empty balance (transfer out) before deleting this Goal.',
 			'goals.ok' => 'OK',
 			'goals.deleteGoal' => 'Delete Goal',
 			'goals.areYouSureYouWantToDeleteThisGoalTheAssociatedPocketAccountAndItsHistoryWillAlsoBeRemovedThisActionCannotBeUndone' => 'Are you sure you want to delete this goal? The associated pocket account and its history will also be removed. This action cannot be undone.',
@@ -1923,6 +2345,12 @@ extension on Translations {
 			'goals.fullyFundedCount' => ({required Object count}) => '${count} fully funded',
 			'goals.noCompletedGoalsYet' => 'No completed goals yet',
 			'goals.completedGoalsWillAppearHere' => 'Goals you complete will appear here.',
+			'goals.editGoal' => 'Edit Goal',
+			'goals.newGoal' => 'New Goal',
+			'goals.nameCannotBeEmpty' => 'Name cannot be empty',
+			'goals.targetAmountGreaterThanZero' => 'Target amount must be greater than 0',
+			'goals.saveChanges' => 'Save Changes',
+			'goals.targetDateLabel' => 'Target Date',
 			'lock.confirmPin' => 'Confirm PIN',
 			'lock.createPin' => 'Create PIN',
 			'lock.pinsDoNotMatch' => 'PINs do not match',
@@ -1939,6 +2367,7 @@ extension on Translations {
 			'lock.invalidPin' => 'Invalid PIN',
 			'lock.tooManyAttempts' => 'Too many attempts',
 			'lock.temporarilyLocked' => 'Temporarily locked',
+			'lock.authenticateReason' => 'Authenticate to access Poka',
 			'onboarding.continueWithCurrency' => 'Continue with selected currency',
 			'onboarding.chooseYourBaseCurrency' => 'Choose Your Base Currency',
 			'onboarding.thisCurrencyWillBeUsedForAllAccountsPocketsAndTransactionsYouCanChangeThisLaterInSettings' => 'This currency will be used for all accounts, pockets, and transactions. You can change this later in settings.',
@@ -1969,6 +2398,29 @@ extension on Translations {
 			'recurring.eachTimeTheAppOpensOverdueRecurringTransactionsAre' => 'Each time the app opens, overdue recurring transactions are automatically recorded in your ledger.',
 			'recurring.schedulesCount' => ({required Object count}) => '${count} schedules',
 			'recurring.pausedCount' => ({required Object count}) => '${count} paused',
+			'recurring.editRecurring' => 'Edit Recurring',
+			'recurring.newRecurring' => 'New Recurring',
+			'recurring.mustSelectAccount' => 'Must select an account',
+			'recurring.sourceAccount' => 'Source Account',
+			'recurring.account' => 'Account',
+			'recurring.selectAccountPrompt' => 'Select account',
+			'recurring.selectDestinationPrompt' => 'Select destination',
+			'recurring.selectCategoryOptional' => 'Select category (optional)',
+			'recurring.noteLabel' => 'Note',
+			'recurring.saveChanges' => 'Save Changes',
+			'recurring.createRecurring' => 'Create Recurring',
+			'recurring.amountGreaterThanZero' => 'Amount must be greater than 0',
+			'recurring.mustSelectStartDate' => 'Must select a start date',
+			'recurring.periodDaily' => 'Daily',
+			'recurring.periodWeekly' => 'Weekly',
+			'recurring.periodMonthly' => 'Monthly',
+			'recurring.periodYearly' => 'Yearly',
+			'recurring.autoGenerateActive' => 'Will auto-generate transactions',
+			'recurring.autoGeneratePaused' => 'Paused — no transactions will be generated',
+			'recurring.recurringIncome' => 'Recurring Income',
+			'recurring.recurringExpense' => 'Recurring Expense',
+			'recurring.recurringTransfer' => 'Recurring Transfer',
+			'recurring.nextDateLabel' => ({required Object date}) => 'Next: ${date}',
 			'reports.title' => 'Reports',
 			'reports.overview' => 'Financial Overview',
 			'reports.tabCashflow' => 'Cashflow',
@@ -2023,6 +2475,11 @@ extension on Translations {
 			'reports.percent30' => '30%',
 			'reports.percent20' => '20%',
 			'reports.rule503020' => '50/30/20',
+			'reports.prevLastMonth' => 'last month',
+			'reports.prevMonth' => 'prev month',
+			'reports.prev3Months' => 'prev 3 mo',
+			'reports.prev6Months' => 'prev 6 mo',
+			'reports.prevPeriod' => 'prev period',
 			'settings.title' => 'Settings',
 			'settings.preferences' => 'Preferences',
 			'settings.baseCurrency' => 'Base Currency',
@@ -2078,6 +2535,8 @@ extension on Translations {
 			'settings.shareErrorLogsForTroubleshooting' => 'Share error logs for troubleshooting',
 			'settings.search' => 'Search...',
 			'settings.errorLoadingContent' => 'Error loading content',
+			_ => null,
+		} ?? switch (path) {
 			'settings.noLicensesFound' => 'No licenses found',
 			'settings.pokaCe' => 'Poka CE',
 			'settings.communityEdition' => 'Community Edition',
@@ -2085,6 +2544,7 @@ extension on Translations {
 			'settings.copyright' => '© 2026 POKA. All rights reserved.',
 			'settings.noResultsFound' => 'No Results Found',
 			'settings.weCouldntFindAnyCurrencyMatching' => 'We couldn\'t find any currency matching "{search}".',
+			'settings.notSet' => 'Not Set',
 			'shared.authRequired' => 'Authentication Required',
 			'shared.hexColorCode' => 'Hex Color Code',
 			'shared.apply' => 'Apply',
@@ -2097,6 +2557,7 @@ extension on Translations {
 			'shared.balance' => 'Balance: ',
 			'shared.optional' => 'Optional',
 			'shared.customColor' => 'Custom Color',
+			'shared.selectWallet' => 'Select Wallet',
 			'transactions.searchTransactions' => 'Search transactions...',
 			'transactions.failedToLoad' => 'Failed to load transactions',
 			'transactions.cancel' => 'Cancel',
@@ -2138,6 +2599,26 @@ extension on Translations {
 			'transactions.splitItems' => ({required Object count}) => '${count} split items',
 			'transactions.itemsCount' => ({required Object count}) => '${count} item(s)',
 			'transactions.transactionsCount' => ({required Object count}) => '${count} transactions',
+			'transactions.editTransaction' => 'Edit Transaction',
+			'transactions.newTransaction' => 'New Transaction',
+			'transactions.fromAccount' => 'From Account',
+			'transactions.toAccount' => 'To Account',
+			'transactions.need' => 'Need',
+			'transactions.want' => 'Want',
+			'transactions.saving' => 'Saving',
+			'transactions.addNoteEllipsis' => 'Add note...',
+			'transactions.editItem' => 'Edit Item',
+			'transactions.newItem' => 'New Item',
+			'transactions.viewModeDay' => 'Day',
+			'transactions.viewModeWeek' => 'Week',
+			'transactions.viewModeMonth' => 'Month',
+			'transactions.viewModeDaily' => 'Daily',
+			'transactions.viewModeWeekly' => 'Weekly',
+			'transactions.viewModeMonthly' => 'Monthly',
+			'transactions.debt' => 'Debt',
+			'transactions.recurring' => 'Recurring',
+			'transactions.transfer' => 'Transfer',
+			'transactions.weekNumber' => ({required Object weekNum, required Object date}) => 'Week ${weekNum} · ${date}',
 			_ => null,
 		};
 	}

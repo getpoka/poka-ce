@@ -83,7 +83,7 @@ class CategorySelectionSheet extends ConsumerWidget {
             ),
             subtitle: children.isNotEmpty
                 ? Text(
-                    '${children.length} subcategor${children.length == 1 ? 'y' : 'ies'}',
+                    t.accounts.subcategoriesCount(count: children.length),
                     style: context.theme.typography.bodySecondary.copyWith(
                       color: context.theme.colors.mutedForeground,
                     ),
