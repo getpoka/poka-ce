@@ -7,6 +7,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v0.1.0-beta.5] - 2026-09-08
+
+Comprehensive bilingual localization (English & Indonesian), visual Net Worth sparkline trends, entity creation prefill support, and critical database integrity fixes for transaction reversals and recurring schedules.
+
+### Added
+
+- Comprehensive bilingual localization support for English and Indonesian across all screens, navigation bars, bottom sheets, form dialogs, and local notifications.
+- Visual net worth trend sparkline on the dashboard hero balance card.
+- Support for pre-filling initial values (accounts, transaction types, dates) when opening creation form sheets.
+- Intelligent pluralization formatting for account pocket counters (`1 pocket` / `N pockets`).
+
+### Changed
+
+- Replaced all hardcoded UI text with dynamic Slang localization bindings across all feature modules.
+- Localized financial report date ranges, navigation headers, and relative period comparisons (`last month`, `previous month`).
+
+### Fixed
+
+- Resolved database integrity issues by ensuring balance mutations and budget deductions are reliably reversed when transactions are deleted.
+- Fixed debt creation and repayment flows to accurately synchronize and deduct linked budget spending records.
+- Prevented date drift in recurring transactions so scheduled bills advance accurately.
+- Preserved adaptive vector icons for Android App Shortcuts on release builds (ProGuard/R8).
+- Fixed sparkline endpoint dot clipping on compact screens.
+- [internal] Added automated AI issue triage workflow with DeepSeek grounding.
+- [internal] Added Cloudflare deploy hook trigger to release workflow.
+
 ## [v0.1.0-beta.4] - 2026-09-05
 
 ### Added
@@ -123,7 +149,8 @@ All core features are feature-complete and ready to be explored:
 
 > **⚠️ Important Note:** This version is still under testing. Deep edge cases (such as editing or deleting complex interconnected data) have not been fully verified. Unexpected bugs may occur — we recommend trying it with dummy data first, or regularly backing up your data from the Settings menu. Help us reach v1.0 by reporting bugs via the [Issues](https://github.com/getpoka/poka-ce/issues) tab.
 
-[Unreleased]: https://github.com/getpoka/poka-ce/compare/v0.1.0-beta.4...main
+[Unreleased]: https://github.com/getpoka/poka-ce/compare/v0.1.0-beta.5...main
+[v0.1.0-beta.5]: https://github.com/getpoka/poka-ce/compare/v0.1.0-beta.4...v0.1.0-beta.5
 [v0.1.0-beta.4]: https://github.com/getpoka/poka-ce/compare/v0.1.0-beta.3...v0.1.0-beta.4
 [v0.1.0-beta.3]: https://github.com/getpoka/poka-ce/compare/v0.1.0-beta.2...v0.1.0-beta.3
 [v0.1.0-beta.2]: https://github.com/getpoka/poka-ce/compare/v0.1.0-beta.1...v0.1.0-beta.2
