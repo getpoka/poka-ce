@@ -51,6 +51,32 @@ class DebtsDao extends DatabaseAccessor<AppDatabase> with _$DebtsDaoMixin {
           )..where((a) => a.id.equals(accountId))).write(AccountsCompanion(balance: Value(account.balance - amount)));
         }
       }
+
+      if (typeStr == 'expense') {
+        final date = transactionHeader.transactionDate.value;
+        final itemAmount = transactionItem.amount.value;
+        final catId = transactionItem.categoryId.present ? transactionItem.categoryId.value : null;
+
+        final matchingRecords =
+            await (select(budgetRecords).join([
+                    innerJoin(budgets, budgets.id.equalsExp(budgetRecords.budgetId)),
+                  ])
+                  ..where(budgets.accountId.isNull() | budgets.accountId.equals(accountId))
+                  ..where(
+                    budgets.categoryId.isNull() |
+                        (catId == null ? budgets.categoryId.isNull() : budgets.categoryId.equals(catId)),
+                  )
+                  ..where(budgetRecords.periodStart.isSmallerOrEqualValue(date))
+                  ..where(budgetRecords.periodEnd.isBiggerOrEqualValue(date)))
+                .get();
+
+        for (final recordRow in matchingRecords) {
+          final record = recordRow.readTable(budgetRecords);
+          await (update(budgetRecords)..where((r) => r.id.equals(record.id))).write(
+            BudgetRecordsCompanion(spentAmount: Value(record.spentAmount + itemAmount)),
+          );
+        }
+      }
     });
   }
 
