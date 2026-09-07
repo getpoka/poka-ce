@@ -59,5 +59,10 @@
   "debt": "Utang",
   "recurring": "Berulang",
   "transfer": "Transfer",
-  "weekNumber": "Minggu {{weekNum}} · {{date}}"
+  "weekNumber": "Minggu {{weekNum}} · {{date}}",
+  "insufficientBalance": "Saldo Tidak Cukup",
+  "insufficientBalanceWarning": "Jumlah transaksi ({{amount}}) melebihi saldo akun {{account}} ({{balance}}). Mungkin kamu belum mencatat pemasukan terlebih dahulu?",
+  "insufficientBalanceConsequence": "Saldo akun kamu akan menjadi minus jika tetap melanjutkan.",
+  "continueAnyway": "Tetap Simpan",
+  "checkAgain": "Periksa Kembali"
 }

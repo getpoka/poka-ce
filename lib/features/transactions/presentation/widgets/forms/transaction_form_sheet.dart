@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poka_ce/core/enums.dart';
+import 'package:poka_ce/core/extensions/num_extension.dart';
 import 'package:poka_ce/features/accounts/presentation/widgets/pickers/account_selector_shelf.dart';
 import 'package:poka_ce/features/categories/domain/category_model.dart';
 import 'package:poka_ce/features/categories/presentation/controllers/category_list_notifier.dart';
@@ -19,6 +22,7 @@ import 'package:poka_ce/features/transactions/presentation/widgets/forms/compone
 import 'package:poka_ce/features/transactions/presentation/widgets/split/transaction_split_sheet.dart';
 import 'package:poka_ce/features/transactions/presentation/widgets/split/transaction_split_summary_card.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
+import 'package:poka_ce/shared/widgets/dialogs/poka_insufficient_balance_dialog.dart';
 import 'package:poka_ce/shared/widgets/sheets/poka_sheet.dart';
 import 'package:poka_ce/theme/theme.dart';
 
@@ -223,6 +227,59 @@ class TransactionFormSheet extends HookConsumerWidget {
       return true;
     }).toList();
 
+    final currencySymbol = settings?.baseCurrency?.symbol ?? '';
+    final precision = settings?.baseCurrency?.precision ?? 0;
+    final localeFormat = settings?.numberFormat ?? 'system';
+
+    Future<void> handleSave() async {
+      unawaited(HapticFeedback.mediumImpact());
+
+      final isOutgoing = state.type == TransactionType.expense || state.type == TransactionType.transfer;
+      if (isOutgoing && selectedAccount != null) {
+        final amount = isSplit
+            ? (state.splitItems?.fold<int>(0, (sum, i) => sum + i.amount) ?? 0)
+            : (int.tryParse(state.amountExpression) ?? 0);
+
+        if (amount > 0) {
+          final prevAmount =
+              (initialTransaction != null &&
+                  initialTransaction!.accountId == selectedAccount.id &&
+                  (initialTransaction!.type == TransactionType.expense ||
+                      initialTransaction!.type == TransactionType.transfer))
+              ? initialTransaction!.amount
+              : 0;
+
+          final availableBalance = selectedAccount.balance + prevAmount;
+
+          if (amount > availableBalance) {
+            final formattedAmount = amount.toCurrencyFormat(
+              symbol: currencySymbol,
+              precision: precision,
+              locale: localeFormat,
+            );
+            final formattedBalance = availableBalance.toCurrencyFormat(
+              symbol: currencySymbol,
+              precision: precision,
+              locale: localeFormat,
+            );
+
+            final proceed = await showPokaInsufficientBalanceDialog(
+              context,
+              accountName: selectedAccount.name,
+              formattedAmount: formattedAmount,
+              formattedBalance: formattedBalance,
+            );
+
+            if (proceed != true) {
+              return;
+            }
+          }
+        }
+      }
+
+      await notifier.save();
+    }
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -288,10 +345,7 @@ class TransactionFormSheet extends HookConsumerWidget {
                   )
                 else
                   FButton(
-                    onPress: () {
-                      HapticFeedback.mediumImpact();
-                      notifier.save();
-                    },
+                    onPress: handleSave,
                     child: Text(t.transactions.saveSplitTransaction),
                   ),
                 const SizedBox(height: 18),
@@ -318,8 +372,7 @@ class TransactionFormSheet extends HookConsumerWidget {
             onCategorySelected: (cat) => notifier.setCategory(cat?.id),
             onKeyPressed: (key) {
               if (key == 'OK') {
-                HapticFeedback.mediumImpact();
-                notifier.save();
+                handleSave();
               } else {
                 notifier.onKeyPressed(key);
               }

@@ -546,6 +546,276 @@ void main() {
         ),
       ).called(1);
     });
+
+    testWidgets(
+      'Expense amount greater than account balance triggers warning dialog, cancel leaves sheet open without saving',
+      (tester) async {
+        when(
+          () => mockCreate.execute(
+            type: any(named: 'type'),
+            accountId: any(named: 'accountId'),
+            amount: any(named: 'amount'),
+            categoryId: any(named: 'categoryId'),
+            note: any(named: 'note'),
+            allocation: any(named: 'allocation'),
+            splitItems: any(named: 'splitItems'),
+            transactionDate: any(named: 'transactionDate'),
+            debtId: any(named: 'debtId'),
+          ),
+        ).thenAnswer((_) async => Success(sampleTx()));
+
+        final lowBalanceAccounts = [
+          AccountModel(
+            id: 'a1',
+            name: 'Wallet',
+            type: AccountType.assets,
+            balance: 100,
+            createdAt: DateTime.utc(2024, 1, 1),
+            updatedAt: DateTime.utc(2024, 1, 1),
+            color: '#10B981',
+            icon: 'wallet',
+          ),
+        ];
+
+        await tester.pumpWidget(buildApp(accounts: lowBalanceAccounts));
+        await tester.pumpAndSettle();
+
+        // Enter amount 500 (> 100 balance)
+        await tester.tap(find.text('5'));
+        await tester.pump();
+        await tester.tap(find.text('0'));
+        await tester.pump();
+        await tester.tap(find.text('0'));
+        await tester.pump();
+
+        await tester.tap(find.byIcon(FPhosphorIcons.check));
+        await tester.pumpAndSettle();
+
+        // Warning dialog should appear
+        expect(find.byType(FDialog), findsOneWidget);
+        expect(find.text(t.transactions.insufficientBalance), findsOneWidget);
+        expect(find.text(t.transactions.checkAgain), findsOneWidget);
+
+        // Tap Check Again (cancel)
+        await tester.tap(find.text(t.transactions.checkAgain));
+        await tester.pumpAndSettle();
+
+        // Dialog dismissed
+        expect(find.byType(FDialog), findsNothing);
+        // Create was NOT called
+        verifyNever(
+          () => mockCreate.execute(
+            type: any(named: 'type'),
+            accountId: any(named: 'accountId'),
+            amount: any(named: 'amount'),
+            categoryId: any(named: 'categoryId'),
+            note: any(named: 'note'),
+            allocation: any(named: 'allocation'),
+            splitItems: any(named: 'splitItems'),
+            transactionDate: any(named: 'transactionDate'),
+            debtId: any(named: 'debtId'),
+          ),
+        );
+      },
+    );
+
+    testWidgets(
+      'Expense amount greater than account balance allows proceeding when user confirms',
+      (tester) async {
+        when(
+          () => mockCreate.execute(
+            type: any(named: 'type'),
+            accountId: any(named: 'accountId'),
+            amount: any(named: 'amount'),
+            categoryId: any(named: 'categoryId'),
+            note: any(named: 'note'),
+            allocation: any(named: 'allocation'),
+            splitItems: any(named: 'splitItems'),
+            transactionDate: any(named: 'transactionDate'),
+            debtId: any(named: 'debtId'),
+          ),
+        ).thenAnswer((_) async => Success(sampleTx()));
+
+        final lowBalanceAccounts = [
+          AccountModel(
+            id: 'a1',
+            name: 'Wallet',
+            type: AccountType.assets,
+            balance: 100,
+            createdAt: DateTime.utc(2024, 1, 1),
+            updatedAt: DateTime.utc(2024, 1, 1),
+            color: '#10B981',
+            icon: 'wallet',
+          ),
+        ];
+
+        await tester.pumpWidget(buildApp(accounts: lowBalanceAccounts));
+        await tester.pumpAndSettle();
+
+        // Enter amount 500 (> 100 balance)
+        await tester.tap(find.text('5'));
+        await tester.pump();
+        await tester.tap(find.text('0'));
+        await tester.pump();
+        await tester.tap(find.text('0'));
+        await tester.pump();
+
+        await tester.tap(find.byIcon(FPhosphorIcons.check));
+        await tester.pumpAndSettle();
+
+        // Warning dialog should appear
+        expect(find.byType(FDialog), findsOneWidget);
+
+        // Tap Continue Anyway
+        await tester.tap(find.text(t.transactions.continueAnyway));
+        await tester.pumpAndSettle();
+
+        // Dialog dismissed and create called
+        expect(find.byType(FDialog), findsNothing);
+        verify(
+          () => mockCreate.execute(
+            type: TransactionType.expense,
+            accountId: 'a1',
+            amount: 500,
+            categoryId: any(named: 'categoryId'),
+            note: any(named: 'note'),
+            allocation: any(named: 'allocation'),
+            splitItems: any(named: 'splitItems'),
+            transactionDate: any(named: 'transactionDate'),
+            debtId: any(named: 'debtId'),
+          ),
+        ).called(1);
+      },
+    );
+
+    testWidgets(
+      'Transfer amount greater than source balance shows warning and saves on confirm',
+      (tester) async {
+        when(
+          () => mockTransfer.execute(
+            amount: any(named: 'amount'),
+            sourceAccountId: any(named: 'sourceAccountId'),
+            destinationAccountId: any(named: 'destinationAccountId'),
+            note: any(named: 'note'),
+            transactionDate: any(named: 'transactionDate'),
+          ),
+        ).thenAnswer((_) async => Success(sampleTx().copyWith(type: TransactionType.transfer)));
+
+        final accounts = [
+          AccountModel(
+            id: 'a1',
+            name: 'Wallet',
+            type: AccountType.assets,
+            balance: 100,
+            createdAt: DateTime.utc(2024, 1, 1),
+            updatedAt: DateTime.utc(2024, 1, 1),
+            color: '#10B981',
+            icon: 'wallet',
+          ),
+          AccountModel(
+            id: 'a2',
+            name: 'Bank',
+            type: AccountType.assets,
+            balance: 5000,
+            createdAt: DateTime.utc(2024, 1, 1),
+            updatedAt: DateTime.utc(2024, 1, 1),
+            color: '#6366F1',
+            icon: 'bank',
+          ),
+        ];
+
+        await tester.pumpWidget(buildApp(initialType: TransactionType.transfer, accounts: accounts));
+        await tester.pumpAndSettle();
+
+        // Enter amount 200 (> 100 balance)
+        await tester.tap(find.text('2'));
+        await tester.pump();
+        await tester.tap(find.text('0'));
+        await tester.pump();
+        await tester.tap(find.text('0'));
+        await tester.pump();
+
+        await tester.tap(find.byIcon(FPhosphorIcons.check));
+        await tester.pumpAndSettle();
+
+        expect(find.byType(FDialog), findsOneWidget);
+
+        await tester.tap(find.text(t.transactions.continueAnyway));
+        await tester.pumpAndSettle();
+
+        verify(
+          () => mockTransfer.execute(
+            amount: 200,
+            sourceAccountId: 'a1',
+            destinationAccountId: 'a2',
+            note: any(named: 'note'),
+            transactionDate: any(named: 'transactionDate'),
+          ),
+        ).called(1);
+      },
+    );
+
+    testWidgets(
+      'Income does not show insufficient balance warning even if amount is large',
+      (tester) async {
+        when(
+          () => mockCreate.execute(
+            type: any(named: 'type'),
+            accountId: any(named: 'accountId'),
+            amount: any(named: 'amount'),
+            categoryId: any(named: 'categoryId'),
+            note: any(named: 'note'),
+            allocation: any(named: 'allocation'),
+            splitItems: any(named: 'splitItems'),
+            transactionDate: any(named: 'transactionDate'),
+            debtId: any(named: 'debtId'),
+          ),
+        ).thenAnswer((_) async => Success(sampleTx()));
+
+        final lowBalanceAccounts = [
+          AccountModel(
+            id: 'a1',
+            name: 'Wallet',
+            type: AccountType.assets,
+            balance: 50,
+            createdAt: DateTime.utc(2024, 1, 1),
+            updatedAt: DateTime.utc(2024, 1, 1),
+            color: '#10B981',
+            icon: 'wallet',
+          ),
+        ];
+
+        await tester.pumpWidget(buildApp(initialType: TransactionType.income, accounts: lowBalanceAccounts));
+        await tester.pumpAndSettle();
+
+        // Enter amount 500 (> 50 balance)
+        await tester.tap(find.text('5'));
+        await tester.pump();
+        await tester.tap(find.text('0'));
+        await tester.pump();
+        await tester.tap(find.text('0'));
+        await tester.pump();
+
+        await tester.tap(find.byIcon(FPhosphorIcons.check));
+        await tester.pumpAndSettle();
+
+        // No dialog shown
+        expect(find.byType(FDialog), findsNothing);
+        verify(
+          () => mockCreate.execute(
+            type: TransactionType.income,
+            accountId: 'a1',
+            amount: 500,
+            categoryId: any(named: 'categoryId'),
+            note: any(named: 'note'),
+            allocation: any(named: 'allocation'),
+            splitItems: any(named: 'splitItems'),
+            transactionDate: any(named: 'transactionDate'),
+            debtId: any(named: 'debtId'),
+          ),
+        ).called(1);
+      },
+    );
   });
 }
 

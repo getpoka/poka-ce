@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Insufficient balance confirmation warning dialog when creating or editing outgoing transactions (expense and transfer) that exceed available account balance, allowing users to proceed or review.
 - Reusable `PokaDonutChart` component unifying donut chart styling across Home and Reports with modern slim geometry and crisp section dividers.
 
 ### Changed
