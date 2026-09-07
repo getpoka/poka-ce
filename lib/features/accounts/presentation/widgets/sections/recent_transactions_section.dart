@@ -34,8 +34,8 @@ class RecentTransactionsSection extends HookConsumerWidget {
           children: [
             PokaSectionLabel(
               title: accountTransactions.isEmpty
-                  ? 'Recent Transactions'
-                  : 'Recent Transactions (${accountTransactions.length})',
+                  ? t.accounts.recentTransactions
+                  : t.accounts.recentTransactionsCount(count: accountTransactions.length),
             ),
             GestureDetector(
               onTap: () {
@@ -47,7 +47,7 @@ class RecentTransactionsSection extends HookConsumerWidget {
               child: Row(
                 children: [
                   Text(
-                    'View all',
+                    t.accounts.seeAll,
                     style: theme.typography.bodySecondary.copyWith(
                       color: theme.colors.primary,
                       fontWeight: FontWeight.w600,

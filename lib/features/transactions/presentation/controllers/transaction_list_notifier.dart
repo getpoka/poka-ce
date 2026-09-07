@@ -8,6 +8,7 @@ import 'package:poka_ce/core/error/failure.dart';
 import 'package:poka_ce/core/error/result.dart';
 import 'package:poka_ce/core/extensions/datetime_extension.dart';
 import 'package:poka_ce/features/transactions/domain/transaction_model.dart';
+import 'package:poka_ce/i18n/strings.g.dart';
 
 /// The date-grouping mode for the transaction list.
 enum TransactionViewMode { day, week, month }
@@ -100,15 +101,18 @@ class TransactionListState {
     TransactionViewMode.day => focusedDate.toRelativeDateString(),
     TransactionViewMode.week => () {
       final weekNum = _weekNumber(focusedDate);
-      return 'Week $weekNum · ${DateFormat('MMM yyyy').format(focusedDate)}';
+      return t.transactions.weekNumber(
+        weekNum: weekNum.toString(),
+        date: DateFormat('MMM yyyy').format(focusedDate),
+      );
     }(),
     TransactionViewMode.month => DateFormat('MMMM yyyy').format(focusedDate),
   };
 
   String get periodShortLabel => switch (viewMode) {
-    TransactionViewMode.day => 'Daily',
-    TransactionViewMode.week => 'Weekly',
-    TransactionViewMode.month => 'Monthly',
+    TransactionViewMode.day => t.transactions.viewModeDaily,
+    TransactionViewMode.week => t.transactions.viewModeWeekly,
+    TransactionViewMode.month => t.transactions.viewModeMonthly,
   };
 
   bool get isCurrentPeriod {

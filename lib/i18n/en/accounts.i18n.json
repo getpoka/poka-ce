@@ -40,8 +40,18 @@
   "noCategoriesAvailable": "No categories available.",
   "noAccountsFound1": "No accounts found",
   "subcategoriesCount": "{{count}} subcategor(ies)",
-  "pocketsCount": "{{count}} pocket(s)",
+  "pocketsCount(param=count)": {
+    "one": "1 pocket",
+    "other": "{{count}} pockets"
+  },
   "totalActiveAccounts": "Total Active Accounts",
   "noAccountsYet": "No Accounts Yet",
-  "tapTheButtonBelowToAddYourFirstAccount": "Tap the button below to add your first account"
+  "tapTheButtonBelowToAddYourFirstAccount": "Tap the button below to add your first account",
+  "allCategoriesAllowed": "All categories allowed",
+  "categoriesSelected": "{{count}} categories selected",
+  "ratioOfAccount": "{{percent}}% of account",
+  "noMainAccountsYet": "No main accounts yet.",
+  "percentOfAssets": "{{percent}}% of assets",
+  "recentTransactions": "Recent Transactions",
+  "recentTransactionsCount": "Recent Transactions ({{count}})"
 }

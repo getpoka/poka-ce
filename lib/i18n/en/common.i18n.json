@@ -9,5 +9,13 @@
   "error": "An error occurred",
   "retry": "Retry",
   "empty": "No data yet",
-  "cannotBeUndone": "This action cannot be undone."
+  "cannotBeUndone": "This action cannot be undone.",
+  "pleaseWait": "Please wait",
+  "today": "Today",
+  "yesterday": "Yesterday",
+  "dueToday": "Due today",
+  "overdue": "Overdue",
+  "uncategorized": "Uncategorized",
+  "unknown": "Unknown",
+  "notSet": "Not Set"
 }

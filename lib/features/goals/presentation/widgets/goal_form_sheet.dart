@@ -107,7 +107,7 @@ class GoalFormSheet extends HookConsumerWidget {
     final formKey = useMemoized(GlobalKey<FormState>.new);
 
     return PokaSheet(
-      title: isEditing ? 'Edit Goal' : 'New Goal',
+      title: isEditing ? t.goals.editGoal : t.goals.newGoal,
       child: Form(
         key: formKey,
         child: Column(
@@ -119,7 +119,7 @@ class GoalFormSheet extends HookConsumerWidget {
               label: Text(t.goals.goalName),
               hint: t.goals.egEmergencyFundNewLaptop,
               autovalidateMode: AutovalidateMode.onUserInteraction,
-              validator: (value) => value == null || value.trim().isEmpty ? 'Name cannot be empty' : null,
+              validator: (value) => value == null || value.trim().isEmpty ? t.goals.nameCannotBeEmpty : null,
             ),
             const SizedBox(height: 12),
 
@@ -132,7 +132,7 @@ class GoalFormSheet extends HookConsumerWidget {
               autovalidateMode: AutovalidateMode.onUserInteraction,
               validator: (value) {
                 final amount = int.tryParse(value ?? '');
-                if (amount == null || amount <= 0) return 'Target amount must be greater than 0';
+                if (amount == null || amount <= 0) return t.goals.targetAmountGreaterThanZero;
                 return null;
               },
             ),
@@ -186,7 +186,7 @@ class GoalFormSheet extends HookConsumerWidget {
                     notifier.save();
                   }
                 },
-                child: Text(isEditing ? 'Save Changes' : 'Create Goal'),
+                child: Text(isEditing ? t.goals.saveChanges : t.goals.createGoal),
               ),
           ],
         ),

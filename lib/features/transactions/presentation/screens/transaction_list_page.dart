@@ -312,9 +312,9 @@ class _StickyNavDelegate extends SliverPersistentHeaderDelegate {
               children: TransactionViewMode.values.map((mode) {
                 final isSelected = state.viewMode == mode;
                 final label = switch (mode) {
-                  TransactionViewMode.day => 'Day',
-                  TransactionViewMode.week => 'Week',
-                  TransactionViewMode.month => 'Month',
+                  TransactionViewMode.day => t.transactions.viewModeDay,
+                  TransactionViewMode.week => t.transactions.viewModeWeek,
+                  TransactionViewMode.month => t.transactions.viewModeMonth,
                 };
                 return Expanded(
                   child: GestureDetector(

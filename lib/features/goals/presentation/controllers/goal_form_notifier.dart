@@ -2,6 +2,7 @@ import 'package:poka_ce/app/providers/repository_providers.dart';
 import 'package:poka_ce/core/error/result.dart';
 import 'package:poka_ce/core/utils/datetime_utils.dart';
 import 'package:poka_ce/features/goals/domain/goal_model.dart';
+import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:uuid/uuid.dart';
 
@@ -96,11 +97,11 @@ class GoalFormNotifier extends _$GoalFormNotifier {
 
   Future<void> save() async {
     if (state.name.trim().isEmpty) {
-      state = state.copyWith(error: 'Name cannot be empty', isSaving: false);
+      state = state.copyWith(error: t.goals.nameCannotBeEmpty, isSaving: false);
       return;
     }
     if (state.targetAmount <= 0) {
-      state = state.copyWith(error: 'Target amount must be greater than 0', isSaving: false);
+      state = state.copyWith(error: t.goals.targetAmountGreaterThanZero, isSaving: false);
       return;
     }
     state = state.copyWith(isSaving: true);

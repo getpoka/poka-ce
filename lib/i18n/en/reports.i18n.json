@@ -52,5 +52,10 @@
   "percent50": "50%",
   "percent30": "30%",
   "percent20": "20%",
-  "rule503020": "50/30/20"
+  "rule503020": "50/30/20",
+  "prevLastMonth": "last month",
+  "prevMonth": "prev month",
+  "prev3Months": "prev 3 mo",
+  "prev6Months": "prev 6 mo",
+  "prevPeriod": "prev period"
 }

@@ -142,7 +142,11 @@ class CategoryFormSheet extends HookConsumerWidget {
                     }
                   },
             prefix: state.isSaving ? const FCircularProgress() : null,
-            child: Text(state.isSaving ? 'Please wait' : (isSubCategory ? 'Save Sub Category' : 'Save Category')),
+            child: Text(
+              state.isSaving
+                  ? t.common.pleaseWait
+                  : (isSubCategory ? t.categories.saveSubCategory : t.categories.saveCategory),
+            ),
           ),
         ],
       ),
@@ -150,9 +154,9 @@ class CategoryFormSheet extends HookConsumerWidget {
 
     final String title;
     if (initialCategory == null) {
-      title = parentId != null ? 'New Sub Category' : 'New Category';
+      title = parentId != null ? t.categories.newSubCategory : t.categories.newCategory;
     } else {
-      title = initialCategory!.parentId != null ? 'Edit Sub Category' : 'Edit Category';
+      title = initialCategory!.parentId != null ? t.categories.editSubCategory : t.categories.editCategory;
     }
 
     return PokaSheet(

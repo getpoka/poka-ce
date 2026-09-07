@@ -69,7 +69,7 @@ class DebtDetailPage extends ConsumerWidget {
 
     return FScaffold(
       header: PokaHeader(
-        title: '${isPayable ? "Debt" : "Loan"} Details',
+        title: t.debts.debtDetailsTitle(type: isPayable ? t.debts.debtTypeDebt : t.debts.debtTypeLoan),
         showBack: true,
         suffixes: [
           FHeaderAction(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class DebtDueDateChip extends StatelessWidget {
@@ -19,9 +20,9 @@ class DebtDueDateChip extends StatelessWidget {
 
     final color = isOverdue ? overdueColor : (isUrgent ? urgentColor : theme.colors.mutedForeground);
     final label = isOverdue
-        ? 'Overdue'
+        ? t.common.overdue
         : daysLeft == 0
-        ? 'Due today'
+        ? t.common.dueToday
         : DateFormat.MMMd().format(dueDate);
 
     return Container(

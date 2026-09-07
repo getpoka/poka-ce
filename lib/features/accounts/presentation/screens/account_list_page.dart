@@ -85,11 +85,11 @@ class AccountListPage extends HookConsumerWidget {
                 ).animateEntrance(delay: 120.ms),
               )
             else
-              const SliverToBoxAdapter(
+              SliverToBoxAdapter(
                 child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 24),
+                  padding: const EdgeInsets.symmetric(vertical: 24),
                   child: Center(
-                    child: Text('No main accounts yet.'),
+                    child: Text(t.accounts.noMainAccountsYet),
                   ),
                 ),
               ),

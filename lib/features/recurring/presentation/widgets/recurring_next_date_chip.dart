@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class RecurringNextDateChip extends StatelessWidget {
@@ -25,10 +26,10 @@ class RecurringNextDateChip extends StatelessWidget {
         : theme.colors.mutedForeground;
 
     final label = isOverdue
-        ? 'Overdue'
+        ? t.common.overdue
         : isDueToday
-        ? 'Due today'
-        : 'Next: ${DateFormat.MMMd().format(nextDate)}';
+        ? t.common.dueToday
+        : t.recurring.nextDateLabel(date: DateFormat.MMMd().format(nextDate));
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),

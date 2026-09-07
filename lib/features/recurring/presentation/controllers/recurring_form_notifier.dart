@@ -5,6 +5,7 @@ import 'package:poka_ce/core/error/result.dart';
 import 'package:poka_ce/core/utils/datetime_utils.dart';
 import 'package:poka_ce/features/recurring/domain/recurring_model.dart';
 import 'package:poka_ce/features/recurring/presentation/controllers/recurring_list_notifier.dart';
+import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:uuid/uuid.dart';
 
@@ -81,11 +82,11 @@ class RecurringFormNotifier extends _$RecurringFormNotifier {
 
   Future<void> save() async {
     if (state.amount <= 0) {
-      state = state.copyWith(error: 'Amount must be greater than 0', isSaving: false);
+      state = state.copyWith(error: t.recurring.amountGreaterThanZero, isSaving: false);
       return;
     }
     if (state.accountId.isEmpty) {
-      state = state.copyWith(error: 'Must select an account', isSaving: false);
+      state = state.copyWith(error: t.recurring.mustSelectAccount, isSaving: false);
       return;
     }
     state = state.copyWith(isSaving: true, error: null);

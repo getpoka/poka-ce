@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import 'package:poka_ce/i18n/strings.g.dart';
 
 extension DateTimeExtension on DateTime {
   String toFormattedTime() {
@@ -19,9 +20,9 @@ extension DateTimeExtension on DateTime {
     final target = DateTime(toLocal().year, toLocal().month, toLocal().day);
 
     if (target == today) {
-      return 'Today';
+      return t.common.today;
     } else if (target == yesterday) {
-      return 'Yesterday';
+      return t.common.yesterday;
     } else {
       final dateFormat = DateFormat('EEE, dd MMM');
       return dateFormat.format(toLocal());

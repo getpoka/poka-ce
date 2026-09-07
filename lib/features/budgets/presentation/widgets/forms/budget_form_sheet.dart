@@ -154,7 +154,7 @@ class BudgetFormSheet extends HookConsumerWidget {
     final formKey = useMemoized(GlobalKey<FormState>.new);
 
     return PokaSheet(
-      title: isEditing ? 'Edit Budget' : 'New Budget',
+      title: isEditing ? t.budgets.editBudget : t.budgets.newBudget,
       child: Form(
         key: formKey,
         child: Column(
@@ -165,7 +165,7 @@ class BudgetFormSheet extends HookConsumerWidget {
               label: Text(t.budgets.budgetName),
               hint: t.budgets.egGroceriesEntertainment,
               autovalidateMode: AutovalidateMode.onUserInteraction,
-              validator: (value) => value == null || value.trim().isEmpty ? 'Name cannot be empty' : null,
+              validator: (value) => value == null || value.trim().isEmpty ? t.budgets.nameCannotBeEmpty : null,
             ),
             const SizedBox(height: 12),
             FTextFormField(
@@ -176,14 +176,14 @@ class BudgetFormSheet extends HookConsumerWidget {
               autovalidateMode: AutovalidateMode.onUserInteraction,
               validator: (value) {
                 final amount = int.tryParse(value ?? '');
-                if (amount == null || amount <= 0) return 'Amount must be greater than 0';
+                if (amount == null || amount <= 0) return t.budgets.amountGreaterThanZero;
                 return null;
               },
             ),
             const SizedBox(height: 12),
             FTextFormField(
               control: FTextFieldControl.managed(controller: alertThresholdController),
-              label: const PokaFormLabel('Alert threshold (%)', isOptional: true),
+              label: PokaFormLabel(t.budgets.alertThresholdLabel, isOptional: true),
               hint: t.budgets.eg80,
               keyboardType: TextInputType.number,
             ),
@@ -215,7 +215,7 @@ class BudgetFormSheet extends HookConsumerWidget {
             ],
             FLabel(
               layout: FLabelLayout.vertical,
-              label: const PokaFormLabel('Scope', isOptional: true),
+              label: PokaFormLabel(t.budgets.scope, isOptional: true),
               child: FCard(
                 child: Column(
                   children: [
@@ -230,7 +230,7 @@ class BudgetFormSheet extends HookConsumerWidget {
                             )
                           : null,
                       label: t.budgets.category,
-                      value: selectedCategory?.name ?? 'Any category',
+                      value: selectedCategory?.name ?? t.budgets.anyCategory,
                       hasValue: selectedCategory != null,
                       onClear: () => notifier.setCategoryId(null),
                       onTap: () async {
@@ -252,7 +252,7 @@ class BudgetFormSheet extends HookConsumerWidget {
                             )
                           : null,
                       label: t.budgets.account,
-                      value: selectedAccount?.name ?? 'Any account',
+                      value: selectedAccount?.name ?? t.budgets.anyAccount,
                       hasValue: selectedAccount != null,
                       onClear: () => notifier.setAccountId(null),
                       onTap: () async {
@@ -276,7 +276,7 @@ class BudgetFormSheet extends HookConsumerWidget {
                     notifier.save();
                   }
                 },
-                child: Text(isEditing ? 'Save Changes' : 'Create Budget'),
+                child: Text(isEditing ? t.budgets.saveChanges : t.budgets.createBudget),
               ),
           ],
         ),

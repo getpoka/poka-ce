@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class GoalStatusBadge extends StatelessWidget {
@@ -38,7 +39,7 @@ class GoalDeadlineBadge extends StatelessWidget {
     final urgentColor = theme.colors.app.warning;
 
     final color = isUrgent ? urgentColor : theme.colors.mutedForeground;
-    final label = daysLeft <= 0 ? 'Due today' : DateFormat.MMMd().format(targetDate);
+    final label = daysLeft <= 0 ? t.common.dueToday : DateFormat.MMMd().format(targetDate);
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),

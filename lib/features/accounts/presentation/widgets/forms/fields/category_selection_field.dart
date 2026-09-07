@@ -74,8 +74,8 @@ class CategorySelectionField extends StatelessWidget {
                   const SizedBox(height: 1),
                   Text(
                     restrictedCategoryIds.isEmpty
-                        ? 'All categories allowed'
-                        : '${restrictedCategoryIds.length} categories selected',
+                        ? t.accounts.allCategoriesAllowed
+                        : t.accounts.categoriesSelected(count: restrictedCategoryIds.length),
                     style: context.theme.typography.bodySecondary.copyWith(
                       color: restrictedCategoryIds.isNotEmpty
                           ? context.theme.colors.primary

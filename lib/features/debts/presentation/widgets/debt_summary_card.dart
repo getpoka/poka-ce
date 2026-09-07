@@ -36,7 +36,7 @@ class DebtSummaryCard extends StatelessWidget {
       pills: [
         PokaHeroCardPill(
           icon: isPayable ? FPhosphorIcons.arrowUpRight : FPhosphorIcons.arrowDownLeft,
-          label: '${debts.length} ${isPayable ? 'owed' : 'receivable'}',
+          label: isPayable ? t.debts.owedCount(count: debts.length) : t.debts.receivableCount(count: debts.length),
         ),
         if (paidCount > 0)
           PokaHeroCardPill(

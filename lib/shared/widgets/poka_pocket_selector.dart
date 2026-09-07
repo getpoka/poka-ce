@@ -29,13 +29,13 @@ class PokaPocketSelector extends HookWidget {
   static Future<AccountModel?> show(
     BuildContext context, {
     required List<AccountModel> accounts,
-    String title = 'Select Wallet',
+    String? title,
     String? selectedId,
   }) {
     return showPokaSheet<AccountModel>(
       context: context,
       builder: (context) => PokaSheet(
-        title: title,
+        title: title ?? t.shared.selectWallet,
         child: PokaPocketSelector(accounts: accounts, selectedId: selectedId),
       ),
     );

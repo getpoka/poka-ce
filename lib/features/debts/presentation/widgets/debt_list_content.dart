@@ -44,7 +44,7 @@ class DebtListContent extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             PokaSectionLabel(
-              title: isPayable ? 'Payable' : 'Receivable',
+              title: isPayable ? t.debts.payable : t.debts.receivable,
             ),
             Builder(
               builder: (context) => GestureDetector(

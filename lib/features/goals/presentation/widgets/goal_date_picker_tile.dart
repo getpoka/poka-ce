@@ -32,7 +32,7 @@ class GoalDatePickerTile extends HookWidget {
       builder: (context, popoverController, child) {
         return FTextField(
           control: FTextFieldControl.managed(controller: controller),
-          label: const PokaFormLabel('Target Date', isOptional: true),
+          label: PokaFormLabel(t.goals.targetDateLabel, isOptional: true),
           hint: t.goals.selectTargetDate,
           readOnly: true,
           onTap: () {

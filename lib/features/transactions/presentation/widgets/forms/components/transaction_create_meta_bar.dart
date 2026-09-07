@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:poka_ce/core/enums.dart';
+import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 extension TransactionAllocationExt on TransactionAllocation {
@@ -18,11 +19,11 @@ extension TransactionAllocationExt on TransactionAllocation {
   String label() {
     switch (this) {
       case TransactionAllocation.need:
-        return 'Need';
+        return t.transactions.need;
       case TransactionAllocation.want:
-        return 'Want';
+        return t.transactions.want;
       case TransactionAllocation.saving:
-        return 'Saving';
+        return t.transactions.saving;
     }
   }
 
@@ -86,7 +87,7 @@ class TransactionCreateMetaBar extends StatelessWidget {
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
-                        note.isEmpty ? 'Add note...' : note,
+                        note.isEmpty ? t.transactions.addNoteEllipsis : note,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: theme.typography.bodyPrimary.copyWith(

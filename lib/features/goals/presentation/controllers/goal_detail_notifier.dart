@@ -40,7 +40,7 @@ class GoalDetailNotifier extends _$GoalDetailNotifier {
         await showPokaConfirmDialog(
           context,
           title: t.goals.actionDenied,
-          body: t.goals.kosongkanSaldoTransferKeluarSebelumMenghapusGoalIni,
+          body: t.goals.emptyBalanceBeforeDelete,
           confirmText: t.goals.ok,
         );
       }

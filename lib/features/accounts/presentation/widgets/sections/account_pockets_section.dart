@@ -86,7 +86,7 @@ class AccountPocketsSection extends HookConsumerWidget {
             },
             children: pockets.map((pocket) {
               final ratio = totalBalance > 0 ? (pocket.balance / totalBalance).clamp(0.0, 1.0) : 0.0;
-              final ratioLabel = '${(ratio * 100).toStringAsFixed(0)}% of account';
+              final ratioLabel = t.accounts.ratioOfAccount(percent: (ratio * 100).toStringAsFixed(0));
 
               return AccountMiniCard(
                 key: ValueKey(pocket.id),

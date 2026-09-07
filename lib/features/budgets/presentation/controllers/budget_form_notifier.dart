@@ -5,6 +5,7 @@ import 'package:poka_ce/core/error/result.dart';
 import 'package:poka_ce/core/utils/datetime_utils.dart';
 import 'package:poka_ce/features/budgets/domain/budget_model.dart';
 import 'package:poka_ce/features/budgets/presentation/controllers/budget_list_notifier.dart';
+import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:uuid/uuid.dart';
 
@@ -78,11 +79,11 @@ class BudgetFormNotifier extends _$BudgetFormNotifier {
 
   Future<void> save() async {
     if (state.name.trim().isEmpty) {
-      state = state.copyWith(error: 'Name cannot be empty', isSaving: false);
+      state = state.copyWith(error: t.budgets.nameCannotBeEmpty, isSaving: false);
       return;
     }
     if (state.amount <= 0) {
-      state = state.copyWith(error: 'Amount must be greater than 0', isSaving: false);
+      state = state.copyWith(error: t.budgets.amountGreaterThanZero, isSaving: false);
       return;
     }
     state = state.copyWith(isSaving: true, error: null);

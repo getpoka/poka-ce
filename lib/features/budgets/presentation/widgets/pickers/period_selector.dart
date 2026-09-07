@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:poka_ce/core/enums.dart';
+import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class PeriodSelector extends StatelessWidget {
@@ -43,9 +44,9 @@ class PeriodSelector extends StatelessWidget {
   }
 
   String _periodLabel(BudgetPeriod period) => switch (period) {
-    BudgetPeriod.weekly => 'Weekly',
-    BudgetPeriod.monthly => 'Monthly',
-    BudgetPeriod.yearly => 'Yearly',
-    BudgetPeriod.custom => 'Custom',
+    BudgetPeriod.weekly => t.budgets.periodWeekly,
+    BudgetPeriod.monthly => t.budgets.periodMonthly,
+    BudgetPeriod.yearly => t.budgets.periodYearly,
+    BudgetPeriod.custom => t.budgets.periodCustom,
   };
 }

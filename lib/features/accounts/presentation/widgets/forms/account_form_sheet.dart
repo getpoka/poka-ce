@@ -217,14 +217,14 @@ class AccountFormSheet extends HookConsumerWidget {
                     }
                   },
             prefix: state.isSaving ? const FCircularProgress() : null,
-            child: Text(state.isSaving ? 'Please wait' : 'Save'),
+            child: Text(state.isSaving ? t.common.pleaseWait : t.common.save),
           ),
         ],
       ),
     );
 
     return PokaSheet(
-      title: initialAccount == null ? 'Add Account' : 'Edit Account',
+      title: initialAccount == null ? t.accounts.addAccount : t.accounts.editAccount,
       child: FTabs(
         control: FTabControl.lifted(
           index: state.type == AccountType.liability ? 1 : 0,
