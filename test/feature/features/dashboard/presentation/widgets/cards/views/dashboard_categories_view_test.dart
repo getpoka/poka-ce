@@ -4,6 +4,7 @@ import 'package:forui/forui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:poka_ce/features/dashboard/presentation/widgets/cards/views/carousel_shared.dart';
 import 'package:poka_ce/features/dashboard/presentation/widgets/cards/views/dashboard_categories_view.dart';
+import 'package:poka_ce/shared/widgets/poka_donut_chart.dart';
 import 'package:poka_ce/theme/theme.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/features/dashboard/presentation/controllers/dashboard_notifier.dart';
@@ -38,7 +39,7 @@ void main() {
       await tester.pump();
 
       expect(find.text('No data'), findsOneWidget);
-      expect(find.byWidgetPredicate((w) => w is CustomPaint && w.painter is DonutChartPainter), findsOneWidget);
+      expect(find.byType(PokaDonutChart), findsOneWidget);
     });
 
     testWidgets('shows categories with <=3 items no Other', (tester) async {
@@ -60,7 +61,7 @@ void main() {
       expect(find.text('Transport'), findsOneWidget);
       expect(find.text('Entertainment'), findsOneWidget);
       expect(find.text('Other'), findsNothing);
-      expect(find.byWidgetPredicate((w) => w is CustomPaint && w.painter is DonutChartPainter), findsOneWidget);
+      expect(find.byType(PokaDonutChart), findsOneWidget);
       expect(find.byType(LinearProgressIndicator), findsNWidgets(3));
     });
 
@@ -104,7 +105,7 @@ void main() {
 
       // When total is 0, code uses 1.0 as fallback, so should still render
       expect(find.text('Food'), findsOneWidget);
-      expect(find.byWidgetPredicate((w) => w is CustomPaint && w.painter is DonutChartPainter), findsOneWidget);
+      expect(find.byType(PokaDonutChart), findsOneWidget);
     });
 
     testWidgets('sorts expenses by amount descending', (tester) async {
@@ -157,7 +158,7 @@ void main() {
       await tester.pump();
 
       expect(find.text('BadColor'), findsOneWidget);
-      expect(find.byWidgetPredicate((w) => w is CustomPaint && w.painter is DonutChartPainter), findsOneWidget);
+      expect(find.byType(PokaDonutChart), findsOneWidget);
     });
   });
 }

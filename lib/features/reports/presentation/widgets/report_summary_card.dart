@@ -1,4 +1,3 @@
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poka_ce/core/extensions/num_extension.dart';
@@ -7,6 +6,7 @@ import 'package:poka_ce/features/reports/presentation/controllers/report_notifie
 import 'package:poka_ce/features/reports/presentation/widgets/stat_row_tile.dart';
 import 'package:poka_ce/features/settings/presentation/controllers/settings_notifier.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
+import 'package:poka_ce/shared/widgets/poka_donut_chart.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 /// Cashflow summary hero card — donut chart + income/expense/net rows.
@@ -88,51 +88,27 @@ class ReportSummaryCard extends ConsumerWidget {
             Row(
               children: [
                 // Donut (fl_chart PieChart)
-                SizedBox(
-                  width: 100,
-                  height: 100,
-                  child: Stack(
-                    alignment: Alignment.center,
+                PokaDonutChart(
+                  sections: [
+                    PokaDonutSection(value: incomeVal, color: incomeColor),
+                    PokaDonutSection(value: expenseVal, color: expenseColor),
+                  ],
+                  center: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      PieChart(
-                        PieChartData(
-                          sectionsSpace: 2,
-                          centerSpaceRadius: 34,
-                          startDegreeOffset: -90,
-                          sections: [
-                            PieChartSectionData(
-                              value: incomeVal,
-                              color: incomeColor,
-                              radius: 16,
-                              showTitle: false,
-                            ),
-                            PieChartSectionData(
-                              value: expenseVal,
-                              color: expenseColor,
-                              radius: 16,
-                              showTitle: false,
-                            ),
-                          ],
+                      Text(
+                        '$savingsPct%',
+                        style: theme.typography.bodyPrimary.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: theme.colors.primary,
                         ),
                       ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            '$savingsPct%',
-                            style: theme.typography.bodyPrimary.copyWith(
-                              fontWeight: FontWeight.bold,
-                              color: theme.colors.primary,
-                            ),
-                          ),
-                          Text(
-                            t.savingsRate,
-                            style: theme.typography.labelBadge.copyWith(
-                              color: theme.colors.mutedForeground,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
+                      Text(
+                        t.savingsRate,
+                        style: theme.typography.labelBadge.copyWith(
+                          color: theme.colors.mutedForeground,
+                        ),
+                        textAlign: TextAlign.center,
                       ),
                     ],
                   ),

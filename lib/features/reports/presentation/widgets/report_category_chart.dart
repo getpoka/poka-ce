@@ -1,4 +1,3 @@
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -7,6 +6,7 @@ import 'package:poka_ce/features/reports/domain/services/report_analytics_servic
 import 'package:poka_ce/features/reports/presentation/controllers/report_notifier.dart';
 import 'package:poka_ce/features/reports/presentation/widgets/category_item_tile.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
+import 'package:poka_ce/shared/widgets/poka_donut_chart.dart';
 import 'package:poka_ce/shared/widgets/poka_icon.dart';
 import 'package:poka_ce/theme/theme.dart';
 
@@ -238,25 +238,16 @@ class _CategoryPieChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // The ranked list below already serves as the full legend (dot + name + amount + %).
-    // Removing the duplicate legend panel here lets the pie chart use the full width.
-    return SizedBox(
-      height: 160,
-      child: PieChart(
-        PieChartData(
-          sectionsSpace: 2,
-          centerSpaceRadius: 44,
-          startDegreeOffset: -90,
-          sections: items.map((item) {
-            return PieChartSectionData(
-              value: item.ratio,
-              color: _parseColor(context, item.color),
-              radius: 38,
-              showTitle: false,
-            );
-          }).toList(),
-        ),
-        duration: const Duration(milliseconds: 600),
-        curve: Curves.easeOutCubic,
+    return Center(
+      child: PokaDonutChart(
+        size: 156,
+        thickness: 18,
+        sections: items.map((item) {
+          return PokaDonutSection(
+            value: item.ratio,
+            color: _parseColor(context, item.color),
+          );
+        }).toList(),
       ),
     );
   }

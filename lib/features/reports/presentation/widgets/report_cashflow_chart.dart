@@ -163,7 +163,7 @@ class _CashflowBarChart extends StatelessWidget {
           drawVerticalLine: false,
           horizontalInterval: yMax / 4,
           getDrawingHorizontalLine: (_) => FlLine(
-            color: theme.colors.border.withValues(alpha: 0.4),
+            color: theme.colors.border.withValues(alpha: 0.25),
             strokeWidth: 1,
             dashArray: [4, 4],
           ),
@@ -178,17 +178,17 @@ class _CashflowBarChart extends StatelessWidget {
               BarChartRodData(
                 toY: point.income,
                 color: incomeColor.withValues(alpha: 0.85),
-                width: 9,
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(4)),
+                width: 13,
+                borderRadius: const BorderRadius.vertical(top: Radius.circular(6)),
               ),
               BarChartRodData(
                 toY: point.expense,
                 color: expenseColor,
-                width: 9,
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(4)),
+                width: 13,
+                borderRadius: const BorderRadius.vertical(top: Radius.circular(6)),
               ),
             ],
-            barsSpace: 3,
+            barsSpace: 4,
           );
         }),
       ),
