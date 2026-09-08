@@ -18,6 +18,7 @@ import 'package:poka_ce/features/settings/presentation/controllers/settings_noti
 import 'package:poka_ce/features/transactions/domain/transaction_model.dart';
 import 'package:poka_ce/features/transactions/domain/use_cases/create_transaction_use_case.dart';
 import 'package:poka_ce/features/transactions/domain/use_cases/transfer_funds_use_case.dart';
+import 'package:poka_ce/features/transactions/domain/use_cases/update_transaction_use_case.dart';
 import 'package:poka_ce/features/transactions/presentation/controllers/transaction_form_notifier.dart';
 import 'package:poka_ce/features/transactions/presentation/controllers/transaction_list_notifier.dart';
 import 'package:poka_ce/features/transactions/presentation/widgets/forms/components/transaction_transfer_selector.dart';
@@ -28,6 +29,8 @@ import 'package:poka_ce/theme/theme.dart';
 class MockCreateTransactionUseCase extends Mock implements CreateTransactionUseCase {}
 
 class MockTransferFundsUseCase extends Mock implements TransferFundsUseCase {}
+
+class MockUpdateTransactionUseCase extends Mock implements UpdateTransactionUseCase {}
 
 class FakeTransactionModel extends Fake implements TransactionModel {}
 
@@ -42,10 +45,12 @@ void main() {
 
   late MockCreateTransactionUseCase mockCreate;
   late MockTransferFundsUseCase mockTransfer;
+  late MockUpdateTransactionUseCase mockUpdate;
 
   setUp(() {
     mockCreate = MockCreateTransactionUseCase();
     mockTransfer = MockTransferFundsUseCase();
+    mockUpdate = MockUpdateTransactionUseCase();
   });
 
   List<AccountModel> sampleAccounts() => [
@@ -101,6 +106,7 @@ void main() {
 
   ProviderScope buildApp({
     TransactionType? initialType,
+    TransactionModel? initialTransaction,
     List<AccountModel>? accounts,
     List<CategoryModel>? categories,
     SettingsState? settingsState,
@@ -113,6 +119,7 @@ void main() {
     return ProviderScope(
       overrides: [
         createTransactionUseCaseProvider.overrideWithValue(mockCreate),
+        updateTransactionUseCaseProvider.overrideWithValue(mockUpdate),
         transferFundsUseCaseProvider.overrideWithValue(mockTransfer),
         dashboardProvider.overrideWith(
           () => _FakeDashboardNotifier(DashboardState(accounts: accs, isLoading: false)),
@@ -131,7 +138,12 @@ void main() {
             child: FToaster(child: child!),
           ),
           home: Scaffold(
-            body: SingleChildScrollView(child: TransactionFormSheet(initialType: initialType)),
+            body: SingleChildScrollView(
+              child: TransactionFormSheet(
+                initialType: initialType,
+                initialTransaction: initialTransaction,
+              ),
+            ),
           ),
         ),
       ),
@@ -812,6 +824,146 @@ void main() {
             splitItems: any(named: 'splitItems'),
             transactionDate: any(named: 'transactionDate'),
             debtId: any(named: 'debtId'),
+          ),
+        ).called(1);
+      },
+    );
+
+    testWidgets(
+      'Editing existing transaction on same account with same amount does not show warning',
+      (tester) async {
+        final existingTx = sampleTx().copyWith(amount: 500);
+        when(
+          () => mockUpdate.execute(
+            any(),
+            type: any(named: 'type'),
+            accountId: any(named: 'accountId'),
+            destinationAccountId: any(named: 'destinationAccountId'),
+            amount: any(named: 'amount'),
+            categoryId: any(named: 'categoryId'),
+            note: any(named: 'note'),
+            transactionDate: any(named: 'transactionDate'),
+            allocation: any(named: 'allocation'),
+            splitItems: any(named: 'splitItems'),
+          ),
+        ).thenAnswer((_) async => Success(existingTx));
+
+        final accounts = [
+          AccountModel(
+            id: 'a1',
+            name: 'Wallet',
+            type: AccountType.assets,
+            balance: 0,
+            createdAt: DateTime.utc(2024, 1, 1),
+            updatedAt: DateTime.utc(2024, 1, 1),
+            color: '#10B981',
+            icon: 'wallet',
+          ),
+        ];
+
+        await tester.pumpWidget(
+          buildApp(
+            initialTransaction: existingTx,
+            accounts: accounts,
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        await tester.tap(find.byIcon(FPhosphorIcons.check));
+        await tester.pumpAndSettle();
+
+        expect(find.byType(FDialog), findsNothing);
+        verify(
+          () => mockUpdate.execute(
+            any(),
+            type: any(named: 'type'),
+            accountId: any(named: 'accountId'),
+            destinationAccountId: any(named: 'destinationAccountId'),
+            amount: 500,
+            categoryId: any(named: 'categoryId'),
+            note: any(named: 'note'),
+            transactionDate: any(named: 'transactionDate'),
+            allocation: any(named: 'allocation'),
+            splitItems: any(named: 'splitItems'),
+          ),
+        ).called(1);
+      },
+    );
+
+    testWidgets(
+      'Editing existing transaction on same account with increased amount exceeding available balance shows warning',
+      (tester) async {
+        final existingTx = sampleTx().copyWith(amount: 100);
+        when(
+          () => mockUpdate.execute(
+            any(),
+            type: any(named: 'type'),
+            accountId: any(named: 'accountId'),
+            destinationAccountId: any(named: 'destinationAccountId'),
+            amount: any(named: 'amount'),
+            categoryId: any(named: 'categoryId'),
+            note: any(named: 'note'),
+            transactionDate: any(named: 'transactionDate'),
+            allocation: any(named: 'allocation'),
+            splitItems: any(named: 'splitItems'),
+          ),
+        ).thenAnswer((_) async => Success(existingTx));
+
+        final accounts = [
+          AccountModel(
+            id: 'a1',
+            name: 'Wallet',
+            type: AccountType.assets,
+            balance: 0,
+            createdAt: DateTime.utc(2024, 1, 1),
+            updatedAt: DateTime.utc(2024, 1, 1),
+            color: '#10B981',
+            icon: 'wallet',
+          ),
+        ];
+
+        await tester.pumpWidget(
+          buildApp(
+            initialTransaction: existingTx,
+            accounts: accounts,
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        // Clear and enter 500 via numpad (> 100 available)
+        await tester.tap(find.byIcon(FPhosphorIcons.backspace));
+        await tester.pump();
+        await tester.tap(find.byIcon(FPhosphorIcons.backspace));
+        await tester.pump();
+        await tester.tap(find.byIcon(FPhosphorIcons.backspace));
+        await tester.pump();
+        await tester.tap(find.text('5'));
+        await tester.pump();
+        await tester.tap(find.text('0'));
+        await tester.pump();
+        await tester.tap(find.text('0'));
+        await tester.pump();
+
+        await tester.tap(find.byIcon(FPhosphorIcons.check));
+        await tester.pumpAndSettle();
+
+        expect(find.byType(FDialog), findsOneWidget);
+
+        await tester.tap(find.text(t.transactions.continueAnyway));
+        await tester.pumpAndSettle();
+
+        verify(
+          () => mockUpdate.execute(
+            any(),
+            type: any(named: 'type'),
+            accountId: any(named: 'accountId'),
+            destinationAccountId: any(named: 'destinationAccountId'),
+            amount: 500,
+            categoryId: any(named: 'categoryId'),
+            note: any(named: 'note'),
+            transactionDate: any(named: 'transactionDate'),
+            allocation: any(named: 'allocation'),
+            splitItems: any(named: 'splitItems'),
           ),
         ).called(1);
       },

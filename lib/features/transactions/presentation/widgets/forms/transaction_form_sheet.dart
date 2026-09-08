@@ -241,17 +241,17 @@ class TransactionFormSheet extends HookConsumerWidget {
             : (int.tryParse(state.amountExpression) ?? 0);
 
         if (amount > 0) {
-          final prevAmount =
-              (initialTransaction != null &&
-                  initialTransaction!.accountId == selectedAccount.id &&
-                  (initialTransaction!.type == TransactionType.expense ||
-                      initialTransaction!.type == TransactionType.transfer))
-              ? initialTransaction!.amount
-              : 0;
+          final isSameAccountOutgoing =
+              initialTransaction != null &&
+              initialTransaction!.accountId == selectedAccount.id &&
+              (initialTransaction!.type == TransactionType.expense ||
+                  initialTransaction!.type == TransactionType.transfer);
 
+          final prevAmount = isSameAccountOutgoing ? initialTransaction!.amount : 0;
           final availableBalance = selectedAccount.balance + prevAmount;
+          final isIncreasingOrNewExpense = !isSameAccountOutgoing || amount > prevAmount;
 
-          if (amount > availableBalance) {
+          if (isIncreasingOrNewExpense && amount > availableBalance) {
             final formattedAmount = amount.toCurrencyFormat(
               symbol: currencySymbol,
               precision: precision,
