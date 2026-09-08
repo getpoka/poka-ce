@@ -64,5 +64,7 @@
   "insufficientBalanceWarning": "Jumlah transaksi ({{amount}}) melebihi saldo akun {{account}} ({{balance}}). Mungkin kamu belum mencatat pemasukan terlebih dahulu?",
   "insufficientBalanceConsequence": "Saldo akun kamu akan menjadi minus jika tetap melanjutkan.",
   "continueAnyway": "Tetap Simpan",
-  "checkAgain": "Periksa Kembali"
+  "checkAgain": "Periksa Kembali",
+  "transactionDeleted": "Transaksi dihapus",
+  "transactionRestored": "Transaksi dipulihkan"
 }

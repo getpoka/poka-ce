@@ -30,4 +30,7 @@ abstract class ITransactionRepository {
 
   /// Deletes a transaction by ID.
   Future<Result<void, Failure>> deleteTransaction(String id);
+
+  /// Restores a previously deleted transaction along with its items.
+  Future<Result<void, Failure>> restoreTransaction(TransactionModel transaction);
 }

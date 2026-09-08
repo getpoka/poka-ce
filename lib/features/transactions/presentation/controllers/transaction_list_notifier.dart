@@ -257,6 +257,10 @@ class TransactionListNotifier extends Notifier<TransactionListState> {
     await ref.read(transactionRepositoryProvider).deleteTransaction(id);
   }
 
+  Future<void> restoreTransaction(TransactionModel transaction) async {
+    await ref.read(transactionRepositoryProvider).restoreTransaction(transaction);
+  }
+
   DateTime _offsetDate(int direction) {
     final d = state.focusedDate;
     return switch (state.viewMode) {
