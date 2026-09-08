@@ -4,12 +4,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:poka_ce/features/backup/data/backup_service.dart';
+import 'package:poka_ce/features/backup/domain/backup_reminder_service.dart';
 import 'package:poka_ce/features/backup/presentation/controllers/backup_controller.dart';
 import 'package:result_dart/result_dart.dart';
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 class MockBackupService extends Mock implements BackupService {}
+
+class MockBackupReminderService extends Mock implements BackupReminderService {}
 
 class FakeSharePlatform extends SharePlatform with MockPlatformInterfaceMixin {
   @override
@@ -22,10 +25,14 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   late MockBackupService mockService;
+  late MockBackupReminderService mockReminderService;
   late SharePlatform originalSharePlatform;
 
   setUp(() {
     mockService = MockBackupService();
+    mockReminderService = MockBackupReminderService();
+    when(() => mockReminderService.recordBackupCompleted(any())).thenAnswer((_) async {});
+    when(() => mockReminderService.recordBackupCompleted()).thenAnswer((_) async {});
     originalSharePlatform = SharePlatform.instance;
     // Default: fake that succeeds
     SharePlatform.instance = FakeSharePlatform();
@@ -37,7 +44,10 @@ void main() {
 
   ProviderContainer createContainer() {
     final container = ProviderContainer(
-      overrides: [backupServiceProvider.overrideWithValue(mockService)],
+      overrides: [
+        backupServiceProvider.overrideWithValue(mockService),
+        backupReminderServiceProvider.overrideWithValue(mockReminderService),
+      ],
     );
     addTearDown(container.dispose);
     return container;
@@ -77,6 +87,7 @@ void main() {
       expect(container.read(backupControllerProvider).isLoading, isFalse);
       expect(container.read(backupControllerProvider).hasError, isFalse);
       verify(() => mockService.createEncryptedBackup('password123')).called(1);
+      verify(() => mockReminderService.recordBackupCompleted()).called(1);
     });
 
     test('backup() — on BackupService failure: state transitions loading -> error, returns false', () async {

@@ -11,5 +11,13 @@
   "enterPasswordToEncrypt": "Masukkan kata sandi untuk mengenkripsi cadangan",
   "enterPasswordToDecrypt": "Masukkan kata sandi untuk mendekripsi cadangan",
   "pleaseRestart": "Silakan mulai ulang aplikasi untuk menerapkan perubahan.",
-  "passwordRequired": "Kata sandi wajib diisi"
+  "passwordRequired": "Kata sandi wajib diisi",
+  "reminder": "Pengingat Cadangan",
+  "reminderDesc": "Ingatkan secara berkala untuk mencadangkan data Anda",
+  "reminderOff": "Mati",
+  "reminderWeekly": "Mingguan (setiap 7 hari)",
+  "reminderMonthly": "Bulanan (setiap 30 hari)",
+  "reminderNotificationTitle": "Saatnya Cadangkan Data Anda",
+  "reminderNotificationBody": "Sudah cukup lama sejak pencadangan terakhir. Lindungi data keuangan Anda dengan membuat cadangan sekarang.",
+  "reminderSaved": "Pengingat cadangan diperbarui"
 }

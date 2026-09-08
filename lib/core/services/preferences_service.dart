@@ -33,6 +33,14 @@ class PreferencesService {
     return _prefs.getBool(key);
   }
 
+  Future<void> saveInt(String key, int value) async {
+    await _prefs.setInt(key, value);
+  }
+
+  int? getInt(String key) {
+    return _prefs.getInt(key);
+  }
+
   Future<void> remove(String key) async {
     await _prefs.remove(key);
   }

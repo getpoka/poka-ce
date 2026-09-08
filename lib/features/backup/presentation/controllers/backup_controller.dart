@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:poka_ce/features/backup/data/backup_service.dart';
+import 'package:poka_ce/features/backup/domain/backup_reminder_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -26,6 +27,7 @@ class BackupController extends _$BackupController {
               ? Rect.fromCenter(center: sharePositionOrigin.center, width: 1, height: 1)
               : null,
         );
+        await ref.read(backupReminderServiceProvider).recordBackupCompleted();
         state = const AsyncData(null);
         return true;
       } else {
