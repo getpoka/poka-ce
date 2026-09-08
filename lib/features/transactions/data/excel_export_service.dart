@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:ui';
 
@@ -180,9 +181,17 @@ class ExcelExportService {
         return const ErrorResult<File, Failure>(UnexpectedFailure('Failed to encode Excel file'));
       }
 
+      // Clean up previous exports before generating a new one to prevent disk accumulation
+      await cleanupOldExports();
+
       final tempDir = await getTemporaryDirectory();
+      final exportDir = Directory(p.join(tempDir.path, 'exports'));
+      if (!exportDir.existsSync()) {
+        await exportDir.create(recursive: true);
+      }
+
       final fileFormatter = DateFormat('yyyyMMdd-HHmmss');
-      final filePath = p.join(tempDir.path, 'poka-export-${fileFormatter.format(DateTime.now())}.xlsx');
+      final filePath = p.join(exportDir.path, 'poka-export-${fileFormatter.format(DateTime.now())}.xlsx');
       final file = File(filePath);
       await file.writeAsBytes(bytes);
 
@@ -190,6 +199,19 @@ class ExcelExportService {
     } on Exception catch (e, st) {
       talker.handle(e, st, 'ExcelExportService.exportToFile');
       return ErrorResult<File, Failure>(UnexpectedFailure(e.toString()));
+    }
+  }
+
+  /// Cleans up any previously exported Excel files from the temporary export directory.
+  Future<void> cleanupOldExports() async {
+    try {
+      final tempDir = await getTemporaryDirectory();
+      final exportDir = Directory(p.join(tempDir.path, 'exports'));
+      if (exportDir.existsSync()) {
+        await exportDir.delete(recursive: true);
+      }
+    } on Exception catch (e, st) {
+      talker.warning('Failed to cleanup old exports', e, st);
     }
   }
 
@@ -209,6 +231,21 @@ class ExcelExportService {
             ? Rect.fromCenter(center: sharePositionOrigin.center, width: 1, height: 1)
             : null,
       );
+
+      // Schedule delayed cleanup of the exported file to allow the external app
+      // ample time to read the file stream via FileProvider without lingering indefinitely.
+      unawaited(
+        Future.delayed(const Duration(minutes: 2), () async {
+          try {
+            if (file.existsSync()) {
+              await file.delete();
+            }
+          } on Exception catch (_) {
+            // Ignore if file was already deleted or inaccessible
+          }
+        }),
+      );
+
       return Success<File, Failure>(file);
     } on Exception catch (e, st) {
       talker.handle(e, st, 'ExcelExportService.exportAndShare');
