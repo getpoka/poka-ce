@@ -7,10 +7,13 @@ import 'package:forui_phosphor/forui_phosphor.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poka_ce/app/providers/repository_providers.dart';
 import 'package:poka_ce/app/router/router.dart';
+import 'package:poka_ce/core/error/result.dart';
 import 'package:poka_ce/core/services/preferences_service.dart';
 import 'package:poka_ce/features/accounts/presentation/controllers/account_list_notifier.dart';
+import 'package:poka_ce/features/backup/domain/backup_reminder_service.dart';
 import 'package:poka_ce/features/backup/presentation/controllers/backup_controller.dart';
 import 'package:poka_ce/features/backup/presentation/sheets/backup_password_sheet.dart';
+import 'package:poka_ce/features/backup/presentation/sheets/backup_reminder_sheet.dart';
 import 'package:poka_ce/features/backup/presentation/sheets/backup_restore_action_sheet.dart';
 import 'package:poka_ce/features/categories/presentation/controllers/category_list_notifier.dart';
 import 'package:poka_ce/features/dashboard/presentation/controllers/dashboard_notifier.dart';
@@ -20,6 +23,7 @@ import 'package:poka_ce/features/settings/presentation/sheets/pin_setup_sheet.da
 import 'package:poka_ce/features/settings/presentation/sheets/pin_verification_sheet.dart';
 import 'package:poka_ce/features/settings/presentation/widgets/settings_menu_item.dart';
 import 'package:poka_ce/features/settings/presentation/widgets/settings_menu_section.dart';
+import 'package:poka_ce/features/transactions/data/excel_export_service.dart';
 import 'package:poka_ce/features/transactions/presentation/controllers/transaction_list_notifier.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/dialogs/poka_confirm_dialog.dart';
@@ -49,6 +53,8 @@ class DataManagementSection extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final reminderInterval = ref.watch(backupReminderNotifierProvider);
+
     return SettingsMenuSection(
       title: context.t.settings.dataManagement,
       items: [
@@ -159,6 +165,55 @@ class DataManagementSection extends ConsumerWidget {
 
               // Redirect to home
               const DashboardRoute().go(context);
+            }
+          },
+        ),
+        SettingsMenuItem(
+          title: context.t.backup.reminder,
+          subtitle: switch (reminderInterval) {
+            BackupReminderInterval.off => context.t.backup.reminderOff,
+            BackupReminderInterval.weekly => context.t.backup.reminderWeekly,
+            BackupReminderInterval.monthly => context.t.backup.reminderMonthly,
+          },
+          icon: FPhosphorIcons.clockCounterClockwise,
+          onTap: () async {
+            final selected = await showBackupReminderSheet(
+              context,
+              currentInterval: reminderInterval,
+            );
+            if (selected != null) {
+              await ref.read(backupReminderNotifierProvider.notifier).setInterval(selected);
+              if (context.mounted) {
+                showFToast(
+                  context: context,
+                  title: Text(context.t.backup.reminderSaved),
+                );
+              }
+            }
+          },
+        ),
+        SettingsMenuItem(
+          title: context.t.settings.exportExcel,
+          subtitle: context.t.settings.exportExcelDesc,
+          icon: FPhosphorIcons.fileXls,
+          onTap: () async {
+            final box = context.findRenderObject() as RenderBox?;
+            final rect = box != null ? box.localToGlobal(Offset.zero) & box.size : null;
+
+            final result = await ref.read(excelExportServiceProvider).exportAndShare(sharePositionOrigin: rect);
+            if (context.mounted) {
+              switch (result) {
+                case Success():
+                  showFToast(
+                    context: context,
+                    title: Text(context.t.settings.exportExcelSuccess),
+                  );
+                case ErrorResult():
+                  showFToast(
+                    context: context,
+                    title: Text(context.t.settings.exportExcelError),
+                  );
+              }
             }
           },
         ),

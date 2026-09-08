@@ -66,6 +66,7 @@ dependencies:
   share_plus: ^13.3.0
   flutter_local_notifications: ^22.3.0
   quick_actions: ^1.1.0
+  excel: ^4.0.6
 
 dev_dependencies:
   flutter_test:
