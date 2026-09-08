@@ -162,8 +162,8 @@ class _Translations$backup$id extends Translations$backup$en {
 	@override String get reminder => 'Pengingat Cadangan';
 	@override String get reminderDesc => 'Ingatkan secara berkala untuk mencadangkan data Anda';
 	@override String get reminderOff => 'Mati';
-	@override String get reminderWeekly => 'Mingguan (setiap 7 hari)';
-	@override String get reminderMonthly => 'Bulanan (setiap 30 hari)';
+	@override String get reminderWeekly => 'Mingguan';
+	@override String get reminderMonthly => 'Bulanan';
 	@override String get reminderNotificationTitle => 'Saatnya Cadangkan Data Anda';
 	@override String get reminderNotificationBody => 'Sudah cukup lama sejak pencadangan terakhir. Lindungi data keuangan Anda dengan membuat cadangan sekarang.';
 	@override String get reminderSaved => 'Pengingat cadangan diperbarui';
@@ -627,6 +627,9 @@ class _Translations$reports$id extends Translations$reports$en {
 	@override String get prev3Months => '3 bln lalu';
 	@override String get prev6Months => '6 bln lalu';
 	@override String get prevPeriod => 'periode lalu';
+	@override String get exportExcel => 'Ekspor ke Excel';
+	@override String get exportExcelSuccess => 'Berhasil mengekspor ke Excel';
+	@override String get exportExcelError => 'Gagal mengekspor file Excel';
 }
 
 // Path: settings
@@ -934,8 +937,8 @@ extension on TranslationsId {
 			'backup.reminder' => 'Pengingat Cadangan',
 			'backup.reminderDesc' => 'Ingatkan secara berkala untuk mencadangkan data Anda',
 			'backup.reminderOff' => 'Mati',
-			'backup.reminderWeekly' => 'Mingguan (setiap 7 hari)',
-			'backup.reminderMonthly' => 'Bulanan (setiap 30 hari)',
+			'backup.reminderWeekly' => 'Mingguan',
+			'backup.reminderMonthly' => 'Bulanan',
 			'backup.reminderNotificationTitle' => 'Saatnya Cadangkan Data Anda',
 			'backup.reminderNotificationBody' => 'Sudah cukup lama sejak pencadangan terakhir. Lindungi data keuangan Anda dengan membuat cadangan sekarang.',
 			'backup.reminderSaved' => 'Pengingat cadangan diperbarui',
@@ -1323,6 +1326,9 @@ extension on TranslationsId {
 			'reports.prev3Months' => '3 bln lalu',
 			'reports.prev6Months' => '6 bln lalu',
 			'reports.prevPeriod' => 'periode lalu',
+			'reports.exportExcel' => 'Ekspor ke Excel',
+			'reports.exportExcelSuccess' => 'Berhasil mengekspor ke Excel',
+			'reports.exportExcelError' => 'Gagal mengekspor file Excel',
 			'settings.title' => 'Pengaturan',
 			'settings.preferences' => 'Preferensi',
 			'settings.baseCurrency' => 'Mata Uang Utama',
@@ -1366,11 +1372,11 @@ extension on TranslationsId {
 			'settings.selectCurrency' => 'Pilih Mata Uang',
 			'settings.openSourceLicenses' => 'Lisensi Open Source',
 			'settings.helpIssues' => 'Bantuan & Masalah',
+			_ => null,
+		} ?? switch (path) {
 			'settings.reportBugsOrRequestFeatures' => 'Laporkan bug atau minta fitur',
 			'settings.legal' => 'Legal',
 			'settings.termsOfService' => 'Syarat Layanan',
-			_ => null,
-		} ?? switch (path) {
 			'settings.readOurTermsAndConditions' => 'Baca syarat dan ketentuan kami',
 			'settings.privacyPolicy' => 'Kebijakan Privasi',
 			'settings.learnHowWeHandleYourData' => 'Pelajari cara kami mengelola data Anda',

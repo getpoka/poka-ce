@@ -57,5 +57,8 @@
   "prevMonth": "bulan sebelumnya",
   "prev3Months": "3 bln lalu",
   "prev6Months": "6 bln lalu",
-  "prevPeriod": "periode lalu"
+  "prevPeriod": "periode lalu",
+  "exportExcel": "Ekspor ke Excel",
+  "exportExcelSuccess": "Berhasil mengekspor ke Excel",
+  "exportExcelError": "Gagal mengekspor file Excel"
 }
