@@ -18,6 +18,7 @@ import 'package:poka_ce/theme/theme.dart';
 
 // ─────────────────────────────────────────────────────────────────────────────
 
+/// Detail page showcasing the dedicated balance, configuration, and transactions of a sub-wallet pocket.
 class PocketDetailPage extends HookConsumerWidget {
   const PocketDetailPage({
     required this.pocket,

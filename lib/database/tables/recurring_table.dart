@@ -5,6 +5,7 @@ import 'package:poka_ce/database/tables/accounts_table.dart';
 import 'package:poka_ce/database/tables/categories_table.dart';
 import 'package:uuid/uuid.dart';
 
+/// Database table definition for recurring bills and automated transaction blueprints.
 class RecurringTransactions extends Table {
   TextColumn get id => text().clientDefault(() => const Uuid().v7())();
   @ReferenceName('recurringSource')

@@ -9,11 +9,16 @@ import 'package:poka_ce/features/accounts/data/account_mapper.dart';
 import 'package:poka_ce/features/accounts/domain/account_model.dart';
 import 'package:poka_ce/features/accounts/domain/i_account_repository.dart';
 
-/// Implementation of [IAccountRepository] mapping Drift DAO to Freezed Domain Models.
+/// Implementation of [IAccountRepository] mapping Drift DAO data rows to pure Freezed domain models.
 class AccountRepositoryImpl implements IAccountRepository {
+  /// Creates an [AccountRepositoryImpl] backed by the provided [AccountsDao].
   AccountRepositoryImpl(this._dao);
+
   final AccountsDao _dao;
 
+  /// Fetches all accounts from the local database along with their category restrictions.
+  ///
+  /// Returns a [Success] with the list of [AccountModel]s, or an [ErrorResult] wrapping [DatabaseFailure] on failure.
   @override
   Future<Result<List<AccountModel>, Failure>> getAccounts() async {
     try {
@@ -27,6 +32,7 @@ class AccountRepositoryImpl implements IAccountRepository {
     }
   }
 
+  /// Watches all accounts and emits real-time updates as reactive [Result] streams.
   @override
   Stream<Result<List<AccountModel>, Failure>> watchAccounts() async* {
     try {
@@ -41,6 +47,9 @@ class AccountRepositoryImpl implements IAccountRepository {
     }
   }
 
+  /// Fetches an account by its unique [id] along with its restricted category IDs.
+  ///
+  /// Returns [Success] with the matched [AccountModel], or [ErrorResult] if not found or on database failure.
   @override
   Future<Result<AccountModel, Failure>> getAccountById(String id) async {
     try {
@@ -56,6 +65,9 @@ class AccountRepositoryImpl implements IAccountRepository {
     }
   }
 
+  /// Inserts a new account record and persists any associated category restrictions.
+  ///
+  /// Returns [Success] on completion or [ErrorResult] wrapping [DatabaseFailure].
   @override
   Future<Result<void, Failure>> createAccount(AccountModel model) async {
     try {
@@ -76,6 +88,7 @@ class AccountRepositoryImpl implements IAccountRepository {
         ),
       );
 
+      // Persist category restrictions to enforce wallet-specific categorization rules
       if (model.restrictedCategoryIds.isNotEmpty) {
         await _dao.setAccountCategories(model.id, model.restrictedCategoryIds);
       }
@@ -86,6 +99,9 @@ class AccountRepositoryImpl implements IAccountRepository {
     }
   }
 
+  /// Updates an existing account's metadata and replaces its category restrictions.
+  ///
+  /// Returns [Success] on completion or [ErrorResult] wrapping [DatabaseFailure].
   @override
   Future<Result<void, Failure>> updateAccount(AccountModel model) async {
     try {
@@ -105,6 +121,7 @@ class AccountRepositoryImpl implements IAccountRepository {
         ),
       );
 
+      // Synchronize category restrictions with the updated configuration
       await _dao.setAccountCategories(model.id, model.restrictedCategoryIds);
       return const Success(null);
     } on Exception catch (e, st) {
@@ -113,6 +130,7 @@ class AccountRepositoryImpl implements IAccountRepository {
     }
   }
 
+  /// Deactivates (soft-deletes) an account by setting its active state to false.
   @override
   Future<Result<void, Failure>> deactivateAccount(String id) async {
     try {
@@ -124,6 +142,7 @@ class AccountRepositoryImpl implements IAccountRepository {
     }
   }
 
+  /// Permanently removes an account by its unique [id].
   @override
   Future<Result<void, Failure>> deleteAccount(String id) async {
     try {
@@ -135,6 +154,7 @@ class AccountRepositoryImpl implements IAccountRepository {
     }
   }
 
+  /// Reorders accounts within the same hierarchical tier ([parentId]) and persists updated sort indices.
   @override
   Future<Result<void, Failure>> reorderAccounts(int oldIndex, int newIndex, {String? parentId}) async {
     try {
@@ -146,6 +166,7 @@ class AccountRepositoryImpl implements IAccountRepository {
         return a.parentId == null;
       }).toList()..sort((a, b) => a.sort.compareTo(b.sort));
 
+      // Compensate for index shift in Flutter's ReorderableListView when moving downwards
       var targetIndex = newIndex;
       if (oldIndex < targetIndex) {
         targetIndex -= 1;
@@ -153,6 +174,7 @@ class AccountRepositoryImpl implements IAccountRepository {
       final account = filteredAccounts.removeAt(oldIndex);
       filteredAccounts.insert(targetIndex, account);
 
+      // Re-assign contiguous sequential indices to eliminate gaps and prevent sort collisions
       final updatedAccounts = <db.Account>[];
       for (var i = 0; i < filteredAccounts.length; i++) {
         updatedAccounts.add(filteredAccounts[i].copyWith(sort: i));

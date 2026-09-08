@@ -6,6 +6,7 @@ import 'package:poka_ce/features/transactions/domain/use_cases/create_transactio
 import 'package:poka_ce/features/transactions/domain/use_cases/transfer_funds_use_case.dart';
 import 'package:poka_ce/features/transactions/domain/use_cases/update_transaction_use_case.dart';
 
+/// Provides an instance of [CreateAccountUseCase].
 final createAccountUseCaseProvider = Provider<CreateAccountUseCase>((ref) {
   return CreateAccountUseCase(
     ref.watch(unitOfWorkProvider),
@@ -13,18 +14,21 @@ final createAccountUseCaseProvider = Provider<CreateAccountUseCase>((ref) {
   );
 });
 
+/// Provides an instance of [UpdateAccountUseCase].
 final updateAccountUseCaseProvider = Provider<UpdateAccountUseCase>((ref) {
   return UpdateAccountUseCase(
     ref.watch(accountRepositoryProvider),
   );
 });
 
+/// Provides an instance of [CreateTransactionUseCase].
 final createTransactionUseCaseProvider = Provider<CreateTransactionUseCase>((ref) {
   return CreateTransactionUseCase(
     ref.watch(transactionRepositoryProvider),
   );
 });
 
+/// Provides an instance of [TransferFundsUseCase].
 final transferFundsUseCaseProvider = Provider<TransferFundsUseCase>((ref) {
   return TransferFundsUseCase(
     ref.watch(unitOfWorkProvider),
@@ -32,6 +36,7 @@ final transferFundsUseCaseProvider = Provider<TransferFundsUseCase>((ref) {
   );
 });
 
+/// Provides an instance of [UpdateTransactionUseCase].
 final updateTransactionUseCaseProvider = Provider<UpdateTransactionUseCase>((ref) {
   return UpdateTransactionUseCase(
     ref.watch(transactionRepositoryProvider),

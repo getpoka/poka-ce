@@ -7,7 +7,9 @@ import 'package:path_provider/path_provider.dart';
 import 'package:poka_ce/core/logger/poka_logger.dart';
 import 'package:share_plus/share_plus.dart';
 
+/// Utility class to package and export runtime Talker logs via system share sheet.
 class LogExporter {
+  /// Writes current Talker log history to a text file and launches the share sheet.
   static Future<void> exportLogs() async {
     final directory = await getApplicationSupportDirectory();
     final timestamp = DateFormat('yyyyMMdd_HHmmss').format(DateTime.now());

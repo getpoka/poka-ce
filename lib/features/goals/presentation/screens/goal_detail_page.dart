@@ -18,6 +18,7 @@ import 'package:poka_ce/shared/widgets/poka_header.dart';
 import 'package:poka_ce/shared/widgets/poka_section_label.dart';
 import 'package:poka_ce/theme/theme.dart';
 
+/// Detail page presenting the progress, linked pocket balance, and deposit/withdrawal activity of a savings goal.
 class GoalDetailPage extends ConsumerWidget {
   const GoalDetailPage({
     required this.id,

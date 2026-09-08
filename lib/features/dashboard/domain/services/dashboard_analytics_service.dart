@@ -3,16 +3,26 @@ import 'package:poka_ce/features/accounts/domain/account_model.dart';
 import 'package:poka_ce/features/categories/domain/category_model.dart';
 import 'package:poka_ce/features/transactions/domain/transaction_model.dart';
 
+/// Immutable data holder for categorized expense breakdowns on the dashboard.
 class CategoryExpenseItem {
+  /// Creates a [CategoryExpenseItem].
   CategoryExpenseItem(this.name, this.color, this.amount);
+
+  /// Category name label.
   final String name;
+
+  /// Hex color code for charts and icons.
   final String color;
+
+  /// Aggregate spent amount.
   final double amount;
 }
 
+/// Pure computation service calculating net worth, cash flows, and daily spending velocity for the dashboard.
 class DashboardAnalyticsService {
   DashboardAnalyticsService._();
 
+  /// Calculates global net worth, total positive assets, and liabilities across all active accounts.
   static ({
     double netWorth,
     double totalAssets,
@@ -45,6 +55,7 @@ class DashboardAnalyticsService {
     );
   }
 
+  /// Calculates income/expense totals, month-over-month deltas, daily spending, and 50/30/20 budget allocations.
   static ({
     double totalIncome,
     double totalExpense,

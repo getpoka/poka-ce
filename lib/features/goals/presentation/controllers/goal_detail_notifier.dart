@@ -12,6 +12,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'goal_detail_notifier.g.dart';
 
+/// Watches transactions associated with the goal's linked pocket account (deposits and withdrawals).
 @riverpod
 Stream<List<TransactionModel>> goalTransactions(Ref ref, GoalModel goal) {
   return ref
@@ -27,6 +28,7 @@ Stream<List<TransactionModel>> goalTransactions(Ref ref, GoalModel goal) {
       });
 }
 
+/// Notifier coordinating goal detail actions such as deletion and goal fulfillment.
 @Riverpod(keepAlive: true)
 class GoalDetailNotifier extends _$GoalDetailNotifier {
   @override
@@ -34,7 +36,9 @@ class GoalDetailNotifier extends _$GoalDetailNotifier {
     // Intentionally left blank as this notifier primarily provides methods
   }
 
+  /// Verifies the pocket has zero balance before prompting deletion confirmation.
   Future<bool> deleteGoal(BuildContext context, GoalModel goal, {required int currentBalance}) async {
+    // Protect funds: forbid deleting a goal pocket if it still contains positive balance
     if (currentBalance > 0) {
       if (context.mounted) {
         await showPokaConfirmDialog(
@@ -65,7 +69,9 @@ class GoalDetailNotifier extends _$GoalDetailNotifier {
     return false;
   }
 
+  /// Opens the expense transaction form to spend the saved goal amount and marks the goal as completed.
   Future<bool> fulfillGoal(BuildContext context, GoalModel goal) async {
+    // Fulfill savings goal by spending the target balance as an expense from the goal pocket and marking goal completed
     final saved = await TransactionFormSheet.show(
       context,
       initialType: TransactionType.expense,

@@ -4,6 +4,7 @@ import 'package:poka_ce/core/enums.dart';
 import 'package:poka_ce/database/tables/accounts_table.dart';
 import 'package:uuid/uuid.dart';
 
+/// Database table definition for savings goals linked 1:1 with pocket accounts.
 class Goals extends Table {
   TextColumn get id => text().clientDefault(() => const Uuid().v7())();
   TextColumn get accountId => text().unique().references(Accounts, #id, onDelete: KeyAction.cascade)();

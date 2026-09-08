@@ -8,7 +8,9 @@ import 'package:uuid/uuid.dart';
 
 part 'goal_form_notifier.g.dart';
 
+/// Form state tracking inputs, target goals, validation status, and execution progress.
 class GoalFormState {
+  /// Creates a [GoalFormState].
   const GoalFormState({
     this.initialGoal,
     this.name = '',
@@ -19,14 +21,28 @@ class GoalFormState {
     this.error,
   });
 
+  /// Existing goal when in editing mode, or `null` for a new goal.
   final GoalModel? initialGoal;
+
+  /// Goal title / description.
   final String name;
+
+  /// Target funding amount in the smallest currency unit.
   final int targetAmount;
+
+  /// Optional completion deadline date.
   final DateTime? targetDate;
+
+  /// Whether the goal is currently being persisted.
   final bool isSaving;
+
+  /// Whether saving completed successfully.
   final bool isSuccess;
+
+  /// Validation or persistence error message.
   final String? error;
 
+  /// Creates a copy of this state with specified parameters updated.
   GoalFormState copyWith({
     GoalModel? initialGoal,
     String? name,
@@ -48,6 +64,7 @@ class GoalFormState {
   }
 }
 
+/// Notifier driving the savings goal creation and edit form sheet.
 @riverpod
 class GoalFormNotifier extends _$GoalFormNotifier {
   @override
@@ -55,6 +72,7 @@ class GoalFormNotifier extends _$GoalFormNotifier {
     return const GoalFormState();
   }
 
+  /// Initializes the form with an existing [goal] or preset parameters.
   void init(
     GoalModel? goal, {
     String? initialName,
@@ -77,8 +95,13 @@ class GoalFormNotifier extends _$GoalFormNotifier {
     }
   }
 
+  /// Sets the savings goal title.
   void setName(String name) => state = state.copyWith(name: name);
+
+  /// Sets the target savings goal amount.
   void setTargetAmount(int amount) => state = state.copyWith(targetAmount: amount);
+
+  /// Sets or clears the target deadline date.
   void setTargetDate(DateTime? targetDate) {
     if (targetDate == null) {
       // copyWith cannot clear nullable fields; rebuild state explicitly.
@@ -95,6 +118,7 @@ class GoalFormNotifier extends _$GoalFormNotifier {
     }
   }
 
+  /// Validates and saves the goal, generating a linked pocket account on creation.
   Future<void> save() async {
     if (state.name.trim().isEmpty) {
       state = state.copyWith(error: t.goals.nameCannotBeEmpty, isSaving: false);

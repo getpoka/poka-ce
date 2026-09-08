@@ -75,16 +75,19 @@ final recurringRepositoryProvider = Provider<IRecurringRepository>((ref) {
 
 // --- Stream Providers for Reactive UI ---
 
+/// Reactive stream provider emitting updated lists of active [AccountModel] items.
 final accountsStreamProvider = StreamProvider<List<AccountModel>>((ref) {
   final repo = ref.watch(accountRepositoryProvider);
   return repo.watchAccounts().map((res) => res.fold((s) => s, (f) => []));
 });
 
+/// Reactive stream provider emitting updated lists of recent [TransactionModel] items.
 final recentTransactionsStreamProvider = StreamProvider<List<TransactionModel>>((ref) {
   final repo = ref.watch(transactionRepositoryProvider);
   return repo.watchTransactions().map((res) => res.fold((s) => s, (f) => []));
 });
 
+/// Reactive stream provider emitting updated lists of active [CategoryModel] items.
 final categoriesStreamProvider = StreamProvider<List<CategoryModel>>((ref) {
   final repo = ref.watch(categoryRepositoryProvider);
   return repo.watchCategories().map((res) => res.fold((s) => s, (f) => []));

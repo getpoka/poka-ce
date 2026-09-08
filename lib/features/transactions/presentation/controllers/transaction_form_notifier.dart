@@ -11,8 +11,10 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'transaction_form_notifier.g.dart';
 
+/// Arguments supplied when initializing the transaction form notifier.
 @immutable
 class TransactionFormArgs {
+  /// Creates a [TransactionFormArgs] parameter bundle.
   const TransactionFormArgs({
     this.initialType,
     this.initialTransaction,
@@ -59,8 +61,10 @@ class TransactionFormArgs {
       initialDate.hashCode;
 }
 
+/// State representing an active transaction form entry.
 @immutable
 class TransactionFormState {
+  /// Creates a [TransactionFormState] with current input values.
   const TransactionFormState({
     required this.type,
     required this.amountExpression,
@@ -125,6 +129,8 @@ class TransactionFormState {
   }
 }
 
+/// Controller managing form input, split items, in-place math evaluation, and submission
+/// for creating and updating transactions.
 @riverpod
 class TransactionFormNotifier extends _$TransactionFormNotifier {
   @override
@@ -167,6 +173,7 @@ class TransactionFormNotifier extends _$TransactionFormNotifier {
 
   // ─── Mutations ─────────────────────────────────────────────────────────────
 
+  /// Updates the transaction type (income, expense, or transfer).
   void setType(TransactionType type) {
     state = state.copyWith(
       type: type,
@@ -174,13 +181,25 @@ class TransactionFormNotifier extends _$TransactionFormNotifier {
     );
   }
 
+  /// Sets the primary/source account ID.
   void setAccount(String id) => state = state.copyWith(accountId: () => id);
+
+  /// Sets the destination account ID for transfers.
   void setDestinationAccount(String id) => state = state.copyWith(destinationAccountId: () => id);
+
+  /// Sets the category ID.
   void setCategory(String? id) => state = state.copyWith(categoryId: () => id);
+
+  /// Sets the transaction note text.
   void setNote(String note) => state = state.copyWith(note: note);
+
+  /// Sets the date when the transaction occurred.
   void setDate(DateTime date) => state = state.copyWith(date: date);
+
+  /// Sets the budget allocation (needs, wants, or savings).
   void setAllocation(TransactionAllocation? allocation) => state = state.copyWith(allocation: () => allocation);
 
+  /// Sets the list of split items, updating total amount expression accordingly.
   void setSplitItems(List<SplitItem>? items) {
     if (items == null) {
       state = state.copyWith(
@@ -199,6 +218,7 @@ class TransactionFormNotifier extends _$TransactionFormNotifier {
     );
   }
 
+  /// Swaps source and destination accounts (convenience for transfer transactions).
   void swapAccounts() {
     final temp = state.accountId;
     state = state.copyWith(
@@ -209,6 +229,7 @@ class TransactionFormNotifier extends _$TransactionFormNotifier {
 
   // ─── Numpad Logic ──────────────────────────────────────────────────────────
 
+  /// Handles a calculator keypad press, updating expression and history preview.
   void onKeyPressed(String key) {
     if (key == 'OK') return;
 
@@ -239,6 +260,7 @@ class TransactionFormNotifier extends _$TransactionFormNotifier {
 
   // ─── Save ──────────────────────────────────────────────────────────────────
 
+  /// Saves the transaction as either a simple or split transaction.
   Future<void> save() async {
     final isSplit = state.splitItems != null;
 

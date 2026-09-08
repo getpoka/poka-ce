@@ -1,7 +1,9 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:poka_ce/core/utils/logger.dart';
 
+/// Service managing native local notification initialization and dispatching.
 class NotificationService {
+  /// Returns the singleton [NotificationService] instance.
   factory NotificationService() => _instance;
   NotificationService._internal();
   static final NotificationService _instance = NotificationService._internal();
@@ -9,6 +11,7 @@ class NotificationService {
   final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
   bool _initialized = false;
 
+  /// Initializes notification plugin settings for Android and iOS.
   Future<void> init() async {
     if (_initialized) return;
 
@@ -32,6 +35,7 @@ class NotificationService {
     }
   }
 
+  /// Displays a budget alert notification with high priority.
   Future<void> showNotification({
     required int id,
     required String title,
@@ -65,6 +69,7 @@ class NotificationService {
     }
   }
 
+  /// Displays a periodic offline backup reminder notification.
   Future<void> showBackupReminderNotification({
     required String title,
     required String body,
@@ -96,4 +101,5 @@ class NotificationService {
   }
 }
 
+/// Global singleton instance of [NotificationService].
 final notificationService = NotificationService();

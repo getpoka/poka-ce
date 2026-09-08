@@ -12,6 +12,7 @@ import 'package:poka_ce/shared/widgets/poka_header.dart';
 import 'package:poka_ce/shared/widgets/poka_section_label.dart';
 import 'package:poka_ce/theme/theme.dart';
 
+/// Top-level screen displaying all accounts categorized into regular accounts and goal pockets.
 class AccountListPage extends HookConsumerWidget {
   const AccountListPage({super.key});
 

@@ -5,13 +5,19 @@ import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/poka_header.dart';
 import 'package:poka_ce/theme/theme.dart';
 
+/// Data holder for a single Frequently Asked Question and its answer.
 class FaqItem {
+  /// Creates a [FaqItem] with the given [question] and [answer].
   FaqItem(this.question, this.answer);
 
+  /// The question text.
   final String question;
+
+  /// The markdown-formatted answer text.
   final String answer;
 }
 
+/// Frequently Asked Questions screen with searchable accordion questions.
 class FaqPage extends StatelessWidget {
   const FaqPage({super.key});
 

@@ -7,7 +7,9 @@ import 'package:poka_ce/features/debts/domain/debt_model.dart';
 import 'package:poka_ce/features/debts/domain/i_debt_repository.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 
+/// Domain service that monitors unsettled debts/loans approaching due dates and schedules reminders.
 class DebtAlertService {
+  /// Creates a [DebtAlertService] with the provided [IDebtRepository].
   const DebtAlertService({
     required IDebtRepository debtRepository,
   }) : _debtRepo = debtRepository;

@@ -12,7 +12,9 @@ import 'package:poka_ce/features/categories/domain/i_category_repository.dart';
 /// Handles data persistence, mapping from Drift DB models to domain models,
 /// and error handling. It validates the maximum tree depth to maintain a 1-level flat tree.
 class CategoryRepositoryImpl implements ICategoryRepository {
+  /// Creates a [CategoryRepositoryImpl] backed by the provided [CategoriesDao].
   CategoryRepositoryImpl(this._dao);
+
   final CategoriesDao _dao;
 
   /// Retrieves all categories without filtering.
@@ -101,6 +103,7 @@ class CategoryRepositoryImpl implements ICategoryRepository {
         );
 
         if (model.parentId != null) {
+          // Sub-category flattening: automatically map new child category to all accounts restricted to parent for O(1) queries
           await _dao.syncSubCategoryToAccounts(model.parentId!, model.id);
         }
       });

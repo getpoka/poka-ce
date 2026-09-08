@@ -8,10 +8,14 @@ final settingsRepositoryProvider = Provider<SettingsRepository>((ref) {
   return SettingsRepository(ref.watch(databaseProvider));
 });
 
+/// Repository responsible for persisting and retrieving user preferences and master currency catalogs.
 class SettingsRepository {
+  /// Creates a [SettingsRepository] backed by the database [AppDatabase].
   SettingsRepository(this._db);
+
   final AppDatabase _db;
 
+  /// Fetches all ISO 4217 currency options available in the master catalog.
   Future<List<CurrencyModel>> getCurrencies() async {
     final rows = await _db.select(_db.currencies).get();
     return rows
@@ -27,6 +31,7 @@ class SettingsRepository {
         .toList();
   }
 
+  /// Retrieves the application settings snapshot (theme, language, number format, base currency).
   Future<SettingsModel> getSettings() async {
     final themeRow = await (_db.select(_db.settings)..where((tbl) => tbl.key.equals('themeMode'))).getSingleOrNull();
     final languageRow = await (_db.select(_db.settings)..where((tbl) => tbl.key.equals('language'))).getSingleOrNull();
@@ -61,6 +66,7 @@ class SettingsRepository {
     );
   }
 
+  /// Persists the selected UI theme mode ('light', 'dark', or 'system').
   Future<void> setThemeMode(String themeMode) async {
     await _db
         .into(_db.settings)
@@ -69,6 +75,7 @@ class SettingsRepository {
         );
   }
 
+  /// Persists the selected application locale code.
   Future<void> setLanguage(String language) async {
     await _db
         .into(_db.settings)
@@ -77,6 +84,7 @@ class SettingsRepository {
         );
   }
 
+  /// Persists the selected numerical formatting convention.
   Future<void> setNumberFormat(String numberFormat) async {
     await _db
         .into(_db.settings)
@@ -85,6 +93,7 @@ class SettingsRepository {
         );
   }
 
+  /// Persists the primary base currency ID.
   Future<void> setBaseCurrency(String currencyId) async {
     await _db
         .into(_db.settings)

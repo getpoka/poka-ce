@@ -7,7 +7,9 @@ import 'package:poka_ce/features/budgets/domain/budget_model.dart';
 import 'package:poka_ce/features/budgets/domain/i_budget_repository.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 
+/// Domain service that monitors budget utilization and dispatches threshold alert notifications.
 class BudgetAlertService {
+  /// Creates a [BudgetAlertService] with the provided [IBudgetRepository].
   const BudgetAlertService({
     required IBudgetRepository budgetRepository,
   }) : _budgetRepo = budgetRepository;

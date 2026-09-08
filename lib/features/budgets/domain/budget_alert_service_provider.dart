@@ -4,6 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'budget_alert_service_provider.g.dart';
 
+/// Provides a singleton instance of [BudgetAlertService] injected with the budget repository.
 @riverpod
 BudgetAlertService budgetAlertService(Ref ref) {
   final repo = ref.watch(budgetRepositoryProvider);

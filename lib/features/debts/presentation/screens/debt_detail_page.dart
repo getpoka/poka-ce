@@ -19,6 +19,7 @@ import 'package:poka_ce/shared/widgets/poka_header.dart';
 import 'package:poka_ce/shared/widgets/poka_section_label.dart';
 import 'package:poka_ce/theme/theme.dart';
 
+/// Detail screen showing debt/loan terms, remaining balance, settlement progress, and installment history.
 class DebtDetailPage extends ConsumerWidget {
   const DebtDetailPage({
     required this.id,

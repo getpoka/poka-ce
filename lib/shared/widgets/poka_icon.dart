@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 
+/// Geometric shape of the icon background container.
 enum PokaIconShape { circle, square }
 
 /// Sizing scale for PokaIcon based on modern UI touch target guidelines.
@@ -18,6 +19,8 @@ enum PokaIconSize {
   hero,
 }
 
+/// Standardized icon container with tint background and optional border.
+/// Replaces raw Icon or manual Container+Icon combinations across the application.
 class PokaIcon extends StatelessWidget {
   const PokaIcon({
     required this.icon,

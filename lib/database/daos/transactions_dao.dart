@@ -8,22 +8,35 @@ import 'package:poka_ce/database/tables/transactions_table.dart';
 
 part 'transactions_dao.g.dart';
 
+/// Holds a [Transaction] header alongside its associated child [TransactionItem] line items.
 class TransactionWithItems {
+  /// Creates a [TransactionWithItems] bundle.
   TransactionWithItems(this.transaction, this.items);
+
+  /// The parent transaction receipt header.
   final Transaction transaction;
+
+  /// The child detail items for this transaction.
   final List<TransactionItem> items;
 }
 
+/// Data Access Object for [Transactions] and [TransactionItems].
+/// Serves as the core financial ledger engine, coordinating balance mutations,
+/// item-level budget deductions, and debt repayment tracking.
 @DriftAccessor(tables: [Transactions, TransactionItems, Accounts, Budgets, BudgetRecords, Debts])
 class TransactionsDao extends DatabaseAccessor<AppDatabase> with _$TransactionsDaoMixin {
+  /// Creates a [TransactionsDao] attached to [attachedDatabase].
   TransactionsDao(super.attachedDatabase);
 
+  /// Retrieves all transaction headers ordered newest first.
   Future<List<Transaction>> getAllTransactions() =>
       (select(transactions)..orderBy([(t) => OrderingTerm.desc(t.transactionDate)])).get();
 
+  /// Observes all transaction headers ordered newest first.
   Stream<List<Transaction>> watchAllTransactions() =>
       (select(transactions)..orderBy([(t) => OrderingTerm.desc(t.transactionDate)])).watch();
 
+  /// Retrieves all transactions grouped with their detail items, newest first.
   Future<List<TransactionWithItems>> getAllTransactionsWithItems() async {
     final query = select(transactions).join([
       leftOuterJoin(transactionItems, transactionItems.transactionId.equalsExp(transactions.id)),
@@ -48,6 +61,7 @@ class TransactionsDao extends DatabaseAccessor<AppDatabase> with _$TransactionsD
     return grouped.values.toList();
   }
 
+  /// Observes all transactions grouped with their detail items reactively.
   Stream<List<TransactionWithItems>> watchAllTransactionsWithItems() {
     final query = select(transactions).join([
       leftOuterJoin(transactionItems, transactionItems.transactionId.equalsExp(transactions.id)),
@@ -72,6 +86,7 @@ class TransactionsDao extends DatabaseAccessor<AppDatabase> with _$TransactionsD
     });
   }
 
+  /// Observes transactions filtered by optional dates, accounts, categories, types, debts, and recurring IDs.
   Stream<List<TransactionWithItems>> watchTransactionsFiltered({
     DateTime? startDate,
     DateTime? endDate,
@@ -135,12 +150,16 @@ class TransactionsDao extends DatabaseAccessor<AppDatabase> with _$TransactionsD
     });
   }
 
+  /// Retrieves a single transaction header by [id].
   Future<Transaction?> getTransaction(String id) =>
       (select(transactions)..where((t) => t.id.equals(id))).getSingleOrNull();
 
+  /// Retrieves all detail line items belonging to [transactionId].
   Future<List<TransactionItem>> getTransactionItems(String transactionId) =>
       (select(transactionItems)..where((t) => t.transactionId.equals(transactionId))).get();
 
+  /// Inserts a transaction header and its line items atomically, adjusting account
+  /// balances, deducting item-level budgets, and recording debt repayments.
   Future<void> insertTransactionWithItems(
     TransactionsCompanion transactionHeader,
     List<TransactionItemsCompanion> items,
@@ -163,6 +182,7 @@ class TransactionsDao extends DatabaseAccessor<AppDatabase> with _$TransactionsD
       final typeStr = transactionHeader.type.value.toString().split('.').last;
       final amount = transactionHeader.amount.value;
 
+      // Real-time balance mutation: income adds to account, expense/transfer subtracts
       if (account != null) {
         if (typeStr == 'income') {
           await (update(
@@ -180,7 +200,8 @@ class TransactionsDao extends DatabaseAccessor<AppDatabase> with _$TransactionsD
       }
 
       if (typeStr == 'expense') {
-        // Accurate Deduction for budgets
+        // Accurate deduction for budgets: progress is deducted based on item details
+        // from transaction_items, NOT the transactions header total.
         final date = transactionHeader.transactionDate.value;
         for (final item in items) {
           final itemAmount = item.amount.value;
@@ -207,6 +228,7 @@ class TransactionsDao extends DatabaseAccessor<AppDatabase> with _$TransactionsD
           }
         }
       } else if (typeStr == 'transfer') {
+        // Transfer destination account balance increment
         if (transactionHeader.destinationAccountId.present && transactionHeader.destinationAccountId.value != null) {
           final destId = transactionHeader.destinationAccountId.value!;
           final destAccount = await (select(accounts)..where((a) => a.id.equals(destId))).getSingleOrNull();
@@ -220,7 +242,7 @@ class TransactionsDao extends DatabaseAccessor<AppDatabase> with _$TransactionsD
         }
       }
 
-      // Debt repayment tracking
+      // Debt repayment tracking: reduce remaining amount on linked debt
       if (transactionHeader.debtId.present && transactionHeader.debtId.value != null) {
         final debtId = transactionHeader.debtId.value!;
         final debtRow = await (select(debts)..where((d) => d.id.equals(debtId))).getSingleOrNull();
@@ -236,6 +258,8 @@ class TransactionsDao extends DatabaseAccessor<AppDatabase> with _$TransactionsD
     });
   }
 
+  /// Permanently deletes a transaction and completely reverses its balance mutations,
+  /// budget deductions, and debt repayment progress prior to deletion.
   Future<void> deleteTransaction(String id) async {
     return transaction(() async {
       final tx = await getTransaction(id);
@@ -324,6 +348,10 @@ class TransactionsDao extends DatabaseAccessor<AppDatabase> with _$TransactionsD
     });
   }
 
+  /// Updates a transaction by reversing the previous version and inserting the new one.
+  ///
+  /// Reversal-first guarantees that old budget quotas and wallet mutations are perfectly
+  /// rolled back before the new line items apply, eliminating drift bugs.
   Future<void> updateTransaction(
     TransactionsCompanion transactionHeader,
     List<TransactionItemsCompanion> items,
@@ -335,9 +363,10 @@ class TransactionsDao extends DatabaseAccessor<AppDatabase> with _$TransactionsD
     });
   }
 
+  /// Deletes transactions older than [beforeDate] without altering current account balances.
   Future<int> clearOldTransactions(DateTime beforeDate) async {
-    // Delete transactions older than beforeDate without touching the balances.
-    // The items will be deleted automatically due to cascade delete.
+    // Delete transactions older than beforeDate without touching current balances.
+    // The detail items are pruned automatically via SQLite cascade delete.
     return (delete(transactions)..where((t) => t.transactionDate.isSmallerThanValue(beforeDate))).go();
   }
 }

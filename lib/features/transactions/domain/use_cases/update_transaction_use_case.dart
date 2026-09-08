@@ -10,11 +10,14 @@ import 'package:poka_ce/features/transactions/domain/i_transaction_repository.da
 import 'package:poka_ce/features/transactions/domain/transaction_model.dart';
 import 'package:uuid/uuid.dart';
 
+/// Use case for updating an existing transaction and its child items.
 class UpdateTransactionUseCase {
+  /// Creates an [UpdateTransactionUseCase] with the given [ITransactionRepository].
   const UpdateTransactionUseCase(this._repository);
 
   final ITransactionRepository _repository;
 
+  /// Executes transaction modification, regenerating items and validating amounts.
   Future<Result<TransactionModel, Failure>> execute(
     TransactionModel existingTransaction, {
     required TransactionType type,

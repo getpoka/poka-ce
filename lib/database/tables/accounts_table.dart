@@ -4,6 +4,7 @@ import 'package:poka_ce/core/enums.dart';
 import 'package:poka_ce/database/tables/categories_table.dart';
 import 'package:uuid/uuid.dart';
 
+/// Database table definition for user accounts (wallets, banks, and sub-pockets).
 class Accounts extends Table {
   TextColumn get id => text().clientDefault(() => const Uuid().v7())();
   TextColumn get name => text()();
@@ -22,6 +23,7 @@ class Accounts extends Table {
   Set<Column> get primaryKey => {id};
 }
 
+/// Join table defining category whitelist/restrictions per account.
 class AccountCategories extends Table {
   TextColumn get accountId => text().references(Accounts, #id, onDelete: KeyAction.cascade)();
   TextColumn get categoryId => text().references(Categories, #id, onDelete: KeyAction.cascade)();

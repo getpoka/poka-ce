@@ -8,10 +8,14 @@ import 'package:poka_ce/database/database.dart' as db;
 import 'package:poka_ce/features/budgets/domain/budget_model.dart';
 import 'package:poka_ce/features/budgets/domain/i_budget_repository.dart';
 
+/// Implementation of [IBudgetRepository] mapping Drift DAO data rows to pure Freezed domain models.
 class BudgetRepositoryImpl implements IBudgetRepository {
+  /// Creates a [BudgetRepositoryImpl] backed by the provided [BudgetsDao].
   BudgetRepositoryImpl(this._dao);
+
   final BudgetsDao _dao;
 
+  /// Retrieves all configured budgets from the database.
   @override
   Future<Result<List<BudgetModel>, Failure>> getBudgets() async {
     try {
@@ -24,6 +28,7 @@ class BudgetRepositoryImpl implements IBudgetRepository {
     }
   }
 
+  /// Retrieves a single budget by its unique identifier [id].
   @override
   Future<Result<BudgetModel, Failure>> getBudgetById(String id) async {
     try {
@@ -38,6 +43,7 @@ class BudgetRepositoryImpl implements IBudgetRepository {
     }
   }
 
+  /// Inserts a new budget limit configuration into the database.
   @override
   Future<Result<void, Failure>> createBudget(BudgetModel model) async {
     try {
@@ -64,6 +70,7 @@ class BudgetRepositoryImpl implements IBudgetRepository {
     }
   }
 
+  /// Updates an existing budget's parameters, period, or threshold settings.
   @override
   Future<Result<void, Failure>> updateBudget(BudgetModel model) async {
     try {
@@ -89,6 +96,7 @@ class BudgetRepositoryImpl implements IBudgetRepository {
     }
   }
 
+  /// Permanently removes a budget and its tracking records.
   @override
   Future<Result<void, Failure>> deleteBudget(String id) async {
     try {
@@ -100,6 +108,7 @@ class BudgetRepositoryImpl implements IBudgetRepository {
     }
   }
 
+  /// Computes the actual total expenses recorded within [startDate] and [endDate] matching the budget's scope.
   @override
   Future<Result<int, Failure>> getSpentAmountForBudget({
     required DateTime startDate,

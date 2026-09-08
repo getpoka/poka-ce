@@ -11,7 +11,9 @@ import 'package:poka_ce/features/transactions/domain/i_transaction_repository.da
 import 'package:poka_ce/features/transactions/domain/transaction_model.dart';
 import 'package:uuid/uuid.dart';
 
+/// Use case for transferring funds between two distinct accounts.
 class TransferFundsUseCase {
+  /// Creates a [TransferFundsUseCase] with the required [IUnitOfWork] and [ITransactionRepository].
   const TransferFundsUseCase(
     this._unitOfWork,
     this._transactionRepository,
@@ -20,6 +22,8 @@ class TransferFundsUseCase {
   final IUnitOfWork _unitOfWork;
   final ITransactionRepository _transactionRepository;
 
+  /// Executes funds transfer inside a database transaction, validating account inequality
+  /// and positive amount.
   Future<Result<TransactionModel, Failure>> execute({
     required int amount,
     required String sourceAccountId,

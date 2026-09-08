@@ -10,6 +10,7 @@ import 'package:poka_ce/shared/widgets/poka_header.dart';
 import 'package:poka_ce/theme/theme.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+/// About screen displaying app version, credits, and links to source code and legal documents.
 class AboutPage extends StatelessWidget {
   const AboutPage({super.key});
 

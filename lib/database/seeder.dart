@@ -8,6 +8,8 @@ import 'package:poka_ce/core/enums.dart';
 import 'package:poka_ce/database/database.dart';
 import 'package:uuid/uuid.dart';
 
+/// Utility responsible for seeding default currencies, settings, categories,
+/// and optional development dummy data into [AppDatabase].
 class DatabaseSeeder {
   static const _defaultCashAccountId = '01a031e6-4383-70cc-9328-111111111111';
 
@@ -15,6 +17,7 @@ class DatabaseSeeder {
   static bool? globalOverrideSeedEssentials;
   static bool? globalOverrideSeedDummyData;
 
+  /// Seeds default datasets into the provided [db].
   static Future<void> seed(AppDatabase db, {bool? overrideSeedDummyData, bool? overrideSeedEssentials}) async {
     // Static ISO master catalog and base settings always seed for offline usability
     await _seedCurrencies(db);

@@ -5,17 +5,25 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'settings_notifier.g.dart';
 
+/// Immutable UI state encapsulating current application settings and loading status.
 class SettingsState {
+  /// Creates a [SettingsState].
   const SettingsState({
     this.settings,
     this.isLoading = false,
     this.error,
   });
 
+  /// Active settings model or `null` while loading.
   final SettingsModel? settings;
+
+  /// Whether settings are currently being loaded or updated.
   final bool isLoading;
+
+  /// Error message on failure.
   final String? error;
 
+  /// Creates a copy of this state with specified fields updated.
   SettingsState copyWith({
     SettingsModel? settings,
     bool? isLoading,
@@ -29,6 +37,7 @@ class SettingsState {
   }
 }
 
+/// Notifier coordinating user preferences (theme, language, number format, base currency).
 @riverpod
 class SettingsNotifier extends _$SettingsNotifier {
   bool _disposed = false;
@@ -56,6 +65,7 @@ class SettingsNotifier extends _$SettingsNotifier {
     }
   }
 
+  /// Updates and reloads the active application theme mode.
   Future<void> setThemeMode(String mode) async {
     try {
       final repo = ref.read(settingsRepositoryProvider);

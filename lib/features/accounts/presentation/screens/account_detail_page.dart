@@ -15,6 +15,7 @@ import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/poka_header.dart';
 import 'package:poka_ce/theme/theme.dart';
 
+/// Detail page presenting the balance overview, child pockets, and transaction activity for a single account.
 class AccountDetailPage extends HookConsumerWidget {
   const AccountDetailPage({required this.accountId, super.key});
 

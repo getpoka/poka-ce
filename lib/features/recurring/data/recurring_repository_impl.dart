@@ -8,10 +8,14 @@ import 'package:poka_ce/database/database.dart' as db;
 import 'package:poka_ce/features/recurring/domain/i_recurring_repository.dart';
 import 'package:poka_ce/features/recurring/domain/recurring_model.dart';
 
+/// Implementation of [IRecurringRepository] managing recurrence blueprints for automated scheduling.
 class RecurringRepositoryImpl implements IRecurringRepository {
+  /// Creates a [RecurringRepositoryImpl] backed by the provided [RecurringDao].
   RecurringRepositoryImpl(this._dao);
+
   final RecurringDao _dao;
 
+  /// Fetches all recurring transaction templates regardless of status.
   @override
   Future<Result<List<RecurringTransactionModel>, Failure>> getRecurringTransactions() async {
     try {
@@ -24,6 +28,7 @@ class RecurringRepositoryImpl implements IRecurringRepository {
     }
   }
 
+  /// Fetches only currently active recurring schedules.
   @override
   Future<Result<List<RecurringTransactionModel>, Failure>> getActiveRecurringTransactions() async {
     try {
@@ -36,6 +41,7 @@ class RecurringRepositoryImpl implements IRecurringRepository {
     }
   }
 
+  /// Retrieves recurring schedules that have fallen due on or before [asOf].
   @override
   Future<Result<List<RecurringTransactionModel>, Failure>> getDueRecurringTransactions(
     DateTime asOf,
@@ -50,6 +56,7 @@ class RecurringRepositoryImpl implements IRecurringRepository {
     }
   }
 
+  /// Fetches a specific recurring blueprint by its unique identifier [id].
   @override
   Future<Result<RecurringTransactionModel, Failure>> getRecurringById(String id) async {
     try {
@@ -64,6 +71,7 @@ class RecurringRepositoryImpl implements IRecurringRepository {
     }
   }
 
+  /// Inserts a new recurring blueprint into the database.
   @override
   Future<Result<void, Failure>> createRecurring(RecurringTransactionModel model) async {
     try {
@@ -91,6 +99,7 @@ class RecurringRepositoryImpl implements IRecurringRepository {
     }
   }
 
+  /// Updates an existing recurring schedule blueprint.
   @override
   Future<Result<void, Failure>> updateRecurring(RecurringTransactionModel model) async {
     try {
@@ -117,6 +126,7 @@ class RecurringRepositoryImpl implements IRecurringRepository {
     }
   }
 
+  /// Permanently removes a recurring blueprint.
   @override
   Future<Result<void, Failure>> deleteRecurring(String id) async {
     try {

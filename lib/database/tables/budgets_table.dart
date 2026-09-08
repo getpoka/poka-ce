@@ -5,6 +5,7 @@ import 'package:poka_ce/database/tables/accounts_table.dart';
 import 'package:poka_ce/database/tables/categories_table.dart';
 import 'package:uuid/uuid.dart';
 
+/// Database table definition for spending limits across categories or accounts.
 class Budgets extends Table {
   TextColumn get id => text().clientDefault(() => const Uuid().v7())();
   TextColumn get name => text()();
@@ -23,6 +24,7 @@ class Budgets extends Table {
   Set<Column> get primaryKey => {id};
 }
 
+/// Database table tracking cyclical budget expenditures.
 class BudgetRecords extends Table {
   TextColumn get id => text().clientDefault(() => const Uuid().v7())();
   TextColumn get budgetId => text().references(Budgets, #id, onDelete: KeyAction.cascade)();

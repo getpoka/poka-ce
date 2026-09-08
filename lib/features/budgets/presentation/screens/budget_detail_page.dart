@@ -23,7 +23,7 @@ import 'package:poka_ce/shared/widgets/poka_header.dart';
 import 'package:poka_ce/shared/widgets/poka_section_label.dart';
 import 'package:poka_ce/theme/theme.dart';
 
-// Helper provider to fetch transactions for a specific budget
+/// Streams expense transactions contributing to the specified [BudgetModel] during its active date window.
 // ignore: specify_nonobvious_property_types
 final budgetTransactionsProvider = StreamProvider.autoDispose.family<List<TransactionModel>, BudgetModel>((
   ref,
@@ -72,6 +72,7 @@ final budgetTransactionsProvider = StreamProvider.autoDispose.family<List<Transa
       });
 });
 
+/// Detail screen displaying budget progress, remaining quota, threshold status, and matched expense line items.
 class BudgetDetailPage extends ConsumerWidget {
   const BudgetDetailPage({
     required this.id,

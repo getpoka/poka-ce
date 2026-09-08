@@ -9,6 +9,7 @@ part 'categories_dao.g.dart';
 /// Handles all raw database operations related to categories, including hierarchical queries and soft active status toggling.
 @DriftAccessor(tables: [Categories, AccountCategories])
 class CategoriesDao extends DatabaseAccessor<AppDatabase> with _$CategoriesDaoMixin {
+  /// Creates a [CategoriesDao] attached to [attachedDatabase].
   CategoriesDao(super.attachedDatabase);
 
   /// Retrieves all categories ordered by their sort index.

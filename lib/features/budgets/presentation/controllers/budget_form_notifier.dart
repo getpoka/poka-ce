@@ -12,6 +12,7 @@ import 'package:uuid/uuid.dart';
 part 'budget_form_notifier.freezed.dart';
 part 'budget_form_notifier.g.dart';
 
+/// Form state capturing input values and validation for creating or editing a budget.
 @freezed
 abstract class BudgetFormState with _$BudgetFormState {
   const factory BudgetFormState({
@@ -30,6 +31,7 @@ abstract class BudgetFormState with _$BudgetFormState {
   }) = _BudgetFormState;
 }
 
+/// Notifier managing budget creation and editing form state and persistence.
 @riverpod
 class BudgetFormNotifier extends _$BudgetFormNotifier {
   @override
@@ -37,6 +39,7 @@ class BudgetFormNotifier extends _$BudgetFormNotifier {
     return const BudgetFormState();
   }
 
+  /// Initializes the form with an existing [budget] for editing, or with optional initial values for creation.
   void init(
     BudgetModel? budget, {
     String? initialName,
@@ -68,15 +71,31 @@ class BudgetFormNotifier extends _$BudgetFormNotifier {
     }
   }
 
+  /// Sets the budget display name.
   void setName(String name) => state = state.copyWith(name: name);
+
+  /// Sets the budget spending limit in the smallest currency unit.
   void setAmount(int amount) => state = state.copyWith(amount: amount);
+
+  /// Sets the recurrence cycle period (e.g. monthly, weekly, yearly, custom).
   void setPeriod(BudgetPeriod period) => state = state.copyWith(period: period);
+
+  /// Sets the monthly cycle reset day (1-31).
   void setResetDay(int? resetDay) => state = state.copyWith(resetDay: resetDay);
+
+  /// Sets the notification alert threshold percentage (e.g. 80 for 80%).
   void setAlertThreshold(int? threshold) => state = state.copyWith(alertThreshold: threshold);
+
+  /// Sets the expiration end date for custom period budgets.
   void setEndDate(DateTime? endDate) => state = state.copyWith(endDate: endDate);
+
+  /// Binds the budget to a specific category, or `null` for an account-wide or global budget.
   void setCategoryId(String? categoryId) => state = state.copyWith(categoryId: categoryId);
+
+  /// Binds the budget to a specific account, or `null` for category-wide or global budget.
   void setAccountId(String? accountId) => state = state.copyWith(accountId: accountId);
 
+  /// Validates and submits the budget form, creating a new budget or updating an existing one.
   Future<void> save() async {
     if (state.name.trim().isEmpty) {
       state = state.copyWith(error: t.budgets.nameCannotBeEmpty, isSaving: false);

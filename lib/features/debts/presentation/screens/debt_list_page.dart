@@ -8,6 +8,7 @@ import 'package:poka_ce/features/debts/presentation/widgets/debt_list_content.da
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/poka_header.dart';
 
+/// Overview page listing all active and settled debts (borrowed) and loans (lent).
 class DebtListPage extends ConsumerWidget {
   const DebtListPage({super.key});
 

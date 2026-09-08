@@ -9,6 +9,7 @@ import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/poka_header.dart';
 import 'package:poka_ce/theme/theme.dart';
 
+/// First-run onboarding screen where user selects their base currency.
 class OnboardingPage extends HookConsumerWidget {
   const OnboardingPage({super.key});
 

@@ -2,7 +2,10 @@ import 'package:poka_ce/core/enums.dart';
 import 'package:poka_ce/core/extensions/datetime_extension.dart';
 import 'package:poka_ce/features/transactions/domain/transaction_model.dart';
 
+/// A grouped collection of transactions belonging to a single calendar day,
+/// along with aggregated daily income and expense totals.
 class TransactionGroup {
+  /// Creates a [TransactionGroup] with date labels, child transactions, and aggregated daily totals.
   TransactionGroup({
     required this.dateStr,
     required this.dateObj,
@@ -11,13 +14,23 @@ class TransactionGroup {
     required this.totalExpense,
   });
 
+  /// Relative or formatted human-readable date string (e.g. "Today", "Yesterday").
   final String dateStr;
+
+  /// Pure date object at midnight representing the group day.
   final DateTime dateObj;
+
+  /// Transactions occurring on this date.
   final List<TransactionModel> transactions;
+
+  /// Total sum of all income transactions on this day.
   final int totalIncome;
+
+  /// Total sum of all expense transactions on this day.
   final int totalExpense;
 }
 
+/// Service providing logic to organize transactions into daily buckets.
 class TransactionGroupingService {
   /// Groups a list of transactions by date (formatted relatively, e.g., "Today")
   /// and calculates daily income and expense totals.

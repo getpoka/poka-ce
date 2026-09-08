@@ -15,6 +15,7 @@ enum TransactionViewMode { day, week, month }
 
 /// Immutable filter applied on top of the active date window.
 class TransactionFilter {
+  /// Creates a [TransactionFilter] with optional criteria.
   const TransactionFilter({
     this.types = const {},
     this.accountIds = const {},
@@ -22,13 +23,22 @@ class TransactionFilter {
     this.searchQuery = '',
   });
 
+  /// Transaction types to include.
   final Set<TransactionType> types;
+
+  /// Account IDs to filter by.
   final Set<String> accountIds;
+
+  /// Category IDs to filter by.
   final Set<String> categoryIds;
+
+  /// Text query matched against note or amount.
   final String searchQuery;
 
+  /// Returns `true` if any filtering criteria is currently active.
   bool get isActive => types.isNotEmpty || accountIds.isNotEmpty || categoryIds.isNotEmpty || searchQuery.isNotEmpty;
 
+  /// Creates a copy of this filter with updated criteria.
   TransactionFilter copyWith({
     Set<TransactionType>? types,
     Set<String>? accountIds,
@@ -44,6 +54,7 @@ class TransactionFilter {
 
 /// State for the transaction list screen, including date window and filter.
 class TransactionListState {
+  /// Creates a [TransactionListState] instance.
   const TransactionListState({
     required this.focusedDate,
     this.transactions = const [],
@@ -220,43 +231,53 @@ class TransactionListNotifier extends Notifier<TransactionListState> {
         });
   }
 
+  /// Re-triggers database query subscription with the current state configuration.
   Future<void> refresh() async {
     _listenToTransactions(state);
   }
 
+  /// Sets the active calendar grouping mode (daily, weekly, or monthly).
   void setViewMode(TransactionViewMode mode) {
     _listenToTransactions(state.copyWith(viewMode: mode));
   }
 
+  /// Navigates the focused date window backwards by one unit.
   void navigatePrev() {
     _listenToTransactions(state.copyWith(focusedDate: _offsetDate(-1)));
   }
 
+  /// Navigates the focused date window forwards by one unit unless already at current period.
   void navigateNext() {
     if (state.isCurrentPeriod) return;
     _listenToTransactions(state.copyWith(focusedDate: _offsetDate(1)));
   }
 
+  /// Centers the date window onto today's date.
   void goToToday() {
     _listenToTransactions(state.copyWith(focusedDate: DateTime.now()));
   }
 
+  /// Jumps the date window to the specified arbitrary [date].
   void jumpToDate(DateTime date) {
     _listenToTransactions(state.copyWith(focusedDate: date));
   }
 
+  /// Applies advanced filtering criteria to the reactive stream.
   void applyFilter(TransactionFilter filter) {
     _listenToTransactions(state.copyWith(filter: filter));
   }
 
+  /// Clears all active filters back to default.
   void clearFilter() {
     _listenToTransactions(state.copyWith(filter: const TransactionFilter()));
   }
 
+  /// Deletes a transaction by its [id].
   Future<void> deleteTransaction(String id) async {
     await ref.read(transactionRepositoryProvider).deleteTransaction(id);
   }
 
+  /// Restores a previously deleted [transaction].
   Future<void> restoreTransaction(TransactionModel transaction) async {
     await ref.read(transactionRepositoryProvider).restoreTransaction(transaction);
   }
@@ -271,6 +292,7 @@ class TransactionListNotifier extends Notifier<TransactionListState> {
   }
 }
 
+/// Provider exposing the reactive [TransactionListNotifier] and its state.
 final transactionListNotifierProvider = NotifierProvider<TransactionListNotifier, TransactionListState>(() {
   return TransactionListNotifier();
 });

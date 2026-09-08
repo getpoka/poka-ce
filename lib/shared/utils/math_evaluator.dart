@@ -1,5 +1,7 @@
 import 'package:math_expressions/math_expressions.dart';
 
+/// Utility for parsing and evaluating in-place arithmetic expressions
+/// entered via calculator keypads.
 class MathEvaluator {
   /// Evaluates a math expression string and returns the result, or null if invalid/no operator.
   static String? evaluate(String expression) {
@@ -31,10 +33,12 @@ class MathEvaluator {
     }
   }
 
+  /// Returns `true` if the character [c] is an arithmetic operator (+, -, *, ÷, /).
   static bool isOperator(String c) {
     return c == '+' || c == '-' || c == '*' || c == '÷' || c == '/';
   }
 
+  /// Checks if [expression] contains at least one operator following the first character.
   static bool hasUnresolvedOperator(String expression) {
     if (expression.isEmpty) return false;
     for (var i = 1; i < expression.length; i++) {

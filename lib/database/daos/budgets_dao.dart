@@ -9,6 +9,7 @@ part 'budgets_dao.g.dart';
 /// Data Access Object for managing Budgets and BudgetRecords in Drift.
 @DriftAccessor(tables: [Budgets, BudgetRecords, Transactions, TransactionItems, Categories])
 class BudgetsDao extends DatabaseAccessor<AppDatabase> with _$BudgetsDaoMixin {
+  /// Creates a [BudgetsDao] attached to [attachedDatabase].
   BudgetsDao(super.attachedDatabase);
 
   /// Fetches all budgets from the database.

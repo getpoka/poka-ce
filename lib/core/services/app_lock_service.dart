@@ -5,6 +5,7 @@ import 'package:poka_ce/core/utils/logger.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
+/// Provider exposing an instance of [AppLockService] with local authentication and logger.
 final appLockServiceProvider = Provider<AppLockService>((ref) {
   return AppLockService(LocalAuthentication(), talker);
 });

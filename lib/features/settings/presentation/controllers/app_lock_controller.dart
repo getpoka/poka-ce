@@ -25,6 +25,7 @@ enum PinVerificationResult {
   lockedOut,
 }
 
+/// Represents the current authentication, biometric, and lockout state of the app lock.
 @freezed
 abstract class AppLockState with _$AppLockState {
   const factory AppLockState({

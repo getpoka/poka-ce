@@ -8,6 +8,8 @@ import 'package:poka_ce/features/settings/presentation/widgets/sections/support_
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/poka_header.dart';
 
+/// The main Settings screen allowing users to configure preferences, security,
+/// data backups, and view app information.
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
 

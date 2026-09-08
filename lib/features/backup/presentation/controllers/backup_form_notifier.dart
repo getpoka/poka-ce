@@ -4,6 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'backup_form_notifier.freezed.dart';
 part 'backup_form_notifier.g.dart';
 
+/// State representing validation errors and submission status for the backup password form.
 @freezed
 abstract class BackupFormState with _$BackupFormState {
   const factory BackupFormState({
@@ -13,15 +14,19 @@ abstract class BackupFormState with _$BackupFormState {
   }) = _BackupFormState;
 }
 
+/// Notifier handling validation and submission logic for backup password sheets.
 @riverpod
 class BackupFormNotifier extends _$BackupFormNotifier {
   @override
   BackupFormState build() => const BackupFormState();
 
+  /// Resets validation errors and submission state.
   void reset() {
     state = const BackupFormState();
   }
 
+  /// Validates password fields according to backup or restore rules and optionally
+  /// triggers [onValidateRestore] callback.
   Future<bool> submit({
     required String password,
     required String confirmPassword,

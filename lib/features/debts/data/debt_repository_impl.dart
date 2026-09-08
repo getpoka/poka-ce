@@ -10,10 +10,14 @@ import 'package:poka_ce/features/debts/domain/debt_model.dart';
 import 'package:poka_ce/features/debts/domain/i_debt_repository.dart';
 import 'package:uuid/uuid.dart';
 
+/// Implementation of [IDebtRepository] handling persistence and cash flow bindings for debts and loans.
 class DebtRepositoryImpl implements IDebtRepository {
+  /// Creates a [DebtRepositoryImpl] backed by the provided [DebtsDao].
   DebtRepositoryImpl(this._dao);
+
   final DebtsDao _dao;
 
+  /// Fetches all debts and loans.
   @override
   Future<Result<List<DebtModel>, Failure>> getDebts() async {
     try {
@@ -26,11 +30,13 @@ class DebtRepositoryImpl implements IDebtRepository {
     }
   }
 
+  /// Watches all debts and loans in real-time as a reactive stream.
   @override
   Stream<List<DebtModel>> watchDebts() {
     return _dao.watchAllDebts().map((debts) => debts.map(_mapToModel).toList());
   }
 
+  /// Fetches only unsettled (active) debts and loans.
   @override
   Future<Result<List<DebtModel>, Failure>> getActiveDebts() async {
     try {
@@ -43,6 +49,7 @@ class DebtRepositoryImpl implements IDebtRepository {
     }
   }
 
+  /// Fetches a specific debt by its unique identifier [id].
   @override
   Future<Result<DebtModel, Failure>> getDebtById(String id) async {
     try {
@@ -57,6 +64,7 @@ class DebtRepositoryImpl implements IDebtRepository {
     }
   }
 
+  /// Creates a debt/loan record and simultaneously generates its corresponding initial disbursement transaction.
   @override
   Future<Result<void, Failure>> createDebt(DebtModel model, String accountId, String categoryId) async {
     try {
@@ -65,6 +73,8 @@ class DebtRepositoryImpl implements IDebtRepository {
 
       final transactionId = const Uuid().v7();
 
+      // Cash flow binding: Debts print an income transaction (borrowed funds added to wallet),
+      // while Loans print an expense transaction (lent funds deducted from wallet)
       final txHeader = db.TransactionsCompanion.insert(
         id: Value(transactionId),
         accountId: accountId,
@@ -106,6 +116,7 @@ class DebtRepositoryImpl implements IDebtRepository {
     }
   }
 
+  /// Updates debt record metadata such as due date, person name, or notes.
   @override
   Future<Result<void, Failure>> updateDebt(DebtModel model) async {
     try {
@@ -129,9 +140,11 @@ class DebtRepositoryImpl implements IDebtRepository {
     }
   }
 
+  /// Permanently removes a debt record and reverts associated disbursements and repayments.
   @override
   Future<Result<void, Failure>> deleteDebt(String id) async {
     try {
+      // Revert all disbursements and repayment transactions associated with this debt record to maintain balance integrity
       await _dao.deleteDebtWithTransactionReversal(id);
       return const Success(null);
     } on Exception catch (e, st) {

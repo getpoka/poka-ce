@@ -5,7 +5,9 @@ import 'package:forui/forui.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/poka_header.dart';
 
+/// Generic Markdown viewer screen that loads content from a Flutter asset file.
 class MarkdownPage extends StatelessWidget {
+  /// Creates a [MarkdownPage] loading markdown from [assetPath] with header [title].
   const MarkdownPage({
     required this.title,
     required this.assetPath,

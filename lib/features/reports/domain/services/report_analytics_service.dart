@@ -143,6 +143,8 @@ class ReportData {
 class ReportAnalyticsService {
   const ReportAnalyticsService._();
 
+  /// Computes comprehensive financial report metrics (cashflow, category breakdown, trends, and budget utilization)
+  /// for the specified [period] across [allTransactions] and [categories].
   static ReportData calculate(
     List<TransactionModel> allTransactions,
     List<CategoryModel> categories,

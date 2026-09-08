@@ -7,6 +7,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'recurring_list_notifier.freezed.dart';
 part 'recurring_list_notifier.g.dart';
 
+/// Immutable UI state holding the list of recurring transaction blueprints.
 @freezed
 abstract class RecurringListState with _$RecurringListState {
   const factory RecurringListState({
@@ -16,6 +17,7 @@ abstract class RecurringListState with _$RecurringListState {
   }) = _RecurringListState;
 }
 
+/// Notifier managing recurring transaction schedules, deletion, and pause/resume toggling.
 @riverpod
 class RecurringListNotifier extends _$RecurringListNotifier {
   @override
@@ -24,6 +26,7 @@ class RecurringListNotifier extends _$RecurringListNotifier {
     return const RecurringListState(isLoading: true);
   }
 
+  /// Reloads all recurring transactions from the repository.
   Future<void> refresh() async {
     state = state.copyWith(isLoading: true);
 
@@ -46,6 +49,7 @@ class RecurringListNotifier extends _$RecurringListNotifier {
     );
   }
 
+  /// Permanently removes a recurring transaction schedule by [id].
   Future<void> deleteRecurring(String id) async {
     final repo = ref.read(recurringRepositoryProvider);
     final result = await repo.deleteRecurring(id);
@@ -54,6 +58,7 @@ class RecurringListNotifier extends _$RecurringListNotifier {
     }
   }
 
+  /// Toggles whether this recurring schedule is active or paused.
   Future<void> toggleActive(String id) async {
     final index = state.recurrings.indexWhere((r) => r.id == id);
     if (index == -1) return;

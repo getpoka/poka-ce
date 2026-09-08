@@ -12,6 +12,7 @@ import 'package:poka_ce/features/dashboard/presentation/widgets/sections/dashboa
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/poka_header.dart';
 
+/// Home dashboard screen presenting net worth, cashflow carousel, daily spending velocity, quick actions, and recent activity.
 class DashboardPage extends HookConsumerWidget {
   const DashboardPage({super.key});
 

@@ -9,10 +9,14 @@ import 'package:poka_ce/database/database.dart' as db;
 import 'package:poka_ce/features/goals/domain/goal_model.dart';
 import 'package:poka_ce/features/goals/domain/i_goal_repository.dart';
 
+/// Implementation of [IGoalRepository] mapping Drift DAO rows to pure Freezed domain models.
 class GoalRepositoryImpl implements IGoalRepository {
+  /// Creates a [GoalRepositoryImpl] backed by the provided [GoalsDao].
   GoalRepositoryImpl(this._dao);
+
   final GoalsDao _dao;
 
+  /// Fetches all savings goals.
   @override
   Future<Result<List<GoalModel>, Failure>> getGoals() async {
     try {
@@ -25,11 +29,13 @@ class GoalRepositoryImpl implements IGoalRepository {
     }
   }
 
+  /// Watches all savings goals in real-time as a reactive stream.
   @override
   Stream<List<GoalModel>> watchGoals() {
     return _dao.watchAllGoals().map((goals) => goals.map(_mapToModel).toList());
   }
 
+  /// Fetches a specific goal by its unique identifier [id].
   @override
   Future<Result<GoalModel, Failure>> getGoalById(String id) async {
     try {
@@ -44,11 +50,13 @@ class GoalRepositoryImpl implements IGoalRepository {
     }
   }
 
+  /// Creates a new savings goal and automatically generates a paired pocket account to store funds.
   @override
   Future<Result<void, Failure>> createGoal(GoalModel model) async {
     try {
       final now = DateTimeUtils.nowUtc();
 
+      // Auto-generate pocket: creating a savings goal silently instantiates a dedicated goal pocket account to isolate savings funds
       final accountCompanion = db.AccountsCompanion.insert(
         id: Value(model.accountId),
         name: 'Goal: ${model.name}',
@@ -80,6 +88,7 @@ class GoalRepositoryImpl implements IGoalRepository {
     }
   }
 
+  /// Updates goal metadata such as target amount, target date, or name.
   @override
   Future<Result<void, Failure>> updateGoal(GoalModel model) async {
     try {
@@ -103,9 +112,11 @@ class GoalRepositoryImpl implements IGoalRepository {
     }
   }
 
+  /// Permanently removes a goal and its associated goal pocket account.
   @override
   Future<Result<void, Failure>> deleteGoal(String id) async {
     try {
+      // Destroy both goal metadata and its linked goal pocket account atomically
       await _dao.deleteGoalWithAccount(id);
       return const Success(null);
     } on Exception catch (e, st) {

@@ -9,6 +9,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'account_form_notifier.freezed.dart';
 part 'account_form_notifier.g.dart';
 
+/// Form state capturing user input for creating or editing an account/pocket.
 @freezed
 abstract class AccountFormState with _$AccountFormState {
   const factory AccountFormState({
@@ -28,6 +29,7 @@ abstract class AccountFormState with _$AccountFormState {
   }) = _AccountFormState;
 }
 
+/// Notifier managing account creation and editing form state and validation logic.
 @riverpod
 class AccountFormNotifier extends _$AccountFormNotifier {
   @override
@@ -35,6 +37,7 @@ class AccountFormNotifier extends _$AccountFormNotifier {
     return const AccountFormState();
   }
 
+  /// Initializes the form with an existing [account] for editing, or prepares a new account under optional [parentAccountId].
   void init(AccountModel? account, {String? parentAccountId}) {
     if (account != null) {
       state = AccountFormState(
@@ -53,13 +56,25 @@ class AccountFormNotifier extends _$AccountFormNotifier {
     }
   }
 
+  /// Updates the account display name and clears existing validation error.
   void setName(String name) => state = state.copyWith(name: name, nameError: null);
+
+  /// Updates the account classification type (e.g. assets, liability, goal).
   void setType(AccountType type) => state = state.copyWith(type: type);
+
+  /// Updates the initial balance (in smallest currency units).
   void setBalance(int balance) => state = state.copyWith(balance: balance);
+
+  /// Updates the selected icon identifier.
   void setIcon(String icon) => state = state.copyWith(icon: icon);
+
+  /// Updates the selected accent color hex code.
   void setColor(String color) => state = state.copyWith(color: color);
+
+  /// Updates whether this account is active or archived.
   void setIsActive({required bool isActive}) => state = state.copyWith(isActive: isActive);
 
+  /// Toggles an individual category restriction on or off for this account.
   void toggleRestrictedCategory(String categoryId) {
     final current = List<String>.from(state.restrictedCategoryIds);
     if (current.contains(categoryId)) {
@@ -119,6 +134,7 @@ class AccountFormNotifier extends _$AccountFormNotifier {
     state = state.copyWith(restrictedCategoryIds: current);
   }
 
+  /// Validates and submits the form, executing either create or update use case based on [AccountFormState.initialAccount].
   Future<void> save() async {
     if (state.name.trim().isEmpty) {
       state = state.copyWith(nameError: t.accounts.nameCannotBeEmpty, isSaving: false);

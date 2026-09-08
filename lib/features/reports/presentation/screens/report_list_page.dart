@@ -13,6 +13,7 @@ import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/poka_header.dart';
 import 'package:poka_ce/shared/widgets/poka_section_label.dart';
 
+/// Reports screen presenting cashflow trends, spending by category, budget utilization, and allocation splits.
 class ReportListPage extends ConsumerWidget {
   const ReportListPage({super.key});
 

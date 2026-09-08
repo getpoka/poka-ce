@@ -10,9 +10,11 @@ import 'package:poka_ce/features/transactions/domain/transaction_model.dart';
 
 /// Implementation of [ITransactionRepository] mapping Drift DAO to Freezed Domain Models.
 class TransactionRepositoryImpl implements ITransactionRepository {
+  /// Creates a [TransactionRepositoryImpl] with the given [TransactionsDao].
   TransactionRepositoryImpl(this._dao);
   final TransactionsDao _dao;
 
+  /// Fetches all transactions including their associated line items.
   @override
   Future<Result<List<TransactionModel>, Failure>> getTransactions() async {
     try {
@@ -25,6 +27,7 @@ class TransactionRepositoryImpl implements ITransactionRepository {
     }
   }
 
+  /// Observes transactions filtered by dates, accounts, categories, types, debts, and recurrings.
   @override
   Stream<Result<List<TransactionModel>, Failure>> watchTransactions({
     DateTime? startDate,
@@ -54,6 +57,7 @@ class TransactionRepositoryImpl implements ITransactionRepository {
     }
   }
 
+  /// Fetches a single transaction by its unique identifier [id].
   @override
   Future<Result<TransactionModel, Failure>> getTransactionById(String id) async {
     try {
@@ -69,9 +73,11 @@ class TransactionRepositoryImpl implements ITransactionRepository {
     }
   }
 
+  /// Inserts a new transaction header and detail line items atomically.
   @override
   Future<Result<void, Failure>> createTransaction(TransactionModel model) async {
     try {
+      // Store timestamps in UTC to keep dates consistent across system timezones.
       final header = db.TransactionsCompanion.insert(
         id: Value(model.id),
         accountId: model.accountId,
@@ -86,6 +92,7 @@ class TransactionRepositoryImpl implements ITransactionRepository {
         updatedAt: Value(model.updatedAt.toUtc()),
       );
 
+      // Map split items to table companion format for batch insertion.
       final items = model.items
           .map(
             (i) => db.TransactionItemsCompanion.insert(
@@ -110,6 +117,7 @@ class TransactionRepositoryImpl implements ITransactionRepository {
     }
   }
 
+  /// Updates an existing transaction and replaces its detail items atomically.
   @override
   Future<Result<void, Failure>> updateTransaction(TransactionModel model) async {
     try {
@@ -151,6 +159,7 @@ class TransactionRepositoryImpl implements ITransactionRepository {
     }
   }
 
+  /// Permanently deletes a transaction and reverses wallet and budget balances.
   @override
   Future<Result<void, Failure>> deleteTransaction(String id) async {
     try {
@@ -162,6 +171,7 @@ class TransactionRepositoryImpl implements ITransactionRepository {
     }
   }
 
+  /// Restores a previously deleted transaction by re-inserting it.
   @override
   Future<Result<void, Failure>> restoreTransaction(TransactionModel transaction) async {
     return createTransaction(transaction);

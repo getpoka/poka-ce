@@ -8,19 +8,23 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'debt_list_notifier.g.dart';
 
+/// StreamNotifier managing the reactive collection of debts and loans.
 @riverpod
 class DebtList extends _$DebtList {
+  /// Subscribes to the live stream of debts and loans from the database.
   @override
   Stream<List<DebtModel>> build() {
     final repo = ref.read(debtRepositoryProvider);
     return repo.watchDebts();
   }
 
+  /// Permanently removes a debt record by its unique [id] and reverses its transactions.
   Future<void> deleteDebt(String id) async {
     final repo = ref.read(debtRepositoryProvider);
     await repo.deleteDebt(id);
   }
 
+  /// Prompts the user with a confirmation dialog before deleting [debt] and reverting associated cash flows.
   Future<void> deleteDebtWithConfirmation(BuildContext context, DebtModel debt) async {
     final isPayable = debt.type == DebtType.debt;
     final confirm = await showPokaConfirmDialog(

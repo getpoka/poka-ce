@@ -7,24 +7,36 @@ import 'package:poka_ce/database/tables/transactions_table.dart';
 
 part 'debts_dao.g.dart';
 
+/// Data Access Object for interpersonal debts and loans.
+/// Enforces cash-flow binding to physical transactions and balance reversals.
 @DriftAccessor(tables: [Debts, Transactions, TransactionItems, Accounts, Budgets, BudgetRecords])
 class DebtsDao extends DatabaseAccessor<AppDatabase> with _$DebtsDaoMixin {
+  /// Creates a [DebtsDao] attached to [attachedDatabase].
   DebtsDao(super.attachedDatabase);
 
+  /// Retrieves all debts and loans.
   Future<List<Debt>> getAllDebts() => select(debts).get();
 
+  /// Observes all debts and loans reactively.
   Stream<List<Debt>> watchAllDebts() => select(debts).watch();
 
+  /// Retrieves only active (unpaid) debts and loans.
   Future<List<Debt>> getActiveDebts() => (select(debts)..where((t) => t.status.equals('active'))).get();
 
+  /// Retrieves a debt by its unique [id].
   Future<Debt?> getDebt(String id) => (select(debts)..where((t) => t.id.equals(id))).getSingleOrNull();
 
+  /// Inserts a raw debt record.
   Future<int> insertDebt(DebtsCompanion debt) => into(debts).insert(debt);
 
+  /// Updates an existing debt record.
   Future<bool> updateDebt(DebtsCompanion debt) => update(debts).replace(debt);
 
+  /// Deletes a debt record without reversing associated transactions.
   Future<int> deleteDebt(String id) => (delete(debts)..where((t) => t.id.equals(id))).go();
 
+  /// Inserts a debt and its initial disbursement or loan transaction atomically,
+  /// updating the linked account balance and matching budget records.
   Future<void> insertDebtWithTransaction(
     DebtsCompanion debt,
     TransactionsCompanion transactionHeader,
@@ -80,6 +92,8 @@ class DebtsDao extends DatabaseAccessor<AppDatabase> with _$DebtsDaoMixin {
     });
   }
 
+  /// Permanently deletes a debt and all linked transactions, reversing all account
+  /// balances and budget deductions beforehand to preserve accounting invariants.
   Future<void> deleteDebtWithTransactionReversal(String id) {
     return transaction(() async {
       final debt = await getDebt(id);
@@ -91,6 +105,7 @@ class DebtsDao extends DatabaseAccessor<AppDatabase> with _$DebtsDaoMixin {
         final account = await (select(accounts)..where((a) => a.id.equals(tx.accountId))).getSingleOrNull();
         final typeStr = tx.type.toString().split('.').last;
         if (account != null) {
+          // Invert balance mutations: income becomes deduction, expense becomes addition
           if (typeStr == 'income') {
             await (update(accounts)..where((a) => a.id.equals(tx.accountId))).write(
               AccountsCompanion(balance: Value(account.balance - tx.amount)),

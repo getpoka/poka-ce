@@ -64,10 +64,19 @@ class CategoryFormNotifier extends _$CategoryFormNotifier {
     }
   }
 
+  /// Updates the category name and resets any validation error.
   void setName(String name) => state = state.copyWith(name: name, nameError: null);
+
+  /// Sets whether this is an income or expense category.
   void setType(CategoryType type) => state = state.copyWith(type: type);
+
+  /// Sets the category icon key.
   void setIcon(String? icon) => state = state.copyWith(icon: icon);
+
+  /// Sets the accent color hex string.
   void setColor(String? color) => state = state.copyWith(color: color);
+
+  /// Assigns a parent category ID to nest this category as a subcategory.
   void setParentId(String? parentId) => state = state.copyWith(parentId: parentId);
 
   /// Validates and saves the category.

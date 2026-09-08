@@ -11,6 +11,7 @@ import 'package:uuid/uuid.dart';
 part 'debt_form_notifier.freezed.dart';
 part 'debt_form_notifier.g.dart';
 
+/// Form state holding user inputs, validation status, and linked account/category for debt/loan creation.
 @freezed
 abstract class DebtFormState with _$DebtFormState {
   const factory DebtFormState({
@@ -29,6 +30,7 @@ abstract class DebtFormState with _$DebtFormState {
   }) = _DebtFormState;
 }
 
+/// Notifier managing input state and validation for creating or editing debts and loans.
 @riverpod
 class DebtForm extends _$DebtForm {
   @override
@@ -36,6 +38,7 @@ class DebtForm extends _$DebtForm {
     return const DebtFormState();
   }
 
+  /// Initializes the form with an existing [debt] for editing, or with preset fields for creation.
   void init(
     DebtModel? debt, {
     String? initialPersonName,
@@ -69,15 +72,31 @@ class DebtForm extends _$DebtForm {
     }
   }
 
+  /// Sets the linked wallet account for initial fund disbursement.
   void setAccountId(String id) => state = state.copyWith(accountId: id);
+
+  /// Sets the categorization ID for the disbursement transaction.
   void setCategoryId(String id) => state = state.copyWith(categoryId: id);
+
+  /// Sets the borrower or lender person's name.
   void setPersonName(String name) => state = state.copyWith(personName: name);
+
+  /// Sets whether this record is a debt (borrowed) or loan (lent).
   void setType(DebtType type) => state = state.copyWith(type: type);
+
+  /// Sets the principal amount in the smallest currency unit.
   void setAmount(int amount) => state = state.copyWith(amount: amount);
+
+  /// Sets the current settlement status (active or paid).
   void setStatus(DebtStatus status) => state = state.copyWith(status: status);
+
+  /// Sets the optional payment due date.
   void setDueDate(DateTime? dueDate) => state = state.copyWith(dueDate: dueDate);
+
+  /// Sets optional note or context about this debt/loan.
   void setNote(String? note) => state = state.copyWith(note: note);
 
+  /// Validates and saves the debt record, creating the bound financial transaction on creation.
   Future<void> save() async {
     if (state.personName.trim().isEmpty) {
       state = state.copyWith(error: t.debts.personNameCannotBeEmpty, isSaving: false);

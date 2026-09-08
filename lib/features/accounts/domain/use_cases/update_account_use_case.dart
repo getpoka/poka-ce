@@ -4,11 +4,16 @@ import 'package:poka_ce/core/utils/datetime_utils.dart';
 import 'package:poka_ce/features/accounts/domain/account_model.dart';
 import 'package:poka_ce/features/accounts/domain/i_account_repository.dart';
 
+/// Use case responsible for validating and persisting modifications to an existing [AccountModel].
 class UpdateAccountUseCase {
+  /// Creates an [UpdateAccountUseCase] with the required [IAccountRepository].
   const UpdateAccountUseCase(this._repository);
 
   final IAccountRepository _repository;
 
+  /// Validates and updates the account properties and category restrictions.
+  ///
+  /// Returns [Success] with the updated [AccountModel], or an [ErrorResult] on validation or database failure.
   Future<Result<AccountModel, Failure>> execute({
     required AccountModel account,
     required String name,

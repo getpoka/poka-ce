@@ -3,6 +3,7 @@ import 'package:drift/drift.dart';
 import 'package:poka_ce/core/enums.dart';
 import 'package:uuid/uuid.dart';
 
+/// Database table definition for income and expense categories, supporting parent-child hierarchy.
 class Categories extends Table {
   TextColumn get id => text().clientDefault(() => const Uuid().v7())();
   TextColumn get name => text()();

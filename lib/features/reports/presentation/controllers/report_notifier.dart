@@ -13,6 +13,7 @@ part 'report_notifier.freezed.dart';
 // State
 // ─────────────────────────────────────────────────────────────────────────────
 
+/// UI state holding the active period selection, loaded budgets, and computed financial report data.
 @freezed
 abstract class ReportState with _$ReportState {
   const factory ReportState({
@@ -40,6 +41,7 @@ abstract class ReportState with _$ReportState {
 // Notifier
 // ─────────────────────────────────────────────────────────────────────────────
 
+/// Notifier driving the financial reports tab, calculating metrics dynamically as ledger data mutates.
 @riverpod
 class ReportNotifier extends _$ReportNotifier {
   /// Tracks selected period as a field so it survives reactive rebuilds

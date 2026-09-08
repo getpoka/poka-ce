@@ -10,10 +10,14 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'backup_service.g.dart';
 
+/// Provider that exposes an instance of [BackupService].
 @riverpod
 BackupService backupService(Ref ref) => BackupService();
 
+/// Service responsible for creating AES-GCM encrypted database backups
+/// and restoring encrypted backups back to the active SQLite file.
 class BackupService {
+  /// The default SQLite database file name.
   final String dbName = 'poka.sqlite';
   final _cipher = AesGcm.with256bits();
   final _kdf = Pbkdf2(
@@ -38,7 +42,11 @@ class BackupService {
     );
   }
 
-  /// Encrypts the active database and returns the path to the temporary encrypted file
+  /// Encrypts the active database and returns the temporary encrypted [File].
+  ///
+  /// Uses PBKDF2 with HMAC-SHA256 for key derivation and AES-GCM 256-bit for authenticated encryption.
+  /// The resulting file packages the salt (12 bytes), GCM nonce (12 bytes), authentication tag MAC (16 bytes),
+  /// and ciphertext in order.
   Future<Result<File>> createEncryptedBackup(String password) async {
     try {
       final docsFolder = await getApplicationDocumentsDirectory();
@@ -64,22 +72,23 @@ class BackupService {
 
       final dbBytes = await dbFile.readAsBytes();
 
-      // Generate a random salt (16 bytes) and nonce (12 bytes for GCM)
-      final salt = _cipher.newNonce(); // 12 bytes nonce for salt
+      // Generate a random salt (12 bytes) and nonce (12 bytes for GCM)
+      final salt = _cipher.newNonce();
       final nonce = _cipher.newNonce();
 
-      // Derive key
+      // Derive encryption key using PBKDF2
       final key = await _deriveKey(password, salt);
 
-      // Encrypt
+      // Perform authenticated encryption with AES-GCM
       final secretBox = await _cipher.encrypt(
         dbBytes,
         secretKey: key,
         nonce: nonce,
       );
 
-      // We need to pack the salt, nonce, mac, and cipherText into a single file
-      // Format: [salt(12)] [nonce(12)] [mac(16)] [cipherText(N)]
+      // Pack the salt, nonce, mac, and cipherText into a single binary file.
+      // Binary envelope: [salt(12)] [nonce(12)] [mac(16)] [cipherText(N)]
+      // This self-contained structure allows stateless restoration without external metadata.
       final b = BytesBuilder()
         ..add(salt)
         ..add(nonce)
@@ -96,7 +105,10 @@ class BackupService {
     }
   }
 
-  /// Decrypts the given backup file and overwrites the active database
+  /// Decrypts the given backup file at [backupFilePath] and overwrites the active database file.
+  ///
+  /// Unpacks the binary envelope, derives the AES key with the embedded salt, and verifies
+  /// the authentication tag before writing back to disk to prevent corrupted restores.
   Future<Result<Unit>> restoreEncryptedBackup(String backupFilePath, String password) async {
     try {
       final backupFile = File(backupFilePath);

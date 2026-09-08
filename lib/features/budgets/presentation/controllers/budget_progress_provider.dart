@@ -7,10 +7,10 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'budget_progress_provider.g.dart';
 
+/// Calculates the current cycle's total spent amount for [budget], reactively recomputing whenever transactions mutate.
 @riverpod
 Future<int> budgetProgress(Ref ref, BudgetModel budget) async {
-  // Watch transactionListNotifierProvider so that if new transactions are added,
-  // this budget progress is re-evaluated.
+  // Subscribe to transactions stream so progress automatically recalculates upon transaction mutations
   ref.watch(transactionListNotifierProvider);
 
   final repo = ref.read(budgetRepositoryProvider);
@@ -20,6 +20,7 @@ Future<int> budgetProgress(Ref ref, BudgetModel budget) async {
 
   final now = DateTime.now();
 
+  // Compute active cycle date boundaries based on configured recurrence period and reset day
   switch (budget.period) {
     case BudgetPeriod.monthly:
       final resetDay = budget.resetDay ?? 1;

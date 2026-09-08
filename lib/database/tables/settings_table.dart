@@ -2,6 +2,7 @@
 import 'package:drift/drift.dart';
 import 'package:uuid/uuid.dart';
 
+/// Master catalog of supported currencies.
 class Currencies extends Table {
   TextColumn get id => text().clientDefault(() => const Uuid().v7())();
   TextColumn get name => text()();
@@ -15,6 +16,7 @@ class Currencies extends Table {
   Set<Column> get primaryKey => {id};
 }
 
+/// Key-value configuration store for application settings.
 class Settings extends Table {
   TextColumn get key => text()();
   TextColumn get value => text()();

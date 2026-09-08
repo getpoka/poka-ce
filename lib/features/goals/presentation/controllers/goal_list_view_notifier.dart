@@ -4,16 +4,22 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'goal_list_view_notifier.g.dart';
 
+/// Partitioned view model separating currently active goals from completed past goals.
 class GoalListViewState {
+  /// Creates a [GoalListViewState].
   const GoalListViewState({
     required this.activeGoals,
     required this.pastGoals,
   });
 
+  /// In-progress savings goals.
   final List<GoalItemState> activeGoals;
+
+  /// Completed or archived savings goals.
   final List<GoalItemState> pastGoals;
 }
 
+/// Provides partitioned lists of active and past goals for UI tab displays.
 @riverpod
 GoalListViewState goalListView(Ref ref) {
   final goalStates = ref.watch(goalListStatesProvider);

@@ -10,18 +10,25 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'account_list_notifier.g.dart';
 
+/// Immutable UI state holding raw accounts and their parent-child hierarchical aggregates.
 @immutable
 class AccountListState {
+  /// Creates an [AccountListState].
   const AccountListState({
     this.accounts = const [],
     this.aggregates = const [],
   });
 
+  /// All accounts flatly represented.
   final List<AccountModel> accounts;
+
+  /// Grouped parent accounts paired with their respective pocket sub-wallets.
   final List<AccountAggregate> aggregates;
 
+  /// Filtered view containing only currently active (non-archived) aggregates.
   List<AccountAggregate> get activeAggregates => aggregates.where((a) => a.account.isActive).toList();
 
+  /// Creates a copy of this state with optional updated parameters.
   AccountListState copyWith({
     List<AccountModel>? accounts,
     List<AccountAggregate>? aggregates,
@@ -45,6 +52,7 @@ class AccountListState {
   int get hashCode => accounts.hashCode ^ aggregates.hashCode;
 }
 
+/// Riverpod StreamNotifier managing the live stream of accounts and their hierarchical aggregates.
 @riverpod
 class AccountListNotifier extends _$AccountListNotifier {
   @override
@@ -54,7 +62,7 @@ class AccountListNotifier extends _$AccountListNotifier {
     await for (final result in accountRepo.watchAccounts()) {
       final accounts = result.fold((s) => s, (f) => <AccountModel>[]);
 
-      // Group into aggregates
+      // Group parent accounts and their nested pockets into aggregates
       final aggregates = <AccountAggregate>[];
       final parentAccounts = accounts.where((a) => !a.isPocket).toList()..sort((a, b) => a.sort.compareTo(b.sort));
       for (final parent in parentAccounts) {
@@ -67,17 +75,23 @@ class AccountListNotifier extends _$AccountListNotifier {
     }
   }
 
+  /// Deactivates (soft deletes) an account by its unique [id].
   Future<void> deactivateAccount(String id) async {
     final repo = ref.read(accountRepositoryProvider);
     await repo.deactivateAccount(id);
-    // No need to refresh, the stream will yield the new state
+    // No need to manually refresh state: the reactive database stream automatically yields the updated list
   }
 
+  /// Permanently removes an account by its unique [id].
   Future<void> deleteAccount(String id) async {
     final repo = ref.read(accountRepositoryProvider);
     await repo.deleteAccount(id);
   }
 
+  /// Reorders accounts within their group (root accounts or pockets under [parentId]).
+  ///
+  /// Applies an optimistic state update immediately, reverting via provider invalidation
+  /// if the underlying database write fails.
   Future<void> reorderAccounts(int oldIndex, int newIndex, {String? parentId}) async {
     // Optimistic UI update
     var safeNewIndex = newIndex;
@@ -107,12 +121,13 @@ class AccountListNotifier extends _$AccountListNotifier {
     final repo = ref.read(accountRepositoryProvider);
     final result = await repo.reorderAccounts(oldIndex, newIndex, parentId: parentId);
     if (result is ErrorResult) {
-      // Revert on error by invalidating provider so it refetches from stream
+      // Revert optimistic changes on failure by invalidating provider to reload from database stream
       ref.invalidateSelf();
     }
   }
 }
 
+/// Filters the active account list to exclude goal-linked pocket accounts.
 @riverpod
 AsyncValue<AccountListState> regularAccountList(Ref ref) {
   final asyncState = ref.watch(accountListProvider);
@@ -127,6 +142,7 @@ AsyncValue<AccountListState> regularAccountList(Ref ref) {
   });
 }
 
+/// Filters the active account list to only include goal-linked pocket accounts.
 @riverpod
 AsyncValue<AccountListState> goalAccountList(Ref ref) {
   final asyncState = ref.watch(accountListProvider);
@@ -141,14 +157,17 @@ AsyncValue<AccountListState> goalAccountList(Ref ref) {
   });
 }
 
+/// Record type holding computed metrics for active accounts.
 typedef AccountMetricsData = ({int activeAccountCount, double netWorth, double totalAssets, double totalLiabilities});
 
+/// Computes global asset, liability, and net worth metrics across all active accounts.
 @riverpod
 AccountMetricsData accountMetrics(Ref ref) {
   final accounts = ref.watch(accountListProvider).value?.accounts ?? [];
   return DashboardAnalyticsService.calculateAccountMetrics(accounts);
 }
 
+/// Retrieves the [AccountAggregate] (parent account + its nested pockets) for a given [accountId].
 @riverpod
 AccountAggregate? accountAggregate(Ref ref, String accountId) {
   final state = ref.watch(accountListProvider).value;
@@ -161,6 +180,7 @@ AccountAggregate? accountAggregate(Ref ref, String accountId) {
   return AccountAggregate(account: account, pockets: pockets);
 }
 
+/// Provides a list of transactions involving any of the specified [accountIds] as source or destination.
 @riverpod
 List<TransactionModel> accountTransactions(Ref ref, Set<String> accountIds) {
   final allTransactions = ref.watch(recentTransactionsStreamProvider).value ?? [];
@@ -173,6 +193,7 @@ List<TransactionModel> accountTransactions(Ref ref, Set<String> accountIds) {
       .toList();
 }
 
+/// Provides an indexed lookup map of accounts by their unique ID string.
 @riverpod
 Map<String, AccountModel> accountMap(Ref ref) {
   final accounts = ref.watch(accountsStreamProvider).value ?? [];

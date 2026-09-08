@@ -10,11 +10,15 @@ import 'package:poka_ce/features/transactions/domain/i_transaction_repository.da
 import 'package:poka_ce/features/transactions/domain/transaction_model.dart';
 import 'package:uuid/uuid.dart';
 
+/// Use case for creating a new income, expense, or transfer transaction.
 class CreateTransactionUseCase {
+  /// Creates a [CreateTransactionUseCase] with the given [ITransactionRepository].
   const CreateTransactionUseCase(this._repository);
 
   final ITransactionRepository _repository;
 
+  /// Executes the creation of a new transaction, validating positive amount
+  /// and building line items.
   Future<Result<TransactionModel, Failure>> execute({
     required TransactionType type,
     required String accountId,

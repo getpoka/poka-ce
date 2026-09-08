@@ -7,11 +7,17 @@ import 'package:share_plus/share_plus.dart';
 
 part 'backup_controller.g.dart';
 
+/// Controller managing the execution of encrypted backup and restore operations,
+/// updating its async state and invoking system share sheets.
 @Riverpod(keepAlive: true)
 class BackupController extends _$BackupController {
   @override
   FutureOr<void> build() {}
 
+  /// Creates an encrypted backup of the database protected by [password]
+  /// and prompts the user to export or share it via the system share sheet.
+  ///
+  /// Returns `true` if the backup and share succeeded, or `false` on failure.
   Future<bool> backup(String password, {Rect? sharePositionOrigin}) async {
     state = const AsyncLoading();
     try {
@@ -43,6 +49,10 @@ class BackupController extends _$BackupController {
     }
   }
 
+  /// Restores database content from the encrypted backup at [filePath]
+  /// using the provided decryption [password].
+  ///
+  /// Returns `true` if decryption and database replacement succeeded.
   Future<bool> restore(String password, String filePath) async {
     state = const AsyncLoading();
     try {

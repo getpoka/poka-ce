@@ -7,6 +7,7 @@ import 'package:poka_ce/database/tables/debts_table.dart';
 import 'package:poka_ce/database/tables/recurring_table.dart';
 import 'package:uuid/uuid.dart';
 
+/// Database table definition for physical transaction receipts (parent header).
 class Transactions extends Table {
   TextColumn get id => text().clientDefault(() => const Uuid().v7())();
   @ReferenceName('transactionSource')
@@ -28,6 +29,7 @@ class Transactions extends Table {
   Set<Column> get primaryKey => {id};
 }
 
+/// Database table definition for receipt detail line items (child items).
 class TransactionItems extends Table {
   TextColumn get id => text().clientDefault(() => const Uuid().v7())();
   TextColumn get transactionId => text().references(Transactions, #id, onDelete: KeyAction.cascade)();

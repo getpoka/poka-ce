@@ -70,6 +70,7 @@ FThemeData get lightTheme {
   );
 }
 
+/// Global dark theme data definition for Poka CE.
 FThemeData get darkTheme {
   // Change this to false to use the desktop variant of this theme.
   const touch = true;
