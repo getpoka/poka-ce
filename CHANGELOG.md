@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- 5-second Undo Delete for transactions with a temporary toast allowing users to restore deleted transactions, line items, and account balance mutations.
+- Periodic backup reminder with customizable intervals (Off, Weekly, Monthly), tracking last backup timestamps and alerting users when backups are due.
+- Multi-sheet Excel export (`.xlsx`) exporting transactions, accounts, and categories via native system sharing.
+- [internal] Drift schema verification suite and schema v1 snapshot to guarantee schema integrity for upcoming releases.
 - Insufficient balance confirmation warning dialog when creating or editing outgoing transactions (expense and transfer) that exceed available account balance, allowing users to proceed or review.
 - Reusable `PokaDonutChart` component unifying donut chart styling across Home and Reports with modern slim geometry and crisp section dividers.
 

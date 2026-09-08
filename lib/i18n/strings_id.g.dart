@@ -159,6 +159,14 @@ class _Translations$backup$id extends Translations$backup$en {
 	@override String get enterPasswordToDecrypt => 'Masukkan kata sandi untuk mendekripsi cadangan';
 	@override String get pleaseRestart => 'Silakan mulai ulang aplikasi untuk menerapkan perubahan.';
 	@override String get passwordRequired => 'Kata sandi wajib diisi';
+	@override String get reminder => 'Pengingat Cadangan';
+	@override String get reminderDesc => 'Ingatkan secara berkala untuk mencadangkan data Anda';
+	@override String get reminderOff => 'Mati';
+	@override String get reminderWeekly => 'Mingguan (setiap 7 hari)';
+	@override String get reminderMonthly => 'Bulanan (setiap 30 hari)';
+	@override String get reminderNotificationTitle => 'Saatnya Cadangkan Data Anda';
+	@override String get reminderNotificationBody => 'Sudah cukup lama sejak pencadangan terakhir. Lindungi data keuangan Anda dengan membuat cadangan sekarang.';
+	@override String get reminderSaved => 'Pengingat cadangan diperbarui';
 }
 
 // Path: budgets
@@ -276,6 +284,7 @@ class _Translations$common$id extends Translations$common$en {
 	@override String get uncategorized => 'Tanpa Kategori';
 	@override String get unknown => 'Tidak diketahui';
 	@override String get notSet => 'Belum Diatur';
+	@override String get undo => 'Urungkan';
 }
 
 // Path: dashboard
@@ -690,6 +699,10 @@ class _Translations$settings$id extends Translations$settings$en {
 	@override String get noResultsFound => 'Tidak Ada Hasil';
 	@override String get weCouldntFindAnyCurrencyMatching => 'Kami tidak menemukan mata uang yang cocok dengan "{search}".';
 	@override String get notSet => 'Belum Diatur';
+	@override String get exportExcel => 'Ekspor ke Excel';
+	@override String get exportExcelDesc => 'Ekspor transaksi, akun, dan kategori ke file .xlsx';
+	@override String get exportExcelSuccess => 'Berhasil mengekspor ke Excel';
+	@override String get exportExcelError => 'Gagal mengekspor file Excel';
 }
 
 // Path: shared
@@ -787,6 +800,8 @@ class _Translations$transactions$id extends Translations$transactions$en {
 	@override String get insufficientBalanceConsequence => 'Saldo akun kamu akan menjadi minus jika tetap melanjutkan.';
 	@override String get continueAnyway => 'Tetap Simpan';
 	@override String get checkAgain => 'Periksa Kembali';
+	@override String get transactionDeleted => 'Transaksi dihapus';
+	@override String get transactionRestored => 'Transaksi dipulihkan';
 }
 
 // Path: app.nav
@@ -916,6 +931,14 @@ extension on TranslationsId {
 			'backup.enterPasswordToDecrypt' => 'Masukkan kata sandi untuk mendekripsi cadangan',
 			'backup.pleaseRestart' => 'Silakan mulai ulang aplikasi untuk menerapkan perubahan.',
 			'backup.passwordRequired' => 'Kata sandi wajib diisi',
+			'backup.reminder' => 'Pengingat Cadangan',
+			'backup.reminderDesc' => 'Ingatkan secara berkala untuk mencadangkan data Anda',
+			'backup.reminderOff' => 'Mati',
+			'backup.reminderWeekly' => 'Mingguan (setiap 7 hari)',
+			'backup.reminderMonthly' => 'Bulanan (setiap 30 hari)',
+			'backup.reminderNotificationTitle' => 'Saatnya Cadangkan Data Anda',
+			'backup.reminderNotificationBody' => 'Sudah cukup lama sejak pencadangan terakhir. Lindungi data keuangan Anda dengan membuat cadangan sekarang.',
+			'backup.reminderSaved' => 'Pengingat cadangan diperbarui',
 			'budgets.budgetName' => 'Nama anggaran',
 			'budgets.spendingLimit' => 'Batas pengeluaran',
 			'budgets.period' => 'Periode',
@@ -1006,6 +1029,7 @@ extension on TranslationsId {
 			'common.uncategorized' => 'Tanpa Kategori',
 			'common.unknown' => 'Tidak diketahui',
 			'common.notSet' => 'Belum Diatur',
+			'common.undo' => 'Urungkan',
 			'dashboard.overview' => 'Ringkasan',
 			'dashboard.myFinances' => 'Keuangan Saya',
 			'dashboard.netWorth' => 'Kekayaan Bersih',
@@ -1345,6 +1369,8 @@ extension on TranslationsId {
 			'settings.reportBugsOrRequestFeatures' => 'Laporkan bug atau minta fitur',
 			'settings.legal' => 'Legal',
 			'settings.termsOfService' => 'Syarat Layanan',
+			_ => null,
+		} ?? switch (path) {
 			'settings.readOurTermsAndConditions' => 'Baca syarat dan ketentuan kami',
 			'settings.privacyPolicy' => 'Kebijakan Privasi',
 			'settings.learnHowWeHandleYourData' => 'Pelajari cara kami mengelola data Anda',
@@ -1354,8 +1380,6 @@ extension on TranslationsId {
 			'settings.shareErrorLogsForTroubleshooting' => 'Bagikan log kesalahan untuk pemecahan masalah',
 			'settings.search' => 'Cari...',
 			'settings.errorLoadingContent' => 'Gagal memuat konten',
-			_ => null,
-		} ?? switch (path) {
 			'settings.noLicensesFound' => 'Lisensi tidak ditemukan',
 			'settings.pokaCe' => 'Poka CE',
 			'settings.communityEdition' => 'Edisi Komunitas',
@@ -1364,6 +1388,10 @@ extension on TranslationsId {
 			'settings.noResultsFound' => 'Tidak Ada Hasil',
 			'settings.weCouldntFindAnyCurrencyMatching' => 'Kami tidak menemukan mata uang yang cocok dengan "{search}".',
 			'settings.notSet' => 'Belum Diatur',
+			'settings.exportExcel' => 'Ekspor ke Excel',
+			'settings.exportExcelDesc' => 'Ekspor transaksi, akun, dan kategori ke file .xlsx',
+			'settings.exportExcelSuccess' => 'Berhasil mengekspor ke Excel',
+			'settings.exportExcelError' => 'Gagal mengekspor file Excel',
 			'shared.authRequired' => 'Dibutuhkan Autentikasi',
 			'shared.hexColorCode' => 'Kode Warna Hex',
 			'shared.apply' => 'Terapkan',
@@ -1443,6 +1471,8 @@ extension on TranslationsId {
 			'transactions.insufficientBalanceConsequence' => 'Saldo akun kamu akan menjadi minus jika tetap melanjutkan.',
 			'transactions.continueAnyway' => 'Tetap Simpan',
 			'transactions.checkAgain' => 'Periksa Kembali',
+			'transactions.transactionDeleted' => 'Transaksi dihapus',
+			'transactions.transactionRestored' => 'Transaksi dipulihkan',
 			_ => null,
 		};
 	}

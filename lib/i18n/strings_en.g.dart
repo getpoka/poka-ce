@@ -300,6 +300,30 @@ class Translations$backup$en {
 
 	/// en: 'Password is required'
 	String get passwordRequired => 'Password is required';
+
+	/// en: 'Backup Reminder'
+	String get reminder => 'Backup Reminder';
+
+	/// en: 'Periodically remind you to back up your data'
+	String get reminderDesc => 'Periodically remind you to back up your data';
+
+	/// en: 'Off'
+	String get reminderOff => 'Off';
+
+	/// en: 'Weekly (every 7 days)'
+	String get reminderWeekly => 'Weekly (every 7 days)';
+
+	/// en: 'Monthly (every 30 days)'
+	String get reminderMonthly => 'Monthly (every 30 days)';
+
+	/// en: 'Time to Back Up Your Data'
+	String get reminderNotificationTitle => 'Time to Back Up Your Data';
+
+	/// en: 'It has been a while since your last backup. Keep your financial data safe by creating a backup now.'
+	String get reminderNotificationBody => 'It has been a while since your last backup. Keep your financial data safe by creating a backup now.';
+
+	/// en: 'Backup reminder updated'
+	String get reminderSaved => 'Backup reminder updated';
 }
 
 // Path: budgets
@@ -597,6 +621,9 @@ class Translations$common$en {
 
 	/// en: 'Not Set'
 	String get notSet => 'Not Set';
+
+	/// en: 'Undo'
+	String get undo => 'Undo';
 }
 
 // Path: dashboard
@@ -1692,6 +1719,18 @@ class Translations$settings$en {
 
 	/// en: 'Not Set'
 	String get notSet => 'Not Set';
+
+	/// en: 'Export to Excel'
+	String get exportExcel => 'Export to Excel';
+
+	/// en: 'Export transactions, accounts, and categories to .xlsx'
+	String get exportExcelDesc => 'Export transactions, accounts, and categories to .xlsx';
+
+	/// en: 'Excel exported successfully'
+	String get exportExcelSuccess => 'Excel exported successfully';
+
+	/// en: 'Failed to export Excel file'
+	String get exportExcelError => 'Failed to export Excel file';
 }
 
 // Path: shared
@@ -1947,6 +1986,12 @@ class Translations$transactions$en {
 
 	/// en: 'Check Again'
 	String get checkAgain => 'Check Again';
+
+	/// en: 'Transaction deleted'
+	String get transactionDeleted => 'Transaction deleted';
+
+	/// en: 'Transaction restored'
+	String get transactionRestored => 'Transaction restored';
 }
 
 // Path: app.nav
@@ -2112,6 +2157,14 @@ extension on Translations {
 			'backup.enterPasswordToDecrypt' => 'Enter password to decrypt backup',
 			'backup.pleaseRestart' => 'Please restart the app to apply changes.',
 			'backup.passwordRequired' => 'Password is required',
+			'backup.reminder' => 'Backup Reminder',
+			'backup.reminderDesc' => 'Periodically remind you to back up your data',
+			'backup.reminderOff' => 'Off',
+			'backup.reminderWeekly' => 'Weekly (every 7 days)',
+			'backup.reminderMonthly' => 'Monthly (every 30 days)',
+			'backup.reminderNotificationTitle' => 'Time to Back Up Your Data',
+			'backup.reminderNotificationBody' => 'It has been a while since your last backup. Keep your financial data safe by creating a backup now.',
+			'backup.reminderSaved' => 'Backup reminder updated',
 			'budgets.budgetName' => 'Budget name',
 			'budgets.spendingLimit' => 'Spending limit',
 			'budgets.period' => 'Period',
@@ -2202,6 +2255,7 @@ extension on Translations {
 			'common.uncategorized' => 'Uncategorized',
 			'common.unknown' => 'Unknown',
 			'common.notSet' => 'Not Set',
+			'common.undo' => 'Undo',
 			'dashboard.overview' => 'Overview',
 			'dashboard.myFinances' => 'My Finances',
 			'dashboard.netWorth' => 'Net Worth',
@@ -2541,6 +2595,8 @@ extension on Translations {
 			'settings.reportBugsOrRequestFeatures' => 'Report bugs or request features',
 			'settings.legal' => 'Legal',
 			'settings.termsOfService' => 'Terms of Service',
+			_ => null,
+		} ?? switch (path) {
 			'settings.readOurTermsAndConditions' => 'Read our terms and conditions',
 			'settings.privacyPolicy' => 'Privacy Policy',
 			'settings.learnHowWeHandleYourData' => 'Learn how we handle your data',
@@ -2550,8 +2606,6 @@ extension on Translations {
 			'settings.shareErrorLogsForTroubleshooting' => 'Share error logs for troubleshooting',
 			'settings.search' => 'Search...',
 			'settings.errorLoadingContent' => 'Error loading content',
-			_ => null,
-		} ?? switch (path) {
 			'settings.noLicensesFound' => 'No licenses found',
 			'settings.pokaCe' => 'Poka CE',
 			'settings.communityEdition' => 'Community Edition',
@@ -2560,6 +2614,10 @@ extension on Translations {
 			'settings.noResultsFound' => 'No Results Found',
 			'settings.weCouldntFindAnyCurrencyMatching' => 'We couldn\'t find any currency matching "{search}".',
 			'settings.notSet' => 'Not Set',
+			'settings.exportExcel' => 'Export to Excel',
+			'settings.exportExcelDesc' => 'Export transactions, accounts, and categories to .xlsx',
+			'settings.exportExcelSuccess' => 'Excel exported successfully',
+			'settings.exportExcelError' => 'Failed to export Excel file',
 			'shared.authRequired' => 'Authentication Required',
 			'shared.hexColorCode' => 'Hex Color Code',
 			'shared.apply' => 'Apply',
@@ -2639,6 +2697,8 @@ extension on Translations {
 			'transactions.insufficientBalanceConsequence' => 'Your account balance will become negative if you proceed.',
 			'transactions.continueAnyway' => 'Continue Anyway',
 			'transactions.checkAgain' => 'Check Again',
+			'transactions.transactionDeleted' => 'Transaction deleted',
+			'transactions.transactionRestored' => 'Transaction restored',
 			_ => null,
 		};
 	}
