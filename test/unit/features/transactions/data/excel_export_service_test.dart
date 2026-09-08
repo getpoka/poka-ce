@@ -180,5 +180,51 @@ void main() {
       final failure = (result as ErrorResult<File, Failure>).error;
       expect(failure, isA<DatabaseFailure>());
     });
+
+    test('cleanupOldExports deletes the exports directory and stale files', () async {
+      final tempDir = Directory.systemTemp;
+      final exportDir = Directory('${tempDir.path}/exports');
+      if (!exportDir.existsSync()) {
+        exportDir.createSync(recursive: true);
+      }
+      final dummyFile = File('${exportDir.path}/poka-export-old.xlsx');
+      dummyFile.writeAsStringSync('dummy');
+      expect(dummyFile.existsSync(), isTrue);
+
+      await service.cleanupOldExports();
+
+      expect(exportDir.existsSync(), isFalse);
+    });
+
+    test('exportToFile purges previous export files before creating a new one', () async {
+      when(() => mockTxRepo.getTransactions()).thenAnswer(
+        (_) async => const Success([]),
+      );
+      when(() => mockAccRepo.getAccounts()).thenAnswer(
+        (_) async => const Success([]),
+      );
+      when(() => mockCatRepo.getCategories()).thenAnswer(
+        (_) async => const Success([]),
+      );
+
+      final tempDir = Directory.systemTemp;
+      final exportDir = Directory('${tempDir.path}/exports');
+      if (!exportDir.existsSync()) {
+        exportDir.createSync(recursive: true);
+      }
+      final staleFile = File('${exportDir.path}/poka-export-20200101-000000.xlsx');
+      staleFile.writeAsStringSync('stale data');
+      expect(staleFile.existsSync(), isTrue);
+
+      final result = await service.exportToFile();
+      expect(result, isA<Success<File, Failure>>());
+      final newFile = (result as Success<File, Failure>).value;
+
+      expect(staleFile.existsSync(), isFalse);
+      expect(newFile.existsSync(), isTrue);
+
+      // Clean up after test
+      await service.cleanupOldExports();
+    });
   });
 }

@@ -7,6 +7,7 @@ import 'package:poka_ce/core/services/quick_actions_service.dart';
 import 'package:poka_ce/features/backup/domain/backup_reminder_service.dart';
 import 'package:poka_ce/features/debts/domain/debt_alert_service_provider.dart';
 import 'package:poka_ce/features/settings/presentation/controllers/settings_notifier.dart';
+import 'package:poka_ce/features/transactions/data/excel_export_service.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/theme/theme.dart';
 
@@ -46,6 +47,9 @@ class PokaApp extends HookConsumerWidget {
 
       // Check periodic backup reminder
       ref.read(backupReminderServiceProvider).checkAndNotify();
+
+      // Clean up stale temporary exports
+      ref.read(excelExportServiceProvider).cleanupOldExports();
 
       // Initialize quick actions
       QuickActionsService.instance.initialize();
