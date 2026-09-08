@@ -9,7 +9,6 @@ targets:
           locale_handling: true
           namespaces: true
 
-
           output_directory: lib/i18n
           output_file_name: strings.g.dart
           translate_var: t
@@ -18,3 +17,10 @@ targets:
           fallback_strategy: base_locale
           maps:
             - error
+
+      drift_dev:
+        options:
+          databases:
+            app_database: lib/database/database.dart
+          schema_dir: test/database/schemas/
+          test_dir: test/database/
