@@ -64,6 +64,36 @@ class NotificationService {
       talker.handle(e, st, 'NotificationService.showNotification');
     }
   }
+
+  Future<void> showBackupReminderNotification({
+    required String title,
+    required String body,
+    String? payload,
+  }) async {
+    try {
+      const androidPlatformChannelSpecifics = AndroidNotificationDetails(
+        'poka_ce_backup_reminders',
+        'Backup Reminders',
+        channelDescription: 'Reminders to periodically back up your financial data',
+      );
+      const darwinPlatformChannelSpecifics = DarwinNotificationDetails();
+
+      const platformChannelSpecifics = NotificationDetails(
+        android: androidPlatformChannelSpecifics,
+        iOS: darwinPlatformChannelSpecifics,
+      );
+
+      await _flutterLocalNotificationsPlugin.show(
+        id: 9999,
+        title: title,
+        body: body,
+        notificationDetails: platformChannelSpecifics,
+        payload: payload,
+      );
+    } on Object catch (e, st) {
+      talker.handle(e, st, 'NotificationService.showBackupReminderNotification');
+    }
+  }
 }
 
 final notificationService = NotificationService();

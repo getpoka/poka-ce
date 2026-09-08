@@ -35,6 +35,12 @@ class FakePreferencesService implements PreferencesService {
   }
 
   @override
+  int? getInt(String key) => null;
+
+  @override
+  Future<void> saveInt(String key, int value) async {}
+
+  @override
   Future<void> remove(String key) async {
     _bools.remove(key);
     _strings.remove(key);
