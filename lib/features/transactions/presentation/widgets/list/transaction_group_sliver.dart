@@ -133,6 +133,27 @@ class _SliverDateGroupSection extends ConsumerWidget {
                     );
                     if (confirmed == true) {
                       await ref.read(transactionListNotifierProvider.notifier).deleteTransaction(tx.id);
+                      if (context.mounted) {
+                        showFToast(
+                          context: context,
+                          title: Text(t.transactions.transactionDeleted),
+                          suffixBuilder: (toastContext, entry) => FButton(
+                            size: FButtonSizeVariant.sm,
+                            variant: FButtonVariant.outline,
+                            onPress: () async {
+                              entry.dismiss();
+                              await ref.read(transactionListNotifierProvider.notifier).restoreTransaction(tx);
+                              if (context.mounted) {
+                                showFToast(
+                                  context: context,
+                                  title: Text(t.transactions.transactionRestored),
+                                );
+                              }
+                            },
+                            child: Text(t.common.undo),
+                          ),
+                        );
+                      }
                     }
                   },
                 );

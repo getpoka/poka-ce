@@ -64,5 +64,7 @@
   "insufficientBalanceWarning": "The amount ({{amount}}) exceeds the current balance in {{account}} ({{balance}}). Perhaps you forgot to record income first?",
   "insufficientBalanceConsequence": "Your account balance will become negative if you proceed.",
   "continueAnyway": "Continue Anyway",
-  "checkAgain": "Check Again"
+  "checkAgain": "Check Again",
+  "transactionDeleted": "Transaction deleted",
+  "transactionRestored": "Transaction restored"
 }

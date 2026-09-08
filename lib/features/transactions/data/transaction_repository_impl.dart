@@ -162,6 +162,11 @@ class TransactionRepositoryImpl implements ITransactionRepository {
     }
   }
 
+  @override
+  Future<Result<void, Failure>> restoreTransaction(TransactionModel transaction) async {
+    return createTransaction(transaction);
+  }
+
   /// Maps Drift Transaction object to Domain TransactionModel.
   TransactionModel _mapToModel(db.Transaction header, List<db.TransactionItem> items) {
     return TransactionModel(
