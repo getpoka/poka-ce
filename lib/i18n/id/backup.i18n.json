@@ -15,8 +15,8 @@
   "reminder": "Pengingat Cadangan",
   "reminderDesc": "Ingatkan secara berkala untuk mencadangkan data Anda",
   "reminderOff": "Mati",
-  "reminderWeekly": "Mingguan (setiap 7 hari)",
-  "reminderMonthly": "Bulanan (setiap 30 hari)",
+  "reminderWeekly": "Mingguan",
+  "reminderMonthly": "Bulanan",
   "reminderNotificationTitle": "Saatnya Cadangkan Data Anda",
   "reminderNotificationBody": "Sudah cukup lama sejak pencadangan terakhir. Lindungi data keuangan Anda dengan membuat cadangan sekarang.",
   "reminderSaved": "Pengingat cadangan diperbarui"

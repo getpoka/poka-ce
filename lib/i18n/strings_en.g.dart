@@ -310,11 +310,11 @@ class Translations$backup$en {
 	/// en: 'Off'
 	String get reminderOff => 'Off';
 
-	/// en: 'Weekly (every 7 days)'
-	String get reminderWeekly => 'Weekly (every 7 days)';
+	/// en: 'Weekly'
+	String get reminderWeekly => 'Weekly';
 
-	/// en: 'Monthly (every 30 days)'
-	String get reminderMonthly => 'Monthly (every 30 days)';
+	/// en: 'Monthly'
+	String get reminderMonthly => 'Monthly';
 
 	/// en: 'Time to Back Up Your Data'
 	String get reminderNotificationTitle => 'Time to Back Up Your Data';
@@ -1521,6 +1521,15 @@ class Translations$reports$en {
 
 	/// en: 'prev period'
 	String get prevPeriod => 'prev period';
+
+	/// en: 'Export to Excel'
+	String get exportExcel => 'Export to Excel';
+
+	/// en: 'Excel exported successfully'
+	String get exportExcelSuccess => 'Excel exported successfully';
+
+	/// en: 'Failed to export Excel file'
+	String get exportExcelError => 'Failed to export Excel file';
 }
 
 // Path: settings
@@ -2160,8 +2169,8 @@ extension on Translations {
 			'backup.reminder' => 'Backup Reminder',
 			'backup.reminderDesc' => 'Periodically remind you to back up your data',
 			'backup.reminderOff' => 'Off',
-			'backup.reminderWeekly' => 'Weekly (every 7 days)',
-			'backup.reminderMonthly' => 'Monthly (every 30 days)',
+			'backup.reminderWeekly' => 'Weekly',
+			'backup.reminderMonthly' => 'Monthly',
 			'backup.reminderNotificationTitle' => 'Time to Back Up Your Data',
 			'backup.reminderNotificationBody' => 'It has been a while since your last backup. Keep your financial data safe by creating a backup now.',
 			'backup.reminderSaved' => 'Backup reminder updated',
@@ -2549,6 +2558,9 @@ extension on Translations {
 			'reports.prev3Months' => 'prev 3 mo',
 			'reports.prev6Months' => 'prev 6 mo',
 			'reports.prevPeriod' => 'prev period',
+			'reports.exportExcel' => 'Export to Excel',
+			'reports.exportExcelSuccess' => 'Excel exported successfully',
+			'reports.exportExcelError' => 'Failed to export Excel file',
 			'settings.title' => 'Settings',
 			'settings.preferences' => 'Preferences',
 			'settings.baseCurrency' => 'Base Currency',
@@ -2592,11 +2604,11 @@ extension on Translations {
 			'settings.selectCurrency' => 'Select Currency',
 			'settings.openSourceLicenses' => 'Open Source Licenses',
 			'settings.helpIssues' => 'Help & Issues',
+			_ => null,
+		} ?? switch (path) {
 			'settings.reportBugsOrRequestFeatures' => 'Report bugs or request features',
 			'settings.legal' => 'Legal',
 			'settings.termsOfService' => 'Terms of Service',
-			_ => null,
-		} ?? switch (path) {
 			'settings.readOurTermsAndConditions' => 'Read our terms and conditions',
 			'settings.privacyPolicy' => 'Privacy Policy',
 			'settings.learnHowWeHandleYourData' => 'Learn how we handle your data',

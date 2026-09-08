@@ -61,8 +61,8 @@ void main() {
 
       expect(find.text('Backup Reminder'), findsWidgets);
       expect(find.text('Off'), findsOneWidget);
-      expect(find.text('Weekly (every 7 days)'), findsOneWidget);
-      expect(find.text('Monthly (every 30 days)'), findsOneWidget);
+      expect(find.text('Weekly'), findsOneWidget);
+      expect(find.text('Monthly'), findsOneWidget);
     });
 
     testWidgets('selecting Monthly pops with BackupReminderInterval.monthly', (tester) async {
@@ -79,7 +79,7 @@ void main() {
       await tester.tap(find.text('Open Sheet'));
       await tester.pumpAndSettle();
 
-      await tester.tap(find.text('Monthly (every 30 days)'));
+      await tester.tap(find.text('Monthly'));
       await tester.pumpAndSettle();
 
       expect(selected, BackupReminderInterval.monthly);

@@ -57,5 +57,8 @@
   "prevMonth": "prev month",
   "prev3Months": "prev 3 mo",
   "prev6Months": "prev 6 mo",
-  "prevPeriod": "prev period"
+  "prevPeriod": "prev period",
+  "exportExcel": "Export to Excel",
+  "exportExcelSuccess": "Excel exported successfully",
+  "exportExcelError": "Failed to export Excel file"
 }
