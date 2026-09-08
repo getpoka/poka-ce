@@ -61,5 +61,9 @@
   "copyright": "\u00a9 2026 POKA. All rights reserved.",
   "noResultsFound": "Tidak Ada Hasil",
   "weCouldntFindAnyCurrencyMatching": "Kami tidak menemukan mata uang yang cocok dengan \"{search}\".",
-  "notSet": "Belum Diatur"
+  "notSet": "Belum Diatur",
+  "exportExcel": "Ekspor ke Excel",
+  "exportExcelDesc": "Ekspor transaksi, akun, dan kategori ke file .xlsx",
+  "exportExcelSuccess": "Berhasil mengekspor ke Excel",
+  "exportExcelError": "Gagal mengekspor file Excel"
 }
