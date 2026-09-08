@@ -16,6 +16,21 @@ subprojects {
     project.layout.buildDirectory.value(newSubprojectBuildDir)
 }
 subprojects {
+    val configureSubproject: () -> Unit = {
+        if (project.plugins.hasPlugin("com.android.library")) {
+            project.extensions.configure<com.android.build.api.dsl.LibraryExtension> {
+                compileSdk = 36
+            }
+        }
+    }
+    if (project.state.executed) {
+        configureSubproject()
+    } else {
+        project.afterEvaluate { configureSubproject() }
+    }
+}
+
+subprojects {
     project.evaluationDependsOn(":app")
 }
 
