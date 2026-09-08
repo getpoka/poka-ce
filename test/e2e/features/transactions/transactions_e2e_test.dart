@@ -74,15 +74,15 @@ void main() {
     await tester.tap(okBtn);
     await settle();
 
+    // Confirm insufficient balance warning if dialog appears
+    final continueAnyway = find.text('Continue Anyway');
+    if (continueAnyway.evaluate().isNotEmpty) {
+      await tester.tap(continueAnyway);
+      await settle();
+    }
+
     // Wait for list to refresh
     await settle();
-
-    // Debug: print widgets
-    for (final widget in tester.allWidgets) {
-      if (widget is Text) {
-        print('Found text: "${widget.data}"');
-      }
-    }
 
     // Verify it appears in the list
     await tester.ensureVisible(find.text('E2E Transaction').last);
@@ -122,6 +122,12 @@ void main() {
     await tester.ensureVisible(okBtnEdit);
     await tester.tap(okBtnEdit);
     await settle();
+
+    final continueAnywayEdit = find.text('Continue Anyway');
+    if (continueAnywayEdit.evaluate().isNotEmpty) {
+      await tester.tap(continueAnywayEdit);
+      await settle();
+    }
 
     // Verify it is updated
     await tester.ensureVisible(find.text('E2E Transaction Edited').last);
