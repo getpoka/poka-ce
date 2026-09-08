@@ -17,9 +17,10 @@ Thank you for your interest in contributing to Poka CE — the open-source perso
 ```bash
 git clone https://github.com/getpoka/poka-ce.git
 cd poka-ce
+cp .env.example .env
 flutter pub get
-dart run build_runner build
-flutter run
+make generate   # or: dart run build_runner build && dart run slang
+make run        # or: flutter run --dart-define-from-file=.env
 ```
 
 ---
@@ -59,8 +60,13 @@ You **must** pass all of these before opening a PR:
 make fix      # dart fix --apply + dart format .
 make check    # flutter analyze — must print "No issues found!"
 make generate # regenerate code (Riverpod, Freezed, Drift, Slang)
-make test     # run all tests
+make test     # run full test suite (unit, feature, e2e)
 ```
+
+Targeted test commands:
+- `make test:unit` — Run unit tests for repositories, domain models, and notifiers
+- `make test:feature` — Run feature widget and page tests
+- `make test:e2e` — Run headless end-to-end integration flows
 
 ---
 
@@ -80,6 +86,7 @@ These are hard constraints — PRs violating any of these will not be merged:
 | 8  | No sync logic, cloud integration, or multi-currency support                                         |
 | 9  | No Drift `*Data` class passed to or imported in a Widget/Screen — use Freezed instead               |
 | 10 | Every new `lib/` file must have a matching `test/` file                                             |
+| 11 | No hardcoded UI strings — all user-facing text must use Slang (`lib/i18n/`)                         |
 
 See [`AGENTS.md`](./AGENTS.md) for the complete violation table.
 
@@ -128,6 +135,17 @@ See [`AGENTS.md`](./AGENTS.md) for the complete violation table.
 
 ---
 
+## Localization (Slang i18n)
+
+Poka CE is bilingual (English & Indonesian) powered by [Slang](https://pub.dev/packages/slang):
+
+- **Never hardcode strings** in widget files.
+- Add strings to `lib/i18n/strings.i18n.json` (English master) and `lib/i18n/strings_id.i18n.json` (Indonesian).
+- Regenerate translation classes with `make generate` or `dart run slang`.
+- Access translations in UI widgets via `t.<feature>.<key>` (e.g. `t.accounts.title`).
+
+---
+
 ## Commit Messages
 
 Follow [Conventional Commits](https://www.conventionalcommits.org/):
@@ -154,15 +172,15 @@ chore: upgrade forui to latest
 
 Every contribution must include tests. Follow the priority order:
 
-1. **Unit tests** (highest priority) — Repositories, Notifiers, Mappers
-2. **Widget tests** (selective) — Complex/stateful widgets and reusable core components
-3. **Integration tests** (core user journeys only)
+1. **Unit tests** (highest priority) — Repositories, Notifiers, Mappers under `test/unit/`
+2. **Widget tests** (selective) — Complex/stateful widgets and reusable core components under `test/feature/`
+3. **Integration tests** (core user journeys only) under `test/e2e/`
 
-Test files must mirror `lib/` structure exactly:
+Unit test files mirror `lib/` structure under `test/unit/`:
 
 ```
 lib/features/accounts/data/account_repository.dart
-→ test/features/accounts/data/account_repository_test.dart
+→ test/unit/features/accounts/data/account_repository_test.dart
 ```
 
 Minimum coverage target: **85%** per file.
@@ -174,6 +192,9 @@ Minimum coverage target: **85%** per file.
 - Always open PRs as **Draft** first — do not mark ready until all checks pass
 - Link the relevant issue in the PR description
 - If the change affects UI, attach screenshots or a screen recording
+- Update `CHANGELOG.md` under `## [Unreleased]`:
+  - User-facing improvements/fixes go under `### Added`, `### Changed`, or `### Fixed`.
+  - Internal tooling, test fixtures, CI, or mock refactors must be prefixed with `- [internal]`.
 - Fill in the [PR checklist](.github/PULL_REQUEST_TEMPLATE.md) completely
 
 ---

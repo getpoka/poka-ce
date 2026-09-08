@@ -7,6 +7,9 @@
 <p align="center"><a href="https://getpoka.app">getpoka.app</a></p>
 
 <p align="center">
+  <a href="https://github.com/getpoka/poka-ce/releases">
+    <img src="https://img.shields.io/github/v/release/getpoka/poka-ce?style=for-the-badge&logo=github&label=Release" alt="Release" />
+  </a>
   <a href="https://github.com/getpoka/poka-ce/actions/workflows/ci.yml">
     <img src="https://img.shields.io/github/actions/workflow/status/getpoka/poka-ce/ci.yml?style=for-the-badge&logo=github&label=CI" alt="CI" />
   </a>
@@ -48,26 +51,27 @@ Unlike most finance apps that treat cloud sync as a default, Poka CE treats loca
 constraint — not an optional mode. It is open-source, built with Flutter, and designed to be simple enough for daily use
 without being stripped of the features that matter.
 
-> [!WARNING]
-> **Public Beta — Active Refinement.** Core features are ready for use, but we are actively refining edge cases around
-record management. Occasional breaking changes may occur between versions. We strongly recommend backing up your data
-regularly via **Settings → Backup**.
+> [!NOTE]
+> **Data Safety & Backups.** Because Poka CE stores 100% of your data locally on your device with zero cloud syncing,
+> we strongly recommend creating periodic backups via **Settings → Backup & Export** to safeguard against device loss or replacement.
 
 ---
 
 ## Key Features
 
-- **Multi-Account Management** — Track multiple accounts simultaneously with real-time balance updates.
-- **Income, Expense & Transfer** — Record all transaction types with full history and filtering.
-- **Budgeting** — Set monthly spending limits per category and monitor adherence.
-- **Goals** — Define saving targets and visualize progress over time.
-- **Debt & Loan Tracking** — Log amounts owed or lent, with paired transaction records.
-- **Split Transactions** — Allocate a single transaction across multiple categories or pockets.
-- **Smart Input Parsing** — Type math expressions directly into the amount field (e.g., `150000+50000*2`); the
-  calculator evaluates them in real time.
-- **Offline First** — 100% local SQLite storage via Drift. No internet required, ever.
-- **Flat Design System** — Built with [ForUI](https://github.com/forui-dev/forui); no shadows, no elevation — clean and
-  sharp.
+- **Multi-Account Management** — Track multiple accounts and sub-wallet pockets simultaneously with real-time balance updates.
+- **Income, Expense & Transfer** — Record all transaction types with full history, search, and multidimensional filters.
+- **Split Transactions** — Allocate a single receipt across multiple categories or pockets with automatic amount balance verification.
+- **5-Second Undo Delete** — Instantly restore accidentally deleted transactions, line items, and balance mutations with a single tap.
+- **Budgeting** — Set monthly spending limits per category or account and track actual progress directly from item receipts.
+- **Goals** — Define savings targets linked to dedicated pockets and track progress automatically.
+- **Debt & Loan Tracking** — Log borrowed or lent funds with paired wallet cashflow entries and installment tracking.
+- **Smart Input Parsing** — Type arithmetic expressions directly into the amount field (e.g., `150000+50000*2`) with real-time evaluation.
+- **Bilingual Support** — Fully localized interface in English and Bahasa Indonesia with seamless in-app language switching.
+- **Multi-Sheet Data Export** — Export comprehensive financial records to Excel (`.xlsx`) or export/import JSON backups.
+- **Android App Shortcuts** — Quick-action shortcuts from your home screen for rapid transaction entry.
+- **Offline First & Private** — 100% local SQLite storage via Drift. No internet required, no analytics, no trackers.
+- **Flat Design System** — Built strictly with [ForUI](https://github.com/forui-dev/forui); zero shadows, dual typography (Plus Jakarta Sans & Tabular Inter), clean and sharp.
 
 ---
 
@@ -88,11 +92,12 @@ regularly via **Settings → Backup**.
 
 Download the latest release directly from the [GitHub Releases page](https://github.com/getpoka/poka-ce/releases).
 
-**System Requirements:**
+**System Requirements & Platform Support:**
 
 - **OS**: Android 5.0 (Lollipop) or newer (API level 21+)
 - **Storage**: ~30 MB free space (if using Split APK)
 - **Internet**: Not required — Poka CE is 100% offline.
+- **iOS & Desktop**: Poka CE is currently distributed as an Android APK. iOS and desktop support remain on the project roadmap.
 
 **Which APK should I choose?**
 
@@ -133,7 +138,7 @@ make generate
 ```
 
 > The `.env` file is required. Set `POKA_ENABLE_SEEDER=true` to populate the database with seed data for development.
-> If you don't have Make, run `dart run build_runner build` instead.
+> If you don't have Make, run `dart run build_runner build && dart run slang` instead.
 
 **4. Run the application:**
 

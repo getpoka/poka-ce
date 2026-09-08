@@ -30,6 +30,7 @@
 - [ ] `make generate` — codegen up to date (if annotated files changed)
 - [ ] `make test` — all tests pass
 - [ ] Every new `lib/` file has a matching `test/` file
+- [ ] Updated `CHANGELOG.md` under `[Unreleased]` (with `[internal]` prefix if internal only)
 - [ ] My commit messages follow the Conventional Commits format (`feat:`, `fix:`, `ui:`)
 
 ### Code Quality
@@ -38,6 +39,7 @@
 - [ ] No shadows (`boxShadow`, `elevation > 0`, `PhysicalModel`)
 - [ ] No hardcoded colors (`Color(0xFF...)`, `Colors.white/black/grey`) outside `lib/theme/`
 - [ ] No inline typography (`TextStyle(fontSize: N)`, `fontWeight`) outside `lib/theme/`
+- [ ] No hardcoded UI strings — localized via Slang in `lib/i18n/`
 - [ ] No ForUI component styled inline — used `dart run forui style create <component>` instead
 - [ ] No `throw` inside a Repository or Notifier
 - [ ] No `print()` or `debugPrint()` — uses `talker`
