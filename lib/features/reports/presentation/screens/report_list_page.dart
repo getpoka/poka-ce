@@ -3,7 +3,6 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:forui/forui.dart';
 import 'package:forui_phosphor/forui_phosphor.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poka_ce/core/error/result.dart';
 import 'package:poka_ce/features/reports/presentation/controllers/report_notifier.dart';
 import 'package:poka_ce/features/reports/presentation/widgets/report_budget_utilization.dart';
 import 'package:poka_ce/features/reports/presentation/widgets/report_cashflow_chart.dart';
@@ -11,7 +10,6 @@ import 'package:poka_ce/features/reports/presentation/widgets/report_category_ch
 import 'package:poka_ce/features/reports/presentation/widgets/report_period_selector.dart';
 import 'package:poka_ce/features/reports/presentation/widgets/report_spending_allocation.dart';
 import 'package:poka_ce/features/reports/presentation/widgets/report_summary_card.dart';
-import 'package:poka_ce/features/transactions/data/excel_export_service.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/poka_header.dart';
 import 'package:poka_ce/shared/widgets/poka_section_label.dart';
@@ -37,20 +35,12 @@ class ReportListPage extends ConsumerWidget {
               final box = context.findRenderObject() as RenderBox?;
               final rect = box != null ? box.localToGlobal(Offset.zero) & box.size : null;
 
-              final result = await ref.read(excelExportServiceProvider).exportAndShare(sharePositionOrigin: rect);
+              final success = await ref.read(reportProvider.notifier).exportExcel(sharePositionOrigin: rect);
               if (context.mounted) {
-                switch (result) {
-                  case Success():
-                    showFToast(
-                      context: context,
-                      title: Text(t.exportExcelSuccess),
-                    );
-                  case ErrorResult():
-                    showFToast(
-                      context: context,
-                      title: Text(t.exportExcelError),
-                    );
-                }
+                showFToast(
+                  context: context,
+                  title: Text(success ? t.exportExcelSuccess : t.exportExcelError),
+                );
               }
             },
           ),

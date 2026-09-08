@@ -1,8 +1,12 @@
+import 'dart:ui';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:poka_ce/app/providers/repository_providers.dart';
+import 'package:poka_ce/core/error/result.dart';
 import 'package:poka_ce/features/budgets/domain/budget_model.dart';
 import 'package:poka_ce/features/budgets/presentation/controllers/budget_list_notifier.dart';
 import 'package:poka_ce/features/reports/domain/services/report_analytics_service.dart';
+import 'package:poka_ce/features/transactions/data/excel_export_service.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -101,5 +105,21 @@ class ReportNotifier extends _$ReportNotifier {
     _customStart = start;
     _customEnd = end;
     ref.invalidateSelf();
+  }
+
+  /// Exports ledger transactions, accounts, and categories to an Excel spreadsheet
+  /// and opens the system share sheet.
+  ///
+  /// Returns `true` if the export and share succeeded, or `false` on failure.
+  Future<bool> exportExcel({Rect? sharePositionOrigin}) async {
+    final result = await ref
+        .read(excelExportServiceProvider)
+        .exportAndShare(
+          sharePositionOrigin: sharePositionOrigin,
+        );
+    return switch (result) {
+      Success() => true,
+      ErrorResult() => false,
+    };
   }
 }

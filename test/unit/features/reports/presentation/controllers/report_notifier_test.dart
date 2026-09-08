@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -7,8 +9,11 @@ import 'package:poka_ce/core/error/result.dart';
 import 'package:poka_ce/features/budgets/domain/i_budget_repository.dart';
 import 'package:poka_ce/features/reports/domain/services/report_analytics_service.dart';
 import 'package:poka_ce/features/reports/presentation/controllers/report_notifier.dart';
+import 'package:poka_ce/features/transactions/data/excel_export_service.dart';
 
 class MockBudgetRepository extends Mock implements IBudgetRepository {}
+
+class MockExcelExportService extends Mock implements ExcelExportService {}
 
 void main() {
   group('ReportState', () {
@@ -34,7 +39,7 @@ void main() {
   });
 
   group('ReportNotifier', () {
-    ProviderContainer makeContainer() {
+    ProviderContainer makeContainer({MockExcelExportService? mockExcelExport}) {
       final mockBudget = MockBudgetRepository();
       when(() => mockBudget.getBudgets()).thenAnswer((_) async => const Success([]));
       final container = ProviderContainer(
@@ -42,6 +47,7 @@ void main() {
           recentTransactionsStreamProvider.overrideWith((ref) => Stream.value([])),
           categoriesStreamProvider.overrideWith((ref) => Stream.value([])),
           budgetRepositoryProvider.overrideWithValue(mockBudget),
+          if (mockExcelExport != null) excelExportServiceProvider.overrideWithValue(mockExcelExport),
         ],
       );
       container.listen(reportProvider, (_, __) {});
@@ -86,6 +92,32 @@ void main() {
       expect(state.period, ReportPeriod.thisMonth);
       expect(state.customDateStart, isNull);
       expect(state.customDateEnd, isNull);
+    });
+
+    test('exportExcel returns true on success', () async {
+      final mockExport = MockExcelExportService();
+      when(() => mockExport.exportAndShare(sharePositionOrigin: any(named: 'sharePositionOrigin')))
+          .thenAnswer((_) async => Success(File('test.xlsx')));
+
+      final container = makeContainer(mockExcelExport: mockExport);
+      final notifier = container.read(reportProvider.notifier);
+
+      final success = await notifier.exportExcel();
+      expect(success, isTrue);
+      verify(() => mockExport.exportAndShare(sharePositionOrigin: any(named: 'sharePositionOrigin'))).called(1);
+    });
+
+    test('exportExcel returns false on error', () async {
+      final mockExport = MockExcelExportService();
+      when(() => mockExport.exportAndShare(sharePositionOrigin: any(named: 'sharePositionOrigin')))
+          .thenAnswer((_) async => const ErrorResult(UnexpectedFailure('error')));
+
+      final container = makeContainer(mockExcelExport: mockExport);
+      final notifier = container.read(reportProvider.notifier);
+
+      final success = await notifier.exportExcel();
+      expect(success, isFalse);
+      verify(() => mockExport.exportAndShare(sharePositionOrigin: any(named: 'sharePositionOrigin'))).called(1);
     });
   });
 }
