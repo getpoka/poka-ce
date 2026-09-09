@@ -8,27 +8,30 @@ This document records the bug findings identified during the **Smoke Testing** p
 
 | ID | Module | Description | Severity | Status |
 |---|---|---|---|---|
-| **BUG-001** | `Transactions / Split Sheet` | Allocation tag (Need / Want / Saving) does not appear in the split item preview list during transaction creation | Medium (UI/UX Inconsistency) | 🔍 Investigated |
-| **BUG-002** | `Transactions / Transaction Tile` | Expanding a split transaction in the transaction history renders all sub-items as "Uncategorized" | High (Data Presentation Defect) | 🔍 Investigated |
-| **BUG-003** | `Recurring / Ledger Snapshot` | Generated recurring transactions lack an immutable frequency/period snapshot (e.g. Daily / Weekly / Monthly), causing period display ambiguity upon schedule editing | High (Data Integrity & Ledger Immutability) | 🔍 Investigated |
-| **BUG-004** | `Settings / Onboarding & Currency` | After "Reset Data", selecting a currency (e.g. CHF) in Onboarding does not update the active session — transactions default to IDR and base currency shows "Not Set" until app restart | High (UX & Session State Defect) | 🔍 Investigated |
-| **BUG-005** | `Backup & Restore / Dialog Copy` | Restore confirmation dialog uses "Reset Data" copy (*"erase all app data locally, this action cannot be undone"*), misleading users into thinking data is only being erased | Medium (Misleading Copy / UX) | 🔍 Investigated |
-| **BUG-006** | `Backup & Restore / Reactive Reload` | Successfully restoring an encrypted backup does not refresh active app state; user must force-close and reopen the app to see restored data | High (Reactive State & DB Lock Defect) | 🔍 Investigated |
-| **BUG-007** | `Transactions / Localization & Formatting` | Incomplete translations on Transactions page: unlocalized date headers ("Wed, 10 Sep"), English month labels ("September 2026"), hardcoded creation form tabs ("Income", "Expense", "Transfer"), and English default categories | High (Localization & UX Quality) | 🔍 Investigated |
-| **BUG-008** | `Debts / Repayment History Interaction` | Repayment history items in Debt Detail Page cannot be swiped to edit or delete (missing `onEdit` / `onDelete` callbacks in `RecentTransactionTile`) | Medium (UX Inconvenience) | 🔍 Investigated |
-| **BUG-009** | `Debts & Transactions / Repayment Categorization` | Repayment transactions lack category assignment and render as "Uncategorized" across lists, needing semantic debt transaction recognition or optional category selection | Medium (Data Presentation Defect) | 🔍 Investigated |
-| **BUG-010** | `Debts / Form Sheet UX` | Debt Edit sheet replaces the standard 'X' close button with an unconfirmed direct delete (trash) button in header trailing | High (Destructive UX / Misleading Action) | 🔍 Investigated |
-| **BUG-011** | `Transactions & Feedback / Toast Ergonomics` | Delete confirmation toast with actionable "Undo" button is positioned at topCenter instead of floating bottomCenter, making the time-sensitive "Undo" action unreachable with one thumb on mobile devices | Medium (Ergonomics & Actionable UX Defect) | 🔍 Investigated |
-| **BUG-012** | `App Shell / Toast System (FToaster)` | Toasts frequently freeze and fail to auto-dismiss ("tidak hilang-hilang / kadang hilang, kadang stuck") due to mobile touch events killing `_timer` without resuming, tap-to-toggle autoDismiss, and route transition race conditions | High (Reliability & UX Defect) | 🔍 Investigated |
-| **BUG-013** | `Dashboard / Privacy Eye (Hide Balance)` | Cashflow, Spending Activity, Categories, and Budget carousel cards ignore `balanceVisibilityProvider` and continue displaying raw monetary values when privacy eye is toggled | High (Privacy & Data Protection Defect) | 🔍 Investigated |
-| **BUG-014** | `Reports / Privacy Eye (Hide Balance)` | Category ranking, spending allocation splits, and chart tooltips bypass `balanceVisibilityProvider`, and ReportListPage lacks a header privacy eye toggle | High (Privacy & Data Protection Defect) | 🔍 Investigated |
-| **BUG-015** | `Backup & Notifications / Permission & Testing` | Changing Backup Reminder from 'Off' to 'Weekly'/'Monthly' never requests notification runtime permission on Android 13+ & iOS (silent reminder failure), and app lacks an immediate test notification trigger | High (Core Feature Reliability & Testability) | 🔍 Investigated |
+| **BUG-001** | `Transactions / Split Sheet` | Allocation tag (Need / Want / Saving) does not appear in the split item preview list during transaction creation | Medium (UI/UX Inconsistency) | ✅ Valid ([#37](https://github.com/getpoka/poka-ce/issues/37)) |
+| **BUG-002** | `Transactions / Transaction Tile` | Expanding a split transaction in the transaction history renders all sub-items as "Uncategorized" | High (Data Presentation Defect) | ✅ Valid ([#38](https://github.com/getpoka/poka-ce/issues/38)) |
+| **BUG-003** | `Recurring / Ledger Snapshot` | Generated recurring transactions lack an immutable frequency/period snapshot (e.g. Daily / Weekly / Monthly), causing period display ambiguity upon schedule editing | High (Data Integrity & Ledger Immutability) | ❌ Invalid (Working as Designed) |
+| **BUG-004** | `Settings / Onboarding & Currency` | After "Reset Data", selecting a currency (e.g. CHF) in Onboarding does not update the active session — transactions default to IDR and base currency shows "Not Set" until app restart | High (UX & Session State Defect) | ✅ Valid ([#39](https://github.com/getpoka/poka-ce/issues/39)) |
+| **BUG-005** | `Backup & Restore / Dialog Copy` | Restore confirmation dialog uses "Reset Data" copy (*"erase all app data locally, this action cannot be undone"*), misleading users into thinking data is only being erased | Medium (Misleading Copy / UX) | ✅ Valid ([#40](https://github.com/getpoka/poka-ce/issues/40)) |
+| **BUG-006** | `Backup & Restore / Reactive Reload` | Successfully restoring an encrypted backup does not refresh active app state; user must force-close and reopen the app to see restored data | High (Reactive State & DB Lock Defect) | ✅ Valid ([#41](https://github.com/getpoka/poka-ce/issues/41)) |
+| **BUG-007** | `Transactions / Localization & Formatting` | Incomplete translations on Transactions page: unlocalized date headers ("Wed, 10 Sep"), English month labels ("September 2026"), hardcoded creation form tabs ("Income", "Expense", "Transfer"), and English default categories | High (Localization & UX Quality) | ✅ Valid ([#42](https://github.com/getpoka/poka-ce/issues/42)) |
+| **BUG-008** | `Debts / Repayment History Interaction` | Repayment history items in Debt Detail Page cannot be swiped to edit or delete (missing `onEdit` / `onDelete` callbacks in `RecentTransactionTile`) | Medium (UX Inconvenience) | ✅ Valid ([#43](https://github.com/getpoka/poka-ce/issues/43)) |
+| **BUG-009** | `Debts & Transactions / Repayment Categorization` | Repayment transactions lack category assignment and render as "Uncategorized" across lists, needing semantic debt transaction recognition or optional category selection | Medium (Data Presentation Defect) | ✅ Valid ([#44](https://github.com/getpoka/poka-ce/issues/44)) |
+| **BUG-010** | `Debts / Form Sheet UX` | Debt Edit sheet replaces the standard 'X' close button with an unconfirmed direct delete (trash) button in header trailing | High (Destructive UX / Misleading Action) | ✅ Valid ([#45](https://github.com/getpoka/poka-ce/issues/45)) |
+| **BUG-011** | `Transactions & Feedback / Toast Ergonomics` | Delete confirmation toast with actionable "Undo" button is positioned at topCenter instead of floating bottomCenter, making the time-sensitive "Undo" action unreachable with one thumb on mobile devices | Medium (Ergonomics & Actionable UX Defect) | ✅ Valid (Subsumed by [#46](https://github.com/getpoka/poka-ce/issues/46)) |
+| **BUG-012** | `App Shell / Toast System (FToaster)` | Toasts frequently freeze and fail to auto-dismiss ("tidak hilang-hilang / kadang hilang, kadang stuck") due to mobile touch events killing `_timer` without resuming, tap-to-toggle autoDismiss, and route transition race conditions | High (Reliability & UX Defect) | ✅ Valid ([#46](https://github.com/getpoka/poka-ce/issues/46)) |
+| **BUG-013** | `Dashboard / Privacy Eye (Hide Balance)` | Cashflow, Spending Activity, Categories, and Budget carousel cards ignore `balanceVisibilityProvider` and continue displaying raw monetary values when privacy eye is toggled | High (Privacy & Data Protection Defect) | ✅ Valid ([#47](https://github.com/getpoka/poka-ce/issues/47)) |
+| **BUG-014** | `Reports / Privacy Eye (Hide Balance)` | Category ranking, spending allocation splits, and chart tooltips bypass `balanceVisibilityProvider`, and ReportListPage lacks a header privacy eye toggle | High (Privacy & Data Protection Defect) | ✅ Valid ([#48](https://github.com/getpoka/poka-ce/issues/48)) |
+| **BUG-015** | `Backup & Notifications / Permission & Testing` | Changing Backup Reminder from 'Off' to 'Weekly'/'Monthly' never requests notification runtime permission on Android 13+ & iOS (silent reminder failure), and app lacks an immediate test notification trigger | High (Core Feature Reliability & Testability) | ✅ Valid ([#49](https://github.com/getpoka/poka-ce/issues/49)) |
 
 ---
 
 ## 🔍 Detailed Bug Reports
 
 ### 1. BUG-001: Allocation Missing in Split Item Preview List on Creation Sheet
+
+> [!NOTE]
+> **Verification Status:** ✅ **Valid** | **GitHub Issue:** [#37](https://github.com/getpoka/poka-ce/issues/37)
 
 #### A. Problem Description
 When creating a transaction with split items via the transaction form sheet (`TransactionSplitItemFormSheet`), users can select an allocation target (e.g., **Need**, **Want**, or **Saving**).
@@ -60,6 +63,9 @@ Add an allocation badge beside the category name or inside the metadata row when
 ---
 
 ### 2. BUG-002: Sub-Items Render as "Uncategorized" When Split Transaction Is Expanded
+
+> [!NOTE]
+> **Verification Status:** ✅ **Valid** | **GitHub Issue:** [#38](https://github.com/getpoka/poka-ce/issues/38)
 
 #### A. Problem Description
 After a split transaction is saved and rendered in transaction history lists (Dashboard Recent Transactions or Transaction List Page), the parent tile displays the split item count summary (e.g., *"2 split items"*).
@@ -93,6 +99,11 @@ However, tapping the tile to expand its child items causes all sub-items to disp
 
 ### 3. BUG-003: Recurring Transactions Lack Immutable Period Snapshot in Ledger
 
+> [!NOTE]
+> **Verification Status:** ❌ **Invalid (Working as Designed / Feature Request)**
+> - **Verification Analysis:** The database schema specification (`database-schema.md`) specifies that `transactions` links to recurring blueprints via foreign key `recurring_transaction_id` only. In `transaction_tile_content.dart`, the badge is an immutable indicator of origin (`t.transactions.recurring`), not a dynamic schedule frequency badge.
+> - **Conclusion:** The code operates exactly as specified in the database architecture and ERD. Storing recurring frequency snapshots on transactions would require a schema change (`schemaVersion: 2`) and is a future enhancement/feature request rather than an existing defect. Per workflow rules: marked as invalid, skipping GitHub issue creation.
+
 #### A. Problem Description
 Transactions generated by recurring schedules lack an explicit frequency/period indicator in both the main transaction history list and the dedicated **Trigger History** section (`RecurringDetailPage`). Furthermore, because the `transactions` table only holds a loose foreign key `recurring_transaction_id` without capturing the period snapshot at execution time:
 - Editing a schedule from Daily to Weekly retroactively alters the frequency interpretation of all past transactions.
@@ -119,6 +130,9 @@ Transactions generated by recurring schedules lack an explicit frequency/period 
 ---
 
 ### 4. BUG-004: Post-Reset Onboarding Currency Selection Not Reflected (Defaults to IDR & "Not Set")
+
+> [!NOTE]
+> **Verification Status:** ✅ **Valid** | **GitHub Issue:** [#39](https://github.com/getpoka/poka-ce/issues/39)
 
 #### A. Problem Description
 When resetting app data via `Settings → Reset Data`, the user is redirected to the Onboarding screen to select their base currency. If the user selects a currency other than IDR (e.g. **CHF** - Swiss Franc) and proceeds to the Dashboard:
@@ -160,6 +174,9 @@ When resetting app data via `Settings → Reset Data`, the user is redirected to
 
 ### 5. BUG-005: Misleading Restore Confirmation Dialog Warning Text
 
+> [!NOTE]
+> **Verification Status:** ✅ **Valid** | **GitHub Issue:** [#40](https://github.com/getpoka/poka-ce/issues/40)
+
 #### A. Problem Description
 When tapping **Restore** from the Backup & Restore sheet, the confirmation dialog displays:
 > *"Erase all app data locally, this action cannot be undone."*
@@ -199,6 +216,9 @@ And update `data_management_section.dart` line 106 to reference `context.t.backu
 
 ### 6. BUG-006: Data Not Reloaded After Successful Backup Restore (Requires App Restart)
 
+> [!NOTE]
+> **Verification Status:** ✅ **Valid** | **GitHub Issue:** [#41](https://github.com/getpoka/poka-ce/issues/41)
+
 #### A. Problem Description
 After selecting an encrypted backup file, entering the correct password, and seeing the toast *"Restore successful"*, the app returns to the Dashboard, but none of the restored accounts, transactions, or categories appear. The user must force-close and restart the app for the restored database to be read.
 
@@ -235,6 +255,9 @@ After selecting an encrypted backup file, entering the correct password, and see
 ---
 
 ### 7. BUG-007: Incomplete Translations & Unlocalized Dates on Transactions Page
+
+> [!NOTE]
+> **Verification Status:** ✅ **Valid** | **GitHub Issue:** [#42](https://github.com/getpoka/poka-ce/issues/42)
 
 #### A. Problem Description
 When the application language is set to Indonesian (`id`), the **Transactions Page** displays glaring English strings across multiple primary components:
@@ -281,6 +304,9 @@ When the application language is set to Indonesian (`id`), the **Transactions Pa
 
 ### 8. BUG-008: Repayment History Tiles in Debt Detail Page Lack Swipe-to-Edit & Swipe-to-Delete
 
+> [!NOTE]
+> **Verification Status:** ✅ **Valid** | **GitHub Issue:** [#43](https://github.com/getpoka/poka-ce/issues/43)
+
 #### A. Problem Description
 In [`DebtDetailPage`](file:///Users/SupianIDz/Work/getpoka/poka-ce/lib/features/debts/presentation/screens/debt_detail_page.dart), all repayment transactions associated with a debt/loan are listed under the **Repayment History** (`Riwayat Pembayaran`) section using [`RecentTransactionTile`](file:///Users/SupianIDz/Work/getpoka/poka-ce/lib/features/transactions/presentation/widgets/tile/transaction_tile.dart).
 
@@ -318,6 +344,9 @@ Inside `RecentTransactionTile`, the `Slidable` widget is conditionally created o
 
 ### 9. BUG-009: Repayment Transactions Render as "Uncategorized"
 
+> [!NOTE]
+> **Verification Status:** ✅ **Valid** | **GitHub Issue:** [#44](https://github.com/getpoka/poka-ce/issues/44)
+
 #### A. Problem Description
 When a repayment is logged via [`DebtRepaymentSheet`](file:///Users/SupianIDz/Work/getpoka/poka-ce/lib/features/debts/presentation/widgets/debt_repayment_sheet.dart), the transaction is recorded with `categoryId = null`. As a result, the transaction tile in both `DebtDetailPage` and the main transaction ledger displays as **"Uncategorized"** (`Tanpa Kategori`) with a generic grey tag icon.
 
@@ -343,6 +372,9 @@ Adopt **Option A / Option B**:
 ---
 
 ### 10. BUG-010: Debt Edit Sheet Replaces 'X' Close Button with Unconfirmed Immediate Delete
+
+> [!NOTE]
+> **Verification Status:** ✅ **Valid** | **GitHub Issue:** [#45](https://github.com/getpoka/poka-ce/issues/45)
 
 #### A. Problem Description
 When opening a debt record in edit mode via `DebtDetailPage → Edit` ([`DebtFormSheet`](file:///Users/SupianIDz/Work/getpoka/poka-ce/lib/features/debts/presentation/widgets/debt_form_sheet.dart)), the header trailing action displays a **Trash icon** instead of the standard 'X' (close/cancel) button.
@@ -385,6 +417,11 @@ Remove `trailing: isEditing ? ... : null` from `PokaSheet` in `DebtFormSheet`. `
 ---
 
 ### 11. BUG-011: Delete Confirmation Toast Position & Sizing Ergonomics (Top vs Bottom, Card vs 1/3 Width)
+
+> [!NOTE]
+> **Verification Status:** ✅ **Valid (No Standalone Issue — Subsumed by BUG-012)**
+> - **Verification Analysis:** Top-center alignment is ForUI's default alignment for touch devices. For actionable "Undo" toasts, positioning at `bottomCenter` provides vastly superior one-thumb ergonomics.
+> - **Conclusion:** This ergonomic requirement is directly implemented as part of the centralized toast system overhaul in **BUG-012 ([#46](https://github.com/getpoka/poka-ce/issues/46))**. A separate standalone issue is omitted to prevent duplication.
 
 #### A. Problem Description
 When a transaction is deleted (via swipe action or item menu), the app displays an **undo toast notification** (`showFToast`) offering a destructive reversal button (*"Batalkan / Undo"*).
@@ -455,6 +492,9 @@ Additionally, determining the appropriate width format (e.g. 1/3 width center pi
 ---
 
 ### 12. BUG-012: Toast Notifications Freezing Indefinitely ("Tidak Hilang-Hilang / Kadang Hilang, Kadang Stuck")
+
+> [!NOTE]
+> **Verification Status:** ✅ **Valid** | **GitHub Issue:** [#46](https://github.com/getpoka/poka-ce/issues/46)
 
 #### A. Problem Description
 Across multiple modules in Poka CE—most prominently after performing a **Backup Restore** (`restoreSuccess`), **Reset Data** (`appDataReset`), or submitting form sheets with errors—toast notifications displayed via ForUI's `showFToast` frequently become **permanently stuck on screen**, failing to auto-dismiss after the standard 4–5 second countdown.
@@ -572,6 +612,9 @@ Introduce a centralized, battle-tested toast helper in [`lib/shared/widgets/poka
 
 ### 13. BUG-013: Privacy Eye / Balance Obfuscation Bypassed on Dashboard Sections (Cashflow, Spending Activity, Categories, Budgets)
 
+> [!NOTE]
+> **Verification Status:** ✅ **Valid** | **GitHub Issue:** [#47](https://github.com/getpoka/poka-ce/issues/47)
+
 #### A. Problem Description
 Poka provides an eye icon toggle (`balanceVisibilityProvider`) to obscure sensitive monetary balances (e.g. `••••••` or `Rp ••••••`) when looking at the screen in public.
 While Net Worth and Account cards respect this privacy state, several core sections on the **Dashboard (Home)** completely ignore `balanceVisibilityProvider` and continue rendering raw numeric values:
@@ -622,6 +665,9 @@ While Net Worth and Account cards respect this privacy state, several core secti
 
 ### 14. BUG-014: Privacy Eye / Balance Obfuscation Bypassed on Reports Page & Missing Header Privacy Toggle
 
+> [!NOTE]
+> **Verification Status:** ✅ **Valid** | **GitHub Issue:** [#48](https://github.com/getpoka/poka-ce/issues/48)
+
 #### A. Problem Description
 On the **Reports Page (`ReportListPage`)**:
 1. **Missing In-Page Privacy Toggle:**
@@ -662,6 +708,9 @@ On the **Reports Page (`ReportListPage`)**:
 ---
 
 ### 15. BUG-015: Backup Reminder Notification Permission Missing (Silent Failure on Android 13+ / iOS) & Missing Test Trigger
+
+> [!NOTE]
+> **Verification Status:** ✅ **Valid** | **GitHub Issue:** [#49](https://github.com/getpoka/poka-ce/issues/49)
 
 #### A. Problem Description
 1. **Silent Notification Failure on Android 13+ & iOS:**
@@ -720,22 +769,22 @@ On the **Reports Page (`ReportListPage`)**:
 
 ## 📋 Recommended Action Items
 
-1. [ ] Implement allocation badge display in [`lib/features/transactions/presentation/widgets/split/transaction_split_item_list.dart`](file:///Users/SupianIDz/Work/getpoka/poka-ce/lib/features/transactions/presentation/widgets/split/transaction_split_item_list.dart) (BUG-001).
-2. [ ] Implement category auto-resolution and child tile passing in [`lib/features/transactions/presentation/widgets/tile/transaction_tile.dart`](file:///Users/SupianIDz/Work/getpoka/poka-ce/lib/features/transactions/presentation/widgets/tile/transaction_tile.dart) (BUG-002).
-3. [ ] Add `recurring_period` column in Drift schema, bump `schemaVersion` to 2, snapshot period in `RecurringProcessorService`, and display frequency badge in `RecentTransactionTile` (BUG-003).
-4. [ ] Make `SettingsNotifier` keep-alive (`@Riverpod(keepAlive: true)`), remove `_disposed` flag issue, and ensure base currency changes take effect immediately across all sessions (BUG-004).
-5. [ ] Add `restoreWarningDesc` localization key and fix copy in restore confirmation dialog (BUG-005).
-6. [ ] Properly close database connection, clean WAL/SHM files, and reload all providers reactively on restore without requiring app restart (BUG-006).
-7. [ ] Fix date formatting locale, `TransactionTypeSwitcher` tabs, and default category translations on the Transactions page (BUG-007).
-8. [ ] Enable swipe-to-edit and swipe-to-delete on repayment tiles in `DebtDetailPage` (BUG-008).
-9. [ ] Handle debt repayment semantic labeling and icon in `RecentTransactionTile` to eliminate "Uncategorized" (BUG-009).
-10. [ ] Restore standard 'X' close button on `DebtFormSheet` by removing the unconfirmed header trash action (BUG-010).
-11. [ ] Create standardized `showPokaActionToast` / `showPokaUndoToast` with `bottomCenter` floating card ergonomics (BUG-011).
-12. [ ] Implement `showPokaToast` with watchdog timer to eliminate stuck toasts across mobile touch events and route transitions (BUG-012).
-13. [ ] Implement privacy eye obfuscation (`isVisible`) across Dashboard Cashflow, Spending Activity, Categories, and Budgets (BUG-013).
-14. [ ] Implement privacy eye obfuscation and add header toggle button on Reports page (BUG-014).
-15. [ ] Implement Notification Permission Rationale Sheet and manual test trigger for Backup Reminder (BUG-015).
-16. [ ] Run `rune generate`, `rune fix`, `rune check`, and `rune test` to verify zero issues.
+1. [ ] Implement allocation badge display in [`lib/features/transactions/presentation/widgets/split/transaction_split_item_list.dart`](file:///Users/SupianIDz/Work/getpoka/poka-ce/lib/features/transactions/presentation/widgets/split/transaction_split_item_list.dart) (BUG-001 — [#37](https://github.com/getpoka/poka-ce/issues/37)).
+2. [ ] Implement category auto-resolution and child tile passing in [`lib/features/transactions/presentation/widgets/tile/transaction_tile.dart`](file:///Users/SupianIDz/Work/getpoka/poka-ce/lib/features/transactions/presentation/widgets/tile/transaction_tile.dart) (BUG-002 — [#38](https://github.com/getpoka/poka-ce/issues/38)).
+3. [x] ~~Add `recurring_period` column in Drift schema and snapshot period in `RecurringProcessorService`~~ (BUG-003 — **Marked Invalid / Working as Designed per `database-schema.md`**; candidate for future feature discussion).
+4. [ ] Make `SettingsNotifier` keep-alive (`@Riverpod(keepAlive: true)`), remove `_disposed` flag issue, and ensure base currency changes take effect immediately across all sessions (BUG-004 — [#39](https://github.com/getpoka/poka-ce/issues/39)).
+5. [ ] Add `restoreWarningDesc` localization key and fix copy in restore confirmation dialog (BUG-005 — [#40](https://github.com/getpoka/poka-ce/issues/40)).
+6. [ ] Properly close database connection, clean WAL/SHM files, and reload all providers reactively on restore without requiring app restart (BUG-006 — [#41](https://github.com/getpoka/poka-ce/issues/41)).
+7. [ ] Fix date formatting locale, `TransactionTypeSwitcher` tabs, and default category translations on the Transactions page (BUG-007 — [#42](https://github.com/getpoka/poka-ce/issues/42)).
+8. [ ] Enable swipe-to-edit and swipe-to-delete on repayment tiles in `DebtDetailPage` (BUG-008 — [#43](https://github.com/getpoka/poka-ce/issues/43)).
+9. [ ] Handle debt repayment semantic labeling and icon in `RecentTransactionTile` to eliminate "Uncategorized" (BUG-009 — [#44](https://github.com/getpoka/poka-ce/issues/44)).
+10. [ ] Restore standard 'X' close button on `DebtFormSheet` by removing the unconfirmed header trash action (BUG-010 — [#45](https://github.com/getpoka/poka-ce/issues/45)).
+11. [ ] Create standardized `showPokaActionToast` / `showPokaUndoToast` with `bottomCenter` floating card ergonomics (BUG-011 — **Subsumed by BUG-012 [#46](https://github.com/getpoka/poka-ce/issues/46)**).
+12. [ ] Implement `showPokaToast` with watchdog timer to eliminate stuck toasts across mobile touch events and route transitions (BUG-012 — [#46](https://github.com/getpoka/poka-ce/issues/46)).
+13. [ ] Implement privacy eye obfuscation (`isVisible`) across Dashboard Cashflow, Spending Activity, Categories, and Budgets (BUG-013 — [#47](https://github.com/getpoka/poka-ce/issues/47)).
+14. [ ] Implement privacy eye obfuscation and add header toggle button on Reports page (BUG-014 — [#48](https://github.com/getpoka/poka-ce/issues/48)).
+15. [ ] Implement Notification Permission Rationale Sheet and manual test trigger for Backup Reminder (BUG-015 — [#49](https://github.com/getpoka/poka-ce/issues/49)).
+16. [ ] Run `rune generate`, `rune fix`, `rune check`, and `rune test` to verify zero issues upon bug resolution.
 
 
 
