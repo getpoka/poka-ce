@@ -18,25 +18,25 @@ This document provides a structured roadmap, test scenarios, decision protocols,
 As an offline-first personal finance app built on SQLite (Drift), testing focuses heavily on **data integrity, balance mutations, and production APK stability**.
 
 ### 1. Database Integrity & Balance Mutations (Critical)
-- [ ] **Standard & Split Transactions:**
+- [x] **Standard & Split Transactions:**
   - Create Income, Expense, and Transfer transactions, as well as Split Transactions (single receipt with multiple line items).
   - Verify that item totals always validate properly and balance mutations on source/destination accounts update accurately in real time.
-- [ ] **5-Second Undo Delete:**
+- [x] **5-Second Undo Delete:**
   - Delete a transaction, then tap **Undo** before the toast dismisses. Ensure items, account balance mutations, and linked budget histories are fully restored.
   - Delete a transaction and let the toast expire (permanent delete). Verify that balance reversals and budget deductions remain intact.
-- [ ] **Accounts & Sub-Wallet (Pocket) Calculations:**
+- [x] **Accounts & Sub-Wallet (Pocket) Calculations:**
   - Create a main account (e.g., Bank Account) and multiple Pockets beneath it (e.g., Vacation Savings, Emergency Fund).
   - Verify that the parent account balance accurately aggregates all pocket balances.
   - Verify that starting balances are stored directly in `initial_balance` without dummy initial transactions.
-- [ ] **Overdraft Prevention (Warning Dialog):**
+- [x] **Overdraft Prevention (Warning Dialog):**
   - Create an expense or transfer exceeding available account balance.
   - Ensure the insufficient balance warning dialog appears correctly and the *Review* / *Proceed* actions function as expected.
-- [ ] **Recurring Transactions (Scheduled Bills):**
+- [x] **Recurring Transactions (Scheduled Bills):**
   - Create recurring bills on daily/monthly schedules.
   - Verify that when the due date arrives, the transaction automatically generates in the transaction list and the next schedule date advances properly.
 
 ### 2. Data Portability & Safety (Critical)
-- [ ] **Backup & Restore JSON:**
+- [x] **Backup & Restore JSON:**
   - Create a diverse set of accounts, categories, budgets, and transactions.
   - Export a backup file via `Settings → Backup & Export` (`.json`).
   - Clear app data or reinstall the app, open the fresh instance, and perform **Restore Backup**.
@@ -44,19 +44,19 @@ As an offline-first personal finance app built on SQLite (Drift), testing focuse
 - [ ] **Backup Reminder:**
   - Configure reminder intervals (Weekly / Monthly / Off).
   - Ensure last backup timestamps track and display accurately.
-- [ ] **Multi-Sheet Excel Export (`.xlsx`):**
+- [x] **Multi-Sheet Excel Export (`.xlsx`):**
   - Export financial reports to Excel.
   - Open the file in Microsoft Excel or Google Sheets. Confirm that Accounts, Categories, and Transactions sheets format correctly with clean numbers and proper UTF-8 character encoding.
 
 ### 3. Production Release Build on Physical Android Device
-- [ ] **Install Release APK:**
+- [x] **Install Release APK:**
   - Download `app-arm64-v8a-release.apk` from GitHub Release `v1.0.0-rc.1` and install it on an actual physical Android phone.
 - [ ] **Verify R8 / ProGuard Minification:**
   - Confirm that the app runs smoothly without unexpected crashes when accessing reports, donut charts, or form sheets (verifying ProGuard keep rules for Drift, Freezed, and JSON serialization).
-- [ ] **Android App Shortcuts:**
+- [x] **Android App Shortcuts:**
   - Long-press the Poka icon on the Android launcher.
   - Confirm shortcuts (*Add Transaction*, *Add Account*, *Add Category*, *Add Goal*) render crisp vector icons and launch directly into their respective creation sheets.
-- [ ] **Bilingual & Theme Switching:**
+- [x] **Bilingual & Theme Switching:**
   - Switch between English and Indonesian in `Settings → Language`. Ensure text labels do not clip or revert to raw translation keys.
   - Toggle between Light and Dark themes. Ensure color contrast remains sharp and flat UI elements maintain visual separation through borders and layering.
 
