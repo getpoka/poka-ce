@@ -3,8 +3,20 @@ import 'package:forui/forui.dart';
 import 'package:forui_phosphor/forui_phosphor.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 
+/// An interactive app icon widget that reveals an easter egg dialog upon multiple rapid taps.
 class EasterEggIcon extends StatefulWidget {
-  const EasterEggIcon({super.key});
+  /// Creates an [EasterEggIcon].
+  ///
+  /// [package] can be supplied if the widget is consumed inside an external app
+  /// (e.g. `poka-pe`) that depends on `poka_ce` as a package. If omitted, it defaults
+  /// to root asset loading with an automatic fallback to `package: 'poka_ce'`.
+  const EasterEggIcon({
+    super.key,
+    this.package,
+  });
+
+  /// The package containing the assets, if consumed from a downstream package.
+  final String? package;
 
   @override
   State<EasterEggIcon> createState() => _EasterEggIconState();
@@ -59,9 +71,17 @@ class _EasterEggIconState extends State<EasterEggIcon> {
                     borderRadius: context.theme.style.borderRadius.lg,
                     child: Image.asset(
                       'assets/images/hasbullah.gif',
-                      package: 'poka_ce',
+                      package: widget.package,
                       width: 280,
                       fit: BoxFit.cover,
+                      errorBuilder: widget.package == null
+                          ? (context, error, stackTrace) => Image.asset(
+                              'assets/images/hasbullah.gif',
+                              package: 'poka_ce',
+                              width: 280,
+                              fit: BoxFit.cover,
+                            )
+                          : null,
                     ),
                   ),
                   Positioned(
@@ -102,9 +122,19 @@ class _EasterEggIconState extends State<EasterEggIcon> {
         borderRadius: theme.style.borderRadius.xl,
         child: Image.asset(
           'assets/images/logo.png',
+          package: widget.package,
           width: 96,
           height: 96,
           fit: BoxFit.cover,
+          errorBuilder: widget.package == null
+              ? (context, error, stackTrace) => Image.asset(
+                  'assets/images/logo.png',
+                  package: 'poka_ce',
+                  width: 96,
+                  height: 96,
+                  fit: BoxFit.cover,
+                )
+              : null,
         ),
       ),
     );
