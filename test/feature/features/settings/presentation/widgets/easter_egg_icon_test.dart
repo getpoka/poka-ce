@@ -26,7 +26,11 @@ void main() {
   }
 
   Finder eggDialogImage() => find.byWidgetPredicate(
-    (w) => w is Image && w.image is AssetImage && (w.image as AssetImage).assetName.contains('hasbullah'),
+    (w) =>
+        w is Image &&
+        w.image is AssetImage &&
+        (w.image as AssetImage).keyName == 'assets/images/hasbullah.gif' &&
+        (w.image as AssetImage).package == null,
   );
 
   group('EasterEggIcon', () {
@@ -97,6 +101,50 @@ void main() {
 
       // The easter egg dialog is presented with the hasbullah asset.
       expect(eggDialogImage(), findsOneWidget);
+    });
+
+    testWidgets('respects explicit package parameter', (tester) async {
+      await tester.pumpWidget(
+        TranslationProvider(
+          child: MaterialApp(
+            builder: (context, child) => FTheme(
+              data: lightTheme,
+              child: FToaster(child: child!),
+            ),
+            home: const Scaffold(
+              body: Center(
+                child: EasterEggIcon(package: 'poka_ce'),
+              ),
+            ),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(
+        find.byWidgetPredicate(
+          (w) => w is Image && w.image is AssetImage && (w.image as AssetImage).package == 'poka_ce',
+        ),
+        findsOneWidget,
+      );
+
+      // Tap 7 times to verify dialog receives package parameter
+      for (var i = 0; i < 7; i++) {
+        await tester.tap(find.byType(EasterEggIcon));
+        await tester.pump(const Duration(milliseconds: 50));
+      }
+      await tester.pumpAndSettle();
+
+      expect(
+        find.byWidgetPredicate(
+          (w) =>
+              w is Image &&
+              w.image is AssetImage &&
+              (w.image as AssetImage).assetName.contains('hasbullah') &&
+              (w.image as AssetImage).package == 'poka_ce',
+        ),
+        findsOneWidget,
+      );
     });
   });
 }
