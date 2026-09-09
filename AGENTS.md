@@ -25,10 +25,10 @@ Activate relevant skills before working on a task:
 
 ## Commands
 
-- Fix + format: `make fix`
-- Analyze (mandatory, must report "No issues found!"): `make check`
-- Codegen: `make generate`
-- Test: `make test` (all) or `flutter test test/<dir>/<file>_test.dart` (single)
+- Fix + format: `rune fix`
+- Analyze (mandatory, must report "No issues found!"): `rune check`
+- Codegen: `rune generate`
+- Test: `rune test` (all) or `flutter test test/<dir>/<file>_test.dart` (single)
 
 ## ⛔ Violations that Trigger Mandatory Rollbacks
 

@@ -19,8 +19,8 @@ git clone https://github.com/getpoka/poka-ce.git
 cd poka-ce
 cp .env.example .env
 flutter pub get
-make generate   # or: dart run build_runner build && dart run slang
-make run        # or: flutter run --dart-define-from-file=.env
+rune generate   # or: dart run build_runner build && dart run slang
+rune run        # or: flutter run --dart-define-from-file=.env
 ```
 
 ---
@@ -57,16 +57,16 @@ You **must** pass all of these before opening a PR:
 
 ```bash
 # Fix linting issues, format, and analyze in one step
-make fix      # dart fix --apply + dart format .
-make check    # flutter analyze — must print "No issues found!"
-make generate # regenerate code (Riverpod, Freezed, Drift, Slang)
-make test     # run full test suite (unit, feature, e2e)
+rune fix      # dart fix --apply + dart format .
+rune check    # flutter analyze — must print "No issues found!"
+rune generate # regenerate code (Riverpod, Freezed, Drift, Slang)
+rune test     # run full test suite (unit, feature, e2e)
 ```
 
 Targeted test commands:
-- `make test:unit` — Run unit tests for repositories, domain models, and notifiers
-- `make test:feature` — Run feature widget and page tests
-- `make test:e2e` — Run headless end-to-end integration flows
+- `rune test:unit` — Run unit tests for repositories, domain models, and notifiers
+- `rune test:feature` — Run feature widget and page tests
+- `rune test:e2e` — Run headless end-to-end integration flows
 
 ---
 

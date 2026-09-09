@@ -202,10 +202,10 @@ Add the feature route to `lib/app/router.dart` (or equivalent GoRouter setup fil
 Do **not** mark the feature done until both pass with zero issues:
 
 ```bash
-make fix      # dart fix --apply + dart format .
-make check    # flutter analyze — must print: "No issues found!"
-make generate # regenerate code (if annotated files changed)
-make test     # all tests must pass
+rune fix      # dart fix --apply + dart format .
+rune check    # flutter analyze — must print: "No issues found!"
+rune generate # regenerate code (if annotated files changed)
+rune test     # all tests must pass
 ```
 
 ---

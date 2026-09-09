@@ -1,0 +1,146 @@
+# =============================================================================
+# Poka CE — Runefile
+# Task runner powered by rune (https://github.com/octopyid/rune)
+# =============================================================================
+
+# ==========================================
+# Execution & Development
+# ==========================================
+
+#[Run the app on a connected emulator or device]
+# args: Arguments forwarded directly to flutter run (e.g. -d macos, --release)
+run *args:
+    flutter run --dart-define-from-file=.env {{args}}
+
+#[Alias for run — start local app on connected emulator/device]
+# args: Arguments forwarded directly to flutter run (e.g. -d macos, --release)
+dev *args:
+    flutter run --dart-define-from-file=.env {{args}}
+
+#[Clean Flutter build cache and fetch dependencies]
+clean:
+    flutter clean
+    flutter pub get
+
+#[Install the built APK on a connected Android device or emulator]
+# arch: Target architecture (default: fat/universal; options: fat, arm64, armeabi-v7a, x86_64)
+install arch="fat":
+    chmod +x scripts/install.sh
+    ./scripts/install.sh "{{arch}}"
+
+#[Uninstall the app from connected Android emulator or device]
+#[confirm: Are you sure you want to uninstall Poka CE from the connected device?]
+uninstall:
+    adb uninstall dev.octopy.poka.ce
+
+# ==========================================
+# Code Generation
+# ==========================================
+
+#[Run build_runner and slang to generate code (Riverpod, Freezed, Drift, Slang)]
+generate:
+    rm -f lib/i18n/*.g.dart
+    dart run build_runner build
+    dart run slang
+    dart format .
+
+#[Watch and rebuild code continuously on file changes]
+generate:watch:
+    dart run build_runner watch --delete-conflicting-outputs
+
+#[Regenerate Slang translation classes only]
+generate:slang:
+    dart run slang
+
+# ==========================================
+# Assets & Branding
+# ==========================================
+
+#[Generate all launcher icons and native splash screens]
+assets: assets:icons assets:splash
+    rune done "Icons and splash screens generated successfully!"
+
+#[Generate Android and iOS launcher icons]
+assets:icons:
+    dart run flutter_launcher_icons
+
+#[Generate native splash screens for Android and iOS]
+assets:splash:
+    dart run flutter_native_splash:create
+
+# ==========================================
+# Quality & Static Analysis
+# ==========================================
+
+#[Analyze code for lints, type safety, and static errors]
+check:
+    flutter analyze
+
+#[Automatically apply mechanical dart fixes and format all files]
+fix:
+    dart fix --apply
+    dart format .
+
+# ==========================================
+# Testing Suites
+# ==========================================
+
+#[Run the full test suite (unit, feature, and e2e)]
+test: test:unit test:feature test:e2e
+    rune done "All test suites passed!"
+
+#[Run unit tests only (repositories, domain models, notifiers)]
+# args: Specific test file path or flutter test arguments
+test:unit *args:
+    flutter test test/unit {{args}}
+
+#[Run feature tests only (widgets, sheets, and screens)]
+# args: Specific test file path or flutter test arguments
+test:feature *args:
+    flutter test test/feature {{args}}
+
+#[Run headless end-to-end integration flows only]
+# args: Specific test file path or flutter test arguments
+test:e2e *args:
+    flutter test test/e2e {{args}}
+
+#[Run tests and generate an LCOV coverage report]
+test:coverage:
+    flutter test --coverage
+    rune done "Coverage report generated at coverage/lcov.info"
+
+# ==========================================
+# Build & Distribution
+# ==========================================
+
+#[Alias for build:apk — build Android APK (defaults to fat; pass --split for fat + split)]
+# --split: Build split-per-ABI APKs alongside universal APK
+build --split?:
+    rune build:apk {{split}}
+
+#[Build Android APK (defaults to fat Universal APK; pass --split for fat + split-per-abi)]
+# --split: Build split-per-ABI APKs alongside universal APK
+build:apk --split?:
+    flutter build apk --dart-define-from-file=.env
+    mv build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/app-universal-release.apk
+    sh -c '[ -n "{{split}}" ] && flutter build apk --split-per-abi --dart-define-from-file=.env || true'
+    rune done "APK build completed successfully!"
+
+#[Build an Android App Bundle (AAB)]
+build:aab:
+    flutter build appbundle --dart-define-from-file=.env
+    rune done "App Bundle (AAB) built successfully!"
+
+#[Generate a new Android Keystore for release signing]
+build:keystore:
+    chmod +x scripts/keystore.sh
+    ./scripts/keystore.sh
+
+#[Alias for build:keystore — generate Android Keystore]
+keystore:
+    rune build:keystore
+
+#[Alias for install — install built APK on connected device]
+# arch: Target architecture (default: fat/universal; options: fat, arm64, armeabi-v7a, x86_64)
+build:install arch="fat":
+    rune install "{{arch}}"

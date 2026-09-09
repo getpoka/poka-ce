@@ -25,10 +25,10 @@
 
 ### Mandatory
 
-- [ ] `make fix` — dart fix + format applied
-- [ ] `make check` — reports **"No issues found!"**
-- [ ] `make generate` — codegen up to date (if annotated files changed)
-- [ ] `make test` — all tests pass
+- [ ] `rune fix` — dart fix + format applied
+- [ ] `rune check` — reports **"No issues found!"**
+- [ ] `rune generate` — codegen up to date (if annotated files changed)
+- [ ] `rune test` — all tests pass
 - [ ] Every new `lib/` file has a matching `test/` file
 - [ ] Updated `CHANGELOG.md` under `[Unreleased]` (with `[internal]` prefix if internal only)
 - [ ] My commit messages follow the Conventional Commits format (`feat:`, `fix:`, `ui:`)

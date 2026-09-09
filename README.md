@@ -114,6 +114,23 @@ Download the latest release directly from the [GitHub Releases page](https://git
 
 - Flutter SDK **3.47.1** or newer
 - Dart SDK **3.13.1** or newer
+- [Rune](https://github.com/octopyid/rune) task runner (recommended)
+
+#### Installing Rune
+
+Poka CE uses [Rune](https://github.com/octopyid/rune) — a fast, opinionated project-local task runner written in Go by [@octopyid](https://github.com/octopyid).
+
+**Homebrew (macOS / Linux):**
+
+```bash
+brew install octopyid/tap/rune
+```
+
+**Go:**
+
+```bash
+go install github.com/octopyid/rune/cmd/rune@latest
+```
 
 ### Steps
 
@@ -134,18 +151,19 @@ flutter pub get
 
 ```bash
 cp .env.example .env
-make generate
+rune generate
 ```
 
 > The `.env` file is required. Set `POKA_ENABLE_SEEDER=true` to populate the database with seed data for development.
-> If you don't have Make, run `dart run build_runner build && dart run slang` instead.
+> If you don't have Rune installed, run `dart run build_runner build && dart run slang` instead.
 
 **4. Run the application:**
 
 ```bash
-flutter run --dart-define-from-file=.env
+rune run
 ```
 
+> If you don't have Rune installed, run `flutter run --dart-define-from-file=.env` instead.
 > For the full contribution workflow, testing setup, watch mode code generation, and database migration guide —
 > see [CONTRIBUTING.md](CONTRIBUTING.md).
 

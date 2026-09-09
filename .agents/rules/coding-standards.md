@@ -111,8 +111,8 @@ class AccountRepository {
 
 You are **prohibited** from marking any task complete without passing both:
 
-1. `make fix` — runs `dart fix --apply` + `dart format .`
-2. `make check` → must report **"No issues found!"**
+1. `rune fix` — runs `dart fix --apply` + `dart format .`
+2. `rune check` → must report **"No issues found!"**
 
 ## 13. Test File Parity
 

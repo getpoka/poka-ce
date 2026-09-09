@@ -35,7 +35,7 @@ $MAGICK_CMD "$INPUT_FILE" -resize 1024x1024 -background transparent -gravity cen
 echo "✅ Generated assets/images/launcher.png (1024x1024)"
 echo "✅ Generated assets/images/splash.png (1024x1024)"
 
-echo "🚀 Running make assets to generate Android/iOS icons..."
-make assets
+echo "🚀 Running rune assets to generate Android/iOS icons..."
+rune assets
 
 echo "🎉 Done! New logos have been applied to the app."

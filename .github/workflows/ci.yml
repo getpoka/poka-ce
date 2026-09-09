@@ -35,8 +35,11 @@ jobs:
       - name: Install Dependencies
         run: flutter pub get
 
+      - name: Install Rune
+        run: go install github.com/octopyid/rune/cmd/rune@latest
+
       - name: Check Formatting & Lints
-        run: make check
+        run: rune check
 
   test:
     needs: analyze
@@ -60,5 +63,8 @@ jobs:
       - name: Install Dependencies
         run: flutter pub get
 
+      - name: Install Rune
+        run: go install github.com/octopyid/rune/cmd/rune@latest
+
       - name: Run Tests
-        run: make test:${{ matrix.test-suite }}
+        run: rune test:${{ matrix.test-suite }}
