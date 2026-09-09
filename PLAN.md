@@ -114,9 +114,9 @@ Update comparison links at the bottom:
 
 ### Step 3: Run Mandatory Quality Checks
 ```bash
-make fix
-make check    # Must report: "No issues found!"
-make test     # Ensure unit, feature, and e2e test suites pass
+rune fix
+rune check    # Must report: "No issues found!"
+rune test     # Ensure unit, feature, and e2e test suites pass
 ```
 
 ### Step 4: Commit, Tag, & Push
