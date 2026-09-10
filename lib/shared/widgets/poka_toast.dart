@@ -15,12 +15,8 @@ FToasterEntry showPokaToast({
   Widget? icon,
   Widget? description,
   Widget Function(BuildContext context, FToasterEntry entry)? suffixBuilder,
-  FToastAlignment alignment = FToastAlignment.bottomCenter,
-  List<AxisDirection> swipeToDismiss = const [
-    AxisDirection.down,
-    AxisDirection.left,
-    AxisDirection.right,
-  ],
+  FToastAlignment? alignment,
+  List<AxisDirection>? swipeToDismiss,
   Duration duration = const Duration(seconds: 4),
   VoidCallback? onDismiss,
 }) {
