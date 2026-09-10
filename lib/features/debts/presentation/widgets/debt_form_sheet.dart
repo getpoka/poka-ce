@@ -7,7 +7,6 @@ import 'package:poka_ce/features/categories/presentation/controllers/category_li
 import 'package:poka_ce/features/dashboard/presentation/controllers/dashboard_notifier.dart';
 import 'package:poka_ce/features/debts/domain/debt_model.dart';
 import 'package:poka_ce/features/debts/presentation/controllers/debt_form_notifier.dart';
-import 'package:poka_ce/features/debts/presentation/controllers/debt_list_notifier.dart';
 import 'package:poka_ce/features/debts/presentation/widgets/debt_date_picker.dart';
 import 'package:poka_ce/features/debts/presentation/widgets/debt_scope_tile.dart';
 import 'package:poka_ce/features/debts/presentation/widgets/debt_type_selector.dart';
@@ -161,22 +160,6 @@ class DebtFormSheet extends HookConsumerWidget {
 
     return PokaSheet(
       title: isEditing ? t.debts.editRecord : t.debts.newRecord,
-      trailing: isEditing
-          ? GestureDetector(
-              onTap: () async {
-                await ref.read(debtListProvider.notifier).deleteDebt(initialDebt!.id);
-                if (context.mounted) Navigator.of(context).pop();
-              },
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: Icon(
-                  FPhosphorIcons.trash,
-                  size: 18,
-                  color: context.theme.colors.destructive,
-                ),
-              ),
-            )
-          : null,
       child: Form(
         key: formKey,
         child: Column(

@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Fixed missing allocation badge (Need, Want, Saving) on split item preview list in transaction creation sheet.
 - Resolved category resolution for split transaction child items when expanded, preventing them from falling back to "Uncategorized".
+- Restored standard close button on Debt edit sheet and eliminated unconfirmed direct delete action.
 
 ## [v1.0.0-rc.1] - 2026-09-09
 

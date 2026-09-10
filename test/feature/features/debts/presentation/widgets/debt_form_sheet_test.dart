@@ -152,12 +152,13 @@ void main() {
       expect(find.text('Due Date'), findsOneWidget);
     });
 
-    testWidgets('renders edit mode with title Edit Record and delete icon', (tester) async {
+    testWidgets('renders edit mode with title Edit Record and close button', (tester) async {
       await tester.pumpWidget(buildWidget(initialDebt: sampleDebt()));
       await tester.pumpAndSettle();
       expect(find.text('Edit Record'), findsOneWidget);
       expect(find.text('Save Changes'), findsOneWidget);
-      expect(find.byIcon(FPhosphorIcons.trash), findsOneWidget);
+      expect(find.widgetWithIcon(FButton, FPhosphorIcons.x), findsOneWidget);
+      expect(find.byIcon(FPhosphorIcons.trash), findsNothing);
       // Transaction binding should be hidden in edit mode
       expect(find.text('Transaction Binding'), findsNothing);
     });
@@ -269,14 +270,12 @@ void main() {
       expect(container.read(debtFormProvider).isSaving, false);
     });
 
-    testWidgets('delete button in edit mode calls deleteDebt', (tester) async {
+    testWidgets('edit mode does not render direct delete button', (tester) async {
       final debt = sampleDebt();
       await tester.pumpWidget(buildWidget(initialDebt: debt));
       await tester.pumpAndSettle();
-      await tester.tap(find.byIcon(FPhosphorIcons.trash));
-      await tester.pumpAndSettle();
-      await tester.pump(const Duration(milliseconds: 100));
-      verify(() => mockDebtRepo.deleteDebt('d1')).called(1);
+      expect(find.byIcon(FPhosphorIcons.trash), findsNothing);
+      verifyNever(() => mockDebtRepo.deleteDebt(any()));
     });
 
     testWidgets('init with initialDebt pre-fills fields', (tester) async {
@@ -381,6 +380,16 @@ void main() {
       await tester.tap(find.text('OpenDebtEdit'));
       await tester.pumpAndSettle();
       expect(find.text('Edit Record'), findsOneWidget);
+
+      // Verify close button ('X') is rendered and unconfirmed trash icon is NOT present
+      final closeButton = find.widgetWithIcon(FButton, FPhosphorIcons.x);
+      expect(closeButton, findsOneWidget);
+      expect(find.byIcon(FPhosphorIcons.trash), findsNothing);
+
+      // Verify tapping close button safely dismisses the sheet
+      await tester.tap(closeButton);
+      await tester.pumpAndSettle();
+      expect(find.text('Edit Record'), findsNothing);
     });
   });
 }
