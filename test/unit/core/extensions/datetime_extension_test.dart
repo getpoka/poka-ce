@@ -57,5 +57,16 @@ void main() {
       expect(wednesday.toRelativeDateString('en'), 'Wed, 07 Jan');
       expect(wednesday.toRelativeDateString('id'), 'Rab, 07 Jan');
     });
+
+    test('toRelativeDateString respects explicit locale parameter for Today and Yesterday', () {
+      final now = DateTime.now();
+      LocaleSettings.setLocaleSync(AppLocale.en);
+      expect(now.toRelativeDateString('id'), 'Hari ini');
+      expect(now.toRelativeDateString('en'), 'Today');
+
+      final yesterday = DateTime.now().subtract(const Duration(days: 1));
+      expect(yesterday.toRelativeDateString('id'), 'Kemarin');
+      expect(yesterday.toRelativeDateString('en'), 'Yesterday');
+    });
   });
 }
