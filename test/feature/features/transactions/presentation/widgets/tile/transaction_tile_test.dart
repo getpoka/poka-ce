@@ -7,6 +7,7 @@ import 'package:poka_ce/features/categories/domain/category_model.dart';
 import 'package:poka_ce/features/categories/presentation/controllers/category_list_notifier.dart';
 import 'package:poka_ce/features/transactions/domain/transaction_model.dart';
 import 'package:poka_ce/features/transactions/presentation/widgets/tile/transaction_tile.dart';
+import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class MockCategoryListNotifier extends CategoryListNotifier {
@@ -15,6 +16,8 @@ class MockCategoryListNotifier extends CategoryListNotifier {
 }
 
 void main() {
+  setUpAll(() => LocaleSettings.setLocaleSync(AppLocale.en));
+
   Widget buildTestApp(Widget child, ProviderContainer container) {
     return UncontrolledProviderScope(
       container: container,
@@ -158,6 +161,98 @@ void main() {
     // - No item shows "Uncategorized"
     expect(find.text('Food & Dining'), findsNWidgets(2));
     expect(find.text('Transport'), findsOneWidget);
+    expect(find.text('Uncategorized'), findsNothing);
+  });
+
+  testWidgets('RecentTransactionTile renders semantic debt label and handshake icon for unassigned debt expense', (
+    tester,
+  ) async {
+    final debtTransaction = TransactionModel(
+      id: 'tx-debt',
+      accountId: 'acc-1',
+      type: TransactionType.expense,
+      amount: 250000,
+      debtId: 'debt-123',
+      transactionDate: DateTime.now(),
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+      items: [
+        TransactionItemModel(
+          id: 'item-1',
+          transactionId: 'tx-debt',
+          categoryId: null,
+          amount: 250000,
+          createdAt: DateTime.now(),
+          updatedAt: DateTime.now(),
+        ),
+      ],
+    );
+
+    final container = ProviderContainer(
+      overrides: [
+        categoryListProvider.overrideWith(() => MockCategoryListNotifier()),
+      ],
+    );
+
+    await tester.pumpWidget(
+      buildTestApp(
+        RecentTransactionTile(
+          transaction: debtTransaction,
+          isBalanceVisible: true,
+        ),
+        container,
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('Debt'), findsWidgets);
+    expect(find.byIcon(FPhosphorIcons.handshake), findsWidgets);
+    expect(find.text('Uncategorized'), findsNothing);
+  });
+
+  testWidgets('RecentTransactionTile renders semantic loan label and handshake icon for unassigned loan income', (
+    tester,
+  ) async {
+    final loanTransaction = TransactionModel(
+      id: 'tx-loan',
+      accountId: 'acc-1',
+      type: TransactionType.income,
+      amount: 150000,
+      debtId: 'loan-123',
+      transactionDate: DateTime.now(),
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+      items: [
+        TransactionItemModel(
+          id: 'item-2',
+          transactionId: 'tx-loan',
+          categoryId: null,
+          amount: 150000,
+          createdAt: DateTime.now(),
+          updatedAt: DateTime.now(),
+        ),
+      ],
+    );
+
+    final container = ProviderContainer(
+      overrides: [
+        categoryListProvider.overrideWith(() => MockCategoryListNotifier()),
+      ],
+    );
+
+    await tester.pumpWidget(
+      buildTestApp(
+        RecentTransactionTile(
+          transaction: loanTransaction,
+          isBalanceVisible: true,
+        ),
+        container,
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('Loan'), findsWidgets);
+    expect(find.byIcon(FPhosphorIcons.handshake), findsWidgets);
     expect(find.text('Uncategorized'), findsNothing);
   });
 }
