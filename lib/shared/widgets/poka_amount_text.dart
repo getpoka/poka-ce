@@ -73,7 +73,7 @@ class PokaAmountText extends ConsumerWidget {
 
     return Text(
       shouldObscure
-          ? '$prefix••••••'
+          ? '$prefix$kPrivacyMask'
           : '$prefix${amount.abs().toCurrencyFormat(symbol: currencySymbol, precision: precision, locale: localeFormat)}',
       style: effectiveStyle,
     );
