@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:forui/forui.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:poka_ce/features/dashboard/presentation/controllers/balance_visibility_provider.dart';
 import 'package:poka_ce/features/reports/domain/services/report_analytics_service.dart';
 import 'package:poka_ce/features/reports/presentation/widgets/category_item_tile.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
@@ -10,14 +12,23 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   setUpAll(() => LocaleSettings.setLocaleSync(AppLocale.en));
 
-  Widget wrap(ReportCategoryItem item) {
-    return TranslationProvider(
-      child: MaterialApp(
-        builder: (context, child) => FTheme(data: lightTheme, child: child!),
-        home: Scaffold(
-          body: Padding(
-            padding: const EdgeInsets.all(16),
-            child: CategoryItemTile(item: item, rank: 1),
+  Widget wrap(
+    ReportCategoryItem item, {
+    bool? isVisible,
+    bool isBalanceVisible = true,
+  }) {
+    return ProviderScope(
+      overrides: [
+        balanceVisibilityProvider.overrideWithValue(isBalanceVisible),
+      ],
+      child: TranslationProvider(
+        child: MaterialApp(
+          builder: (context, child) => FTheme(data: lightTheme, child: child!),
+          home: Scaffold(
+            body: Padding(
+              padding: const EdgeInsets.all(16),
+              child: CategoryItemTile(item: item, rank: 1, isVisible: isVisible),
+            ),
           ),
         ),
       ),
@@ -39,6 +50,34 @@ void main() {
       expect(find.text('Food'), findsOneWidget);
       expect(find.text('1.5K'), findsOneWidget);
       expect(find.text('50.0%'), findsOneWidget);
+    });
+
+    testWidgets('obscures amount when balance visibility is false', (tester) async {
+      final item = ReportCategoryItem(
+        name: 'Food',
+        color: '#FF0000',
+        amount: 1500,
+        ratio: 0.5,
+        txCount: 3,
+      );
+      await tester.pumpWidget(wrap(item, isBalanceVisible: false));
+
+      expect(find.text('••••••'), findsOneWidget);
+      expect(find.text('1.5K'), findsNothing);
+    });
+
+    testWidgets('respects explicit isVisible override parameter', (tester) async {
+      final item = ReportCategoryItem(
+        name: 'Food',
+        color: '#FF0000',
+        amount: 1500,
+        ratio: 0.5,
+        txCount: 3,
+      );
+      await tester.pumpWidget(wrap(item, isVisible: false));
+
+      expect(find.text('••••••'), findsOneWidget);
+      expect(find.text('1.5K'), findsNothing);
     });
 
     testWidgets('falls back to theme color for invalid hex', (tester) async {

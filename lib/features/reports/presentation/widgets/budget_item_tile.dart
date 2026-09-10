@@ -68,7 +68,7 @@ class BudgetItemTile extends ConsumerWidget {
             ),
             PokaAmountText(
               amount: budget.amount,
-              type: TransactionType.income,
+              type: TransactionType.transfer,
               style: theme.typography.bodySecondary.copyWith(color: theme.colors.mutedForeground),
             ),
           ],

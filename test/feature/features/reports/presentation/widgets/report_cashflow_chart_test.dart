@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:forui/forui.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:poka_ce/features/dashboard/presentation/controllers/balance_visibility_provider.dart';
 import 'package:poka_ce/features/reports/domain/services/report_analytics_service.dart';
 import 'package:poka_ce/features/reports/presentation/controllers/report_notifier.dart';
 import 'package:poka_ce/features/reports/presentation/widgets/report_cashflow_chart.dart';
@@ -12,10 +13,11 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   setUpAll(() => LocaleSettings.setLocaleSync(AppLocale.en));
 
-  Widget wrap(ReportData data) {
+  Widget wrap(ReportData data, {bool isBalanceVisible = true}) {
     return ProviderScope(
       overrides: [
         reportProvider.overrideWithValue(ReportState(isLoading: false, data: data)),
+        balanceVisibilityProvider.overrideWithValue(isBalanceVisible),
       ],
       child: TranslationProvider(
         child: MaterialApp(
@@ -57,6 +59,21 @@ void main() {
       expect(find.text('W2'), findsOneWidget);
       // average = 1200 / 2 = 600
       expect(find.text('600'), findsOneWidget);
+    });
+
+    testWidgets('obscures average when balance visibility is false', (tester) async {
+      final data = ReportData(
+        summary: const ReportSummary(totalExpense: 1200),
+        trendPoints: const [
+          ReportTrendPoint(label: 'W1', income: 500, expense: 400),
+          ReportTrendPoint(label: 'W2', income: 700, expense: 800),
+        ],
+      );
+      await tester.pumpWidget(wrap(data, isBalanceVisible: false));
+      await tester.pumpAndSettle();
+
+      expect(find.text('••••••'), findsWidgets);
+      expect(find.text('600'), findsNothing);
     });
   });
 }

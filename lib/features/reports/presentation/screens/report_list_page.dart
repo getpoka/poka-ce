@@ -3,6 +3,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:forui/forui.dart';
 import 'package:forui_phosphor/forui_phosphor.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:poka_ce/features/dashboard/presentation/controllers/balance_visibility_provider.dart';
 import 'package:poka_ce/features/reports/presentation/controllers/report_notifier.dart';
 import 'package:poka_ce/features/reports/presentation/widgets/report_budget_utilization.dart';
 import 'package:poka_ce/features/reports/presentation/widgets/report_cashflow_chart.dart';
@@ -21,6 +22,7 @@ class ReportListPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(reportProvider);
+    final isBalanceVisible = ref.watch(balanceVisibilityProvider);
     final t = context.t.reports;
 
     return FScaffold(
@@ -28,6 +30,11 @@ class ReportListPage extends ConsumerWidget {
         title: t.title,
         subtitle: t.overview,
         suffixes: [
+          FHeaderAction(
+            key: const Key('report-privacy-toggle-button'),
+            icon: Icon(isBalanceVisible ? FPhosphorIcons.eye : FPhosphorIcons.eyeSlash, size: 20),
+            onPress: () => ref.read(balanceVisibilityProvider.notifier).toggle(),
+          ),
           FHeaderAction(
             key: const Key('report-export-excel-button'),
             icon: const Icon(FPhosphorIcons.fileXls, size: 20),

@@ -1,13 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poka_ce/core/extensions/num_extension.dart';
+import 'package:poka_ce/features/dashboard/presentation/controllers/balance_visibility_provider.dart';
 import 'package:poka_ce/features/reports/domain/services/report_analytics_service.dart';
 import 'package:poka_ce/theme/theme.dart';
 
-class CategoryItemTile extends StatelessWidget {
-  const CategoryItemTile({required this.item, required this.rank, super.key});
+/// Row widget rendering a category rank, dot, title, compact amount, and percentage.
+class CategoryItemTile extends ConsumerWidget {
+  /// Creates a [CategoryItemTile].
+  const CategoryItemTile({
+    required this.item,
+    required this.rank,
+    this.isVisible,
+    super.key,
+  });
 
+  /// The category item analytics data.
   final ReportCategoryItem item;
+
+  /// The numeric rank (1-indexed).
   final int rank;
+
+  /// Optional explicit visibility override. Defaults to [balanceVisibilityProvider].
+  final bool? isVisible;
 
   Color _parseColor(BuildContext context, String hex) {
     try {
@@ -19,9 +34,11 @@ class CategoryItemTile extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = context.theme;
     final color = _parseColor(context, item.color);
+    final v = ref.watch(balanceVisibilityProvider);
+    final effectiveVisible = isVisible ?? v;
 
     return Row(
       children: [
@@ -58,7 +75,7 @@ class CategoryItemTile extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Text(
-              item.amount.toCompactFormat(),
+              item.amount.toCompactFormat(isVisible: effectiveVisible),
               style: theme.typography.bodySecondary.copyWith(fontWeight: FontWeight.w700),
             ),
             Text(

@@ -85,9 +85,56 @@ void main() {
 
       expect(find.text('Reports'), findsOneWidget);
       expect(find.text('Financial Overview'), findsOneWidget);
+      expect(find.byKey(const Key('report-privacy-toggle-button')), findsOneWidget);
       expect(find.byKey(const Key('report-export-excel-button')), findsOneWidget);
       expect(find.text('Cashflow'), findsOneWidget);
       expect(find.text('Budgets & Goals'), findsOneWidget);
+    });
+
+    testWidgets('renders privacy toggle button and toggles visibility state', (tester) async {
+      const state = ReportState(
+        isLoading: false,
+        data: ReportData(),
+      );
+
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            reportProvider.overrideWith(() => _FakeReportNotifier(state)),
+            excelExportServiceProvider.overrideWithValue(mockExcelExportService),
+            settingsProvider.overrideWithValue(const SettingsState(isLoading: false)),
+          ],
+          child: TranslationProvider(
+            child: MaterialApp(
+              supportedLocales: AppLocaleUtils.supportedLocales,
+              localizationsDelegates: const [
+                ...FLocalizations.localizationsDelegates,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              builder: (context, child) => FTheme(
+                data: lightTheme,
+                child: FToaster(child: child!),
+              ),
+              home: const ReportListPage(),
+            ),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      final toggleButton = find.byKey(const Key('report-privacy-toggle-button'));
+      expect(toggleButton, findsOneWidget);
+      expect(find.byIcon(FPhosphorIcons.eye), findsOneWidget);
+
+      await tester.tap(toggleButton);
+      await tester.pumpAndSettle();
+      expect(find.byIcon(FPhosphorIcons.eyeSlash), findsOneWidget);
+
+      await tester.tap(toggleButton);
+      await tester.pumpAndSettle();
+      expect(find.byIcon(FPhosphorIcons.eye), findsOneWidget);
     });
 
     testWidgets('triggers exportAndShare and shows success toast when export button tapped', (tester) async {
