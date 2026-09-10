@@ -10,6 +10,8 @@ import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/features/dashboard/presentation/controllers/dashboard_notifier.dart';
 import 'package:poka_ce/features/dashboard/domain/services/dashboard_analytics_service.dart';
 
+import 'package:poka_ce/features/dashboard/presentation/controllers/balance_visibility_provider.dart';
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -17,10 +19,11 @@ void main() {
     LocaleSettings.setLocaleSync(AppLocale.en);
   });
 
-  Widget createWidget(DashboardState state) {
+  Widget createWidget(DashboardState state, {bool isVisible = true}) {
     return ProviderScope(
       overrides: [
         dashboardProvider.overrideWith(() => _FakeDashboardNotifier(state)),
+        balanceVisibilityProvider.overrideWith(() => _FakeBalanceVisibilityNotifier(isVisible)),
       ],
       child: TranslationProvider(
         child: MaterialApp(
@@ -160,6 +163,26 @@ void main() {
       expect(find.text('BadColor'), findsOneWidget);
       expect(find.byType(PokaDonutChart), findsOneWidget);
     });
+
+    testWidgets('obscures category amounts when balanceVisibility is false', (tester) async {
+      await tester.pumpWidget(
+        createWidget(
+          DashboardState(
+            totalExpense: 1000,
+            categoryExpenses: [
+              CategoryExpenseItem('Food', '#FF0000', 500),
+              CategoryExpenseItem('Transport', '#00FF00', 300),
+            ],
+          ),
+          isVisible: false,
+        ),
+      );
+      await tester.pump();
+
+      expect(find.text('••••••'), findsNWidgets(2));
+      expect(find.text('500'), findsNothing);
+      expect(find.text('300'), findsNothing);
+    });
   });
 }
 
@@ -168,4 +191,11 @@ class _FakeDashboardNotifier extends DashboardNotifier {
   _FakeDashboardNotifier(this._state);
   @override
   DashboardState build() => _state;
+}
+
+class _FakeBalanceVisibilityNotifier extends BalanceVisibility {
+  final bool _initial;
+  _FakeBalanceVisibilityNotifier(this._initial);
+  @override
+  bool build() => _initial;
 }

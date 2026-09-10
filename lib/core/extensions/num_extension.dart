@@ -3,7 +3,8 @@ import 'package:intl/intl.dart';
 /// Formatting helpers for numeric values (integers and doubles).
 extension NumExtension on num {
   /// Converts the number to compact abbreviated string (e.g. 1.2K, 3.4M, 5.0B).
-  String toCompactFormat() {
+  String toCompactFormat({bool isVisible = true}) {
+    if (!isVisible) return '••••••';
     if (this >= 1000000000) return '${(this / 1000000000).toStringAsFixed(1)}B';
     if (this >= 1000000) return '${(this / 1000000).toStringAsFixed(1)}M';
     if (this >= 1000) return '${(this / 1000).toStringAsFixed(1)}K';

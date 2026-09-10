@@ -2,19 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poka_ce/core/enums.dart';
 import 'package:poka_ce/core/extensions/num_extension.dart';
+import 'package:poka_ce/features/dashboard/presentation/controllers/balance_visibility_provider.dart';
 import 'package:poka_ce/features/dashboard/presentation/controllers/dashboard_notifier.dart';
 import 'package:poka_ce/features/dashboard/presentation/widgets/cards/views/carousel_shared.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/poka_donut_chart.dart';
 import 'package:poka_ce/theme/theme.dart';
 
+/// Budget allocation carousel slide displaying Needs, Wants, and Savings breakdown.
 class DashboardBudgetView extends ConsumerWidget {
+  /// Creates a [DashboardBudgetView].
   const DashboardBudgetView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = context.theme;
     final state = ref.watch(dashboardProvider);
+    final isBalanceVisible = ref.watch(balanceVisibilityProvider);
     final allocs = state.budgetAllocations;
 
     final needAmt = allocs[TransactionAllocation.need] ?? 0;
@@ -40,7 +44,7 @@ class DashboardBudgetView extends ConsumerWidget {
                 buildCategoryStatRow(
                   context,
                   context.t.dashboard.needs,
-                  needAmt.toCompactFormat(),
+                  needAmt.toCompactFormat(isVisible: isBalanceVisible),
                   theme.colors.primary,
                   needAmt / total,
                 ),
@@ -48,7 +52,7 @@ class DashboardBudgetView extends ConsumerWidget {
                 buildCategoryStatRow(
                   context,
                   context.t.dashboard.wants,
-                  wantAmt.toCompactFormat(),
+                  wantAmt.toCompactFormat(isVisible: isBalanceVisible),
                   theme.colors.app.warning,
                   wantAmt / total,
                 ),
@@ -56,7 +60,7 @@ class DashboardBudgetView extends ConsumerWidget {
                 buildCategoryStatRow(
                   context,
                   context.t.dashboard.savings,
-                  saveAmt.toCompactFormat(),
+                  saveAmt.toCompactFormat(isVisible: isBalanceVisible),
                   theme.colors.border,
                   saveAmt / total,
                 ),
