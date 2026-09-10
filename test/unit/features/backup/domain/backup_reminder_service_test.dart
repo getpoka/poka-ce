@@ -142,5 +142,30 @@ void main() {
         ),
       ).called(1);
     });
+
+    test('delegates hasNotificationPermission and requestNotificationPermission', () async {
+      when(() => mockNotificationService.hasNotificationPermission()).thenAnswer((_) async => true);
+      when(() => mockNotificationService.requestNotificationPermission()).thenAnswer((_) async => true);
+
+      expect(await reminderService.hasNotificationPermission(), isTrue);
+      expect(await reminderService.requestNotificationPermission(), isTrue);
+
+      when(() => mockNotificationService.hasNotificationPermission()).thenAnswer((_) async => false);
+      when(() => mockNotificationService.requestNotificationPermission()).thenAnswer((_) async => false);
+
+      expect(await reminderService.hasNotificationPermission(), isFalse);
+      expect(await reminderService.requestNotificationPermission(), isFalse);
+    });
+
+    test('triggerTestReminder dispatches test notification immediately', () async {
+      await reminderService.triggerTestReminder();
+
+      verify(
+        () => mockNotificationService.showBackupReminderNotification(
+          title: any(named: 'title'),
+          body: any(named: 'body'),
+        ),
+      ).called(1);
+    });
   });
 }
