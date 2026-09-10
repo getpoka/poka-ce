@@ -300,6 +300,21 @@ void main() {
       expect(metrics.netWorth, 3800);
     });
 
+    test('accountMetrics excludes pockets and goal accounts from activeAccountCount', () async {
+      final parent = acc('p1', balance: 5000);
+      final pocket = acc('pk1', parentId: 'p1', balance: 2000);
+      final goal = acc('g1', type: AccountType.goal, balance: 1000);
+      when(() => mockRepo.watchAccounts()).thenAnswer((_) => resultStream(Success([parent, pocket, goal])));
+      final container = createContainer();
+      await wait();
+
+      final metrics = container.read(accountMetricsProvider);
+      expect(metrics.activeAccountCount, 1);
+      expect(metrics.totalAssets, 8000);
+      expect(metrics.totalLiabilities, 0);
+      expect(metrics.netWorth, 8000);
+    });
+
     test('accountAggregate returns aggregate for existing account', () async {
       final parent = acc('p0', name: 'Parent');
       final pocket = acc('pk1', parentId: 'p0');

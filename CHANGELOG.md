@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Enhanced empty views across Debt, Goal, Budget, Recurring, Account, Dashboard, and Report sections with informative subtitles and contextual descriptions.
 - Streamlined Goals page into a unified single-stream layout, replacing header filter chips with a dedicated section for completed goals.
 - Aligned Debt repayment sheet layout with the transaction form sheet, replacing the floating outline button with an integrated meta bar featuring note editing and an interactive quick pay-in-full toggle action.
+- Excluded sub-pockets and virtual goal accounts from the active accounts counter badge on Net Worth cards while preserving full balance aggregation across all active accounts and pockets.
 
 ### Fixed
 

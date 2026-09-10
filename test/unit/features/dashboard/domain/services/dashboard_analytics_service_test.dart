@@ -55,6 +55,57 @@ void main() {
         expect(metrics.totalLiabilities, 200.0);
         expect(metrics.netWorth, 300.0);
       });
+
+      test('excludes pockets and goal accounts from activeAccountCount but includes their balances', () {
+        final now = DateTime.now();
+        final accounts = [
+          AccountModel(
+            id: '1',
+            name: 'BCA',
+            icon: 'bank',
+            color: '#000000',
+            type: AccountType.assets,
+            balance: 1000,
+            initialBalance: 1000,
+            isActive: true,
+            createdAt: now,
+            updatedAt: now,
+          ),
+          AccountModel(
+            id: '2',
+            name: 'BCA Saving Pocket',
+            parentId: '1',
+            icon: 'savings',
+            color: '#000000',
+            type: AccountType.assets,
+            balance: 500,
+            initialBalance: 0,
+            isActive: true,
+            createdAt: now,
+            updatedAt: now,
+          ),
+          AccountModel(
+            id: '3',
+            name: 'Vacation Goal',
+            icon: 'flight',
+            color: '#000000',
+            type: AccountType.goal,
+            balance: 300,
+            initialBalance: 0,
+            isActive: true,
+            createdAt: now,
+            updatedAt: now,
+          ),
+        ];
+
+        final metrics = DashboardAnalyticsService.calculateAccountMetrics(accounts);
+        // Only 1 primary account counted
+        expect(metrics.activeAccountCount, 1);
+        // Balances from parent, pocket, and goal are all included
+        expect(metrics.totalAssets, 1800.0);
+        expect(metrics.totalLiabilities, 0.0);
+        expect(metrics.netWorth, 1800.0);
+      });
     });
 
     group('calculateNetWorthTrend', () {
