@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:poka_ce/app/providers/repository_providers.dart';
 import 'package:poka_ce/core/enums.dart';
 import 'package:poka_ce/features/accounts/domain/account_model.dart';
 import 'package:poka_ce/features/accounts/presentation/controllers/account_list_notifier.dart';
 import 'package:poka_ce/features/categories/domain/category_model.dart';
 import 'package:poka_ce/features/categories/presentation/controllers/category_list_notifier.dart';
+import 'package:poka_ce/features/dashboard/presentation/controllers/dashboard_notifier.dart';
 import 'package:poka_ce/features/debts/domain/debt_model.dart';
 import 'package:poka_ce/features/debts/presentation/controllers/debt_detail_notifier.dart';
 import 'package:poka_ce/features/debts/presentation/controllers/debt_list_notifier.dart';
 import 'package:poka_ce/features/debts/presentation/widgets/debt_card.dart';
 import 'package:poka_ce/features/debts/presentation/widgets/debt_form_sheet.dart';
 import 'package:poka_ce/features/debts/presentation/widgets/debt_repayment_sheet.dart';
+import 'package:poka_ce/features/transactions/presentation/widgets/forms/transaction_form_sheet.dart';
 import 'package:poka_ce/features/transactions/presentation/widgets/tile/transaction_tile.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
+import 'package:poka_ce/shared/widgets/dialogs/poka_confirm_dialog.dart';
 import 'package:poka_ce/shared/widgets/poka_empty_view.dart';
 import 'package:poka_ce/shared/widgets/poka_header.dart';
 import 'package:poka_ce/shared/widgets/poka_section_label.dart';
@@ -143,6 +147,26 @@ class DebtDetailPage extends ConsumerWidget {
                         categoriesById: categoriesById,
                         category: category,
                         account: account,
+                        onTap: () {
+                          TransactionFormSheet.show(context, initialTransaction: transaction);
+                        },
+                        onEdit: () {
+                          TransactionFormSheet.show(context, initialTransaction: transaction);
+                        },
+                        onDelete: () async {
+                          final confirmed = await showPokaConfirmDialog(
+                            context,
+                            title: t.transactions.deleteTransaction,
+                            body: t.transactions.deleteTransactionWarning,
+                          );
+                          if (confirmed == true) {
+                            await ref.read(transactionRepositoryProvider).deleteTransaction(transaction.id);
+                            ref
+                              ..invalidate(debtListProvider)
+                              ..invalidate(dashboardProvider)
+                              ..invalidate(debtTransactionsProvider(activeDebt));
+                          }
+                        },
                       ),
                     );
                   },
