@@ -56,6 +56,7 @@ class BackupController extends _$BackupController {
   /// Returns `true` if decryption and database replacement succeeded.
   Future<bool> restore(String password, String filePath) async {
     state = const AsyncLoading();
+    var dbClosed = false;
     try {
       final service = ref.read(backupServiceProvider);
       final result = await service.restoreEncryptedBackup(
@@ -63,6 +64,7 @@ class BackupController extends _$BackupController {
         password,
         onBeforeWrite: () async {
           await ref.read(databaseProvider).close();
+          dbClosed = true;
         },
       );
       if (result.isSuccess()) {
@@ -78,6 +80,10 @@ class BackupController extends _$BackupController {
     } on Object catch (e, st) {
       state = AsyncError(e, st);
       return false;
+    } finally {
+      if (dbClosed) {
+        ref.invalidate(databaseProvider);
+      }
     }
   }
 }
