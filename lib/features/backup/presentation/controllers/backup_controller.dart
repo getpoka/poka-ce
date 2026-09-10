@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:poka_ce/app/providers/repository_providers.dart';
 import 'package:poka_ce/features/backup/data/backup_service.dart';
 import 'package:poka_ce/features/backup/domain/backup_reminder_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -57,7 +58,13 @@ class BackupController extends _$BackupController {
     state = const AsyncLoading();
     try {
       final service = ref.read(backupServiceProvider);
-      final result = await service.restoreEncryptedBackup(filePath, password);
+      final result = await service.restoreEncryptedBackup(
+        filePath,
+        password,
+        onBeforeWrite: () async {
+          await ref.read(databaseProvider).close();
+        },
+      );
       if (result.isSuccess()) {
         state = const AsyncData(null);
         return true;

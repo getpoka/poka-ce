@@ -774,7 +774,7 @@ On the **Reports Page (`ReportListPage`)**:
 3. [x] ~~Add `recurring_period` column in Drift schema and snapshot period in `RecurringProcessorService`~~ (BUG-003 — **Marked Invalid / Working as Designed per `database-schema.md`**; candidate for future feature discussion).
 4. [ ] Make `SettingsNotifier` keep-alive (`@Riverpod(keepAlive: true)`), remove `_disposed` flag issue, and ensure base currency changes take effect immediately across all sessions (BUG-004 — [#39](https://github.com/getpoka/poka-ce/issues/39)).
 5. [x] Add `restoreWarningDesc` localization key and fix copy in restore confirmation dialog (BUG-005 — [#40](https://github.com/getpoka/poka-ce/issues/40)).
-6. [ ] Properly close database connection, clean WAL/SHM files, and reload all providers reactively on restore without requiring app restart (BUG-006 — [#41](https://github.com/getpoka/poka-ce/issues/41)).
+6. [x] Properly close database connection, clean WAL/SHM files, and reload all providers reactively on restore without requiring app restart (BUG-006 — [#41](https://github.com/getpoka/poka-ce/issues/41)).
 7. [ ] Fix date formatting locale, `TransactionTypeSwitcher` tabs, and default category translations on the Transactions page (BUG-007 — [#42](https://github.com/getpoka/poka-ce/issues/42)).
 8. [x] Enable swipe-to-edit and swipe-to-delete on repayment tiles in [`DebtDetailPage`](file:///Users/SupianIDz/Work/getpoka/poka-ce/lib/features/debts/presentation/screens/debt_detail_page.dart) (BUG-008 — [#43](https://github.com/getpoka/poka-ce/issues/43)).
 9. [x] Handle debt repayment semantic labeling and icon in `RecentTransactionTile` to eliminate "Uncategorized" (BUG-009 — [#44](https://github.com/getpoka/poka-ce/issues/44)).

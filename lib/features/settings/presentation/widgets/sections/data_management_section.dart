@@ -14,8 +14,13 @@ import 'package:poka_ce/features/backup/presentation/controllers/backup_controll
 import 'package:poka_ce/features/backup/presentation/sheets/backup_password_sheet.dart';
 import 'package:poka_ce/features/backup/presentation/sheets/backup_reminder_sheet.dart';
 import 'package:poka_ce/features/backup/presentation/sheets/backup_restore_action_sheet.dart';
+import 'package:poka_ce/features/budgets/presentation/controllers/budget_list_notifier.dart';
 import 'package:poka_ce/features/categories/presentation/controllers/category_list_notifier.dart';
 import 'package:poka_ce/features/dashboard/presentation/controllers/dashboard_notifier.dart';
+import 'package:poka_ce/features/debts/presentation/controllers/debt_list_notifier.dart';
+import 'package:poka_ce/features/goals/presentation/controllers/goal_notifier.dart';
+import 'package:poka_ce/features/recurring/presentation/controllers/recurring_list_notifier.dart';
+import 'package:poka_ce/features/reports/presentation/controllers/report_notifier.dart';
 import 'package:poka_ce/features/settings/presentation/controllers/app_lock_controller.dart';
 import 'package:poka_ce/features/settings/presentation/controllers/settings_notifier.dart';
 import 'package:poka_ce/features/settings/presentation/sheets/pin_setup_sheet.dart';
@@ -145,17 +150,19 @@ class DataManagementSection extends ConsumerWidget {
               if (password == null) return;
               if (!context.mounted) return;
 
-              // Invalidate root database provider to force recreation
-              unawaited(container.read(databaseProvider).close());
-
-              // Refresh all Riverpod state like in Reset Data
+              // Refresh all Riverpod state
               container
                 ..invalidate(databaseProvider)
                 ..invalidate(settingsProvider)
                 ..invalidate(dashboardProvider)
                 ..invalidate(accountListProvider)
                 ..invalidate(categoryListProvider)
-                ..invalidate(transactionListNotifierProvider);
+                ..invalidate(transactionListNotifierProvider)
+                ..invalidate(budgetListProvider)
+                ..invalidate(goalProvider)
+                ..invalidate(debtListProvider)
+                ..invalidate(recurringListProvider)
+                ..invalidate(reportProvider);
 
               showFToast(
                 context: context,
@@ -248,7 +255,12 @@ class DataManagementSection extends ConsumerWidget {
               ..invalidate(dashboardProvider)
               ..invalidate(accountListProvider)
               ..invalidate(categoryListProvider)
-              ..invalidate(transactionListNotifierProvider);
+              ..invalidate(transactionListNotifierProvider)
+              ..invalidate(budgetListProvider)
+              ..invalidate(goalProvider)
+              ..invalidate(debtListProvider)
+              ..invalidate(recurringListProvider)
+              ..invalidate(reportProvider);
 
             if (!context.mounted) return;
             showFToast(
