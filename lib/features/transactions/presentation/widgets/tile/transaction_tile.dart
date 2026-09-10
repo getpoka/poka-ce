@@ -155,25 +155,30 @@ class RecentTransactionTile extends HookConsumerWidget with FTileMixin {
             ) ??
         <String, CategoryModel>{};
 
+    final firstItem = transaction.items.firstOrNull;
+    final resolvedCategory =
+        category ??
+        (!isSubItem && firstItem?.categoryId != null ? effectiveCategoriesById[firstItem!.categoryId] : null);
+
     // ── Category icon + color ──────────────────────────────────────────────
-    var catColor = category?.color?.toColor() ?? theme.colors.primary;
-    var catIcon = IconUtil.getIcon(category?.icon);
+    var catColor = resolvedCategory?.color?.toColor() ?? theme.colors.primary;
+    var catIcon = IconUtil.getIcon(resolvedCategory?.icon);
 
     // ── Category label ─────────────────────────────────────────────────────
     var catLabel =
-        category?.name ??
+        resolvedCategory?.name ??
         (transaction.type == TransactionType.transfer ? t.transactions.transfer : t.common.uncategorized);
 
     IconData? subCatIcon;
     Color? subCatColor;
 
-    if (category?.parentId != null && effectiveCategoriesById.isNotEmpty) {
-      final parentCat = effectiveCategoriesById[category!.parentId!];
+    if (resolvedCategory?.parentId != null && effectiveCategoriesById.isNotEmpty) {
+      final parentCat = effectiveCategoriesById[resolvedCategory!.parentId!];
       if (parentCat != null) {
-        catLabel = '${parentCat.name} • ${category!.name}';
+        catLabel = '${parentCat.name} • ${resolvedCategory.name}';
         // Prefix gets the SUB category icon
-        catIcon = IconUtil.getIcon(category!.icon);
-        catColor = category!.color?.toColor() ?? theme.colors.primary;
+        catIcon = IconUtil.getIcon(resolvedCategory.icon);
+        catColor = resolvedCategory.color?.toColor() ?? theme.colors.primary;
         // Sub badge gets the PARENT category icon
         subCatIcon = IconUtil.getIcon(parentCat.icon);
         subCatColor = parentCat.color?.toColor() ?? theme.colors.primary;
@@ -324,7 +329,8 @@ class RecentTransactionTile extends HookConsumerWidget with FTileMixin {
                   child: RecentTransactionTile(
                     transaction: fakeTx,
                     isBalanceVisible: isBalanceVisible,
-                    categoriesById: categoriesById,
+                    categoriesById: effectiveCategoriesById,
+                    category: effectiveCategoriesById[item.categoryId],
                     account: account,
                     isSubItem: true,
                     onEdit: () => handleEditItem(entry.key),
