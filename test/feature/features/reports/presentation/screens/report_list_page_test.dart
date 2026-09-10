@@ -126,12 +126,15 @@ void main() {
 
       final toggleButton = find.byKey(const Key('report-privacy-toggle-button'));
       expect(toggleButton, findsOneWidget);
+      expect(find.byIcon(FPhosphorIcons.eye), findsOneWidget);
 
       await tester.tap(toggleButton);
       await tester.pumpAndSettle();
+      expect(find.byIcon(FPhosphorIcons.eyeSlash), findsOneWidget);
 
       await tester.tap(toggleButton);
       await tester.pumpAndSettle();
+      expect(find.byIcon(FPhosphorIcons.eye), findsOneWidget);
     });
 
     testWidgets('triggers exportAndShare and shows success toast when export button tapped', (tester) async {

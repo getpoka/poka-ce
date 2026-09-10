@@ -37,7 +37,8 @@ class CategoryItemTile extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = context.theme;
     final color = _parseColor(context, item.color);
-    final effectiveVisible = isVisible ?? ref.watch(balanceVisibilityProvider) ?? true;
+    final v = ref.watch(balanceVisibilityProvider);
+    final effectiveVisible = isVisible ?? v;
 
     return Row(
       children: [
