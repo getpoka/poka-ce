@@ -59,12 +59,14 @@ jobs:
           # Build Universal Fat APK with Obfuscation & Symbol Stripping
           flutter build apk --release \
             --obfuscate --split-debug-info=build/app/outputs/symbols \
+            --extra-gen-snapshot-options=--strip \
             --dart-define=APP_VERSION="$TAG_NAME"
           mv build/app/outputs/flutter-apk/app-release.apk "build/app/outputs/flutter-apk/poka-$TAG_NAME-universal.apk"
           
           # Build Split APKs with Obfuscation & Symbol Stripping
           flutter build apk --release --split-per-abi \
             --obfuscate --split-debug-info=build/app/outputs/symbols \
+            --extra-gen-snapshot-options=--strip \
             --dart-define=APP_VERSION="$TAG_NAME"
 
           # Rename Split APKs to poka-vX.X.X-<abi>.apk

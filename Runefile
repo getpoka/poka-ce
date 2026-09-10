@@ -111,15 +111,15 @@ test:coverage:
 #[Build Android APK (defaults to fat Universal APK; pass --split for fat + split-per-abi)]
 # --split: Build split-per-ABI APKs alongside universal APK
 build:apk --split?:
-    flutter build apk --release --obfuscate --split-debug-info=build/app/outputs/symbols --dart-define-from-file=.env
+    flutter build apk --release --obfuscate --split-debug-info=build/app/outputs/symbols --extra-gen-snapshot-options=--strip --dart-define-from-file=.env
     mv build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/poka-universal.apk
     cp build/app/outputs/flutter-apk/poka-universal.apk build/app/outputs/flutter-apk/app-universal-release.apk
-    sh -c '[ -n "{{split}}" ] && flutter build apk --release --split-per-abi --obfuscate --split-debug-info=build/app/outputs/symbols --dart-define-from-file=.env && cp build/app/outputs/flutter-apk/app-arm64-v8a-release.apk build/app/outputs/flutter-apk/poka-arm64-v8a.apk && cp build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk build/app/outputs/flutter-apk/poka-armeabi-v7a.apk && cp build/app/outputs/flutter-apk/app-x86_64-release.apk build/app/outputs/flutter-apk/poka-x86_64.apk || true'
+    sh -c '[ -n "{{split}}" ] && flutter build apk --release --split-per-abi --obfuscate --split-debug-info=build/app/outputs/symbols --extra-gen-snapshot-options=--strip --dart-define-from-file=.env && cp build/app/outputs/flutter-apk/app-arm64-v8a-release.apk build/app/outputs/flutter-apk/poka-arm64-v8a.apk && cp build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk build/app/outputs/flutter-apk/poka-armeabi-v7a.apk && cp build/app/outputs/flutter-apk/app-x86_64-release.apk build/app/outputs/flutter-apk/poka-x86_64.apk || true'
     rune done "APK build completed successfully!"
 
 #[Build an Android App Bundle (AAB)]
 build:aab:
-    flutter build appbundle --release --obfuscate --split-debug-info=build/app/outputs/symbols --dart-define-from-file=.env
+    flutter build appbundle --release --obfuscate --split-debug-info=build/app/outputs/symbols --extra-gen-snapshot-options=--strip --dart-define-from-file=.env
     rune done "App Bundle (AAB) built successfully!"
 
 #[Generate a new Android Keystore for release signing]
