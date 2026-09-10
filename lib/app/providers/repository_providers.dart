@@ -22,7 +22,9 @@ import 'package:poka_ce/features/transactions/domain/transaction_model.dart';
 
 /// Provides the singleton instance of the AppDatabase.
 final databaseProvider = Provider<AppDatabase>((ref) {
-  return AppDatabase();
+  final db = AppDatabase();
+  ref.onDispose(db.close);
+  return db;
 });
 
 /// Provides the [IUnitOfWork] implementation.

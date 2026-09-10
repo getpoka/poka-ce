@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:poka_ce/app/providers/repository_providers.dart';
+import 'package:poka_ce/database/database.dart';
 import 'package:poka_ce/features/backup/data/backup_service.dart';
 import 'package:poka_ce/features/backup/domain/backup_reminder_service.dart';
 import 'package:poka_ce/features/backup/presentation/controllers/backup_controller.dart';
@@ -13,6 +15,8 @@ import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 class MockBackupService extends Mock implements BackupService {}
 
 class MockBackupReminderService extends Mock implements BackupReminderService {}
+
+class MockAppDatabase extends Mock implements AppDatabase {}
 
 class FakeSharePlatform extends SharePlatform with MockPlatformInterfaceMixin {
   @override
@@ -26,11 +30,14 @@ void main() {
 
   late MockBackupService mockService;
   late MockBackupReminderService mockReminderService;
+  late MockAppDatabase mockDb;
   late SharePlatform originalSharePlatform;
 
   setUp(() {
     mockService = MockBackupService();
     mockReminderService = MockBackupReminderService();
+    mockDb = MockAppDatabase();
+    when(() => mockDb.close()).thenAnswer((_) async {});
     when(() => mockReminderService.recordBackupCompleted(any())).thenAnswer((_) async {});
     when(() => mockReminderService.recordBackupCompleted()).thenAnswer((_) async {});
     originalSharePlatform = SharePlatform.instance;
@@ -45,6 +52,7 @@ void main() {
   ProviderContainer createContainer() {
     final container = ProviderContainer(
       overrides: [
+        databaseProvider.overrideWithValue(mockDb),
         backupServiceProvider.overrideWithValue(mockService),
         backupReminderServiceProvider.overrideWithValue(mockReminderService),
       ],
@@ -120,7 +128,12 @@ void main() {
     });
 
     test('restore() — on success: state = data, returns true', () async {
-      when(() => mockService.restoreEncryptedBackup(any(), any())).thenAnswer((_) async => const Success(unit));
+      when(() => mockService.restoreEncryptedBackup(any(), any(), onBeforeWrite: any(named: 'onBeforeWrite')))
+          .thenAnswer((invocation) async {
+            final onBefore = invocation.namedArguments[#onBeforeWrite] as Future<void> Function()?;
+            await onBefore?.call();
+            return const Success(unit);
+          });
 
       final container = createContainer();
       final notifier = container.read(backupControllerProvider.notifier);
@@ -132,12 +145,16 @@ void main() {
       expect(result, isTrue);
       expect(container.read(backupControllerProvider).hasValue, isTrue);
       expect(container.read(backupControllerProvider).hasError, isFalse);
-      verify(() => mockService.restoreEncryptedBackup('/tmp/file.enc.db', 'pass')).called(1);
+      verify(
+        () =>
+            mockService.restoreEncryptedBackup('/tmp/file.enc.db', 'pass', onBeforeWrite: any(named: 'onBeforeWrite')),
+      ).called(1);
+      verify(() => mockDb.close()).called(1);
     });
 
     test('restore() — on failure: state = error, returns false', () async {
       when(
-        () => mockService.restoreEncryptedBackup(any(), any()),
+        () => mockService.restoreEncryptedBackup(any(), any(), onBeforeWrite: any(named: 'onBeforeWrite')),
       ).thenAnswer((_) async => Failure(Exception('wrong password')));
 
       final container = createContainer();
@@ -153,7 +170,8 @@ void main() {
     });
 
     test('restore() — on Exception thrown: state = error, returns false', () async {
-      when(() => mockService.restoreEncryptedBackup(any(), any())).thenThrow(Exception('io error'));
+      when(() => mockService.restoreEncryptedBackup(any(), any(), onBeforeWrite: any(named: 'onBeforeWrite')))
+          .thenThrow(Exception('io error'));
 
       final container = createContainer();
       final result = await container.read(backupControllerProvider.notifier).restore('pass', '/tmp/x');
