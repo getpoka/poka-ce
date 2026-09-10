@@ -8,6 +8,7 @@ import 'package:poka_ce/features/categories/presentation/controllers/category_fo
 import 'package:poka_ce/features/categories/presentation/widgets/pickers/category_icon_picker_button.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/pickers/poka_color_picker.dart';
+import 'package:poka_ce/shared/widgets/poka_toast.dart';
 import 'package:poka_ce/shared/widgets/sheets/poka_sheet.dart';
 
 /// Bottom sheet for creating or editing a category.
@@ -79,7 +80,7 @@ class CategoryFormSheet extends HookConsumerWidget {
         if (next.isSuccess && (prev?.isSuccess != true)) {
           Navigator.of(context).pop();
         } else if (next.error != null && next.error != prev?.error) {
-          showFToast(
+          showPokaToast(
             context: context,
             title: Text(next.error!),
             variant: FToastVariant.destructive,

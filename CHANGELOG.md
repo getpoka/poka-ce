@@ -21,6 +21,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed hardcoded transaction type tab labels in `TransactionTypeSwitcher` to use localized strings.
 - Fixed balance visibility privacy toggle being bypassed across Dashboard cards (Cash Flow, Spending Activity, Categories, and Budgets).
 - Added header privacy eye action button on the Reports page and obscured financial amounts across category rankings, spending allocation rules, and cashflow charts when privacy mode is enabled.
+- Resolved toast notification freeze on mobile touch interactions and route transitions by introducing `showPokaToast` with an independent watchdog timer and post-frame dismissal.
+- Standardized actionable undo toast positioning to `bottomCenter` (`showPokaActionToast`) for optimal one-handed thumb ergonomics.
 
 ## [v1.0.0-rc.1] - 2026-09-09
 

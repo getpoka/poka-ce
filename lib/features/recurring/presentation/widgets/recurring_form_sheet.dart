@@ -25,6 +25,7 @@ import 'package:poka_ce/shared/widgets/poka_form_label.dart';
 import 'package:poka_ce/shared/widgets/poka_icon.dart';
 import 'package:poka_ce/shared/widgets/poka_pocket_selector.dart';
 import 'package:poka_ce/shared/widgets/poka_switch.dart';
+import 'package:poka_ce/shared/widgets/poka_toast.dart';
 import 'package:poka_ce/shared/widgets/sheets/poka_sheet.dart';
 import 'package:poka_ce/theme/theme.dart';
 
@@ -79,7 +80,7 @@ class RecurringFormSheet extends HookConsumerWidget {
         Navigator.of(context).pop();
       }
       if (next.error != null && next.error != prev?.error) {
-        showFToast(
+        showPokaToast(
           context: context,
           title: Text(next.error!),
           variant: FToastVariant.destructive,

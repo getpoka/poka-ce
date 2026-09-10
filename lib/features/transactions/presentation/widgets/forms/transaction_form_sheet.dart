@@ -23,6 +23,7 @@ import 'package:poka_ce/features/transactions/presentation/widgets/split/transac
 import 'package:poka_ce/features/transactions/presentation/widgets/split/transaction_split_summary_card.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/dialogs/poka_insufficient_balance_dialog.dart';
+import 'package:poka_ce/shared/widgets/poka_toast.dart';
 import 'package:poka_ce/shared/widgets/sheets/poka_sheet.dart';
 import 'package:poka_ce/theme/theme.dart';
 
@@ -135,7 +136,7 @@ class TransactionFormSheet extends HookConsumerWidget {
         ref.read(transactionListNotifierProvider.notifier).refresh();
         Navigator.of(context).pop(true);
       } else if (next.error != null && next.error != prev?.error) {
-        showFToast(
+        showPokaToast(
           context: context,
           title: Text(next.error.toString()),
           variant: FToastVariant.destructive,

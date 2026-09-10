@@ -11,6 +11,7 @@ import 'package:poka_ce/features/accounts/presentation/widgets/forms/fields/cate
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/pickers/poka_color_picker.dart';
 import 'package:poka_ce/shared/widgets/pickers/poka_icon_picker.dart';
+import 'package:poka_ce/shared/widgets/poka_toast.dart';
 import 'package:poka_ce/shared/widgets/sheets/poka_sheet.dart';
 import 'package:poka_ce/theme/theme.dart';
 
@@ -86,7 +87,7 @@ class AccountFormSheet extends HookConsumerWidget {
           Navigator.of(context).pop();
         }
         if (next.error != null && next.error != prev?.error) {
-          showFToast(
+          showPokaToast(
             context: context,
             title: Text(next.error!),
             variant: FToastVariant.destructive,

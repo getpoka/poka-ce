@@ -19,6 +19,7 @@ import 'package:poka_ce/shared/widgets/poka_category_selector.dart';
 import 'package:poka_ce/shared/widgets/poka_form_label.dart';
 import 'package:poka_ce/shared/widgets/poka_icon.dart';
 import 'package:poka_ce/shared/widgets/poka_pocket_selector.dart';
+import 'package:poka_ce/shared/widgets/poka_toast.dart';
 import 'package:poka_ce/shared/widgets/sheets/poka_sheet.dart';
 
 class BudgetFormSheet extends HookConsumerWidget {
@@ -134,7 +135,7 @@ class BudgetFormSheet extends HookConsumerWidget {
         Navigator.of(context).pop();
       }
       if (next.error != null && next.error != prev?.error) {
-        showFToast(
+        showPokaToast(
           context: context,
           title: Text(next.error!),
           variant: FToastVariant.destructive,
