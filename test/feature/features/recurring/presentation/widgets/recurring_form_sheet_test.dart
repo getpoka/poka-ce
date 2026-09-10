@@ -15,6 +15,7 @@ import 'package:poka_ce/features/recurring/domain/recurring_model.dart';
 import 'package:poka_ce/features/recurring/presentation/controllers/recurring_form_notifier.dart';
 import 'package:poka_ce/features/recurring/presentation/controllers/recurring_list_notifier.dart';
 import 'package:poka_ce/features/recurring/presentation/widgets/recurring_form_sheet.dart';
+import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class MockRecurringRepository extends Mock implements IRecurringRepository {}
@@ -59,18 +60,20 @@ void main() {
   Widget createWidgetUnderTest(ProviderContainer container, {RecurringTransactionModel? initialRecurring}) {
     return UncontrolledProviderScope(
       container: container,
-      child: FTheme(
-        data: lightTheme,
-        child: MaterialApp(
-          builder: (context, child) => FToaster(child: child!),
-          home: Scaffold(
-            body: Builder(
-              builder: (context) {
-                return ElevatedButton(
-                  onPressed: () => RecurringFormSheet.show(context, initialRecurring: initialRecurring),
-                  child: const Text('Open'),
-                );
-              },
+      child: TranslationProvider(
+        child: FTheme(
+          data: lightTheme,
+          child: MaterialApp(
+            builder: (context, child) => FToaster(child: child!),
+            home: Scaffold(
+              body: Builder(
+                builder: (context) {
+                  return ElevatedButton(
+                    onPressed: () => RecurringFormSheet.show(context, initialRecurring: initialRecurring),
+                    child: const Text('Open'),
+                  );
+                },
+              ),
             ),
           ),
         ),
