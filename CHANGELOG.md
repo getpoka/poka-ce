@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.0.0-rc.2] - 2026-09-10
+
+Release Candidate 2 for Poka CE v1.0.0. Incorporates all smoke testing bug fixes and stabilization improvements discovered during RC.1 evaluation.
+
 ### Fixed
 
 - Fixed missing allocation badge (Need, Want, Saving) on split item preview list in transaction creation sheet.
@@ -188,7 +192,8 @@ All core features are feature-complete and ready to be explored:
 
 > **⚠️ Important Note:** This version is still under testing. Deep edge cases (such as editing or deleting complex interconnected data) have not been fully verified. Unexpected bugs may occur — we recommend trying it with dummy data first, or regularly backing up your data from the Settings menu. Help us reach v1.0 by reporting bugs via the [Issues](https://github.com/getpoka/poka-ce/issues) tab.
 
-[Unreleased]: https://github.com/getpoka/poka-ce/compare/v1.0.0-rc.1...main
+[Unreleased]: https://github.com/getpoka/poka-ce/compare/v1.0.0-rc.2...main
+[v1.0.0-rc.2]: https://github.com/getpoka/poka-ce/compare/v1.0.0-rc.1...v1.0.0-rc.2
 [v1.0.0-rc.1]: https://github.com/getpoka/poka-ce/compare/v0.1.0-beta.5...v1.0.0-rc.1
 [v0.1.0-beta.5]: https://github.com/getpoka/poka-ce/compare/v0.1.0-beta.4...v0.1.0-beta.5
 [v0.1.0-beta.4]: https://github.com/getpoka/poka-ce/compare/v0.1.0-beta.3...v0.1.0-beta.4
