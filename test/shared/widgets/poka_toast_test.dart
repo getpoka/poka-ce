@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:forui/forui.dart';
@@ -54,7 +56,7 @@ void main() {
       expect(dismissed, isTrue);
     });
 
-    testWidgets('watchdog timer dismisses toast when still showing', (tester) async {
+    testWidgets('watchdog timer dismisses toast when internal timer is interrupted by hover', (tester) async {
       var dismissed = false;
 
       await tester.pumpWidget(
@@ -80,12 +82,27 @@ void main() {
       await tester.pump(const Duration(milliseconds: 300));
       expect(find.text('Watchdog Test'), findsOneWidget);
 
-      // Advance time to allow duration + watchdog (2s + 300ms) to trigger
-      await tester.pump(const Duration(milliseconds: 2500));
+      // Simulate mouse hovering over toast to interrupt/cancel ForUI's internal timer via MouseRegion.onEnter
+      final gesture = await tester.createGesture(kind: PointerDeviceKind.mouse);
+      await gesture.addPointer(location: Offset.zero);
+      await gesture.moveTo(tester.getCenter(find.text('Watchdog Test')));
+      await tester.pump();
+
+      // Advance past normal duration (2s). Internal timer was cancelled by MouseRegion.onEnter,
+      // so without watchdog it would remain indefinitely.
+      await tester.pump(const Duration(seconds: 2));
+      expect(find.text('Watchdog Test'), findsOneWidget);
+      expect(dismissed, isFalse);
+
+      // Advance past watchdog duration (+300ms post-frame)
+      await tester.pump(const Duration(milliseconds: 400));
       await tester.pumpAndSettle();
 
       expect(find.text('Watchdog Test'), findsNothing);
       expect(dismissed, isTrue);
+
+      await gesture.removePointer();
+      await tester.pump(const Duration(milliseconds: 300));
     });
   });
 
