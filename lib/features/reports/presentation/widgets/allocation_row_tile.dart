@@ -39,7 +39,8 @@ class AllocationRowTile extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = context.theme;
     final pct = '${(ratio * 100).toStringAsFixed(1)}%';
-    final effectiveVisible = isVisible ?? ref.watch(balanceVisibilityProvider) ?? true;
+    final v = ref.watch(balanceVisibilityProvider);
+    final effectiveVisible = isVisible ?? v;
 
     return Row(
       children: [
