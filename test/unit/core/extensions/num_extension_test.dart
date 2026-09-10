@@ -49,11 +49,15 @@ void main() {
       expect(999999999.toCompactFormat(), '1000.0M');
     });
 
+    test('kPrivacyMask constant has expected placeholder value', () {
+      expect(kPrivacyMask, '••••••');
+    });
+
     test('returns masked value when isVisible is false', () {
-      expect(0.toCompactFormat(isVisible: false), '••••••');
-      expect(500.toCompactFormat(isVisible: false), '••••••');
-      expect(1500.toCompactFormat(isVisible: false), '••••••');
-      expect(1000000.toCompactFormat(isVisible: false), '••••••');
+      expect(0.toCompactFormat(isVisible: false), kPrivacyMask);
+      expect(500.toCompactFormat(isVisible: false), kPrivacyMask);
+      expect(1500.toCompactFormat(isVisible: false), kPrivacyMask);
+      expect(1000000.toCompactFormat(isVisible: false), kPrivacyMask);
     });
   });
 

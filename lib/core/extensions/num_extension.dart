@@ -1,10 +1,13 @@
 import 'package:intl/intl.dart';
 
+/// Standard placeholder string used across the app to mask sensitive financial amounts.
+const String kPrivacyMask = '••••••';
+
 /// Formatting helpers for numeric values (integers and doubles).
 extension NumExtension on num {
   /// Converts the number to compact abbreviated string (e.g. 1.2K, 3.4M, 5.0B).
   String toCompactFormat({bool isVisible = true}) {
-    if (!isVisible) return '••••••';
+    if (!isVisible) return kPrivacyMask;
     if (this >= 1000000000) return '${(this / 1000000000).toStringAsFixed(1)}B';
     if (this >= 1000000) return '${(this / 1000000).toStringAsFixed(1)}M';
     if (this >= 1000) return '${(this / 1000).toStringAsFixed(1)}K';
@@ -22,7 +25,7 @@ extension NumExtension on num {
     final cleanSymbol = symbol.trim();
     final effectiveSymbol = cleanSymbol.isEmpty ? '' : '$cleanSymbol ';
 
-    if (!isVisible) return '$effectiveSymbol••••••';
+    if (!isVisible) return '$effectiveSymbol$kPrivacyMask';
 
     final format = NumberFormat.currency(
       locale: (locale == 'system') ? null : locale,
