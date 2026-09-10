@@ -164,9 +164,10 @@ class BudgetDetailPage extends ConsumerWidget {
             data: (transactions) {
               if (transactions.isEmpty) {
                 return SliverToBoxAdapter(
-                  child: PokaEmptyViewCentered(
+                  child: PokaEmptyView(
                     icon: FPhosphorIcons.receipt,
                     title: t.budgets.noTransactionsFoundForThisBudgetPeriod,
+                    subtitle: t.budgets.budgetTransactionsSubtitle,
                   ),
                 );
               }

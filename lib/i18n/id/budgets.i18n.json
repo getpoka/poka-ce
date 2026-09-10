@@ -22,6 +22,7 @@
   "totalLimit": "Total batas",
   "selectEndDate": "Pilih tanggal berakhir",
   "noTransactionsFoundForThisBudgetPeriod": "Tidak ada transaksi yang ditemukan untuk periode anggaran ini.",
+  "budgetTransactionsSubtitle": "Transaksi yang terkait dengan anggaran ini akan muncul di sini.",
   "addBudget": "Tambah Anggaran",
   "spent": "Terpakai ",
   "noBudgetsYet": "Belum ada anggaran",

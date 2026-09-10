@@ -164,6 +164,12 @@ class Translations$accounts$en {
 	/// en: 'No transactions yet'
 	String get noTransactionsYet => 'No transactions yet';
 
+	/// en: 'Transactions recorded in this account will appear here.'
+	String get accountTransactionsSubtitle => 'Transactions recorded in this account will appear here.';
+
+	/// en: 'Transactions recorded in this pocket will appear here.'
+	String get pocketTransactionsSubtitle => 'Transactions recorded in this pocket will appear here.';
+
 	/// en: 'Add Account'
 	String get addAccount => 'Add Account';
 
@@ -423,6 +429,9 @@ class Translations$budgets$en {
 
 	/// en: 'No transactions found for this budget period.'
 	String get noTransactionsFoundForThisBudgetPeriod => 'No transactions found for this budget period.';
+
+	/// en: 'Transactions matching this budget will appear here.'
+	String get budgetTransactionsSubtitle => 'Transactions matching this budget will appear here.';
 
 	/// en: 'Add Budget'
 	String get addBudget => 'Add Budget';
@@ -760,6 +769,9 @@ class Translations$dashboard$en {
 	/// en: 'No recent transactions'
 	String get noRecentTransactions => 'No recent transactions';
 
+	/// en: 'Transactions you recently record will appear here.'
+	String get recentTransactionsSubtitle => 'Transactions you recently record will appear here.';
+
 	/// en: 'See All'
 	String get seeAll => 'See All';
 
@@ -885,6 +897,9 @@ class Translations$debts$en {
 
 	/// en: 'No history found for this {{type}}'
 	String noHistoryFoundForThis({required Object type}) => 'No history found for this ${type}';
+
+	/// en: 'Payment or installment records for this {{type}} will appear here.'
+	String repaymentHistorySubtitle({required Object type}) => 'Payment or installment records for this ${type} will appear here.';
 
 	/// en: 'Failed to load debts: {{error}}'
 	String failedToLoadDebts({required Object error}) => 'Failed to load debts: ${error}';
@@ -1065,6 +1080,9 @@ class Translations$goals$en {
 
 	/// en: 'No transactions found for this goal.'
 	String get noTransactionsFoundForThisGoal => 'No transactions found for this goal.';
+
+	/// en: 'Transfers or savings recorded for this goal will appear here.'
+	String get goalTransactionsSubtitle => 'Transfers or savings recorded for this goal will appear here.';
 
 	/// en: 'Add Goal'
 	String get addGoal => 'Add Goal';
@@ -1273,6 +1291,9 @@ class Translations$recurring$en {
 	/// en: 'No history found for this schedule.'
 	String get noHistoryFoundForThisSchedule => 'No history found for this schedule.';
 
+	/// en: 'Transactions generated from this schedule will appear here.'
+	String get scheduleHistorySubtitle => 'Transactions generated from this schedule will appear here.';
+
 	/// en: 'Allocation'
 	String get allocation => 'Allocation';
 
@@ -1440,6 +1461,9 @@ class Translations$reports$en {
 
 	/// en: 'No data for this period'
 	String get noData => 'No data for this period';
+
+	/// en: 'Record expense transactions to see your spending allocation.'
+	String get noExpenseDataDesc => 'Record expense transactions to see your spending allocation.';
 
 	/// en: 'No budgets configured'
 	String get noBudgets => 'No budgets configured';
@@ -2144,6 +2168,8 @@ extension on Translations {
 			'accounts.permanentlyRemoveThisAccount' => 'Permanently remove this account',
 			'accounts.seeAll' => 'See All',
 			'accounts.noTransactionsYet' => 'No transactions yet',
+			'accounts.accountTransactionsSubtitle' => 'Transactions recorded in this account will appear here.',
+			'accounts.pocketTransactionsSubtitle' => 'Transactions recorded in this pocket will appear here.',
 			'accounts.addAccount' => 'Add Account',
 			'accounts.noAccountsFound' => 'No accounts found.',
 			'accounts.addPocket' => 'Add Pocket',
@@ -2225,6 +2251,7 @@ extension on Translations {
 			'budgets.totalLimit' => 'Total limit',
 			'budgets.selectEndDate' => 'Select end date',
 			'budgets.noTransactionsFoundForThisBudgetPeriod' => 'No transactions found for this budget period.',
+			'budgets.budgetTransactionsSubtitle' => 'Transactions matching this budget will appear here.',
 			'budgets.addBudget' => 'Add Budget',
 			'budgets.spent' => 'Spent ',
 			'budgets.noBudgetsYet' => 'No budgets yet',
@@ -2328,6 +2355,7 @@ extension on Translations {
 			'dashboard.recentTransactions' => 'Recent Transactions',
 			'dashboard.thisMonth' => 'This month',
 			'dashboard.noRecentTransactions' => 'No recent transactions',
+			'dashboard.recentTransactionsSubtitle' => 'Transactions you recently record will appear here.',
 			'dashboard.seeAll' => 'See All',
 			'dashboard.notSet' => 'Not set',
 			'dashboard.insight.noData' => 'No data this month to analyze.',
@@ -2379,6 +2407,7 @@ extension on Translations {
 			'debts.reminder' => ({required Object type, required Object name}) => 'Reminder ${type}: ${name}',
 			'debts.due' => ({required Object type, required Object name}) => '${type} Due: ${name}',
 			'debts.noHistoryFoundForThis' => ({required Object type}) => 'No history found for this ${type}',
+			'debts.repaymentHistorySubtitle' => ({required Object type}) => 'Payment or installment records for this ${type} will appear here.',
 			'debts.failedToLoadDebts' => ({required Object error}) => 'Failed to load debts: ${error}',
 			'debts.percentOf' => ({required Object percent}) => '${percent}% of ',
 			'debts.settled' => ({required Object count}) => '${count} settled',
@@ -2439,6 +2468,7 @@ extension on Translations {
 			'goals.totalTarget' => 'Total target',
 			'goals.selectTargetDate' => 'Select target date',
 			'goals.noTransactionsFoundForThisGoal' => 'No transactions found for this goal.',
+			'goals.goalTransactionsSubtitle' => 'Transfers or savings recorded for this goal will appear here.',
 			'goals.addGoal' => 'Add Goal',
 			'goals.aDedicatedPocketAccountWillBeCreatedAutomaticallyToTrackThisGoal' => 'A dedicated Pocket account will be created automatically to track this goal.',
 			'goals.saved' => 'saved',
@@ -2499,6 +2529,7 @@ extension on Translations {
 			'recurring.noRecurringTransactions' => 'No recurring transactions',
 			'recurring.automateBillsLikeSubscriptionsOrSalary' => 'Automate bills like subscriptions or salary. The app will record them on schedule.',
 			'recurring.noHistoryFoundForThisSchedule' => 'No history found for this schedule.',
+			'recurring.scheduleHistorySubtitle' => 'Transactions generated from this schedule will appear here.',
 			'recurring.allocation' => 'Allocation',
 			'recurring.active' => 'Active',
 			'recurring.eachTimeTheAppOpensOverdueRecurringTransactionsAre' => 'Each time the app opens, overdue recurring transactions are automatically recorded in your ledger.',
@@ -2552,6 +2583,7 @@ extension on Translations {
 			'reports.budgetUtilization' => 'Budget Utilization',
 			'reports.spendingAllocation' => 'Spending Allocation',
 			'reports.noData' => 'No data for this period',
+			'reports.noExpenseDataDesc' => 'Record expense transactions to see your spending allocation.',
 			'reports.noBudgets' => 'No budgets configured',
 			'reports.noBudgetsDesc' => 'Add budgets to track your spending limits',
 			'reports.onTrack' => 'On track',
@@ -2617,6 +2649,8 @@ extension on Translations {
 			'settings.resetDataDesc' => 'Erase all app data locally',
 			'settings.support' => 'Support',
 			'settings.faq' => 'FAQ',
+			_ => null,
+		} ?? switch (path) {
 			'settings.faqDesc' => 'Frequently Asked Questions',
 			'settings.about' => 'About Poka CE',
 			'settings.aboutDesc' => 'Version and legal information',
@@ -2625,8 +2659,6 @@ extension on Translations {
 			'settings.themeDark' => 'Dark',
 			'settings.selectLanguage' => 'Select Language',
 			'settings.oldTransactionsCleared' => 'Old transactions cleared successfully',
-			_ => null,
-		} ?? switch (path) {
 			'settings.appDataReset' => 'App data reset successfully',
 			'settings.failedToExportLogs' => 'Failed to export logs',
 			'settings.easterEggRemaining' => ({required Object remaining}) => '${remaining} taps away from a surprise...',

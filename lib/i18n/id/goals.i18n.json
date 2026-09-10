@@ -23,6 +23,7 @@
   "totalTarget": "Total target",
   "selectTargetDate": "Pilih tanggal target",
   "noTransactionsFoundForThisGoal": "Tidak ada transaksi yang ditemukan untuk target ini.",
+  "goalTransactionsSubtitle": "Transaksi atau simpanan untuk target ini akan muncul di sini.",
   "addGoal": "Tambah Target",
   "aDedicatedPocketAccountWillBeCreatedAutomaticallyToTrackThisGoal": "Akun Kantong khusus akan dibuat secara otomatis untuk melacak target ini.",
   "saved": "terkumpul",

@@ -57,7 +57,7 @@ class DashboardRecentTransactions extends ConsumerWidget {
           PokaEmptyView(
             icon: FPhosphorIcons.receipt,
             title: context.t.dashboard.noRecentTransactions,
-            hasBorder: true,
+            subtitle: context.t.dashboard.recentTransactionsSubtitle,
           ).animate().fade(duration: 300.ms).slideY(begin: 0.05, end: 0)
         else
           _buildFlatTransactions(

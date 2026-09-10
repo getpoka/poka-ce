@@ -24,6 +24,7 @@
   "budgetUtilization": "Budget Utilization",
   "spendingAllocation": "Spending Allocation",
   "noData": "No data for this period",
+  "noExpenseDataDesc": "Record expense transactions to see your spending allocation.",
   "noBudgets": "No budgets configured",
   "noBudgetsDesc": "Add budgets to track your spending limits",
   "onTrack": "On track",

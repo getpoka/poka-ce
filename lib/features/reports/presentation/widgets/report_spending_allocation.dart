@@ -30,7 +30,7 @@ class ReportSpendingAllocation extends ConsumerWidget {
       return PokaEmptyView(
         icon: FPhosphorIcons.chartPieSlice,
         title: t.noData,
-        hasBorder: true,
+        subtitle: t.noExpenseDataDesc,
       );
     }
 

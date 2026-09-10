@@ -123,9 +123,12 @@ class DebtDetailPage extends ConsumerWidget {
             data: (transactions) {
               if (transactions.isEmpty) {
                 return SliverToBoxAdapter(
-                  child: PokaEmptyViewCentered(
+                  child: PokaEmptyView(
                     icon: FPhosphorIcons.receipt,
                     title: t.debts.noHistoryFoundForThis(type: isPayable ? t.debts.payable : t.debts.receivable),
+                    subtitle: t.debts.repaymentHistorySubtitle(
+                      type: isPayable ? t.debts.payable.toLowerCase() : t.debts.receivable.toLowerCase(),
+                    ),
                   ),
                 );
               }

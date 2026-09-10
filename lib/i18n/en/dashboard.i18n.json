@@ -34,6 +34,7 @@
   "recentTransactions": "Recent Transactions",
   "thisMonth": "This month",
   "noRecentTransactions": "No recent transactions",
+  "recentTransactionsSubtitle": "Transactions you recently record will appear here.",
   "seeAll": "See All",
   "notSet": "Not set",
   "insight": {

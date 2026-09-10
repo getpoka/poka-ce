@@ -65,7 +65,7 @@ class RecentTransactionsSection extends HookConsumerWidget {
           PokaEmptyView(
             icon: FPhosphorIcons.receipt,
             title: t.accounts.noTransactionsYet,
-            hasBorder: true,
+            subtitle: t.accounts.accountTransactionsSubtitle,
           ).animate().fade(duration: 300.ms, delay: 120.ms).slideY(begin: 0.05, end: 0)
         else
           AccountTransactionList(

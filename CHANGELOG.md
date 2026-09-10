@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added informative subtitles and descriptions to empty views across Debt, Goal, Budget, Recurring, Account, Dashboard, and Report sections.
+
+### Fixed
+
+- Resolved `RecurringListNotifier` lifecycle disposal error during active screen navigation and background runner processing.
+- Fixed content clipping in `PokaEmptyViewCentered` on tall viewports by enforcing safe min-height constraints.
+- Standardized container borders on empty view components to appear only when succeeded by additional page sections.
+
 ## [v1.0.0-rc.2] - 2026-09-10
 
 Release Candidate 2 for Poka CE v1.0.0. Incorporates all smoke testing bug fixes and stabilization improvements discovered during RC.1 evaluation.

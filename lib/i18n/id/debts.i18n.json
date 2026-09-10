@@ -35,6 +35,7 @@
   "reminder": "Pengingat {{type}}: {{name}}",
   "due": "{{type}} Jatuh Tempo: {{name}}",
   "noHistoryFoundForThis": "Tidak ada riwayat untuk {{type}} ini",
+  "repaymentHistorySubtitle": "Catatan pembayaran atau cicilan untuk {{type}} ini akan muncul di sini.",
   "failedToLoadDebts": "Gagal memuat utang: {{error}}",
   "percentOf": "{{percent}}% dari ",
   "settled": "{{count}} diselesaikan",

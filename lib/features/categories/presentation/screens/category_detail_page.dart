@@ -90,7 +90,6 @@ class CategoryDetailPage extends ConsumerWidget {
                   title: t.categories.noSubcategoriesYet,
                   subtitle: t.categories.emptySubcategorySubtitle,
                   actionLabel: t.categories.addSubcategory,
-                  hasBorder: true,
                   onAction: () => CategoryFormSheet.show(
                     context,
                     parentId: activeCategory.id,

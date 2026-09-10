@@ -115,9 +115,10 @@ class GoalDetailPage extends ConsumerWidget {
             data: (transactions) {
               if (transactions.isEmpty) {
                 return SliverToBoxAdapter(
-                  child: PokaEmptyViewCentered(
+                  child: PokaEmptyView(
                     icon: FPhosphorIcons.receipt,
                     title: t.goals.noTransactionsFoundForThisGoal,
+                    subtitle: t.goals.goalTransactionsSubtitle,
                   ),
                 );
               }

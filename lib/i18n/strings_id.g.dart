@@ -100,6 +100,8 @@ class _Translations$accounts$id extends Translations$accounts$en {
 	@override String get permanentlyRemoveThisAccount => 'Hapus permanen akun ini';
 	@override String get seeAll => 'Lihat Semua';
 	@override String get noTransactionsYet => 'Belum ada transaksi';
+	@override String get accountTransactionsSubtitle => 'Transaksi yang dicatat di akun ini akan muncul di sini.';
+	@override String get pocketTransactionsSubtitle => 'Transaksi yang dicatat di kantong ini akan muncul di sini.';
 	@override String get addAccount => 'Tambah Akun';
 	@override String get noAccountsFound => 'Akun tidak ditemukan.';
 	@override String get addPocket => 'Tambah Kantong';
@@ -206,6 +208,7 @@ class _Translations$budgets$id extends Translations$budgets$en {
 	@override String get totalLimit => 'Total batas';
 	@override String get selectEndDate => 'Pilih tanggal berakhir';
 	@override String get noTransactionsFoundForThisBudgetPeriod => 'Tidak ada transaksi yang ditemukan untuk periode anggaran ini.';
+	@override String get budgetTransactionsSubtitle => 'Transaksi yang terkait dengan anggaran ini akan muncul di sini.';
 	@override String get addBudget => 'Tambah Anggaran';
 	@override String get spent => 'Terpakai ';
 	@override String get noBudgetsYet => 'Belum ada anggaran';
@@ -336,6 +339,7 @@ class _Translations$dashboard$id extends Translations$dashboard$en {
 	@override String get recentTransactions => 'Transaksi Terakhir';
 	@override String get thisMonth => 'Bulan ini';
 	@override String get noRecentTransactions => 'Tidak ada transaksi baru';
+	@override String get recentTransactionsSubtitle => 'Transaksi yang baru saja Anda catat akan muncul di sini.';
 	@override String get seeAll => 'Lihat Semua';
 	@override String get notSet => 'Belum diatur';
 	@override late final _Translations$dashboard$insight$id insight = _Translations$dashboard$insight$id._(_root);
@@ -385,6 +389,7 @@ class _Translations$debts$id extends Translations$debts$en {
 	@override String reminder({required Object type, required Object name}) => 'Pengingat ${type}: ${name}';
 	@override String due({required Object type, required Object name}) => '${type} Jatuh Tempo: ${name}';
 	@override String noHistoryFoundForThis({required Object type}) => 'Tidak ada riwayat untuk ${type} ini';
+	@override String repaymentHistorySubtitle({required Object type}) => 'Catatan pembayaran atau cicilan untuk ${type} ini akan muncul di sini.';
 	@override String failedToLoadDebts({required Object error}) => 'Gagal memuat utang: ${error}';
 	@override String percentOf({required Object percent}) => '${percent}% dari ';
 	@override String settled({required Object count}) => '${count} diselesaikan';
@@ -451,6 +456,7 @@ class _Translations$goals$id extends Translations$goals$en {
 	@override String get totalTarget => 'Total target';
 	@override String get selectTargetDate => 'Pilih tanggal target';
 	@override String get noTransactionsFoundForThisGoal => 'Tidak ada transaksi yang ditemukan untuk target ini.';
+	@override String get goalTransactionsSubtitle => 'Transaksi atau simpanan untuk target ini akan muncul di sini.';
 	@override String get addGoal => 'Tambah Target';
 	@override String get aDedicatedPocketAccountWillBeCreatedAutomaticallyToTrackThisGoal => 'Akun Kantong khusus akan dibuat secara otomatis untuk melacak target ini.';
 	@override String get saved => 'terkumpul';
@@ -538,6 +544,7 @@ class _Translations$recurring$id extends Translations$recurring$en {
 	@override String get noRecurringTransactions => 'Tidak ada transaksi berulang';
 	@override String get automateBillsLikeSubscriptionsOrSalary => 'Otomatiskan tagihan seperti langganan atau gaji. Aplikasi akan mencatatnya sesuai jadwal.';
 	@override String get noHistoryFoundForThisSchedule => 'Tidak ada riwayat untuk jadwal ini.';
+	@override String get scheduleHistorySubtitle => 'Transaksi yang dibuat dari jadwal ini akan muncul di sini.';
 	@override String get allocation => 'Alokasi';
 	@override String get active => 'Aktif';
 	@override String get eachTimeTheAppOpensOverdueRecurringTransactionsAre => 'Setiap kali aplikasi dibuka, transaksi berulang yang telah lewat jatuh tempo akan otomatis dicatat dalam buku kas Anda.';
@@ -600,6 +607,7 @@ class _Translations$reports$id extends Translations$reports$en {
 	@override String get budgetUtilization => 'Pemanfaatan Anggaran';
 	@override String get spendingAllocation => 'Alokasi Pengeluaran';
 	@override String get noData => 'Tidak ada data untuk periode ini';
+	@override String get noExpenseDataDesc => 'Catat transaksi pengeluaran untuk melihat pembagian alokasi.';
 	@override String get noBudgets => 'Belum ada anggaran yang dikonfigurasi';
 	@override String get noBudgetsDesc => 'Tambahkan anggaran untuk melacak batas pengeluaran Anda';
 	@override String get onTrack => 'Sesuai rencana';
@@ -898,6 +906,8 @@ extension on TranslationsId {
 			'accounts.permanentlyRemoveThisAccount' => 'Hapus permanen akun ini',
 			'accounts.seeAll' => 'Lihat Semua',
 			'accounts.noTransactionsYet' => 'Belum ada transaksi',
+			'accounts.accountTransactionsSubtitle' => 'Transaksi yang dicatat di akun ini akan muncul di sini.',
+			'accounts.pocketTransactionsSubtitle' => 'Transaksi yang dicatat di kantong ini akan muncul di sini.',
 			'accounts.addAccount' => 'Tambah Akun',
 			'accounts.noAccountsFound' => 'Akun tidak ditemukan.',
 			'accounts.addPocket' => 'Tambah Kantong',
@@ -979,6 +989,7 @@ extension on TranslationsId {
 			'budgets.totalLimit' => 'Total batas',
 			'budgets.selectEndDate' => 'Pilih tanggal berakhir',
 			'budgets.noTransactionsFoundForThisBudgetPeriod' => 'Tidak ada transaksi yang ditemukan untuk periode anggaran ini.',
+			'budgets.budgetTransactionsSubtitle' => 'Transaksi yang terkait dengan anggaran ini akan muncul di sini.',
 			'budgets.addBudget' => 'Tambah Anggaran',
 			'budgets.spent' => 'Terpakai ',
 			'budgets.noBudgetsYet' => 'Belum ada anggaran',
@@ -1082,6 +1093,7 @@ extension on TranslationsId {
 			'dashboard.recentTransactions' => 'Transaksi Terakhir',
 			'dashboard.thisMonth' => 'Bulan ini',
 			'dashboard.noRecentTransactions' => 'Tidak ada transaksi baru',
+			'dashboard.recentTransactionsSubtitle' => 'Transaksi yang baru saja Anda catat akan muncul di sini.',
 			'dashboard.seeAll' => 'Lihat Semua',
 			'dashboard.notSet' => 'Belum diatur',
 			'dashboard.insight.noData' => 'Belum ada data bulan ini untuk dianalisa.',
@@ -1133,6 +1145,7 @@ extension on TranslationsId {
 			'debts.reminder' => ({required Object type, required Object name}) => 'Pengingat ${type}: ${name}',
 			'debts.due' => ({required Object type, required Object name}) => '${type} Jatuh Tempo: ${name}',
 			'debts.noHistoryFoundForThis' => ({required Object type}) => 'Tidak ada riwayat untuk ${type} ini',
+			'debts.repaymentHistorySubtitle' => ({required Object type}) => 'Catatan pembayaran atau cicilan untuk ${type} ini akan muncul di sini.',
 			'debts.failedToLoadDebts' => ({required Object error}) => 'Gagal memuat utang: ${error}',
 			'debts.percentOf' => ({required Object percent}) => '${percent}% dari ',
 			'debts.settled' => ({required Object count}) => '${count} diselesaikan',
@@ -1193,6 +1206,7 @@ extension on TranslationsId {
 			'goals.totalTarget' => 'Total target',
 			'goals.selectTargetDate' => 'Pilih tanggal target',
 			'goals.noTransactionsFoundForThisGoal' => 'Tidak ada transaksi yang ditemukan untuk target ini.',
+			'goals.goalTransactionsSubtitle' => 'Transaksi atau simpanan untuk target ini akan muncul di sini.',
 			'goals.addGoal' => 'Tambah Target',
 			'goals.aDedicatedPocketAccountWillBeCreatedAutomaticallyToTrackThisGoal' => 'Akun Kantong khusus akan dibuat secara otomatis untuk melacak target ini.',
 			'goals.saved' => 'terkumpul',
@@ -1253,6 +1267,7 @@ extension on TranslationsId {
 			'recurring.noRecurringTransactions' => 'Tidak ada transaksi berulang',
 			'recurring.automateBillsLikeSubscriptionsOrSalary' => 'Otomatiskan tagihan seperti langganan atau gaji. Aplikasi akan mencatatnya sesuai jadwal.',
 			'recurring.noHistoryFoundForThisSchedule' => 'Tidak ada riwayat untuk jadwal ini.',
+			'recurring.scheduleHistorySubtitle' => 'Transaksi yang dibuat dari jadwal ini akan muncul di sini.',
 			'recurring.allocation' => 'Alokasi',
 			'recurring.active' => 'Aktif',
 			'recurring.eachTimeTheAppOpensOverdueRecurringTransactionsAre' => 'Setiap kali aplikasi dibuka, transaksi berulang yang telah lewat jatuh tempo akan otomatis dicatat dalam buku kas Anda.',
@@ -1306,6 +1321,7 @@ extension on TranslationsId {
 			'reports.budgetUtilization' => 'Pemanfaatan Anggaran',
 			'reports.spendingAllocation' => 'Alokasi Pengeluaran',
 			'reports.noData' => 'Tidak ada data untuk periode ini',
+			'reports.noExpenseDataDesc' => 'Catat transaksi pengeluaran untuk melihat pembagian alokasi.',
 			'reports.noBudgets' => 'Belum ada anggaran yang dikonfigurasi',
 			'reports.noBudgetsDesc' => 'Tambahkan anggaran untuk melacak batas pengeluaran Anda',
 			'reports.onTrack' => 'Sesuai rencana',
@@ -1371,6 +1387,8 @@ extension on TranslationsId {
 			'settings.resetDataDesc' => 'Hapus semua data aplikasi lokal',
 			'settings.support' => 'Bantuan',
 			'settings.faq' => 'FAQ',
+			_ => null,
+		} ?? switch (path) {
 			'settings.faqDesc' => 'Pertanyaan yang Sering Diajukan',
 			'settings.about' => 'Tentang Poka CE',
 			'settings.aboutDesc' => 'Versi dan informasi legal',
@@ -1379,8 +1397,6 @@ extension on TranslationsId {
 			'settings.themeDark' => 'Gelap',
 			'settings.selectLanguage' => 'Pilih Bahasa',
 			'settings.oldTransactionsCleared' => 'Transaksi lama berhasil dibersihkan',
-			_ => null,
-		} ?? switch (path) {
 			'settings.appDataReset' => 'Data aplikasi berhasil direset',
 			'settings.failedToExportLogs' => 'Gagal mengekspor log',
 			'settings.easterEggRemaining' => ({required Object remaining}) => '${remaining} ketukan lagi dari sebuah kejutan...',
