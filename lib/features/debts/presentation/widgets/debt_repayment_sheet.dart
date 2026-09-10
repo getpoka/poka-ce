@@ -7,6 +7,7 @@ import 'package:poka_ce/features/accounts/presentation/widgets/pickers/account_s
 import 'package:poka_ce/features/dashboard/presentation/controllers/dashboard_notifier.dart';
 import 'package:poka_ce/features/debts/domain/debt_model.dart';
 import 'package:poka_ce/features/debts/presentation/controllers/debt_repayment_notifier.dart';
+import 'package:poka_ce/features/settings/presentation/controllers/settings_notifier.dart';
 import 'package:poka_ce/features/transactions/presentation/widgets/calculator/transaction_amount_display.dart';
 import 'package:poka_ce/features/transactions/presentation/widgets/calculator/transaction_calculator_numpad.dart';
 import 'package:poka_ce/features/transactions/presentation/widgets/forms/components/transaction_date_nav.dart';
@@ -41,6 +42,8 @@ class DebtRepaymentSheet extends HookConsumerWidget {
     final accounts = ref.watch(dashboardProvider).accounts;
     final state = ref.watch(debtRepaymentProvider);
     final notifier = ref.read(debtRepaymentProvider.notifier);
+    final settings = ref.watch(settingsProvider).settings;
+    final currencyCode = settings?.baseCurrency?.symbol;
 
     useEffect(() {
       if (accounts.isNotEmpty && state.accountId == null) {
@@ -53,6 +56,8 @@ class DebtRepaymentSheet extends HookConsumerWidget {
     // For loan (we lent), repayment means money comes IN (Income).
     final isPayable = debt.type == DebtType.debt;
     final typeColor = isPayable ? theme.colors.app.expense : theme.colors.app.income;
+    final currentAmount = int.tryParse(state.amountExpression) ?? 0;
+    final isFullAmount = currentAmount == debt.remainingAmount && debt.remainingAmount > 0;
 
     Future<void> handleSave() async {
       final amount = int.tryParse(state.amountExpression) ?? 0;
@@ -127,7 +132,7 @@ class DebtRepaymentSheet extends HookConsumerWidget {
                         child: FButton(
                           onPress: () => Navigator.of(ctx).pop(),
                           variant: FButtonVariant.outline,
-                          child: Text(t.transactions.cancel),
+                          child: Text(t.debts.cancel),
                         ),
                       ),
                       const SizedBox(width: 12),
@@ -137,7 +142,7 @@ class DebtRepaymentSheet extends HookConsumerWidget {
                             notifier.setNote(controller.text.trim());
                             Navigator.of(ctx).pop();
                           },
-                          child: Text(t.transactions.save),
+                          child: Text(t.debts.save),
                         ),
                       ),
                     ],
@@ -183,48 +188,31 @@ class DebtRepaymentSheet extends HookConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const SizedBox(height: 14),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  const SizedBox(),
-                  if (debt.remainingAmount > 0)
-                    FButton(
-                      variant: FButtonVariant.outline,
-                      onPress: () {
-                        HapticFeedback.lightImpact();
-                        notifier
-                          ..setAmountExpression(debt.remainingAmount.toString())
-                          ..setHistoryExpression(null);
-                      },
-                      child: Text(
-                        t.debts.payInFull,
-                        style: theme.typography.bodyPrimary.copyWith(color: typeColor),
-                      ),
-                    ),
-                ],
-              ),
               TransactionAmountDisplay(
                 amountExpression: state.amountExpression,
                 historyExpression: state.historyExpression,
+                currencyCode: currencyCode,
               ),
-              const SizedBox(height: 14),
-              if (state.note.isNotEmpty)
-                GestureDetector(
-                  onTap: showNoteEditor,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                    margin: const EdgeInsets.only(bottom: 12),
-                    decoration: BoxDecoration(
-                      color: theme.colors.muted,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Text(
-                      state.note,
-                      style: theme.typography.bodyPrimary,
-                    ),
-                  ),
-                ),
+              _DebtRepaymentMetaBar(
+                note: state.note,
+                isFullAmount: isFullAmount,
+                typeColor: typeColor,
+                remainingAmount: debt.remainingAmount,
+                onPickNote: showNoteEditor,
+                onPayInFull: () {
+                  HapticFeedback.selectionClick();
+                  if (isFullAmount) {
+                    notifier
+                      ..setAmountExpression('0')
+                      ..setHistoryExpression(null);
+                  } else {
+                    notifier
+                      ..setAmountExpression(debt.remainingAmount.toString())
+                      ..setHistoryExpression(null);
+                  }
+                },
+              ),
+              const SizedBox(height: 6),
               if (state.isSaving)
                 const Padding(
                   padding: EdgeInsets.symmetric(vertical: 32),
@@ -247,6 +235,106 @@ class DebtRepaymentSheet extends HookConsumerWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+/// Meta bar component rendering note trigger and quick "Pay in Full" action.
+class _DebtRepaymentMetaBar extends StatelessWidget {
+  const _DebtRepaymentMetaBar({
+    required this.note,
+    required this.isFullAmount,
+    required this.typeColor,
+    required this.remainingAmount,
+    required this.onPickNote,
+    required this.onPayInFull,
+  });
+
+  final String note;
+  final bool isFullAmount;
+  final Color typeColor;
+  final int remainingAmount;
+  final VoidCallback onPickNote;
+  final VoidCallback onPayInFull;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = context.theme;
+
+    return Padding(
+      padding: const EdgeInsets.only(top: 2, bottom: 6),
+      child: SizedBox(
+        height: 32,
+        child: Row(
+          children: [
+            // Note Section
+            Expanded(
+              child: GestureDetector(
+                onTap: onPickNote,
+                behavior: HitTestBehavior.opaque,
+                child: Row(
+                  children: [
+                    Icon(
+                      FPhosphorIcons.notePencil,
+                      size: 18,
+                      color: note.isEmpty ? theme.colors.mutedForeground : theme.colors.foreground,
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        note.isEmpty ? t.transactions.addNoteEllipsis : note,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: theme.typography.bodyPrimary.copyWith(
+                          color: note.isEmpty ? theme.colors.mutedForeground : theme.colors.foreground,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            if (remainingAmount > 0) ...[
+              const SizedBox(width: 8),
+              GestureDetector(
+                onTap: onPayInFull,
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 200),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 4,
+                  ),
+                  decoration: BoxDecoration(
+                    color: isFullAmount ? typeColor.withValues(alpha: 0.15) : theme.colors.background,
+                    borderRadius: theme.style.borderRadius.lg,
+                    border: Border.all(
+                      color: isFullAmount ? typeColor.withValues(alpha: 0.5) : theme.colors.border,
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        FPhosphorIcons.lightning,
+                        size: 16,
+                        color: isFullAmount ? typeColor : theme.colors.mutedForeground,
+                      ),
+                      const SizedBox(width: 4),
+                      Text(
+                        t.debts.payInFull,
+                        style: theme.typography.bodySecondary.copyWith(
+                          color: isFullAmount ? typeColor : theme.colors.mutedForeground,
+                          fontWeight: isFullAmount ? FontWeight.w600 : FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ],
+        ),
+      ),
     );
   }
 }

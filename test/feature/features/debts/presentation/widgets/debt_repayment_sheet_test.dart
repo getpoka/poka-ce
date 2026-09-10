@@ -144,6 +144,7 @@ void main() {
       await tester.pumpWidget(buildWidget(sampleDebt()));
       await tester.pumpAndSettle();
 
+      expect(find.text('Add note...'), findsOneWidget);
       expect(find.text('Pay in Full'), findsOneWidget);
       expect(find.text('Wallet'), findsOneWidget);
       expect(find.text('Bank'), findsOneWidget);
@@ -151,7 +152,7 @@ void main() {
       expect(find.byKey(const Key('numpad-ok')), findsOneWidget);
     });
 
-    testWidgets('pay in full sets amount to remaining amount', (tester) async {
+    testWidgets('pay in full sets amount to remaining amount and toggles back to 0 on tap', (tester) async {
       await tester.pumpWidget(buildWidget(sampleDebt()));
       await tester.pumpAndSettle();
 
@@ -159,6 +160,28 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text('1,000'), findsWidgets);
+
+      await tester.tap(find.text('Pay in Full'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('0'), findsWidgets);
+    });
+
+    testWidgets('tapping note in meta bar opens note editor and saves note', (tester) async {
+      await tester.pumpWidget(buildWidget(sampleDebt()));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Add note...'), findsOneWidget);
+      await tester.tap(find.text('Add note...'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Add note'), findsOneWidget);
+      await tester.enterText(find.byType(EditableText).last, 'Partial payment via transfer');
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Save'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Partial payment via transfer'), findsOneWidget);
     });
 
     testWidgets('numpad keys update the amount expression', (tester) async {
@@ -233,6 +256,41 @@ void main() {
       expect(captured[3], 'Repayment for Alice');
       // Sheet should be closed after successful save
       expect(find.text('Pay in Full'), findsNothing);
+    });
+
+    testWidgets('OK with custom note saves repayment with that note', (tester) async {
+      await tester.pumpWidget(buildShowWidget(sampleDebt()));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('OpenRepayment'));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('Add note...'));
+      await tester.pumpAndSettle();
+      await tester.enterText(find.byType(EditableText).last, 'Paid Alice back for lunch');
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Save'));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('Pay in Full'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('numpad-ok')));
+      await tester.pumpAndSettle();
+
+      final captured = verify(
+        () => mockCreate.execute(
+          type: any(named: 'type'),
+          accountId: any(named: 'accountId'),
+          amount: any(named: 'amount'),
+          debtId: any(named: 'debtId'),
+          note: captureAny(named: 'note'),
+          transactionDate: any(named: 'transactionDate'),
+          categoryId: any(named: 'categoryId'),
+          allocation: any(named: 'allocation'),
+          splitItems: any(named: 'splitItems'),
+        ),
+      ).captured;
+      expect(captured[0], 'Paid Alice back for lunch');
     });
 
     testWidgets('loan repayment saves as income', (tester) async {
