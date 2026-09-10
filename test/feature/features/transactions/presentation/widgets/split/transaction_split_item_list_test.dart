@@ -38,7 +38,7 @@ void main() {
             data: lightTheme,
             child: child!,
           ),
-          home: Scaffold(body: child),
+          home: FScaffold(child: child),
         ),
       ),
     );
