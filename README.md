@@ -22,20 +22,28 @@
 </p>
 
 <p align="center">
-  <img src="assets/screenshots/01_home-portrait.png" width="220" />&nbsp;&nbsp;
-  <img src="assets/screenshots/02_transactions-portrait.png" width="220" />&nbsp;&nbsp;
-  <img src="assets/screenshots/11_transaction_expense-portrait.png" width="220" />
+  <img src="assets/screenshots/01-home-portrait.png" width="220" />&nbsp;&nbsp;
+  <img src="assets/screenshots/02-transactions-portrait.png" width="220" />&nbsp;&nbsp;
+  <img src="assets/screenshots/03-new-transaction-portrait.png" width="220" />
 </p>
 
 <details>
   <summary><b>More screenshots</b></summary>
   <br/>
 
-|                                       Home                                       |                                Home (Dark)                                |                               Transactions                                |                              Transactions (Dark)                               |
-|:--------------------------------------------------------------------------------:|:-------------------------------------------------------------------------:|:-------------------------------------------------------------------------:|:------------------------------------------------------------------------------:|
-|        <img src="assets/screenshots/01_home-portrait.png" width="200" />         |  <img src="assets/screenshots/14_dark_home-portrait.png" width="200" />   | <img src="assets/screenshots/02_transactions-portrait.png" width="200" /> | <img src="assets/screenshots/15_dark_transactions-portrait.png" width="200" /> |
-|                                 **Expense Form**                                 |                            **Expense (Dark)**                             |                                **Reports**                                |                                  **Budgets**                                   |
-| <img src="assets/screenshots/11_transaction_expense-portrait.png" width="200" /> | <img src="assets/screenshots/16_dark_expense-portrait.png" width="200" /> |   <img src="assets/screenshots/03_reports-portrait.png" width="200" />    |      <img src="assets/screenshots/05_budgets-portrait.png" width="200" />      |
+| Home | Home (Dark) | Transactions | Transactions (Dark) |
+|:---:|:---:|:---:|:---:|
+| <img src="assets/screenshots/01-home-portrait.png" width="200" /> | <img src="assets/screenshots/01-home-dark-portrait.png" width="200" /> | <img src="assets/screenshots/02-transactions-portrait.png" width="200" /> | <img src="assets/screenshots/02-transactions-dark-portrait.png" width="200" /> |
+| **New Transaction** | **New Transaction (Dark)** | **Reports (Cash Flow)** | **Reports (Cash Flow Dark)** |
+| <img src="assets/screenshots/03-new-transaction-portrait.png" width="200" /> | <img src="assets/screenshots/03-new-transaction-dark-portrait.png" width="200" /> | <img src="assets/screenshots/04-reports-cashflow-portrait.png" width="200" /> | <img src="assets/screenshots/04-reports-cashflow-dark-portrait.png" width="200" /> |
+| **Reports (Budgets)** | **Reports (Budgets Dark)** | **Accounts** | **Accounts (Dark)** |
+| <img src="assets/screenshots/05-reports-budgets-portrait.png" width="200" /> | <img src="assets/screenshots/05-reports-budgets-dark-portrait.png" width="200" /> | <img src="assets/screenshots/06-accounts-portrait.png" width="200" /> | <img src="assets/screenshots/06-accounts-dark-portrait.png" width="200" /> |
+| **Budgets** | **Budgets (Dark)** | **Goals** | **Goals (Dark)** |
+| <img src="assets/screenshots/07-budgets-portrait.png" width="200" /> | <img src="assets/screenshots/07-budgets-dark-portrait.png" width="200" /> | <img src="assets/screenshots/08-goals-portrait.png" width="200" /> | <img src="assets/screenshots/08-goals-dark-portrait.png" width="200" /> |
+| **Debts & Loans** | **Debts & Loans (Dark)** | **Recurring** | **Recurring (Dark)** |
+| <img src="assets/screenshots/09-debts-loan-portrait.png" width="200" /> | <img src="assets/screenshots/09-debts-loan-dark-portrait.png" width="200" /> | <img src="assets/screenshots/10-recurring-portrait.png" width="200" /> | <img src="assets/screenshots/10-recurring-dark-portrait.png" width="200" /> |
+| **Categories** | **Categories (Dark)** | **Settings** | **Settings (Dark)** |
+| <img src="assets/screenshots/11-categories-portrait.png" width="200" /> | <img src="assets/screenshots/11-categories-dark-portrait.png" width="200" /> | <img src="assets/screenshots/12-settings-portrait.png" width="200" /> | <img src="assets/screenshots/12-settings-dark-portrait.png" width="200" /> |
 
 </details>
 
