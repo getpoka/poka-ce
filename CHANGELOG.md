@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Streamlined Goals page into a unified single-stream layout, replacing header filter chips with a dedicated section for completed goals.
+- Aligned Debt repayment sheet layout with the transaction form sheet, replacing the floating outline button with an integrated meta bar featuring note editing and an interactive quick pay-in-full toggle action.
 
 ### Fixed
 
