@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:forui/forui.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:poka_ce/features/dashboard/presentation/controllers/balance_visibility_provider.dart';
 import 'package:poka_ce/features/reports/domain/services/report_analytics_service.dart';
 import 'package:poka_ce/features/reports/presentation/controllers/report_notifier.dart';
 import 'package:poka_ce/features/reports/presentation/widgets/report_category_chart.dart';
@@ -12,10 +13,11 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   setUpAll(() => LocaleSettings.setLocaleSync(AppLocale.en));
 
-  Widget wrap(ReportData data) {
+  Widget wrap(ReportData data, {bool isBalanceVisible = true}) {
     return ProviderScope(
       overrides: [
         reportProvider.overrideWithValue(ReportState(isLoading: false, data: data)),
+        balanceVisibilityProvider.overrideWithValue(isBalanceVisible),
       ],
       child: TranslationProvider(
         child: MaterialApp(
@@ -60,6 +62,21 @@ void main() {
       expect(find.text('30.0%'), findsWidgets);
       expect(find.text('500'), findsOneWidget);
       expect(find.text('300'), findsOneWidget);
+    });
+
+    testWidgets('obscures category amounts when balance visibility is false', (tester) async {
+      final data = ReportData(
+        expenseCategoryItems: [
+          item('Food', '#FF0000', 500, 0.5),
+          item('Transport', '#00FF00', 300, 0.3),
+        ],
+      );
+      await tester.pumpWidget(wrap(data, isBalanceVisible: false));
+      await tester.pumpAndSettle();
+
+      expect(find.text('••••••'), findsWidgets);
+      expect(find.text('500'), findsNothing);
+      expect(find.text('300'), findsNothing);
     });
 
     testWidgets('tapping Income tab switches to income items', (tester) async {

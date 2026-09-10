@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poka_ce/core/extensions/num_extension.dart';
+import 'package:poka_ce/features/dashboard/presentation/controllers/balance_visibility_provider.dart';
 import 'package:poka_ce/features/reports/presentation/controllers/report_notifier.dart';
 import 'package:poka_ce/features/reports/presentation/widgets/allocation_row_tile.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
@@ -16,6 +17,7 @@ class ReportSpendingAllocation extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = context.theme;
     final state = ref.watch(reportProvider);
+    final isBalanceVisible = ref.watch(balanceVisibilityProvider);
     final alloc = state.data.budgetAllocation;
     final t = context.t.reports;
 
@@ -43,7 +45,7 @@ class ReportSpendingAllocation extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  '${t.total}: ${alloc.total.toCompactFormat()}',
+                  '${t.total}: ${alloc.total.toCompactFormat(isVisible: isBalanceVisible)}',
                   style: theme.typography.bodySecondary.copyWith(
                     fontWeight: FontWeight.bold,
                   ),

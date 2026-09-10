@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed unlocalized date headers and month navigation labels on the Transactions page by wiring intl locale initialization and date formatters to active locale.
 - Fixed hardcoded transaction type tab labels in `TransactionTypeSwitcher` to use localized strings.
 - Fixed balance visibility privacy toggle being bypassed across Dashboard cards (Cash Flow, Spending Activity, Categories, and Budgets).
+- Added header privacy eye action button on the Reports page and obscured financial amounts across category rankings, spending allocation rules, and cashflow charts when privacy mode is enabled.
 
 ## [v1.0.0-rc.1] - 2026-09-09
 

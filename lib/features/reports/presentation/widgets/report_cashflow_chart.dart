@@ -2,6 +2,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poka_ce/core/extensions/num_extension.dart';
+import 'package:poka_ce/features/dashboard/presentation/controllers/balance_visibility_provider.dart';
 import 'package:poka_ce/features/reports/domain/services/report_analytics_service.dart';
 import 'package:poka_ce/features/reports/presentation/controllers/report_notifier.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
@@ -16,6 +17,7 @@ class ReportCashflowChart extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = context.theme;
     final state = ref.watch(reportProvider);
+    final isBalanceVisible = ref.watch(balanceVisibilityProvider);
     final trendPoints = state.data.trendPoints;
     final t = context.t.reports;
     final expenseColor = theme.colors.app.expense;
@@ -37,8 +39,10 @@ class ReportCashflowChart extends ConsumerWidget {
                 _QuickStat(
                   label: t.average,
                   value: trendPoints.isNotEmpty
-                      ? (state.data.summary.totalExpense / trendPoints.length).toCompactFormat()
-                      : '0',
+                      ? (state.data.summary.totalExpense / trendPoints.length).toCompactFormat(
+                          isVisible: isBalanceVisible,
+                        )
+                      : (isBalanceVisible ? '0' : '••••••'),
                   color: theme.colors.mutedForeground,
                 ),
               ],
@@ -64,6 +68,7 @@ class ReportCashflowChart extends ConsumerWidget {
                   incomeColor: incomeColor,
                   expenseColor: expenseColor,
                   theme: theme,
+                  isBalanceVisible: isBalanceVisible,
                 ),
               ),
           ],
@@ -81,12 +86,14 @@ class _CashflowBarChart extends StatelessWidget {
     required this.incomeColor,
     required this.expenseColor,
     required this.theme,
+    required this.isBalanceVisible,
   });
 
   final List<ReportTrendPoint> points;
   final Color incomeColor;
   final Color expenseColor;
   final FThemeData theme;
+  final bool isBalanceVisible;
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +114,9 @@ class _CashflowBarChart extends StatelessWidget {
               final point = points[groupIndex];
               final isIncome = rodIndex == 0;
               return BarTooltipItem(
-                isIncome ? point.income.toCompactFormat() : point.expense.toCompactFormat(),
+                isIncome
+                    ? point.income.toCompactFormat(isVisible: isBalanceVisible)
+                    : point.expense.toCompactFormat(isVisible: isBalanceVisible),
                 theme.typography.labelBadge.copyWith(
                   color: isIncome ? incomeColor : expenseColor,
                 ),
@@ -121,7 +130,7 @@ class _CashflowBarChart extends StatelessWidget {
           leftTitles: AxisTitles(
             sideTitles: SideTitles(
               showTitles: true,
-              reservedSize: 40,
+              reservedSize: isBalanceVisible ? 40 : 44,
               getTitlesWidget: (value, meta) {
                 if (value == meta.max || value == 0 && meta.min > 0) {
                   return const SizedBox.shrink();
@@ -129,7 +138,7 @@ class _CashflowBarChart extends StatelessWidget {
                 return Padding(
                   padding: const EdgeInsets.only(right: 4),
                   child: Text(
-                    value.toCompactFormat(),
+                    value.toCompactFormat(isVisible: isBalanceVisible),
                     style: theme.typography.caption.copyWith(
                       color: theme.colors.mutedForeground,
                     ),
