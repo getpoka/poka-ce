@@ -36,7 +36,9 @@ jobs:
         run: flutter pub get
 
       - name: Install Rune
-        run: go install github.com/octopyid/rune/cmd/rune@latest
+        run: |
+          go install github.com/octopyid/rune/cmd/rune@latest
+          echo "$(go env GOPATH)/bin" >> $GITHUB_PATH
 
       - name: Check Formatting & Lints
         run: rune check
@@ -64,7 +66,9 @@ jobs:
         run: flutter pub get
 
       - name: Install Rune
-        run: go install github.com/octopyid/rune/cmd/rune@latest
+        run: |
+          go install github.com/octopyid/rune/cmd/rune@latest
+          echo "$(go env GOPATH)/bin" >> $GITHUB_PATH
 
       - name: Run Tests
         run: rune test:${{ matrix.test-suite }}
