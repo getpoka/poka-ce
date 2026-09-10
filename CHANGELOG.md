@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed missing allocation badge (Need, Want, Saving) on split item preview list in transaction creation sheet.
+- Resolved category resolution for split transaction child items when expanded, preventing them from falling back to "Uncategorized".
+- Restored standard close button on Debt edit sheet and eliminated unconfirmed direct delete action.
+- Added swipe-to-edit and swipe-to-delete interactions to repayment history items in Debt detail page.
+- Add semantic debt and loan labels and handshake icon for unassigned debt repayment transactions in `RecentTransactionTile`.
+- Correct confirmation dialog description for backup restore to accurately describe data replacement instead of data deletion.
+- Ensure clean database teardown and WAL/SHM file cleanup before disk write on backup restore, and reload all feature state providers reactively without requiring app restart.
+- Ensure base currency selected during onboarding immediately takes effect across the session by marking `SettingsNotifier` with `keepAlive: true` and removing fragile disposal guards.
+- Fixed unlocalized date headers and month navigation labels on the Transactions page by wiring intl locale initialization and date formatters to active locale.
+- Fixed hardcoded transaction type tab labels in `TransactionTypeSwitcher` to use localized strings.
+- Fixed balance visibility privacy toggle being bypassed across Dashboard cards (Cash Flow, Spending Activity, Categories, and Budgets).
+- Added header privacy eye action button on the Reports page and obscured financial amounts across category rankings, spending allocation rules, and cashflow charts when privacy mode is enabled.
+- Resolved toast notification freeze on mobile touch interactions and route transitions by introducing `showPokaToast` with an independent watchdog timer and post-frame dismissal.
+- Standardized actionable undo toast positioning to `bottomCenter` (`showPokaActionToast`) for optimal one-handed thumb ergonomics.
+- Added notification runtime permission verification and rationale sheet for Android 13+ and iOS when configuring backup reminders, preventing silent reminder delivery drops.
+- Added `POST_NOTIFICATIONS` permission declaration in AndroidManifest.
+- Added direct test notification trigger in the backup reminder sheet to verify local notification delivery and vibration immediately.
+
 ## [v1.0.0-rc.1] - 2026-09-09
 
 Release Candidate 1 for Poka CE v1.0.0. All planned features for v1 are code-frozen. This build enters the smoke testing phase prior to the official v1.0.0 release.
