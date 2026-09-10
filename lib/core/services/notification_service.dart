@@ -5,10 +5,11 @@ import 'package:poka_ce/core/utils/logger.dart';
 class NotificationService {
   /// Returns the singleton [NotificationService] instance.
   factory NotificationService() => _instance;
-  NotificationService._internal();
-  static final NotificationService _instance = NotificationService._internal();
+  NotificationService.internal({FlutterLocalNotificationsPlugin? plugin})
+    : _flutterLocalNotificationsPlugin = plugin ?? FlutterLocalNotificationsPlugin();
+  static final NotificationService _instance = NotificationService.internal();
 
-  final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin;
   bool _initialized = false;
 
   /// Initializes notification plugin settings for Android and iOS.
@@ -32,6 +33,74 @@ class NotificationService {
       talker.info('NotificationService initialized');
     } on Object catch (e, st) {
       talker.handle(e, st, 'NotificationService.init');
+    }
+  }
+
+  /// Checks whether notification permission is granted by the host OS.
+  Future<bool> hasNotificationPermission() async {
+    try {
+      final android = _flutterLocalNotificationsPlugin
+          .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>();
+      if (android != null) {
+        return await android.areNotificationsEnabled() ?? false;
+      }
+
+      final ios = _flutterLocalNotificationsPlugin
+          .resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>();
+      if (ios != null) {
+        final permissions = await ios.checkPermissions();
+        return permissions?.isEnabled ?? false;
+      }
+
+      final macos = _flutterLocalNotificationsPlugin
+          .resolvePlatformSpecificImplementation<MacOSFlutterLocalNotificationsPlugin>();
+      if (macos != null) {
+        final permissions = await macos.checkPermissions();
+        return permissions?.isEnabled ?? false;
+      }
+
+      return true;
+    } on Object catch (e, st) {
+      talker.handle(e, st, 'NotificationService.hasNotificationPermission');
+      return true;
+    }
+  }
+
+  /// Requests notification runtime permissions from the host OS (Android 13+ and iOS).
+  Future<bool> requestNotificationPermission() async {
+    try {
+      final android = _flutterLocalNotificationsPlugin
+          .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>();
+      if (android != null) {
+        return await android.requestNotificationsPermission() ?? false;
+      }
+
+      final ios = _flutterLocalNotificationsPlugin
+          .resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>();
+      if (ios != null) {
+        return await ios.requestPermissions(
+              alert: true,
+              badge: true,
+              sound: true,
+            ) ??
+            false;
+      }
+
+      final macos = _flutterLocalNotificationsPlugin
+          .resolvePlatformSpecificImplementation<MacOSFlutterLocalNotificationsPlugin>();
+      if (macos != null) {
+        return await macos.requestPermissions(
+              alert: true,
+              badge: true,
+              sound: true,
+            ) ??
+            false;
+      }
+
+      return true;
+    } on Object catch (e, st) {
+      talker.handle(e, st, 'NotificationService.requestNotificationPermission');
+      return false;
     }
   }
 

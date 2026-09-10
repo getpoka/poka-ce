@@ -327,6 +327,24 @@ class Translations$backup$en {
 
 	/// en: 'Restoring will replace all current data with the data from the selected backup file. Any unbacked-up changes will be lost. Do you want to proceed?'
 	String get restoreWarningDesc => 'Restoring will replace all current data with the data from the selected backup file. Any unbacked-up changes will be lost. Do you want to proceed?';
+
+	/// en: 'Send Test Notification'
+	String get sendTestNotification => 'Send Test Notification';
+
+	/// en: 'Test reminder notification sent'
+	String get testNotificationSent => 'Test reminder notification sent';
+
+	/// en: 'Local Backup Reminder'
+	String get permissionRationaleTitle => 'Local Backup Reminder';
+
+	/// en: 'Poka needs notification permission to remind you to back up your data periodically. Reminders run completely offline on your device with zero tracking or analytics.'
+	String get permissionRationaleDesc => 'Poka needs notification permission to remind you to back up your data periodically. Reminders run completely offline on your device with zero tracking or analytics.';
+
+	/// en: 'Allow Notifications'
+	String get allowNotifications => 'Allow Notifications';
+
+	/// en: 'Notification permission was denied. Reminders remain disabled.'
+	String get permissionDenied => 'Notification permission was denied. Reminders remain disabled.';
 }
 
 // Path: budgets
@@ -2178,6 +2196,12 @@ extension on Translations {
 			'backup.reminderNotificationBody' => 'It has been a while since your last backup. Keep your financial data safe by creating a backup now.',
 			'backup.reminderSaved' => 'Backup reminder updated',
 			'backup.restoreWarningDesc' => 'Restoring will replace all current data with the data from the selected backup file. Any unbacked-up changes will be lost. Do you want to proceed?',
+			'backup.sendTestNotification' => 'Send Test Notification',
+			'backup.testNotificationSent' => 'Test reminder notification sent',
+			'backup.permissionRationaleTitle' => 'Local Backup Reminder',
+			'backup.permissionRationaleDesc' => 'Poka needs notification permission to remind you to back up your data periodically. Reminders run completely offline on your device with zero tracking or analytics.',
+			'backup.allowNotifications' => 'Allow Notifications',
+			'backup.permissionDenied' => 'Notification permission was denied. Reminders remain disabled.',
 			'budgets.budgetName' => 'Budget name',
 			'budgets.spendingLimit' => 'Spending limit',
 			'budgets.period' => 'Period',
@@ -2601,14 +2625,14 @@ extension on Translations {
 			'settings.themeDark' => 'Dark',
 			'settings.selectLanguage' => 'Select Language',
 			'settings.oldTransactionsCleared' => 'Old transactions cleared successfully',
+			_ => null,
+		} ?? switch (path) {
 			'settings.appDataReset' => 'App data reset successfully',
 			'settings.failedToExportLogs' => 'Failed to export logs',
 			'settings.easterEggRemaining' => ({required Object remaining}) => '${remaining} taps away from a surprise...',
 			'settings.easterEggFound' => '🎉 You found the easter egg!',
 			'settings.selectCurrency' => 'Select Currency',
 			'settings.openSourceLicenses' => 'Open Source Licenses',
-			_ => null,
-		} ?? switch (path) {
 			'settings.helpIssues' => 'Help & Issues',
 			'settings.reportBugsOrRequestFeatures' => 'Report bugs or request features',
 			'settings.legal' => 'Legal',
