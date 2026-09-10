@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -176,6 +178,22 @@ void main() {
       await container.read(recurringListProvider.notifier).toggleActive('unknown');
       await wait();
       verifyNever(() => mockRepo.updateRecurring(any()));
+    });
+
+    test('refresh safely handles unmounted ref after async gap', () async {
+      final completer = Completer<Result<List<RecurringTransactionModel>, Failure>>();
+      when(() => mockRepo.getRecurringTransactions()).thenAnswer((_) => completer.future);
+
+      final container = ProviderContainer(
+        overrides: [recurringRepositoryProvider.overrideWithValue(mockRepo)],
+      );
+      final future = container.read(recurringListProvider.notifier).refresh();
+
+      // Dispose container while async query is in flight
+      container.dispose();
+
+      completer.complete(const Success([]));
+      await expectLater(future, completes);
     });
   });
 }

@@ -22,7 +22,7 @@ final class RecurringListNotifierProvider extends $NotifierProvider<RecurringLis
         argument: null,
         retry: null,
         name: r'recurringListProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -43,7 +43,7 @@ final class RecurringListNotifierProvider extends $NotifierProvider<RecurringLis
   }
 }
 
-String _$recurringListNotifierHash() => r'03eb65b234863f5ab79499257717d7f2f810b084';
+String _$recurringListNotifierHash() => r'6fdaf42eb6b2baf8104e97a4b7c9a81ada42d012';
 
 /// Notifier managing recurring transaction schedules, deletion, and pause/resume toggling.
 
