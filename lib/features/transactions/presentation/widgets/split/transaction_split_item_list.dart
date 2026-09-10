@@ -165,8 +165,7 @@ class _SplitItemCard extends ConsumerWidget {
                                       catName,
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
-                                      style: typography.bodyPrimary.copyWith(
-                                        fontWeight: FontWeight.w600,
+                                      style: typography.titleItem.copyWith(
                                         color: colors.foreground,
                                       ),
                                     ),
