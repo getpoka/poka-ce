@@ -16,22 +16,22 @@ class TranslationsId extends Translations with BaseTranslations<AppLocale, Trans
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsId({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.id,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ),
 		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
-		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <id>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
+	@override dynamic operator[](String key) => _meta.getTranslation(key) ?? super[key];
 
 	late final TranslationsId _root = this; // ignore: unused_field
 
@@ -475,6 +475,10 @@ class _Translations$goals$id extends Translations$goals$en {
 	@override String get targetAmountGreaterThanZero => 'Jumlah target harus lebih besar dari 0';
 	@override String get saveChanges => 'Simpan Perubahan';
 	@override String get targetDateLabel => 'Tanggal Target';
+	@override String get activeGoals => 'Target Aktif';
+	@override String get completedGoals => 'Target Selesai';
+	@override String get noActiveGoalsYet => 'Belum ada target aktif';
+	@override String get noActiveGoalsSubtitle => 'Buat target baru untuk mulai menabung impian Anda berikutnya.';
 }
 
 // Path: lock
@@ -1225,6 +1229,10 @@ extension on TranslationsId {
 			'goals.targetAmountGreaterThanZero' => 'Jumlah target harus lebih besar dari 0',
 			'goals.saveChanges' => 'Simpan Perubahan',
 			'goals.targetDateLabel' => 'Tanggal Target',
+			'goals.activeGoals' => 'Target Aktif',
+			'goals.completedGoals' => 'Target Selesai',
+			'goals.noActiveGoalsYet' => 'Belum ada target aktif',
+			'goals.noActiveGoalsSubtitle' => 'Buat target baru untuk mulai menabung impian Anda berikutnya.',
 			'lock.confirmPin' => 'Konfirmasi PIN',
 			'lock.createPin' => 'Buat PIN',
 			'lock.pinsDoNotMatch' => 'PIN tidak cocok',
@@ -1383,12 +1391,12 @@ extension on TranslationsId {
 			'settings.backupRestoreDesc' => 'Simpan atau pulihkan data Anda',
 			'settings.clearOld' => 'Hapus Transaksi Lama',
 			'settings.clearOldDesc' => 'Hapus transaksi lebih dari 1 tahun',
+			_ => null,
+		} ?? switch (path) {
 			'settings.resetData' => 'Reset Data',
 			'settings.resetDataDesc' => 'Hapus semua data aplikasi lokal',
 			'settings.support' => 'Bantuan',
 			'settings.faq' => 'FAQ',
-			_ => null,
-		} ?? switch (path) {
 			'settings.faqDesc' => 'Pertanyaan yang Sering Diajukan',
 			'settings.about' => 'Tentang Poka CE',
 			'settings.aboutDesc' => 'Versi dan informasi legal',

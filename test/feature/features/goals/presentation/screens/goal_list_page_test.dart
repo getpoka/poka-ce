@@ -17,6 +17,7 @@ GoalModel _goal(
   int targetAmount, {
   String accountId = 'acc1',
   DateTime? targetDate,
+  GoalStatus status = GoalStatus.active,
 }) {
   return GoalModel(
     id: id,
@@ -24,6 +25,7 @@ GoalModel _goal(
     name: name,
     targetAmount: targetAmount,
     targetDate: targetDate,
+    status: status,
     createdAt: DateTime.utc(2024, 1, 1),
     updatedAt: DateTime.utc(2024, 1, 1),
   );
@@ -224,6 +226,43 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text('0% of target'), findsOneWidget);
+    });
+
+    testWidgets('shows both active goals and completed goals in single stream', (tester) async {
+      tester.view.physicalSize = const Size(800, 1600);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(() => tester.view.resetPhysicalSize());
+
+      final active = _goal('g1', 'Active Trip', 10000, accountId: 'a1');
+      final done = _goal('g2', 'Done Car', 50000, accountId: 'a2', status: GoalStatus.completed);
+      final dash = DashboardState(
+        isLoading: false,
+        accounts: [_acc('a1', 3000), _acc('a2', 50000)],
+      );
+
+      await tester.pumpWidget(wrapGoal([active, done], dashboardState: dash));
+      await tester.pumpAndSettle();
+
+      expect(find.text(t.goals.activeGoals.toUpperCase()), findsOneWidget);
+      expect(find.text('Active Trip'), findsOneWidget);
+      expect(find.text(t.goals.completedGoals.toUpperCase()), findsOneWidget);
+      expect(find.text('Done Car'), findsOneWidget);
+    });
+
+    testWidgets('shows empty active state when only completed goals exist', (tester) async {
+      tester.view.physicalSize = const Size(800, 1600);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(() => tester.view.resetPhysicalSize());
+
+      final done = _goal('g1', 'Old Target', 20000, accountId: 'a1', status: GoalStatus.completed);
+      final dash = DashboardState(isLoading: false, accounts: [_acc('a1', 20000)]);
+
+      await tester.pumpWidget(wrapGoal([done], dashboardState: dash));
+      await tester.pumpAndSettle();
+
+      expect(find.text(t.goals.noActiveGoalsYet), findsOneWidget);
+      expect(find.text(t.goals.completedGoals.toUpperCase()), findsOneWidget);
+      expect(find.text('Old Target'), findsOneWidget);
     });
   });
 }
