@@ -109,7 +109,11 @@ class BackupService {
   ///
   /// Unpacks the binary envelope, derives the AES key with the embedded salt, and verifies
   /// the authentication tag before writing back to disk to prevent corrupted restores.
-  Future<Result<Unit>> restoreEncryptedBackup(String backupFilePath, String password) async {
+  Future<Result<Unit>> restoreEncryptedBackup(
+    String backupFilePath,
+    String password, {
+    Future<void> Function()? onBeforeWrite,
+  }) async {
     try {
       final backupFile = File(backupFilePath);
       if (!backupFile.existsSync()) {
@@ -145,6 +149,9 @@ class BackupService {
         secretKey: key,
       );
 
+      // Cleanly teardown any active database handles before modifying files on disk
+      await onBeforeWrite?.call();
+
       // Overwrite db file
       final docsFolder = await getApplicationDocumentsDirectory();
       final supportFolder = await getApplicationSupportDirectory();
@@ -164,6 +171,20 @@ class BackupService {
       }
 
       dbFile ??= File(p.join(supportFolder.path, dbName));
+
+      // Clean up stale WAL and SHM journal files to prevent SQLite from reading cached pages
+      final walFile = File('${dbFile.path}-wal');
+      if (walFile.existsSync()) {
+        try {
+          await walFile.delete();
+        } on Exception catch (_) {}
+      }
+      final shmFile = File('${dbFile.path}-shm');
+      if (shmFile.existsSync()) {
+        try {
+          await shmFile.delete();
+        } on Exception catch (_) {}
+      }
 
       await dbFile.writeAsBytes(clearText, flush: true);
 

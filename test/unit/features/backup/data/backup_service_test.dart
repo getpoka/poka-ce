@@ -213,5 +213,30 @@ void main() {
       final res = await service.restoreEncryptedBackup(corruptFile.path, 'pass123');
       expect(res.isSuccess(), isFalse);
     });
+
+    test('restoreEncryptedBackup — cleans up WAL/SHM files and invokes onBeforeWrite', () async {
+      const dbContent = 'wal-shm-test-content';
+      final dbFile = await createFakeDb(content: dbContent);
+      final walFile = File('${dbFile.path}-wal')..writeAsStringSync('wal-bytes');
+      final shmFile = File('${dbFile.path}-shm')..writeAsStringSync('shm-bytes');
+
+      final enc = await service.createEncryptedBackup('walPass');
+      expect(enc.isSuccess(), isTrue);
+      final backupFile = enc.getOrThrow();
+
+      var beforeWriteCalled = false;
+      final res = await service.restoreEncryptedBackup(
+        backupFile.path,
+        'walPass',
+        onBeforeWrite: () async {
+          beforeWriteCalled = true;
+        },
+      );
+
+      expect(res.isSuccess(), isTrue);
+      expect(beforeWriteCalled, isTrue);
+      expect(walFile.existsSync(), isFalse);
+      expect(shmFile.existsSync(), isFalse);
+    });
   });
 }

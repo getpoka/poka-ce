@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:poka_ce/app/providers/repository_providers.dart';
 import 'package:poka_ce/features/backup/data/backup_service.dart';
 import 'package:poka_ce/features/backup/domain/backup_reminder_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -55,9 +56,17 @@ class BackupController extends _$BackupController {
   /// Returns `true` if decryption and database replacement succeeded.
   Future<bool> restore(String password, String filePath) async {
     state = const AsyncLoading();
+    var dbClosed = false;
     try {
       final service = ref.read(backupServiceProvider);
-      final result = await service.restoreEncryptedBackup(filePath, password);
+      final result = await service.restoreEncryptedBackup(
+        filePath,
+        password,
+        onBeforeWrite: () async {
+          await ref.read(databaseProvider).close();
+          dbClosed = true;
+        },
+      );
       if (result.isSuccess()) {
         state = const AsyncData(null);
         return true;
@@ -71,6 +80,10 @@ class BackupController extends _$BackupController {
     } on Object catch (e, st) {
       state = AsyncError(e, st);
       return false;
+    } finally {
+      if (dbClosed) {
+        ref.invalidate(databaseProvider);
+      }
     }
   }
 }
