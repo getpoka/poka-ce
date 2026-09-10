@@ -160,14 +160,26 @@ class RecentTransactionTile extends HookConsumerWidget with FTileMixin {
         category ??
         (!isSubItem && firstItem?.categoryId != null ? effectiveCategoriesById[firstItem!.categoryId] : null);
 
+    final isDebtLinked = transaction.debtId != null;
+
     // ── Category icon + color ──────────────────────────────────────────────
-    var catColor = resolvedCategory?.color?.toColor() ?? theme.colors.primary;
-    var catIcon = IconUtil.getIcon(resolvedCategory?.icon);
+    var catColor =
+        resolvedCategory?.color?.toColor() ??
+        (isDebtLinked
+            ? (transaction.type == TransactionType.expense ? theme.colors.app.expense : theme.colors.app.income)
+            : theme.colors.primary);
+    var catIcon = isDebtLinked && resolvedCategory == null
+        ? FPhosphorIcons.handshake
+        : IconUtil.getIcon(resolvedCategory?.icon);
 
     // ── Category label ─────────────────────────────────────────────────────
     var catLabel =
         resolvedCategory?.name ??
-        (transaction.type == TransactionType.transfer ? t.transactions.transfer : t.common.uncategorized);
+        (transaction.type == TransactionType.transfer
+            ? t.transactions.transfer
+            : (isDebtLinked
+                  ? (transaction.type == TransactionType.expense ? t.debts.debtTypeDebt : t.debts.debtTypeLoan)
+                  : t.common.uncategorized));
 
     IconData? subCatIcon;
     Color? subCatColor;
@@ -319,6 +331,7 @@ class RecentTransactionTile extends HookConsumerWidget with FTileMixin {
                   updatedAt: item.updatedAt,
                   destinationAccountId: transaction.destinationAccountId,
                   note: item.note ?? transaction.note,
+                  debtId: transaction.debtId,
                   items: [item],
                 );
 
