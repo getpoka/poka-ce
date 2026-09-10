@@ -19,5 +19,6 @@
   "reminderMonthly": "Monthly",
   "reminderNotificationTitle": "Time to Back Up Your Data",
   "reminderNotificationBody": "It has been a while since your last backup. Keep your financial data safe by creating a backup now.",
-  "reminderSaved": "Backup reminder updated"
+  "reminderSaved": "Backup reminder updated",
+  "restoreWarningDesc": "Restoring will replace all current data with the data from the selected backup file. Any unbacked-up changes will be lost. Do you want to proceed?"
 }

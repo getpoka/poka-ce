@@ -220,7 +220,9 @@ void main() {
       await tester.tap(find.text('Restore').last); // Taps action sheet item
       await tester.pumpAndSettle();
 
-      await tester.tap(find.widgetWithText(FButton, 'Delete').last); // Taps confirm button
+      expect(find.text(t.backup.restoreWarningDesc), findsOneWidget);
+
+      await tester.tap(find.widgetWithText(FButton, t.backup.restoreAction).last); // Taps confirm button
       await tester.pumpAndSettle();
 
       await enterPin(tester);

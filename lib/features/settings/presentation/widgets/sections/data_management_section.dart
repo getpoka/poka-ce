@@ -103,7 +103,8 @@ class DataManagementSection extends ConsumerWidget {
               final confirmed = await showPokaConfirmDialog(
                 context,
                 title: context.t.backup.restoreAction,
-                body: context.t.settings.resetDataDesc,
+                body: context.t.backup.restoreWarningDesc,
+                confirmText: context.t.backup.restoreAction,
               );
               if (confirmed != true) return;
               if (!context.mounted) return;

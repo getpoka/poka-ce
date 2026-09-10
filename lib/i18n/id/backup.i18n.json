@@ -19,5 +19,6 @@
   "reminderMonthly": "Bulanan",
   "reminderNotificationTitle": "Saatnya Cadangkan Data Anda",
   "reminderNotificationBody": "Sudah cukup lama sejak pencadangan terakhir. Lindungi data keuangan Anda dengan membuat cadangan sekarang.",
-  "reminderSaved": "Pengingat cadangan diperbarui"
+  "reminderSaved": "Pengingat cadangan diperbarui",
+  "restoreWarningDesc": "Memulihkan cadangan akan menggantikan semua data saat ini dengan data dari file cadangan. Perubahan yang belum dicadangkan akan hilang. Lanjutkan?"
 }
