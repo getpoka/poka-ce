@@ -25,11 +25,11 @@ void main() {
     updatedAt: DateTime(2026, 1, 1),
   );
 
-  Widget wrap({required int spent, required int limit}) {
+  Widget wrap({required int spent, required int limit, bool isVisible = true}) {
     return ProviderScope(
       overrides: [
         budgetProgressProvider.overrideWith((ref, arg) async => spent),
-        balanceVisibilityProvider.overrideWithValue(true),
+        balanceVisibilityProvider.overrideWithValue(isVisible),
         settingsProvider.overrideWith(() => _FakeSettingsNotifier()),
       ],
       child: TranslationProvider(
@@ -75,6 +75,13 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.textContaining('+'), findsNothing);
+    });
+
+    testWidgets('obscures spent and budget limit when balanceVisibility is false', (tester) async {
+      await tester.pumpWidget(wrap(spent: 500, limit: 1000, isVisible: false));
+      await tester.pumpAndSettle();
+
+      expect(find.textContaining('••••••'), findsWidgets);
     });
   });
 }
