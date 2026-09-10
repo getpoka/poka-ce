@@ -69,6 +69,13 @@ void main() {
 
       expect(find.text('Over budget'), findsOneWidget);
     });
+
+    testWidgets('renders budget cap amount without plus sign', (tester) async {
+      await tester.pumpWidget(wrap(spent: 500, limit: 1000));
+      await tester.pumpAndSettle();
+
+      expect(find.textContaining('+'), findsNothing);
+    });
   });
 }
 

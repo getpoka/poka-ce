@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:forui/forui.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:poka_ce/features/dashboard/presentation/controllers/balance_visibility_provider.dart';
 import 'package:poka_ce/features/reports/domain/services/report_analytics_service.dart';
 import 'package:poka_ce/features/reports/presentation/controllers/report_notifier.dart';
 import 'package:poka_ce/features/reports/presentation/widgets/report_spending_allocation.dart';
@@ -12,7 +13,7 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   setUpAll(() => LocaleSettings.setLocaleSync(AppLocale.en));
 
-  Widget wrap(ReportBudgetAllocation allocation) {
+  Widget wrap(ReportBudgetAllocation allocation, {bool isBalanceVisible = true}) {
     return ProviderScope(
       overrides: [
         reportProvider.overrideWithValue(
@@ -21,6 +22,7 @@ void main() {
             data: ReportData(budgetAllocation: allocation),
           ),
         ),
+        balanceVisibilityProvider.overrideWithValue(isBalanceVisible),
       ],
       child: TranslationProvider(
         child: MaterialApp(
@@ -61,6 +63,21 @@ void main() {
       expect(find.text('500'), findsWidgets);
       expect(find.text('300'), findsWidgets);
       expect(find.text('200'), findsWidgets);
+    });
+
+    testWidgets('obscures total and row amounts when balance visibility is false', (tester) async {
+      await tester.pumpWidget(
+        wrap(
+          const ReportBudgetAllocation(need: 500, want: 300, saving: 200),
+          isBalanceVisible: false,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.textContaining('••••••'), findsWidgets);
+      expect(find.text('500'), findsNothing);
+      expect(find.text('300'), findsNothing);
+      expect(find.text('200'), findsNothing);
     });
   });
 }

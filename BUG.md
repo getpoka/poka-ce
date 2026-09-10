@@ -21,7 +21,7 @@ This document records the bug findings identified during the **Smoke Testing** p
 | **BUG-011** | `Transactions & Feedback / Toast Ergonomics` | Delete confirmation toast with actionable "Undo" button is positioned at topCenter instead of floating bottomCenter, making the time-sensitive "Undo" action unreachable with one thumb on mobile devices | Medium (Ergonomics & Actionable UX Defect) | ✅ Valid (Subsumed by [#46](https://github.com/getpoka/poka-ce/issues/46)) |
 | **BUG-012** | `App Shell / Toast System (FToaster)` | Toasts frequently freeze and fail to auto-dismiss ("tidak hilang-hilang / kadang hilang, kadang stuck") due to mobile touch events killing `_timer` without resuming, tap-to-toggle autoDismiss, and route transition race conditions | High (Reliability & UX Defect) | ✅ Valid ([#46](https://github.com/getpoka/poka-ce/issues/46)) |
 | **BUG-013** | `Dashboard / Privacy Eye (Hide Balance)` | Cashflow, Spending Activity, Categories, and Budget carousel cards ignore `balanceVisibilityProvider` and continue displaying raw monetary values when privacy eye is toggled | High (Privacy & Data Protection Defect) | 🟢 Solved ([#47](https://github.com/getpoka/poka-ce/issues/47)) |
-| **BUG-014** | `Reports / Privacy Eye (Hide Balance)` | Category ranking, spending allocation splits, and chart tooltips bypass `balanceVisibilityProvider`, and ReportListPage lacks a header privacy eye toggle | High (Privacy & Data Protection Defect) | ✅ Valid ([#48](https://github.com/getpoka/poka-ce/issues/48)) |
+| **BUG-014** | `Reports / Privacy Eye (Hide Balance)` | Category ranking, spending allocation splits, and chart tooltips bypass `balanceVisibilityProvider`, and ReportListPage lacks a header privacy eye toggle | High (Privacy & Data Protection Defect) | 🟢 Solved ([#48](https://github.com/getpoka/poka-ce/issues/48)) |
 | **BUG-015** | `Backup & Notifications / Permission & Testing` | Changing Backup Reminder from 'Off' to 'Weekly'/'Monthly' never requests notification runtime permission on Android 13+ & iOS (silent reminder failure), and app lacks an immediate test notification trigger | High (Core Feature Reliability & Testability) | ✅ Valid ([#49](https://github.com/getpoka/poka-ce/issues/49)) |
 
 ---
@@ -782,7 +782,7 @@ On the **Reports Page (`ReportListPage`)**:
 11. [ ] Create standardized `showPokaActionToast` / `showPokaUndoToast` with `bottomCenter` floating card ergonomics (BUG-011 — **Subsumed by BUG-012 [#46](https://github.com/getpoka/poka-ce/issues/46)**).
 12. [ ] Implement `showPokaToast` with watchdog timer to eliminate stuck toasts across mobile touch events and route transitions (BUG-012 — [#46](https://github.com/getpoka/poka-ce/issues/46)).
 13. [x] Implement privacy eye obfuscation (`isVisible`) across Dashboard Cashflow, Spending Activity, Categories, and Budgets (BUG-013 — [#47](https://github.com/getpoka/poka-ce/issues/47)).
-14. [ ] Implement privacy eye obfuscation and add header toggle button on Reports page (BUG-014 — [#48](https://github.com/getpoka/poka-ce/issues/48)).
+14. [x] Implement privacy eye obfuscation and add header toggle button on Reports page (BUG-014 — [#48](https://github.com/getpoka/poka-ce/issues/48)).
 15. [ ] Implement Notification Permission Rationale Sheet and manual test trigger for Backup Reminder (BUG-015 — [#49](https://github.com/getpoka/poka-ce/issues/49)).
 16. [ ] Run `rune generate`, `rune fix`, `rune check`, and `rune test` to verify zero issues upon bug resolution.
 
