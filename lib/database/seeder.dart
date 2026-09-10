@@ -70,13 +70,13 @@ class DatabaseSeeder {
     final goalAccount2Id = uuid.v7();
     final goalAccount3Id = uuid.v7();
 
-    // Categories UUIDs
-    const foodId = '01a031e6-4381-7f4c-a22c-a543bfa8fcc4';
-    const transportId = '01a031e6-4383-7f10-aca9-917f48351ced';
-    const billsId = '01a031e6-4383-7f11-b1ac-e958fbfb03be';
-    const salaryId = '01a031e6-4383-70cc-9328-3230277a212d';
-    const lunchId = '01a031e6-4383-795d-941a-bd56910ad828';
-    const electricityId = '01a031e6-4383-71b6-8dc4-5671f1e0e740';
+    // Categories UUIDs — must stay in sync with assets/data/categories.json
+    const foodId = '01a08cc1-a96a-7041-9258-86dc773d4ac1'; // Food & Drinks
+    const transportId = '01a08cc1-a96a-792a-a9b2-d2cbfa7faba8'; // Transportation
+    const billsId = '01a08cc1-a96a-7adc-91b3-e17ab468edcc'; // Bills & Utilities
+    const salaryId = '01a08cc1-a96a-7c6f-a2cc-248b4ce19507'; // Salary
+    const lunchId = '01a08cc1-a96a-78cb-9e03-3f8cba51250d'; // Groceries
+    const electricityId = '01a08cc1-a96a-72d9-a95a-d0fb81d1fde2'; // Electricity
 
     // Other UUIDs
     final budgetId = uuid.v7();

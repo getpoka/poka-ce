@@ -11,7 +11,7 @@ void main() {
   tearDown(() async => db.close());
 
   group('DatabaseSeeder', () {
-    test('seed creates 6 accounts and 24 categories', () async {
+    test('seed creates 8 accounts and 62 categories', () async {
       await DatabaseSeeder.seed(db, overrideSeedDummyData: true);
       final accounts = await db.select(db.accounts).get();
       expect(accounts.length, 8);
@@ -33,24 +33,24 @@ void main() {
       expect(accounts.firstWhere((a) => a.name == 'Cash').balance, 750000); // Updated to match actual seeder data
 
       final categories = await db.select(db.categories).get();
-      expect(categories.length, 24);
-      expect(categories.where((c) => c.type == CategoryType.expense).length, 21);
-      expect(categories.where((c) => c.type == CategoryType.income).length, 3);
+      expect(categories.length, 62);
+      expect(categories.where((c) => c.type == CategoryType.expense).length, 42);
+      expect(categories.where((c) => c.type == CategoryType.income).length, 20);
     });
 
     test('seed categories have correct icons and colors for sub-categories', () async {
       await DatabaseSeeder.seed(db, overrideSeedDummyData: true);
       final categories = await db.select(db.categories).get();
-      final food = categories.firstWhere((c) => c.name == 'Food & Dining');
-      expect(food.icon, 'bowl-food');
+      final food = categories.firstWhere((c) => c.name == 'Food & Drinks');
+      expect(food.icon, 'fork-knife');
       expect(food.color, '#F97316');
-      final transport = categories.firstWhere((c) => c.name == 'Transport');
+      final transport = categories.firstWhere((c) => c.name == 'Transportation');
       expect(transport.icon, 'car');
       final salary = categories.firstWhere((c) => c.name == 'Salary');
       expect(salary.icon, 'bank');
-      final lunch = categories.firstWhere((c) => c.name == 'Groceries');
-      expect(lunch.icon, 'shopping-cart');
-      expect(lunch.parentId, isNotNull);
+      final groceries = categories.firstWhere((c) => c.name == 'Groceries');
+      expect(groceries.icon, 'shopping-cart');
+      expect(groceries.parentId, isNotNull);
     });
 
     test('seed wallet has expected icon and color', () async {

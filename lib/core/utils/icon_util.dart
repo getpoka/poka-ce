@@ -51,6 +51,7 @@ class IconUtil {
         'carrot': FPhosphorIcons.carrot,
         'cake': FPhosphorIcons.cake,
         'ice_cream': FPhosphorIcons.iceCream,
+        'cookie': FPhosphorIcons.cookie,
       },
     ),
     IconCategory(
@@ -101,6 +102,7 @@ class IconUtil {
         'house_line': FPhosphorIcons.houseLine,
         'building': FPhosphorIcons.building,
         'building_apartment': FPhosphorIcons.buildingApartment,
+        'key': FPhosphorIcons.key,
         'lightning': FPhosphorIcons.lightning,
         'drop': FPhosphorIcons.drop,
         'fire': FPhosphorIcons.fire,
@@ -134,6 +136,7 @@ class IconUtil {
         'wheelchair': FPhosphorIcons.wheelchair,
         'activity': FPhosphorIcons.activity,
         'tooth': FPhosphorIcons.tooth,
+        'shield_check': FPhosphorIcons.shieldCheck,
       },
     ),
     IconCategory(
@@ -158,6 +161,7 @@ class IconUtil {
       icons: {
         'game_controller': FPhosphorIcons.gameController,
         'film_strip': FPhosphorIcons.filmStrip,
+        'monitor_play': FPhosphorIcons.monitorPlay,
         'music_notes': FPhosphorIcons.musicNotes,
         'headphones': FPhosphorIcons.headphones,
         'barbell': FPhosphorIcons.barbell,
@@ -183,6 +187,7 @@ class IconUtil {
         'laptop': FPhosphorIcons.laptop,
         'desktop': FPhosphorIcons.desktop,
         'device_mobile': FPhosphorIcons.deviceMobile,
+        'devices': FPhosphorIcons.devices,
         'briefcase': FPhosphorIcons.briefcase,
         'pen_nib': FPhosphorIcons.penNib,
         'code': FPhosphorIcons.code,
@@ -245,9 +250,12 @@ class IconUtil {
 
   /// Looks up an icon by its identifier [name], falling back to a wallet icon if not found.
   static IconData getIcon(String? name) {
-    if (name == null || !availableIcons.containsKey(name)) {
-      return FPhosphorIcons.wallet;
-    }
-    return availableIcons[name]!;
+    if (name == null) return FPhosphorIcons.wallet;
+    if (availableIcons.containsKey(name)) return availableIcons[name]!;
+    final normalized = name.replaceAll('-', '_');
+    if (availableIcons.containsKey(normalized)) return availableIcons[normalized]!;
+    final hyphenated = name.replaceAll('_', '-');
+    if (availableIcons.containsKey(hyphenated)) return availableIcons[hyphenated]!;
+    return FPhosphorIcons.wallet;
   }
 }

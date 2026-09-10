@@ -1,214 +1,468 @@
 [
   {
-    "id": "01a031e6-4381-7f4c-a22c-a543bfa8fcc4",
-    "name": "Food & Dining",
-    "type": "expense",
-    "icon": "bowl-food",
+    "id": "01a08cc1-a96a-7041-9258-86dc773d4ac1",
+    "name": "Food & Drinks",
+    "icon": "fork-knife",
     "color": "#F97316",
-    "sort": 1,
+    "type": "expense",
     "children": [
       {
-        "id": "01a031e6-4383-795d-941a-bd56910ad828",
+        "id": "01a08cc1-a96a-78cb-9e03-3f8cba51250d",
         "name": "Groceries",
-        "type": "expense",
         "icon": "shopping-cart",
-        "color": "#F97316",
-        "sort": 1
+        "color": "#10B981",
+        "type": "expense"
       },
       {
-        "id": "01a031e6-4383-70ac-be30-25a5cff2ee0a",
-        "name": "Restaurant",
-        "type": "expense",
-        "icon": "fork-knife",
-        "color": "#F97316",
-        "sort": 2
+        "id": "01a08cc1-a96a-704c-ab58-0cd31b6dd570",
+        "name": "Dining Out",
+        "icon": "bowl-food",
+        "color": "#EF4444",
+        "type": "expense"
       },
       {
-        "id": "01a031e6-4383-72e7-8629-7dbc40dea76f",
-        "name": "Coffee & Snacks",
-        "type": "expense",
+        "id": "01a08cc1-a96a-70e1-88eb-ff9ec72b61b9",
+        "name": "Coffee & Drinks",
         "icon": "coffee",
-        "color": "#F97316",
-        "sort": 3
+        "color": "#D97706",
+        "type": "expense"
+      },
+      {
+        "id": "01a08cc1-a96a-7e62-b4c2-2afeab924666",
+        "name": "Food Delivery",
+        "icon": "bag",
+        "color": "#EC4899",
+        "type": "expense"
+      },
+      {
+        "id": "01a08cc1-a96a-7d82-a2f7-6175594b2739",
+        "name": "Snacks",
+        "icon": "cookie",
+        "color": "#F59E0B",
+        "type": "expense"
       }
     ]
   },
   {
-    "id": "01a031e6-4383-7f10-aca9-917f48351ced",
-    "name": "Transport",
-    "type": "expense",
+    "id": "01a08cc1-a96a-792a-a9b2-d2cbfa7faba8",
+    "name": "Transportation",
     "icon": "car",
     "color": "#3B82F6",
-    "sort": 2,
+    "type": "expense",
     "children": [
       {
-        "id": "01a031e6-4383-7383-b710-53fa05e8a1c9",
-        "name": "Fuel",
-        "type": "expense",
+        "id": "01a08cc1-a96a-7fe1-9c68-f0c6cdbf4fc9",
+        "name": "Fuel & Gas",
         "icon": "gas-pump",
-        "color": "#3B82F6",
-        "sort": 1
+        "color": "#EF4444",
+        "type": "expense"
       },
       {
-        "id": "01a031e6-4383-754f-a2ad-a8c0ca755e1d",
-        "name": "Public Transport",
-        "type": "expense",
+        "id": "01a08cc1-a96a-7536-b0fa-7762d52dd826",
+        "name": "Public Transit",
         "icon": "bus",
-        "color": "#3B82F6",
-        "sort": 2
+        "color": "#10B981",
+        "type": "expense"
       },
       {
-        "id": "01a031e6-4383-70cf-96bf-5c2861b60287",
-        "name": "Ride Hailing",
-        "type": "expense",
+        "id": "01a08cc1-a96a-7a88-9693-f0ec75ca9349",
+        "name": "Ride-Hailing",
         "icon": "taxi",
-        "color": "#3B82F6",
-        "sort": 3
+        "color": "#F59E0B",
+        "type": "expense"
+      },
+      {
+        "id": "01a08cc1-a96a-73ea-a23c-f2068865a58b",
+        "name": "Parking & Tolls",
+        "icon": "ticket",
+        "color": "#8B5CF6",
+        "type": "expense"
+      },
+      {
+        "id": "01a08cc1-a96a-7c4e-8a57-5f125e56939c",
+        "name": "Vehicle Maintenance",
+        "icon": "wrench",
+        "color": "#64748B",
+        "type": "expense"
       }
     ]
   },
   {
-    "id": "01a031e6-4383-7f11-b1ac-e958fbfb03be",
-    "name": "Housing",
-    "type": "expense",
-    "icon": "house",
+    "id": "01a08cc1-a96a-7adc-91b3-e17ab468edcc",
+    "name": "Bills & Utilities",
+    "icon": "lightning",
     "color": "#8B5CF6",
-    "sort": 3,
+    "type": "expense",
     "children": [
       {
-        "id": "01a031e6-4383-753a-a14c-0f3c97513eb4",
-        "name": "Rent",
-        "type": "expense",
-        "icon": "key",
-        "color": "#8B5CF6",
-        "sort": 1
-      },
-      {
-        "id": "01a031e6-4383-71b6-8dc4-5671f1e0e740",
-        "name": "Utilities",
-        "type": "expense",
+        "id": "01a08cc1-a96a-72d9-a95a-d0fb81d1fde2",
+        "name": "Electricity",
         "icon": "lightning",
-        "color": "#8B5CF6",
-        "sort": 2
+        "color": "#F59E0B",
+        "type": "expense"
       },
       {
-        "id": "01a031e6-4383-7960-8e18-1cb754afadb8",
-        "name": "Internet & Phone",
-        "type": "expense",
+        "id": "01a08cc1-a96a-79d4-9342-9007d3f46d8a",
+        "name": "Water",
+        "icon": "drop",
+        "color": "#06B6D4",
+        "type": "expense"
+      },
+      {
+        "id": "01a08cc1-a96a-7bcf-8c50-f1f8bb49b32c",
+        "name": "Internet & WiFi",
         "icon": "wifi-high",
-        "color": "#8B5CF6",
-        "sort": 3
+        "color": "#3B82F6",
+        "type": "expense"
+      },
+      {
+        "id": "01a08cc1-a96a-72d8-840c-1573404c4507",
+        "name": "Mobile Data",
+        "icon": "device-mobile",
+        "color": "#10B981",
+        "type": "expense"
+      },
+      {
+        "id": "01a08cc1-a96a-7288-92f1-12ad66cc6146",
+        "name": "Rent",
+        "icon": "key",
+        "color": "#EC4899",
+        "type": "expense"
       }
     ]
   },
   {
-    "id": "01a031e6-4383-7987-bd20-370fc5b61756",
+    "id": "01a08cc1-a96a-7b33-9e75-72d17c08ed15",
     "name": "Shopping",
-    "type": "expense",
     "icon": "bag",
     "color": "#EC4899",
-    "sort": 4,
+    "type": "expense",
     "children": [
       {
-        "id": "01a031e6-4383-7df8-ad08-c80dcdc7328d",
-        "name": "Clothing",
-        "type": "expense",
-        "icon": "tshirt",
-        "color": "#EC4899",
-        "sort": 1
+        "id": "01a08cc1-a96a-7b52-b87b-c7c980951dc8",
+        "name": "Clothing & Apparel",
+        "icon": "t-shirt",
+        "color": "#8B5CF6",
+        "type": "expense"
       },
       {
-        "id": "01a031e6-4383-7046-ab7e-f87139e7c2c7",
-        "name": "Electronics",
-        "type": "expense",
+        "id": "01a08cc1-a96a-7de4-aa9f-f0a1dab7a2ce",
+        "name": "Electronics & Gadgets",
         "icon": "devices",
-        "color": "#EC4899",
-        "sort": 2
+        "color": "#3B82F6",
+        "type": "expense"
+      },
+      {
+        "id": "01a08cc1-a96a-7043-bcec-25a87f2882e9",
+        "name": "Home & Living",
+        "icon": "house-line",
+        "color": "#F97316",
+        "type": "expense"
+      },
+      {
+        "id": "01a08cc1-a96a-77d4-8b51-c11eb980ab4b",
+        "name": "Personal Care",
+        "icon": "heart",
+        "color": "#F43F5E",
+        "type": "expense"
       }
     ]
   },
   {
-    "id": "01a031e6-4383-784f-b596-7bce86d1e6bc",
-    "name": "Health",
-    "type": "expense",
+    "id": "01a08cc1-a96a-794a-b77b-dd00ec8a5706",
+    "name": "Healthcare",
     "icon": "first-aid",
     "color": "#EF4444",
-    "sort": 5,
-    "children": [
-      {
-        "id": "01a031e6-4383-7fe0-9af9-c9042a8cc9ac",
-        "name": "Medicine",
-        "type": "expense",
-        "icon": "pill",
-        "color": "#EF4444",
-        "sort": 1
-      },
-      {
-        "id": "01a031e6-4383-7ad8-9cc5-100f08a0e839",
-        "name": "Doctor",
-        "type": "expense",
-        "icon": "stethoscope",
-        "color": "#EF4444",
-        "sort": 2
-      }
-    ]
-  },
-  {
-    "id": "01a031e6-4383-7e1c-b64d-36fe1ee3e18c",
-    "name": "Entertainment",
     "type": "expense",
-    "icon": "game-controller",
-    "color": "#14B8A6",
-    "sort": 6,
     "children": [
       {
-        "id": "01a031e6-4383-78ab-9a52-76d9cd0c39c5",
-        "name": "Streaming",
-        "type": "expense",
-        "icon": "monitor-play",
-        "color": "#14B8A6",
-        "sort": 1
+        "id": "01a08cc1-a96a-797e-9e14-460fb66266d2",
+        "name": "Medicine & Pharmacy",
+        "icon": "pill",
+        "color": "#3B82F6",
+        "type": "expense"
       },
       {
-        "id": "01a031e6-4383-704b-95b7-4f033a724841",
-        "name": "Games",
-        "type": "expense",
-        "icon": "game-controller",
-        "color": "#14B8A6",
-        "sort": 2
+        "id": "01a08cc1-a96a-7bb5-b04d-28f9b773df77",
+        "name": "Doctor & Clinic",
+        "icon": "stethoscope",
+        "color": "#10B981",
+        "type": "expense"
+      },
+      {
+        "id": "01a08cc1-a96a-72e5-9d4d-e98ec2e85218",
+        "name": "Health Insurance",
+        "icon": "shield-check",
+        "color": "#8B5CF6",
+        "type": "expense"
+      },
+      {
+        "id": "01a08cc1-a96a-7e9e-86e2-7de783490bfc",
+        "name": "Fitness & Sports",
+        "icon": "barbell",
+        "color": "#F59E0B",
+        "type": "expense"
       }
     ]
   },
   {
-    "id": "01a031e6-4383-70cc-9328-3230277a212d",
+    "id": "01a08cc1-a96a-7874-87d5-80905e496cd4",
+    "name": "Entertainment",
+    "icon": "game-controller",
+    "color": "#06B6D4",
+    "type": "expense",
+    "children": [
+      {
+        "id": "01a08cc1-a96a-7a06-bf78-e752297137a4",
+        "name": "Streaming & Subscriptions",
+        "icon": "monitor-play",
+        "color": "#8B5CF6",
+        "type": "expense"
+      },
+      {
+        "id": "01a08cc1-a96a-7394-a12d-eeac98c7cf10",
+        "name": "Cinema & Events",
+        "icon": "ticket",
+        "color": "#F59E0B",
+        "type": "expense"
+      },
+      {
+        "id": "01a08cc1-a96a-7e31-baf0-f3b1d281073c",
+        "name": "Gaming & Hobbies",
+        "icon": "game-controller",
+        "color": "#EC4899",
+        "type": "expense"
+      },
+      {
+        "id": "01a08cc1-a96a-7083-86a3-60f3561dc425",
+        "name": "Travel & Vacation",
+        "icon": "airplane",
+        "color": "#10B981",
+        "type": "expense"
+      }
+    ]
+  },
+  {
+    "id": "01a08cc1-a96a-7216-b15a-2d273cc7896d",
+    "name": "Education",
+    "icon": "graduation-cap",
+    "color": "#0EA5E9",
+    "type": "expense",
+    "children": [
+      {
+        "id": "01a08cc1-a96a-7d1c-aec4-139d5ac1aaaf",
+        "name": "Tuition & Courses",
+        "icon": "student",
+        "color": "#6366F1",
+        "type": "expense"
+      },
+      {
+        "id": "01a08cc1-a96a-72d8-93d1-175b1532a3e0",
+        "name": "Books & Supplies",
+        "icon": "books",
+        "color": "#F97316",
+        "type": "expense"
+      },
+      {
+        "id": "01a08cc1-a96a-749b-ad25-c0e1153523ec",
+        "name": "Online Learning",
+        "icon": "laptop",
+        "color": "#10B981",
+        "type": "expense"
+      }
+    ]
+  },
+  {
+    "id": "01a08cc1-a96a-7aff-8df4-fb4ba0c78980",
+    "name": "Other",
+    "icon": "dots-three",
+    "color": "#64748B",
+    "type": "expense",
+    "children": [
+      {
+        "id": "01a08cc1-a96a-7b14-bf88-0ed6532cc9d7",
+        "name": "Donations & Charity",
+        "icon": "heart",
+        "color": "#EC4899",
+        "type": "expense"
+      },
+      {
+        "id": "01a08cc1-a96a-7bb5-accf-5418fbdc43c8",
+        "name": "Fees & Bank Charges",
+        "icon": "receipt",
+        "color": "#F97316",
+        "type": "expense"
+      },
+      {
+        "id": "01a08cc1-a96a-70c3-8508-83db27c347b9",
+        "name": "Taxes",
+        "icon": "scales",
+        "color": "#6366F1",
+        "type": "expense"
+      },
+      {
+        "id": "01a08cc1-a96a-7439-b4a5-34f69cd31b03",
+        "name": "Miscellaneous",
+        "icon": "tag",
+        "color": "#64748B",
+        "type": "expense"
+      }
+    ]
+  },
+  {
+    "id": "01a08cc1-a96a-7c6f-a2cc-248b4ce19507",
     "name": "Salary",
-    "type": "income",
     "icon": "bank",
     "color": "#22C55E",
-    "sort": 1
+    "type": "income",
+    "children": [
+      {
+        "id": "01a08cc1-a96a-7b01-9351-0165daeacb51",
+        "name": "Monthly Salary",
+        "icon": "briefcase",
+        "color": "#16A34A",
+        "type": "income"
+      },
+      {
+        "id": "01a08cc1-a96a-7219-9a08-175bd858fce2",
+        "name": "Bonus & Allowance",
+        "icon": "gift",
+        "color": "#F59E0B",
+        "type": "income"
+      },
+      {
+        "id": "01a08cc1-a96a-7bae-a008-3d542ae12d47",
+        "name": "Overtime Pay",
+        "icon": "clock",
+        "color": "#3B82F6",
+        "type": "income"
+      },
+      {
+        "id": "01a08cc1-a96a-798b-9b25-e13eec735f4c",
+        "name": "Commissions",
+        "icon": "trend-up",
+        "color": "#8B5CF6",
+        "type": "income"
+      }
+    ]
   },
   {
-    "id": "01a031e6-4383-7ad0-909e-d4a890d6eb6c",
-    "name": "Business",
-    "type": "income",
+    "id": "01a08cc1-a96a-7414-8892-1607fe842d5d",
+    "name": "Business & Freelance",
     "icon": "briefcase",
-    "color": "#22C55E",
-    "sort": 2
-  },
-  {
-    "id": "01a031e6-4383-7fc5-8f2c-5c31810ba6a0",
-    "name": "Investment",
+    "color": "#10B981",
     "type": "income",
-    "icon": "trend-up",
-    "color": "#22C55E",
-    "sort": 3
+    "children": [
+      {
+        "id": "01a08cc1-a96a-7472-957b-a20fde29a45e",
+        "name": "Freelance Projects",
+        "icon": "laptop",
+        "color": "#06B6D4",
+        "type": "income"
+      },
+      {
+        "id": "01a08cc1-a96a-75b7-9960-6f51f1a229d9",
+        "name": "Consulting Services",
+        "icon": "users",
+        "color": "#6366F1",
+        "type": "income"
+      },
+      {
+        "id": "01a08cc1-a96a-7948-aed7-b31d2d9bac33",
+        "name": "Online Sales",
+        "icon": "storefront",
+        "color": "#F97316",
+        "type": "income"
+      },
+      {
+        "id": "01a08cc1-a96a-7dca-986b-b1c055eb773b",
+        "name": "Side Projects",
+        "icon": "code",
+        "color": "#A855F7",
+        "type": "income"
+      }
+    ]
   },
   {
-    "id": "01a031e6-4383-7f2e-a030-3254111cad6c",
+    "id": "01a08cc1-a96a-73cb-997d-0ac1860a538e",
+    "name": "Investments",
+    "icon": "chart-line-up",
+    "color": "#059669",
+    "type": "income",
+    "children": [
+      {
+        "id": "01a08cc1-a96a-79fb-956f-1dba909184c8",
+        "name": "Stock Dividends",
+        "icon": "coins",
+        "color": "#10B981",
+        "type": "income"
+      },
+      {
+        "id": "01a08cc1-a96a-7c3e-aba7-40affe4c3e36",
+        "name": "Interest & Savings",
+        "icon": "vault",
+        "color": "#0284C7",
+        "type": "income"
+      },
+      {
+        "id": "01a08cc1-a96a-7d74-a0c2-39e97b9f62c5",
+        "name": "Capital Gains",
+        "icon": "trend-up",
+        "color": "#D97706",
+        "type": "income"
+      },
+      {
+        "id": "01a08cc1-a96a-7103-add8-8025d67233b5",
+        "name": "Rental Income",
+        "icon": "house",
+        "color": "#7C3AED",
+        "type": "income"
+      }
+    ]
+  },
+  {
+    "id": "01a08cc1-a96a-7a34-ba9b-3c975fdbbb7a",
+    "name": "Other",
+    "icon": "dots-three",
+    "color": "#14B8A6",
+    "type": "income",
+    "children": [
+      {
+        "id": "01a08cc1-a96a-7400-b1ee-268075414c4e",
+        "name": "Cashback & Rewards",
+        "icon": "ticket",
+        "color": "#06B6D4",
+        "type": "income"
+      },
+      {
+        "id": "01a08cc1-a96a-7717-a71f-39b3307d4f37",
+        "name": "Refunds",
+        "icon": "receipt",
+        "color": "#3B82F6",
+        "type": "income"
+      },
+      {
+        "id": "01a08cc1-a96a-7ed5-b473-6d9177653275",
+        "name": "Gifts",
+        "icon": "gift",
+        "color": "#EC4899",
+        "type": "income"
+      },
+      {
+        "id": "01a08cc1-a96a-7ea4-a5e3-28dfd0702816",
+        "name": "Miscellaneous",
+        "icon": "asterisk",
+        "color": "#8B5CF6",
+        "type": "income"
+      }
+    ]
+  },
+  {
+    "id": "01a08cc1-a96a-77fc-8e4c-713049353868",
     "name": "Transfer",
-    "type": "transfer",
     "icon": "arrows-left-right",
-    "color": "#64748B",
-    "sort": 1
+    "color": "#6366F1",
+    "type": "transfer",
+    "children": []
   }
 ]
