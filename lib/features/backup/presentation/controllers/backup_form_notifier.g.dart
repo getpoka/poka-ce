@@ -8,11 +8,14 @@ part of 'backup_form_notifier.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
+/// Notifier handling validation and submission logic for backup password sheets.
 
 @ProviderFor(BackupFormNotifier)
 final backupFormProvider = BackupFormNotifierProvider._();
 
+/// Notifier handling validation and submission logic for backup password sheets.
 final class BackupFormNotifierProvider extends $NotifierProvider<BackupFormNotifier, BackupFormState> {
+  /// Notifier handling validation and submission logic for backup password sheets.
   BackupFormNotifierProvider._()
     : super(
         from: null,
@@ -41,6 +44,8 @@ final class BackupFormNotifierProvider extends $NotifierProvider<BackupFormNotif
 }
 
 String _$backupFormNotifierHash() => r'a3d9e038571e6a92fa484b62d5a4712796fb9b04';
+
+/// Notifier handling validation and submission logic for backup password sheets.
 
 abstract class _$BackupFormNotifier extends $Notifier<BackupFormState> {
   BackupFormState build();

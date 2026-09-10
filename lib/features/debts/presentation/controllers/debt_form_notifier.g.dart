@@ -8,11 +8,14 @@ part of 'debt_form_notifier.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
+/// Notifier managing input state and validation for creating or editing debts and loans.
 
 @ProviderFor(DebtForm)
 final debtFormProvider = DebtFormProvider._();
 
+/// Notifier managing input state and validation for creating or editing debts and loans.
 final class DebtFormProvider extends $NotifierProvider<DebtForm, DebtFormState> {
+  /// Notifier managing input state and validation for creating or editing debts and loans.
   DebtFormProvider._()
     : super(
         from: null,
@@ -40,7 +43,9 @@ final class DebtFormProvider extends $NotifierProvider<DebtForm, DebtFormState> 
   }
 }
 
-String _$debtFormHash() => r'50f53bc3bc36ff211f921094968bd3eb3257e13d';
+String _$debtFormHash() => r'1828e33699d2caf544339fca61351a4772c33608';
+
+/// Notifier managing input state and validation for creating or editing debts and loans.
 
 abstract class _$DebtForm extends $Notifier<DebtFormState> {
   DebtFormState build();

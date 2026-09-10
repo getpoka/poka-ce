@@ -167,6 +167,7 @@ class _Translations$backup$id extends Translations$backup$en {
 	@override String get reminderNotificationTitle => 'Saatnya Cadangkan Data Anda';
 	@override String get reminderNotificationBody => 'Sudah cukup lama sejak pencadangan terakhir. Lindungi data keuangan Anda dengan membuat cadangan sekarang.';
 	@override String get reminderSaved => 'Pengingat cadangan diperbarui';
+	@override String get restoreWarningDesc => 'Memulihkan cadangan akan menggantikan semua data saat ini dengan data dari file cadangan. Perubahan yang belum dicadangkan akan hilang. Lanjutkan?';
 }
 
 // Path: budgets
@@ -942,6 +943,7 @@ extension on TranslationsId {
 			'backup.reminderNotificationTitle' => 'Saatnya Cadangkan Data Anda',
 			'backup.reminderNotificationBody' => 'Sudah cukup lama sejak pencadangan terakhir. Lindungi data keuangan Anda dengan membuat cadangan sekarang.',
 			'backup.reminderSaved' => 'Pengingat cadangan diperbarui',
+			'backup.restoreWarningDesc' => 'Memulihkan cadangan akan menggantikan semua data saat ini dengan data dari file cadangan. Perubahan yang belum dicadangkan akan hilang. Lanjutkan?',
 			'budgets.budgetName' => 'Nama anggaran',
 			'budgets.spendingLimit' => 'Batas pengeluaran',
 			'budgets.period' => 'Periode',
@@ -1371,9 +1373,9 @@ extension on TranslationsId {
 			'settings.easterEggFound' => '🎉 Anda menemukan easter egg!',
 			'settings.selectCurrency' => 'Pilih Mata Uang',
 			'settings.openSourceLicenses' => 'Lisensi Open Source',
-			'settings.helpIssues' => 'Bantuan & Masalah',
 			_ => null,
 		} ?? switch (path) {
+			'settings.helpIssues' => 'Bantuan & Masalah',
 			'settings.reportBugsOrRequestFeatures' => 'Laporkan bug atau minta fitur',
 			'settings.legal' => 'Legal',
 			'settings.termsOfService' => 'Syarat Layanan',

@@ -8,14 +8,18 @@ part of 'goal_detail_notifier.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
+/// Watches transactions associated with the goal's linked pocket account (deposits and withdrawals).
 
 @ProviderFor(goalTransactions)
 final goalTransactionsProvider = GoalTransactionsFamily._();
+
+/// Watches transactions associated with the goal's linked pocket account (deposits and withdrawals).
 
 final class GoalTransactionsProvider
     extends
         $FunctionalProvider<AsyncValue<List<TransactionModel>>, List<TransactionModel>, Stream<List<TransactionModel>>>
     with $FutureModifier<List<TransactionModel>>, $StreamProvider<List<TransactionModel>> {
+  /// Watches transactions associated with the goal's linked pocket account (deposits and withdrawals).
   GoalTransactionsProvider._({
     required GoalTransactionsFamily super.from,
     required GoalModel super.argument,
@@ -62,6 +66,8 @@ final class GoalTransactionsProvider
 
 String _$goalTransactionsHash() => r'c38f6d823473ece186f45bed0e924b0ccae31816';
 
+/// Watches transactions associated with the goal's linked pocket account (deposits and withdrawals).
+
 final class GoalTransactionsFamily extends $Family
     with $FunctionalFamilyOverride<Stream<List<TransactionModel>>, GoalModel> {
   GoalTransactionsFamily._()
@@ -73,16 +79,22 @@ final class GoalTransactionsFamily extends $Family
         isAutoDispose: true,
       );
 
+  /// Watches transactions associated with the goal's linked pocket account (deposits and withdrawals).
+
   GoalTransactionsProvider call(GoalModel goal) => GoalTransactionsProvider._(argument: goal, from: this);
 
   @override
   String toString() => r'goalTransactionsProvider';
 }
 
+/// Notifier coordinating goal detail actions such as deletion and goal fulfillment.
+
 @ProviderFor(GoalDetailNotifier)
 final goalDetailProvider = GoalDetailNotifierProvider._();
 
+/// Notifier coordinating goal detail actions such as deletion and goal fulfillment.
 final class GoalDetailNotifierProvider extends $NotifierProvider<GoalDetailNotifier, void> {
+  /// Notifier coordinating goal detail actions such as deletion and goal fulfillment.
   GoalDetailNotifierProvider._()
     : super(
         from: null,
@@ -110,7 +122,9 @@ final class GoalDetailNotifierProvider extends $NotifierProvider<GoalDetailNotif
   }
 }
 
-String _$goalDetailNotifierHash() => r'7434a4afd1b45e0de3e512f56673aa7c4a049ffb';
+String _$goalDetailNotifierHash() => r'af907cda8cf282abc13dc74004218bb0a3731f4b';
+
+/// Notifier coordinating goal detail actions such as deletion and goal fulfillment.
 
 abstract class _$GoalDetailNotifier extends $Notifier<void> {
   void build();

@@ -8,11 +8,14 @@ part of 'account_form_notifier.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
+/// Notifier managing account creation and editing form state and validation logic.
 
 @ProviderFor(AccountFormNotifier)
 final accountFormProvider = AccountFormNotifierProvider._();
 
+/// Notifier managing account creation and editing form state and validation logic.
 final class AccountFormNotifierProvider extends $NotifierProvider<AccountFormNotifier, AccountFormState> {
+  /// Notifier managing account creation and editing form state and validation logic.
   AccountFormNotifierProvider._()
     : super(
         from: null,
@@ -40,7 +43,9 @@ final class AccountFormNotifierProvider extends $NotifierProvider<AccountFormNot
   }
 }
 
-String _$accountFormNotifierHash() => r'e066d1a7e205ebf41b0c884d4cd41b3f3795e5d2';
+String _$accountFormNotifierHash() => r'c0cf89967066a172245b5e00f3bfa9e37c2cfa67';
+
+/// Notifier managing account creation and editing form state and validation logic.
 
 abstract class _$AccountFormNotifier extends $Notifier<AccountFormState> {
   AccountFormState build();
