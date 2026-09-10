@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:forui/forui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:poka_ce/features/dashboard/presentation/widgets/cards/dashboard_spending_chart.dart';
-import 'package:poka_ce/theme/theme.dart';
-import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/features/dashboard/presentation/controllers/dashboard_notifier.dart';
+import 'package:poka_ce/features/dashboard/presentation/controllers/balance_visibility_provider.dart';
 import 'package:poka_ce/features/dashboard/presentation/controllers/daily_budget_notifier.dart';
+import 'package:poka_ce/features/dashboard/presentation/controllers/dashboard_notifier.dart';
+import 'package:poka_ce/features/dashboard/presentation/widgets/cards/dashboard_spending_chart.dart';
+import 'package:poka_ce/i18n/strings.g.dart';
+import 'package:poka_ce/theme/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
@@ -37,11 +38,13 @@ void main() {
     ),
     double dailyBudget = 0.0,
     Future<void> Function(double)? onSetBudget,
+    bool isVisible = true,
   }) {
     return ProviderScope(
       overrides: [
         dashboardProvider.overrideWith(() => _FakeDashboardNotifier(dashboardState)),
         dailyBudgetProvider.overrideWith(() => _FakeDailyBudgetNotifier(dailyBudget, onSetBudget)),
+        balanceVisibilityProvider.overrideWith(() => _FakeBalanceVisibilityNotifier(isVisible)),
       ],
       child: TranslationProvider(
         child: MaterialApp(
@@ -265,6 +268,21 @@ void main() {
       expect(find.textContaining('7.0K'), findsWidgets);
       expect(find.textContaining('1.0K'), findsWidgets);
     });
+
+    testWidgets('obscures stats and daily budget when balanceVisibility is false', (tester) async {
+      ignoreOverflow();
+      tester.view.physicalSize = const Size(800, 1200);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(() => tester.view.resetPhysicalSize());
+
+      await tester.pumpWidget(createWidget(dailyBudget: 500, isVisible: false));
+      await tester.pumpAndSettle();
+
+      expect(find.text('••••••'), findsNWidgets(3)); // total, average, daily budget
+      expect(find.text('7.0K'), findsNothing);
+      expect(find.text('1.0K'), findsNothing);
+      expect(find.text('500'), findsNothing);
+    });
   });
 }
 
@@ -286,4 +304,11 @@ class _FakeDailyBudgetNotifier extends DailyBudget {
   Future<void> setBudget(double amount) async {
     if (_onSet != null) await _onSet(amount);
   }
+}
+
+class _FakeBalanceVisibilityNotifier extends BalanceVisibility {
+  final bool _initial;
+  _FakeBalanceVisibilityNotifier(this._initial);
+  @override
+  bool build() => _initial;
 }

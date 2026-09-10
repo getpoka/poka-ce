@@ -48,6 +48,13 @@ void main() {
     test('boundary - just below 1B stays in M', () {
       expect(999999999.toCompactFormat(), '1000.0M');
     });
+
+    test('returns masked value when isVisible is false', () {
+      expect(0.toCompactFormat(isVisible: false), '••••••');
+      expect(500.toCompactFormat(isVisible: false), '••••••');
+      expect(1500.toCompactFormat(isVisible: false), '••••••');
+      expect(1000000.toCompactFormat(isVisible: false), '••••••');
+    });
   });
 
   group('NumExtension toCurrencyFormat', () {

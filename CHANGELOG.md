@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Ensure base currency selected during onboarding immediately takes effect across the session by marking `SettingsNotifier` with `keepAlive: true` and removing fragile disposal guards (fixes #39).
 - Fixed unlocalized date headers and month navigation labels on the Transactions page by wiring intl locale initialization and date formatters to active locale.
 - Fixed hardcoded transaction type tab labels in `TransactionTypeSwitcher` to use localized strings.
+- Fixed balance visibility privacy toggle being bypassed across Dashboard cards (Cash Flow, Spending Activity, Categories, and Budgets).
 
 ## [v1.0.0-rc.1] - 2026-09-09
 

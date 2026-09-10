@@ -66,8 +66,8 @@ Widget buildCategoryStatRow(BuildContext context, String label, String value, Co
         ),
       ),
       const SizedBox(width: 12),
-      SizedBox(
-        width: 48,
+      ConstrainedBox(
+        constraints: const BoxConstraints(minWidth: 48),
         child: Text(
           value,
           style: theme.typography.bodyPrimary.copyWith(color: theme.colors.mutedForeground),

@@ -8,6 +8,8 @@ import 'package:poka_ce/theme/theme.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/features/dashboard/presentation/controllers/dashboard_notifier.dart';
 
+import 'package:poka_ce/features/dashboard/presentation/controllers/balance_visibility_provider.dart';
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -15,10 +17,11 @@ void main() {
     LocaleSettings.setLocaleSync(AppLocale.en);
   });
 
-  Widget createWidget(DashboardState state) {
+  Widget createWidget(DashboardState state, {bool isVisible = true}) {
     return ProviderScope(
       overrides: [
         dashboardProvider.overrideWith(() => _FakeDashboardNotifier(state)),
+        balanceVisibilityProvider.overrideWith(() => _FakeBalanceVisibilityNotifier(isVisible)),
       ],
       child: TranslationProvider(
         child: MaterialApp(
@@ -110,6 +113,17 @@ void main() {
       expect(find.text('100%'), findsOneWidget);
       expect(find.text('On track'), findsOneWidget);
     });
+
+    testWidgets('obscures income and expense when balanceVisibility is false', (tester) async {
+      await tester.pumpWidget(
+        createWidget(const DashboardState(totalIncome: 10000, totalExpense: 7000), isVisible: false),
+      );
+      await tester.pump();
+
+      expect(find.text('••••••'), findsNWidgets(2));
+      expect(find.text('10.0K'), findsNothing);
+      expect(find.text('7.0K'), findsNothing);
+    });
   });
 }
 
@@ -118,4 +132,11 @@ class _FakeDashboardNotifier extends DashboardNotifier {
   _FakeDashboardNotifier(this._state);
   @override
   DashboardState build() => _state;
+}
+
+class _FakeBalanceVisibilityNotifier extends BalanceVisibility {
+  final bool _initial;
+  _FakeBalanceVisibilityNotifier(this._initial);
+  @override
+  bool build() => _initial;
 }

@@ -2,26 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poka_ce/core/extensions/num_extension.dart';
+import 'package:poka_ce/features/dashboard/presentation/controllers/balance_visibility_provider.dart';
 import 'package:poka_ce/features/dashboard/presentation/controllers/daily_budget_notifier.dart';
 import 'package:poka_ce/features/dashboard/presentation/controllers/dashboard_notifier.dart';
 import 'package:poka_ce/features/dashboard/presentation/widgets/sheets/dashboard_budget_sheet.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/theme/theme.dart';
 
+/// Spending activity chart component displaying weekly velocity bars, totals, and daily budget.
 class DashboardSpendingChart extends HookConsumerWidget {
+  /// Creates a [DashboardSpendingChart].
   const DashboardSpendingChart({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = context.theme;
     final state = ref.watch(dashboardProvider);
+    final isBalanceVisible = ref.watch(balanceVisibilityProvider);
 
-    final totalExpenseFormatted = state.totalExpense.toCompactFormat();
-    final avgExpenseFormatted = (state.totalExpense / 7).toCompactFormat();
+    final totalExpenseFormatted = state.totalExpense.toCompactFormat(isVisible: isBalanceVisible);
+    final avgExpenseFormatted = (state.totalExpense / 7).toCompactFormat(isVisible: isBalanceVisible);
 
     // Get daily budget
     final dailyBudget = ref.watch(dailyBudgetProvider);
-    final dailyBudgetFormatted = dailyBudget > 0 ? dailyBudget.toCompactFormat() : context.t.dashboard.notSet;
+    final dailyBudgetFormatted = dailyBudget > 0
+        ? dailyBudget.toCompactFormat(isVisible: isBalanceVisible)
+        : context.t.dashboard.notSet;
 
     // Use pre-computed state from DashboardState
     final dailySpending = state.dailySpending;
