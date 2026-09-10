@@ -104,6 +104,7 @@ class DataManagementSection extends ConsumerWidget {
                 context,
                 title: context.t.backup.restoreAction,
                 body: context.t.backup.restoreWarningDesc,
+                confirmText: context.t.backup.restoreAction,
               );
               if (confirmed != true) return;
               if (!context.mounted) return;
