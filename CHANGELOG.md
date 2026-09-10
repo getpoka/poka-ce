@@ -23,6 +23,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added header privacy eye action button on the Reports page and obscured financial amounts across category rankings, spending allocation rules, and cashflow charts when privacy mode is enabled.
 - Resolved toast notification freeze on mobile touch interactions and route transitions by introducing `showPokaToast` with an independent watchdog timer and post-frame dismissal.
 - Standardized actionable undo toast positioning to `bottomCenter` (`showPokaActionToast`) for optimal one-handed thumb ergonomics.
+- Added notification runtime permission verification and rationale sheet for Android 13+ and iOS when configuring backup reminders, preventing silent reminder delivery drops.
+- Added `POST_NOTIFICATIONS` permission declaration in AndroidManifest.
+- Added direct test notification trigger in the backup reminder sheet to verify local notification delivery and vibration immediately.
 
 ## [v1.0.0-rc.1] - 2026-09-09
 

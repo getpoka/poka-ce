@@ -168,6 +168,12 @@ class _Translations$backup$id extends Translations$backup$en {
 	@override String get reminderNotificationBody => 'Sudah cukup lama sejak pencadangan terakhir. Lindungi data keuangan Anda dengan membuat cadangan sekarang.';
 	@override String get reminderSaved => 'Pengingat cadangan diperbarui';
 	@override String get restoreWarningDesc => 'Memulihkan cadangan akan menggantikan semua data saat ini dengan data dari file cadangan. Perubahan yang belum dicadangkan akan hilang. Lanjutkan?';
+	@override String get sendTestNotification => 'Kirim Notifikasi Uji Coba';
+	@override String get testNotificationSent => 'Notifikasi pengingat uji coba dikirim';
+	@override String get permissionRationaleTitle => 'Pengingat Cadangan Lokal';
+	@override String get permissionRationaleDesc => 'Poka membutuhkan izin notifikasi untuk mengingatkan Anda mencadangkan data secara berkala. Pengingat berjalan sepenuhnya di perangkat Anda secara luring tanpa pelacak atau analitik.';
+	@override String get allowNotifications => 'Izinkan Notifikasi';
+	@override String get permissionDenied => 'Izin notifikasi ditolak. Pengingat tetap dinonaktifkan.';
 }
 
 // Path: budgets
@@ -944,6 +950,12 @@ extension on TranslationsId {
 			'backup.reminderNotificationBody' => 'Sudah cukup lama sejak pencadangan terakhir. Lindungi data keuangan Anda dengan membuat cadangan sekarang.',
 			'backup.reminderSaved' => 'Pengingat cadangan diperbarui',
 			'backup.restoreWarningDesc' => 'Memulihkan cadangan akan menggantikan semua data saat ini dengan data dari file cadangan. Perubahan yang belum dicadangkan akan hilang. Lanjutkan?',
+			'backup.sendTestNotification' => 'Kirim Notifikasi Uji Coba',
+			'backup.testNotificationSent' => 'Notifikasi pengingat uji coba dikirim',
+			'backup.permissionRationaleTitle' => 'Pengingat Cadangan Lokal',
+			'backup.permissionRationaleDesc' => 'Poka membutuhkan izin notifikasi untuk mengingatkan Anda mencadangkan data secara berkala. Pengingat berjalan sepenuhnya di perangkat Anda secara luring tanpa pelacak atau analitik.',
+			'backup.allowNotifications' => 'Izinkan Notifikasi',
+			'backup.permissionDenied' => 'Izin notifikasi ditolak. Pengingat tetap dinonaktifkan.',
 			'budgets.budgetName' => 'Nama anggaran',
 			'budgets.spendingLimit' => 'Batas pengeluaran',
 			'budgets.period' => 'Periode',
@@ -1367,14 +1379,14 @@ extension on TranslationsId {
 			'settings.themeDark' => 'Gelap',
 			'settings.selectLanguage' => 'Pilih Bahasa',
 			'settings.oldTransactionsCleared' => 'Transaksi lama berhasil dibersihkan',
+			_ => null,
+		} ?? switch (path) {
 			'settings.appDataReset' => 'Data aplikasi berhasil direset',
 			'settings.failedToExportLogs' => 'Gagal mengekspor log',
 			'settings.easterEggRemaining' => ({required Object remaining}) => '${remaining} ketukan lagi dari sebuah kejutan...',
 			'settings.easterEggFound' => '🎉 Anda menemukan easter egg!',
 			'settings.selectCurrency' => 'Pilih Mata Uang',
 			'settings.openSourceLicenses' => 'Lisensi Open Source',
-			_ => null,
-		} ?? switch (path) {
 			'settings.helpIssues' => 'Bantuan & Masalah',
 			'settings.reportBugsOrRequestFeatures' => 'Laporkan bug atau minta fitur',
 			'settings.legal' => 'Legal',

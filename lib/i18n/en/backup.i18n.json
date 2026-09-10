@@ -20,5 +20,11 @@
   "reminderNotificationTitle": "Time to Back Up Your Data",
   "reminderNotificationBody": "It has been a while since your last backup. Keep your financial data safe by creating a backup now.",
   "reminderSaved": "Backup reminder updated",
-  "restoreWarningDesc": "Restoring will replace all current data with the data from the selected backup file. Any unbacked-up changes will be lost. Do you want to proceed?"
+  "restoreWarningDesc": "Restoring will replace all current data with the data from the selected backup file. Any unbacked-up changes will be lost. Do you want to proceed?",
+  "sendTestNotification": "Send Test Notification",
+  "testNotificationSent": "Test reminder notification sent",
+  "permissionRationaleTitle": "Local Backup Reminder",
+  "permissionRationaleDesc": "Poka needs notification permission to remind you to back up your data periodically. Reminders run completely offline on your device with zero tracking or analytics.",
+  "allowNotifications": "Allow Notifications",
+  "permissionDenied": "Notification permission was denied. Reminders remain disabled."
 }

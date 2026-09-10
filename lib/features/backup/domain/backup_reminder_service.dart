@@ -126,4 +126,22 @@ class BackupReminderService {
 
     return false;
   }
+
+  /// Checks whether notification permission is granted by the host OS.
+  Future<bool> hasNotificationPermission() {
+    return _notificationService.hasNotificationPermission();
+  }
+
+  /// Requests notification runtime permissions from the host OS.
+  Future<bool> requestNotificationPermission() {
+    return _notificationService.requestNotificationPermission();
+  }
+
+  /// Dispatches an immediate test backup reminder notification bypassing interval and debounce limits.
+  Future<void> triggerTestReminder() async {
+    await _notificationService.showBackupReminderNotification(
+      title: t.backup.reminderNotificationTitle,
+      body: t.backup.reminderNotificationBody,
+    );
+  }
 }
