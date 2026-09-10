@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:poka_ce/app/providers/repository_providers.dart';
 import 'package:poka_ce/core/enums.dart';
@@ -8,12 +9,22 @@ import 'package:poka_ce/core/error/result.dart';
 import 'package:poka_ce/features/transactions/domain/i_transaction_repository.dart';
 import 'package:poka_ce/features/transactions/domain/transaction_model.dart';
 import 'package:poka_ce/features/transactions/presentation/controllers/transaction_list_notifier.dart';
+import 'package:poka_ce/i18n/strings.g.dart';
 
 class MockTransactionRepository extends Mock implements ITransactionRepository {}
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   late MockTransactionRepository mockRepo;
+
+  setUpAll(() async {
+    await initializeDateFormatting();
+  });
+
+  tearDownAll(() async {
+    await LocaleSettings.setLocale(AppLocale.en);
+  });
+
   setUp(() => mockRepo = MockTransactionRepository());
 
   ProviderContainer createContainer() {
@@ -220,6 +231,17 @@ void main() {
 
       final monthState = TransactionListState(focusedDate: monday, viewMode: TransactionViewMode.month);
       expect(monthState.periodLabel, 'January 2024');
+    });
+
+    test('periodLabel respects Indonesian locale', () async {
+      await LocaleSettings.setLocale(AppLocale.id);
+      final aug = DateTime(2024, 8, 15);
+      final monthState = TransactionListState(focusedDate: aug, viewMode: TransactionViewMode.month);
+      expect(monthState.periodLabel, 'Agustus 2024');
+
+      final weekState = TransactionListState(focusedDate: aug, viewMode: TransactionViewMode.week);
+      expect(weekState.periodLabel, contains('Agu 2024'));
+      await LocaleSettings.setLocale(AppLocale.en);
     });
 
     test('periodShortLabel per view mode', () {

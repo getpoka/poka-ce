@@ -11,12 +11,12 @@ extension DateTimeExtension on DateTime {
   }
 
   /// Formats the date as 'dd MMM yyyy' (e.g. "12 Jan 2026").
-  String toFormattedDate() {
-    return DateFormat('dd MMM yyyy').format(this);
+  String toFormattedDate([String? locale]) {
+    return DateFormat('dd MMM yyyy', locale ?? LocaleSettings.currentLocale.languageCode).format(this);
   }
 
   /// Formats the date to a relative string like 'Today', 'Yesterday', or 'Mon, 12 Jan'
-  String toRelativeDateString() {
+  String toRelativeDateString([String? locale]) {
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
     final yesterday = today.subtract(const Duration(days: 1));
@@ -27,7 +27,7 @@ extension DateTimeExtension on DateTime {
     } else if (target == yesterday) {
       return t.common.yesterday;
     } else {
-      final dateFormat = DateFormat('EEE, dd MMM');
+      final dateFormat = DateFormat('EEE, dd MMM', locale ?? LocaleSettings.currentLocale.languageCode);
       return dateFormat.format(toLocal());
     }
   }

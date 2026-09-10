@@ -14,7 +14,7 @@ This document records the bug findings identified during the **Smoke Testing** p
 | **BUG-004** | `Settings / Onboarding & Currency` | After "Reset Data", selecting a currency (e.g. CHF) in Onboarding does not update the active session — transactions default to IDR and base currency shows "Not Set" until app restart | High (UX & Session State Defect) | ✅ Valid ([#39](https://github.com/getpoka/poka-ce/issues/39)) |
 | **BUG-005** | `Backup & Restore / Dialog Copy` | Restore confirmation dialog uses "Reset Data" copy (*"erase all app data locally, this action cannot be undone"*), misleading users into thinking data is only being erased | Medium (Misleading Copy / UX) | ✅ Valid ([#40](https://github.com/getpoka/poka-ce/issues/40)) |
 | **BUG-006** | `Backup & Restore / Reactive Reload` | Successfully restoring an encrypted backup does not refresh active app state; user must force-close and reopen the app to see restored data | High (Reactive State & DB Lock Defect) | ✅ Valid ([#41](https://github.com/getpoka/poka-ce/issues/41)) |
-| **BUG-007** | `Transactions / Localization & Formatting` | Incomplete translations on Transactions page: unlocalized date headers ("Wed, 10 Sep"), English month labels ("September 2026"), hardcoded creation form tabs ("Income", "Expense", "Transfer"), and English default categories | High (Localization & UX Quality) | ✅ Valid ([#42](https://github.com/getpoka/poka-ce/issues/42)) |
+| **BUG-007** | `Transactions / Localization & Formatting` | Incomplete translations on Transactions page: unlocalized date headers ("Wed, 10 Sep"), English month labels ("September 2026"), hardcoded creation form tabs ("Income", "Expense", "Transfer"), and English default categories | High (Localization & UX Quality) | 🟢 Solved ([#42](https://github.com/getpoka/poka-ce/issues/42)) |
 | **BUG-008** | `Debts / Repayment History Interaction` | Repayment history items in Debt Detail Page cannot be swiped to edit or delete (missing `onEdit` / `onDelete` callbacks in `RecentTransactionTile`) | Medium (UX Inconvenience) | ✅ Valid ([#43](https://github.com/getpoka/poka-ce/issues/43)) |
 | **BUG-009** | `Debts & Transactions / Repayment Categorization` | Repayment transactions lack category assignment and render as "Uncategorized" across lists, needing semantic debt transaction recognition or optional category selection | Medium (Data Presentation Defect) | ✅ Valid ([#44](https://github.com/getpoka/poka-ce/issues/44)) |
 | **BUG-010** | `Debts / Form Sheet UX` | Debt Edit sheet replaces the standard 'X' close button with an unconfirmed direct delete (trash) button in header trailing | High (Destructive UX / Misleading Action) | ✅ Valid ([#45](https://github.com/getpoka/poka-ce/issues/45)) |
@@ -257,7 +257,7 @@ After selecting an encrypted backup file, entering the correct password, and see
 ### 7. BUG-007: Incomplete Translations & Unlocalized Dates on Transactions Page
 
 > [!NOTE]
-> **Verification Status:** ✅ **Valid** | **GitHub Issue:** [#42](https://github.com/getpoka/poka-ce/issues/42)
+> **Verification Status:** 🟢 **Solved** | **GitHub Issue:** [#42](https://github.com/getpoka/poka-ce/issues/42)
 
 #### A. Problem Description
 When the application language is set to Indonesian (`id`), the **Transactions Page** displays glaring English strings across multiple primary components:
