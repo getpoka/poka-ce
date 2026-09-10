@@ -12,11 +12,6 @@
 run *args:
     flutter run --dart-define-from-file=.env {{args}}
 
-#[Alias for run — start local app on connected emulator/device]
-# args: Arguments forwarded directly to flutter run (e.g. -d macos, --release)
-dev *args:
-    flutter run --dart-define-from-file=.env {{args}}
-
 #[Clean Flutter build cache and fetch dependencies]
 clean:
     flutter clean
@@ -113,34 +108,21 @@ test:coverage:
 # Build & Distribution
 # ==========================================
 
-#[Alias for build:apk — build Android APK (defaults to fat; pass --split for fat + split)]
-# --split: Build split-per-ABI APKs alongside universal APK
-build --split?:
-    rune build:apk {{split}}
-
 #[Build Android APK (defaults to fat Universal APK; pass --split for fat + split-per-abi)]
 # --split: Build split-per-ABI APKs alongside universal APK
 build:apk --split?:
-    flutter build apk --dart-define-from-file=.env
-    mv build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/app-universal-release.apk
-    sh -c '[ -n "{{split}}" ] && flutter build apk --split-per-abi --dart-define-from-file=.env || true'
+    flutter build apk --release --obfuscate --split-debug-info=build/app/outputs/symbols --dart-define-from-file=.env
+    mv build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/poka-universal.apk
+    cp build/app/outputs/flutter-apk/poka-universal.apk build/app/outputs/flutter-apk/app-universal-release.apk
+    sh -c '[ -n "{{split}}" ] && flutter build apk --release --split-per-abi --obfuscate --split-debug-info=build/app/outputs/symbols --dart-define-from-file=.env && cp build/app/outputs/flutter-apk/app-arm64-v8a-release.apk build/app/outputs/flutter-apk/poka-arm64-v8a.apk && cp build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk build/app/outputs/flutter-apk/poka-armeabi-v7a.apk && cp build/app/outputs/flutter-apk/app-x86_64-release.apk build/app/outputs/flutter-apk/poka-x86_64.apk || true'
     rune done "APK build completed successfully!"
 
 #[Build an Android App Bundle (AAB)]
 build:aab:
-    flutter build appbundle --dart-define-from-file=.env
+    flutter build appbundle --release --obfuscate --split-debug-info=build/app/outputs/symbols --dart-define-from-file=.env
     rune done "App Bundle (AAB) built successfully!"
 
 #[Generate a new Android Keystore for release signing]
 build:keystore:
     chmod +x scripts/keystore.sh
     ./scripts/keystore.sh
-
-#[Alias for build:keystore — generate Android Keystore]
-keystore:
-    rune build:keystore
-
-#[Alias for install — install built APK on connected device]
-# arch: Target architecture (default: fat/universal; options: fat, arm64, armeabi-v7a, x86_64)
-build:install arch="fat":
-    rune install "{{arch}}"
