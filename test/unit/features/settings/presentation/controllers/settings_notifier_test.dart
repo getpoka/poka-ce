@@ -132,5 +132,31 @@ void main() {
       expect(c.error, 'e');
       expect(c.settings!.themeMode, 'light');
     });
+
+    test('settingsProvider keeps state alive when watchers drop (keepAlive: true)', () async {
+      when(() => mockRepo.getSettings()).thenAnswer(
+        (_) async => const SettingsModel(themeMode: 'dark'),
+      );
+      final container = ProviderContainer(
+        overrides: [
+          settingsRepositoryProvider.overrideWithValue(mockRepo),
+        ],
+      );
+      addTearDown(container.dispose);
+
+      // Start listening
+      final sub = container.listen(settingsProvider, (_, __) {});
+      await Future<void>.delayed(const Duration(milliseconds: 50));
+      expect(container.read(settingsProvider).settings?.themeMode, 'dark');
+
+      // Drop all watchers
+      sub.close();
+      await Future<void>.delayed(const Duration(milliseconds: 50));
+
+      // State is retained and not reloaded/disposed because keepAlive is true
+      expect(container.read(settingsProvider).isLoading, false);
+      expect(container.read(settingsProvider).settings?.themeMode, 'dark');
+      verify(() => mockRepo.getSettings()).called(1);
+    });
   });
 }
