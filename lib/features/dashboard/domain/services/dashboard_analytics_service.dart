@@ -23,6 +23,9 @@ class DashboardAnalyticsService {
   DashboardAnalyticsService._();
 
   /// Calculates global net worth, total positive assets, and liabilities across all active accounts.
+  ///
+  /// Note that `activeAccountCount` only counts top-level primary accounts (excluding pockets
+  /// and virtual goal accounts), while monetary totals include all active accounts and sub-accounts.
   static ({
     double netWorth,
     double totalAssets,
@@ -37,7 +40,9 @@ class DashboardAnalyticsService {
 
     for (final account in accounts) {
       if (account.isActive) {
-        activeAccountCount++;
+        if (!account.isPocket && account.type != AccountType.goal) {
+          activeAccountCount++;
+        }
         netWorth += account.balance;
         if (account.balance > 0) {
           totalAssets += account.balance;
