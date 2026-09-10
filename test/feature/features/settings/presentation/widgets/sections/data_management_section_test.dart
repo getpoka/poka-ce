@@ -222,7 +222,7 @@ void main() {
 
       expect(find.text(t.backup.restoreWarningDesc), findsOneWidget);
 
-      await tester.tap(find.widgetWithText(FButton, 'Delete').last); // Taps confirm button
+      await tester.tap(find.widgetWithText(FButton, t.backup.restoreAction).last); // Taps confirm button
       await tester.pumpAndSettle();
 
       await enterPin(tester);
