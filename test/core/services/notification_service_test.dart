@@ -13,14 +13,14 @@ void main() {
     });
 
     test('hasNotificationPermission handles uninitialized/mocked environment without crash', () async {
-      // In flutter_test, platform channels return null or default values safely
+      // In flutter_test, platform channels throw or return null, failing closed safely
       final result = await notificationService.hasNotificationPermission();
-      expect(result, isA<bool>());
+      expect(result, isFalse);
     });
 
     test('requestNotificationPermission handles uninitialized/mocked environment without crash', () async {
       final result = await notificationService.requestNotificationPermission();
-      expect(result, isA<bool>());
+      expect(result, isFalse);
     });
   });
 }

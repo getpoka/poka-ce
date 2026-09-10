@@ -62,7 +62,7 @@ class NotificationService {
       return true;
     } on Object catch (e, st) {
       talker.handle(e, st, 'NotificationService.hasNotificationPermission');
-      return true;
+      return false;
     }
   }
 
