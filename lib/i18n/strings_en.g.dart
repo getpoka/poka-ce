@@ -20,21 +20,20 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	Translations({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  _meta = meta ?? TranslationMetadata(
+		  $meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.en,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ) {
-		_meta.setFlatMapFunction(_flatMapFunction);
+		$meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <en>.
-	final TranslationMetadata<AppLocale, Translations> _meta;
-	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
+	@override final TranslationMetadata<AppLocale, Translations> $meta;
 
 	/// Access flat map
-	dynamic operator[](String key) => _meta.getTranslation(key);
+	dynamic operator[](String key) => $meta.getTranslation(key);
 
 	late final Translations _root = this; // ignore: unused_field
 
@@ -1724,6 +1723,12 @@ class Translations$settings$en {
 	/// en: 'Open Source Licenses'
 	String get openSourceLicenses => 'Open Source Licenses';
 
+	/// en: 'Check for Updates'
+	String get checkForUpdates => 'Check for Updates';
+
+	/// en: 'View latest releases on GitHub'
+	String get viewLatestReleasesOnGithub => 'View latest releases on GitHub';
+
 	/// en: 'Help & Issues'
 	String get helpIssues => 'Help & Issues';
 
@@ -2682,6 +2687,8 @@ extension on Translations {
 			'settings.easterEggFound' => '🎉 You found the easter egg!',
 			'settings.selectCurrency' => 'Select Currency',
 			'settings.openSourceLicenses' => 'Open Source Licenses',
+			'settings.checkForUpdates' => 'Check for Updates',
+			'settings.viewLatestReleasesOnGithub' => 'View latest releases on GitHub',
 			'settings.helpIssues' => 'Help & Issues',
 			'settings.reportBugsOrRequestFeatures' => 'Report bugs or request features',
 			'settings.legal' => 'Legal',

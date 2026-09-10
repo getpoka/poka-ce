@@ -54,27 +54,54 @@ jobs:
 
       - name: Build Universal & Split APKs
         run: |
-          # Build Universal Fat APK first
-          flutter build apk --release --dart-define=APP_VERSION=${{ github.event.inputs.tag || github.ref_name }}
-          # Rename it so it's clear and won't be overwritten
-          mv build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/app-universal-release.apk
-          
-          # Build Split APKs
-          flutter build apk --release --split-per-abi --dart-define=APP_VERSION=${{ github.event.inputs.tag || github.ref_name }}
+          TAG_NAME="${{ github.event.inputs.tag || github.ref_name }}"
 
-      - name: Upload Release APKs
+          # Build Universal Fat APK with Obfuscation & Symbol Stripping
+          flutter build apk --release \
+            --obfuscate --split-debug-info=build/app/outputs/symbols \
+            --dart-define=APP_VERSION="$TAG_NAME"
+          mv build/app/outputs/flutter-apk/app-release.apk "build/app/outputs/flutter-apk/poka-$TAG_NAME-universal.apk"
+          
+          # Build Split APKs with Obfuscation & Symbol Stripping
+          flutter build apk --release --split-per-abi \
+            --obfuscate --split-debug-info=build/app/outputs/symbols \
+            --dart-define=APP_VERSION="$TAG_NAME"
+
+          # Rename Split APKs to poka-vX.X.X-<abi>.apk
+          mv build/app/outputs/flutter-apk/app-arm64-v8a-release.apk "build/app/outputs/flutter-apk/poka-$TAG_NAME-arm64-v8a.apk"
+          mv build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk "build/app/outputs/flutter-apk/poka-$TAG_NAME-armeabi-v7a.apk"
+          mv build/app/outputs/flutter-apk/app-x86_64-release.apk "build/app/outputs/flutter-apk/poka-$TAG_NAME-x86_64.apk"
+
+          # Generate SHA-256 Checksums for all release APKs
+          cd build/app/outputs/flutter-apk
+          sha256sum poka-*.apk > checksums.txt
+          cd -
+
+      - name: Upload Release Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: poka-ce-release
-          path: build/app/outputs/flutter-apk/app-*-release.apk
+          path: |
+            build/app/outputs/flutter-apk/poka-*.apk
+            build/app/outputs/flutter-apk/checksums.txt
+            build/app/outputs/symbols
 
       - name: Attach APKs to Release
         if: github.event_name == 'release' || github.event_name == 'workflow_dispatch'
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: build/app/outputs/flutter-apk/app-*-release.apk
+          file: build/app/outputs/flutter-apk/poka-*.apk
           file_glob: true
+          tag: ${{ github.event.inputs.tag || github.ref_name }}
+          overwrite: true
+
+      - name: Attach Checksums to Release
+        if: github.event_name == 'release' || github.event_name == 'workflow_dispatch'
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: build/app/outputs/flutter-apk/checksums.txt
           tag: ${{ github.event.inputs.tag || github.ref_name }}
           overwrite: true
 

@@ -16,22 +16,22 @@ class TranslationsId extends Translations with BaseTranslations<AppLocale, Trans
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsId({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  _meta = meta ?? TranslationMetadata(
+		  $meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.id,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ),
 		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
-		_meta.setFlatMapFunction(_flatMapFunction);
+		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
+		$meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <id>.
-	final TranslationMetadata<AppLocale, Translations> _meta;
-	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
+	@override final TranslationMetadata<AppLocale, Translations> $meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => _meta.getTranslation(key) ?? super[key];
+	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
 
 	late final TranslationsId _root = this; // ignore: unused_field
 
@@ -700,6 +700,8 @@ class _Translations$settings$id extends Translations$settings$en {
 	@override String get easterEggFound => '🎉 Anda menemukan easter egg!';
 	@override String get selectCurrency => 'Pilih Mata Uang';
 	@override String get openSourceLicenses => 'Lisensi Open Source';
+	@override String get checkForUpdates => 'Periksa Pembaruan';
+	@override String get viewLatestReleasesOnGithub => 'Lihat rilis terbaru di GitHub';
 	@override String get helpIssues => 'Bantuan & Masalah';
 	@override String get reportBugsOrRequestFeatures => 'Laporkan bug atau minta fitur';
 	@override String get legal => 'Legal';
@@ -1411,6 +1413,8 @@ extension on TranslationsId {
 			'settings.easterEggFound' => '🎉 Anda menemukan easter egg!',
 			'settings.selectCurrency' => 'Pilih Mata Uang',
 			'settings.openSourceLicenses' => 'Lisensi Open Source',
+			'settings.checkForUpdates' => 'Periksa Pembaruan',
+			'settings.viewLatestReleasesOnGithub' => 'Lihat rilis terbaru di GitHub',
 			'settings.helpIssues' => 'Bantuan & Masalah',
 			'settings.reportBugsOrRequestFeatures' => 'Laporkan bug atau minta fitur',
 			'settings.legal' => 'Legal',
