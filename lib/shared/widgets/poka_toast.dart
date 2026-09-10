@@ -48,6 +48,7 @@ FToasterEntry showPokaToast({
           entry.dismiss();
         }
       });
+      WidgetsBinding.instance.ensureVisualUpdate();
     }
   });
 
