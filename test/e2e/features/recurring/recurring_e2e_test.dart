@@ -68,7 +68,7 @@ void main() {
     await tester.tap(catSelector);
     await settle();
 
-    final categoryItem = find.text('Food & Dining').first;
+    final categoryItem = find.text('Food & Drinks').first;
     await tester.ensureVisible(categoryItem);
     await tester.tap(categoryItem);
     await settle(); // Wait for sheet to close
