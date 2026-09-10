@@ -75,6 +75,7 @@ void main() {
   setUp(() {
     mockTxRepo = MockTransactionRepo();
     mockUseCase = MockUpdateTransactionUseCase();
+    when(() => mockTxRepo.deleteTransaction(any())).thenAnswer((_) async => const Success(null));
   });
 
   DebtModel debt({DebtType type = DebtType.debt, DebtStatus status = DebtStatus.active}) => DebtModel(
@@ -170,6 +171,47 @@ void main() {
 
       expect(find.text(t.debts.noHistoryFoundForThis(type: t.debts.payable)), findsNothing);
       expect(find.byType(RecentTransactionTile), findsWidgets);
+    });
+
+    testWidgets('repayment transaction tile supports swipe to reveal edit and delete actions', (tester) async {
+      await tester.pumpWidget(
+        wrap(activeDebt: debt(), transactions: [tx()]),
+      );
+      await tester.pumpAndSettle();
+
+      final repaymentTile = find.byType(RecentTransactionTile).first;
+      expect(repaymentTile, findsOneWidget);
+
+      // Drag to reveal start action pane (delete)
+      await tester.drag(repaymentTile, const Offset(300, 0));
+      await tester.pumpAndSettle();
+
+      // Slidable action with trash icon should appear
+      expect(find.byIcon(FPhosphorIcons.trash), findsWidgets);
+    });
+
+    testWidgets('deleting repayment transaction prompts confirmation and deletes transaction', (tester) async {
+      await tester.pumpWidget(
+        wrap(activeDebt: debt(), transactions: [tx()]),
+      );
+      await tester.pumpAndSettle();
+
+      final repaymentTile = find.byType(RecentTransactionTile).first;
+      await tester.drag(repaymentTile, const Offset(300, 0));
+      await tester.pumpAndSettle();
+
+      // Tap delete slidable action
+      await tester.tap(find.byIcon(FPhosphorIcons.trash).last);
+      await tester.pumpAndSettle();
+
+      // Confirmation dialog should be shown
+      expect(find.text(t.transactions.deleteTransaction), findsOneWidget);
+
+      // Confirm deletion
+      await tester.tap(find.text(t.common.delete));
+      await tester.pumpAndSettle();
+
+      verify(() => mockTxRepo.deleteTransaction('tx1')).called(1);
     });
   });
 }
