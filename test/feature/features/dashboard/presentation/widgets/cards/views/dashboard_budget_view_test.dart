@@ -9,6 +9,8 @@ import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/features/dashboard/presentation/controllers/dashboard_notifier.dart';
 import 'package:poka_ce/core/enums.dart';
 
+import 'package:poka_ce/features/dashboard/presentation/controllers/balance_visibility_provider.dart';
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -16,10 +18,11 @@ void main() {
     LocaleSettings.setLocaleSync(AppLocale.en);
   });
 
-  Widget createWidget(DashboardState state) {
+  Widget createWidget(DashboardState state, {bool isVisible = true}) {
     return ProviderScope(
       overrides: [
         dashboardProvider.overrideWith(() => _FakeDashboardNotifier(state)),
+        balanceVisibilityProvider.overrideWith(() => _FakeBalanceVisibilityNotifier(isVisible)),
       ],
       child: TranslationProvider(
         child: MaterialApp(
@@ -133,6 +136,27 @@ void main() {
       await tester.pump();
       expect(find.byType(PokaDonutChart), findsOneWidget);
     });
+
+    testWidgets('obscures budget allocation amounts when balanceVisibility is false', (tester) async {
+      await tester.pumpWidget(
+        createWidget(
+          DashboardState(
+            budgetAllocations: {
+              TransactionAllocation.need: 500,
+              TransactionAllocation.want: 300,
+              TransactionAllocation.saving: 200,
+            },
+          ),
+          isVisible: false,
+        ),
+      );
+      await tester.pump();
+
+      expect(find.text('••••••'), findsNWidgets(3));
+      expect(find.text('500'), findsNothing);
+      expect(find.text('300'), findsNothing);
+      expect(find.text('200'), findsNothing);
+    });
   });
 }
 
@@ -141,4 +165,11 @@ class _FakeDashboardNotifier extends DashboardNotifier {
   _FakeDashboardNotifier(this._state);
   @override
   DashboardState build() => _state;
+}
+
+class _FakeBalanceVisibilityNotifier extends BalanceVisibility {
+  final bool _initial;
+  _FakeBalanceVisibilityNotifier(this._initial);
+  @override
+  bool build() => _initial;
 }

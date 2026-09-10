@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poka_ce/core/extensions/num_extension.dart';
+import 'package:poka_ce/features/dashboard/presentation/controllers/balance_visibility_provider.dart';
 import 'package:poka_ce/features/dashboard/presentation/controllers/dashboard_notifier.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/theme/theme.dart';
 
+/// Cash flow overview widget displaying savings rate gauge and income/expense stats.
 class DashboardCashFlowView extends ConsumerWidget {
+  /// Creates a [DashboardCashFlowView].
   const DashboardCashFlowView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = context.theme;
     final state = ref.watch(dashboardProvider);
+    final isVisible = ref.watch(balanceVisibilityProvider);
 
     final income = state.totalIncome;
     final expense = state.totalExpense;
@@ -63,7 +67,7 @@ class DashboardCashFlowView extends ConsumerWidget {
               _buildStatRow(
                 context,
                 context.t.dashboard.income,
-                income.toCompactFormat(),
+                income.toCompactFormat(isVisible: isVisible),
                 theme.colors.app.income,
                 FPhosphorIcons.arrowDownLeft,
               ),
@@ -71,7 +75,7 @@ class DashboardCashFlowView extends ConsumerWidget {
               _buildStatRow(
                 context,
                 context.t.dashboard.expense,
-                expense.toCompactFormat(),
+                expense.toCompactFormat(isVisible: isVisible),
                 theme.colors.app.expense,
                 FPhosphorIcons.arrowUpRight,
               ),
