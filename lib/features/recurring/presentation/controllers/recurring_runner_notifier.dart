@@ -51,12 +51,14 @@ class RecurringRunnerNotifier extends Notifier<RecurringRunnerState> {
 
     final today = DateTime.now();
     final result = await service.run(today);
+    if (!ref.mounted) return;
 
     switch (result) {
       case Success(:final value) when value > 0:
         talker.info('RecurringRunner: processed $value recurring transaction(s).');
         // Refresh list so UI reflects newly created entries.
         await ref.read(recurringListProvider.notifier).refresh();
+        if (!ref.mounted) return;
         state = RecurringRunnerDone(value);
       case Success():
         state = const RecurringRunnerDone(0);

@@ -122,5 +122,38 @@ void main() {
       expect(list.refreshCount, 1);
       verify(() => transactionRepo.createTransaction(any())).called(1);
     });
+
+    test('processes due transactions using real recurringListProvider without disposal exception', () async {
+      when(() => recurringRepo.getDueRecurringTransactions(any())).thenAnswer(
+        (_) async => Success<List<RecurringTransactionModel>, Failure>([recurring()]),
+      );
+      when(() => recurringRepo.getRecurringTransactions()).thenAnswer(
+        (_) async => const Success<List<RecurringTransactionModel>, Failure>([]),
+      );
+      when(() => transactionRepo.createTransaction(any())).thenAnswer(
+        (_) async => const Success<void, Failure>(null),
+      );
+      when(() => recurringRepo.updateRecurring(any())).thenAnswer(
+        (_) async => const Success<void, Failure>(null),
+      );
+
+      final container = ProviderContainer(
+        overrides: [
+          recurringRepositoryProvider.overrideWithValue(recurringRepo),
+          transactionRepositoryProvider.overrideWithValue(transactionRepo),
+        ],
+      );
+      addTearDown(container.dispose);
+
+      // Only listen to recurringRunnerProvider (simulating app startup when dashboard mounts)
+      container.listen(recurringRunnerProvider, (_, _) {});
+
+      await Future<void>.delayed(const Duration(milliseconds: 50));
+      final state = container.read(recurringRunnerProvider);
+      expect(state, isA<RecurringRunnerDone>());
+      expect((state as RecurringRunnerDone).processed, 1);
+      verify(() => transactionRepo.createTransaction(any())).called(1);
+      verify(() => recurringRepo.getRecurringTransactions()).called(2);
+    });
   });
 }

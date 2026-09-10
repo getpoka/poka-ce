@@ -18,7 +18,7 @@ abstract class RecurringListState with _$RecurringListState {
 }
 
 /// Notifier managing recurring transaction schedules, deletion, and pause/resume toggling.
-@riverpod
+@Riverpod(keepAlive: true)
 class RecurringListNotifier extends _$RecurringListNotifier {
   @override
   RecurringListState build() {
@@ -28,10 +28,12 @@ class RecurringListNotifier extends _$RecurringListNotifier {
 
   /// Reloads all recurring transactions from the repository.
   Future<void> refresh() async {
+    if (!ref.mounted) return;
     state = state.copyWith(isLoading: true);
 
     final repo = ref.read(recurringRepositoryProvider);
     final result = await repo.getRecurringTransactions();
+    if (!ref.mounted) return;
 
     result.fold(
       (recurrings) {
@@ -51,8 +53,10 @@ class RecurringListNotifier extends _$RecurringListNotifier {
 
   /// Permanently removes a recurring transaction schedule by [id].
   Future<void> deleteRecurring(String id) async {
+    if (!ref.mounted) return;
     final repo = ref.read(recurringRepositoryProvider);
     final result = await repo.deleteRecurring(id);
+    if (!ref.mounted) return;
     if (result is Success) {
       await refresh();
     }
@@ -60,6 +64,7 @@ class RecurringListNotifier extends _$RecurringListNotifier {
 
   /// Toggles whether this recurring schedule is active or paused.
   Future<void> toggleActive(String id) async {
+    if (!ref.mounted) return;
     final index = state.recurrings.indexWhere((r) => r.id == id);
     if (index == -1) return;
 
@@ -72,6 +77,7 @@ class RecurringListNotifier extends _$RecurringListNotifier {
 
     final repo = ref.read(recurringRepositoryProvider);
     final result = await repo.updateRecurring(updated);
+    if (!ref.mounted) return;
     if (result is ErrorResult) {
       // Roll back to server state on persistence failure.
       await refresh();
