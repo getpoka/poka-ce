@@ -51,8 +51,10 @@ class SettingsNotifier extends _$SettingsNotifier {
     try {
       final repo = ref.read(settingsRepositoryProvider);
       final settings = await repo.getSettings();
+      if (!ref.mounted) return;
       state = state.copyWith(settings: settings, isLoading: false);
     } on Exception catch (e) {
+      if (!ref.mounted) return;
       state = state.copyWith(error: e.toString(), isLoading: false);
     }
   }
