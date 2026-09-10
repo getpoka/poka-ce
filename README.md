@@ -122,23 +122,21 @@ Download the latest release directly from the [GitHub Releases page](https://git
 
 - Flutter SDK **3.47.1** or newer
 - Dart SDK **3.13.1** or newer
-- [Rune](https://github.com/octopyid/rune) task runner (recommended)
+- [Rune](https://github.com/octopyid/rune) task runner:
+  ```bash
+  curl -fsSL https://raw.githubusercontent.com/octopyid/rune/main/install.sh | sh
+  ```
+  <details><summary>Other methods (Homebrew, Go)</summary>
 
-#### Installing Rune
+  ```bash
+  # Homebrew
+  brew install octopyid/tap/rune
 
-Poka CE uses [Rune](https://github.com/octopyid/rune) — a fast, opinionated project-local task runner written in Go by [@octopyid](https://github.com/octopyid).
+  # Go
+  go install github.com/octopyid/rune/cmd/rune@latest
+  ```
 
-**Homebrew (macOS / Linux):**
-
-```bash
-brew install octopyid/tap/rune
-```
-
-**Go:**
-
-```bash
-go install github.com/octopyid/rune/cmd/rune@latest
-```
+  </details>
 
 ### Steps
 

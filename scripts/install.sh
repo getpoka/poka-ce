@@ -32,27 +32,49 @@ fi
 case "$TARGET" in
   ""|"fat"|"universal"|"default")
     ARCH_NAME="Universal (Fat)"
-    if [ -f "$APK_DIR/app-universal-release.apk" ]; then
+    if compgen -G "$APK_DIR/poka-*-universal.apk" >/dev/null; then
+      APK_PATH=$(ls -t "$APK_DIR"/poka-*-universal.apk | head -n 1)
+    elif [ -f "$APK_DIR/poka-universal.apk" ]; then
+      APK_PATH="$APK_DIR/poka-universal.apk"
+    elif [ -f "$APK_DIR/app-universal-release.apk" ]; then
       APK_PATH="$APK_DIR/app-universal-release.apk"
     elif [ -f "$APK_DIR/app-release.apk" ]; then
       APK_PATH="$APK_DIR/app-release.apk"
     elif [ -f "$APK_DIR/app-debug.apk" ]; then
       APK_PATH="$APK_DIR/app-debug.apk"
     else
-      APK_PATH="$APK_DIR/app-universal-release.apk"
+      APK_PATH="$APK_DIR/poka-universal.apk"
     fi
     ;;
   "arm64"|"arm64-v8a"|"aarch64"|"v8a")
     ARCH_NAME="arm64-v8a"
-    APK_PATH="$APK_DIR/app-arm64-v8a-release.apk"
+    if compgen -G "$APK_DIR/poka-*-arm64-v8a.apk" >/dev/null; then
+      APK_PATH=$(ls -t "$APK_DIR"/poka-*-arm64-v8a.apk | head -n 1)
+    elif [ -f "$APK_DIR/poka-arm64-v8a.apk" ]; then
+      APK_PATH="$APK_DIR/poka-arm64-v8a.apk"
+    else
+      APK_PATH="$APK_DIR/app-arm64-v8a-release.apk"
+    fi
     ;;
   "arm"|"armv7"|"armeabi"|"armeabi-v7a"|"v7a")
     ARCH_NAME="armeabi-v7a"
-    APK_PATH="$APK_DIR/app-armeabi-v7a-release.apk"
+    if compgen -G "$APK_DIR/poka-*-armeabi-v7a.apk" >/dev/null; then
+      APK_PATH=$(ls -t "$APK_DIR"/poka-*-armeabi-v7a.apk | head -n 1)
+    elif [ -f "$APK_DIR/poka-armeabi-v7a.apk" ]; then
+      APK_PATH="$APK_DIR/poka-armeabi-v7a.apk"
+    else
+      APK_PATH="$APK_DIR/app-armeabi-v7a-release.apk"
+    fi
     ;;
   "x86_64"|"x64"|"x86-64")
     ARCH_NAME="x86_64"
-    APK_PATH="$APK_DIR/app-x86_64-release.apk"
+    if compgen -G "$APK_DIR/poka-*-x86_64.apk" >/dev/null; then
+      APK_PATH=$(ls -t "$APK_DIR"/poka-*-x86_64.apk | head -n 1)
+    elif [ -f "$APK_DIR/poka-x86_64.apk" ]; then
+      APK_PATH="$APK_DIR/poka-x86_64.apk"
+    else
+      APK_PATH="$APK_DIR/app-x86_64-release.apk"
+    fi
     ;;
   *)
     ARCH_NAME="$TARGET"
@@ -84,9 +106,9 @@ if [ ! -f "$APK_PATH" ]; then
   fi
   echo ""
   if [ "$TARGET" = "fat" ] || [ "$TARGET" = "universal" ]; then
-    echo "💡 To build the universal APK, run: rune build"
+    echo "💡 To build the universal APK, run: rune build:apk"
   else
-    echo "💡 To build split-per-ABI APKs, run: rune build --split"
+    echo "💡 To build split-per-ABI APKs, run: rune build:apk --split"
   fi
   exit 1
 fi
