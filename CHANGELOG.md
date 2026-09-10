@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add semantic debt and loan labels and handshake icon for unassigned debt repayment transactions in `RecentTransactionTile` (fixes #44).
 - Correct confirmation dialog description for backup restore to accurately describe data replacement instead of data deletion (fixes #40).
 - Ensure clean database teardown and WAL/SHM file cleanup before disk write on backup restore, and reload all feature state providers reactively without requiring app restart (fixes #41).
+- Ensure base currency selected during onboarding immediately takes effect across the session by marking `SettingsNotifier` with `keepAlive: true` and removing fragile disposal guards (fixes #39).
 
 ## [v1.0.0-rc.1] - 2026-09-09
 
