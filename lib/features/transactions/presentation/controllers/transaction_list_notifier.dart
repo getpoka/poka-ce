@@ -114,10 +114,10 @@ class TransactionListState {
       final weekNum = _weekNumber(focusedDate);
       return t.transactions.weekNumber(
         weekNum: weekNum.toString(),
-        date: DateFormat('MMM yyyy').format(focusedDate),
+        date: DateFormat('MMM yyyy', LocaleSettings.currentLocale.languageCode).format(focusedDate),
       );
     }(),
-    TransactionViewMode.month => DateFormat('MMMM yyyy').format(focusedDate),
+    TransactionViewMode.month => DateFormat('MMMM yyyy', LocaleSettings.currentLocale.languageCode).format(focusedDate),
   };
 
   String get periodShortLabel => switch (viewMode) {

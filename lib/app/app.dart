@@ -1,6 +1,7 @@
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:material_ui/material_ui.dart' hide GlobalMaterialLocalizations;
 import 'package:poka_ce/app/router/router.dart';
 import 'package:poka_ce/core/services/quick_actions_service.dart';
@@ -28,16 +29,21 @@ class PokaApp extends HookConsumerWidget {
         themeMode = ThemeMode.dark;
     }
 
-    // Sync language state to LocaleSettings
+    // Sync language state to LocaleSettings and Intl
     final lang = settingsState.settings?.language;
     useEffect(() {
       if (lang != null) {
         if (lang == 'system') {
-          LocaleSettings.useDeviceLocale();
+          LocaleSettings.useDeviceLocale().then((locale) {
+            Intl.defaultLocale = locale.languageCode;
+          });
         } else {
-          LocaleSettings.setLocaleRaw(lang);
+          LocaleSettings.setLocaleRaw(lang).then((locale) {
+            Intl.defaultLocale = locale.languageCode;
+          });
         }
       }
+      Intl.defaultLocale = LocaleSettings.currentLocale.languageCode;
       return null;
     }, [lang]);
 

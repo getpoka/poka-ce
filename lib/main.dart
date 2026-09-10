@@ -3,15 +3,20 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 import 'package:poka_ce/app/app.dart';
 import 'package:poka_ce/core/logger/poka_logger.dart';
 import 'package:poka_ce/core/logger/talker_riverpod_observer.dart';
 import 'package:poka_ce/core/services/notification_service.dart';
 import 'package:poka_ce/core/services/preferences_service.dart';
+import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await initializeDateFormatting();
+  Intl.defaultLocale = LocaleSettings.currentLocale.languageCode;
   GoogleFonts.config.allowRuntimeFetching = false;
 
   // Setup Talker error handling
