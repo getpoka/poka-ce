@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Resolved category resolution for split transaction child items when expanded, preventing them from falling back to "Uncategorized".
 - Restored standard close button on Debt edit sheet and eliminated unconfirmed direct delete action.
 - Added swipe-to-edit and swipe-to-delete interactions to repayment history items in Debt detail page.
+- Add semantic debt and loan labels and handshake icon for unassigned debt repayment transactions in `RecentTransactionTile` (fixes #44).
 
 ## [v1.0.0-rc.1] - 2026-09-09
 
