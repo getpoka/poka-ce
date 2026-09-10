@@ -111,9 +111,10 @@ class RecurringDetailPage extends ConsumerWidget {
             data: (transactions) {
               if (transactions.isEmpty) {
                 return SliverToBoxAdapter(
-                  child: PokaEmptyViewCentered(
+                  child: PokaEmptyView(
                     icon: FPhosphorIcons.receipt,
                     title: t.recurring.noHistoryFoundForThisSchedule,
+                    subtitle: t.recurring.scheduleHistorySubtitle,
                   ),
                 );
               }

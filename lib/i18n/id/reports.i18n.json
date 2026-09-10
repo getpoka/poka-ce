@@ -24,6 +24,7 @@
   "budgetUtilization": "Pemanfaatan Anggaran",
   "spendingAllocation": "Alokasi Pengeluaran",
   "noData": "Tidak ada data untuk periode ini",
+  "noExpenseDataDesc": "Catat transaksi pengeluaran untuk melihat pembagian alokasi.",
   "noBudgets": "Belum ada anggaran yang dikonfigurasi",
   "noBudgetsDesc": "Tambahkan anggaran untuk melacak batas pengeluaran Anda",
   "onTrack": "Sesuai rencana",

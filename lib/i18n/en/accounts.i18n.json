@@ -30,6 +30,8 @@
   "permanentlyRemoveThisAccount": "Permanently remove this account",
   "seeAll": "See All",
   "noTransactionsYet": "No transactions yet",
+  "accountTransactionsSubtitle": "Transactions recorded in this account will appear here.",
+  "pocketTransactionsSubtitle": "Transactions recorded in this pocket will appear here.",
   "addAccount": "Add Account",
   "noAccountsFound": "No accounts found.",
   "addPocket": "Add Pocket",

@@ -30,6 +30,8 @@
   "permanentlyRemoveThisAccount": "Hapus permanen akun ini",
   "seeAll": "Lihat Semua",
   "noTransactionsYet": "Belum ada transaksi",
+  "accountTransactionsSubtitle": "Transaksi yang dicatat di akun ini akan muncul di sini.",
+  "pocketTransactionsSubtitle": "Transaksi yang dicatat di kantong ini akan muncul di sini.",
   "addAccount": "Tambah Akun",
   "noAccountsFound": "Akun tidak ditemukan.",
   "addPocket": "Tambah Kantong",

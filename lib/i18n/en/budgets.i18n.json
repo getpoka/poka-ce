@@ -22,6 +22,7 @@
   "totalLimit": "Total limit",
   "selectEndDate": "Select end date",
   "noTransactionsFoundForThisBudgetPeriod": "No transactions found for this budget period.",
+  "budgetTransactionsSubtitle": "Transactions matching this budget will appear here.",
   "addBudget": "Add Budget",
   "spent": "Spent ",
   "noBudgetsYet": "No budgets yet",

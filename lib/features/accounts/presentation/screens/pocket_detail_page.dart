@@ -101,7 +101,7 @@ class PocketDetailPage extends HookConsumerWidget {
               child: PokaEmptyView(
                 icon: FPhosphorIcons.receipt,
                 title: t.accounts.noTransactionsYet,
-                hasBorder: true,
+                subtitle: t.accounts.pocketTransactionsSubtitle,
               ).animate().fade(duration: 300.ms, delay: 240.ms).slideY(begin: 0.05, end: 0),
             )
           else

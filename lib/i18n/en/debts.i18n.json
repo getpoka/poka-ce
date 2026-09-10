@@ -35,6 +35,7 @@
   "reminder": "Reminder {{type}}: {{name}}",
   "due": "{{type}} Due: {{name}}",
   "noHistoryFoundForThis": "No history found for this {{type}}",
+  "repaymentHistorySubtitle": "Payment or installment records for this {{type}} will appear here.",
   "failedToLoadDebts": "Failed to load debts: {{error}}",
   "percentOf": "{{percent}}% of ",
   "settled": "{{count}} settled",

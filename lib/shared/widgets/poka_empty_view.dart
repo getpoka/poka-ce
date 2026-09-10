@@ -148,6 +148,7 @@ class PokaEmptyViewCentered extends StatefulWidget {
     this.actionLabel,
     this.onAction,
     this.actionKey,
+    this.hasBorder = false,
     super.key,
   }) : assert(
          (actionLabel == null) == (onAction == null),
@@ -160,6 +161,7 @@ class PokaEmptyViewCentered extends StatefulWidget {
   final String? actionLabel;
   final VoidCallback? onAction;
   final Key? actionKey;
+  final bool hasBorder;
 
   @override
   State<PokaEmptyViewCentered> createState() => _PokaEmptyViewCenteredState();
@@ -221,6 +223,7 @@ class _PokaEmptyViewCenteredState extends State<PokaEmptyViewCentered> {
       actionLabel: widget.actionLabel,
       onAction: widget.onAction,
       actionKey: widget.actionKey,
+      hasBorder: widget.hasBorder,
     );
 
     // Initial guess to prevent extreme layout shifts before the first frame is measured
@@ -230,13 +233,14 @@ class _PokaEmptyViewCenteredState extends State<PokaEmptyViewCentered> {
       // Calculate how far the top of this widget is from the exact center of the screen
       final distanceToCenter = (screenHeight / 2) - _yOffset!;
 
-      if (distanceToCenter > 50) {
+      // Enforce minimum height of 260px so content (icon, title, subtitle, action) is never clipped
+      if (distanceToCenter > 130) {
         // By making the container exactly twice the distance to the center,
         // the Center() widget will push the empty state exactly to screenHeight / 2.
         height = distanceToCenter * 2;
       } else {
-        // Fallback for detail pages where the empty state is placed very low (below a hero card).
-        height = 300;
+        // Fallback when the widget is placed near or below screen center (e.g. below a hero card).
+        height = 260;
       }
     }
 

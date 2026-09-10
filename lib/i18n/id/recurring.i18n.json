@@ -21,6 +21,7 @@
   "noRecurringTransactions": "Tidak ada transaksi berulang",
   "automateBillsLikeSubscriptionsOrSalary": "Otomatiskan tagihan seperti langganan atau gaji. Aplikasi akan mencatatnya sesuai jadwal.",
   "noHistoryFoundForThisSchedule": "Tidak ada riwayat untuk jadwal ini.",
+  "scheduleHistorySubtitle": "Transaksi yang dibuat dari jadwal ini akan muncul di sini.",
   "allocation": "Alokasi",
   "active": "Aktif",
   "eachTimeTheAppOpensOverdueRecurringTransactionsAre": "Setiap kali aplikasi dibuka, transaksi berulang yang telah lewat jatuh tempo akan otomatis dicatat dalam buku kas Anda.",

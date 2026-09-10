@@ -23,6 +23,7 @@
   "totalTarget": "Total target",
   "selectTargetDate": "Select target date",
   "noTransactionsFoundForThisGoal": "No transactions found for this goal.",
+  "goalTransactionsSubtitle": "Transfers or savings recorded for this goal will appear here.",
   "addGoal": "Add Goal",
   "aDedicatedPocketAccountWillBeCreatedAutomaticallyToTrackThisGoal": "A dedicated Pocket account will be created automatically to track this goal.",
   "saved": "saved",

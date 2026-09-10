@@ -122,7 +122,7 @@ final class DebtDetailNotifierProvider extends $NotifierProvider<DebtDetailNotif
   }
 }
 
-String _$debtDetailNotifierHash() => r'e746cd7de6ab99f0151ba0b0403b6b1e64d6f500';
+String _$debtDetailNotifierHash() => r'659b0a30a395656fd331304a41b472409aa7e062';
 
 /// Notifier handling detail-level actions on debts including deletion and forgiveness write-offs.
 

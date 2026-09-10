@@ -21,6 +21,7 @@
   "noRecurringTransactions": "No recurring transactions",
   "automateBillsLikeSubscriptionsOrSalary": "Automate bills like subscriptions or salary. The app will record them on schedule.",
   "noHistoryFoundForThisSchedule": "No history found for this schedule.",
+  "scheduleHistorySubtitle": "Transactions generated from this schedule will appear here.",
   "allocation": "Allocation",
   "active": "Active",
   "eachTimeTheAppOpensOverdueRecurringTransactionsAre": "Each time the app opens, overdue recurring transactions are automatically recorded in your ledger.",
