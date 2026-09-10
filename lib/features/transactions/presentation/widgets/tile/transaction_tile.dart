@@ -157,7 +157,8 @@ class RecentTransactionTile extends HookConsumerWidget with FTileMixin {
 
     final firstItem = transaction.items.firstOrNull;
     final resolvedCategory =
-        category ?? (firstItem?.categoryId != null ? effectiveCategoriesById[firstItem!.categoryId] : null);
+        category ??
+        (!isSubItem && firstItem?.categoryId != null ? effectiveCategoriesById[firstItem!.categoryId] : null);
 
     // ── Category icon + color ──────────────────────────────────────────────
     var catColor = resolvedCategory?.color?.toColor() ?? theme.colors.primary;

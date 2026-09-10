@@ -87,6 +87,7 @@ class TransactionTileContent extends StatelessWidget {
                       ),
                       child: Text(
                         '$itemCount',
+                        key: ValueKey('item_count_${itemCount}_$catColor'),
                         style: theme.typography.labelBadge.copyWith(
                           color: catColor,
                         ),
