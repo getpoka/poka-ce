@@ -23,18 +23,27 @@ FToasterEntry showPokaToast({
   Timer? watchdogTimer;
   late final FToasterEntry entry;
 
-  entry = showFToast(
+  entry = showRawFToast(
     context: context,
-    title: title,
-    variant: variant,
-    icon: icon,
-    description: description,
-    suffixBuilder: suffixBuilder,
+    builder: (context, entry) => _WatchdogToastLifecycleWrapper(
+      onDispose: () {
+        watchdogTimer?.cancel();
+        watchdogTimer = null;
+      },
+      child: FToast(
+        variant: variant,
+        icon: icon,
+        title: title,
+        description: description,
+        suffix: suffixBuilder?.call(context, entry),
+      ),
+    ),
     alignment: alignment,
     swipeToDismiss: swipeToDismiss,
     duration: duration,
     onDismiss: () {
       watchdogTimer?.cancel();
+      watchdogTimer = null;
       onDismiss?.call();
     },
   );
@@ -53,6 +62,31 @@ FToasterEntry showPokaToast({
   });
 
   return entry;
+}
+
+/// Internal lifecycle wrapper that ensures watchdog timer is cancelled when toast widget is disposed.
+class _WatchdogToastLifecycleWrapper extends StatefulWidget {
+  const _WatchdogToastLifecycleWrapper({
+    required this.child,
+    required this.onDispose,
+  });
+
+  final Widget child;
+  final VoidCallback onDispose;
+
+  @override
+  State<_WatchdogToastLifecycleWrapper> createState() => _WatchdogToastLifecycleWrapperState();
+}
+
+class _WatchdogToastLifecycleWrapperState extends State<_WatchdogToastLifecycleWrapper> {
+  @override
+  void dispose() {
+    widget.onDispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) => widget.child;
 }
 
 /// Displays an actionable toast notification (e.g. Delete with Undo button)
