@@ -68,5 +68,12 @@ void main() {
       expect(yesterday.toRelativeDateString('id'), 'Kemarin');
       expect(yesterday.toRelativeDateString('en'), 'Yesterday');
     });
+
+    test('toRelativeDateString falls back safely on unknown locale string', () {
+      final now = DateTime.now();
+      LocaleSettings.setLocaleSync(AppLocale.en);
+      expect(() => now.toRelativeDateString('fr'), returnsNormally);
+      expect(now.toRelativeDateString('fr'), 'Today');
+    });
   });
 }
