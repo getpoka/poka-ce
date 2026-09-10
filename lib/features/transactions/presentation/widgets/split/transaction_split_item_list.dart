@@ -158,12 +158,49 @@ class _SplitItemCard extends ConsumerWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                catName,
-                                style: typography.bodyPrimary.copyWith(
-                                  fontWeight: FontWeight.w600,
-                                  color: colors.foreground,
-                                ),
+                              Row(
+                                children: [
+                                  Flexible(
+                                    child: Text(
+                                      catName,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: typography.bodyPrimary.copyWith(
+                                        fontWeight: FontWeight.w600,
+                                        color: colors.foreground,
+                                      ),
+                                    ),
+                                  ),
+                                  if (item.allocation != null) ...[
+                                    const SizedBox(width: 6),
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                                      decoration: BoxDecoration(
+                                        color: colors.primary.withValues(alpha: 0.1),
+                                        borderRadius: BorderRadius.circular(4),
+                                        border: Border.all(
+                                          color: colors.primary.withValues(alpha: 0.2),
+                                          width: 0.5,
+                                        ),
+                                      ),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Icon(FPhosphorIcons.chartPieSlice, size: 9, color: colors.primary),
+                                          const SizedBox(width: 3),
+                                          Text(
+                                            switch (item.allocation!) {
+                                              TransactionAllocation.need => context.t.transactions.need,
+                                              TransactionAllocation.want => context.t.transactions.want,
+                                              TransactionAllocation.saving => context.t.transactions.saving,
+                                            },
+                                            style: typography.labelBadge.copyWith(color: colors.primary),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ],
                               ),
                               if (item.note?.isNotEmpty == true) ...[
                                 const SizedBox(height: 2),
