@@ -8,11 +8,14 @@ part of 'account_list_notifier.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
+/// Riverpod StreamNotifier managing the live stream of accounts and their hierarchical aggregates.
 
 @ProviderFor(AccountListNotifier)
 final accountListProvider = AccountListNotifierProvider._();
 
+/// Riverpod StreamNotifier managing the live stream of accounts and their hierarchical aggregates.
 final class AccountListNotifierProvider extends $StreamNotifierProvider<AccountListNotifier, AccountListState> {
+  /// Riverpod StreamNotifier managing the live stream of accounts and their hierarchical aggregates.
   AccountListNotifierProvider._()
     : super(
         from: null,
@@ -34,6 +37,8 @@ final class AccountListNotifierProvider extends $StreamNotifierProvider<AccountL
 
 String _$accountListNotifierHash() => r'39ef2379c54b16dbcd706c33ac33211889a23236';
 
+/// Riverpod StreamNotifier managing the live stream of accounts and their hierarchical aggregates.
+
 abstract class _$AccountListNotifier extends $StreamNotifier<AccountListState> {
   Stream<AccountListState> build();
   @$mustCallSuper
@@ -52,13 +57,18 @@ abstract class _$AccountListNotifier extends $StreamNotifier<AccountListState> {
   }
 }
 
+/// Filters the active account list to exclude goal-linked pocket accounts.
+
 @ProviderFor(regularAccountList)
 final regularAccountListProvider = RegularAccountListProvider._();
+
+/// Filters the active account list to exclude goal-linked pocket accounts.
 
 final class RegularAccountListProvider
     extends
         $FunctionalProvider<AsyncValue<AccountListState>, AsyncValue<AccountListState>, AsyncValue<AccountListState>>
     with $Provider<AsyncValue<AccountListState>> {
+  /// Filters the active account list to exclude goal-linked pocket accounts.
   RegularAccountListProvider._()
     : super(
         from: null,
@@ -95,13 +105,18 @@ final class RegularAccountListProvider
 
 String _$regularAccountListHash() => r'a1d5868b05d5cb390b45e5d863967ac96c356cca';
 
+/// Filters the active account list to only include goal-linked pocket accounts.
+
 @ProviderFor(goalAccountList)
 final goalAccountListProvider = GoalAccountListProvider._();
+
+/// Filters the active account list to only include goal-linked pocket accounts.
 
 final class GoalAccountListProvider
     extends
         $FunctionalProvider<AsyncValue<AccountListState>, AsyncValue<AccountListState>, AsyncValue<AccountListState>>
     with $Provider<AsyncValue<AccountListState>> {
+  /// Filters the active account list to only include goal-linked pocket accounts.
   GoalAccountListProvider._()
     : super(
         from: null,
@@ -138,12 +153,17 @@ final class GoalAccountListProvider
 
 String _$goalAccountListHash() => r'a318c0b1226ac8a03293de388b06e5d6e06c358c';
 
+/// Computes global asset, liability, and net worth metrics across all active accounts.
+
 @ProviderFor(accountMetrics)
 final accountMetricsProvider = AccountMetricsProvider._();
+
+/// Computes global asset, liability, and net worth metrics across all active accounts.
 
 final class AccountMetricsProvider
     extends $FunctionalProvider<AccountMetricsData, AccountMetricsData, AccountMetricsData>
     with $Provider<AccountMetricsData> {
+  /// Computes global asset, liability, and net worth metrics across all active accounts.
   AccountMetricsProvider._()
     : super(
         from: null,
@@ -180,12 +200,17 @@ final class AccountMetricsProvider
 
 String _$accountMetricsHash() => r'b99b90e64c5d1cdf47707d5726e89c662c4375b4';
 
+/// Retrieves the [AccountAggregate] (parent account + its nested pockets) for a given [accountId].
+
 @ProviderFor(accountAggregate)
 final accountAggregateProvider = AccountAggregateFamily._();
+
+/// Retrieves the [AccountAggregate] (parent account + its nested pockets) for a given [accountId].
 
 final class AccountAggregateProvider
     extends $FunctionalProvider<AccountAggregate?, AccountAggregate?, AccountAggregate?>
     with $Provider<AccountAggregate?> {
+  /// Retrieves the [AccountAggregate] (parent account + its nested pockets) for a given [accountId].
   AccountAggregateProvider._({
     required AccountAggregateFamily super.from,
     required String super.argument,
@@ -240,6 +265,8 @@ final class AccountAggregateProvider
 
 String _$accountAggregateHash() => r'5aff591642a0874d8915f55cde24a8e8463bdd19';
 
+/// Retrieves the [AccountAggregate] (parent account + its nested pockets) for a given [accountId].
+
 final class AccountAggregateFamily extends $Family with $FunctionalFamilyOverride<AccountAggregate?, String> {
   AccountAggregateFamily._()
     : super(
@@ -250,18 +277,25 @@ final class AccountAggregateFamily extends $Family with $FunctionalFamilyOverrid
         isAutoDispose: true,
       );
 
+  /// Retrieves the [AccountAggregate] (parent account + its nested pockets) for a given [accountId].
+
   AccountAggregateProvider call(String accountId) => AccountAggregateProvider._(argument: accountId, from: this);
 
   @override
   String toString() => r'accountAggregateProvider';
 }
 
+/// Provides a list of transactions involving any of the specified [accountIds] as source or destination.
+
 @ProviderFor(accountTransactions)
 final accountTransactionsProvider = AccountTransactionsFamily._();
+
+/// Provides a list of transactions involving any of the specified [accountIds] as source or destination.
 
 final class AccountTransactionsProvider
     extends $FunctionalProvider<List<TransactionModel>, List<TransactionModel>, List<TransactionModel>>
     with $Provider<List<TransactionModel>> {
+  /// Provides a list of transactions involving any of the specified [accountIds] as source or destination.
   AccountTransactionsProvider._({
     required AccountTransactionsFamily super.from,
     required Set<String> super.argument,
@@ -316,6 +350,8 @@ final class AccountTransactionsProvider
 
 String _$accountTransactionsHash() => r'96c9e099e9d4d0211ac2fdca490e0374bb393a65';
 
+/// Provides a list of transactions involving any of the specified [accountIds] as source or destination.
+
 final class AccountTransactionsFamily extends $Family
     with $FunctionalFamilyOverride<List<TransactionModel>, Set<String>> {
   AccountTransactionsFamily._()
@@ -327,6 +363,8 @@ final class AccountTransactionsFamily extends $Family
         isAutoDispose: true,
       );
 
+  /// Provides a list of transactions involving any of the specified [accountIds] as source or destination.
+
   AccountTransactionsProvider call(Set<String> accountIds) =>
       AccountTransactionsProvider._(argument: accountIds, from: this);
 
@@ -334,12 +372,17 @@ final class AccountTransactionsFamily extends $Family
   String toString() => r'accountTransactionsProvider';
 }
 
+/// Provides an indexed lookup map of accounts by their unique ID string.
+
 @ProviderFor(accountMap)
 final accountMapProvider = AccountMapProvider._();
+
+/// Provides an indexed lookup map of accounts by their unique ID string.
 
 final class AccountMapProvider
     extends $FunctionalProvider<Map<String, AccountModel>, Map<String, AccountModel>, Map<String, AccountModel>>
     with $Provider<Map<String, AccountModel>> {
+  /// Provides an indexed lookup map of accounts by their unique ID string.
   AccountMapProvider._()
     : super(
         from: null,

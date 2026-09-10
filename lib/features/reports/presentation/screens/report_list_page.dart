@@ -14,6 +14,7 @@ import 'package:poka_ce/features/reports/presentation/widgets/report_summary_car
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/poka_header.dart';
 import 'package:poka_ce/shared/widgets/poka_section_label.dart';
+import 'package:poka_ce/shared/widgets/poka_toast.dart';
 
 /// Reports screen presenting cashflow trends, spending by category, budget utilization, and allocation splits.
 class ReportListPage extends ConsumerWidget {
@@ -44,7 +45,7 @@ class ReportListPage extends ConsumerWidget {
 
               final success = await ref.read(reportProvider.notifier).exportExcel(sharePositionOrigin: rect);
               if (context.mounted) {
-                showFToast(
+                showPokaToast(
                   context: context,
                   title: Text(success ? t.exportExcelSuccess : t.exportExcelError),
                 );

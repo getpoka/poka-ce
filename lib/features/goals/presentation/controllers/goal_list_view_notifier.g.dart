@@ -8,12 +8,16 @@ part of 'goal_list_view_notifier.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
+/// Provides partitioned lists of active and past goals for UI tab displays.
 
 @ProviderFor(goalListView)
 final goalListViewProvider = GoalListViewProvider._();
 
+/// Provides partitioned lists of active and past goals for UI tab displays.
+
 final class GoalListViewProvider extends $FunctionalProvider<GoalListViewState, GoalListViewState, GoalListViewState>
     with $Provider<GoalListViewState> {
+  /// Provides partitioned lists of active and past goals for UI tab displays.
   GoalListViewProvider._()
     : super(
         from: null,

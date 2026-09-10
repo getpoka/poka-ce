@@ -8,12 +8,16 @@ part of 'budget_progress_provider.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
+/// Calculates the current cycle's total spent amount for [budget], reactively recomputing whenever transactions mutate.
 
 @ProviderFor(budgetProgress)
 final budgetProgressProvider = BudgetProgressFamily._();
 
+/// Calculates the current cycle's total spent amount for [budget], reactively recomputing whenever transactions mutate.
+
 final class BudgetProgressProvider extends $FunctionalProvider<AsyncValue<int>, int, FutureOr<int>>
     with $FutureModifier<int>, $FutureProvider<int> {
+  /// Calculates the current cycle's total spent amount for [budget], reactively recomputing whenever transactions mutate.
   BudgetProgressProvider._({
     required BudgetProgressFamily super.from,
     required BudgetModel super.argument,
@@ -58,6 +62,8 @@ final class BudgetProgressProvider extends $FunctionalProvider<AsyncValue<int>, 
 
 String _$budgetProgressHash() => r'5d43323347de03a8b8c5789ac2a53c9be9b2ca46';
 
+/// Calculates the current cycle's total spent amount for [budget], reactively recomputing whenever transactions mutate.
+
 final class BudgetProgressFamily extends $Family with $FunctionalFamilyOverride<FutureOr<int>, BudgetModel> {
   BudgetProgressFamily._()
     : super(
@@ -67,6 +73,8 @@ final class BudgetProgressFamily extends $Family with $FunctionalFamilyOverride<
         $allTransitiveDependencies: null,
         isAutoDispose: true,
       );
+
+  /// Calculates the current cycle's total spent amount for [budget], reactively recomputing whenever transactions mutate.
 
   BudgetProgressProvider call(BudgetModel budget) => BudgetProgressProvider._(argument: budget, from: this);
 

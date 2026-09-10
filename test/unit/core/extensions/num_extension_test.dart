@@ -8,6 +8,11 @@ void main() {
       expect(0.toCompactFormat(), '0');
     });
 
+    test('returns masked string when isVisible is false', () {
+      expect(1500.toCompactFormat(isVisible: false), '••••••');
+      expect(0.toCompactFormat(isVisible: false), '••••••');
+    });
+
     test('returns plain number for values below 1000', () {
       expect(999.toCompactFormat(), '999');
       expect(500.toCompactFormat(), '500');

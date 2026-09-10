@@ -8,11 +8,14 @@ part of 'daily_budget_notifier.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
+/// Notifier managing the user-configured daily spending budget preference.
 
 @ProviderFor(DailyBudget)
 final dailyBudgetProvider = DailyBudgetProvider._();
 
+/// Notifier managing the user-configured daily spending budget preference.
 final class DailyBudgetProvider extends $NotifierProvider<DailyBudget, double> {
+  /// Notifier managing the user-configured daily spending budget preference.
   DailyBudgetProvider._()
     : super(
         from: null,
@@ -41,6 +44,8 @@ final class DailyBudgetProvider extends $NotifierProvider<DailyBudget, double> {
 }
 
 String _$dailyBudgetHash() => r'34bcbf6b2fb88d53578cac24e3ae6749f25448ed';
+
+/// Notifier managing the user-configured daily spending budget preference.
 
 abstract class _$DailyBudget extends $Notifier<double> {
   double build();

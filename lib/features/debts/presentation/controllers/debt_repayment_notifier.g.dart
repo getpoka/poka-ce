@@ -8,11 +8,14 @@ part of 'debt_repayment_notifier.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
+/// Notifier driving the debt/loan repayment sheet and keypad calculator.
 
 @ProviderFor(DebtRepaymentNotifier)
 final debtRepaymentProvider = DebtRepaymentNotifierProvider._();
 
+/// Notifier driving the debt/loan repayment sheet and keypad calculator.
 final class DebtRepaymentNotifierProvider extends $NotifierProvider<DebtRepaymentNotifier, DebtRepaymentState> {
+  /// Notifier driving the debt/loan repayment sheet and keypad calculator.
   DebtRepaymentNotifierProvider._()
     : super(
         from: null,
@@ -41,6 +44,8 @@ final class DebtRepaymentNotifierProvider extends $NotifierProvider<DebtRepaymen
 }
 
 String _$debtRepaymentNotifierHash() => r'0238a61b8f9f7049089d5030eb297b1255aa4117';
+
+/// Notifier driving the debt/loan repayment sheet and keypad calculator.
 
 abstract class _$DebtRepaymentNotifier extends $Notifier<DebtRepaymentState> {
   DebtRepaymentState build();

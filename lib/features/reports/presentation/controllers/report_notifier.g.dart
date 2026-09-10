@@ -8,11 +8,14 @@ part of 'report_notifier.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
+/// Notifier driving the financial reports tab, calculating metrics dynamically as ledger data mutates.
 
 @ProviderFor(ReportNotifier)
 final reportProvider = ReportNotifierProvider._();
 
+/// Notifier driving the financial reports tab, calculating metrics dynamically as ledger data mutates.
 final class ReportNotifierProvider extends $NotifierProvider<ReportNotifier, ReportState> {
+  /// Notifier driving the financial reports tab, calculating metrics dynamically as ledger data mutates.
   ReportNotifierProvider._()
     : super(
         from: null,
@@ -40,7 +43,9 @@ final class ReportNotifierProvider extends $NotifierProvider<ReportNotifier, Rep
   }
 }
 
-String _$reportNotifierHash() => r'34a74f20a085410789ba6e0945a14ab143f38490';
+String _$reportNotifierHash() => r'c55f07b57ed13c4bf6da67594e084e895a1ca326';
+
+/// Notifier driving the financial reports tab, calculating metrics dynamically as ledger data mutates.
 
 abstract class _$ReportNotifier extends $Notifier<ReportState> {
   ReportState build();
