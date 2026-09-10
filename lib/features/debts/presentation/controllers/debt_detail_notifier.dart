@@ -1,10 +1,14 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:poka_ce/app/providers/repository_providers.dart';
 import 'package:poka_ce/core/enums.dart';
+import 'package:poka_ce/core/error/failure.dart';
 import 'package:poka_ce/core/error/result.dart';
+import 'package:poka_ce/features/accounts/presentation/controllers/account_list_notifier.dart';
+import 'package:poka_ce/features/dashboard/presentation/controllers/dashboard_notifier.dart';
 import 'package:poka_ce/features/debts/domain/debt_model.dart';
 import 'package:poka_ce/features/debts/presentation/controllers/debt_list_notifier.dart';
 import 'package:poka_ce/features/transactions/domain/transaction_model.dart';
+import 'package:poka_ce/features/transactions/presentation/controllers/transaction_list_notifier.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/dialogs/poka_confirm_dialog.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -73,5 +77,18 @@ class DebtDetailNotifier extends _$DebtDetailNotifier {
       return true;
     }
     return false;
+  }
+
+  /// Deletes a repayment transaction by its [transactionId] linked to this debt, reversing the balance mutation.
+  Future<Result<void, Failure>> deleteRepayment(String transactionId) async {
+    final result = await ref.read(transactionRepositoryProvider).deleteTransaction(transactionId);
+    if (result case Success()) {
+      ref
+        ..invalidate(debtListProvider)
+        ..invalidate(dashboardProvider)
+        ..invalidate(accountListProvider)
+        ..invalidate(transactionListNotifierProvider);
+    }
+    return result;
   }
 }
