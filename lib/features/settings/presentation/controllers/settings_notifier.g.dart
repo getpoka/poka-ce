@@ -8,11 +8,14 @@ part of 'settings_notifier.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
+/// Notifier coordinating user preferences (theme, language, number format, base currency).
 
 @ProviderFor(SettingsNotifier)
 final settingsProvider = SettingsNotifierProvider._();
 
+/// Notifier coordinating user preferences (theme, language, number format, base currency).
 final class SettingsNotifierProvider extends $NotifierProvider<SettingsNotifier, SettingsState> {
+  /// Notifier coordinating user preferences (theme, language, number format, base currency).
   SettingsNotifierProvider._()
     : super(
         from: null,
@@ -41,6 +44,8 @@ final class SettingsNotifierProvider extends $NotifierProvider<SettingsNotifier,
 }
 
 String _$settingsNotifierHash() => r'17ec5304121f056a4e9b6a6a8a169a7737d5b918';
+
+/// Notifier coordinating user preferences (theme, language, number format, base currency).
 
 abstract class _$SettingsNotifier extends $Notifier<SettingsState> {
   SettingsState build();

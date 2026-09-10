@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Restored standard close button on Debt edit sheet and eliminated unconfirmed direct delete action.
 - Added swipe-to-edit and swipe-to-delete interactions to repayment history items in Debt detail page.
 - Add semantic debt and loan labels and handshake icon for unassigned debt repayment transactions in `RecentTransactionTile` (fixes #44).
+- Correct confirmation dialog description for backup restore to accurately describe data replacement instead of data deletion (fixes #40).
 
 ## [v1.0.0-rc.1] - 2026-09-09
 

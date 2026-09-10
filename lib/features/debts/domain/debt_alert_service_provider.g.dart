@@ -8,12 +8,16 @@ part of 'debt_alert_service_provider.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
+/// Provides a singleton instance of [DebtAlertService] injected with the debt repository.
 
 @ProviderFor(debtAlertService)
 final debtAlertServiceProvider = DebtAlertServiceProvider._();
 
+/// Provides a singleton instance of [DebtAlertService] injected with the debt repository.
+
 final class DebtAlertServiceProvider extends $FunctionalProvider<DebtAlertService, DebtAlertService, DebtAlertService>
     with $Provider<DebtAlertService> {
+  /// Provides a singleton instance of [DebtAlertService] injected with the debt repository.
   DebtAlertServiceProvider._()
     : super(
         from: null,

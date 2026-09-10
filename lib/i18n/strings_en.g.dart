@@ -324,6 +324,9 @@ class Translations$backup$en {
 
 	/// en: 'Backup reminder updated'
 	String get reminderSaved => 'Backup reminder updated';
+
+	/// en: 'Restoring will replace all current data with the data from the selected backup file. Any unbacked-up changes will be lost. Do you want to proceed?'
+	String get restoreWarningDesc => 'Restoring will replace all current data with the data from the selected backup file. Any unbacked-up changes will be lost. Do you want to proceed?';
 }
 
 // Path: budgets
@@ -2174,6 +2177,7 @@ extension on Translations {
 			'backup.reminderNotificationTitle' => 'Time to Back Up Your Data',
 			'backup.reminderNotificationBody' => 'It has been a while since your last backup. Keep your financial data safe by creating a backup now.',
 			'backup.reminderSaved' => 'Backup reminder updated',
+			'backup.restoreWarningDesc' => 'Restoring will replace all current data with the data from the selected backup file. Any unbacked-up changes will be lost. Do you want to proceed?',
 			'budgets.budgetName' => 'Budget name',
 			'budgets.spendingLimit' => 'Spending limit',
 			'budgets.period' => 'Period',
@@ -2603,9 +2607,9 @@ extension on Translations {
 			'settings.easterEggFound' => '🎉 You found the easter egg!',
 			'settings.selectCurrency' => 'Select Currency',
 			'settings.openSourceLicenses' => 'Open Source Licenses',
-			'settings.helpIssues' => 'Help & Issues',
 			_ => null,
 		} ?? switch (path) {
+			'settings.helpIssues' => 'Help & Issues',
 			'settings.reportBugsOrRequestFeatures' => 'Report bugs or request features',
 			'settings.legal' => 'Legal',
 			'settings.termsOfService' => 'Terms of Service',

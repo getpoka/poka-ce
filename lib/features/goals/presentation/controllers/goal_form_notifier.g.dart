@@ -8,11 +8,14 @@ part of 'goal_form_notifier.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
+/// Notifier driving the savings goal creation and edit form sheet.
 
 @ProviderFor(GoalFormNotifier)
 final goalFormProvider = GoalFormNotifierProvider._();
 
+/// Notifier driving the savings goal creation and edit form sheet.
 final class GoalFormNotifierProvider extends $NotifierProvider<GoalFormNotifier, GoalFormState> {
+  /// Notifier driving the savings goal creation and edit form sheet.
   GoalFormNotifierProvider._()
     : super(
         from: null,
@@ -40,7 +43,9 @@ final class GoalFormNotifierProvider extends $NotifierProvider<GoalFormNotifier,
   }
 }
 
-String _$goalFormNotifierHash() => r'bc200a4ba361abfeda2c5c46e210747cbdd06a34';
+String _$goalFormNotifierHash() => r'e3375bb07012a6b2fdb6c55a7be18a72e2fda27c';
+
+/// Notifier driving the savings goal creation and edit form sheet.
 
 abstract class _$GoalFormNotifier extends $Notifier<GoalFormState> {
   GoalFormState build();
