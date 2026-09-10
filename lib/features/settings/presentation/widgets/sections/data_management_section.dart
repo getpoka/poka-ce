@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:forui/forui.dart';
 import 'package:forui_phosphor/forui_phosphor.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poka_ce/app/providers/repository_providers.dart';
@@ -30,6 +29,7 @@ import 'package:poka_ce/features/settings/presentation/widgets/settings_menu_sec
 import 'package:poka_ce/features/transactions/presentation/controllers/transaction_list_notifier.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/dialogs/poka_confirm_dialog.dart';
+import 'package:poka_ce/shared/widgets/poka_toast.dart';
 
 class DataManagementSection extends ConsumerWidget {
   const DataManagementSection({super.key});
@@ -38,7 +38,7 @@ class DataManagementSection extends ConsumerWidget {
     final appLockState = ref.read(appLockControllerProvider);
     if (!appLockState.isEnabled) {
       // Force setup if not active
-      showFToast(
+      showPokaToast(
         context: context,
         title: Text(context.t.lock.setupPinBody),
       );
@@ -88,7 +88,7 @@ class DataManagementSection extends ConsumerWidget {
                     sharePositionOrigin: rect,
                   );
                   if (!success && context.mounted) {
-                    showFToast(
+                    showPokaToast(
                       context: context,
                       title: Text(context.t.common.error),
                     );
@@ -100,7 +100,7 @@ class DataManagementSection extends ConsumerWidget {
               if (password == null) return;
 
               if (!context.mounted) return;
-              showFToast(
+              showPokaToast(
                 context: context,
                 title: Text(context.t.backup.backupSuccess),
               );
@@ -164,7 +164,7 @@ class DataManagementSection extends ConsumerWidget {
                 ..invalidate(recurringListProvider)
                 ..invalidate(reportProvider);
 
-              showFToast(
+              showPokaToast(
                 context: context,
                 title: Text(context.t.backup.restoreSuccess),
               );
@@ -190,7 +190,7 @@ class DataManagementSection extends ConsumerWidget {
             if (selected != null) {
               await ref.read(backupReminderNotifierProvider.notifier).setInterval(selected);
               if (context.mounted) {
-                showFToast(
+                showPokaToast(
                   context: context,
                   title: Text(context.t.backup.reminderSaved),
                 );
@@ -218,7 +218,7 @@ class DataManagementSection extends ConsumerWidget {
             await ref.read(databaseProvider).transactionsDao.clearOldTransactions(oneYearAgo);
 
             if (!context.mounted) return;
-            showFToast(
+            showPokaToast(
               context: context,
               title: Text(t.settings.oldTransactionsCleared),
             );
@@ -263,7 +263,7 @@ class DataManagementSection extends ConsumerWidget {
               ..invalidate(reportProvider);
 
             if (!context.mounted) return;
-            showFToast(
+            showPokaToast(
               context: context,
               title: Text(t.settings.appDataReset),
             );

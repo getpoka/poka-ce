@@ -12,6 +12,7 @@ import 'package:poka_ce/features/transactions/presentation/widgets/list/transact
 import 'package:poka_ce/features/transactions/presentation/widgets/tile/transaction_tile.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/dialogs/poka_confirm_dialog.dart';
+import 'package:poka_ce/shared/widgets/poka_toast.dart';
 
 /// Renders transactions as grouped date sections inside a [SliverList].
 class TransactionGroupSliver extends HookWidget {
@@ -134,24 +135,19 @@ class _SliverDateGroupSection extends ConsumerWidget {
                     if (confirmed == true) {
                       await ref.read(transactionListNotifierProvider.notifier).deleteTransaction(tx.id);
                       if (context.mounted) {
-                        showFToast(
+                        showPokaActionToast(
                           context: context,
                           title: Text(t.transactions.transactionDeleted),
-                          suffixBuilder: (toastContext, entry) => FButton(
-                            size: FButtonSizeVariant.sm,
-                            variant: FButtonVariant.outline,
-                            onPress: () async {
-                              entry.dismiss();
-                              await ref.read(transactionListNotifierProvider.notifier).restoreTransaction(tx);
-                              if (context.mounted) {
-                                showFToast(
-                                  context: context,
-                                  title: Text(t.transactions.transactionRestored),
-                                );
-                              }
-                            },
-                            child: Text(t.common.undo),
-                          ),
+                          actionLabel: t.common.undo,
+                          onAction: () async {
+                            await ref.read(transactionListNotifierProvider.notifier).restoreTransaction(tx);
+                            if (context.mounted) {
+                              showPokaToast(
+                                context: context,
+                                title: Text(t.transactions.transactionRestored),
+                              );
+                            }
+                          },
                         );
                       }
                     }

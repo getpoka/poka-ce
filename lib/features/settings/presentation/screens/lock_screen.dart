@@ -8,6 +8,7 @@ import 'package:poka_ce/features/settings/presentation/controllers/app_lock_cont
 import 'package:poka_ce/features/settings/presentation/widgets/pin_dots.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/keypad.dart';
+import 'package:poka_ce/shared/widgets/poka_toast.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 /// Dedicated screen for unlocking the app via PIN or Biometrics.
@@ -74,7 +75,7 @@ class _LockScreenState extends ConsumerState<LockScreen> {
   Future<void> _triggerBiometric() async {
     final authenticated = await ref.read(appLockControllerProvider.notifier).authenticateBiometric();
     if (authenticated && mounted) {
-      showFToast(
+      showPokaToast(
         context: context,
         title: Text(context.t.lock.unlocked),
       );
@@ -111,7 +112,7 @@ class _LockScreenState extends ConsumerState<LockScreen> {
 
     switch (result) {
       case PinVerificationResult.success:
-        showFToast(
+        showPokaToast(
           context: context,
           title: Text(context.t.lock.unlocked),
         );
@@ -121,7 +122,7 @@ class _LockScreenState extends ConsumerState<LockScreen> {
           _isError = true;
           _pin = '';
         });
-        showFToast(
+        showPokaToast(
           context: context,
           title: Text(context.t.lock.invalidPin),
         );
@@ -131,7 +132,7 @@ class _LockScreenState extends ConsumerState<LockScreen> {
           _isError = true;
           _pin = '';
         });
-        showFToast(
+        showPokaToast(
           context: context,
           title: Text(context.t.lock.tooManyAttempts),
           description: Text(context.t.lock.temporarilyLocked),

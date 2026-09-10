@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:forui_phosphor/forui_phosphor.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
+import 'package:poka_ce/shared/widgets/poka_toast.dart';
 
 /// An interactive app icon widget that reveals an easter egg dialog upon multiple rapid taps.
 class EasterEggIcon extends StatefulWidget {
@@ -42,7 +43,7 @@ class _EasterEggIconState extends State<EasterEggIcon> {
 
     final remaining = _requiredTaps - _tapCount;
     if (remaining > 0 && remaining <= 3) {
-      showFToast(
+      showPokaToast(
         context: context,
         title: Text(t.settings.easterEggRemaining(remaining: remaining)),
       );
@@ -52,7 +53,7 @@ class _EasterEggIconState extends State<EasterEggIcon> {
       _tapCount = 0;
       _firstTapTime = null;
 
-      showFToast(
+      showPokaToast(
         context: context,
         title: Text(t.settings.easterEggFound),
       );

@@ -779,8 +779,8 @@ On the **Reports Page (`ReportListPage`)**:
 8. [x] Enable swipe-to-edit and swipe-to-delete on repayment tiles in [`DebtDetailPage`](file:///Users/SupianIDz/Work/getpoka/poka-ce/lib/features/debts/presentation/screens/debt_detail_page.dart) (BUG-008 — [#43](https://github.com/getpoka/poka-ce/issues/43)).
 9. [x] Handle debt repayment semantic labeling and icon in `RecentTransactionTile` to eliminate "Uncategorized" (BUG-009 — [#44](https://github.com/getpoka/poka-ce/issues/44)).
 10. [x] Restore standard 'X' close button on [`DebtFormSheet`](file:///Users/SupianIDz/Work/getpoka/poka-ce/lib/features/debts/presentation/widgets/debt_form_sheet.dart) by removing the unconfirmed header trash action (BUG-010 — [#45](https://github.com/getpoka/poka-ce/issues/45)).
-11. [ ] Create standardized `showPokaActionToast` / `showPokaUndoToast` with `bottomCenter` floating card ergonomics (BUG-011 — **Subsumed by BUG-012 [#46](https://github.com/getpoka/poka-ce/issues/46)**).
-12. [ ] Implement `showPokaToast` with watchdog timer to eliminate stuck toasts across mobile touch events and route transitions (BUG-012 — [#46](https://github.com/getpoka/poka-ce/issues/46)).
+11. [x] Create standardized `showPokaActionToast` / `showPokaUndoToast` with `bottomCenter` floating card ergonomics (BUG-011 — **Subsumed by BUG-012 [#46](https://github.com/getpoka/poka-ce/issues/46)**).
+12. [x] Implement `showPokaToast` with watchdog timer to eliminate stuck toasts across mobile touch events and route transitions (BUG-012 — [#46](https://github.com/getpoka/poka-ce/issues/46)).
 13. [x] Implement privacy eye obfuscation (`isVisible`) across Dashboard Cashflow, Spending Activity, Categories, and Budgets (BUG-013 — [#47](https://github.com/getpoka/poka-ce/issues/47)).
 14. [x] Implement privacy eye obfuscation and add header toggle button on Reports page (BUG-014 — [#48](https://github.com/getpoka/poka-ce/issues/48)).
 15. [ ] Implement Notification Permission Rationale Sheet and manual test trigger for Backup Reminder (BUG-015 — [#49](https://github.com/getpoka/poka-ce/issues/49)).
