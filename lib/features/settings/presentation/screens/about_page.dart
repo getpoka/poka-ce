@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:poka_ce/app/router/router.dart';
+import 'package:poka_ce/core/config.dart';
 import 'package:poka_ce/core/utils/log_exporter.dart';
 import 'package:poka_ce/core/utils/logger.dart';
 import 'package:poka_ce/features/settings/presentation/widgets/easter_egg_icon.dart';
@@ -74,10 +75,16 @@ class AboutPage extends StatelessWidget {
                   title: t.settings.support,
                   items: [
                     SettingsMenuItem(
+                      title: t.settings.checkForUpdates,
+                      subtitle: t.settings.viewLatestReleasesOnGithub,
+                      icon: FPhosphorIcons.downloadSimple,
+                      onTap: () => _launchUrl('${AppConfig.githubRepoUrl}/releases/latest'),
+                    ),
+                    SettingsMenuItem(
                       title: t.settings.helpIssues,
                       subtitle: t.settings.reportBugsOrRequestFeatures,
                       icon: FPhosphorIcons.question,
-                      onTap: () => _launchUrl('https://github.com/getpoka/poka-ce/issues'),
+                      onTap: () => _launchUrl('${AppConfig.githubRepoUrl}/issues'),
                     ),
                   ],
                 ),

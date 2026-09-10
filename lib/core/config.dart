@@ -20,4 +20,7 @@ class AppConfig {
   static const bool seedDummyData = bool.fromEnvironment(
     'POKA_SEED_DUMMY_DATA',
   );
+
+  /// The official GitHub repository URL for Poka CE.
+  static const String githubRepoUrl = 'https://github.com/getpoka/poka-ce';
 }

@@ -20,3 +20,21 @@
 -keep class androidx.core.content.pm.ShortcutManagerCompat** { *; }
 -keep class androidx.core.graphics.drawable.IconCompat** { *; }
 
+# Flutter Local Notifications
+-keep class com.dexterous.** { *; }
+-keepattributes Signature
+-keepattributes *Annotation*
+-dontwarn sun.misc.**
+
+# SQLite / Drift
+-keep class org.sqlite.** { *; }
+-dontwarn org.sqlite.**
+
+# Local Auth & Biometrics
+-keep class io.flutter.plugins.localauth.** { *; }
+-keep class androidx.biometric.** { *; }
+
+# Flutter Secure Storage
+-keep class com.it_nomads.fluttersecurestorage.** { *; }
+
+
