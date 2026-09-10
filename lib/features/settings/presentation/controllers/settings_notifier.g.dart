@@ -22,7 +22,7 @@ final class SettingsNotifierProvider extends $NotifierProvider<SettingsNotifier,
         argument: null,
         retry: null,
         name: r'settingsProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -43,7 +43,9 @@ final class SettingsNotifierProvider extends $NotifierProvider<SettingsNotifier,
   }
 }
 
-String _$settingsNotifierHash() => r'17ec5304121f056a4e9b6a6a8a169a7737d5b918';
+String _$settingsNotifierHash() => r'9668502654e3c0029a681373cccf6d198cb49a1c';
+
+/// Notifier coordinating user preferences (theme, language, number format, base currency).
 
 /// Notifier coordinating user preferences (theme, language, number format, base currency).
 
