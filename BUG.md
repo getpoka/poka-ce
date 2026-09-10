@@ -770,7 +770,7 @@ On the **Reports Page (`ReportListPage`)**:
 ## 📋 Recommended Action Items
 
 1. [x] Implement allocation badge display in [`lib/features/transactions/presentation/widgets/split/transaction_split_item_list.dart`](file:///Users/SupianIDz/Work/getpoka/poka-ce/lib/features/transactions/presentation/widgets/split/transaction_split_item_list.dart) (BUG-001 — [#37](https://github.com/getpoka/poka-ce/issues/37)).
-2. [ ] Implement category auto-resolution and child tile passing in [`lib/features/transactions/presentation/widgets/tile/transaction_tile.dart`](file:///Users/SupianIDz/Work/getpoka/poka-ce/lib/features/transactions/presentation/widgets/tile/transaction_tile.dart) (BUG-002 — [#38](https://github.com/getpoka/poka-ce/issues/38)).
+2. [x] Implement category auto-resolution and child tile passing in [`lib/features/transactions/presentation/widgets/tile/transaction_tile.dart`](file:///Users/SupianIDz/Work/getpoka/poka-ce/lib/features/transactions/presentation/widgets/tile/transaction_tile.dart) (BUG-002 — [#38](https://github.com/getpoka/poka-ce/issues/38)).
 3. [x] ~~Add `recurring_period` column in Drift schema and snapshot period in `RecurringProcessorService`~~ (BUG-003 — **Marked Invalid / Working as Designed per `database-schema.md`**; candidate for future feature discussion).
 4. [ ] Make `SettingsNotifier` keep-alive (`@Riverpod(keepAlive: true)`), remove `_disposed` flag issue, and ensure base currency changes take effect immediately across all sessions (BUG-004 — [#39](https://github.com/getpoka/poka-ce/issues/39)).
 5. [ ] Add `restoreWarningDesc` localization key and fix copy in restore confirmation dialog (BUG-005 — [#40](https://github.com/getpoka/poka-ce/issues/40)).
