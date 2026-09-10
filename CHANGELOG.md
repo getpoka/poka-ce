@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed missing allocation badge (Need, Want, Saving) on split item preview list in transaction creation sheet.
+
 ## [v1.0.0-rc.1] - 2026-09-09
 
 Release Candidate 1 for Poka CE v1.0.0. All planned features for v1 are code-frozen. This build enters the smoke testing phase prior to the official v1.0.0 release.
