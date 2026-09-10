@@ -41,5 +41,9 @@
   "nameCannotBeEmpty": "Nama tidak boleh kosong",
   "targetAmountGreaterThanZero": "Jumlah target harus lebih besar dari 0",
   "saveChanges": "Simpan Perubahan",
-  "targetDateLabel": "Tanggal Target"
+  "targetDateLabel": "Tanggal Target",
+  "activeGoals": "Target Aktif",
+  "completedGoals": "Target Selesai",
+  "noActiveGoalsYet": "Belum ada target aktif",
+  "noActiveGoalsSubtitle": "Buat target baru untuk mulai menabung impian Anda berikutnya."
 }

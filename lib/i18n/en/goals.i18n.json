@@ -41,5 +41,9 @@
   "nameCannotBeEmpty": "Name cannot be empty",
   "targetAmountGreaterThanZero": "Target amount must be greater than 0",
   "saveChanges": "Save Changes",
-  "targetDateLabel": "Target Date"
+  "targetDateLabel": "Target Date",
+  "activeGoals": "Active Goals",
+  "completedGoals": "Completed Goals",
+  "noActiveGoalsYet": "No active goals",
+  "noActiveGoalsSubtitle": "Create a new goal to start saving for your next milestone."
 }

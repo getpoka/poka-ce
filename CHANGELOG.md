@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Added informative subtitles and descriptions to empty views across Debt, Goal, Budget, Recurring, Account, Dashboard, and Report sections.
 
+### Changed
+
+- Streamlined Goals page into a unified single-stream layout, replacing header filter chips with a dedicated section for completed goals.
+
 ### Fixed
 
 - Resolved `RecurringListNotifier` lifecycle disposal error during active screen navigation and background runner processing.

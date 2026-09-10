@@ -20,20 +20,21 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	Translations({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.en,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ) {
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <en>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	dynamic operator[](String key) => $meta.getTranslation(key);
+	dynamic operator[](String key) => _meta.getTranslation(key);
 
 	late final Translations _root = this; // ignore: unused_field
 
@@ -1137,6 +1138,18 @@ class Translations$goals$en {
 
 	/// en: 'Target Date'
 	String get targetDateLabel => 'Target Date';
+
+	/// en: 'Active Goals'
+	String get activeGoals => 'Active Goals';
+
+	/// en: 'Completed Goals'
+	String get completedGoals => 'Completed Goals';
+
+	/// en: 'No active goals'
+	String get noActiveGoalsYet => 'No active goals';
+
+	/// en: 'Create a new goal to start saving for your next milestone.'
+	String get noActiveGoalsSubtitle => 'Create a new goal to start saving for your next milestone.';
 }
 
 // Path: lock
@@ -2487,6 +2500,10 @@ extension on Translations {
 			'goals.targetAmountGreaterThanZero' => 'Target amount must be greater than 0',
 			'goals.saveChanges' => 'Save Changes',
 			'goals.targetDateLabel' => 'Target Date',
+			'goals.activeGoals' => 'Active Goals',
+			'goals.completedGoals' => 'Completed Goals',
+			'goals.noActiveGoalsYet' => 'No active goals',
+			'goals.noActiveGoalsSubtitle' => 'Create a new goal to start saving for your next milestone.',
 			'lock.confirmPin' => 'Confirm PIN',
 			'lock.createPin' => 'Create PIN',
 			'lock.pinsDoNotMatch' => 'PINs do not match',
@@ -2645,12 +2662,12 @@ extension on Translations {
 			'settings.backupRestoreDesc' => 'Save or restore your data',
 			'settings.clearOld' => 'Clear Old Transactions',
 			'settings.clearOldDesc' => 'Remove transactions older than 1 year',
+			_ => null,
+		} ?? switch (path) {
 			'settings.resetData' => 'Reset Data',
 			'settings.resetDataDesc' => 'Erase all app data locally',
 			'settings.support' => 'Support',
 			'settings.faq' => 'FAQ',
-			_ => null,
-		} ?? switch (path) {
 			'settings.faqDesc' => 'Frequently Asked Questions',
 			'settings.about' => 'About Poka CE',
 			'settings.aboutDesc' => 'Version and legal information',
