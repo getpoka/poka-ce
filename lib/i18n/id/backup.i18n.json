@@ -20,5 +20,11 @@
   "reminderNotificationTitle": "Saatnya Cadangkan Data Anda",
   "reminderNotificationBody": "Sudah cukup lama sejak pencadangan terakhir. Lindungi data keuangan Anda dengan membuat cadangan sekarang.",
   "reminderSaved": "Pengingat cadangan diperbarui",
-  "restoreWarningDesc": "Memulihkan cadangan akan menggantikan semua data saat ini dengan data dari file cadangan. Perubahan yang belum dicadangkan akan hilang. Lanjutkan?"
+  "restoreWarningDesc": "Memulihkan cadangan akan menggantikan semua data saat ini dengan data dari file cadangan. Perubahan yang belum dicadangkan akan hilang. Lanjutkan?",
+  "sendTestNotification": "Kirim Notifikasi Uji Coba",
+  "testNotificationSent": "Notifikasi pengingat uji coba dikirim",
+  "permissionRationaleTitle": "Pengingat Cadangan Lokal",
+  "permissionRationaleDesc": "Poka membutuhkan izin notifikasi untuk mengingatkan Anda mencadangkan data secara berkala. Pengingat berjalan sepenuhnya di perangkat Anda secara luring tanpa pelacak atau analitik.",
+  "allowNotifications": "Izinkan Notifikasi",
+  "permissionDenied": "Izin notifikasi ditolak. Pengingat tetap dinonaktifkan."
 }
