@@ -206,6 +206,21 @@ constraints, code style, commit conventions, branch workflow, and the PR review 
 
 ---
 
+## Sponsors
+
+We are grateful to our sponsors and partners for supporting the Poka project:
+
+<p align="left">
+  <a href="https://onidel.com/?referral=1575794" target="_blank" rel="noopener sponsored">
+    <img src="assets/sponsors/onidel-dark.svg#gh-light-mode-only" height="32" alt="Onidel Cloud" />
+    <img src="assets/sponsors/onidel-light.svg#gh-dark-mode-only" height="32" alt="Onidel Cloud" />
+  </a>
+</p>
+
+Cloud infrastructure credits generously provided by **[Onidel Cloud](https://onidel.com/?referral=1575794)** through the **[Onidel Launch Pack](https://onidel.com/launch-pack)**. Poka's backend sync and automated daily backup infrastructure run on Onidel's high-performance cloud platform with triple-replicated storage and a 99.9% uptime SLA.
+
+---
+
 ## License
 
 Poka CE is licensed under the **Apache License 2.0**. See [LICENSE](LICENSE) for the full license text.
