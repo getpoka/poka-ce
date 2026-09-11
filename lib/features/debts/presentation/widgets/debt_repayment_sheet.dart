@@ -103,56 +103,62 @@ class DebtRepaymentSheet extends HookConsumerWidget {
 
     Future<void> showNoteEditor() async {
       final controller = TextEditingController(text: state.note);
-      await showFDialog<void>(
-        context: context,
-        builder: (ctx, style, animation) => FDialog(
-          animation: animation,
-          builder: (dialogCtx, dialogStyle) {
-            final dialogTheme = ctx.theme;
-            return Padding(
-              padding: const EdgeInsets.all(24),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Text(
-                    t.debts.addNote,
-                    style: dialogTheme.typography.display.sm.copyWith(fontWeight: FontWeight.w700),
-                  ),
-                  const SizedBox(height: 14),
-                  FTextField(
-                    focusNode: FocusNode()..requestFocus(),
-                    control: FTextFieldControl.managed(controller: controller),
-                    maxLines: 3,
-                  ),
-                  const SizedBox(height: 24),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: FButton(
-                          onPress: () => Navigator.of(ctx).pop(),
-                          variant: FButtonVariant.outline,
-                          child: Text(t.debts.cancel),
+      final focusNode = FocusNode()..requestFocus();
+      try {
+        await showFDialog<void>(
+          context: context,
+          builder: (ctx, style, animation) => FDialog(
+            animation: animation,
+            builder: (dialogCtx, dialogStyle) {
+              final dialogTheme = ctx.theme;
+              return Padding(
+                padding: const EdgeInsets.all(24),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(
+                      t.debts.addNote,
+                      style: dialogTheme.typography.display.sm.copyWith(fontWeight: FontWeight.w700),
+                    ),
+                    const SizedBox(height: 14),
+                    FTextField(
+                      focusNode: focusNode,
+                      control: FTextFieldControl.managed(controller: controller),
+                      maxLines: 3,
+                    ),
+                    const SizedBox(height: 24),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: FButton(
+                            onPress: () => Navigator.of(ctx).pop(),
+                            variant: FButtonVariant.outline,
+                            child: Text(t.debts.cancel),
+                          ),
                         ),
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: FButton(
-                          onPress: () {
-                            notifier.setNote(controller.text.trim());
-                            Navigator.of(ctx).pop();
-                          },
-                          child: Text(t.debts.save),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: FButton(
+                            onPress: () {
+                              notifier.setNote(controller.text.trim());
+                              Navigator.of(ctx).pop();
+                            },
+                            child: Text(t.debts.save),
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            );
-          },
-        ),
-      );
+                      ],
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        );
+      } finally {
+        controller.dispose();
+        focusNode.dispose();
+      }
     }
 
     return Column(

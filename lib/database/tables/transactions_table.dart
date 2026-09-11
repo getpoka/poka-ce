@@ -8,6 +8,8 @@ import 'package:poka_ce/database/tables/recurring_table.dart';
 import 'package:uuid/uuid.dart';
 
 /// Database table definition for physical transaction receipts (parent header).
+@TableIndex(name: 'idx_transactions_date', columns: {#transactionDate})
+@TableIndex(name: 'idx_transactions_account', columns: {#accountId})
 class Transactions extends Table {
   TextColumn get id => text().clientDefault(() => const Uuid().v7())();
   @ReferenceName('transactionSource')
@@ -30,6 +32,8 @@ class Transactions extends Table {
 }
 
 /// Database table definition for receipt detail line items (child items).
+@TableIndex(name: 'idx_tx_items_tx_id', columns: {#transactionId})
+@TableIndex(name: 'idx_tx_items_category_id', columns: {#categoryId})
 class TransactionItems extends Table {
   TextColumn get id => text().clientDefault(() => const Uuid().v7())();
   TextColumn get transactionId => text().references(Transactions, #id, onDelete: KeyAction.cascade)();

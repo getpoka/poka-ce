@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -22,7 +23,7 @@ class BackupService {
   final _cipher = AesGcm.with256bits();
   final _kdf = Pbkdf2(
     macAlgorithm: Hmac.sha256(),
-    iterations: 10000,
+    iterations: 100000,
     bits: 256,
   );
 
@@ -35,7 +36,7 @@ class BackupService {
 
   /// Derives a SecretKey from the given password and salt
   Future<SecretKey> _deriveKey(String password, List<int> salt) async {
-    final secretKey = SecretKey(password.codeUnits);
+    final secretKey = SecretKey(utf8.encode(password));
     return _kdf.deriveKey(
       secretKey: secretKey,
       nonce: salt,
@@ -47,8 +48,12 @@ class BackupService {
   /// Uses PBKDF2 with HMAC-SHA256 for key derivation and AES-GCM 256-bit for authenticated encryption.
   /// The resulting file packages the salt (12 bytes), GCM nonce (12 bytes), authentication tag MAC (16 bytes),
   /// and ciphertext in order.
-  Future<Result<File>> createEncryptedBackup(String password) async {
+  Future<Result<File>> createEncryptedBackup(
+    String password, {
+    Future<void> Function()? onBeforeRead,
+  }) async {
     try {
+      await onBeforeRead?.call();
       final docsFolder = await getApplicationDocumentsDirectory();
       final supportFolder = await getApplicationSupportDirectory();
 
@@ -120,6 +125,12 @@ class BackupService {
         return Failure(Exception('Backup file not found'));
       }
 
+      // Enforce backup file size limit (< 50MB) to prevent OOM
+      final fileLength = await backupFile.length();
+      if (fileLength > 50 * 1024 * 1024) {
+        return Failure(Exception('Backup file exceeds maximum allowed size (50MB)'));
+      }
+
       final fileBytes = await backupFile.readAsBytes();
 
       // Expected minimum length: 12 (salt) + 12 (nonce) + 16 (mac) = 40 bytes
@@ -148,6 +159,34 @@ class BackupService {
         secretBox,
         secretKey: key,
       );
+
+      // Verify SQLite 3 magic header: "SQLite format 3\000"
+      const sqliteMagic = [
+        0x53,
+        0x51,
+        0x4C,
+        0x69,
+        0x74,
+        0x65,
+        0x20,
+        0x66,
+        0x6F,
+        0x72,
+        0x6D,
+        0x61,
+        0x74,
+        0x20,
+        0x33,
+        0x00,
+      ];
+      if (clearText.length < 16) {
+        return Failure(Exception('Corrupted backup: invalid database size'));
+      }
+      for (var i = 0; i < 16; i++) {
+        if (clearText[i] != sqliteMagic[i]) {
+          return Failure(Exception('Invalid backup file: not a valid SQLite database'));
+        }
+      }
 
       // Cleanly teardown any active database handles before modifying files on disk
       await onBeforeWrite?.call();

@@ -23,7 +23,14 @@ class BackupController extends _$BackupController {
     state = const AsyncLoading();
     try {
       final service = ref.read(backupServiceProvider);
-      final result = await service.createEncryptedBackup(password);
+      final result = await service.createEncryptedBackup(
+        password,
+        onBeforeRead: () async {
+          try {
+            await ref.read(databaseProvider).customStatement('PRAGMA wal_checkpoint(TRUNCATE);');
+          } on Exception catch (_) {}
+        },
+      );
       if (result.isSuccess()) {
         final backupFile = result.getOrThrow();
         // We use Share.shareXFiles for stability but package structure causes this lint

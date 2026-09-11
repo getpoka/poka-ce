@@ -140,6 +140,37 @@ void main() {
       expect(container.read(transactionFormProvider(args)).isLoading, false);
     });
 
+    test('save evaluates uncalculated arithmetic expression on save', () async {
+      stubCreateSuccess();
+      final container = createContainer();
+      final n = container.read(transactionFormProvider(args).notifier);
+      n.setType(TransactionType.expense);
+      n.setAccount('a1');
+      n.onKeyPressed('5');
+      n.onKeyPressed('0');
+      n.onKeyPressed('0');
+      n.onKeyPressed('+');
+      n.onKeyPressed('2');
+      n.onKeyPressed('0');
+      n.onKeyPressed('0');
+      n.setCategory('c1');
+      await n.save();
+
+      verify(
+        () => mockCreate.execute(
+          type: any(named: 'type'),
+          accountId: any(named: 'accountId'),
+          amount: 700,
+          categoryId: any(named: 'categoryId'),
+          note: any(named: 'note'),
+          transactionDate: any(named: 'transactionDate'),
+          allocation: any(named: 'allocation'),
+          splitItems: any(named: 'splitItems'),
+        ),
+      ).called(1);
+      expect(container.read(transactionFormProvider(args)).isSuccess, true);
+    });
+
     test('save expense failure', () async {
       when(
         () => mockCreate.execute(

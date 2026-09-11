@@ -21,6 +21,7 @@ pubspec_overrides.yaml
 /android/build/
 .gradle/
 /android/.gradle/
+.kotlin/
 app.*.symbols
 app.*.map.json
 

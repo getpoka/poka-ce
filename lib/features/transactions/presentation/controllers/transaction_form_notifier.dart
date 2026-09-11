@@ -272,7 +272,11 @@ class TransactionFormNotifier extends _$TransactionFormNotifier {
   }
 
   Future<void> _handleSimpleSave() async {
-    final amount = int.tryParse(state.amountExpression) ?? 0;
+    var rawExpr = state.amountExpression;
+    if (MathEvaluator.hasUnresolvedOperator(rawExpr)) {
+      rawExpr = MathEvaluator.evaluate(rawExpr) ?? rawExpr;
+    }
+    final amount = int.tryParse(rawExpr) ?? 0;
     if (amount <= 0) return;
     final catId = state.type == TransactionType.transfer ? state.destinationAccountId : state.categoryId;
     if (state.type == TransactionType.transfer && catId == null) return;

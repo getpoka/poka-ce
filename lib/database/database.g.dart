@@ -6670,6 +6670,26 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     this,
   );
   late final $GoalsTable goals = $GoalsTable(this);
+  late final Index idxAccountsParentId = Index(
+    'idx_accounts_parent_id',
+    'CREATE INDEX idx_accounts_parent_id ON accounts (parent_id)',
+  );
+  late final Index idxTransactionsDate = Index(
+    'idx_transactions_date',
+    'CREATE INDEX idx_transactions_date ON transactions (transaction_date)',
+  );
+  late final Index idxTransactionsAccount = Index(
+    'idx_transactions_account',
+    'CREATE INDEX idx_transactions_account ON transactions (account_id)',
+  );
+  late final Index idxTxItemsTxId = Index(
+    'idx_tx_items_tx_id',
+    'CREATE INDEX idx_tx_items_tx_id ON transaction_items (transaction_id)',
+  );
+  late final Index idxTxItemsCategoryId = Index(
+    'idx_tx_items_category_id',
+    'CREATE INDEX idx_tx_items_category_id ON transaction_items (category_id)',
+  );
   @override
   Iterable<TableInfo<Table, Object?>> get allTables => allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
@@ -6686,6 +6706,11 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     transactions,
     transactionItems,
     goals,
+    idxAccountsParentId,
+    idxTransactionsDate,
+    idxTransactionsAccount,
+    idxTxItemsTxId,
+    idxTxItemsCategoryId,
   ];
   @override
   StreamQueryUpdateRules get streamUpdateRules => const StreamQueryUpdateRules([

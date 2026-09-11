@@ -82,8 +82,28 @@ class AppDatabase extends _$AppDatabase {
         await DatabaseSeeder.seed(this);
       },
       beforeOpen: (details) async {
-        // Enforce foreign key constraints in SQLite.
-        await customStatement('PRAGMA foreign_keys = ON');
+        // Enforce foreign key constraints and configure performance PRAGMAs.
+        await customStatement('PRAGMA foreign_keys = ON;');
+        await customStatement('PRAGMA synchronous = NORMAL;');
+        await customStatement('PRAGMA temp_store = MEMORY;');
+        await customStatement('PRAGMA cache_size = -64000;');
+
+        // Ensure key performance indexes exist for schema 1
+        await customStatement(
+          'CREATE INDEX IF NOT EXISTS idx_transactions_date ON transactions (transaction_date);',
+        );
+        await customStatement(
+          'CREATE INDEX IF NOT EXISTS idx_transactions_account ON transactions (account_id);',
+        );
+        await customStatement(
+          'CREATE INDEX IF NOT EXISTS idx_tx_items_tx_id ON transaction_items (transaction_id);',
+        );
+        await customStatement(
+          'CREATE INDEX IF NOT EXISTS idx_tx_items_category_id ON transaction_items (category_id);',
+        );
+        await customStatement(
+          'CREATE INDEX IF NOT EXISTS idx_accounts_parent_id ON accounts (parent_id);',
+        );
       },
     );
   }
