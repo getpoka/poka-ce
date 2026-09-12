@@ -2,9 +2,9 @@ name: PR-Agent
 
 on:
   pull_request:
-    types: [opened, reopened, ready_for_review, synchronize]
+    types: [opened, ready_for_review]
   issue_comment:
-    types: [created, edited]
+    types: [created]
 
 permissions:
   issues: write
@@ -16,8 +16,15 @@ jobs:
     if: |
       github.event.sender.type != 'Bot' &&
       (
-        github.event_name == 'pull_request' ||
-        github.event.issue.pull_request
+        (
+          github.event_name == 'pull_request' &&
+          !github.event.pull_request.draft
+        ) ||
+        (
+          github.event_name == 'issue_comment' &&
+          github.event.issue.pull_request &&
+          contains(github.event.comment.body, '/review')
+        )
       )
     runs-on: ubuntu-latest
     steps:
@@ -33,10 +40,13 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ steps.octopy.outputs.token }}
 
-          # DeepSeek API key — stored under OPENAI_KEY secret in this repo
-          OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
-          DEEPSEEK_API_KEY: ${{ secrets.OPENAI_KEY }}
+          # Cloudflare AI Gateway & LiteLLM Configuration
+          OPENAI_KEY: ${{ secrets.CLOUDFLARE_API_TOKEN || secrets.AI_GATEWAY_TOKEN || secrets.OPENAI_KEY }}
+          OPENAI.KEY: ${{ secrets.CLOUDFLARE_API_TOKEN || secrets.AI_GATEWAY_TOKEN || secrets.OPENAI_KEY }}
+          OPENAI.API_BASE: ${{ secrets.AI_GATEWAY_URL || vars.AI_GATEWAY_URL || 'https://aig.octopy.dev/compat' }}
+          OPENAI_API_BASE: ${{ secrets.AI_GATEWAY_URL || vars.AI_GATEWAY_URL || 'https://aig.octopy.dev/compat' }}
+          OPENAI_BASE_URL: ${{ secrets.AI_GATEWAY_URL || vars.AI_GATEWAY_URL || 'https://aig.octopy.dev/compat' }}
 
-          # Model Configuration (managed via Repository Variables)
-          CONFIG.MODEL: ${{ vars.PR_AGENT_MODEL }}
-          CONFIG.FALLBACK_MODELS: ${{ vars.PR_AGENT_FALLBACK_MODELS }}
+          # Model Configuration (managed via Secrets or Repository Variables)
+          CONFIG.MODEL: ${{ secrets.AI_MODEL && (startsWith(secrets.AI_MODEL, 'openai/') && secrets.AI_MODEL || format('openai/{0}', secrets.AI_MODEL)) || 'openai/dynamic/copilot' }}
+          CONFIG.FALLBACK_MODELS: ${{ vars.PR_AGENT_FALLBACK_MODELS || '["openai/dynamic/copilot"]' }}

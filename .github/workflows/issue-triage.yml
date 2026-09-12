@@ -15,10 +15,7 @@ jobs:
     if: |
       github.event.sender.type != 'Bot' &&
       (
-        (
-          github.event_name == 'issues' &&
-          (github.event.issue.author_association == 'OWNER' || github.event.issue.author_association == 'MEMBER')
-        ) ||
+        github.event_name == 'issues' ||
         (
           github.event_name == 'issue_comment' &&
           !github.event.issue.pull_request &&
@@ -50,8 +47,9 @@ jobs:
       - name: Run Triage & Check Bug
         env:
           GITHUB_TOKEN: ${{ steps.octopy.outputs.token || secrets.GITHUB_TOKEN }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          AI_GATEWAY_TOKEN: ${{ secrets.AI_GATEWAY_TOKEN }}
           OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
-          DEEPSEEK_API_KEY: ${{ secrets.OPENAI_KEY }}
-          PR_AGENT_MODEL: ${{ vars.PR_AGENT_MODEL || 'deepseek-chat' }}
-          OPENAI_BASE_URL: ${{ vars.OPENAI_BASE_URL || 'https://api.deepseek.com' }}
+          AI_GATEWAY_URL: ${{ secrets.AI_GATEWAY_URL || vars.AI_GATEWAY_URL || 'https://aig.octopy.dev/compat' }}
+          AI_MODEL: ${{ secrets.AI_MODEL || vars.AI_MODEL || 'dynamic/copilot' }}
         run: node .github/scripts/triage-issue.js

@@ -2,7 +2,7 @@
 
 /**
  * Poka CE Issue Triage & Bug Report Checker
- * Analyzes GitHub issues and comments with /triage or /check using DeepSeek API.
+ * Analyzes GitHub issues and comments with /triage or /check using Cloudflare AI Gateway.
  * Uses codebase grounding (real file index, database schema, snippet extraction) and comment upserting.
  */
 
@@ -177,10 +177,14 @@ async function main() {
     process.exit(1);
   }
 
-  // Strictly use DeepSeek API key (accommodate OPENAI_KEY if set on repo)
-  const apiKey = process.env.DEEPSEEK_API_KEY || process.env.OPENAI_KEY;
+  // API token for Cloudflare AI Gateway / OpenAI-compatible endpoint
+  const apiKey =
+    process.env.CLOUDFLARE_API_TOKEN ||
+    process.env.AI_GATEWAY_TOKEN ||
+    process.env.OPENAI_KEY ||
+    process.env.DEEPSEEK_API_KEY;
   if (!apiKey) {
-    console.error('Missing DEEPSEEK_API_KEY or OPENAI_KEY');
+    console.error('Missing API token (CLOUDFLARE_API_TOKEN, AI_GATEWAY_TOKEN, or OPENAI_KEY)');
     process.exit(1);
   }
 
@@ -236,14 +240,8 @@ async function main() {
     // Add eyes reaction to indicate processing
     await addReaction(owner, repo, comment.id, 'eyes', token);
   } else if (issue) {
-    // If triggered by issues: opened
-    const issueAuthorAssociation = issue.author_association;
-    if (!ALLOWED_ASSOCIATIONS.has(issueAuthorAssociation)) {
-      console.log(
-        `Issue opened by @${issue.user?.login} with author_association "${issueAuthorAssociation}". Only OWNER or MEMBER can trigger automated triage. Skipping.`
-      );
-      return;
-    }
+    // If triggered by issues: opened (Silent labeling mode for all authors)
+    console.log(`Issue #${issue.number} opened by @${issue.user?.login}. Running in silent labeling mode.`);
   } else {
     console.log('Not an issue or issue_comment event. Skipping.');
     return;
@@ -384,16 +382,26 @@ ${codeSnippetSection}
 ${dbSchemaSection}
 ${fileCatalogSample}`;
 
-  // Strictly use DeepSeek API & models
-  const baseUrl = 'https://api.deepseek.com';
-  const rawModel = (process.env.PR_AGENT_MODEL || 'deepseek-chat').trim();
-  let model = rawModel.replace(/^deepseek\//i, '').replace(/^openai\//i, '');
-  if (!['deepseek-chat', 'deepseek-reasoner'].includes(model)) {
-    model = 'deepseek-chat';
-  }
+  // Cloudflare AI Gateway & Model configuration
+  const rawBaseUrl = (
+    process.env.AI_GATEWAY_URL ||
+    process.env.OPENAI_BASE_URL ||
+    'https://aig.octopy.dev/compat'
+  ).trim().replace(/\/+$/, '');
 
-  console.log(`Calling DeepSeek API at ${baseUrl} using model ${model}...`);
-  const response = await fetch(`${baseUrl}/chat/completions`, {
+  const completionsUrl = rawBaseUrl.endsWith('/chat/completions')
+    ? rawBaseUrl
+    : `${rawBaseUrl}/chat/completions`;
+
+  const rawModel = (
+    process.env.AI_MODEL ||
+    process.env.PR_AGENT_MODEL ||
+    'dynamic/copilot'
+  ).trim();
+  const model = rawModel.replace(/^(?:openai|deepseek)\//i, '');
+
+  console.log(`Calling AI Gateway at ${completionsUrl} using model "${model}"...`);
+  const response = await fetch(completionsUrl, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -411,7 +419,7 @@ ${fileCatalogSample}`;
 
   if (!response.ok) {
     const errorText = await response.text();
-    console.error(`DeepSeek API failed with status ${response.status}: ${errorText}`);
+    console.error(`AI Gateway API failed with status ${response.status}: ${errorText}`);
     process.exit(1);
   }
 
@@ -454,10 +462,16 @@ ${fileCatalogSample}`;
   }
 
   // Add signature footer
-  const commentText = `## 🤖 Poka Triage Report\n\n${cleanMarkdown}\n\n---\n*Automated triage powered by Poka Triage Assistant. Re-run anytime by commenting \`/triage\` or \`/check\`.*`;
+  const commentText = `## 🤖 Poka Triage Report\n\n${cleanMarkdown}\n\n---\n*Automated triage powered by Poka Triage Assistant (${model}). Re-run anytime by commenting \`/triage\` or \`/check\`.*`;
 
-  // Upsert triage report comment (update existing comment or create a new one)
-  await upsertComment(owner, repo, issueNumber, commentText, token);
+  // Only post detailed report comment if explicitly requested via /triage or /check comment
+  if (isCommentTrigger) {
+    console.log(`Posting/updating detailed triage comment for #${issueNumber}...`);
+    await upsertComment(owner, repo, issueNumber, commentText, token);
+    await addReaction(owner, repo, comment.id, 'rocket', token);
+  } else {
+    console.log('Silent mode: skipping comment posting on newly opened issue.');
+  }
 
   // Apply suggested labels (only whitelisted and not already present)
   if (suggestedLabels.length > 0) {
@@ -465,11 +479,6 @@ ${fileCatalogSample}`;
     await applyLabels(owner, repo, issueNumber, suggestedLabels, token);
   } else {
     console.log('No new labels to apply.');
-  }
-
-  // If comment triggered, add rocket reaction to the trigger comment
-  if (isCommentTrigger) {
-    await addReaction(owner, repo, comment.id, 'rocket', token);
   }
 
   console.log('Triage finished successfully!');
