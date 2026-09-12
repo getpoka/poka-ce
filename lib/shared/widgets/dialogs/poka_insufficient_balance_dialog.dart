@@ -91,14 +91,24 @@ Future<bool?> showPokaInsufficientBalanceDialog(
                     child: FButton(
                       onPress: () => Navigator.of(ctx).pop(false),
                       variant: FButtonVariant.outline,
-                      child: Text(cancelText ?? t.checkAgain),
+                      child: Flexible(
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text(cancelText ?? t.checkAgain),
+                        ),
+                      ),
                     ),
                   ),
                   const SizedBox(width: 12),
                   Expanded(
                     child: FButton(
                       onPress: () => Navigator.of(ctx).pop(true),
-                      child: Text(confirmText ?? t.continueAnyway),
+                      child: Flexible(
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text(confirmText ?? t.continueAnyway),
+                        ),
+                      ),
                     ),
                   ),
                 ],

@@ -1,7 +1,6 @@
 import 'package:drift/drift.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
@@ -17,7 +16,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDateFormatting();
   Intl.defaultLocale = LocaleSettings.currentLocale.languageCode;
-  GoogleFonts.config.allowRuntimeFetching = false;
 
   // Setup Talker error handling
   FlutterError.onError = (details) => talker.handle(details.exception, details.stack);

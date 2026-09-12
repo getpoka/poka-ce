@@ -18,7 +18,6 @@ dependencies:
   forui_phosphor: ^0.26.0
   flutter_animate: ^4.5.2
   fl_chart: ^1.2.0
-  google_fonts: ^8.2.1
   flutter_markdown_plus: ^1.0.12
   flutter_slidable: ^4.0.3
   flutter_reorderable_grid_view: ^5.7.0
@@ -102,3 +101,17 @@ flutter:
     - assets/images/
     - assets/data/
     - assets/fonts/
+
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter-Regular.ttf
+    - family: Inter_regular
+      fonts:
+        - asset: assets/fonts/Inter-Regular.ttf
+    - family: PlusJakartaSans
+      fonts:
+        - asset: assets/fonts/PlusJakartaSans-Regular.ttf
+    - family: PlusJakartaSans_regular
+      fonts:
+        - asset: assets/fonts/PlusJakartaSans-Regular.ttf

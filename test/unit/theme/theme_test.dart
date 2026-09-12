@@ -2,13 +2,11 @@ import 'dart:ui' show FontFeature;
 
 import 'package:flutter/material.dart' show FontWeight;
 import 'package:flutter_test/flutter_test.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:poka_ce/theme/tailwind.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  GoogleFonts.config.allowRuntimeFetching = false;
   group('Theme coverage', () {
     test('lightTheme and darkTheme are constructed', () {
       final light = lightTheme;
