@@ -59,9 +59,12 @@ void main() {
       }
     });
 
+    const validSqliteHeader = 'SQLite format 3\x00';
+
     Future<File> createFakeDb({String content = 'hello poka db content'}) async {
       final dbFile = File(p.join(appDocsDir.path, service.dbName));
-      await dbFile.writeAsString(content);
+      final fullContent = content.startsWith(validSqliteHeader) ? content : '$validSqliteHeader$content';
+      await dbFile.writeAsString(fullContent);
       return dbFile;
     }
 
@@ -121,7 +124,7 @@ void main() {
     });
 
     test('round-trip: encrypt -> decrypt -> original bytes match', () async {
-      const original = 'round-trip-content-💰-with-unicode-12345';
+      const original = '${validSqliteHeader}round-trip-content-💰-with-unicode-12345';
       final dbFile = await createFakeDb(content: original);
       final originalBytes = await dbFile.readAsBytes();
 
@@ -237,6 +240,34 @@ void main() {
       expect(beforeWriteCalled, isTrue);
       expect(walFile.existsSync(), isFalse);
       expect(shmFile.existsSync(), isFalse);
+    });
+
+    test('createEncryptedBackup — triggers onBeforeRead callback before reading', () async {
+      await createFakeDb();
+      var beforeReadInvoked = false;
+
+      final result = await service.createEncryptedBackup(
+        'testPass',
+        onBeforeRead: () async {
+          beforeReadInvoked = true;
+        },
+      );
+
+      expect(result.isSuccess(), isTrue);
+      expect(beforeReadInvoked, isTrue);
+    });
+
+    test('restoreEncryptedBackup — fails when decrypted cleartext lacks SQLite magic header', () async {
+      // Create a db file with non-sqlite content
+      final dbFile = File(p.join(appDocsDir.path, service.dbName));
+      await dbFile.writeAsString('plain-non-sqlite-content-that-lacks-magic-header');
+
+      final enc = await service.createEncryptedBackup('validPass');
+      final backupFile = enc.getOrThrow();
+
+      final res = await service.restoreEncryptedBackup(backupFile.path, 'validPass');
+      expect(res.isSuccess(), isFalse);
+      expect(res.exceptionOrNull().toString(), contains('not a valid SQLite database'));
     });
   });
 }

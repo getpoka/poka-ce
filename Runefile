@@ -76,6 +76,13 @@ fix:
     dart fix --apply
     dart format .
 
+#[Format blank lines after closing braces followed by code statements]
+# path: Specific file or directory to format (default: lib/ and test/)
+# dry_run: Pass --dry-run to preview changes without modifying
+format:lines path="" dry_run="":
+    dart run scripts/format_empty_lines.dart {{path}} {{dry_run}}
+    dart format .
+
 # ==========================================
 # Testing Suites
 # ==========================================

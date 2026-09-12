@@ -5,6 +5,7 @@ import 'package:poka_ce/database/tables/categories_table.dart';
 import 'package:uuid/uuid.dart';
 
 /// Database table definition for user accounts (wallets, banks, and sub-pockets).
+@TableIndex(name: 'idx_accounts_parent_id', columns: {#parentId})
 class Accounts extends Table {
   TextColumn get id => text().clientDefault(() => const Uuid().v7())();
   TextColumn get name => text()();

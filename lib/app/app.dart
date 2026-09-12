@@ -7,6 +7,7 @@ import 'package:poka_ce/app/router/router.dart';
 import 'package:poka_ce/core/services/quick_actions_service.dart';
 import 'package:poka_ce/features/backup/domain/backup_reminder_service.dart';
 import 'package:poka_ce/features/debts/domain/debt_alert_service_provider.dart';
+import 'package:poka_ce/features/settings/presentation/controllers/app_lock_controller.dart';
 import 'package:poka_ce/features/settings/presentation/controllers/settings_notifier.dart';
 import 'package:poka_ce/features/transactions/data/excel_export_service.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
@@ -20,6 +21,26 @@ class PokaApp extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(routerProvider);
     final settingsState = ref.watch(settingsProvider);
+
+    // ── App Lock Background Grace Period (1 minute) ──────────────────────────
+    final lifecycleState = useAppLifecycleState();
+    final lastBackgroundedAt = useRef<DateTime?>(null);
+
+    useEffect(() {
+      if (lifecycleState == AppLifecycleState.paused || lifecycleState == AppLifecycleState.hidden) {
+        lastBackgroundedAt.value = DateTime.now();
+      } else if (lifecycleState == AppLifecycleState.resumed) {
+        if (lastBackgroundedAt.value != null) {
+          final elapsed = DateTime.now().difference(lastBackgroundedAt.value!);
+          final isSuppressed = ref.read(appLockSuppressionProvider);
+          if (!isSuppressed && elapsed >= const Duration(minutes: 1)) {
+            ref.read(appLockControllerProvider.notifier).lock();
+          }
+          lastBackgroundedAt.value = null;
+        }
+      }
+      return null;
+    }, [lifecycleState]);
 
     var themeMode = ThemeMode.system;
     switch (settingsState.settings?.themeMode) {

@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Security
+
+- Disabled Android ADB backup (`android:allowBackup="false"`) in `AndroidManifest.xml` to prevent plaintext data extraction via USB debugging.
+- Strengthened backup encryption key derivation to 100,000 PBKDF2 iterations and enforced standard UTF-8 password encoding.
+- Hardened encrypted backup validation with a 50MB file size ceiling and verified SQLite 3 magic header before database restoration.
+- Sanitized Riverpod talker observer logging by masking provider state values and restricting verbose lifecycle logging to debug mode.
+- Implemented background app lifecycle auto-lock with a 1-minute grace period respecting active system sheets and photo pickers.
+
+### Performance
+
+- Added database indexes for `transaction_date`, `account_id`, `transaction_items.transaction_id`, `transaction_items.category_id`, and `accounts.parent_id`.
+- Configured SQLite runtime PRAGMAs (`synchronous = NORMAL`, `temp_store = MEMORY`, `cache_size = -64000`) for improved throughput and reduced flash storage wear.
+- Offloaded Excel file compression and encoding to a background Dart isolate (`Isolate.run`), eliminating UI thread hitches during transaction exports.
+- Executed atomic WAL checkpoint (`PRAGMA wal_checkpoint(TRUNCATE)`) prior to backup packaging to ensure complete transaction persistence.
+
+### Fixed
+
+- Fixed unreleased `TextEditingController` and `FocusNode` memory leaks across transaction, split item, and debt repayment note modal dialogs.
+- Ensured unresolved arithmetic keypad expressions evaluate automatically upon saving transactions.
+
 ## [v1.0.0] - 2026-09-11
 
 Initial General Availability release of Poka CE.

@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:poka_ce/app/providers/repository_providers.dart';
+import 'package:poka_ce/core/logger/poka_logger.dart';
 import 'package:poka_ce/features/backup/data/backup_service.dart';
 import 'package:poka_ce/features/backup/domain/backup_reminder_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -23,7 +24,28 @@ class BackupController extends _$BackupController {
     state = const AsyncLoading();
     try {
       final service = ref.read(backupServiceProvider);
-      final result = await service.createEncryptedBackup(password);
+      final result = await service.createEncryptedBackup(
+        password,
+        onBeforeRead: () async {
+          try {
+            final rows = await ref.read(databaseProvider).customSelect('PRAGMA wal_checkpoint(TRUNCATE);').get();
+            if (rows.isNotEmpty) {
+              final row = rows.first.data;
+              final busy = (row['busy'] as num?)?.toInt() ?? 0;
+              final log = (row['log'] as num?)?.toInt() ?? 0;
+              final checkpointed = (row['checkpointed'] as num?)?.toInt() ?? 0;
+              if (busy != 0) {
+                talker.warning(
+                  'WAL checkpoint busy ($busy, log: $log, checkpointed: $checkpointed). '
+                  'Uncheckpointed WAL pages may be omitted from backup.',
+                );
+              }
+            }
+          } on Object catch (e, st) {
+            talker.error('Failed to run WAL checkpoint before backup', e, st);
+          }
+        },
+      );
       if (result.isSuccess()) {
         final backupFile = result.getOrThrow();
         // We use Share.shareXFiles for stability but package structure causes this lint

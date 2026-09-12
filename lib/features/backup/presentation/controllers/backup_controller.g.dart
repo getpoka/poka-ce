@@ -38,7 +38,7 @@ final class BackupControllerProvider extends $AsyncNotifierProvider<BackupContro
   BackupController create() => BackupController();
 }
 
-String _$backupControllerHash() => r'c33ac93a240f945063edff8f10898d1dd7eb6cb8';
+String _$backupControllerHash() => r'23e59d6b46913d2de7252152dd99b71753ea532e';
 
 /// Controller managing the execution of encrypted backup and restore operations,
 /// updating its async state and invoking system share sheets.

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:isolate';
 import 'dart:ui';
 
 import 'package:excel/excel.dart';
@@ -176,7 +177,7 @@ class ExcelExportService {
       }
       excel.setDefaultSheet('Transactions');
 
-      final bytes = excel.encode();
+      final bytes = await Isolate.run(excel.encode);
       if (bytes == null) {
         return const ErrorResult<File, Failure>(UnexpectedFailure('Failed to encode Excel file'));
       }

@@ -7,6 +7,7 @@ import 'package:poka_ce/app/providers/repository_providers.dart';
 import 'package:poka_ce/database/database.dart';
 import 'package:poka_ce/features/backup/data/backup_service.dart';
 import 'package:poka_ce/features/backup/domain/backup_reminder_service.dart';
+import 'package:drift/drift.dart';
 import 'package:poka_ce/features/backup/presentation/controllers/backup_controller.dart';
 import 'package:result_dart/result_dart.dart';
 import 'package:share_plus_platform_interface/share_plus_platform_interface.dart';
@@ -17,6 +18,10 @@ class MockBackupService extends Mock implements BackupService {}
 class MockBackupReminderService extends Mock implements BackupReminderService {}
 
 class MockAppDatabase extends Mock implements AppDatabase {}
+
+class MockSelectable extends Mock implements Selectable<QueryRow> {}
+
+class MockQueryRow extends Mock implements QueryRow {}
 
 class FakeSharePlatform extends SharePlatform with MockPlatformInterfaceMixin {
   @override
@@ -31,13 +36,18 @@ void main() {
   late MockBackupService mockService;
   late MockBackupReminderService mockReminderService;
   late MockAppDatabase mockDb;
+  late MockSelectable mockSelectable;
   late SharePlatform originalSharePlatform;
 
   setUp(() {
     mockService = MockBackupService();
     mockReminderService = MockBackupReminderService();
     mockDb = MockAppDatabase();
+    mockSelectable = MockSelectable();
     when(() => mockDb.close()).thenAnswer((_) async {});
+    when(() => mockDb.customStatement(any())).thenAnswer((_) async {});
+    when(() => mockDb.customSelect(any())).thenReturn(mockSelectable);
+    when(() => mockSelectable.get()).thenAnswer((_) async => <QueryRow>[]);
     when(() => mockReminderService.recordBackupCompleted(any())).thenAnswer((_) async {});
     when(() => mockReminderService.recordBackupCompleted()).thenAnswer((_) async {});
     originalSharePlatform = SharePlatform.instance;
@@ -80,7 +90,13 @@ void main() {
         if (await tempFile.exists()) await tempFile.delete();
       });
 
-      when(() => mockService.createEncryptedBackup(any())).thenAnswer((_) async => Success(tempFile));
+      when(
+        () => mockService.createEncryptedBackup(any(), onBeforeRead: any(named: 'onBeforeRead')),
+      ).thenAnswer((invocation) async {
+        final onBefore = invocation.namedArguments[#onBeforeRead] as Future<void> Function()?;
+        await onBefore?.call();
+        return Success(tempFile);
+      });
 
       final container = createContainer();
       final notifier = container.read(backupControllerProvider.notifier);
@@ -94,12 +110,73 @@ void main() {
       expect(container.read(backupControllerProvider).hasValue, isTrue);
       expect(container.read(backupControllerProvider).isLoading, isFalse);
       expect(container.read(backupControllerProvider).hasError, isFalse);
-      verify(() => mockService.createEncryptedBackup('password123')).called(1);
+      verify(
+        () => mockService.createEncryptedBackup('password123', onBeforeRead: any(named: 'onBeforeRead')),
+      ).called(1);
+      verify(() => mockDb.customSelect('PRAGMA wal_checkpoint(TRUNCATE);')).called(1);
       verify(() => mockReminderService.recordBackupCompleted()).called(1);
     });
 
+    test('backup() — executes PRAGMA wal_checkpoint(TRUNCATE) and handles busy status gracefully', () async {
+      final tempFile = File(
+        '${Directory.systemTemp.path}/backup_busy_${DateTime.now().microsecondsSinceEpoch}.enc.db',
+      );
+      await tempFile.writeAsString('fake');
+      addTearDown(() async {
+        if (await tempFile.exists()) await tempFile.delete();
+      });
+
+      final mockRow = MockQueryRow();
+      when(() => mockRow.data).thenReturn(<String, Object?>{'busy': 1, 'log': 10, 'checkpointed': 5});
+      when(() => mockSelectable.get()).thenAnswer((_) async => <QueryRow>[mockRow]);
+
+      when(
+        () => mockService.createEncryptedBackup(any(), onBeforeRead: any(named: 'onBeforeRead')),
+      ).thenAnswer((invocation) async {
+        final onBefore = invocation.namedArguments[#onBeforeRead] as Future<void> Function()?;
+        await onBefore?.call();
+        return Success(tempFile);
+      });
+
+      final container = createContainer();
+      final notifier = container.read(backupControllerProvider.notifier);
+
+      final result = await notifier.backup('password123');
+      expect(result, isTrue);
+      verify(() => mockDb.customSelect('PRAGMA wal_checkpoint(TRUNCATE);')).called(1);
+    });
+
+    test('backup() — handles WAL checkpoint error gracefully without failing the entire backup', () async {
+      final tempFile = File(
+        '${Directory.systemTemp.path}/backup_err_${DateTime.now().microsecondsSinceEpoch}.enc.db',
+      );
+      await tempFile.writeAsString('fake');
+      addTearDown(() async {
+        if (await tempFile.exists()) await tempFile.delete();
+      });
+
+      when(() => mockSelectable.get()).thenThrow(Exception('database locked'));
+
+      when(
+        () => mockService.createEncryptedBackup(any(), onBeforeRead: any(named: 'onBeforeRead')),
+      ).thenAnswer((invocation) async {
+        final onBefore = invocation.namedArguments[#onBeforeRead] as Future<void> Function()?;
+        await onBefore?.call();
+        return Success(tempFile);
+      });
+
+      final container = createContainer();
+      final notifier = container.read(backupControllerProvider.notifier);
+
+      final result = await notifier.backup('password123');
+      expect(result, isTrue);
+      verify(() => mockDb.customSelect('PRAGMA wal_checkpoint(TRUNCATE);')).called(1);
+    });
+
     test('backup() — on BackupService failure: state transitions loading -> error, returns false', () async {
-      when(() => mockService.createEncryptedBackup(any())).thenAnswer((_) async => Failure(Exception('disk full')));
+      when(
+        () => mockService.createEncryptedBackup(any(), onBeforeRead: any(named: 'onBeforeRead')),
+      ).thenAnswer((_) async => Failure(Exception('disk full')));
 
       final container = createContainer();
       final notifier = container.read(backupControllerProvider.notifier);
@@ -116,7 +193,9 @@ void main() {
     });
 
     test('backup() — on Exception thrown: state = error, returns false', () async {
-      when(() => mockService.createEncryptedBackup(any())).thenThrow(Exception('unexpected throw'));
+      when(
+        () => mockService.createEncryptedBackup(any(), onBeforeRead: any(named: 'onBeforeRead')),
+      ).thenThrow(Exception('unexpected throw'));
 
       final container = createContainer();
       final notifier = container.read(backupControllerProvider.notifier);
