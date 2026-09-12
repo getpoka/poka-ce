@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.0.1] - 2026-09-12
+
+Post-GA stabilization, security hardening, and database query optimization release.
+
 ### Security
 
 - Disabled Android ADB backup (`android:allowBackup="false"`) in `AndroidManifest.xml` to prevent plaintext data extraction via USB debugging.
@@ -21,6 +25,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Configured SQLite runtime PRAGMAs (`synchronous = NORMAL`, `temp_store = MEMORY`, `cache_size = -64000`) for improved throughput and reduced flash storage wear.
 - Offloaded Excel file compression and encoding to a background Dart isolate (`Isolate.run`), eliminating UI thread hitches during transaction exports.
 - Executed atomic WAL checkpoint (`PRAGMA wal_checkpoint(TRUNCATE)`) prior to backup packaging to ensure complete transaction persistence.
+
+### Changed
+
+- Bundled regular offline fonts locally and removed runtime `google_fonts` network fetching dependency.
+- Removed redundant font fallbacks and unused Cupertino widget dependencies.
+- [internal] Overhauled automated PR review and issue triage workflows with OpenRouter app attribution and English prompt guidelines.
 
 ### Fixed
 
@@ -236,7 +246,8 @@ All core features are feature-complete and ready to be explored:
 
 > **⚠️ Important Note:** This version is still under testing. Deep edge cases (such as editing or deleting complex interconnected data) have not been fully verified. Unexpected bugs may occur — we recommend trying it with dummy data first, or regularly backing up your data from the Settings menu. Help us reach v1.0 by reporting bugs via the [Issues](https://github.com/getpoka/poka-ce/issues) tab.
 
-[Unreleased]: https://github.com/getpoka/poka-ce/compare/v1.0.0...main
+[Unreleased]: https://github.com/getpoka/poka-ce/compare/v1.0.1...main
+[v1.0.1]: https://github.com/getpoka/poka-ce/compare/v1.0.0...v1.0.1
 [v1.0.0]: https://github.com/getpoka/poka-ce/compare/v1.0.0-rc.2...v1.0.0
 [v1.0.0-rc.2]: https://github.com/getpoka/poka-ce/compare/v1.0.0-rc.1...v1.0.0-rc.2
 [v1.0.0-rc.1]: https://github.com/getpoka/poka-ce/compare/v0.1.0-beta.5...v1.0.0-rc.1
