@@ -22,7 +22,6 @@ dependencies:
   flutter_slidable: ^4.0.3
   flutter_reorderable_grid_view: ^5.7.0
   material_ui: any
-  cupertino_ui: any
 
   # State Management
   riverpod: any
@@ -106,12 +105,6 @@ flutter:
     - family: Inter
       fonts:
         - asset: assets/fonts/Inter-Regular.ttf
-    - family: Inter_regular
-      fonts:
-        - asset: assets/fonts/Inter-Regular.ttf
     - family: PlusJakartaSans
-      fonts:
-        - asset: assets/fonts/PlusJakartaSans-Regular.ttf
-    - family: PlusJakartaSans_regular
       fonts:
         - asset: assets/fonts/PlusJakartaSans-Regular.ttf

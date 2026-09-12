@@ -7,18 +7,8 @@ FTypography _typography({required FColors colors, required bool touch}) {
   const headingFamily = 'PlusJakartaSans';
   const bodyFamily = 'Inter';
   return FTypography(
-    display: _display(
-      colors: colors,
-      touch: touch,
-      fontFamily: headingFamily,
-      fontFamilyFallback: const ['PlusJakartaSans_regular'],
-    ),
-    body: _body(
-      colors: colors,
-      touch: touch,
-      fontFamily: bodyFamily,
-      fontFamilyFallback: const ['Inter_regular'],
-    ),
+    display: _display(colors: colors, touch: touch, fontFamily: headingFamily),
+    body: _body(colors: colors, touch: touch, fontFamily: bodyFamily),
   );
 }
 

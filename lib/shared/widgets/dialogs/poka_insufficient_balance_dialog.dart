@@ -85,6 +85,9 @@ Future<bool?> showPokaInsufficientBalanceDialog(
               const SizedBox(height: 24),
 
               // Actions
+              // Note: In forui 0.26, FButton places `child` directly inside an internal Row.
+              // Flexible is required so the Row constrains the child; without it, FittedBox
+              // receives unconstrained width (infinity) from the Row and overflows by 14px in tests.
               Row(
                 children: [
                   Expanded(
