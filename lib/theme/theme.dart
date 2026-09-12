@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import 'package:forui/forui.dart';
 import 'package:forui_phosphor/forui_phosphor.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:poka_ce/theme/styles/card_style.dart';
 import 'package:poka_ce/theme/styles/item_group_style.dart';
