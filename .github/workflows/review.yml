@@ -1,0 +1,48 @@
+name: Review
+
+on:
+  pull_request:
+    types: [ opened, ready_for_review ]
+  issue_comment:
+    types: [ created ]
+
+permissions:
+  issues: write
+  pull-requests: write
+  contents: write
+
+jobs:
+  review:
+    if: |
+      github.event.sender.type != 'Bot' &&
+      (
+        (
+          github.event_name == 'pull_request' &&
+          !github.event.pull_request.draft
+        ) ||
+        (
+          github.event_name == 'issue_comment' &&
+          github.event.issue.pull_request &&
+          contains(github.event.comment.body, '/review')
+        )
+      )
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate OctopyID Token
+        id: octopy
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.OCTOPY_APP_ID }}
+          private-key: ${{ secrets.OCTOPY_APP_PRIVATE_KEY }}
+
+      - name: PR Agent action step
+        uses: the-pr-agent/pr-agent@main
+        env:
+          GITHUB_TOKEN: ${{ steps.octopy.outputs.token }}
+          
+          OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
+          OPENAI_BASE_URL: https://aig.octopy.dev/compat
+          OPENAI_EXTRA_HEADERS: '{"HTTP-Referer": "https://aig.octopy.dev", "X-OpenRouter-Title": "Octopy AIG", "X-Title": "Octopy AIG", "X-OpenRouter-Categories": "cli-agent,cloud-agent", "X-OpenRouter-App-Visibility": "hidden"}'
+
+          CONFIG.MODEL: ${{ secrets.AI_MODEL || 'dynamic/copilot' }}
+          CONFIG.EXTRA_HEADERS: '{"HTTP-Referer": "https://aig.octopy.dev", "X-OpenRouter-Title": "Octopy AIG", "X-Title": "Octopy AIG", "X-OpenRouter-Categories": "cli-agent,cloud-agent", "X-OpenRouter-App-Visibility": "hidden"}'
