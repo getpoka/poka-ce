@@ -10,11 +10,7 @@ import 'package:poka_ce/shared/widgets/poka_section_label.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class GoalAccountSection extends HookConsumerWidget {
-  const GoalAccountSection({
-    required this.aggregates,
-    required this.totalAssets,
-    super.key,
-  });
+  const new({required this.aggregates, required this.totalAssets, super.key});
 
   final List<AccountAggregate> aggregates;
   final double totalAssets;

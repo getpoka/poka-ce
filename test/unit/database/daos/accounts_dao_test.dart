@@ -41,18 +41,10 @@ void main() {
 
     test('getActiveAccounts filters inactive', () async {
       await db.accountsDao.insertAccount(
-        AccountsCompanion.insert(
-          id: const Value('a1'),
-          name: 'Active',
-          type: AccountType.assets,
-        ),
+        AccountsCompanion.insert(id: const Value('a1'), name: 'Active', type: AccountType.assets),
       );
       await db.accountsDao.insertAccount(
-        AccountsCompanion.insert(
-          id: const Value('a2'),
-          name: 'Inactive',
-          type: AccountType.assets,
-        ),
+        AccountsCompanion.insert(id: const Value('a2'), name: 'Inactive', type: AccountType.assets),
       );
       await db.accountsDao.deactivateAccount('a2');
       final active = await db.accountsDao.getActiveAccounts();
@@ -62,11 +54,7 @@ void main() {
 
     test('getAccount returns correct or null', () async {
       await db.accountsDao.insertAccount(
-        AccountsCompanion.insert(
-          id: const Value('a1'),
-          name: 'Wallet',
-          type: AccountType.assets,
-        ),
+        AccountsCompanion.insert(id: const Value('a1'), name: 'Wallet', type: AccountType.assets),
       );
       final found = await db.accountsDao.getAccount('a1');
       expect(found, isNotNull);
@@ -77,19 +65,10 @@ void main() {
 
     test('updateAccount modifies fields', () async {
       await db.accountsDao.insertAccount(
-        AccountsCompanion.insert(
-          id: const Value('a1'),
-          name: 'Old',
-          type: AccountType.assets,
-          balance: const Value(0),
-        ),
+        AccountsCompanion.insert(id: const Value('a1'), name: 'Old', type: AccountType.assets, balance: const Value(0)),
       );
       final updated = await db.accountsDao.updateAccount(
-        const AccountsCompanion(
-          id: Value('a1'),
-          name: Value('New'),
-          balance: Value(500),
-        ),
+        const AccountsCompanion(id: Value('a1'), name: Value('New'), balance: Value(500)),
       );
       expect(updated, true);
       final acc = await db.accountsDao.getAccount('a1');
@@ -99,11 +78,7 @@ void main() {
 
     test('deactivateAccount sets isActive false', () async {
       await db.accountsDao.insertAccount(
-        AccountsCompanion.insert(
-          id: const Value('a1'),
-          name: 'Wallet',
-          type: AccountType.assets,
-        ),
+        AccountsCompanion.insert(id: const Value('a1'), name: 'Wallet', type: AccountType.assets),
       );
       await db.accountsDao.deactivateAccount('a1');
       final acc = await db.accountsDao.getAccount('a1');
@@ -113,40 +88,16 @@ void main() {
     test('setAccountCategories replaces existing', () async {
       await db
           .into(db.accounts)
-          .insert(
-            AccountsCompanion.insert(
-              id: const Value('acc1'),
-              name: 'Wallet',
-              type: AccountType.assets,
-            ),
-          );
+          .insert(AccountsCompanion.insert(id: const Value('acc1'), name: 'Wallet', type: AccountType.assets));
       await db
           .into(db.categories)
-          .insert(
-            CategoriesCompanion.insert(
-              id: const Value('cat1'),
-              name: 'Food',
-              type: CategoryType.expense,
-            ),
-          );
+          .insert(CategoriesCompanion.insert(id: const Value('cat1'), name: 'Food', type: CategoryType.expense));
       await db
           .into(db.categories)
-          .insert(
-            CategoriesCompanion.insert(
-              id: const Value('cat2'),
-              name: 'Transport',
-              type: CategoryType.expense,
-            ),
-          );
+          .insert(CategoriesCompanion.insert(id: const Value('cat2'), name: 'Transport', type: CategoryType.expense));
       await db
           .into(db.categories)
-          .insert(
-            CategoriesCompanion.insert(
-              id: const Value('cat3'),
-              name: 'Salary',
-              type: CategoryType.income,
-            ),
-          );
+          .insert(CategoriesCompanion.insert(id: const Value('cat3'), name: 'Salary', type: CategoryType.income));
 
       await db.accountsDao.setAccountCategories('acc1', ['cat1', 'cat2']);
       var rows = await db.select(db.accountCategories).get();
@@ -163,22 +114,10 @@ void main() {
     test('setAccountCategories with empty clears all', () async {
       await db
           .into(db.accounts)
-          .insert(
-            AccountsCompanion.insert(
-              id: const Value('acc1'),
-              name: 'Wallet',
-              type: AccountType.assets,
-            ),
-          );
+          .insert(AccountsCompanion.insert(id: const Value('acc1'), name: 'Wallet', type: AccountType.assets));
       await db
           .into(db.categories)
-          .insert(
-            CategoriesCompanion.insert(
-              id: const Value('cat1'),
-              name: 'Food',
-              type: CategoryType.expense,
-            ),
-          );
+          .insert(CategoriesCompanion.insert(id: const Value('cat1'), name: 'Food', type: CategoryType.expense));
       await db.accountsDao.setAccountCategories('acc1', ['cat1']);
       expect((await db.select(db.accountCategories).get()).length, 1);
       await db.accountsDao.setAccountCategories('acc1', []);
@@ -187,11 +126,7 @@ void main() {
 
     test('balance default is 0 when not provided', () async {
       await db.accountsDao.insertAccount(
-        AccountsCompanion.insert(
-          id: const Value('a1'),
-          name: 'Wallet',
-          type: AccountType.assets,
-        ),
+        AccountsCompanion.insert(id: const Value('a1'), name: 'Wallet', type: AccountType.assets),
       );
       final acc = await db.accountsDao.getAccount('a1');
       expect(acc!.balance, 0);
@@ -199,11 +134,7 @@ void main() {
 
     test('deleteAccount removes row', () async {
       await db.accountsDao.insertAccount(
-        AccountsCompanion.insert(
-          id: const Value('a-del'),
-          name: 'Trash',
-          type: AccountType.assets,
-        ),
+        AccountsCompanion.insert(id: const Value('a-del'), name: 'Trash', type: AccountType.assets),
       );
       expect(await db.accountsDao.getAccount('a-del'), isNotNull);
       await db.accountsDao.deleteAccount('a-del');
@@ -259,11 +190,7 @@ void main() {
 
     test('parent pocket cascade delete via FK', () async {
       await db.accountsDao.insertAccount(
-        AccountsCompanion.insert(
-          id: const Value('parent'),
-          name: 'Parent',
-          type: AccountType.assets,
-        ),
+        AccountsCompanion.insert(id: const Value('parent'), name: 'Parent', type: AccountType.assets),
       );
       await db.accountsDao.insertAccount(
         AccountsCompanion.insert(

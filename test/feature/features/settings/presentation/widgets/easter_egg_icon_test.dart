@@ -112,9 +112,7 @@ void main() {
               child: FToaster(child: child!),
             ),
             home: const Scaffold(
-              body: Center(
-                child: EasterEggIcon(package: 'poka_ce'),
-              ),
+              body: Center(child: EasterEggIcon(package: 'poka_ce')),
             ),
           ),
         ),

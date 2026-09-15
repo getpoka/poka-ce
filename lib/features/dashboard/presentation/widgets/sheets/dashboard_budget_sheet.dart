@@ -7,10 +7,7 @@ import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/sheets/poka_sheet.dart';
 
 class DashboardBudgetSheet extends HookConsumerWidget {
-  const DashboardBudgetSheet({
-    required this.currentBudget,
-    super.key,
-  });
+  const new({required this.currentBudget, super.key});
 
   final double currentBudget;
 
@@ -24,9 +21,7 @@ class DashboardBudgetSheet extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final controller = useTextEditingController(
-      text: currentBudget > 0 ? currentBudget.toInt().toString() : '',
-    );
+    final controller = useTextEditingController(text: currentBudget > 0 ? currentBudget.toInt().toString() : '');
 
     return PokaSheet(
       title: context.t.dashboard.setDailyBudget,

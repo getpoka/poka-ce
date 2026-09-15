@@ -11,7 +11,7 @@ import 'package:poka_ce/theme/theme.dart';
 
 /// First-run onboarding screen where user selects their base currency.
 class OnboardingPage extends HookConsumerWidget {
-  const OnboardingPage({super.key});
+  const new({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -24,9 +24,7 @@ class OnboardingPage extends HookConsumerWidget {
     final currencies = availableCurrenciesFuture.data ?? <CurrencyModel>[];
 
     return FScaffold(
-      header: PokaHeader(
-        title: t.onboarding.chooseYourBaseCurrency,
-      ),
+      header: PokaHeader(title: t.onboarding.chooseYourBaseCurrency),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -43,11 +41,7 @@ class OnboardingPage extends HookConsumerWidget {
                     ),
                     child: Padding(
                       padding: EdgeInsets.all(theme.style.app.sm),
-                      child: Icon(
-                        FPhosphorIcons.currencyCircleDollar,
-                        color: theme.colors.primary,
-                        size: 24,
-                      ),
+                      child: Icon(FPhosphorIcons.currencyCircleDollar, color: theme.colors.primary, size: 24),
                     ),
                   ),
                   SizedBox(width: theme.style.app.md),
@@ -55,10 +49,7 @@ class OnboardingPage extends HookConsumerWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          t.onboarding.chooseYourBaseCurrency,
-                          style: theme.typography.titleCard,
-                        ),
+                        Text(t.onboarding.chooseYourBaseCurrency, style: theme.typography.titleCard),
                         SizedBox(height: theme.style.app.xs),
                         Text(
                           t

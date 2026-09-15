@@ -6,7 +6,7 @@ import 'package:poka_ce/features/settings/presentation/widgets/settings_menu_sec
 import 'package:poka_ce/i18n/strings.g.dart';
 
 class SupportSection extends StatelessWidget {
-  const SupportSection({super.key});
+  const new({super.key});
 
   @override
   Widget build(BuildContext context) {

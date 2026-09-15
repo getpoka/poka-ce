@@ -60,9 +60,6 @@ extension PokaTypographyRoles on FTypography {
   );
 
   /// Primary amount in full-width cards (budget, goal, debt, recurring). 15px w700, tabular figures.
-  TextStyle get amountCard => body.xs.copyWith(
-    fontSize: 15,
-    fontWeight: FontWeight.w700,
-    fontFeatures: const [FontFeature.tabularFigures()],
-  );
+  TextStyle get amountCard =>
+      body.xs.copyWith(fontSize: 15, fontWeight: FontWeight.w700, fontFeatures: const [FontFeature.tabularFigures()]);
 }

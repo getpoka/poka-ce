@@ -8,37 +8,25 @@ import 'package:poka_ce/features/transactions/domain/use_cases/update_transactio
 
 /// Provides an instance of [CreateAccountUseCase].
 final createAccountUseCaseProvider = Provider<CreateAccountUseCase>((ref) {
-  return CreateAccountUseCase(
-    ref.watch(unitOfWorkProvider),
-    ref.watch(accountRepositoryProvider),
-  );
+  return CreateAccountUseCase(ref.watch(unitOfWorkProvider), ref.watch(accountRepositoryProvider));
 });
 
 /// Provides an instance of [UpdateAccountUseCase].
 final updateAccountUseCaseProvider = Provider<UpdateAccountUseCase>((ref) {
-  return UpdateAccountUseCase(
-    ref.watch(accountRepositoryProvider),
-  );
+  return UpdateAccountUseCase(ref.watch(accountRepositoryProvider));
 });
 
 /// Provides an instance of [CreateTransactionUseCase].
 final createTransactionUseCaseProvider = Provider<CreateTransactionUseCase>((ref) {
-  return CreateTransactionUseCase(
-    ref.watch(transactionRepositoryProvider),
-  );
+  return CreateTransactionUseCase(ref.watch(transactionRepositoryProvider));
 });
 
 /// Provides an instance of [TransferFundsUseCase].
 final transferFundsUseCaseProvider = Provider<TransferFundsUseCase>((ref) {
-  return TransferFundsUseCase(
-    ref.watch(unitOfWorkProvider),
-    ref.watch(transactionRepositoryProvider),
-  );
+  return TransferFundsUseCase(ref.watch(unitOfWorkProvider), ref.watch(transactionRepositoryProvider));
 });
 
 /// Provides an instance of [UpdateTransactionUseCase].
 final updateTransactionUseCaseProvider = Provider<UpdateTransactionUseCase>((ref) {
-  return UpdateTransactionUseCase(
-    ref.watch(transactionRepositoryProvider),
-  );
+  return UpdateTransactionUseCase(ref.watch(transactionRepositoryProvider));
 });

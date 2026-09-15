@@ -6,7 +6,7 @@ import 'package:poka_ce/features/transactions/domain/transaction_model.dart';
 /// along with aggregated daily income and expense totals.
 class TransactionGroup {
   /// Creates a [TransactionGroup] with date labels, child transactions, and aggregated daily totals.
-  TransactionGroup({
+  new({
     required this.dateStr,
     required this.dateObj,
     required this.transactions,

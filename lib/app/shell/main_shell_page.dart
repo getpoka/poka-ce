@@ -12,10 +12,7 @@ import 'package:poka_ce/shared/widgets/poka_add_transaction_fab.dart';
 /// Also triggers the recurring automation runner on every app startup.
 class MainShellPage extends HookConsumerWidget {
   /// Creates the shell page with [navigationShell] from go_router.
-  const MainShellPage({
-    required this.navigationShell,
-    super.key,
-  });
+  const new({required this.navigationShell, super.key});
 
   /// The navigation shell provided by go_router.
   final StatefulNavigationShell navigationShell;
@@ -40,10 +37,7 @@ class MainShellPage extends HookConsumerWidget {
       footer: FBottomNavigationBar(
         index: navigationShell.currentIndex,
         onChange: (index) {
-          navigationShell.goBranch(
-            index,
-            initialLocation: index == navigationShell.currentIndex,
-          );
+          navigationShell.goBranch(index, initialLocation: index == navigationShell.currentIndex);
         },
         children: [
           FBottomNavigationBarItem(

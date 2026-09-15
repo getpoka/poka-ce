@@ -16,11 +16,7 @@ import 'package:poka_ce/shared/widgets/poka_slidable_action.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class DebtCard extends ConsumerWidget {
-  const DebtCard({
-    required this.debt,
-    this.isInteractive = true,
-    super.key,
-  });
+  const new({required this.debt, this.isInteractive = true, super.key});
 
   final DebtModel debt;
   final bool isInteractive;
@@ -87,9 +83,7 @@ class DebtCard extends ConsumerWidget {
                     ),
                     Text(
                       t.debts.remaining,
-                      style: theme.typography.bodySecondary.copyWith(
-                        color: theme.colors.mutedForeground,
-                      ),
+                      style: theme.typography.bodySecondary.copyWith(color: theme.colors.mutedForeground),
                     ),
                   ],
                 ),
@@ -139,10 +133,7 @@ class DebtCard extends ConsumerWidget {
               const SizedBox(height: 10),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                decoration: BoxDecoration(
-                  color: theme.colors.muted,
-                  borderRadius: theme.style.borderRadius.sm,
-                ),
+                decoration: BoxDecoration(color: theme.colors.muted, borderRadius: theme.style.borderRadius.sm),
                 child: Row(
                   children: [
                     Icon(FPhosphorIcons.note, size: 13, color: theme.colors.mutedForeground),
@@ -150,9 +141,7 @@ class DebtCard extends ConsumerWidget {
                     Expanded(
                       child: Text(
                         debt.note!,
-                        style: theme.typography.bodySecondary.copyWith(
-                          color: theme.colors.mutedForeground,
-                        ),
+                        style: theme.typography.bodySecondary.copyWith(color: theme.colors.mutedForeground),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),

@@ -22,7 +22,7 @@ enum PokaIconSize {
 /// Standardized icon container with tint background and optional border.
 /// Replaces raw Icon or manual Container+Icon combinations across the application.
 class PokaIcon extends StatelessWidget {
-  const PokaIcon({
+  const new({
     required this.icon,
     super.key,
     this.shape = PokaIconShape.square,
@@ -84,11 +84,7 @@ class PokaIcon extends StatelessWidget {
         border: hasBorder ? Border.all(color: borderColor) : null,
       ),
       child: Center(
-        child: Icon(
-          icon,
-          color: effectiveColor,
-          size: iconSize,
-        ),
+        child: Icon(icon, color: effectiveColor, size: iconSize),
       ),
     );
   }

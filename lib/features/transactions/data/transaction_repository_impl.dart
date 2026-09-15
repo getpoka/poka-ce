@@ -11,7 +11,7 @@ import 'package:poka_ce/features/transactions/domain/transaction_model.dart';
 /// Implementation of [ITransactionRepository] mapping Drift DAO to Freezed Domain Models.
 class TransactionRepositoryImpl implements ITransactionRepository {
   /// Creates a [TransactionRepositoryImpl] with the given [TransactionsDao].
-  TransactionRepositoryImpl(this._dao);
+  new(this._dao);
   final TransactionsDao _dao;
 
   /// Fetches all transactions including their associated line items.
@@ -174,7 +174,7 @@ class TransactionRepositoryImpl implements ITransactionRepository {
   /// Restores a previously deleted transaction by re-inserting it.
   @override
   Future<Result<void, Failure>> restoreTransaction(TransactionModel transaction) async {
-    return createTransaction(transaction);
+    return await createTransaction(transaction);
   }
 
   /// Maps Drift Transaction object to Domain TransactionModel.

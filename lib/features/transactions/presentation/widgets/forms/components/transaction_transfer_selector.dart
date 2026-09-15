@@ -8,7 +8,7 @@ import 'package:poka_ce/shared/widgets/poka_pocket_selector.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class TransactionTransferSelector extends StatelessWidget {
-  const TransactionTransferSelector({
+  const new({
     required this.accounts,
     required this.fromAccount,
     required this.toAccount,
@@ -34,10 +34,7 @@ class TransactionTransferSelector extends StatelessWidget {
     final theme = context.theme;
 
     if (accounts.isEmpty) {
-      return SizedBox(
-        height: 50,
-        child: Center(child: Text(t.transactions.noAccountsAvailable)),
-      );
+      return SizedBox(height: 50, child: Center(child: Text(t.transactions.noAccountsAvailable)));
     }
 
     final effectiveFrom = fromAccount ?? accounts.first;
@@ -83,10 +80,7 @@ class TransactionTransferSelector extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12),
             child: Center(
-              child: _TransactionSwapButton(
-                theme: theme,
-                onTap: onSwapAccounts,
-              ),
+              child: _TransactionSwapButton(theme: theme, onTap: onSwapAccounts),
             ),
           ),
           Expanded(
@@ -107,7 +101,7 @@ class TransactionTransferSelector extends StatelessWidget {
 }
 
 class _TransactionSwapButton extends StatelessWidget {
-  const _TransactionSwapButton({required this.theme, required this.onTap});
+  const new({required this.theme, required this.onTap});
 
   final FThemeData theme;
   final VoidCallback onTap;
@@ -123,29 +117,16 @@ class _TransactionSwapButton extends StatelessWidget {
         decoration: BoxDecoration(
           color: transferColor.withValues(alpha: 0.08),
           shape: BoxShape.circle,
-          border: Border.all(
-            color: transferColor.withValues(alpha: 0.25),
-          ),
+          border: Border.all(color: transferColor.withValues(alpha: 0.25)),
         ),
-        child: Center(
-          child: Icon(
-            FPhosphorIcons.arrowsDownUp,
-            size: 15,
-            color: transferColor,
-          ),
-        ),
+        child: Center(child: Icon(FPhosphorIcons.arrowsDownUp, size: 15, color: transferColor)),
       ),
     );
   }
 }
 
 class _TransactionTransferChip extends StatelessWidget {
-  const _TransactionTransferChip({
-    required this.theme,
-    required this.label,
-    required this.account,
-    required this.color,
-  });
+  const new({required this.theme, required this.label, required this.account, required this.color});
 
   final FThemeData theme;
   final String label;
@@ -177,10 +158,7 @@ class _TransactionTransferChip extends StatelessWidget {
               children: [
                 Text(
                   label,
-                  style: theme.typography.bodySecondary.copyWith(
-                    color: theme.colors.mutedForeground,
-                    height: 1,
-                  ),
+                  style: theme.typography.bodySecondary.copyWith(color: theme.colors.mutedForeground, height: 1),
                 ),
                 const SizedBox(height: 2),
                 Text(
@@ -195,11 +173,7 @@ class _TransactionTransferChip extends StatelessWidget {
               ],
             ),
           ),
-          Icon(
-            FPhosphorIcons.caretDown,
-            size: 12,
-            color: theme.colors.muted,
-          ),
+          Icon(FPhosphorIcons.caretDown, size: 12, color: theme.colors.muted),
         ],
       ),
     );

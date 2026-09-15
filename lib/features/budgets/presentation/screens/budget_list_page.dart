@@ -15,17 +15,14 @@ import 'package:poka_ce/theme/theme.dart';
 /// Budget list page — displays all user budgets with spending progress.
 /// Intentionally budget-only; goals have their own dedicated page.
 class BudgetListPage extends ConsumerWidget {
-  const BudgetListPage({super.key});
+  const new({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(budgetListProvider);
 
     return FScaffold(
-      header: PokaHeader(
-        title: t.budgets.budgets,
-        showBack: true,
-      ),
+      header: PokaHeader(title: t.budgets.budgets, showBack: true),
       child: state.when(
         data: (budgets) => _BudgetContent(budgets: budgets),
         error: (err, _) => Center(child: Text(err.toString())),
@@ -40,7 +37,7 @@ class BudgetListPage extends ConsumerWidget {
 // ─────────────────────────────────────────────────────────────────────────────
 
 class _BudgetContent extends ConsumerWidget {
-  const _BudgetContent({required this.budgets});
+  const new({required this.budgets});
 
   final List<BudgetModel> budgets;
 

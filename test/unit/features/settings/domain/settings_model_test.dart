@@ -18,11 +18,7 @@ void main() {
       const currency = CurrencyModel(id: 'c1', name: 'Rupiah', code: 'IDR', symbol: 'Rp', precision: 2);
       const m = SettingsModel(themeMode: 'light', baseCurrency: currency);
       // Build json explicitly to avoid explicitToJson issue with nested Freezed
-      final json = {
-        'themeMode': m.themeMode,
-        'language': m.language,
-        'baseCurrency': currency.toJson(),
-      };
+      final json = {'themeMode': m.themeMode, 'language': m.language, 'baseCurrency': currency.toJson()};
       final restored = SettingsModel.fromJson(json);
       expect(restored.baseCurrency!.code, 'IDR');
       expect(restored.themeMode, 'light');

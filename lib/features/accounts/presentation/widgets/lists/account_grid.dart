@@ -10,11 +10,7 @@ import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/dialogs/poka_confirm_dialog.dart';
 
 class AccountGrid extends ConsumerWidget {
-  const AccountGrid({
-    required this.aggregates,
-    required this.totalAssets,
-    super.key,
-  });
+  const new({required this.aggregates, required this.totalAssets, super.key});
 
   final List<AccountAggregate> aggregates;
   final double totalAssets;

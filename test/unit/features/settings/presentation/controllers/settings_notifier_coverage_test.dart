@@ -17,11 +17,7 @@ void main() {
   });
 
   ProviderContainer makeContainer() {
-    final container = ProviderContainer(
-      overrides: [
-        settingsRepositoryProvider.overrideWithValue(mockRepo),
-      ],
-    );
+    final container = ProviderContainer(overrides: [settingsRepositoryProvider.overrideWithValue(mockRepo)]);
     container.listen(settingsProvider, (_, __) {});
     addTearDown(container.dispose);
     return container;
@@ -29,15 +25,13 @@ void main() {
 
   group('SettingsNotifier coverage', () {
     test('setLanguage success reloads', () async {
-      when(
-        () => mockRepo.getSettings(),
-      ).thenAnswer((_) async => const SettingsModel(themeMode: 'system', language: 'system'));
+      when(() => mockRepo.getSettings())
+          .thenAnswer((_) async => const SettingsModel(themeMode: 'system', language: 'system'));
       when(() => mockRepo.setLanguage(any())).thenAnswer((_) async {});
       final container = makeContainer();
       await Future.delayed(const Duration(milliseconds: 30));
-      when(
-        () => mockRepo.getSettings(),
-      ).thenAnswer((_) async => const SettingsModel(themeMode: 'system', language: 'en'));
+      when(() => mockRepo.getSettings())
+          .thenAnswer((_) async => const SettingsModel(themeMode: 'system', language: 'en'));
       await container.read(settingsProvider.notifier).setLanguage('en');
       await Future.delayed(const Duration(milliseconds: 30));
       verify(() => mockRepo.setLanguage('en')).called(1);
@@ -85,9 +79,7 @@ void main() {
 
     test('getAvailableCurrencies delegates to repo when notifier already loaded', () async {
       when(() => mockRepo.getSettings()).thenAnswer((_) async => const SettingsModel(themeMode: 'system'));
-      when(
-        () => mockRepo.getCurrencies(),
-      ).thenAnswer(
+      when(() => mockRepo.getCurrencies()).thenAnswer(
         (_) async => [const CurrencyModel(id: 'c1', name: 'Rupiah', code: 'IDR', symbol: 'Rp', precision: 2)],
       );
       final container = makeContainer();

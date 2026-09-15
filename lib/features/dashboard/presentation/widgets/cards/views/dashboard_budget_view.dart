@@ -12,7 +12,7 @@ import 'package:poka_ce/theme/theme.dart';
 /// Budget allocation carousel slide displaying Needs, Wants, and Savings breakdown.
 class DashboardBudgetView extends ConsumerWidget {
   /// Creates a [DashboardBudgetView].
-  const DashboardBudgetView({super.key});
+  const new({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

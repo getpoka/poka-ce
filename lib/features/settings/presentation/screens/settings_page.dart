@@ -11,7 +11,7 @@ import 'package:poka_ce/shared/widgets/poka_header.dart';
 /// The main Settings screen allowing users to configure preferences, security,
 /// data backups, and view app information.
 class SettingsPage extends StatelessWidget {
-  const SettingsPage({super.key});
+  const new({super.key});
 
   @override
   Widget build(BuildContext context) {

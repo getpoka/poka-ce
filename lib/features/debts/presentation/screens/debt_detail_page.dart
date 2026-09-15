@@ -24,11 +24,7 @@ import 'package:poka_ce/theme/theme.dart';
 
 /// Detail screen showing debt/loan terms, remaining balance, settlement progress, and installment history.
 class DebtDetailPage extends ConsumerWidget {
-  const DebtDetailPage({
-    required this.id,
-    this.debt,
-    super.key,
-  });
+  const new({required this.id, this.debt, super.key});
 
   final String id;
   final DebtModel? debt;
@@ -50,10 +46,7 @@ class DebtDetailPage extends ConsumerWidget {
             .watch(categoryListProvider)
             .asData
             ?.value
-            .fold<Map<String, CategoryModel>>(
-              <String, CategoryModel>{},
-              (map, c) => map..[c.id] = c,
-            ) ??
+            .fold<Map<String, CategoryModel>>(<String, CategoryModel>{}, (map, c) => map..[c.id] = c) ??
         <String, CategoryModel>{};
 
     final accountsById =
@@ -62,10 +55,7 @@ class DebtDetailPage extends ConsumerWidget {
             .asData
             ?.value
             .accounts
-            .fold<Map<String, AccountModel>>(
-              <String, AccountModel>{},
-              (map, a) => map..[a.id] = a,
-            ) ??
+            .fold<Map<String, AccountModel>>(<String, AccountModel>{}, (map, a) => map..[a.id] = a) ??
         <String, AccountModel>{};
 
     final transactionsAsync = ref.watch(debtTransactionsProvider(activeDebt));
@@ -101,9 +91,7 @@ class DebtDetailPage extends ConsumerWidget {
       child: CustomScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
         slivers: [
-          SliverToBoxAdapter(
-            child: DebtCard(debt: activeDebt, isInteractive: false),
-          ),
+          SliverToBoxAdapter(child: DebtCard(debt: activeDebt, isInteractive: false)),
           if (activeDebt.status == DebtStatus.active)
             SliverToBoxAdapter(
               child: Padding(
@@ -115,9 +103,7 @@ class DebtDetailPage extends ConsumerWidget {
               ),
             ),
           const SliverToBoxAdapter(child: SizedBox(height: 24)),
-          SliverToBoxAdapter(
-            child: PokaSectionLabel(title: t.debts.repaymentHistory),
-          ),
+          SliverToBoxAdapter(child: PokaSectionLabel(title: t.debts.repaymentHistory)),
           const SliverToBoxAdapter(child: SizedBox(height: 8)),
           transactionsAsync.when(
             data: (transactions) {
@@ -134,53 +120,47 @@ class DebtDetailPage extends ConsumerWidget {
               }
 
               return SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (context, index) {
-                    final transaction = transactions[index];
-                    final firstCatId = transaction.items.isNotEmpty ? transaction.items.first.categoryId : null;
-                    final category = firstCatId != null ? categoriesById[firstCatId] : null;
-                    final account = accountsById[transaction.accountId];
+                delegate: SliverChildBuilderDelegate((context, index) {
+                  final transaction = transactions[index];
+                  final firstCatId = transaction.items.isNotEmpty ? transaction.items.first.categoryId : null;
+                  final category = firstCatId != null ? categoriesById[firstCatId] : null;
+                  final account = accountsById[transaction.accountId];
 
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 10),
-                      child: RecentTransactionTile(
-                        transaction: transaction,
-                        isBalanceVisible: true,
-                        categoriesById: categoriesById,
-                        category: category,
-                        account: account,
-                        onTap: () {
-                          TransactionFormSheet.show(context, initialTransaction: transaction);
-                        },
-                        onEdit: () {
-                          TransactionFormSheet.show(context, initialTransaction: transaction);
-                        },
-                        onDelete: () async {
-                          final confirmed = await showPokaConfirmDialog(
-                            context,
-                            title: t.transactions.deleteTransaction,
-                            body: t.transactions.deleteTransactionWarning,
-                          );
-                          if (confirmed == true) {
-                            final result = await ref.read(debtDetailProvider.notifier).deleteRepayment(transaction.id);
-                            if (context.mounted) {
-                              switch (result) {
-                                case Success():
-                                  ref.invalidate(debtTransactionsProvider(activeDebt));
-                                case ErrorResult():
-                                  showFToast(
-                                    context: context,
-                                    title: Text(t.common.error),
-                                  );
-                              }
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: RecentTransactionTile(
+                      transaction: transaction,
+                      isBalanceVisible: true,
+                      categoriesById: categoriesById,
+                      category: category,
+                      account: account,
+                      onTap: () {
+                        TransactionFormSheet.show(context, initialTransaction: transaction);
+                      },
+                      onEdit: () {
+                        TransactionFormSheet.show(context, initialTransaction: transaction);
+                      },
+                      onDelete: () async {
+                        final confirmed = await showPokaConfirmDialog(
+                          context,
+                          title: t.transactions.deleteTransaction,
+                          body: t.transactions.deleteTransactionWarning,
+                        );
+                        if (confirmed == true) {
+                          final result = await ref.read(debtDetailProvider.notifier).deleteRepayment(transaction.id);
+                          if (context.mounted) {
+                            switch (result) {
+                              case Success():
+                                ref.invalidate(debtTransactionsProvider(activeDebt));
+                              case ErrorResult():
+                                showFToast(context: context, title: Text(t.common.error));
                             }
                           }
-                        },
-                      ),
-                    );
-                  },
-                  childCount: transactions.length,
-                ),
+                        }
+                      },
+                    ),
+                  );
+                }, childCount: transactions.length),
               );
             },
             error: (err, _) => SliverToBoxAdapter(child: Text(err.toString())),

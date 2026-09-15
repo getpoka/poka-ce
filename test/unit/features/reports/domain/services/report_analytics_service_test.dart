@@ -128,9 +128,7 @@ void main() {
     });
 
     test('calculate last6Months', () {
-      final txs = [
-        createTx(DateTime(now.year, now.month, 15), TransactionType.income, 1000),
-      ];
+      final txs = [createTx(DateTime(now.year, now.month, 15), TransactionType.income, 1000)];
       final data = ReportAnalyticsService.calculate(txs, categories, ReportPeriod.last6Months);
       expect(data.trendPoints.length, 6);
     });

@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class PokaSectionLabel extends StatelessWidget {
-  const PokaSectionLabel({
-    required this.title,
-    super.key,
-  });
+  const new({required this.title, super.key});
 
   final String title;
 
@@ -18,18 +15,10 @@ class PokaSectionLabel extends StatelessWidget {
         Container(
           width: 4,
           height: 16,
-          decoration: BoxDecoration(
-            color: theme.colors.primary,
-            borderRadius: theme.style.borderRadius.xs,
-          ),
+          decoration: BoxDecoration(color: theme.colors.primary, borderRadius: theme.style.borderRadius.xs),
         ),
         const SizedBox(width: 8),
-        Text(
-          title.toUpperCase(),
-          style: theme.typography.labelSection.copyWith(
-            color: theme.colors.mutedForeground,
-          ),
-        ),
+        Text(title.toUpperCase(), style: theme.typography.labelSection.copyWith(color: theme.colors.mutedForeground)),
       ],
     );
   }

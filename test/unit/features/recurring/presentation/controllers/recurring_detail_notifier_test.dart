@@ -33,9 +33,7 @@ void main() {
   );
 
   ProviderContainer createContainer() {
-    final container = ProviderContainer(
-      overrides: [transactionRepositoryProvider.overrideWithValue(mockRepo)],
-    );
+    final container = ProviderContainer(overrides: [transactionRepositoryProvider.overrideWithValue(mockRepo)]);
     container.listen(recurringTransactionsProvider(recurring()), (_, __) {});
     addTearDown(container.dispose);
     return container;
@@ -54,9 +52,8 @@ void main() {
         createdAt: DateTime(2026, 8, 1),
         updatedAt: DateTime(2026, 8, 1),
       );
-      when(() => mockRepo.watchTransactions(recurringIds: any(named: 'recurringIds'))).thenAnswer(
-        (_) => Stream.value(Success<List<TransactionModel>, Failure>([tx])),
-      );
+      when(() => mockRepo.watchTransactions(recurringIds: any(named: 'recurringIds')))
+          .thenAnswer((_) => Stream.value(Success<List<TransactionModel>, Failure>([tx])));
 
       final container = createContainer();
       await wait();
@@ -69,11 +66,8 @@ void main() {
     });
 
     test('captures error when repository returns an error', () async {
-      when(() => mockRepo.watchTransactions(recurringIds: any(named: 'recurringIds'))).thenAnswer(
-        (_) => Stream.value(
-          const ErrorResult<List<TransactionModel>, Failure>(DatabaseFailure('boom')),
-        ),
-      );
+      when(() => mockRepo.watchTransactions(recurringIds: any(named: 'recurringIds')))
+          .thenAnswer((_) => Stream.value(const ErrorResult<List<TransactionModel>, Failure>(DatabaseFailure('boom'))));
 
       final container = createContainer();
       await wait();

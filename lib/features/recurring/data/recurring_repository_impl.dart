@@ -11,7 +11,7 @@ import 'package:poka_ce/features/recurring/domain/recurring_model.dart';
 /// Implementation of [IRecurringRepository] managing recurrence blueprints for automated scheduling.
 class RecurringRepositoryImpl implements IRecurringRepository {
   /// Creates a [RecurringRepositoryImpl] backed by the provided [RecurringDao].
-  RecurringRepositoryImpl(this._dao);
+  new(this._dao);
 
   final RecurringDao _dao;
 
@@ -43,9 +43,7 @@ class RecurringRepositoryImpl implements IRecurringRepository {
 
   /// Retrieves recurring schedules that have fallen due on or before [asOf].
   @override
-  Future<Result<List<RecurringTransactionModel>, Failure>> getDueRecurringTransactions(
-    DateTime asOf,
-  ) async {
+  Future<Result<List<RecurringTransactionModel>, Failure>> getDueRecurringTransactions(DateTime asOf) async {
     try {
       final recurrings = await _dao.getDueRecurring(asOf);
       final models = recurrings.map(_mapToModel).toList();

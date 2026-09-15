@@ -4,7 +4,7 @@ import 'package:poka_ce/theme/theme.dart';
 
 /// Wraps a list of pill chips in a horizontal scroll view, bleeding to the edges.
 class PokaPillScrollRow extends StatelessWidget {
-  const PokaPillScrollRow({
+  const new({
     required this.children,
     this.padding = const EdgeInsets.symmetric(horizontal: 12),
     this.spacing = 6.0,
@@ -34,7 +34,7 @@ class PokaPillScrollRow extends StatelessWidget {
 
 /// A selectable pill chip for an account, category, or generic filter item.
 class PokaPill extends StatelessWidget {
-  const PokaPill({
+  const new({
     required this.icon,
     required this.label,
     required this.color,
@@ -71,18 +71,12 @@ class PokaPill extends StatelessWidget {
         decoration: BoxDecoration(
           color: isSelected ? color.withValues(alpha: 0.15) : theme.colors.background,
           borderRadius: theme.style.borderRadius.lg,
-          border: Border.all(
-            color: isSelected ? color.withValues(alpha: 0.5) : theme.colors.border,
-          ),
+          border: Border.all(color: isSelected ? color.withValues(alpha: 0.5) : theme.colors.border),
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
-              icon,
-              size: 16,
-              color: isSelected ? color : (isChild ? theme.colors.mutedForeground : color),
-            ),
+            Icon(icon, size: 16, color: isSelected ? color : (isChild ? theme.colors.mutedForeground : color)),
             const SizedBox(width: 4),
             Text(
               label,

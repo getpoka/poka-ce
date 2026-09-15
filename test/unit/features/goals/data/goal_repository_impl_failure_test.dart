@@ -33,10 +33,7 @@ void main() {
     final result = await repository.getGoals();
 
     expect(result, isA<ErrorResult<List<GoalModel>, Failure>>());
-    result.fold(
-      (_) => fail('Should not succeed'),
-      (error) => expect(error, isA<DatabaseFailure>()),
-    );
+    result.fold((_) => fail('Should not succeed'), (error) => expect(error, isA<DatabaseFailure>()));
   });
 
   test('getGoalById returns DatabaseFailure when DAO throws', () async {
@@ -45,10 +42,7 @@ void main() {
     final result = await repository.getGoalById('goal-1');
 
     expect(result, isA<ErrorResult<GoalModel, Failure>>());
-    result.fold(
-      (_) => fail('Should not succeed'),
-      (error) => expect(error, isA<DatabaseFailure>()),
-    );
+    result.fold((_) => fail('Should not succeed'), (error) => expect(error, isA<DatabaseFailure>()));
   });
 
   test('createGoal returns DatabaseFailure when DAO throws', () async {
@@ -57,10 +51,7 @@ void main() {
     final result = await repository.createGoal(_buildGoal());
 
     expect(result, isA<ErrorResult<void, Failure>>());
-    result.fold(
-      (_) => fail('Should not succeed'),
-      (error) => expect(error, isA<DatabaseFailure>()),
-    );
+    result.fold((_) => fail('Should not succeed'), (error) => expect(error, isA<DatabaseFailure>()));
   });
 
   test('updateGoal returns DatabaseFailure when DAO throws', () async {
@@ -69,10 +60,7 @@ void main() {
     final result = await repository.updateGoal(_buildGoal());
 
     expect(result, isA<ErrorResult<void, Failure>>());
-    result.fold(
-      (_) => fail('Should not succeed'),
-      (error) => expect(error, isA<DatabaseFailure>()),
-    );
+    result.fold((_) => fail('Should not succeed'), (error) => expect(error, isA<DatabaseFailure>()));
   });
 
   test('deleteGoal returns DatabaseFailure when DAO throws', () async {
@@ -81,10 +69,7 @@ void main() {
     final result = await repository.deleteGoal('goal-1');
 
     expect(result, isA<ErrorResult<void, Failure>>());
-    result.fold(
-      (_) => fail('Should not succeed'),
-      (error) => expect(error, isA<DatabaseFailure>()),
-    );
+    result.fold((_) => fail('Should not succeed'), (error) => expect(error, isA<DatabaseFailure>()));
   });
 }
 

@@ -10,9 +10,7 @@ import 'package:poka_ce/i18n/strings.g.dart';
 /// Domain service that monitors unsettled debts/loans approaching due dates and schedules reminders.
 class DebtAlertService {
   /// Creates a [DebtAlertService] with the provided [IDebtRepository].
-  const DebtAlertService({
-    required IDebtRepository debtRepository,
-  }) : _debtRepo = debtRepository;
+  const new({required IDebtRepository debtRepository}) : _debtRepo = debtRepository;
 
   final IDebtRepository _debtRepo;
 
@@ -58,11 +56,7 @@ class DebtAlertService {
           await notificationService.showNotification(
             id: debt.id.hashCode,
             title: t.debts.due(type: typeString, name: debt.personName),
-            body: t.debts.overdueAlert(
-              type: typeString,
-              amount: debt.remainingAmount.toString(),
-              action: actionString,
-            ),
+            body: t.debts.overdueAlert(type: typeString, amount: debt.remainingAmount.toString(), action: actionString),
           );
         }
       }

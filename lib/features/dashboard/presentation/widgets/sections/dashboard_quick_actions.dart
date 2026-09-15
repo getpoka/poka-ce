@@ -6,7 +6,7 @@ import 'package:poka_ce/shared/widgets/poka_icon.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class DashboardQuickActions extends ConsumerWidget {
-  const DashboardQuickActions({super.key});
+  const new({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -47,11 +47,7 @@ class DashboardQuickActions extends ConsumerWidget {
 }
 
 class _QuickActionItem extends StatelessWidget {
-  const _QuickActionItem({
-    required this.icon,
-    required this.label,
-    required this.onTap,
-  });
+  const new({required this.icon, required this.label, required this.onTap});
   final IconData icon;
   final String label;
   final VoidCallback onTap;

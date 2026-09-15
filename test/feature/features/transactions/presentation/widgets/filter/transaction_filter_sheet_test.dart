@@ -22,10 +22,7 @@ void main() {
     return ProviderScope(
       overrides: [...overrides],
       child: MaterialApp(
-        builder: (context, child) => FTheme(
-          data: lightTheme,
-          child: child!,
-        ),
+        builder: (context, child) => FTheme(data: lightTheme, child: child!),
         home: Scaffold(body: child),
       ),
     );
@@ -57,10 +54,7 @@ void main() {
           Builder(
             builder: (context) => FButton(
               onPress: () async {
-                result = await TransactionFilterSheet.show(
-                  context,
-                  current: const TransactionFilter(),
-                );
+                result = await TransactionFilterSheet.show(context, current: const TransactionFilter());
               },
               child: const Text('Show'),
             ),
@@ -112,11 +106,7 @@ void main() {
         updatedAt: now,
       );
 
-      final filter = TransactionFilter(
-        types: {TransactionType.expense},
-        accountIds: {'a1'},
-        categoryIds: {'c1'},
-      );
+      final filter = TransactionFilter(types: {TransactionType.expense}, accountIds: {'a1'}, categoryIds: {'c1'});
 
       await tester.pumpWidget(
         buildTestableWidget(
@@ -155,11 +145,7 @@ void main() {
 
       await tester.pumpWidget(
         buildTestableWidget(
-          TransactionFilterAccountGroup(
-            accounts: [account],
-            selectedIds: const {},
-            onChanged: (ids) => selected = ids,
-          ),
+          TransactionFilterAccountGroup(accounts: [account], selectedIds: const {}, onChanged: (ids) => selected = ids),
         ),
       );
 
@@ -205,13 +191,7 @@ void main() {
   group('TransactionTypeChip', () {
     testWidgets('renders properly', (tester) async {
       await tester.pumpWidget(
-        buildTestableWidget(
-          TransactionTypeChip(
-            type: TransactionType.expense,
-            isSelected: true,
-            onTap: () {},
-          ),
-        ),
+        buildTestableWidget(TransactionTypeChip(type: TransactionType.expense, isSelected: true, onTap: () {})),
       );
 
       expect(find.byType(TransactionTypeChip), findsOneWidget);

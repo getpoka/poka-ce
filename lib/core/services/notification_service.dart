@@ -4,8 +4,8 @@ import 'package:poka_ce/core/utils/logger.dart';
 /// Service managing native local notification initialization and dispatching.
 class NotificationService {
   /// Returns the singleton [NotificationService] instance.
-  factory NotificationService() => _instance;
-  NotificationService.internal({FlutterLocalNotificationsPlugin? plugin})
+  factory() => _instance;
+  new internal({FlutterLocalNotificationsPlugin? plugin})
     : _flutterLocalNotificationsPlugin = plugin ?? FlutterLocalNotificationsPlugin();
   static final NotificationService _instance = NotificationService.internal();
 
@@ -78,23 +78,13 @@ class NotificationService {
       final ios = _flutterLocalNotificationsPlugin
           .resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>();
       if (ios != null) {
-        return await ios.requestPermissions(
-              alert: true,
-              badge: true,
-              sound: true,
-            ) ??
-            false;
+        return await ios.requestPermissions(alert: true, badge: true, sound: true) ?? false;
       }
 
       final macos = _flutterLocalNotificationsPlugin
           .resolvePlatformSpecificImplementation<MacOSFlutterLocalNotificationsPlugin>();
       if (macos != null) {
-        return await macos.requestPermissions(
-              alert: true,
-              badge: true,
-              sound: true,
-            ) ??
-            false;
+        return await macos.requestPermissions(alert: true, badge: true, sound: true) ?? false;
       }
 
       return true;
@@ -105,12 +95,7 @@ class NotificationService {
   }
 
   /// Displays a budget alert notification with high priority.
-  Future<void> showNotification({
-    required int id,
-    required String title,
-    required String body,
-    String? payload,
-  }) async {
+  Future<void> showNotification({required int id, required String title, required String body, String? payload}) async {
     try {
       const androidPlatformChannelSpecifics = AndroidNotificationDetails(
         'poka_ce_budget_alerts',
@@ -139,11 +124,7 @@ class NotificationService {
   }
 
   /// Displays a periodic offline backup reminder notification.
-  Future<void> showBackupReminderNotification({
-    required String title,
-    required String body,
-    String? payload,
-  }) async {
+  Future<void> showBackupReminderNotification({required String title, required String body, String? payload}) async {
     try {
       const androidPlatformChannelSpecifics = AndroidNotificationDetails(
         'poka_ce_backup_reminders',

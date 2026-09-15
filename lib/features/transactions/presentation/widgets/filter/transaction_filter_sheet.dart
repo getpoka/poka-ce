@@ -19,7 +19,7 @@ import 'package:poka_ce/theme/theme.dart';
 /// Returns the chosen [TransactionFilter] via [Navigator.pop].
 class TransactionFilterSheet extends HookConsumerWidget {
   /// Creates a [TransactionFilterSheet].
-  const TransactionFilterSheet({required this.current, super.key});
+  const new({required this.current, super.key});
 
   /// The filter currently applied on the list page; used to pre-populate selections.
   final TransactionFilter current;
@@ -27,30 +27,22 @@ class TransactionFilterSheet extends HookConsumerWidget {
   /// Shows the filter sheet and awaits the user's selection.
   ///
   /// Returns the new [TransactionFilter], or `null` if dismissed.
-  static Future<TransactionFilter?> show(
-    BuildContext context, {
-    required TransactionFilter current,
-  }) => showPokaSheet<TransactionFilter>(
-    context: context,
-    fitContent: true,
-    persistent: false,
-    builder: (ctx) => TransactionFilterSheet(current: current),
-  );
+  static Future<TransactionFilter?> show(BuildContext context, {required TransactionFilter current}) =>
+      showPokaSheet<TransactionFilter>(
+        context: context,
+        fitContent: true,
+        persistent: false,
+        builder: (ctx) => TransactionFilterSheet(current: current),
+      );
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = context.theme;
 
     // Local mutable selections — seeded from the current filter.
-    final selectedTypes = useState<Set<TransactionType>>(
-      Set.from(current.types),
-    );
-    final selectedAccountIds = useState<Set<String>>(
-      Set.from(current.accountIds),
-    );
-    final selectedCategoryIds = useState<Set<String>>(
-      Set.from(current.categoryIds),
-    );
+    final selectedTypes = useState<Set<TransactionType>>(Set.from(current.types));
+    final selectedAccountIds = useState<Set<String>>(Set.from(current.accountIds));
+    final selectedCategoryIds = useState<Set<String>>(Set.from(current.categoryIds));
 
     final accounts = ref.watch(accountsStreamProvider).value ?? [];
     final categories = ref.watch(categoriesStreamProvider).value ?? [];
@@ -87,9 +79,7 @@ class TransactionFilterSheet extends HookConsumerWidget {
               final isSelected = selectedTypes.value.contains(type);
               return Expanded(
                 child: Padding(
-                  padding: EdgeInsets.only(
-                    right: type != TransactionType.values.last ? 8 : 0,
-                  ),
+                  padding: EdgeInsets.only(right: type != TransactionType.values.last ? 8 : 0),
                   child: TransactionTypeChip(
                     type: type,
                     isSelected: isSelected,

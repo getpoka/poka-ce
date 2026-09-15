@@ -33,10 +33,7 @@ void main() {
     final result = await repository.getRecurringTransactions();
 
     expect(result, isA<ErrorResult<List<RecurringTransactionModel>, Failure>>());
-    result.fold(
-      (_) => fail('Should not succeed'),
-      (error) => expect(error, isA<DatabaseFailure>()),
-    );
+    result.fold((_) => fail('Should not succeed'), (error) => expect(error, isA<DatabaseFailure>()));
   });
 
   test('getActiveRecurringTransactions returns DatabaseFailure when DAO throws', () async {
@@ -45,10 +42,7 @@ void main() {
     final result = await repository.getActiveRecurringTransactions();
 
     expect(result, isA<ErrorResult<List<RecurringTransactionModel>, Failure>>());
-    result.fold(
-      (_) => fail('Should not succeed'),
-      (error) => expect(error, isA<DatabaseFailure>()),
-    );
+    result.fold((_) => fail('Should not succeed'), (error) => expect(error, isA<DatabaseFailure>()));
   });
 
   test('getRecurringById returns DatabaseFailure when DAO throws', () async {
@@ -57,10 +51,7 @@ void main() {
     final result = await repository.getRecurringById('rec-1');
 
     expect(result, isA<ErrorResult<RecurringTransactionModel, Failure>>());
-    result.fold(
-      (_) => fail('Should not succeed'),
-      (error) => expect(error, isA<DatabaseFailure>()),
-    );
+    result.fold((_) => fail('Should not succeed'), (error) => expect(error, isA<DatabaseFailure>()));
   });
 
   test('createRecurring returns DatabaseFailure when DAO throws', () async {
@@ -69,10 +60,7 @@ void main() {
     final result = await repository.createRecurring(_buildRecurring());
 
     expect(result, isA<ErrorResult<void, Failure>>());
-    result.fold(
-      (_) => fail('Should not succeed'),
-      (error) => expect(error, isA<DatabaseFailure>()),
-    );
+    result.fold((_) => fail('Should not succeed'), (error) => expect(error, isA<DatabaseFailure>()));
   });
 
   test('updateRecurring returns DatabaseFailure when DAO throws', () async {
@@ -81,10 +69,7 @@ void main() {
     final result = await repository.updateRecurring(_buildRecurring());
 
     expect(result, isA<ErrorResult<void, Failure>>());
-    result.fold(
-      (_) => fail('Should not succeed'),
-      (error) => expect(error, isA<DatabaseFailure>()),
-    );
+    result.fold((_) => fail('Should not succeed'), (error) => expect(error, isA<DatabaseFailure>()));
   });
 
   test('deleteRecurring returns DatabaseFailure when DAO throws', () async {
@@ -93,10 +78,7 @@ void main() {
     final result = await repository.deleteRecurring('rec-1');
 
     expect(result, isA<ErrorResult<void, Failure>>());
-    result.fold(
-      (_) => fail('Should not succeed'),
-      (error) => expect(error, isA<DatabaseFailure>()),
-    );
+    result.fold((_) => fail('Should not succeed'), (error) => expect(error, isA<DatabaseFailure>()));
   });
 }
 

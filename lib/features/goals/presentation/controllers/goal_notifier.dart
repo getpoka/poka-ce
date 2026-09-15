@@ -30,10 +30,7 @@ class GoalNotifier extends _$GoalNotifier {
 /// Computed view model representing a goal paired with its linked pocket's current balance.
 class GoalItemState {
   /// Creates a [GoalItemState].
-  const GoalItemState({
-    required this.goal,
-    required this.currentBalance,
-  });
+  const new({required this.goal, required this.currentBalance});
 
   /// The underlying goal domain model.
   final GoalModel goal;
@@ -73,7 +70,7 @@ List<GoalItemState> goalListStates(Ref ref) {
 /// Aggregated metrics across all active savings goals.
 class GoalSummaryState {
   /// Creates a [GoalSummaryState].
-  const GoalSummaryState({
+  const new({
     required this.totalTarget,
     required this.totalSaved,
     required this.targetReachedCount,

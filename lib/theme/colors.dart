@@ -137,7 +137,7 @@ extension FColorsExtensions on FColors {
 /// Custom color tokens unique to Poka.
 @immutable
 class AppColors extends ThemeExtension<AppColors> {
-  const AppColors({
+  const new({
     required this.income,
     required this.expense,
     required this.transfer,
@@ -152,13 +152,7 @@ class AppColors extends ThemeExtension<AppColors> {
   final Color warning;
 
   @override
-  AppColors copyWith({
-    Color? income,
-    Color? expense,
-    Color? transfer,
-    Color? success,
-    Color? warning,
-  }) => AppColors(
+  AppColors copyWith({Color? income, Color? expense, Color? transfer, Color? success, Color? warning}) => AppColors(
     income: income ?? this.income,
     expense: expense ?? this.expense,
     transfer: transfer ?? this.transfer,

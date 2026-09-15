@@ -36,23 +36,14 @@ void main() {
   );
 
   test('returns ValidationFailure when amount is null without split items', () async {
-    final result = await useCase.execute(
-      existing(),
-      type: TransactionType.expense,
-      accountId: 'a1',
-    );
+    final result = await useCase.execute(existing(), type: TransactionType.expense, accountId: 'a1');
 
     expect(result, isA<ErrorResult>());
     expect((result as ErrorResult).error, isA<ValidationFailure>());
   });
 
   test('returns ValidationFailure when amount <= 0', () async {
-    final result = await useCase.execute(
-      existing(),
-      type: TransactionType.expense,
-      accountId: 'a1',
-      amount: 0,
-    );
+    final result = await useCase.execute(existing(), type: TransactionType.expense, accountId: 'a1', amount: 0);
 
     expect(result, isA<ErrorResult>());
     expect((result as ErrorResult).error, isA<ValidationFailure>());
@@ -125,21 +116,11 @@ void main() {
 
   test('propagates repository error as ErrorResult', () async {
     const failure = DatabaseFailure('update failed');
-    when(
-      () => mockRepo.updateTransaction(any()),
-    ).thenAnswer((_) async => const ErrorResult<void, Failure>(failure));
+    when(() => mockRepo.updateTransaction(any())).thenAnswer((_) async => const ErrorResult<void, Failure>(failure));
 
-    final result = await useCase.execute(
-      existing(),
-      type: TransactionType.expense,
-      accountId: 'a1',
-      amount: 1000,
-    );
+    final result = await useCase.execute(existing(), type: TransactionType.expense, accountId: 'a1', amount: 1000);
 
     expect(result, isA<ErrorResult<TransactionModel, Failure>>());
-    result.fold(
-      (_) => fail('Should not succeed'),
-      (error) => expect(error, same(failure)),
-    );
+    result.fold((_) => fail('Should not succeed'), (error) => expect(error, same(failure)));
   });
 }

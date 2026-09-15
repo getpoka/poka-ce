@@ -65,9 +65,7 @@ void main() {
       transactionDate: now,
       createdAt: now,
       updatedAt: now,
-      items: [
-        TransactionItemModel(id: 'item-$id', transactionId: id, amount: amount, createdAt: now, updatedAt: now),
-      ],
+      items: [TransactionItemModel(id: 'item-$id', transactionId: id, amount: amount, createdAt: now, updatedAt: now)],
     );
   }
 

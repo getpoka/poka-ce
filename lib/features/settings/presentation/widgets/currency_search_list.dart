@@ -6,12 +6,7 @@ import 'package:poka_ce/shared/widgets/poka_menu_group_card.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class CurrencySearchList extends HookWidget {
-  const CurrencySearchList({
-    required this.currencies,
-    required this.onSelect,
-    super.key,
-    this.selectedCurrency,
-  });
+  const new({required this.currencies, required this.onSelect, super.key, this.selectedCurrency});
 
   final List<CurrencyModel> currencies;
   final CurrencyModel? selectedCurrency;
@@ -28,9 +23,7 @@ class CurrencySearchList extends HookWidget {
         FTextField(
           hint: t.settings.search,
           clearable: (value) => value.text.isNotEmpty,
-          control: FTextFieldControl.managed(
-            controller: searchController,
-          ),
+          control: FTextFieldControl.managed(controller: searchController),
         ),
         const SizedBox(height: 12),
         Expanded(
@@ -57,24 +50,15 @@ class CurrencySearchList extends HookWidget {
                           ),
                           child: Padding(
                             padding: const EdgeInsets.all(16),
-                            child: Icon(
-                              FPhosphorIcons.magnifyingGlass,
-                              size: 32,
-                              color: theme.colors.primary,
-                            ),
+                            child: Icon(FPhosphorIcons.magnifyingGlass, size: 32, color: theme.colors.primary),
                           ),
                         ),
                         SizedBox(height: theme.style.app.md),
-                        Text(
-                          t.settings.noResultsFound,
-                          style: theme.typography.titleCard,
-                        ),
+                        Text(t.settings.noResultsFound, style: theme.typography.titleCard),
                         SizedBox(height: theme.style.app.xs),
                         Text(
                           t.settings.weCouldntFindAnyCurrencyMatching,
-                          style: theme.typography.bodyPrimary.copyWith(
-                            color: theme.colors.mutedForeground,
-                          ),
+                          style: theme.typography.bodyPrimary.copyWith(color: theme.colors.mutedForeground),
                           textAlign: TextAlign.center,
                         ),
                       ],
@@ -114,7 +98,7 @@ class CurrencySearchList extends HookWidget {
 
 /// Displays a compact currency symbol and selected state.
 class _CurrencySymbol extends StatelessWidget {
-  const _CurrencySymbol({required this.symbol, required this.selected});
+  const new({required this.symbol, required this.selected});
 
   final String symbol;
   final bool selected;
@@ -139,10 +123,7 @@ class _CurrencySymbol extends StatelessWidget {
               child: Text(
                 symbol,
                 maxLines: 1,
-                style: theme.typography.bodyPrimary.copyWith(
-                  color: accentColor,
-                  fontWeight: FontWeight.w700,
-                ),
+                style: theme.typography.bodyPrimary.copyWith(color: accentColor, fontWeight: FontWeight.w700),
               ),
             ),
           ),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class ScopeTile extends StatelessWidget {
-  const ScopeTile({
+  const new({
     required this.defaultIcon,
     required this.label,
     required this.value,
@@ -35,23 +35,15 @@ class ScopeTile extends StatelessWidget {
                 Container(
                   width: 36,
                   height: 36,
-                  decoration: BoxDecoration(
-                    color: theme.colors.muted,
-                    borderRadius: theme.style.borderRadius.sm,
-                  ),
-                  child: Center(
-                    child: Icon(defaultIcon, size: 18, color: theme.colors.mutedForeground),
-                  ),
+                  decoration: BoxDecoration(color: theme.colors.muted, borderRadius: theme.style.borderRadius.sm),
+                  child: Center(child: Icon(defaultIcon, size: 18, color: theme.colors.mutedForeground)),
                 ),
             const SizedBox(width: 12),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    label,
-                    style: theme.typography.bodySecondary.copyWith(color: theme.colors.mutedForeground),
-                  ),
+                  Text(label, style: theme.typography.bodySecondary.copyWith(color: theme.colors.mutedForeground)),
                   Text(
                     value,
                     style: theme.typography.bodyPrimary.copyWith(

@@ -15,8 +15,6 @@ class AccountsDaoManager {
   AccountsDaoManager(this._db);
   $$AccountsTableTableManager get accounts => $$AccountsTableTableManager(_db.attachedDatabase, _db.accounts);
   $$CategoriesTableTableManager get categories => $$CategoriesTableTableManager(_db.attachedDatabase, _db.categories);
-  $$AccountCategoriesTableTableManager get accountCategories => $$AccountCategoriesTableTableManager(
-    _db.attachedDatabase,
-    _db.accountCategories,
-  );
+  $$AccountCategoriesTableTableManager get accountCategories =>
+      $$AccountCategoriesTableTableManager(_db.attachedDatabase, _db.accountCategories);
 }

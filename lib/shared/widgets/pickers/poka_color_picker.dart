@@ -6,11 +6,7 @@ import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class PokaColorPicker extends StatelessWidget {
-  const PokaColorPicker({
-    required this.selectedColor,
-    required this.onColorSelected,
-    super.key,
-  });
+  const new({required this.selectedColor, required this.onColorSelected, super.key});
 
   final String? selectedColor;
   final ValueChanged<String> onColorSelected;
@@ -23,11 +19,7 @@ class PokaColorPicker extends StatelessWidget {
     // Create the standard 9 colors
     final items =
         ColorUtil.premiumColors.map<Widget>((hex) {
-          return _ColorItem(
-            hex: hex,
-            isSelected: selectedColor == hex,
-            onTap: () => onColorSelected(hex),
-          );
+          return _ColorItem(hex: hex, isSelected: selectedColor == hex, onTap: () => onColorSelected(hex));
         }).toList()..add(
           _CustomColorItem(
             selectedHex: isCustomColor ? selectedColor : null,
@@ -39,15 +31,9 @@ class PokaColorPicker extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: _buildRowWithSpacing(items.sublist(0, 6)),
-        ),
+        Row(mainAxisSize: MainAxisSize.min, children: _buildRowWithSpacing(items.sublist(0, 6))),
         const SizedBox(height: 12),
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: _buildRowWithSpacing(items.sublist(6, 12)),
-        ),
+        Row(mainAxisSize: MainAxisSize.min, children: _buildRowWithSpacing(items.sublist(6, 12))),
       ],
     );
   }
@@ -66,21 +52,14 @@ class PokaColorPicker extends StatelessWidget {
   void _showVisualColorPickerSheet(BuildContext context) {
     showFDialog<void>(
       context: context,
-      builder: (context, style, animation) => _VisualColorPickerSheet(
-        animation: animation,
-        initialColor: selectedColor,
-        onColorSelected: onColorSelected,
-      ),
+      builder: (context, style, animation) =>
+          _VisualColorPickerSheet(animation: animation, initialColor: selectedColor, onColorSelected: onColorSelected),
     );
   }
 }
 
 class _ColorItem extends StatelessWidget {
-  const _ColorItem({
-    required this.hex,
-    required this.isSelected,
-    required this.onTap,
-  });
+  const new({required this.hex, required this.isSelected, required this.onTap});
 
   final String hex;
   final bool isSelected;
@@ -98,25 +77,14 @@ class _ColorItem extends StatelessWidget {
           shape: BoxShape.circle,
           border: isSelected ? Border.all(color: context.theme.colors.foreground, width: 2) : null,
         ),
-        child: isSelected
-            ? const Center(
-                child: Icon(
-                  FPhosphorIcons.check,
-                  color: Colors.white,
-                  size: 16,
-                ),
-              )
-            : null,
+        child: isSelected ? const Center(child: Icon(FPhosphorIcons.check, color: Colors.white, size: 16)) : null,
       ),
     );
   }
 }
 
 class _CustomColorItem extends StatelessWidget {
-  const _CustomColorItem({
-    required this.selectedHex,
-    required this.onTap,
-  });
+  const new({required this.selectedHex, required this.onTap});
 
   final String? selectedHex;
   final VoidCallback onTap;
@@ -140,16 +108,8 @@ class _CustomColorItem extends StatelessWidget {
         ),
         child: Center(
           child: isSelected
-              ? const Icon(
-                  FPhosphorIcons.check,
-                  color: Colors.white,
-                  size: 16,
-                )
-              : Icon(
-                  FPhosphorIcons.palette,
-                  size: 16,
-                  color: theme.colors.primary,
-                ),
+              ? const Icon(FPhosphorIcons.check, color: Colors.white, size: 16)
+              : Icon(FPhosphorIcons.palette, size: 16, color: theme.colors.primary),
         ),
       ),
     );
@@ -157,11 +117,7 @@ class _CustomColorItem extends StatelessWidget {
 }
 
 class _VisualColorPickerSheet extends HookWidget {
-  const _VisualColorPickerSheet({
-    required this.onColorSelected,
-    required this.animation,
-    this.initialColor,
-  });
+  const new({required this.onColorSelected, required this.animation, this.initialColor});
 
   final String? initialColor;
   final ValueChanged<String> onColorSelected;
@@ -245,16 +201,8 @@ class _VisualColorPickerSheet extends HookWidget {
                       child: Stack(
                         clipBehavior: Clip.none,
                         children: [
-                          Container(
-                            decoration: const BoxDecoration(
-                              gradient: PokaGradients.hsvSaturation,
-                            ),
-                          ),
-                          Container(
-                            decoration: const BoxDecoration(
-                              gradient: PokaGradients.hsvValue,
-                            ),
-                          ),
+                          Container(decoration: const BoxDecoration(gradient: PokaGradients.hsvSaturation)),
+                          Container(decoration: const BoxDecoration(gradient: PokaGradients.hsvValue)),
                           Positioned(
                             left: hsvColor.value.saturation * width - 12,
                             top: (1.0 - hsvColor.value.value) * height - 12,

@@ -26,7 +26,7 @@ import 'package:poka_ce/theme/theme.dart';
 /// using category color/icon for the visual prefix badge.
 class RecentTransactionTile extends HookConsumerWidget with FTileMixin {
   /// Creates a [RecentTransactionTile].
-  const RecentTransactionTile({
+  const new({
     required this.transaction,
     required this.isBalanceVisible,
     this.categoriesById,
@@ -99,14 +99,7 @@ class RecentTransactionTile extends HookConsumerWidget with FTileMixin {
         transactionDate: transaction.transactionDate,
         note: transaction.note,
         splitItems: newItems
-            .map(
-              (i) => (
-                categoryId: i.categoryId,
-                amount: i.amount,
-                note: i.note,
-                allocation: i.allocation,
-              ),
-            )
+            .map((i) => (categoryId: i.categoryId, amount: i.amount, note: i.note, allocation: i.allocation))
             .toList(),
       );
     }
@@ -124,14 +117,7 @@ class RecentTransactionTile extends HookConsumerWidget with FTileMixin {
         transactionDate: transaction.transactionDate,
         note: transaction.note,
         splitItems: newItems
-            .map(
-              (i) => (
-                categoryId: i.categoryId,
-                amount: i.amount,
-                note: i.note,
-                allocation: i.allocation,
-              ),
-            )
+            .map((i) => (categoryId: i.categoryId, amount: i.amount, note: i.note, allocation: i.allocation))
             .toList(),
       );
     }
@@ -149,10 +135,7 @@ class RecentTransactionTile extends HookConsumerWidget with FTileMixin {
         ref
             .watch(categoryListProvider)
             .value
-            ?.fold<Map<String, CategoryModel>>(
-              <String, CategoryModel>{},
-              (map, c) => map..[c.id] = c,
-            ) ??
+            ?.fold<Map<String, CategoryModel>>(<String, CategoryModel>{}, (map, c) => map..[c.id] = c) ??
         <String, CategoryModel>{};
 
     final firstItem = transaction.items.firstOrNull;
@@ -209,10 +192,7 @@ class RecentTransactionTile extends HookConsumerWidget with FTileMixin {
               .watch(accountListProvider)
               .value
               ?.accounts
-              .fold<Map<String, AccountModel>>(
-                <String, AccountModel>{},
-                (map, a) => map..[a.id] = a,
-              ) ??
+              .fold<Map<String, AccountModel>>(<String, AccountModel>{}, (map, a) => map..[a.id] = a) ??
           <String, AccountModel>{};
       destAccount = effectiveAccountsById[transaction.destinationAccountId!];
     }
@@ -260,10 +240,7 @@ class RecentTransactionTile extends HookConsumerWidget with FTileMixin {
       ),
     );
 
-    final cardContent = FCard(
-      clipBehavior: Clip.antiAlias,
-      child: baseTile,
-    );
+    final cardContent = FCard(clipBehavior: Clip.antiAlias, child: baseTile);
 
     Widget parentWidget = cardContent;
 
@@ -336,9 +313,7 @@ class RecentTransactionTile extends HookConsumerWidget with FTileMixin {
                 );
 
                 return Padding(
-                  padding: EdgeInsets.only(
-                    bottom: isLast ? 0 : 8,
-                  ),
+                  padding: EdgeInsets.only(bottom: isLast ? 0 : 8),
                   child: RecentTransactionTile(
                     transaction: fakeTx,
                     isBalanceVisible: isBalanceVisible,

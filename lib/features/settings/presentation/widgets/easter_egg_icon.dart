@@ -11,10 +11,7 @@ class EasterEggIcon extends StatefulWidget {
   /// [package] can be supplied if the widget is consumed inside an external app
   /// (e.g. `poka-pe`) that depends on `poka_ce` as a package. If omitted, it defaults
   /// to root asset loading with an automatic fallback to `package: 'poka_ce'`.
-  const EasterEggIcon({
-    super.key,
-    this.package,
-  });
+  const new({super.key, this.package});
 
   /// The package containing the assets, if consumed from a downstream package.
   final String? package;
@@ -53,10 +50,7 @@ class _EasterEggIconState extends State<EasterEggIcon> {
       _tapCount = 0;
       _firstTapTime = null;
 
-      showPokaToast(
-        context: context,
-        title: Text(t.settings.easterEggFound),
-      );
+      showPokaToast(context: context, title: Text(t.settings.easterEggFound));
 
       showFDialog<void>(
         context: context,
@@ -92,16 +86,9 @@ class _EasterEggIconState extends State<EasterEggIcon> {
                       behavior: HitTestBehavior.opaque,
                       onTap: () => Navigator.of(ctx).pop(),
                       child: Container(
-                        decoration: const BoxDecoration(
-                          color: Colors.black54,
-                          shape: BoxShape.circle,
-                        ),
+                        decoration: const BoxDecoration(color: Colors.black54, shape: BoxShape.circle),
                         padding: const EdgeInsets.all(8),
-                        child: const Icon(
-                          FPhosphorIcons.x,
-                          size: 16,
-                          color: Colors.white,
-                        ),
+                        child: const Icon(FPhosphorIcons.x, size: 16, color: Colors.white),
                       ),
                     ),
                   ),
@@ -128,13 +115,8 @@ class _EasterEggIconState extends State<EasterEggIcon> {
           height: 96,
           fit: BoxFit.cover,
           errorBuilder: widget.package == null
-              ? (context, error, stackTrace) => Image.asset(
-                  'assets/images/logo.png',
-                  package: 'poka_ce',
-                  width: 96,
-                  height: 96,
-                  fit: BoxFit.cover,
-                )
+              ? (context, error, stackTrace) =>
+                    Image.asset('assets/images/logo.png', package: 'poka_ce', width: 96, height: 96, fit: BoxFit.cover)
               : null,
         ),
       ),

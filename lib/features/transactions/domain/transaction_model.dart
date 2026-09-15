@@ -7,7 +7,7 @@ part 'transaction_model.g.dart';
 /// Represents a single item within a transaction (for split transactions).
 @freezed
 abstract class TransactionItemModel with _$TransactionItemModel {
-  const factory TransactionItemModel({
+  const factory({
     required String id,
     required String transactionId,
     required int amount,
@@ -18,13 +18,13 @@ abstract class TransactionItemModel with _$TransactionItemModel {
     String? note,
   }) = _TransactionItemModel;
 
-  factory TransactionItemModel.fromJson(Map<String, dynamic> json) => _$TransactionItemModelFromJson(json);
+  factory fromJson(Map<String, dynamic> json) => _$TransactionItemModelFromJson(json);
 }
 
 /// Represents a complete transaction (header) including its items.
 @freezed
 abstract class TransactionModel with _$TransactionModel {
-  const factory TransactionModel({
+  const factory({
     required String id,
     required String accountId,
     required TransactionType type,
@@ -39,5 +39,5 @@ abstract class TransactionModel with _$TransactionModel {
     @Default([]) List<TransactionItemModel> items,
   }) = _TransactionModel;
 
-  factory TransactionModel.fromJson(Map<String, dynamic> json) => _$TransactionModelFromJson(json);
+  factory fromJson(Map<String, dynamic> json) => _$TransactionModelFromJson(json);
 }

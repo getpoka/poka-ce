@@ -25,18 +25,14 @@ void main() {
       container: container,
       child: FTheme(
         data: lightTheme,
-        child: const MaterialApp(
-          home: Scaffold(body: DebtListPage()),
-        ),
+        child: const MaterialApp(home: Scaffold(body: DebtListPage())),
       ),
     );
   }
 
   testWidgets('DebtListPage shows loading indicator when loading', (tester) async {
     final container = ProviderContainer(
-      overrides: [
-        debtListProvider.overrideWith(() => MockDebtListNotifier([], true)),
-      ],
+      overrides: [debtListProvider.overrideWith(() => MockDebtListNotifier([], true))],
     );
     await tester.pumpWidget(buildTestApp(container));
     await tester.pump();
@@ -45,9 +41,7 @@ void main() {
 
   testWidgets('DebtListPage shows empty state', (tester) async {
     final container = ProviderContainer(
-      overrides: [
-        debtListProvider.overrideWith(() => MockDebtListNotifier([], false)),
-      ],
+      overrides: [debtListProvider.overrideWith(() => MockDebtListNotifier([], false))],
     );
     await tester.pumpWidget(buildTestApp(container));
     await tester.pumpAndSettle();

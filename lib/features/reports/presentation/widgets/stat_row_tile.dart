@@ -3,7 +3,7 @@ import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class StatRowTile extends StatelessWidget {
-  const StatRowTile({
+  const new({
     required this.icon,
     required this.iconColor,
     required this.label,
@@ -30,10 +30,7 @@ class StatRowTile extends StatelessWidget {
         Container(
           width: 34,
           height: 34,
-          decoration: BoxDecoration(
-            color: iconColor.withValues(alpha: 0.1),
-            borderRadius: BorderRadius.circular(8),
-          ),
+          decoration: BoxDecoration(color: iconColor.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(8)),
           child: Icon(icon, size: 16, color: iconColor),
         ),
         const SizedBox(width: 8),
@@ -80,7 +77,7 @@ class StatRowTile extends StatelessWidget {
 }
 
 class _DeltaBadge extends StatelessWidget {
-  const _DeltaBadge({required this.delta, required this.positiveIsGood});
+  const new({required this.delta, required this.positiveIsGood});
 
   final double delta;
   final bool positiveIsGood;
@@ -97,10 +94,7 @@ class _DeltaBadge extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Icon(icon, size: 9, color: color),
-        Text(
-          pctStr,
-          style: theme.typography.labelBadge.copyWith(color: color),
-        ),
+        Text(pctStr, style: theme.typography.labelBadge.copyWith(color: color)),
       ],
     );
   }

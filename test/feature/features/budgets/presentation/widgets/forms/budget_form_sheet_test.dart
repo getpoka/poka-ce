@@ -91,9 +91,7 @@ void main() {
         regularAccountListProvider.overrideWith(
           (ref) => AsyncValue.data(AccountListState(accounts: sampleAccounts(), aggregates: [])),
         ),
-        categoryListProvider.overrideWith(
-          () => _FakeCategoryNotifier(sampleCategories()),
-        ),
+        categoryListProvider.overrideWith(() => _FakeCategoryNotifier(sampleCategories())),
       ],
       child: TranslationProvider(
         child: MaterialApp(
@@ -116,9 +114,7 @@ void main() {
         regularAccountListProvider.overrideWith(
           (ref) => AsyncValue.data(AccountListState(accounts: sampleAccounts(), aggregates: [])),
         ),
-        categoryListProvider.overrideWith(
-          () => _FakeCategoryNotifier(sampleCategories()),
-        ),
+        categoryListProvider.overrideWith(() => _FakeCategoryNotifier(sampleCategories())),
         budgetFormProvider.overrideWith(() => _FakeBudgetFormNotifier(state)),
       ],
       child: TranslationProvider(
@@ -351,9 +347,7 @@ void main() {
             dashboardProvider.overrideWith(
               () => _FakeDashboardNotifier(DashboardState(accounts: sampleAccounts(), isLoading: false)),
             ),
-            categoryListProvider.overrideWith(
-              () => _FakeCategoryNotifier(sampleCategories()),
-            ),
+            categoryListProvider.overrideWith(() => _FakeCategoryNotifier(sampleCategories())),
           ],
           child: TranslationProvider(
             child: MaterialApp(
@@ -381,9 +375,7 @@ void main() {
             dashboardProvider.overrideWith(
               () => _FakeDashboardNotifier(DashboardState(accounts: sampleAccounts(), isLoading: false)),
             ),
-            categoryListProvider.overrideWith(
-              () => _FakeCategoryNotifier(sampleCategories()),
-            ),
+            categoryListProvider.overrideWith(() => _FakeCategoryNotifier(sampleCategories())),
           ],
           child: TranslationProvider(
             child: MaterialApp(

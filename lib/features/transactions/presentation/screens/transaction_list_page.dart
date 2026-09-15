@@ -25,7 +25,7 @@ import 'package:poka_ce/theme/theme.dart';
 /// with a summary card, sticky date navigator, and advanced filter.
 class TransactionListPage extends HookConsumerWidget {
   /// Creates a [TransactionListPage].
-  const TransactionListPage({super.key});
+  const new({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -49,23 +49,11 @@ class TransactionListPage extends HookConsumerWidget {
 
     // Build lookup maps once so each tile doesn't re-subscribe.
     final categoriesById =
-        ref
-            .watch(categoriesStreamProvider)
-            .value
-            ?.fold<Map<String, CategoryModel>>(
-              {},
-              (map, c) => map..[c.id] = c,
-            ) ??
+        ref.watch(categoriesStreamProvider).value?.fold<Map<String, CategoryModel>>({}, (map, c) => map..[c.id] = c) ??
         const {};
 
     final accountsById =
-        ref
-            .watch(accountsStreamProvider)
-            .value
-            ?.fold<Map<String, AccountModel>>(
-              {},
-              (map, a) => map..[a.id] = a,
-            ) ??
+        ref.watch(accountsStreamProvider).value?.fold<Map<String, AccountModel>>({}, (map, a) => map..[a.id] = a) ??
         const {};
 
     return MediaQuery.removeViewInsets(
@@ -85,18 +73,13 @@ class TransactionListPage extends HookConsumerWidget {
                       hint: t.transactions.searchTransactions,
                       clearable: (value) => value.text.isNotEmpty,
                       focusNode: searchFocusNode,
-                      control: FTextFieldControl.managed(
-                        controller: searchController,
-                      ),
+                      control: FTextFieldControl.managed(controller: searchController),
                     ),
                   )
                 : Align(
                     key: const ValueKey('title_text'),
                     alignment: Alignment.centerLeft,
-                    child: Text(
-                      t.transactions.transactions,
-                      style: context.theme.typography.titleScreen,
-                    ),
+                    child: Text(t.transactions.transactions, style: context.theme.typography.titleScreen),
                   ),
           ),
           suffixes: [
@@ -128,10 +111,7 @@ class TransactionListPage extends HookConsumerWidget {
             // Filter button — shows a badge dot when a filter is active.
             GestureDetector(
               onTap: () async {
-                final result = await TransactionFilterSheet.show(
-                  context,
-                  current: state.filter,
-                );
+                final result = await TransactionFilterSheet.show(context, current: state.filter);
                 if (result != null) notifier.applyFilter(result);
               },
               behavior: HitTestBehavior.opaque,
@@ -155,10 +135,7 @@ class TransactionListPage extends HookConsumerWidget {
                           decoration: BoxDecoration(
                             color: context.theme.colors.primary,
                             shape: BoxShape.circle,
-                            border: Border.all(
-                              color: context.theme.colors.background,
-                              width: 1.5,
-                            ),
+                            border: Border.all(color: context.theme.colors.background, width: 1.5),
                           ),
                         ),
                       ),
@@ -190,9 +167,7 @@ class TransactionListPage extends HookConsumerWidget {
                       ),
 
                     // ── 1. Summary card (scrolls with content) ────────────
-                    SliverToBoxAdapter(
-                      child: TransactionListSummaryCard(state: state),
-                    ),
+                    SliverToBoxAdapter(child: TransactionListSummaryCard(state: state)),
                     const SliverToBoxAdapter(child: SizedBox(height: 20)),
 
                     // ── 2. Sticky: view-mode chips + date navigator ────────
@@ -213,10 +188,7 @@ class TransactionListPage extends HookConsumerWidget {
                     // ── 3. Transaction groups OR empty state ──────────────
                     if (state.transactions.isEmpty && state.errorMessage == null)
                       SliverToBoxAdapter(
-                        child: _EmptyPeriod(
-                          state: state,
-                          onToday: notifier.goToToday,
-                        ),
+                        child: _EmptyPeriod(state: state, onToday: notifier.goToToday),
                       )
                     else if (state.transactions.isNotEmpty)
                       _TransactionGroupSliver(
@@ -248,7 +220,7 @@ class TransactionListPage extends HookConsumerWidget {
 /// Pins itself below the [PokaHeader] so the user can always navigate dates
 /// while scrolling through the transaction list.
 class _StickyNavDelegate extends SliverPersistentHeaderDelegate {
-  _StickyNavDelegate({
+  new({
     required this.theme,
     required this.state,
     required this.onModeChanged,
@@ -283,11 +255,7 @@ class _StickyNavDelegate extends SliverPersistentHeaderDelegate {
       old.state.isCurrentPeriod != state.isCurrentPeriod;
 
   @override
-  Widget build(
-    BuildContext context,
-    double shrinkOffset,
-    bool overlapsContent,
-  ) {
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     final theme = context.theme;
 
     return DecoratedBox(
@@ -296,10 +264,7 @@ class _StickyNavDelegate extends SliverPersistentHeaderDelegate {
         // Show a subtle border when content scrolls beneath this header.
         border: overlapsContent
             ? Border(
-                bottom: BorderSide(
-                  color: theme.colors.border,
-                  width: theme.style.borderWidth,
-                ),
+                bottom: BorderSide(color: theme.colors.border, width: theme.style.borderWidth),
               )
             : null,
       ),
@@ -352,15 +317,8 @@ class _StickyNavDelegate extends SliverPersistentHeaderDelegate {
                   onTap: onPrev,
                   behavior: HitTestBehavior.opaque,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 4,
-                    ),
-                    child: Icon(
-                      FPhosphorIcons.caretLeft,
-                      size: 18,
-                      color: theme.colors.foreground,
-                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                    child: Icon(FPhosphorIcons.caretLeft, size: 18, color: theme.colors.foreground),
                   ),
                 ),
 
@@ -417,10 +375,7 @@ class _StickyNavDelegate extends SliverPersistentHeaderDelegate {
                   onTap: state.isCurrentPeriod ? null : onNext,
                   behavior: HitTestBehavior.opaque,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 4,
-                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                     child: Icon(
                       FPhosphorIcons.caretRight,
                       size: 18,
@@ -445,11 +400,7 @@ class _StickyNavDelegate extends SliverPersistentHeaderDelegate {
 
 /// Renders transactions as grouped date sections inside a [SliverList].
 class _TransactionGroupSliver extends HookWidget {
-  const _TransactionGroupSliver({
-    required this.transactions,
-    required this.categoriesById,
-    required this.accountsById,
-  });
+  const new({required this.transactions, required this.categoriesById, required this.accountsById});
 
   final List<TransactionModel> transactions;
   final Map<String, CategoryModel> categoriesById;
@@ -489,7 +440,7 @@ class _TransactionGroupSliver extends HookWidget {
 }
 
 class _DateGroupSection extends ConsumerWidget {
-  const _DateGroupSection({
+  const new({
     required this.group,
     required this.isExpanded,
     required this.onToggle,
@@ -532,10 +483,7 @@ class _DateGroupSection extends ConsumerWidget {
               if (value == 0.0) return const SizedBox.shrink();
               return FCollapsible(
                 value: value,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 8),
-                  child: child,
-                ),
+                child: Padding(padding: const EdgeInsets.only(top: 8), child: child),
               );
             },
             child: Column(
@@ -573,10 +521,7 @@ class _DateGroupSection extends ConsumerWidget {
                           onAction: () async {
                             await ref.read(transactionListNotifierProvider.notifier).restoreTransaction(tx);
                             if (context.mounted) {
-                              showPokaToast(
-                                context: context,
-                                title: Text(t.transactions.transactionRestored),
-                              );
+                              showPokaToast(context: context, title: Text(t.transactions.transactionRestored));
                             }
                           },
                         );
@@ -586,10 +531,7 @@ class _DateGroupSection extends ConsumerWidget {
                 );
 
                 final tileWidget = i < group.transactions.length - 1
-                    ? Padding(
-                        padding: const EdgeInsets.only(bottom: 8),
-                        child: tile,
-                      )
+                    ? Padding(padding: const EdgeInsets.only(bottom: 8), child: tile)
                     : tile;
 
                 return tileWidget
@@ -611,7 +553,7 @@ class _DateGroupSection extends ConsumerWidget {
 
 /// Compact section header showing the date and daily income/expense totals.
 class _DateHeader extends StatelessWidget {
-  const _DateHeader({
+  const new({
     required this.dateStr,
     required this.income,
     required this.expense,
@@ -643,10 +585,7 @@ class _DateHeader extends StatelessWidget {
             margin: const EdgeInsets.only(top: 2),
             width: 4,
             height: 16,
-            decoration: BoxDecoration(
-              color: theme.colors.primary,
-              borderRadius: theme.style.borderRadius.xs,
-            ),
+            decoration: BoxDecoration(color: theme.colors.primary, borderRadius: theme.style.borderRadius.xs),
           ),
           const SizedBox(width: 8),
           Expanded(
@@ -655,28 +594,19 @@ class _DateHeader extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Text(
-                      dateStr,
-                      style: theme.typography.titleItem,
-                    ),
+                    Text(dateStr, style: theme.typography.titleItem),
                     const SizedBox(width: 4),
                     AnimatedRotation(
                       turns: isExpanded ? 0 : -0.25,
                       duration: const Duration(milliseconds: 200),
                       curve: Curves.easeInOut,
-                      child: Icon(
-                        FPhosphorIcons.caretDown,
-                        size: 13,
-                        color: theme.colors.mutedForeground,
-                      ),
+                      child: Icon(FPhosphorIcons.caretDown, size: 13, color: theme.colors.mutedForeground),
                     ),
                     if (!isExpanded && itemCount > 0) ...[
                       const SizedBox(width: 6),
                       Text(
                         '•  ${t.transactions.itemsCount(count: itemCount)}',
-                        style: theme.typography.caption.copyWith(
-                          color: theme.colors.mutedForeground,
-                        ),
+                        style: theme.typography.caption.copyWith(color: theme.colors.mutedForeground),
                       ),
                     ],
                   ],
@@ -688,9 +618,7 @@ class _DateHeader extends StatelessWidget {
                       if (income > 0) ...[
                         Text(
                           t.transactions.incoming,
-                          style: theme.typography.labelBadge.copyWith(
-                            color: theme.colors.app.income,
-                          ),
+                          style: theme.typography.labelBadge.copyWith(color: theme.colors.app.income),
                         ),
                         PokaAmountText(
                           amount: income,
@@ -702,9 +630,7 @@ class _DateHeader extends StatelessWidget {
                       if (expense > 0) ...[
                         Text(
                           t.transactions.out,
-                          style: theme.typography.labelBadge.copyWith(
-                            color: theme.colors.app.expense,
-                          ),
+                          style: theme.typography.labelBadge.copyWith(color: theme.colors.app.expense),
                         ),
                         PokaAmountText(
                           amount: expense,
@@ -714,17 +640,9 @@ class _DateHeader extends StatelessWidget {
                       ],
                       const Spacer(),
                       if (total != 0) ...[
-                        Icon(
-                          FPhosphorIcons.sigma,
-                          size: 12,
-                          color: theme.colors.mutedForeground,
-                        ),
+                        Icon(FPhosphorIcons.sigma, size: 12, color: theme.colors.mutedForeground),
                         const SizedBox(width: 4),
-                        PokaAmountText(
-                          amount: total.abs(),
-                          type: totalType,
-                          style: theme.typography.amountTile,
-                        ),
+                        PokaAmountText(amount: total.abs(), type: totalType, style: theme.typography.amountTile),
                       ],
                     ],
                   ),
@@ -744,7 +662,7 @@ class _DateHeader extends StatelessWidget {
 
 /// Shown when no transactions match the current date window + filter.
 class _EmptyPeriod extends StatelessWidget {
-  const _EmptyPeriod({required this.state, required this.onToday});
+  const new({required this.state, required this.onToday});
 
   final TransactionListState state;
   final VoidCallback onToday;

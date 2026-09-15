@@ -26,15 +26,10 @@ void main() {
     updatedAt: DateTime(2026, 1, 1),
   );
 
-  Widget wrap({
-    required List<BudgetModel> budgets,
-    int spent = 0,
-  }) {
+  Widget wrap({required List<BudgetModel> budgets, int spent = 0}) {
     return ProviderScope(
       overrides: [
-        reportProvider.overrideWithValue(
-          ReportState(isLoading: false, budgets: budgets),
-        ),
+        reportProvider.overrideWithValue(ReportState(isLoading: false, budgets: budgets)),
         budgetProgressProvider.overrideWith((ref, arg) async => spent),
         balanceVisibilityProvider.overrideWithValue(true),
         settingsProvider.overrideWith(() => _FakeSettingsNotifier()),
@@ -43,10 +38,7 @@ void main() {
         child: MaterialApp(
           builder: (context, child) => FTheme(data: lightTheme, child: child!),
           home: const Scaffold(
-            body: SingleChildScrollView(
-              padding: EdgeInsets.all(16),
-              child: ReportBudgetUtilization(),
-            ),
+            body: SingleChildScrollView(padding: EdgeInsets.all(16), child: ReportBudgetUtilization()),
           ),
         ),
       ),
@@ -63,9 +55,7 @@ void main() {
     });
 
     testWidgets('renders overall utilization and individual budget tiles', (tester) async {
-      await tester.pumpWidget(
-        wrap(budgets: [budget('b1', 'Groceries', 1000)], spent: 500),
-      );
+      await tester.pumpWidget(wrap(budgets: [budget('b1', 'Groceries', 1000)], spent: 500));
       await tester.pumpAndSettle();
 
       expect(find.text('Groceries'), findsOneWidget);
@@ -75,9 +65,7 @@ void main() {
     });
 
     testWidgets('marks overall progress as danger when over budget', (tester) async {
-      await tester.pumpWidget(
-        wrap(budgets: [budget('b1', 'Groceries', 1000)], spent: 1500),
-      );
+      await tester.pumpWidget(wrap(budgets: [budget('b1', 'Groceries', 1000)], spent: 1500));
       await tester.pumpAndSettle();
 
       expect(find.text('Over budget'), findsOneWidget);

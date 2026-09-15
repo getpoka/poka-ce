@@ -8,12 +8,7 @@ import 'package:poka_ce/shared/widgets/poka_pill.dart';
 
 /// A group of selectable pills for filtering by category.
 class TransactionFilterCategoryGroup extends HookWidget {
-  const TransactionFilterCategoryGroup({
-    required this.categories,
-    required this.selectedIds,
-    required this.onChanged,
-    super.key,
-  });
+  const new({required this.categories, required this.selectedIds, required this.onChanged, super.key});
 
   final List<CategoryModel> categories;
   final Set<String> selectedIds;
@@ -41,11 +36,7 @@ class TransactionFilterCategoryGroup extends HookWidget {
             children: topCategories.map((cat) {
               final isSelected = selectedIds.contains(cat.id);
               final isExpanded = activeParentId.value == cat.id;
-              final color = Color(
-                int.parse(
-                  cat.color?.replaceFirst('#', '0xFF') ?? '0xFF94A3B8',
-                ),
-              );
+              final color = Color(int.parse(cat.color?.replaceFirst('#', '0xFF') ?? '0xFF94A3B8'));
               return PokaPill(
                 icon: IconUtil.getIcon(cat.icon),
                 label: cat.name,
@@ -79,11 +70,7 @@ class TransactionFilterCategoryGroup extends HookWidget {
             PokaPillScrollRow(
               children: categoryChildren.map((sub) {
                 final isSelected = selectedIds.contains(sub.id);
-                final color = Color(
-                  int.parse(
-                    sub.color?.replaceFirst('#', '0xFF') ?? '0xFF94A3B8',
-                  ),
-                );
+                final color = Color(int.parse(sub.color?.replaceFirst('#', '0xFF') ?? '0xFF94A3B8'));
                 return PokaPill(
                   icon: IconUtil.getIcon(sub.icon),
                   label: sub.name,

@@ -28,9 +28,7 @@ void main() {
       child: TranslationProvider(
         child: MaterialApp(
           builder: (context, child) => FTheme(data: lightTheme, child: child!),
-          home: const Scaffold(
-            body: SingleChildScrollView(child: DashboardCategoriesView()),
-          ),
+          home: const Scaffold(body: SingleChildScrollView(child: DashboardCategoriesView())),
         ),
       ),
     );
@@ -95,14 +93,7 @@ void main() {
 
     testWidgets('handles totalExpense 0 avoids division by zero', (tester) async {
       await tester.pumpWidget(
-        createWidget(
-          DashboardState(
-            totalExpense: 0,
-            categoryExpenses: [
-              CategoryExpenseItem('Food', '#FF0000', 500),
-            ],
-          ),
-        ),
+        createWidget(DashboardState(totalExpense: 0, categoryExpenses: [CategoryExpenseItem('Food', '#FF0000', 500)])),
       );
       await tester.pump();
 
@@ -133,12 +124,7 @@ void main() {
     testWidgets('handles single category', (tester) async {
       await tester.pumpWidget(
         createWidget(
-          DashboardState(
-            totalExpense: 500,
-            categoryExpenses: [
-              CategoryExpenseItem('Solo', '#123456', 500),
-            ],
-          ),
+          DashboardState(totalExpense: 500, categoryExpenses: [CategoryExpenseItem('Solo', '#123456', 500)]),
         ),
       );
       await tester.pump();
@@ -150,12 +136,7 @@ void main() {
     testWidgets('handles invalid color gracefully via toColor fallback', (tester) async {
       await tester.pumpWidget(
         createWidget(
-          DashboardState(
-            totalExpense: 100,
-            categoryExpenses: [
-              CategoryExpenseItem('BadColor', 'not-a-color', 100),
-            ],
-          ),
+          DashboardState(totalExpense: 100, categoryExpenses: [CategoryExpenseItem('BadColor', 'not-a-color', 100)]),
         ),
       );
       await tester.pump();

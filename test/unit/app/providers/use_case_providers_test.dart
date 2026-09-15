@@ -11,9 +11,7 @@ void main() {
     test('use case providers are readable', () {
       final db = AppDatabase(connection: NativeDatabase.memory());
       addTearDown(db.close);
-      final container = ProviderContainer(
-        overrides: [databaseProvider.overrideWithValue(db)],
-      );
+      final container = ProviderContainer(overrides: [databaseProvider.overrideWithValue(db)]);
       addTearDown(container.dispose);
       expect(container.read(createAccountUseCaseProvider), isNotNull);
       expect(container.read(updateAccountUseCaseProvider), isNotNull);
@@ -24,9 +22,7 @@ void main() {
     test('providers return consistent types', () {
       final db = AppDatabase(connection: NativeDatabase.memory());
       addTearDown(db.close);
-      final container = ProviderContainer(
-        overrides: [databaseProvider.overrideWithValue(db)],
-      );
+      final container = ProviderContainer(overrides: [databaseProvider.overrideWithValue(db)]);
       addTearDown(container.dispose);
       final a = container.read(createAccountUseCaseProvider);
       final b = container.read(createAccountUseCaseProvider);

@@ -8,11 +8,7 @@ part 'settings_notifier.g.dart';
 /// Immutable UI state encapsulating current application settings and loading status.
 class SettingsState {
   /// Creates a [SettingsState].
-  const SettingsState({
-    this.settings,
-    this.isLoading = false,
-    this.error,
-  });
+  const new({this.settings, this.isLoading = false, this.error});
 
   /// Active settings model or `null` while loading.
   final SettingsModel? settings;
@@ -24,11 +20,7 @@ class SettingsState {
   final String? error;
 
   /// Creates a copy of this state with specified fields updated.
-  SettingsState copyWith({
-    SettingsModel? settings,
-    bool? isLoading,
-    String? error,
-  }) {
+  SettingsState copyWith({SettingsModel? settings, bool? isLoading, String? error}) {
     return SettingsState(
       settings: settings ?? this.settings,
       isLoading: isLoading ?? this.isLoading,
@@ -102,6 +94,6 @@ class SettingsNotifier extends _$SettingsNotifier {
 
   Future<List<CurrencyModel>> getAvailableCurrencies() async {
     final repo = ref.read(settingsRepositoryProvider);
-    return repo.getCurrencies();
+    return await repo.getCurrencies();
   }
 }

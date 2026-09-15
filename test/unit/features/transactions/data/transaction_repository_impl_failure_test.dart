@@ -34,10 +34,7 @@ void main() {
     final result = await repository.getTransactions();
 
     expect(result, isA<ErrorResult<List<TransactionModel>, Failure>>());
-    result.fold(
-      (_) => fail('Should not succeed'),
-      (error) => expect(error, isA<DatabaseFailure>()),
-    );
+    result.fold((_) => fail('Should not succeed'), (error) => expect(error, isA<DatabaseFailure>()));
   });
 
   test('getTransactionById returns DatabaseFailure when DAO throws', () async {
@@ -46,10 +43,7 @@ void main() {
     final result = await repository.getTransactionById('tx-1');
 
     expect(result, isA<ErrorResult<TransactionModel, Failure>>());
-    result.fold(
-      (_) => fail('Should not succeed'),
-      (error) => expect(error, isA<DatabaseFailure>()),
-    );
+    result.fold((_) => fail('Should not succeed'), (error) => expect(error, isA<DatabaseFailure>()));
   });
 
   test('createTransaction returns DatabaseFailure when DAO throws', () async {
@@ -58,10 +52,7 @@ void main() {
     final result = await repository.createTransaction(_buildTransaction());
 
     expect(result, isA<ErrorResult<void, Failure>>());
-    result.fold(
-      (_) => fail('Should not succeed'),
-      (error) => expect(error, isA<DatabaseFailure>()),
-    );
+    result.fold((_) => fail('Should not succeed'), (error) => expect(error, isA<DatabaseFailure>()));
   });
 }
 

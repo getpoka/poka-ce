@@ -89,12 +89,7 @@ void main() {
     expect(find.text('E2E Transaction'), findsOneWidget);
 
     // 3. Update Transaction
-    final txTile = find
-        .ancestor(
-          of: find.text('E2E Transaction'),
-          matching: find.byType(RecentTransactionTile),
-        )
-        .first;
+    final txTile = find.ancestor(of: find.text('E2E Transaction'), matching: find.byType(RecentTransactionTile)).first;
 
     // Slide right to reveal edit action
     await tester.drag(txTile, const Offset(-500, 0));
@@ -135,10 +130,7 @@ void main() {
 
     // 4. Delete Transaction
     final updatedTxTile = find
-        .ancestor(
-          of: find.text('E2E Transaction Edited'),
-          matching: find.byType(RecentTransactionTile),
-        )
+        .ancestor(of: find.text('E2E Transaction Edited'), matching: find.byType(RecentTransactionTile))
         .first;
 
     // Slide left to reveal delete action

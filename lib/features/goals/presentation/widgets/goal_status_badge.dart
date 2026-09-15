@@ -4,7 +4,7 @@ import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class GoalStatusBadge extends StatelessWidget {
-  const GoalStatusBadge({required this.label, required this.color, super.key});
+  const new({required this.label, required this.color, super.key});
 
   final String label;
   final Color color;
@@ -14,20 +14,14 @@ class GoalStatusBadge extends StatelessWidget {
     final theme = context.theme;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-      decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.12),
-        borderRadius: theme.style.borderRadius.sm,
-      ),
-      child: Text(
-        label.toUpperCase(),
-        style: theme.typography.labelBadge.copyWith(color: color),
-      ),
+      decoration: BoxDecoration(color: color.withValues(alpha: 0.12), borderRadius: theme.style.borderRadius.sm),
+      child: Text(label.toUpperCase(), style: theme.typography.labelBadge.copyWith(color: color)),
     );
   }
 }
 
 class GoalDeadlineBadge extends StatelessWidget {
-  const GoalDeadlineBadge({required this.targetDate, super.key});
+  const new({required this.targetDate, super.key});
 
   final DateTime targetDate;
 
@@ -52,10 +46,7 @@ class GoalDeadlineBadge extends StatelessWidget {
         children: [
           Icon(FPhosphorIcons.calendarBlank, size: 9, color: color),
           const SizedBox(width: 3),
-          Text(
-            label.toUpperCase(),
-            style: theme.typography.labelBadge.copyWith(color: color),
-          ),
+          Text(label.toUpperCase(), style: theme.typography.labelBadge.copyWith(color: color)),
         ],
       ),
     );

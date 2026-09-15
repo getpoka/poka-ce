@@ -36,10 +36,7 @@ final class BackupFormNotifierProvider extends $NotifierProvider<BackupFormNotif
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(BackupFormState value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<BackupFormState>(value),
-    );
+    return $ProviderOverride(origin: this, providerOverride: $SyncValueProvider<BackupFormState>(value));
   }
 }
 

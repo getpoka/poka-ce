@@ -45,10 +45,7 @@ Future<bool?> showPokaConfirmDialog(
               // Title
               Text(
                 title,
-                style: typography.display.sm.copyWith(
-                  fontWeight: FontWeight.w700,
-                  color: colors.foreground,
-                ),
+                style: typography.display.sm.copyWith(fontWeight: FontWeight.w700, color: colors.foreground),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 8),
@@ -56,10 +53,7 @@ Future<bool?> showPokaConfirmDialog(
               // Body description
               Text(
                 body,
-                style: typography.body.md.copyWith(
-                  color: colors.mutedForeground,
-                  height: 1.5,
-                ),
+                style: typography.body.md.copyWith(color: colors.mutedForeground, height: 1.5),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 16),
@@ -67,9 +61,7 @@ Future<bool?> showPokaConfirmDialog(
               // "Cannot be undone" warning
               Text(
                 context.t.common.cannotBeUndone,
-                style: typography.bodyPrimary.copyWith(
-                  color: colors.destructive,
-                ),
+                style: typography.bodyPrimary.copyWith(color: colors.destructive),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 24),

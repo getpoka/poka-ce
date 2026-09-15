@@ -39,9 +39,8 @@ final class RecurringTransactionsProvider
 
   @$internal
   @override
-  $StreamProviderElement<List<TransactionModel>> $createElement(
-    $ProviderPointer pointer,
-  ) => $StreamProviderElement(pointer);
+  $StreamProviderElement<List<TransactionModel>> $createElement($ProviderPointer pointer) =>
+      $StreamProviderElement(pointer);
 
   @override
   Stream<List<TransactionModel>> create(Ref ref) {

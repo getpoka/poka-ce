@@ -27,11 +27,8 @@ List<RouteBase> get $appRoutes => [
   $lockRoute,
 ];
 
-RouteBase get $onboardingRoute => GoRouteData.$route(
-  path: '/onboarding',
-  hasOverriddenOnExit: false,
-  factory: $OnboardingRoute._fromState,
-);
+RouteBase get $onboardingRoute =>
+    GoRouteData.$route(path: '/onboarding', hasOverriddenOnExit: false, factory: $OnboardingRoute._fromState);
 
 mixin $OnboardingRoute on GoRouteData {
   static OnboardingRoute _fromState(GoRouterState state) => const OnboardingRoute();
@@ -52,11 +49,8 @@ mixin $OnboardingRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-RouteBase get $categoryListRoute => GoRouteData.$route(
-  path: '/categories',
-  hasOverriddenOnExit: false,
-  factory: $CategoryListRoute._fromState,
-);
+RouteBase get $categoryListRoute =>
+    GoRouteData.$route(path: '/categories', hasOverriddenOnExit: false, factory: $CategoryListRoute._fromState);
 
 mixin $CategoryListRoute on GoRouteData {
   static CategoryListRoute _fromState(GoRouterState state) => const CategoryListRoute();
@@ -77,11 +71,8 @@ mixin $CategoryListRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-RouteBase get $budgetListRoute => GoRouteData.$route(
-  path: '/budgets',
-  hasOverriddenOnExit: false,
-  factory: $BudgetListRoute._fromState,
-);
+RouteBase get $budgetListRoute =>
+    GoRouteData.$route(path: '/budgets', hasOverriddenOnExit: false, factory: $BudgetListRoute._fromState);
 
 mixin $BudgetListRoute on GoRouteData {
   static BudgetListRoute _fromState(GoRouterState state) => const BudgetListRoute();
@@ -102,17 +93,12 @@ mixin $BudgetListRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-RouteBase get $budgetDetailRoute => GoRouteData.$route(
-  path: '/budgets/:id',
-  hasOverriddenOnExit: false,
-  factory: $BudgetDetailRoute._fromState,
-);
+RouteBase get $budgetDetailRoute =>
+    GoRouteData.$route(path: '/budgets/:id', hasOverriddenOnExit: false, factory: $BudgetDetailRoute._fromState);
 
 mixin $BudgetDetailRoute on GoRouteData {
-  static BudgetDetailRoute _fromState(GoRouterState state) => BudgetDetailRoute(
-    state.pathParameters['id']!,
-    $extra: state.extra as BudgetModel?,
-  );
+  static BudgetDetailRoute _fromState(GoRouterState state) =>
+      BudgetDetailRoute(state.pathParameters['id']!, $extra: state.extra as BudgetModel?);
 
   BudgetDetailRoute get _self => this as BudgetDetailRoute;
 
@@ -132,11 +118,8 @@ mixin $BudgetDetailRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location, extra: _self.$extra);
 }
 
-RouteBase get $goalListRoute => GoRouteData.$route(
-  path: '/goals',
-  hasOverriddenOnExit: false,
-  factory: $GoalListRoute._fromState,
-);
+RouteBase get $goalListRoute =>
+    GoRouteData.$route(path: '/goals', hasOverriddenOnExit: false, factory: $GoalListRoute._fromState);
 
 mixin $GoalListRoute on GoRouteData {
   static GoalListRoute _fromState(GoRouterState state) => const GoalListRoute();
@@ -157,17 +140,12 @@ mixin $GoalListRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-RouteBase get $goalDetailRoute => GoRouteData.$route(
-  path: '/goals/:id',
-  hasOverriddenOnExit: false,
-  factory: $GoalDetailRoute._fromState,
-);
+RouteBase get $goalDetailRoute =>
+    GoRouteData.$route(path: '/goals/:id', hasOverriddenOnExit: false, factory: $GoalDetailRoute._fromState);
 
 mixin $GoalDetailRoute on GoRouteData {
-  static GoalDetailRoute _fromState(GoRouterState state) => GoalDetailRoute(
-    state.pathParameters['id']!,
-    $extra: state.extra as GoalModel?,
-  );
+  static GoalDetailRoute _fromState(GoRouterState state) =>
+      GoalDetailRoute(state.pathParameters['id']!, $extra: state.extra as GoalModel?);
 
   GoalDetailRoute get _self => this as GoalDetailRoute;
 
@@ -191,13 +169,7 @@ RouteBase get $mainShellRoute => StatefulShellRouteData.$route(
   factory: $MainShellRouteExtension._fromState,
   branches: [
     StatefulShellBranchData.$branch(
-      routes: [
-        GoRouteData.$route(
-          path: '/',
-          hasOverriddenOnExit: false,
-          factory: $DashboardRoute._fromState,
-        ),
-      ],
+      routes: [GoRouteData.$route(path: '/', hasOverriddenOnExit: false, factory: $DashboardRoute._fromState)],
     ),
     StatefulShellBranchData.$branch(
       routes: [
@@ -209,31 +181,15 @@ RouteBase get $mainShellRoute => StatefulShellRouteData.$route(
       ],
     ),
     StatefulShellBranchData.$branch(
-      routes: [
-        GoRouteData.$route(
-          path: '/reports',
-          hasOverriddenOnExit: false,
-          factory: $ReportListRoute._fromState,
-        ),
-      ],
+      routes: [GoRouteData.$route(path: '/reports', hasOverriddenOnExit: false, factory: $ReportListRoute._fromState)],
     ),
     StatefulShellBranchData.$branch(
       routes: [
-        GoRouteData.$route(
-          path: '/accounts',
-          hasOverriddenOnExit: false,
-          factory: $AccountListRoute._fromState,
-        ),
+        GoRouteData.$route(path: '/accounts', hasOverriddenOnExit: false, factory: $AccountListRoute._fromState),
       ],
     ),
     StatefulShellBranchData.$branch(
-      routes: [
-        GoRouteData.$route(
-          path: '/settings',
-          hasOverriddenOnExit: false,
-          factory: $SettingsRoute._fromState,
-        ),
-      ],
+      routes: [GoRouteData.$route(path: '/settings', hasOverriddenOnExit: false, factory: $SettingsRoute._fromState)],
     ),
   ],
 );
@@ -349,9 +305,7 @@ mixin $AccountDetailRoute on GoRouteData {
   AccountDetailRoute get _self => this as AccountDetailRoute;
 
   @override
-  String get location => GoRouteData.$location(
-    '/accounts/${Uri.encodeComponent(_self.accountId)}',
-  );
+  String get location => GoRouteData.$location('/accounts/${Uri.encodeComponent(_self.accountId)}');
 
   @override
   void go(BuildContext context) => context.go(location);
@@ -366,11 +320,8 @@ mixin $AccountDetailRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-RouteBase get $recurringListRoute => GoRouteData.$route(
-  path: '/recurring',
-  hasOverriddenOnExit: false,
-  factory: $RecurringListRoute._fromState,
-);
+RouteBase get $recurringListRoute =>
+    GoRouteData.$route(path: '/recurring', hasOverriddenOnExit: false, factory: $RecurringListRoute._fromState);
 
 mixin $RecurringListRoute on GoRouteData {
   static RecurringListRoute _fromState(GoRouterState state) => const RecurringListRoute();
@@ -391,17 +342,12 @@ mixin $RecurringListRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-RouteBase get $recurringDetailRoute => GoRouteData.$route(
-  path: '/recurring/:id',
-  hasOverriddenOnExit: false,
-  factory: $RecurringDetailRoute._fromState,
-);
+RouteBase get $recurringDetailRoute =>
+    GoRouteData.$route(path: '/recurring/:id', hasOverriddenOnExit: false, factory: $RecurringDetailRoute._fromState);
 
 mixin $RecurringDetailRoute on GoRouteData {
-  static RecurringDetailRoute _fromState(GoRouterState state) => RecurringDetailRoute(
-    state.pathParameters['id']!,
-    $extra: state.extra as RecurringTransactionModel?,
-  );
+  static RecurringDetailRoute _fromState(GoRouterState state) =>
+      RecurringDetailRoute(state.pathParameters['id']!, $extra: state.extra as RecurringTransactionModel?);
 
   RecurringDetailRoute get _self => this as RecurringDetailRoute;
 
@@ -421,11 +367,8 @@ mixin $RecurringDetailRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location, extra: _self.$extra);
 }
 
-RouteBase get $debtListRoute => GoRouteData.$route(
-  path: '/debts',
-  hasOverriddenOnExit: false,
-  factory: $DebtListRoute._fromState,
-);
+RouteBase get $debtListRoute =>
+    GoRouteData.$route(path: '/debts', hasOverriddenOnExit: false, factory: $DebtListRoute._fromState);
 
 mixin $DebtListRoute on GoRouteData {
   static DebtListRoute _fromState(GoRouterState state) => const DebtListRoute();
@@ -446,17 +389,12 @@ mixin $DebtListRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-RouteBase get $debtDetailRoute => GoRouteData.$route(
-  path: '/debts/:id',
-  hasOverriddenOnExit: false,
-  factory: $DebtDetailRoute._fromState,
-);
+RouteBase get $debtDetailRoute =>
+    GoRouteData.$route(path: '/debts/:id', hasOverriddenOnExit: false, factory: $DebtDetailRoute._fromState);
 
 mixin $DebtDetailRoute on GoRouteData {
-  static DebtDetailRoute _fromState(GoRouterState state) => DebtDetailRoute(
-    state.pathParameters['id']!,
-    $extra: state.extra as DebtModel?,
-  );
+  static DebtDetailRoute _fromState(GoRouterState state) =>
+      DebtDetailRoute(state.pathParameters['id']!, $extra: state.extra as DebtModel?);
 
   DebtDetailRoute get _self => this as DebtDetailRoute;
 
@@ -476,11 +414,8 @@ mixin $DebtDetailRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location, extra: _self.$extra);
 }
 
-RouteBase get $aboutRoute => GoRouteData.$route(
-  path: '/about',
-  hasOverriddenOnExit: false,
-  factory: $AboutRoute._fromState,
-);
+RouteBase get $aboutRoute =>
+    GoRouteData.$route(path: '/about', hasOverriddenOnExit: false, factory: $AboutRoute._fromState);
 
 mixin $AboutRoute on GoRouteData {
   static AboutRoute _fromState(GoRouterState state) => const AboutRoute();
@@ -501,11 +436,8 @@ mixin $AboutRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-RouteBase get $supportFaqRoute => GoRouteData.$route(
-  path: '/faq',
-  hasOverriddenOnExit: false,
-  factory: $SupportFaqRoute._fromState,
-);
+RouteBase get $supportFaqRoute =>
+    GoRouteData.$route(path: '/faq', hasOverriddenOnExit: false, factory: $SupportFaqRoute._fromState);
 
 mixin $SupportFaqRoute on GoRouteData {
   static SupportFaqRoute _fromState(GoRouterState state) => const SupportFaqRoute();
@@ -526,11 +458,8 @@ mixin $SupportFaqRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-RouteBase get $supportTermsRoute => GoRouteData.$route(
-  path: '/terms',
-  hasOverriddenOnExit: false,
-  factory: $SupportTermsRoute._fromState,
-);
+RouteBase get $supportTermsRoute =>
+    GoRouteData.$route(path: '/terms', hasOverriddenOnExit: false, factory: $SupportTermsRoute._fromState);
 
 mixin $SupportTermsRoute on GoRouteData {
   static SupportTermsRoute _fromState(GoRouterState state) => const SupportTermsRoute();
@@ -551,11 +480,8 @@ mixin $SupportTermsRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-RouteBase get $supportPrivacyRoute => GoRouteData.$route(
-  path: '/privacy',
-  hasOverriddenOnExit: false,
-  factory: $SupportPrivacyRoute._fromState,
-);
+RouteBase get $supportPrivacyRoute =>
+    GoRouteData.$route(path: '/privacy', hasOverriddenOnExit: false, factory: $SupportPrivacyRoute._fromState);
 
 mixin $SupportPrivacyRoute on GoRouteData {
   static SupportPrivacyRoute _fromState(GoRouterState state) => const SupportPrivacyRoute();
@@ -576,11 +502,8 @@ mixin $SupportPrivacyRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-RouteBase get $supportLicensesRoute => GoRouteData.$route(
-  path: '/licenses',
-  hasOverriddenOnExit: false,
-  factory: $SupportLicensesRoute._fromState,
-);
+RouteBase get $supportLicensesRoute =>
+    GoRouteData.$route(path: '/licenses', hasOverriddenOnExit: false, factory: $SupportLicensesRoute._fromState);
 
 mixin $SupportLicensesRoute on GoRouteData {
   static SupportLicensesRoute _fromState(GoRouterState state) => const SupportLicensesRoute();
@@ -601,11 +524,8 @@ mixin $SupportLicensesRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-RouteBase get $lockRoute => GoRouteData.$route(
-  path: '/lock',
-  hasOverriddenOnExit: false,
-  factory: $LockRoute._fromState,
-);
+RouteBase get $lockRoute =>
+    GoRouteData.$route(path: '/lock', hasOverriddenOnExit: false, factory: $LockRoute._fromState);
 
 mixin $LockRoute on GoRouteData {
   static LockRoute _fromState(GoRouterState state) => const LockRoute();

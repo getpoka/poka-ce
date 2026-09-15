@@ -38,7 +38,7 @@ part 'router.g.dart';
 /// Navigation observer for logging route changes using Talker.
 class GoRouterObserver extends NavigatorObserver {
   /// Constructor
-  GoRouterObserver(this.talker);
+  new(this.talker);
 
   /// Talker instance
   final Talker talker;
@@ -99,15 +99,13 @@ final routerProvider = Provider<GoRouter>((ref) {
       }
       return null;
     },
-    observers: [
-      GoRouterObserver(talker),
-    ],
+    observers: [GoRouterObserver(talker)],
   );
 });
 
 @TypedGoRoute<OnboardingRoute>(path: '/onboarding')
 class OnboardingRoute extends GoRouteData with $OnboardingRoute {
-  const OnboardingRoute();
+  const new();
 
   @override
   Widget build(BuildContext context, GoRouterState state) => const OnboardingPage();
@@ -115,7 +113,7 @@ class OnboardingRoute extends GoRouteData with $OnboardingRoute {
 
 @TypedGoRoute<CategoryListRoute>(path: '/categories')
 class CategoryListRoute extends GoRouteData with $CategoryListRoute {
-  const CategoryListRoute();
+  const new();
 
   @override
   Widget build(BuildContext context, GoRouterState state) => const CategoryListPage();
@@ -123,7 +121,7 @@ class CategoryListRoute extends GoRouteData with $CategoryListRoute {
 
 @TypedGoRoute<BudgetListRoute>(path: '/budgets')
 class BudgetListRoute extends GoRouteData with $BudgetListRoute {
-  const BudgetListRoute();
+  const new();
 
   @override
   Widget build(BuildContext context, GoRouterState state) => const BudgetListPage();
@@ -131,7 +129,7 @@ class BudgetListRoute extends GoRouteData with $BudgetListRoute {
 
 @TypedGoRoute<BudgetDetailRoute>(path: '/budgets/:id')
 class BudgetDetailRoute extends GoRouteData with $BudgetDetailRoute {
-  const BudgetDetailRoute(this.id, {this.$extra});
+  const new(this.id, {this.$extra});
 
   final String id;
   final BudgetModel? $extra;
@@ -142,7 +140,7 @@ class BudgetDetailRoute extends GoRouteData with $BudgetDetailRoute {
 
 @TypedGoRoute<GoalListRoute>(path: '/goals')
 class GoalListRoute extends GoRouteData with $GoalListRoute {
-  const GoalListRoute();
+  const new();
 
   @override
   Widget build(BuildContext context, GoRouterState state) => const GoalListPage();
@@ -150,7 +148,7 @@ class GoalListRoute extends GoRouteData with $GoalListRoute {
 
 @TypedGoRoute<GoalDetailRoute>(path: '/goals/:id')
 class GoalDetailRoute extends GoRouteData with $GoalDetailRoute {
-  const GoalDetailRoute(this.id, {this.$extra});
+  const new(this.id, {this.$extra});
 
   final String id;
   final GoalModel? $extra;
@@ -161,99 +159,81 @@ class GoalDetailRoute extends GoRouteData with $GoalDetailRoute {
 
 @TypedStatefulShellRoute<MainShellRoute>(
   branches: <TypedStatefulShellBranch<StatefulShellBranchData>>[
-    TypedStatefulShellBranch<HomeBranch>(
-      routes: <TypedRoute<RouteData>>[
-        TypedGoRoute<DashboardRoute>(path: '/'),
-      ],
-    ),
+    TypedStatefulShellBranch<HomeBranch>(routes: <TypedRoute<RouteData>>[TypedGoRoute<DashboardRoute>(path: '/')]),
     TypedStatefulShellBranch<TransactionsBranch>(
-      routes: <TypedRoute<RouteData>>[
-        TypedGoRoute<TransactionListRoute>(path: '/transactions'),
-      ],
+      routes: <TypedRoute<RouteData>>[TypedGoRoute<TransactionListRoute>(path: '/transactions')],
     ),
 
     TypedStatefulShellBranch<ReportsBranch>(
-      routes: <TypedRoute<RouteData>>[
-        TypedGoRoute<ReportListRoute>(path: '/reports'),
-      ],
+      routes: <TypedRoute<RouteData>>[TypedGoRoute<ReportListRoute>(path: '/reports')],
     ),
     TypedStatefulShellBranch<AccountsBranch>(
-      routes: <TypedRoute<RouteData>>[
-        TypedGoRoute<AccountListRoute>(path: '/accounts'),
-      ],
+      routes: <TypedRoute<RouteData>>[TypedGoRoute<AccountListRoute>(path: '/accounts')],
     ),
     TypedStatefulShellBranch<SettingsBranch>(
-      routes: <TypedRoute<RouteData>>[
-        TypedGoRoute<SettingsRoute>(
-          path: '/settings',
-        ),
-      ],
+      routes: <TypedRoute<RouteData>>[TypedGoRoute<SettingsRoute>(path: '/settings')],
     ),
   ],
 )
 class MainShellRoute extends StatefulShellRouteData {
-  const MainShellRoute();
+  const new();
 
   @override
-  Widget builder(
-    BuildContext context,
-    GoRouterState state,
-    StatefulNavigationShell navigationShell,
-  ) {
+  Widget builder(BuildContext context, GoRouterState state, StatefulNavigationShell navigationShell) {
     return MainShellPage(navigationShell: navigationShell);
   }
 }
 
 class HomeBranch extends StatefulShellBranchData {
-  const HomeBranch();
+  const new();
 }
 
 class TransactionsBranch extends StatefulShellBranchData {
-  const TransactionsBranch();
+  const new();
 }
 
 class ReportsBranch extends StatefulShellBranchData {
-  const ReportsBranch();
+  const new();
 }
 
 class AccountsBranch extends StatefulShellBranchData {
-  const AccountsBranch();
+  const new();
 }
 
 class SettingsBranch extends StatefulShellBranchData {
-  const SettingsBranch();
+  const new();
 }
 
 class DashboardRoute extends GoRouteData with $DashboardRoute {
-  const DashboardRoute();
+  const new();
 
   @override
   Widget build(BuildContext context, GoRouterState state) => const DashboardPage();
 }
 
 class TransactionListRoute extends GoRouteData with $TransactionListRoute {
-  const TransactionListRoute();
+  const new();
 
   @override
   Widget build(BuildContext context, GoRouterState state) => const TransactionListPage();
 }
 
 class ReportListRoute extends GoRouteData with $ReportListRoute {
-  const ReportListRoute();
+  const new();
 
   @override
   Widget build(BuildContext context, GoRouterState state) => const ReportListPage();
 }
 
 class SettingsRoute extends GoRouteData with $SettingsRoute {
-  const SettingsRoute();
+  const new();
 
   @override
   Widget build(BuildContext context, GoRouterState state) => const SettingsPage();
 }
 
 class AccountListRoute extends GoRouteData with $AccountListRoute {
-  const AccountListRoute();
+  const new();
 
   @override
   Widget build(BuildContext context, GoRouterState state) => const AccountListPage();
@@ -261,7 +241,7 @@ class AccountListRoute extends GoRouteData with $AccountListRoute {
 
 @TypedGoRoute<AccountDetailRoute>(path: '/accounts/:accountId')
 class AccountDetailRoute extends GoRouteData with $AccountDetailRoute {
-  const AccountDetailRoute(this.accountId);
+  const new(this.accountId);
 
   final String accountId;
 
@@ -271,7 +251,7 @@ class AccountDetailRoute extends GoRouteData with $AccountDetailRoute {
 
 @TypedGoRoute<RecurringListRoute>(path: '/recurring')
 class RecurringListRoute extends GoRouteData with $RecurringListRoute {
-  const RecurringListRoute();
+  const new();
 
   @override
   Widget build(BuildContext context, GoRouterState state) => const RecurringListPage();
@@ -279,7 +259,7 @@ class RecurringListRoute extends GoRouteData with $RecurringListRoute {
 
 @TypedGoRoute<RecurringDetailRoute>(path: '/recurring/:id')
 class RecurringDetailRoute extends GoRouteData with $RecurringDetailRoute {
-  const RecurringDetailRoute(this.id, {this.$extra});
+  const new(this.id, {this.$extra});
 
   final String id;
   final RecurringTransactionModel? $extra;
@@ -290,7 +270,7 @@ class RecurringDetailRoute extends GoRouteData with $RecurringDetailRoute {
 
 @TypedGoRoute<DebtListRoute>(path: '/debts')
 class DebtListRoute extends GoRouteData with $DebtListRoute {
-  const DebtListRoute();
+  const new();
 
   @override
   Widget build(BuildContext context, GoRouterState state) => const DebtListPage();
@@ -298,7 +278,7 @@ class DebtListRoute extends GoRouteData with $DebtListRoute {
 
 @TypedGoRoute<DebtDetailRoute>(path: '/debts/:id')
 class DebtDetailRoute extends GoRouteData with $DebtDetailRoute {
-  const DebtDetailRoute(this.id, {this.$extra});
+  const new(this.id, {this.$extra});
 
   final String id;
   final DebtModel? $extra;
@@ -309,7 +289,7 @@ class DebtDetailRoute extends GoRouteData with $DebtDetailRoute {
 
 @TypedGoRoute<AboutRoute>(path: '/about')
 class AboutRoute extends GoRouteData with $AboutRoute {
-  const AboutRoute();
+  const new();
 
   @override
   Widget build(BuildContext context, GoRouterState state) => const AboutPage();
@@ -317,7 +297,7 @@ class AboutRoute extends GoRouteData with $AboutRoute {
 
 @TypedGoRoute<SupportFaqRoute>(path: '/faq')
 class SupportFaqRoute extends GoRouteData with $SupportFaqRoute {
-  const SupportFaqRoute();
+  const new();
 
   @override
   Widget build(BuildContext context, GoRouterState state) => const FaqPage();
@@ -325,29 +305,25 @@ class SupportFaqRoute extends GoRouteData with $SupportFaqRoute {
 
 @TypedGoRoute<SupportTermsRoute>(path: '/terms')
 class SupportTermsRoute extends GoRouteData with $SupportTermsRoute {
-  const SupportTermsRoute();
+  const new();
 
   @override
-  Widget build(BuildContext context, GoRouterState state) => MarkdownPage(
-    title: t.app.termsOfService,
-    assetPath: 'assets/data/tos.md',
-  );
+  Widget build(BuildContext context, GoRouterState state) =>
+      MarkdownPage(title: t.app.termsOfService, assetPath: 'assets/data/tos.md');
 }
 
 @TypedGoRoute<SupportPrivacyRoute>(path: '/privacy')
 class SupportPrivacyRoute extends GoRouteData with $SupportPrivacyRoute {
-  const SupportPrivacyRoute();
+  const new();
 
   @override
-  Widget build(BuildContext context, GoRouterState state) => MarkdownPage(
-    title: t.app.privacyPolicy,
-    assetPath: 'assets/data/privacy.md',
-  );
+  Widget build(BuildContext context, GoRouterState state) =>
+      MarkdownPage(title: t.app.privacyPolicy, assetPath: 'assets/data/privacy.md');
 }
 
 @TypedGoRoute<SupportLicensesRoute>(path: '/licenses')
 class SupportLicensesRoute extends GoRouteData with $SupportLicensesRoute {
-  const SupportLicensesRoute();
+  const new();
 
   @override
   Widget build(BuildContext context, GoRouterState state) => const LicensesScreen();
@@ -355,7 +331,7 @@ class SupportLicensesRoute extends GoRouteData with $SupportLicensesRoute {
 
 @TypedGoRoute<LockRoute>(path: '/lock')
 class LockRoute extends GoRouteData with $LockRoute {
-  const LockRoute();
+  const new();
 
   @override
   Widget build(BuildContext context, GoRouterState state) {

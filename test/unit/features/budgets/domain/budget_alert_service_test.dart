@@ -40,9 +40,8 @@ void main() {
   );
 
   test('returns early when getBudgets fails', () async {
-    when(() => mockRepo.getBudgets()).thenAnswer(
-      (_) async => const ErrorResult<List<BudgetModel>, Failure>(DatabaseFailure('boom')),
-    );
+    when(() => mockRepo.getBudgets())
+        .thenAnswer((_) async => const ErrorResult<List<BudgetModel>, Failure>(DatabaseFailure('boom')));
 
     await service.checkAlerts();
     verify(() => mockRepo.getBudgets()).called(1);
@@ -57,12 +56,8 @@ void main() {
   });
 
   test('skips budgets without an alert threshold', () async {
-    when(() => mockRepo.getBudgets()).thenAnswer(
-      (_) async => Success<List<BudgetModel>, Failure>([
-        budget(),
-        budget(alertThreshold: 0),
-      ]),
-    );
+    when(() => mockRepo.getBudgets())
+        .thenAnswer((_) async => Success<List<BudgetModel>, Failure>([budget(), budget(alertThreshold: 0)]));
 
     await service.checkAlerts();
     verifyNever(
@@ -76,11 +71,8 @@ void main() {
   });
 
   test('does not notify when spending is below threshold', () async {
-    when(() => mockRepo.getBudgets()).thenAnswer(
-      (_) async => Success<List<BudgetModel>, Failure>([
-        budget(alertThreshold: 80),
-      ]),
-    );
+    when(() => mockRepo.getBudgets())
+        .thenAnswer((_) async => Success<List<BudgetModel>, Failure>([budget(alertThreshold: 80)]));
     when(
       () => mockRepo.getSpentAmountForBudget(
         startDate: any(named: 'startDate'),
@@ -94,11 +86,8 @@ void main() {
   });
 
   test('triggers notification path when spending exceeds threshold', () async {
-    when(() => mockRepo.getBudgets()).thenAnswer(
-      (_) async => Success<List<BudgetModel>, Failure>([
-        budget(alertThreshold: 80),
-      ]),
-    );
+    when(() => mockRepo.getBudgets())
+        .thenAnswer((_) async => Success<List<BudgetModel>, Failure>([budget(alertThreshold: 80)]));
     when(
       () => mockRepo.getSpentAmountForBudget(
         startDate: any(named: 'startDate'),
@@ -132,11 +121,8 @@ void main() {
   });
 
   test('skips budget when spent query fails', () async {
-    when(() => mockRepo.getBudgets()).thenAnswer(
-      (_) async => Success<List<BudgetModel>, Failure>([
-        budget(alertThreshold: 50),
-      ]),
-    );
+    when(() => mockRepo.getBudgets())
+        .thenAnswer((_) async => Success<List<BudgetModel>, Failure>([budget(alertThreshold: 50)]));
     when(
       () => mockRepo.getSpentAmountForBudget(
         startDate: any(named: 'startDate'),
@@ -144,9 +130,7 @@ void main() {
         categoryId: any(named: 'categoryId'),
         accountId: any(named: 'accountId'),
       ),
-    ).thenAnswer(
-      (_) async => const ErrorResult<int, Failure>(DatabaseFailure('boom')),
-    );
+    ).thenAnswer((_) async => const ErrorResult<int, Failure>(DatabaseFailure('boom')));
 
     await service.checkAlerts();
   });

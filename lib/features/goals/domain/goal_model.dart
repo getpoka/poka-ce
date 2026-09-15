@@ -6,7 +6,7 @@ part 'goal_model.g.dart';
 
 @freezed
 abstract class GoalModel with _$GoalModel {
-  const factory GoalModel({
+  const factory({
     required String id,
     required String accountId,
     required String name,
@@ -19,5 +19,5 @@ abstract class GoalModel with _$GoalModel {
     String? color,
   }) = _GoalModel;
 
-  factory GoalModel.fromJson(Map<String, dynamic> json) => _$GoalModelFromJson(json);
+  factory fromJson(Map<String, dynamic> json) => _$GoalModelFromJson(json);
 }

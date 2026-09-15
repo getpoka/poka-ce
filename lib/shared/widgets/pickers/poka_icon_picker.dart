@@ -4,11 +4,7 @@ import 'package:poka_ce/core/utils/icon_util.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class PokaIconPicker extends HookWidget {
-  const PokaIconPicker({
-    required this.selectedIcon,
-    required this.onIconSelected,
-    super.key,
-  });
+  const new({required this.selectedIcon, required this.onIconSelected, super.key});
 
   final String? selectedIcon;
   final ValueChanged<String> onIconSelected;
@@ -72,10 +68,7 @@ class PokaIconPicker extends HookWidget {
                     width: isSelected ? 2 : 1,
                   ),
                 ),
-                child: Icon(
-                  iconData,
-                  color: isSelected ? theme.colors.primary : theme.colors.foreground,
-                ),
+                child: Icon(iconData, color: isSelected ? theme.colors.primary : theme.colors.foreground),
               ),
             );
           }).toList(),

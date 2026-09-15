@@ -9,9 +9,7 @@ void main() {
   group('DailyBudgetNotifier', () {
     Future<ProviderContainer> createContainer() async {
       final prefs = await SharedPreferences.getInstance();
-      final container = ProviderContainer(
-        overrides: [sharedPreferencesProvider.overrideWithValue(prefs)],
-      );
+      final container = ProviderContainer(overrides: [sharedPreferencesProvider.overrideWithValue(prefs)]);
       addTearDown(container.dispose);
       return container;
     }

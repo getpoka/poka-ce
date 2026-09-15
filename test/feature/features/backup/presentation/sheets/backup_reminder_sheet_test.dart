@@ -23,11 +23,7 @@ class FakeNotificationService extends NotificationService {
   Future<bool> requestNotificationPermission() async => permissionGranted;
 
   @override
-  Future<void> showBackupReminderNotification({
-    required String title,
-    required String body,
-    String? payload,
-  }) async {
+  Future<void> showBackupReminderNotification({required String title, required String body, String? payload}) async {
     testNotificationCount++;
   }
 }
@@ -52,10 +48,7 @@ void main() {
       overrides: [
         preferencesServiceProvider.overrideWithValue(preferencesService),
         backupReminderServiceProvider.overrideWith(
-          (ref) => BackupReminderService(
-            prefs: preferencesService,
-            notificationService: fakeNotificationService,
-          ),
+          (ref) => BackupReminderService(prefs: preferencesService, notificationService: fakeNotificationService),
         ),
       ],
       child: TranslationProvider(
@@ -76,10 +69,7 @@ void main() {
         buildApp(
           Builder(
             builder: (context) => ElevatedButton(
-              onPressed: () => showBackupReminderSheet(
-                context,
-                currentInterval: BackupReminderInterval.weekly,
-              ),
+              onPressed: () => showBackupReminderSheet(context, currentInterval: BackupReminderInterval.weekly),
               child: const Text('Open Reminder Sheet'),
             ),
           ),
@@ -104,10 +94,7 @@ void main() {
           Builder(
             builder: (context) => ElevatedButton(
               onPressed: () async {
-                selected = await showBackupReminderSheet(
-                  context,
-                  currentInterval: BackupReminderInterval.weekly,
-                );
+                selected = await showBackupReminderSheet(context, currentInterval: BackupReminderInterval.weekly);
               },
               child: const Text('Open Reminder Sheet'),
             ),
@@ -132,10 +119,7 @@ void main() {
           Builder(
             builder: (context) => ElevatedButton(
               onPressed: () async {
-                selected = await showBackupReminderSheet(
-                  context,
-                  currentInterval: BackupReminderInterval.off,
-                );
+                selected = await showBackupReminderSheet(context, currentInterval: BackupReminderInterval.off);
               },
               child: const Text('Open Reminder Sheet'),
             ),
@@ -157,10 +141,7 @@ void main() {
         buildApp(
           Builder(
             builder: (context) => ElevatedButton(
-              onPressed: () => showBackupReminderSheet(
-                context,
-                currentInterval: BackupReminderInterval.weekly,
-              ),
+              onPressed: () => showBackupReminderSheet(context, currentInterval: BackupReminderInterval.weekly),
               child: const Text('Open Reminder Sheet'),
             ),
           ),

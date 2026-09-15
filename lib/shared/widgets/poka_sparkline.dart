@@ -5,7 +5,7 @@ import 'package:poka_ce/theme/theme.dart';
 /// Designed specifically for background layering in hero cards and summary panels.
 class PokaSparkline extends StatelessWidget {
   /// Creates a [PokaSparkline].
-  const PokaSparkline({
+  const new({
     required this.points,
     this.lineColor,
     this.fillGradient,
@@ -71,7 +71,7 @@ class PokaSparkline extends StatelessWidget {
 }
 
 class _PokaSparklinePainter extends CustomPainter {
-  _PokaSparklinePainter({
+  new({
     required this.points,
     required this.lineColor,
     required this.fillGradient,
@@ -175,17 +175,9 @@ class _PokaSparklinePainter extends CustomPainter {
   void _drawEndDot(Canvas canvas, Offset position, {double progress = 1.0}) {
     canvas
       // Outer glow / aura
-      ..drawCircle(
-        position,
-        5.0 * progress,
-        Paint()..color = lineColor.withValues(alpha: 0.25 * progress),
-      )
+      ..drawCircle(position, 5.0 * progress, Paint()..color = lineColor.withValues(alpha: 0.25 * progress))
       // Inner bright dot
-      ..drawCircle(
-        position,
-        3.0 * progress,
-        Paint()..color = lineColor.withValues(alpha: 0.85 * progress),
-      );
+      ..drawCircle(position, 3.0 * progress, Paint()..color = lineColor.withValues(alpha: 0.85 * progress));
   }
 
   @override

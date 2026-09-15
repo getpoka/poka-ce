@@ -97,9 +97,7 @@ void main() {
         debtIds: any(named: 'debtIds'),
         recurringIds: any(named: 'recurringIds'),
       ),
-    ).thenAnswer(
-      (_) => Stream.value(Success<List<TransactionModel>, Failure>(transactions)),
-    );
+    ).thenAnswer((_) => Stream.value(Success<List<TransactionModel>, Failure>(transactions)));
 
     return ProviderScope(
       overrides: [

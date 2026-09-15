@@ -6,12 +6,7 @@ import 'package:poka_ce/shared/widgets/poka_pill.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class AccountSelectorShelf extends StatelessWidget {
-  const AccountSelectorShelf({
-    required this.accounts,
-    required this.selectedAccountId,
-    required this.onAccountSelected,
-    super.key,
-  });
+  const new({required this.accounts, required this.selectedAccountId, required this.onAccountSelected, super.key});
 
   final List<AccountModel> accounts;
   final String? selectedAccountId;
@@ -24,12 +19,7 @@ class AccountSelectorShelf extends StatelessWidget {
     if (accounts.isEmpty) {
       return SizedBox(
         height: 38,
-        child: Center(
-          child: Text(
-            t.accounts.noAccountsFound1,
-            style: theme.typography.bodyPrimary,
-          ),
-        ),
+        child: Center(child: Text(t.accounts.noAccountsFound1, style: theme.typography.bodyPrimary)),
       );
     }
 

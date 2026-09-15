@@ -27,9 +27,7 @@ void main() {
       child: TranslationProvider(
         child: MaterialApp(
           builder: (context, child) => FTheme(data: lightTheme, child: child!),
-          home: const Scaffold(
-            body: SingleChildScrollView(child: DashboardBudgetView()),
-          ),
+          home: const Scaffold(body: SingleChildScrollView(child: DashboardBudgetView())),
         ),
       ),
     );
@@ -87,15 +85,7 @@ void main() {
       tester.view.devicePixelRatio = 1.0;
       addTearDown(() => tester.view.resetPhysicalSize());
 
-      await tester.pumpWidget(
-        createWidget(
-          DashboardState(
-            budgetAllocations: {
-              TransactionAllocation.need: 10000000,
-            },
-          ),
-        ),
-      );
+      await tester.pumpWidget(createWidget(DashboardState(budgetAllocations: {TransactionAllocation.need: 10000000})));
       await tester.pump();
 
       expect(find.byType(PokaDonutChart), findsOneWidget);

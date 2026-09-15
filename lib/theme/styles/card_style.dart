@@ -66,14 +66,8 @@ FCardStyle cardStyle({
     color: colors.card,
   ),
   titleTextStyle: touch
-      ? typography.display.lg.copyWith(
-          fontWeight: .w500,
-          color: colors.foreground,
-        )
-      : typography.display.md.copyWith(
-          fontWeight: .w500,
-          color: colors.foreground,
-        ),
+      ? typography.display.lg.copyWith(fontWeight: .w500, color: colors.foreground)
+      : typography.display.md.copyWith(fontWeight: .w500, color: colors.foreground),
   subtitleTextStyle: typography.bodyPrimary.copyWith(color: colors.mutedForeground),
   padding: const .all(16),
 );

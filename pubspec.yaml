@@ -60,7 +60,7 @@ dependencies:
   cryptography: ^2.9.0
   cryptography_flutter: ^2.3.4
   url_launcher: ^6.3.2
-  file_picker: ^12.0.0
+  file_picker: ^13.0.0
   share_plus: ^13.3.0
   flutter_local_notifications: ^22.3.0
   quick_actions: ^1.1.0
@@ -72,7 +72,7 @@ dev_dependencies:
 
   # Analysis
   flutter_lints: ^6.0.0
-  very_good_analysis: ^10.3.0
+  very_good_analysis: ^11.0.0
 
   # Code Generators
   build_runner: ^2.15.1

@@ -9,7 +9,7 @@ part 'split_item.freezed.dart';
 /// Not persisted directly — converted to [TransactionItemModel] on save.
 @freezed
 abstract class SplitItem with _$SplitItem {
-  const factory SplitItem({
+  const factory({
     /// Amount in smallest integer currency unit (e.g. cents/rupiah).
     required int amount,
 

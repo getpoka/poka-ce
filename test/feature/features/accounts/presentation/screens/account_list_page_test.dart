@@ -100,9 +100,7 @@ void main() {
     // Loading state is gracefully handled as empty in the current design.
 
     testWidgets('shows empty state when no aggregates and not loading', (tester) async {
-      await tester.pumpWidget(
-        wrapWithState(const AccountListState(accounts: [], aggregates: [])),
-      );
+      await tester.pumpWidget(wrapWithState(const AccountListState(accounts: [], aggregates: [])));
       await tester.pumpAndSettle();
       expect(find.text('No Accounts Yet'), findsOneWidget);
       expect(find.text('Accounts'), findsOneWidget);
@@ -121,10 +119,7 @@ void main() {
         AccountAggregate(account: parent, pockets: [pocket]),
         AccountAggregate(account: parent2, pockets: []),
       ];
-      final state = AccountListState(
-        accounts: [parent, parent2, pocket],
-        aggregates: aggregates,
-      );
+      final state = AccountListState(accounts: [parent, parent2, pocket], aggregates: aggregates);
 
       await tester.pumpWidget(wrapWithState(state));
       await tester.pumpAndSettle();
@@ -167,9 +162,7 @@ void main() {
     });
 
     testWidgets('shows Add Account action and does not crash on tap', (tester) async {
-      await tester.pumpWidget(
-        wrapWithState(const AccountListState(accounts: [], aggregates: [])),
-      );
+      await tester.pumpWidget(wrapWithState(const AccountListState(accounts: [], aggregates: [])));
       await tester.pumpAndSettle();
       final add = find.text('Add Account');
       expect(add, findsOneWidget);

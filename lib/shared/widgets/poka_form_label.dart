@@ -3,11 +3,7 @@ import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class PokaFormLabel extends StatelessWidget {
-  const PokaFormLabel(
-    this.title, {
-    this.isOptional = false,
-    super.key,
-  });
+  const new(this.title, {this.isOptional = false, super.key});
 
   final String title;
   final bool isOptional;

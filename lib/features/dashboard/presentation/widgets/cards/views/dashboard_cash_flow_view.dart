@@ -9,7 +9,7 @@ import 'package:poka_ce/theme/theme.dart';
 /// Cash flow overview widget displaying savings rate gauge and income/expense stats.
 class DashboardCashFlowView extends ConsumerWidget {
   /// Creates a [DashboardCashFlowView].
-  const DashboardCashFlowView({super.key});
+  const new({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -34,10 +34,7 @@ class DashboardCashFlowView extends ConsumerWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  '$saved%',
-                  style: theme.typography.titleCard.copyWith(color: theme.colors.primary),
-                ),
+                Text('$saved%', style: theme.typography.titleCard.copyWith(color: theme.colors.primary)),
                 Text(context.t.dashboard.saved, style: theme.typography.caption),
               ],
             ),

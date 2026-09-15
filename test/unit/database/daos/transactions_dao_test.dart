@@ -37,12 +37,7 @@ void main() {
         amount: 50000,
         transactionDate: DateTime.now().toUtc(),
       ),
-      [
-        const TransactionItemsCompanion(
-          id: Value('item1'),
-          amount: Value(50000),
-        ),
-      ],
+      [const TransactionItemsCompanion(id: Value('item1'), amount: Value(50000))],
     );
 
     final account = await (db.select(db.accounts)..where((a) => a.id.equals(accountId))).getSingle();

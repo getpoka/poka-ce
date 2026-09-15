@@ -10,7 +10,7 @@ part 'debt_repayment_notifier.g.dart';
 /// UI state capturing repayment form values, calculator expression, and execution status.
 class DebtRepaymentState {
   /// Creates a [DebtRepaymentState].
-  const DebtRepaymentState({
+  const new({
     required this.date,
     this.accountId,
     this.amountExpression = '',
@@ -116,10 +116,7 @@ class DebtRepaymentNotifier extends _$DebtRepaymentNotifier {
       history = MathEvaluator.evaluate(newExpression);
     }
 
-    state = state.copyWith(
-      amountExpression: newExpression,
-      historyExpression: history,
-    );
+    state = state.copyWith(amountExpression: newExpression, historyExpression: history);
   }
 
   /// Records the repayment transaction and reduces the debt's outstanding balance.

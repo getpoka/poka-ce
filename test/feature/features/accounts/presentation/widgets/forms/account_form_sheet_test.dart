@@ -54,13 +54,8 @@ void main() {
       ],
       child: TranslationProvider(
         child: MaterialApp(
-          builder: (context, child) => FTheme(
-            data: lightTheme,
-            child: child!,
-          ),
-          home: const Scaffold(
-            body: AccountFormSheet(),
-          ),
+          builder: (context, child) => FTheme(data: lightTheme, child: child!),
+          home: const Scaffold(body: AccountFormSheet()),
         ),
       ),
     );

@@ -34,12 +34,7 @@ void main() {
 
   group('TransactionTileIcon', () {
     testWidgets('renders basic PokaIcon', (tester) async {
-      await tester.pumpWidget(
-        buildSubject(
-          catColor: Colors.blue,
-          catIcon: FPhosphorIcons.car,
-        ),
-      );
+      await tester.pumpWidget(buildSubject(catColor: Colors.blue, catIcon: FPhosphorIcons.car));
 
       expect(find.byType(PokaIcon), findsOneWidget);
       expect(find.byIcon(FPhosphorIcons.car), findsOneWidget);
@@ -61,25 +56,14 @@ void main() {
     });
 
     testWidgets('renders group caret when isGroup is true', (tester) async {
-      await tester.pumpWidget(
-        buildSubject(
-          catColor: Colors.blue,
-          catIcon: FPhosphorIcons.car,
-          isGroup: true,
-        ),
-      );
+      await tester.pumpWidget(buildSubject(catColor: Colors.blue, catIcon: FPhosphorIcons.car, isGroup: true));
 
       expect(find.byIcon(FPhosphorIcons.caretDown), findsOneWidget);
     });
 
     testWidgets('caret rotation is applied when isExpanded is true', (tester) async {
       await tester.pumpWidget(
-        buildSubject(
-          catColor: Colors.blue,
-          catIcon: FPhosphorIcons.car,
-          isGroup: true,
-          isExpanded: true,
-        ),
+        buildSubject(catColor: Colors.blue, catIcon: FPhosphorIcons.car, isGroup: true, isExpanded: true),
       );
 
       final rotationFinder = find.byType(AnimatedRotation);

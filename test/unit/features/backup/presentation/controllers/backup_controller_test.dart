@@ -90,13 +90,12 @@ void main() {
         if (await tempFile.exists()) await tempFile.delete();
       });
 
-      when(
-        () => mockService.createEncryptedBackup(any(), onBeforeRead: any(named: 'onBeforeRead')),
-      ).thenAnswer((invocation) async {
-        final onBefore = invocation.namedArguments[#onBeforeRead] as Future<void> Function()?;
-        await onBefore?.call();
-        return Success(tempFile);
-      });
+      when(() => mockService.createEncryptedBackup(any(), onBeforeRead: any(named: 'onBeforeRead')))
+          .thenAnswer((invocation) async {
+            final onBefore = invocation.namedArguments[#onBeforeRead] as Future<void> Function()?;
+            await onBefore?.call();
+            return Success(tempFile);
+          });
 
       final container = createContainer();
       final notifier = container.read(backupControllerProvider.notifier);
@@ -110,17 +109,14 @@ void main() {
       expect(container.read(backupControllerProvider).hasValue, isTrue);
       expect(container.read(backupControllerProvider).isLoading, isFalse);
       expect(container.read(backupControllerProvider).hasError, isFalse);
-      verify(
-        () => mockService.createEncryptedBackup('password123', onBeforeRead: any(named: 'onBeforeRead')),
-      ).called(1);
+      verify(() => mockService.createEncryptedBackup('password123', onBeforeRead: any(named: 'onBeforeRead')))
+          .called(1);
       verify(() => mockDb.customSelect('PRAGMA wal_checkpoint(TRUNCATE);')).called(1);
       verify(() => mockReminderService.recordBackupCompleted()).called(1);
     });
 
     test('backup() — executes PRAGMA wal_checkpoint(TRUNCATE) and handles busy status gracefully', () async {
-      final tempFile = File(
-        '${Directory.systemTemp.path}/backup_busy_${DateTime.now().microsecondsSinceEpoch}.enc.db',
-      );
+      final tempFile = File('${Directory.systemTemp.path}/backup_busy_${DateTime.now().microsecondsSinceEpoch}.enc.db');
       await tempFile.writeAsString('fake');
       addTearDown(() async {
         if (await tempFile.exists()) await tempFile.delete();
@@ -130,13 +126,12 @@ void main() {
       when(() => mockRow.data).thenReturn(<String, Object?>{'busy': 1, 'log': 10, 'checkpointed': 5});
       when(() => mockSelectable.get()).thenAnswer((_) async => <QueryRow>[mockRow]);
 
-      when(
-        () => mockService.createEncryptedBackup(any(), onBeforeRead: any(named: 'onBeforeRead')),
-      ).thenAnswer((invocation) async {
-        final onBefore = invocation.namedArguments[#onBeforeRead] as Future<void> Function()?;
-        await onBefore?.call();
-        return Success(tempFile);
-      });
+      when(() => mockService.createEncryptedBackup(any(), onBeforeRead: any(named: 'onBeforeRead')))
+          .thenAnswer((invocation) async {
+            final onBefore = invocation.namedArguments[#onBeforeRead] as Future<void> Function()?;
+            await onBefore?.call();
+            return Success(tempFile);
+          });
 
       final container = createContainer();
       final notifier = container.read(backupControllerProvider.notifier);
@@ -147,9 +142,7 @@ void main() {
     });
 
     test('backup() — handles WAL checkpoint error gracefully without failing the entire backup', () async {
-      final tempFile = File(
-        '${Directory.systemTemp.path}/backup_err_${DateTime.now().microsecondsSinceEpoch}.enc.db',
-      );
+      final tempFile = File('${Directory.systemTemp.path}/backup_err_${DateTime.now().microsecondsSinceEpoch}.enc.db');
       await tempFile.writeAsString('fake');
       addTearDown(() async {
         if (await tempFile.exists()) await tempFile.delete();
@@ -157,13 +150,12 @@ void main() {
 
       when(() => mockSelectable.get()).thenThrow(Exception('database locked'));
 
-      when(
-        () => mockService.createEncryptedBackup(any(), onBeforeRead: any(named: 'onBeforeRead')),
-      ).thenAnswer((invocation) async {
-        final onBefore = invocation.namedArguments[#onBeforeRead] as Future<void> Function()?;
-        await onBefore?.call();
-        return Success(tempFile);
-      });
+      when(() => mockService.createEncryptedBackup(any(), onBeforeRead: any(named: 'onBeforeRead')))
+          .thenAnswer((invocation) async {
+            final onBefore = invocation.namedArguments[#onBeforeRead] as Future<void> Function()?;
+            await onBefore?.call();
+            return Success(tempFile);
+          });
 
       final container = createContainer();
       final notifier = container.read(backupControllerProvider.notifier);
@@ -174,9 +166,8 @@ void main() {
     });
 
     test('backup() — on BackupService failure: state transitions loading -> error, returns false', () async {
-      when(
-        () => mockService.createEncryptedBackup(any(), onBeforeRead: any(named: 'onBeforeRead')),
-      ).thenAnswer((_) async => Failure(Exception('disk full')));
+      when(() => mockService.createEncryptedBackup(any(), onBeforeRead: any(named: 'onBeforeRead')))
+          .thenAnswer((_) async => Failure(Exception('disk full')));
 
       final container = createContainer();
       final notifier = container.read(backupControllerProvider.notifier);
@@ -193,9 +184,8 @@ void main() {
     });
 
     test('backup() — on Exception thrown: state = error, returns false', () async {
-      when(
-        () => mockService.createEncryptedBackup(any(), onBeforeRead: any(named: 'onBeforeRead')),
-      ).thenThrow(Exception('unexpected throw'));
+      when(() => mockService.createEncryptedBackup(any(), onBeforeRead: any(named: 'onBeforeRead')))
+          .thenThrow(Exception('unexpected throw'));
 
       final container = createContainer();
       final notifier = container.read(backupControllerProvider.notifier);
@@ -232,9 +222,8 @@ void main() {
     });
 
     test('restore() — on failure: state = error, returns false', () async {
-      when(
-        () => mockService.restoreEncryptedBackup(any(), any(), onBeforeWrite: any(named: 'onBeforeWrite')),
-      ).thenAnswer((_) async => Failure(Exception('wrong password')));
+      when(() => mockService.restoreEncryptedBackup(any(), any(), onBeforeWrite: any(named: 'onBeforeWrite')))
+          .thenAnswer((_) async => Failure(Exception('wrong password')));
 
       final container = createContainer();
       final notifier = container.read(backupControllerProvider.notifier);

@@ -31,18 +31,12 @@ import 'package:poka_ce/theme/theme.dart';
 
 /// Bottom sheet for creating or editing a [RecurringTransactionModel].
 class RecurringFormSheet extends HookConsumerWidget {
-  const RecurringFormSheet({
-    super.key,
-    this.initialRecurring,
-  });
+  const new({super.key, this.initialRecurring});
 
   final RecurringTransactionModel? initialRecurring;
 
   /// Shows the sheet from any [BuildContext].
-  static Future<void> show(
-    BuildContext context, {
-    RecurringTransactionModel? initialRecurring,
-  }) {
+  static Future<void> show(BuildContext context, {RecurringTransactionModel? initialRecurring}) {
     return showPokaSheet(
       context: context,
       builder: (context) => RecurringFormSheet(initialRecurring: initialRecurring),
@@ -80,11 +74,7 @@ class RecurringFormSheet extends HookConsumerWidget {
         Navigator.of(context).pop();
       }
       if (next.error != null && next.error != prev?.error) {
-        showPokaToast(
-          context: context,
-          title: Text(next.error!),
-          variant: FToastVariant.destructive,
-        );
+        showPokaToast(context: context, title: Text(next.error!), variant: FToastVariant.destructive);
       }
     });
 
@@ -108,11 +98,7 @@ class RecurringFormSheet extends HookConsumerWidget {
               },
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: Icon(
-                  FPhosphorIcons.trash,
-                  size: 18,
-                  color: context.theme.colors.destructive,
-                ),
+                child: Icon(FPhosphorIcons.trash, size: 18, color: context.theme.colors.destructive),
               ),
             )
           : null,
@@ -122,31 +108,19 @@ class RecurringFormSheet extends HookConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             // ── Type selector ─────────────────────────────────────────────
-            TransactionTypeSwitcher(
-              selectedType: state.type,
-              onChanged: notifier.setType,
-            ),
+            TransactionTypeSwitcher(selectedType: state.type, onChanged: notifier.setType),
             const SizedBox(height: 12),
 
             // ── Amount ─────────────────────────────────────────────
-            _AmountTile(
-              amount: state.amount,
-              onChanged: notifier.setAmount,
-            ),
+            _AmountTile(amount: state.amount, onChanged: notifier.setAmount),
             const SizedBox(height: 12),
 
             // ── Period ────────────────────────────────────────────────────
-            _PeriodSelector(
-              selected: state.period,
-              onChanged: notifier.setPeriod,
-            ),
+            _PeriodSelector(selected: state.period, onChanged: notifier.setPeriod),
             const SizedBox(height: 12),
 
             // ── Start date ────────────────────────────────────────────
-            _DatePickerTile(
-              date: state.nextDate,
-              onChanged: notifier.setNextDate,
-            ),
+            _DatePickerTile(date: state.nextDate, onChanged: notifier.setNextDate),
             const SizedBox(height: 12),
 
             // ── Account + Category / Destination ───────────────────────────
@@ -177,10 +151,7 @@ class RecurringFormSheet extends HookConsumerWidget {
                         value: selectedAccount?.name ?? t.recurring.selectAccountPrompt,
                         hasValue: selectedAccount != null,
                         onTap: () async {
-                          final acc = await PokaPocketSelector.show(
-                            context,
-                            accounts: accounts,
-                          );
+                          final acc = await PokaPocketSelector.show(context, accounts: accounts);
                           if (acc != null) {
                             notifier.setAccountId(acc.id);
                             fieldState.didChange(acc.id);
@@ -203,10 +174,7 @@ class RecurringFormSheet extends HookConsumerWidget {
                           value: selectedDestAccount?.name ?? t.recurring.selectDestinationPrompt,
                           hasValue: selectedDestAccount != null,
                           onTap: () async {
-                            final acc = await PokaPocketSelector.show(
-                              context,
-                              accounts: accounts,
-                            );
+                            final acc = await PokaPocketSelector.show(context, accounts: accounts);
                             if (acc != null) {
                               notifier.setDestinationAccountId(acc.id);
                             }
@@ -230,14 +198,8 @@ class RecurringFormSheet extends HookConsumerWidget {
                           hasValue: selectedCategory != null,
                           onClear: () => notifier.setCategoryId(null),
                           onTap: () async {
-                            final filtered = _filteredCategories(
-                              categories,
-                              state.type,
-                            );
-                            final cat = await PokaCategorySelector.show(
-                              context,
-                              categories: filtered,
-                            );
+                            final filtered = _filteredCategories(categories, state.type);
+                            final cat = await PokaCategorySelector.show(context, categories: filtered);
                             if (cat != null) notifier.setCategoryId(cat.id);
                           },
                         ),
@@ -332,10 +294,7 @@ class RecurringFormSheet extends HookConsumerWidget {
     );
   }
 
-  List<CategoryModel> _filteredCategories(
-    List<CategoryModel> categories,
-    TransactionType type,
-  ) {
+  List<CategoryModel> _filteredCategories(List<CategoryModel> categories, TransactionType type) {
     if (type == TransactionType.income) {
       return categories.where((c) => c.type == CategoryType.income).toList();
     }
@@ -348,16 +307,14 @@ class RecurringFormSheet extends HookConsumerWidget {
 // ─────────────────────────────────────────────────────────────────────────────
 
 class _AmountTile extends HookWidget {
-  const _AmountTile({required this.amount, required this.onChanged});
+  const new({required this.amount, required this.onChanged});
 
   final int amount;
   final ValueChanged<int> onChanged;
 
   @override
   Widget build(BuildContext context) {
-    final controller = useTextEditingController(
-      text: amount > 0 ? amount.toString() : '',
-    );
+    final controller = useTextEditingController(text: amount > 0 ? amount.toString() : '');
 
     useEffect(() {
       final newText = amount > 0 ? amount.toString() : '';
@@ -397,7 +354,7 @@ class _AmountTile extends HookWidget {
 // ─────────────────────────────────────────────────────────────────────────────
 
 class _PeriodSelector extends StatelessWidget {
-  const _PeriodSelector({required this.selected, required this.onChanged});
+  const new({required this.selected, required this.onChanged});
 
   final RecurringPeriod selected;
   final ValueChanged<RecurringPeriod> onChanged;
@@ -422,9 +379,7 @@ class _PeriodSelector extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: isSelected ? theme.colors.primary.withValues(alpha: 0.1) : Colors.transparent,
                   borderRadius: theme.style.borderRadius.sm,
-                  border: Border.all(
-                    color: isSelected ? theme.colors.primary : theme.colors.border,
-                  ),
+                  border: Border.all(color: isSelected ? theme.colors.primary : theme.colors.border),
                 ),
                 child: Text(
                   _label(period),
@@ -455,7 +410,7 @@ class _PeriodSelector extends StatelessWidget {
 // ─────────────────────────────────────────────────────────────────────────────
 
 class _DatePickerTile extends HookWidget {
-  const _DatePickerTile({required this.date, required this.onChanged});
+  const new({required this.date, required this.onChanged});
 
   final DateTime? date;
   final ValueChanged<DateTime> onChanged;
@@ -522,7 +477,7 @@ class _DatePickerTile extends HookWidget {
 // ─────────────────────────────────────────────────────────────────────────────
 
 class _ScopeTile extends StatelessWidget {
-  const _ScopeTile({
+  const new({
     required this.label,
     required this.value,
     required this.hasValue,
@@ -555,25 +510,15 @@ class _ScopeTile extends StatelessWidget {
                 Container(
                   width: 36,
                   height: 36,
-                  decoration: BoxDecoration(
-                    color: theme.colors.muted,
-                    borderRadius: theme.style.borderRadius.sm,
-                  ),
-                  child: Center(
-                    child: Icon(icon, size: 18, color: theme.colors.mutedForeground),
-                  ),
+                  decoration: BoxDecoration(color: theme.colors.muted, borderRadius: theme.style.borderRadius.sm),
+                  child: Center(child: Icon(icon, size: 18, color: theme.colors.mutedForeground)),
                 ),
             const SizedBox(width: 12),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    label,
-                    style: theme.typography.bodySecondary.copyWith(
-                      color: theme.colors.mutedForeground,
-                    ),
-                  ),
+                  Text(label, style: theme.typography.bodySecondary.copyWith(color: theme.colors.mutedForeground)),
                   Text(
                     value,
                     style: theme.typography.bodyPrimary.copyWith(
@@ -594,11 +539,7 @@ class _ScopeTile extends StatelessWidget {
                 ),
               )
             else
-              Icon(
-                FPhosphorIcons.caretRight,
-                size: 14,
-                color: theme.colors.mutedForeground,
-              ),
+              Icon(FPhosphorIcons.caretRight, size: 14, color: theme.colors.mutedForeground),
           ],
         ),
       ),
@@ -611,7 +552,7 @@ class _ScopeTile extends StatelessWidget {
 // ─────────────────────────────────────────────────────────────────────────────
 
 class _ActiveToggle extends StatelessWidget {
-  const _ActiveToggle({required this.isActive, required this.onChanged});
+  const new({required this.isActive, required this.onChanged});
 
   final bool isActive;
   final ValueChanged<bool> onChanged;
@@ -627,34 +568,18 @@ class _ActiveToggle extends StatelessWidget {
             Container(
               width: 36,
               height: 36,
-              decoration: BoxDecoration(
-                color: theme.colors.muted,
-                borderRadius: theme.style.borderRadius.sm,
-              ),
-              child: Center(
-                child: Icon(
-                  FPhosphorIcons.repeat,
-                  size: 18,
-                  color: theme.colors.mutedForeground,
-                ),
-              ),
+              decoration: BoxDecoration(color: theme.colors.muted, borderRadius: theme.style.borderRadius.sm),
+              child: Center(child: Icon(FPhosphorIcons.repeat, size: 18, color: theme.colors.mutedForeground)),
             ),
             const SizedBox(width: 12),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    t.recurring.active,
-                    style: theme.typography.bodyPrimary.copyWith(
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
+                  Text(t.recurring.active, style: theme.typography.bodyPrimary.copyWith(fontWeight: FontWeight.w500)),
                   Text(
                     isActive ? t.recurring.autoGenerateActive : t.recurring.autoGeneratePaused,
-                    style: theme.typography.bodySecondary.copyWith(
-                      color: theme.colors.mutedForeground,
-                    ),
+                    style: theme.typography.bodySecondary.copyWith(color: theme.colors.mutedForeground),
                   ),
                 ],
               ),
@@ -677,24 +602,15 @@ class _InfoBanner extends StatelessWidget {
     final theme = context.theme;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      decoration: BoxDecoration(
-        color: theme.colors.muted,
-        borderRadius: theme.style.borderRadius.sm,
-      ),
+      decoration: BoxDecoration(color: theme.colors.muted, borderRadius: theme.style.borderRadius.sm),
       child: Row(
         children: [
-          Icon(
-            FPhosphorIcons.info,
-            size: 14,
-            color: theme.colors.mutedForeground,
-          ),
+          Icon(FPhosphorIcons.info, size: 14, color: theme.colors.mutedForeground),
           const SizedBox(width: 8),
           Expanded(
             child: Text(
               t.recurring.eachTimeTheAppOpensOverdueRecurringTransactionsAre,
-              style: theme.typography.bodySecondary.copyWith(
-                color: theme.colors.mutedForeground,
-              ),
+              style: theme.typography.bodySecondary.copyWith(color: theme.colors.mutedForeground),
             ),
           ),
         ],

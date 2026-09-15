@@ -84,9 +84,7 @@ final class GoalListStatesProvider
 
   @$internal
   @override
-  $ProviderElement<List<GoalItemState>> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
+  $ProviderElement<List<GoalItemState>> $createElement($ProviderPointer pointer) => $ProviderElement(pointer);
 
   @override
   List<GoalItemState> create(Ref ref) {
@@ -95,10 +93,7 @@ final class GoalListStatesProvider
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(List<GoalItemState> value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<List<GoalItemState>>(value),
-    );
+    return $ProviderOverride(origin: this, providerOverride: $SyncValueProvider<List<GoalItemState>>(value));
   }
 }
 
@@ -139,10 +134,7 @@ final class GoalSummaryProvider extends $FunctionalProvider<GoalSummaryState, Go
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(GoalSummaryState value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<GoalSummaryState>(value),
-    );
+    return $ProviderOverride(origin: this, providerOverride: $SyncValueProvider<GoalSummaryState>(value));
   }
 }
 

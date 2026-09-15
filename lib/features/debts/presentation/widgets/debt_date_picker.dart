@@ -7,12 +7,7 @@ import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/poka_form_label.dart';
 
 class DebtDatePicker extends HookWidget {
-  const DebtDatePicker({
-    required this.date,
-    required this.onChanged,
-    required this.onClear,
-    super.key,
-  });
+  const new({required this.date, required this.onChanged, required this.onClear, super.key});
 
   final DateTime? date;
   final ValueChanged<DateTime> onChanged;

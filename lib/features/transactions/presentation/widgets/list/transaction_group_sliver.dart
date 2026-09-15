@@ -16,12 +16,7 @@ import 'package:poka_ce/shared/widgets/poka_toast.dart';
 
 /// Renders transactions as grouped date sections inside a [SliverList].
 class TransactionGroupSliver extends HookWidget {
-  const TransactionGroupSliver({
-    required this.transactions,
-    required this.categoriesById,
-    required this.accountsById,
-    super.key,
-  });
+  const new({required this.transactions, required this.categoriesById, required this.accountsById, super.key});
 
   final List<TransactionModel> transactions;
   final Map<String, CategoryModel> categoriesById;
@@ -60,7 +55,7 @@ class TransactionGroupSliver extends HookWidget {
 }
 
 class _SliverDateGroupSection extends ConsumerWidget {
-  const _SliverDateGroupSection({
+  const new({
     required this.group,
     required this.isExpanded,
     required this.onToggle,
@@ -101,10 +96,7 @@ class _SliverDateGroupSection extends ConsumerWidget {
               if (value == 0.0) return const SizedBox.shrink();
               return FCollapsible(
                 value: value,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 8),
-                  child: child,
-                ),
+                child: Padding(padding: const EdgeInsets.only(top: 8), child: child),
               );
             },
             child: Column(
@@ -142,10 +134,7 @@ class _SliverDateGroupSection extends ConsumerWidget {
                           onAction: () async {
                             await ref.read(transactionListNotifierProvider.notifier).restoreTransaction(tx);
                             if (context.mounted) {
-                              showPokaToast(
-                                context: context,
-                                title: Text(t.transactions.transactionRestored),
-                              );
+                              showPokaToast(context: context, title: Text(t.transactions.transactionRestored));
                             }
                           },
                         );
@@ -155,10 +144,7 @@ class _SliverDateGroupSection extends ConsumerWidget {
                 );
 
                 if (i < group.transactions.length - 1) {
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 8),
-                    child: tile,
-                  );
+                  return Padding(padding: const EdgeInsets.only(bottom: 8), child: tile);
                 }
                 return tile;
               }),

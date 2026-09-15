@@ -13,10 +13,7 @@ import 'package:uuid/uuid.dart';
 /// creation within an [IUnitOfWork] atomic database transaction.
 class CreateAccountUseCase {
   /// Creates a [CreateAccountUseCase] with required transactional and repository dependencies.
-  const CreateAccountUseCase(
-    this._unitOfWork,
-    this._accountRepository,
-  );
+  const new(this._unitOfWork, this._accountRepository);
 
   final IUnitOfWork _unitOfWork;
   final IAccountRepository _accountRepository;

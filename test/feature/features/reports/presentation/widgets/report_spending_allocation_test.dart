@@ -16,22 +16,14 @@ void main() {
   Widget wrap(ReportBudgetAllocation allocation, {bool isBalanceVisible = true}) {
     return ProviderScope(
       overrides: [
-        reportProvider.overrideWithValue(
-          ReportState(
-            isLoading: false,
-            data: ReportData(budgetAllocation: allocation),
-          ),
-        ),
+        reportProvider.overrideWithValue(ReportState(isLoading: false, data: ReportData(budgetAllocation: allocation))),
         balanceVisibilityProvider.overrideWithValue(isBalanceVisible),
       ],
       child: TranslationProvider(
         child: MaterialApp(
           builder: (context, child) => FTheme(data: lightTheme, child: child!),
           home: const Scaffold(
-            body: SingleChildScrollView(
-              padding: EdgeInsets.all(16),
-              child: ReportSpendingAllocation(),
-            ),
+            body: SingleChildScrollView(padding: EdgeInsets.all(16), child: ReportSpendingAllocation()),
           ),
         ),
       ),
@@ -48,9 +40,7 @@ void main() {
     });
 
     testWidgets('renders total and three allocation rows when data exists', (tester) async {
-      await tester.pumpWidget(
-        wrap(const ReportBudgetAllocation(need: 500, want: 300, saving: 200)),
-      );
+      await tester.pumpWidget(wrap(const ReportBudgetAllocation(need: 500, want: 300, saving: 200)));
       await tester.pumpAndSettle();
 
       expect(find.textContaining('Total'), findsOneWidget);
@@ -67,10 +57,7 @@ void main() {
 
     testWidgets('obscures total and row amounts when balance visibility is false', (tester) async {
       await tester.pumpWidget(
-        wrap(
-          const ReportBudgetAllocation(need: 500, want: 300, saving: 200),
-          isBalanceVisible: false,
-        ),
+        wrap(const ReportBudgetAllocation(need: 500, want: 300, saving: 200), isBalanceVisible: false),
       );
       await tester.pumpAndSettle();
 

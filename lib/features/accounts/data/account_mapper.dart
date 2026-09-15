@@ -3,7 +3,7 @@ import 'package:poka_ce/features/accounts/domain/account_model.dart';
 
 /// Mapper to convert data between Domain and Data layer for Account.
 class AccountMapper {
-  const AccountMapper._();
+  const new _();
 
   /// Maps Drift Account object to Domain AccountModel.
   static AccountModel fromDb(db.Account account, List<String> restrictedCategoryIds) {

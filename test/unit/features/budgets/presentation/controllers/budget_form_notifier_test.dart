@@ -29,9 +29,7 @@ void main() {
   });
 
   ProviderContainer createContainer() {
-    final container = ProviderContainer(
-      overrides: [budgetRepositoryProvider.overrideWithValue(mockRepo)],
-    );
+    final container = ProviderContainer(overrides: [budgetRepositoryProvider.overrideWithValue(mockRepo)]);
     container.listen(budgetFormProvider, (_, __) {});
     addTearDown(container.dispose);
     return container;

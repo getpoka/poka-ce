@@ -39,9 +39,7 @@ void main() {
       container: container,
       child: FTheme(
         data: lightTheme,
-        child: const MaterialApp(
-          home: Scaffold(body: TransactionListPage()),
-        ),
+        child: const MaterialApp(home: Scaffold(body: TransactionListPage())),
       ),
     );
   }

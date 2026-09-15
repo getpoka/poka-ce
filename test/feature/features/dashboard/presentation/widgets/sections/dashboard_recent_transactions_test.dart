@@ -37,10 +37,7 @@ void main() {
     LocaleSettings.setLocaleSync(AppLocale.en);
   });
 
-  Widget createWidgetUnderTest({
-    required List<TransactionModel> transactions,
-    bool isBalanceVisible = true,
-  }) {
+  Widget createWidgetUnderTest({required List<TransactionModel> transactions, bool isBalanceVisible = true}) {
     final mockAccount = MockAccountRepo();
     final mockCat = MockCategoryRepo();
     // return empty for lookups
@@ -57,26 +54,13 @@ void main() {
         accountRepositoryProvider.overrideWithValue(mockAccount),
         categoryRepositoryProvider.overrideWithValue(mockCat),
         settingsProvider.overrideWith(() => _FakeSettingsNotifier()),
-        dashboardProvider.overrideWith(
-          () => FakeDashboardNotifier(
-            DashboardState(
-              recentTransactions: transactions,
-            ),
-          ),
-        ),
+        dashboardProvider.overrideWith(() => FakeDashboardNotifier(DashboardState(recentTransactions: transactions))),
       ],
       child: TranslationProvider(
         child: MaterialApp(
-          builder: (context, child) => FTheme(
-            data: lightTheme,
-            child: child!,
-          ),
+          builder: (context, child) => FTheme(data: lightTheme, child: child!),
           home: Scaffold(
-            body: SingleChildScrollView(
-              child: DashboardRecentTransactions(
-                transactions: transactions,
-              ),
-            ),
+            body: SingleChildScrollView(child: DashboardRecentTransactions(transactions: transactions)),
           ),
         ),
       ),
@@ -136,12 +120,7 @@ void main() {
         ),
       ];
 
-      await tester.pumpWidget(
-        createWidgetUnderTest(
-          transactions: transactions,
-          isBalanceVisible: false,
-        ),
-      );
+      await tester.pumpWidget(createWidgetUnderTest(transactions: transactions, isBalanceVisible: false));
       await tester.pumpAndSettle();
 
       // When obscured, amounts show ••••••, not raw value

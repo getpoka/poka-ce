@@ -38,10 +38,7 @@ void main() {
     final result = await repository.getCategories();
 
     expect(result, isA<ErrorResult<List<CategoryModel>, Failure>>());
-    result.fold(
-      (_) => fail('Should not succeed'),
-      (error) => expect(error, isA<DatabaseFailure>()),
-    );
+    result.fold((_) => fail('Should not succeed'), (error) => expect(error, isA<DatabaseFailure>()));
   });
 
   test('getActiveCategories returns DatabaseFailure when DAO throws', () async {
@@ -50,10 +47,7 @@ void main() {
     final result = await repository.getActiveCategories();
 
     expect(result, isA<ErrorResult<List<CategoryModel>, Failure>>());
-    result.fold(
-      (_) => fail('Should not succeed'),
-      (error) => expect(error, isA<DatabaseFailure>()),
-    );
+    result.fold((_) => fail('Should not succeed'), (error) => expect(error, isA<DatabaseFailure>()));
   });
 
   test('getCategoryById returns DatabaseFailure when DAO throws', () async {
@@ -62,10 +56,7 @@ void main() {
     final result = await repository.getCategoryById('cat-1');
 
     expect(result, isA<ErrorResult<CategoryModel, Failure>>());
-    result.fold(
-      (_) => fail('Should not succeed'),
-      (error) => expect(error, isA<DatabaseFailure>()),
-    );
+    result.fold((_) => fail('Should not succeed'), (error) => expect(error, isA<DatabaseFailure>()));
   });
 
   test('createCategory returns DatabaseFailure when DAO throws', () async {
@@ -74,10 +65,7 @@ void main() {
     final result = await repository.createCategory(_buildCategory());
 
     expect(result, isA<ErrorResult<void, Failure>>());
-    result.fold(
-      (_) => fail('Should not succeed'),
-      (error) => expect(error, isA<DatabaseFailure>()),
-    );
+    result.fold((_) => fail('Should not succeed'), (error) => expect(error, isA<DatabaseFailure>()));
   });
 
   test('updateCategory returns DatabaseFailure when DAO throws', () async {
@@ -86,10 +74,7 @@ void main() {
     final result = await repository.updateCategory(_buildCategory());
 
     expect(result, isA<ErrorResult<void, Failure>>());
-    result.fold(
-      (_) => fail('Should not succeed'),
-      (error) => expect(error, isA<DatabaseFailure>()),
-    );
+    result.fold((_) => fail('Should not succeed'), (error) => expect(error, isA<DatabaseFailure>()));
   });
 
   test('toggleCategoryActiveStatus returns DatabaseFailure when DAO throws', () async {
@@ -98,10 +83,7 @@ void main() {
     final result = await repository.toggleCategoryActiveStatus('cat-1', isActive: false);
 
     expect(result, isA<ErrorResult<void, Failure>>());
-    result.fold(
-      (_) => fail('Should not succeed'),
-      (error) => expect(error, isA<DatabaseFailure>()),
-    );
+    result.fold((_) => fail('Should not succeed'), (error) => expect(error, isA<DatabaseFailure>()));
   });
 
   test('watchCategories returns DatabaseFailure when DAO throws', () async {
@@ -111,10 +93,7 @@ void main() {
     final result = await stream.first;
 
     expect(result, isA<ErrorResult<List<CategoryModel>, Failure>>());
-    result.fold(
-      (_) => fail('Should not succeed'),
-      (error) => expect(error, isA<DatabaseFailure>()),
-    );
+    result.fold((_) => fail('Should not succeed'), (error) => expect(error, isA<DatabaseFailure>()));
   });
 
   test('deleteCategory returns DatabaseFailure when DAO throws', () async {
@@ -123,10 +102,7 @@ void main() {
     final result = await repository.deleteCategory('cat-1');
 
     expect(result, isA<ErrorResult<void, Failure>>());
-    result.fold(
-      (_) => fail('Should not succeed'),
-      (error) => expect(error, isA<DatabaseFailure>()),
-    );
+    result.fold((_) => fail('Should not succeed'), (error) => expect(error, isA<DatabaseFailure>()));
   });
 
   test('reorderCategories returns DatabaseFailure when DAO throws', () async {
@@ -135,10 +111,7 @@ void main() {
     final result = await repository.reorderCategories([_buildCategory()]);
 
     expect(result, isA<ErrorResult<void, Failure>>());
-    result.fold(
-      (_) => fail('Should not succeed'),
-      (error) => expect(error, isA<DatabaseFailure>()),
-    );
+    result.fold((_) => fail('Should not succeed'), (error) => expect(error, isA<DatabaseFailure>()));
   });
 }
 

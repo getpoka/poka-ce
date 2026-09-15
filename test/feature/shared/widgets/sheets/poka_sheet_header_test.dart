@@ -6,22 +6,12 @@ import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/sheets/poka_sheet_header.dart';
 import 'package:poka_ce/theme/theme.dart';
 
-Widget wrapHeader({
-  required String title,
-  Widget? leading,
-  Widget? trailing,
-  bool showCloseButton = true,
-}) {
+Widget wrapHeader({required String title, Widget? leading, Widget? trailing, bool showCloseButton = true}) {
   return TranslationProvider(
     child: MaterialApp(
       builder: (context, c) => FTheme(data: lightTheme, child: c!),
       home: Scaffold(
-        body: PokaSheetHeader(
-          title: title,
-          leading: leading,
-          trailing: trailing,
-          showCloseButton: showCloseButton,
-        ),
+        body: PokaSheetHeader(title: title, leading: leading, trailing: trailing, showCloseButton: showCloseButton),
       ),
     ),
   );
@@ -83,9 +73,7 @@ void main() {
     });
 
     testWidgets('renders leading when provided', (tester) async {
-      await tester.pumpWidget(
-        wrapHeader(title: 'Title', leading: const Text('Leading')),
-      );
+      await tester.pumpWidget(wrapHeader(title: 'Title', leading: const Text('Leading')));
       expect(find.text('Leading'), findsOneWidget);
       expect(find.text('Title'), findsOneWidget);
     });
@@ -95,18 +83,14 @@ void main() {
       // Should have at least one SizedBox.shrink for missing leading
       expect(find.byType(PokaSheetHeader), findsOneWidget);
       // Row should contain SizedBox.shrink for leading
-      final row = tester.widget<Row>(
-        find.descendant(of: find.byType(PokaSheetHeader), matching: find.byType(Row)),
-      );
+      final row = tester.widget<Row>(find.descendant(of: find.byType(PokaSheetHeader), matching: find.byType(Row)));
       expect(row.children.length, 2);
       // First child should be SizedBox.shrink (when leading null)
       expect(row.children.first, isA<SizedBox>());
     });
 
     testWidgets('renders trailing when provided', (tester) async {
-      await tester.pumpWidget(
-        wrapHeader(title: 'Title', trailing: const Text('Trailing')),
-      );
+      await tester.pumpWidget(wrapHeader(title: 'Title', trailing: const Text('Trailing')));
       expect(find.text('Trailing'), findsOneWidget);
       // Should NOT show close button X when trailing provided
       expect(find.byIcon(FPhosphorIcons.x), findsNothing);
@@ -114,24 +98,14 @@ void main() {
 
     testWidgets('trailing overrides close button even when showCloseButton true', (tester) async {
       await tester.pumpWidget(
-        wrapHeader(
-          title: 'Title',
-          trailing: const Icon(FPhosphorIcons.check),
-          showCloseButton: true,
-        ),
+        wrapHeader(title: 'Title', trailing: const Icon(FPhosphorIcons.check), showCloseButton: true),
       );
       expect(find.byIcon(FPhosphorIcons.check), findsOneWidget);
       expect(find.byIcon(FPhosphorIcons.x), findsNothing);
     });
 
     testWidgets('trailing overrides close button when showCloseButton false', (tester) async {
-      await tester.pumpWidget(
-        wrapHeader(
-          title: 'Title',
-          trailing: const Text('Custom'),
-          showCloseButton: false,
-        ),
-      );
+      await tester.pumpWidget(wrapHeader(title: 'Title', trailing: const Text('Custom'), showCloseButton: false));
       expect(find.text('Custom'), findsOneWidget);
       expect(find.byIcon(FPhosphorIcons.x), findsNothing);
     });
@@ -151,9 +125,7 @@ void main() {
 
     testWidgets('showCloseButton false with no trailing shows two SizedBox.shrink in Row', (tester) async {
       await tester.pumpWidget(wrapHeader(title: 'Title', showCloseButton: false));
-      final row = tester.widget<Row>(
-        find.descendant(of: find.byType(PokaSheetHeader), matching: find.byType(Row)),
-      );
+      final row = tester.widget<Row>(find.descendant(of: find.byType(PokaSheetHeader), matching: find.byType(Row)));
       expect(row.children.length, 2);
       // Both should be SizedBox.shrink placeholders
       expect(row.children[0], isA<SizedBox>());
@@ -174,12 +146,7 @@ void main() {
                       MaterialPageRoute(
                         builder: (_) => FTheme(
                           data: lightTheme,
-                          child: Scaffold(
-                            body: PokaSheetHeader(
-                              title: 'Close Test',
-                              showCloseButton: true,
-                            ),
-                          ),
+                          child: Scaffold(body: PokaSheetHeader(title: 'Close Test', showCloseButton: true)),
                         ),
                       ),
                     );
@@ -233,9 +200,7 @@ void main() {
                       context: context,
                       builder: (ctx) => FTheme(
                         data: lightTheme,
-                        child: const Scaffold(
-                          body: PokaSheetHeader(title: 'Dialog Header', showCloseButton: true),
-                        ),
+                        child: const Scaffold(body: PokaSheetHeader(title: 'Dialog Header', showCloseButton: true)),
                       ),
                     );
                     popped = true;
@@ -273,20 +238,12 @@ void main() {
         find.descendant(of: find.byType(PokaSheetHeader), matching: find.byType(Stack)),
       );
       expect(stack.alignment, Alignment.center);
-      final row = tester.widget<Row>(
-        find.descendant(of: find.byType(PokaSheetHeader), matching: find.byType(Row)),
-      );
+      final row = tester.widget<Row>(find.descendant(of: find.byType(PokaSheetHeader), matching: find.byType(Row)));
       expect(row.mainAxisAlignment, MainAxisAlignment.spaceBetween);
     });
 
     testWidgets('title is centered even with leading and trailing', (tester) async {
-      await tester.pumpWidget(
-        wrapHeader(
-          title: 'Centered',
-          leading: const Text('L'),
-          trailing: const Text('R'),
-        ),
-      );
+      await tester.pumpWidget(wrapHeader(title: 'Centered', leading: const Text('L'), trailing: const Text('R')));
       expect(find.text('Centered'), findsOneWidget);
       expect(find.text('L'), findsOneWidget);
       expect(find.text('R'), findsOneWidget);
@@ -298,12 +255,7 @@ void main() {
     });
 
     testWidgets('leading icon widget displayed correctly', (tester) async {
-      await tester.pumpWidget(
-        wrapHeader(
-          title: 'Title',
-          leading: const Icon(FPhosphorIcons.house, size: 20),
-        ),
-      );
+      await tester.pumpWidget(wrapHeader(title: 'Title', leading: const Icon(FPhosphorIcons.house, size: 20)));
       expect(find.byIcon(FPhosphorIcons.house), findsOneWidget);
     });
   });

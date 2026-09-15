@@ -5,12 +5,7 @@ import 'package:poka_ce/features/settings/presentation/controllers/settings_noti
 import 'package:poka_ce/theme/theme.dart';
 
 class TransactionAmountDisplay extends ConsumerWidget {
-  const TransactionAmountDisplay({
-    required this.amountExpression,
-    this.historyExpression,
-    this.currencyCode,
-    super.key,
-  });
+  const new({required this.amountExpression, this.historyExpression, this.currencyCode, super.key});
 
   final String amountExpression;
   final String? currencyCode;
@@ -48,11 +43,7 @@ class TransactionAmountDisplay extends ConsumerWidget {
             alignment: PlaceholderAlignment.middle,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 4),
-              child: Icon(
-                icon,
-                size: 24,
-                color: theme.colors.foreground,
-              ),
+              child: Icon(icon, size: 24, color: theme.colors.foreground),
             ),
           ),
         );
@@ -92,10 +83,7 @@ class TransactionAmountDisplay extends ConsumerWidget {
             child: FittedBox(
               fit: BoxFit.scaleDown,
               alignment: Alignment.centerRight,
-              child: Text.rich(
-                TextSpan(children: spans),
-                textAlign: TextAlign.end,
-              ),
+              child: Text.rich(TextSpan(children: spans), textAlign: TextAlign.end),
             ),
           ),
           SizedBox(
@@ -105,10 +93,7 @@ class TransactionAmountDisplay extends ConsumerWidget {
                     alignment: Alignment.centerRight,
                     child: Text(
                       '= ${historyExpression!.formatMathExpression(localeFormat: localeFormat)}',
-                      style: theme.typography.bodyPrimary.copyWith(
-                        color: theme.colors.mutedForeground,
-                        height: 1.2,
-                      ),
+                      style: theme.typography.bodyPrimary.copyWith(color: theme.colors.mutedForeground, height: 1.2),
                       textAlign: TextAlign.end,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,

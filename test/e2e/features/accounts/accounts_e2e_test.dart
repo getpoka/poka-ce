@@ -19,12 +19,7 @@ void main() {
 
     // 1. Navigate to Accounts using Bottom Navigation Bar
     final navBar = find.byType(FBottomNavigationBar);
-    final accountsTab = find
-        .descendant(
-          of: navBar,
-          matching: find.byIcon(FPhosphorIcons.wallet),
-        )
-        .first;
+    final accountsTab = find.descendant(of: navBar, matching: find.byIcon(FPhosphorIcons.wallet)).first;
     await tester.tap(accountsTab);
     await settle();
 
@@ -50,19 +45,9 @@ void main() {
     expect(find.text('My E2E Account'), findsOneWidget);
 
     // 3. Update Account
-    final accountCard = find
-        .ancestor(
-          of: find.text('My E2E Account'),
-          matching: find.byType(AccountMiniCard),
-        )
-        .first;
+    final accountCard = find.ancestor(of: find.text('My E2E Account'), matching: find.byType(AccountMiniCard)).first;
 
-    final dotsMenu = find
-        .descendant(
-          of: accountCard,
-          matching: find.byIcon(FPhosphorIcons.dotsThreeVertical),
-        )
-        .first;
+    final dotsMenu = find.descendant(of: accountCard, matching: find.byIcon(FPhosphorIcons.dotsThreeVertical)).first;
 
     await tester.ensureVisible(dotsMenu);
     await tester.tap(dotsMenu);
@@ -88,17 +73,11 @@ void main() {
     // 4. Delete Account
     // Find the updated card
     final updatedAccountCard = find
-        .ancestor(
-          of: find.text('My E2E Account Edited'),
-          matching: find.byType(AccountMiniCard),
-        )
+        .ancestor(of: find.text('My E2E Account Edited'), matching: find.byType(AccountMiniCard))
         .first;
 
     final updatedDotsMenu = find
-        .descendant(
-          of: updatedAccountCard,
-          matching: find.byIcon(FPhosphorIcons.dotsThreeVertical),
-        )
+        .descendant(of: updatedAccountCard, matching: find.byIcon(FPhosphorIcons.dotsThreeVertical))
         .first;
 
     await tester.ensureVisible(updatedDotsMenu);

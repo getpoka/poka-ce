@@ -13,7 +13,7 @@ import 'package:uuid/uuid.dart';
 /// Use case for creating a new income, expense, or transfer transaction.
 class CreateTransactionUseCase {
   /// Creates a [CreateTransactionUseCase] with the given [ITransactionRepository].
-  const CreateTransactionUseCase(this._repository);
+  const new(this._repository);
 
   final ITransactionRepository _repository;
 

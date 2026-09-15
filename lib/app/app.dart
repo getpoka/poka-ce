@@ -15,7 +15,7 @@ import 'package:poka_ce/theme/theme.dart';
 
 /// Root widget for Poka CE.
 class PokaApp extends HookConsumerWidget {
-  const PokaApp({super.key});
+  const new({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

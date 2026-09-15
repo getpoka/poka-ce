@@ -5,12 +5,7 @@ import 'package:poka_ce/theme/theme.dart';
 
 /// A selectable chip for a [TransactionType] in the filter sheet.
 class TransactionTypeChip extends StatelessWidget {
-  const TransactionTypeChip({
-    required this.type,
-    required this.isSelected,
-    required this.onTap,
-    super.key,
-  });
+  const new({required this.type, required this.isSelected, required this.onTap, super.key});
 
   final TransactionType type;
   final bool isSelected;
@@ -45,19 +40,12 @@ class TransactionTypeChip extends StatelessWidget {
         decoration: BoxDecoration(
           color: isSelected ? color.withValues(alpha: 0.12) : theme.colors.muted,
           borderRadius: theme.style.borderRadius.sm,
-          border: Border.all(
-            color: isSelected ? color : theme.colors.border,
-            width: theme.style.borderWidth,
-          ),
+          border: Border.all(color: isSelected ? color : theme.colors.border, width: theme.style.borderWidth),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
-              _icon,
-              size: 18,
-              color: isSelected ? color : theme.colors.mutedForeground,
-            ),
+            Icon(_icon, size: 18, color: isSelected ? color : theme.colors.mutedForeground),
             const SizedBox(height: 4),
             Text(
               _label,

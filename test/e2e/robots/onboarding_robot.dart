@@ -22,12 +22,7 @@ class OnboardingRobot extends RobotBase {
     final currencyItem = find.text(currencyCode);
     final scrollable = find.byType(Scrollable).last;
 
-    await tester.dragUntilVisible(
-      currencyItem,
-      scrollable,
-      const Offset(0, -300),
-      maxIteration: 50,
-    );
+    await tester.dragUntilVisible(currencyItem, scrollable, const Offset(0, -300), maxIteration: 50);
     await settle();
 
     await tester.tap(currencyItem.last);

@@ -13,13 +13,7 @@ import 'package:poka_ce/shared/widgets/sheets/poka_sheet.dart';
 
 /// Bottom sheet for creating or editing a category.
 class CategoryFormSheet extends HookConsumerWidget {
-  const CategoryFormSheet({
-    this.initialCategory,
-    this.parentId,
-    this.initialType,
-    this.initialName,
-    super.key,
-  });
+  const new({this.initialCategory, this.parentId, this.initialType, this.initialName, super.key});
 
   final CategoryModel? initialCategory;
   final String? parentId;
@@ -51,12 +45,7 @@ class CategoryFormSheet extends HookConsumerWidget {
 
     useEffect(() {
       Future.microtask(() {
-        notifier.init(
-          initialCategory,
-          parentId: parentId,
-          type: initialType,
-          initialName: initialName,
-        );
+        notifier.init(initialCategory, parentId: parentId, type: initialType, initialName: initialName);
       });
       return null;
     }, [initialCategory, parentId, initialType, initialName]);
@@ -74,20 +63,13 @@ class CategoryFormSheet extends HookConsumerWidget {
       return () => nameController.removeListener(listener);
     }, [nameController]);
 
-    ref.listen(
-      categoryFormProvider,
-      (prev, next) {
-        if (next.isSuccess && (prev?.isSuccess != true)) {
-          Navigator.of(context).pop();
-        } else if (next.error != null && next.error != prev?.error) {
-          showPokaToast(
-            context: context,
-            title: Text(next.error!),
-            variant: FToastVariant.destructive,
-          );
-        }
-      },
-    );
+    ref.listen(categoryFormProvider, (prev, next) {
+      if (next.isSuccess && (prev?.isSuccess != true)) {
+        Navigator.of(context).pop();
+      } else if (next.error != null && next.error != prev?.error) {
+        showPokaToast(context: context, title: Text(next.error!), variant: FToastVariant.destructive);
+      }
+    });
 
     final isSubCategory = parentId != null || initialCategory?.parentId != null;
 
@@ -124,10 +106,7 @@ class CategoryFormSheet extends HookConsumerWidget {
                 child: FLabel(
                   layout: FLabelLayout.vertical,
                   label: Text(t.accounts.color),
-                  child: PokaColorPicker(
-                    selectedColor: state.color,
-                    onColorSelected: notifier.setColor,
-                  ),
+                  child: PokaColorPicker(selectedColor: state.color, onColorSelected: notifier.setColor),
                 ),
               ),
             ],
@@ -172,14 +151,8 @@ class CategoryFormSheet extends HookConsumerWidget {
                 },
               ),
               children: [
-                FTabEntry(
-                  label: Text(t.accounts.expense),
-                  child: formContent,
-                ),
-                FTabEntry(
-                  label: Text(t.accounts.income),
-                  child: formContent,
-                ),
+                FTabEntry(label: Text(t.accounts.expense), child: formContent),
+                FTabEntry(label: Text(t.accounts.income), child: formContent),
               ],
             ),
     );

@@ -12,22 +12,15 @@ Future<String?> showBackupPasswordSheet(
   Future<bool> Function(String)? onValidateRestore,
   String? filePath,
 }) async {
-  return showPokaSheet<String>(
+  return await showPokaSheet<String>(
     context: context,
-    builder: (context) => _BackupPasswordSheet(
-      isBackup: isBackup,
-      onValidateRestore: onValidateRestore,
-      filePath: filePath,
-    ),
+    builder: (context) =>
+        _BackupPasswordSheet(isBackup: isBackup, onValidateRestore: onValidateRestore, filePath: filePath),
   );
 }
 
 class _BackupPasswordSheet extends HookConsumerWidget {
-  const _BackupPasswordSheet({
-    required this.isBackup,
-    this.onValidateRestore,
-    this.filePath,
-  });
+  const new({required this.isBackup, this.onValidateRestore, this.filePath});
 
   final bool isBackup;
   final Future<bool> Function(String)? onValidateRestore;

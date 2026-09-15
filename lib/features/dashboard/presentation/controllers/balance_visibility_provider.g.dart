@@ -36,10 +36,7 @@ final class BalanceVisibilityProvider extends $NotifierProvider<BalanceVisibilit
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(bool value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<bool>(value),
-    );
+    return $ProviderOverride(origin: this, providerOverride: $SyncValueProvider<bool>(value));
   }
 }
 

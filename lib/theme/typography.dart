@@ -37,10 +37,7 @@ FTypeface _display({
   String fontFamily = FTypeface.defaultFontFamily,
   List<String>? fontFamilyFallback,
 }) {
-  assert(
-    fontFamily.isNotEmpty,
-    'fontFamily ($fontFamily) should not be empty.',
-  );
+  assert(fontFamily.isNotEmpty, 'fontFamily ($fontFamily) should not be empty.');
   final color = colors.foreground;
   if (touch) {
     return FTypeface(
@@ -258,10 +255,7 @@ FTypeface _body({
   String fontFamily = FTypeface.defaultFontFamily,
   List<String>? fontFamilyFallback,
 }) {
-  assert(
-    fontFamily.isNotEmpty,
-    'fontFamily ($fontFamily) should not be empty.',
-  );
+  assert(fontFamily.isNotEmpty, 'fontFamily ($fontFamily) should not be empty.');
   final color = colors.foreground;
   if (touch) {
     return FTypeface(

@@ -14,7 +14,7 @@ import 'package:poka_ce/theme/theme.dart';
 
 /// Renders the list of split items with swipe-to-delete and tap-to-edit.
 class TransactionSplitItemList extends ConsumerWidget {
-  const TransactionSplitItemList({
+  const new({
     required this.splits,
     required this.transactionType,
     required this.onRemove,
@@ -52,7 +52,7 @@ class TransactionSplitItemList extends ConsumerWidget {
 }
 
 class _SplitItemCard extends ConsumerWidget {
-  const _SplitItemCard({
+  const new({
     required this.item,
     required this.index,
     required this.isLast,
@@ -165,9 +165,7 @@ class _SplitItemCard extends ConsumerWidget {
                                       catName,
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
-                                      style: typography.titleItem.copyWith(
-                                        color: colors.foreground,
-                                      ),
+                                      style: typography.titleItem.copyWith(color: colors.foreground),
                                     ),
                                   ),
                                   if (item.allocation != null) ...[
@@ -177,24 +175,18 @@ class _SplitItemCard extends ConsumerWidget {
                                       decoration: BoxDecoration(
                                         color: colors.primary.withValues(alpha: 0.1),
                                         borderRadius: BorderRadius.circular(4),
-                                        border: Border.all(
-                                          color: colors.primary.withValues(alpha: 0.2),
-                                          width: 0.5,
-                                        ),
+                                        border: Border.all(color: colors.primary.withValues(alpha: 0.2), width: 0.5),
                                       ),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
                                           Icon(FPhosphorIcons.chartPieSlice, size: 9, color: colors.primary),
                                           const SizedBox(width: 3),
-                                          Text(
-                                            switch (item.allocation!) {
-                                              TransactionAllocation.need => context.t.transactions.need,
-                                              TransactionAllocation.want => context.t.transactions.want,
-                                              TransactionAllocation.saving => context.t.transactions.saving,
-                                            },
-                                            style: typography.labelBadge.copyWith(color: colors.primary),
-                                          ),
+                                          Text(switch (item.allocation!) {
+                                            TransactionAllocation.need => context.t.transactions.need,
+                                            TransactionAllocation.want => context.t.transactions.want,
+                                            TransactionAllocation.saving => context.t.transactions.saving,
+                                          }, style: typography.labelBadge.copyWith(color: colors.primary)),
                                         ],
                                       ),
                                     ),
@@ -215,11 +207,7 @@ class _SplitItemCard extends ConsumerWidget {
                         ),
 
                         // Amount
-                        PokaAmountText(
-                          amount: item.amount,
-                          type: transactionType,
-                          style: typography.titleCard,
-                        ),
+                        PokaAmountText(amount: item.amount, type: transactionType, style: typography.titleCard),
                       ],
                     ),
                   ),

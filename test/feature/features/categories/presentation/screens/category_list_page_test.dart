@@ -53,9 +53,7 @@ void main() {
 
   testWidgets('CategoryListPage shows loading state', (tester) async {
     final container = ProviderContainer(
-      overrides: [
-        categoryListProvider.overrideWith(() => MockCategoryListNotifier([], true)),
-      ],
+      overrides: [categoryListProvider.overrideWith(() => MockCategoryListNotifier([], true))],
     );
     await tester.pumpWidget(buildTestApp(container));
     await tester.pump();

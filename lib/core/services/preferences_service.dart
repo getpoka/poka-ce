@@ -15,7 +15,7 @@ final preferencesServiceProvider = Provider<PreferencesService>((ref) {
 /// Wrapper service around [SharedPreferences] for typed key-value storage.
 class PreferencesService {
   /// Creates a [PreferencesService] wrapping [_prefs].
-  const PreferencesService(this._prefs);
+  const new(this._prefs);
 
   final SharedPreferences _prefs;
 

@@ -46,22 +46,14 @@ void main() {
   });
 
   test('returns ValidationFailure if name is empty', () async {
-    final result = await useCase.execute(
-      name: '',
-      type: AccountType.assets,
-      balance: 0,
-    );
+    final result = await useCase.execute(name: '', type: AccountType.assets, balance: 0);
 
     expect(result, isA<ErrorResult>());
     expect((result as ErrorResult).error, isA<ValidationFailure>());
   });
 
   test('returns ValidationFailure if balance is negative', () async {
-    final result = await useCase.execute(
-      name: 'Dompet',
-      type: AccountType.assets,
-      balance: -5000,
-    );
+    final result = await useCase.execute(name: 'Dompet', type: AccountType.assets, balance: -5000);
 
     expect(result, isA<ErrorResult>());
     expect((result as ErrorResult).error, isA<ValidationFailure>());
@@ -70,11 +62,7 @@ void main() {
   test('creates account only if balance is 0', () async {
     when(() => mockAccountRepo.createAccount(any())).thenAnswer((_) async => const Success(null));
 
-    final result = await useCase.execute(
-      name: 'Dompet',
-      type: AccountType.assets,
-      balance: 0,
-    );
+    final result = await useCase.execute(name: 'Dompet', type: AccountType.assets, balance: 0);
 
     expect(result, isA<Success>());
     verify(() => mockAccountRepo.createAccount(any())).called(1);
@@ -84,11 +72,7 @@ void main() {
   test('creates account and sets initial balance correctly', () async {
     when(() => mockAccountRepo.createAccount(any())).thenAnswer((_) async => const Success(null));
 
-    final result = await useCase.execute(
-      name: 'Dompet',
-      type: AccountType.assets,
-      balance: 100000,
-    );
+    final result = await useCase.execute(name: 'Dompet', type: AccountType.assets, balance: 100000);
 
     expect(result, isA<Success>());
 
@@ -102,28 +86,17 @@ void main() {
     const failure = DatabaseFailure('account insert failed');
     when(() => mockAccountRepo.createAccount(any())).thenAnswer((_) async => const ErrorResult<void, Failure>(failure));
 
-    final result = await useCase.execute(
-      name: 'Dompet',
-      type: AccountType.assets,
-      balance: 100000,
-    );
+    final result = await useCase.execute(name: 'Dompet', type: AccountType.assets, balance: 100000);
 
     expect(result, isA<ErrorResult<AccountModel, Failure>>());
-    result.fold(
-      (_) => fail('Should not succeed'),
-      (error) => expect(error, same(failure)),
-    );
+    result.fold((_) => fail('Should not succeed'), (error) => expect(error, same(failure)));
   });
 
   group('CreateAccountUseCase mutation hardening', () {
     test(
       'balance mutation: returns ValidationFailure if balance is exactly -1 (mutation >= 0 -> > 0 or similar)',
       () async {
-        final result = await useCase.execute(
-          name: 'Dompet',
-          type: AccountType.assets,
-          balance: -1,
-        );
+        final result = await useCase.execute(name: 'Dompet', type: AccountType.assets, balance: -1);
 
         expect(result, isA<ErrorResult>());
         expect((result as ErrorResult).error, isA<ValidationFailure>());
@@ -133,11 +106,7 @@ void main() {
     test('balance mutation: succeeds if balance is exactly 1', () async {
       when(() => mockAccountRepo.createAccount(any())).thenAnswer((_) async => const Success(null));
 
-      final result = await useCase.execute(
-        name: 'Dompet',
-        type: AccountType.assets,
-        balance: 1,
-      );
+      final result = await useCase.execute(name: 'Dompet', type: AccountType.assets, balance: 1);
 
       expect(result, isA<Success>());
       verify(() => mockAccountRepo.createAccount(any())).called(1);
@@ -146,11 +115,7 @@ void main() {
     test(
       'name mutation: returns ValidationFailure if name is just whitespace (mutation .isEmpty -> .trim().isEmpty)',
       () async {
-        final result = await useCase.execute(
-          name: '   ',
-          type: AccountType.assets,
-          balance: 0,
-        );
+        final result = await useCase.execute(name: '   ', type: AccountType.assets, balance: 0);
 
         expect(result, isA<ErrorResult>());
         expect((result as ErrorResult).error, isA<ValidationFailure>());

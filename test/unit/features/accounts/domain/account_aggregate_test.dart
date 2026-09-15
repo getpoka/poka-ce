@@ -39,10 +39,7 @@ void main() {
         updatedAt: now,
       );
 
-      final aggregate = AccountAggregate(
-        account: mainAccount,
-        pockets: [pocket1, pocket2],
-      );
+      final aggregate = AccountAggregate(account: mainAccount, pockets: [pocket1, pocket2]);
 
       expect(aggregate.totalBalance, 8500); // 5000 + 1500 + 2000
     });
@@ -57,10 +54,7 @@ void main() {
         updatedAt: now,
       );
 
-      final aggregate = AccountAggregate(
-        account: mainAccount,
-        pockets: [],
-      );
+      final aggregate = AccountAggregate(account: mainAccount, pockets: []);
 
       expect(aggregate.totalBalance, 5000);
     });

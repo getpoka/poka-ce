@@ -36,10 +36,7 @@ final class SettingsNotifierProvider extends $NotifierProvider<SettingsNotifier,
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(SettingsState value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<SettingsState>(value),
-    );
+    return $ProviderOverride(origin: this, providerOverride: $SyncValueProvider<SettingsState>(value));
   }
 }
 

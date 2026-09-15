@@ -12,13 +12,7 @@ import 'package:poka_ce/theme/theme.dart';
 /// Bottom sheet for creating or editing a savings goal.
 /// When creating, the system automatically generates a linked Pocket account.
 class GoalFormSheet extends HookConsumerWidget {
-  const GoalFormSheet({
-    super.key,
-    this.initialGoal,
-    this.initialName,
-    this.initialTargetAmount,
-    this.initialTargetDate,
-  });
+  const new({super.key, this.initialGoal, this.initialName, this.initialTargetAmount, this.initialTargetDate});
 
   final GoalModel? initialGoal;
   final String? initialName;
@@ -96,11 +90,7 @@ class GoalFormSheet extends HookConsumerWidget {
         Navigator.of(context).pop();
       }
       if (next.error != null && next.error != prev?.error) {
-        showPokaToast(
-          context: context,
-          title: Text(next.error!),
-          variant: FToastVariant.destructive,
-        );
+        showPokaToast(context: context, title: Text(next.error!), variant: FToastVariant.destructive);
       }
     });
 
@@ -157,11 +147,7 @@ class GoalFormSheet extends HookConsumerWidget {
                 ),
                 child: Row(
                   children: [
-                    Icon(
-                      FPhosphorIcons.info,
-                      size: 16,
-                      color: context.theme.colors.mutedForeground,
-                    ),
+                    Icon(FPhosphorIcons.info, size: 16, color: context.theme.colors.mutedForeground),
                     const SizedBox(width: 10),
                     Expanded(
                       child: Text(

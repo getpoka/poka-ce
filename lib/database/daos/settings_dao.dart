@@ -8,7 +8,7 @@ part 'settings_dao.g.dart';
 @DriftAccessor(tables: [Settings, Currencies])
 class SettingsDao extends DatabaseAccessor<AppDatabase> with _$SettingsDaoMixin {
   /// Creates a [SettingsDao] attached to [attachedDatabase].
-  SettingsDao(super.attachedDatabase);
+  new(super.attachedDatabase);
 
   /// Retrieves all key-value settings.
   Future<List<Setting>> getAllSettings() => select(settings).get();

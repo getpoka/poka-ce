@@ -151,9 +151,7 @@ void main() {
           );
       await db
           .into(db.transactionItems)
-          .insert(
-            TransactionItemsCompanion.insert(id: const Value('i9'), transactionId: 't4', amount: 10),
-          );
+          .insert(TransactionItemsCompanion.insert(id: const Value('i9'), transactionId: 't4', amount: 10));
 
       await (db.delete(db.transactions)..where((t) => t.id.equals('t4'))).go();
       expect(await db.select(db.transactionItems).get(), isEmpty);

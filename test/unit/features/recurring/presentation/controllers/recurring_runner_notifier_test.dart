@@ -68,9 +68,7 @@ void main() {
   group('recurringRunnerProvider', () {
     test('reports error when due query fails', () async {
       when(() => recurringRepo.getDueRecurringTransactions(any())).thenAnswer(
-        (_) async => const ErrorResult<List<RecurringTransactionModel>, Failure>(
-          DatabaseFailure('query failed'),
-        ),
+        (_) async => const ErrorResult<List<RecurringTransactionModel>, Failure>(DatabaseFailure('query failed')),
       );
 
       final container = containerWith(FakeRecurringListNotifier());
@@ -83,9 +81,8 @@ void main() {
     });
 
     test('reports done with zero when no due transactions', () async {
-      when(() => recurringRepo.getDueRecurringTransactions(any())).thenAnswer(
-        (_) async => const Success<List<RecurringTransactionModel>, Failure>([]),
-      );
+      when(() => recurringRepo.getDueRecurringTransactions(any()))
+          .thenAnswer((_) async => const Success<List<RecurringTransactionModel>, Failure>([]));
 
       final container = containerWith(FakeRecurringListNotifier());
       addTearDown(container.dispose);
@@ -99,15 +96,10 @@ void main() {
     });
 
     test('processes due transactions and refreshes list', () async {
-      when(() => recurringRepo.getDueRecurringTransactions(any())).thenAnswer(
-        (_) async => Success<List<RecurringTransactionModel>, Failure>([recurring()]),
-      );
-      when(() => transactionRepo.createTransaction(any())).thenAnswer(
-        (_) async => const Success<void, Failure>(null),
-      );
-      when(() => recurringRepo.updateRecurring(any())).thenAnswer(
-        (_) async => const Success<void, Failure>(null),
-      );
+      when(() => recurringRepo.getDueRecurringTransactions(any()))
+          .thenAnswer((_) async => Success<List<RecurringTransactionModel>, Failure>([recurring()]));
+      when(() => transactionRepo.createTransaction(any())).thenAnswer((_) async => const Success<void, Failure>(null));
+      when(() => recurringRepo.updateRecurring(any())).thenAnswer((_) async => const Success<void, Failure>(null));
 
       final list = FakeRecurringListNotifier();
       final container = containerWith(list);
@@ -124,18 +116,12 @@ void main() {
     });
 
     test('processes due transactions using real recurringListProvider without disposal exception', () async {
-      when(() => recurringRepo.getDueRecurringTransactions(any())).thenAnswer(
-        (_) async => Success<List<RecurringTransactionModel>, Failure>([recurring()]),
-      );
-      when(() => recurringRepo.getRecurringTransactions()).thenAnswer(
-        (_) async => const Success<List<RecurringTransactionModel>, Failure>([]),
-      );
-      when(() => transactionRepo.createTransaction(any())).thenAnswer(
-        (_) async => const Success<void, Failure>(null),
-      );
-      when(() => recurringRepo.updateRecurring(any())).thenAnswer(
-        (_) async => const Success<void, Failure>(null),
-      );
+      when(() => recurringRepo.getDueRecurringTransactions(any()))
+          .thenAnswer((_) async => Success<List<RecurringTransactionModel>, Failure>([recurring()]));
+      when(() => recurringRepo.getRecurringTransactions())
+          .thenAnswer((_) async => const Success<List<RecurringTransactionModel>, Failure>([]));
+      when(() => transactionRepo.createTransaction(any())).thenAnswer((_) async => const Success<void, Failure>(null));
+      when(() => recurringRepo.updateRecurring(any())).thenAnswer((_) async => const Success<void, Failure>(null));
 
       final container = ProviderContainer(
         overrides: [

@@ -14,11 +14,7 @@ import 'package:poka_ce/theme/theme.dart';
 /// User adds sub-items freely; the total is the sum of all items.
 /// Minimum 2 items are required to confirm and return to the main form.
 class TransactionSplitSheet extends ConsumerStatefulWidget {
-  const TransactionSplitSheet({
-    required this.transactionType,
-    this.initialSplits,
-    super.key,
-  });
+  const new({required this.transactionType, this.initialSplits, super.key});
 
   final TransactionType transactionType;
   final List<SplitItem>? initialSplits;
@@ -34,10 +30,7 @@ class TransactionSplitSheet extends ConsumerStatefulWidget {
       context: context,
       persistent: false,
       isScrollControlled: true,
-      builder: (_) => TransactionSplitSheet(
-        transactionType: transactionType,
-        initialSplits: initialSplits,
-      ),
+      builder: (_) => TransactionSplitSheet(transactionType: transactionType, initialSplits: initialSplits),
     );
   }
 
@@ -60,10 +53,7 @@ class _TransactionSplitSheetState extends ConsumerState<TransactionSplitSheet> {
   }
 
   Future<void> _addItem() async {
-    final item = await TransactionSplitItemFormSheet.show(
-      context,
-      transactionType: widget.transactionType,
-    );
+    final item = await TransactionSplitItemFormSheet.show(context, transactionType: widget.transactionType);
     if (item != null && mounted) {
       setState(() => _splits.add(item));
     }
@@ -106,10 +96,7 @@ class _TransactionSplitSheetState extends ConsumerState<TransactionSplitSheet> {
               child: PokaAmountText(
                 amount: _totalAmount,
                 type: widget.transactionType,
-                style: typography.bodySecondary.copyWith(
-                  fontWeight: FontWeight.w700,
-                  color: colors.primary,
-                ),
+                style: typography.bodySecondary.copyWith(fontWeight: FontWeight.w700, color: colors.primary),
               ),
             )
           : null,
@@ -136,20 +123,14 @@ class _TransactionSplitSheetState extends ConsumerState<TransactionSplitSheet> {
               slivers: [
                 SliverToBoxAdapter(
                   child: Padding(
-                    padding: EdgeInsets.only(
-                      top: theme.style.pagePadding.top,
-                    ),
+                    padding: EdgeInsets.only(top: theme.style.pagePadding.top),
                     child: _splits.isEmpty
                         ? Center(
                             child: Padding(
                               padding: EdgeInsets.symmetric(vertical: theme.style.app.xl),
                               child: Column(
                                 children: [
-                                  Icon(
-                                    FPhosphorIcons.arrowsSplit,
-                                    size: 32,
-                                    color: colors.mutedForeground,
-                                  ),
+                                  Icon(FPhosphorIcons.arrowsSplit, size: 32, color: colors.mutedForeground),
                                   const SizedBox(height: 12),
                                   Text(
                                     t.transactions.noItemsYet,
@@ -180,9 +161,7 @@ class _TransactionSplitSheetState extends ConsumerState<TransactionSplitSheet> {
                 // ── Action buttons ────────────────────────────────────
                 SliverToBoxAdapter(
                   child: Padding(
-                    padding: EdgeInsets.only(
-                      top: theme.style.app.md,
-                    ),
+                    padding: EdgeInsets.only(top: theme.style.app.md),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
@@ -203,10 +182,7 @@ class _TransactionSplitSheetState extends ConsumerState<TransactionSplitSheet> {
                                 style: typography.bodySecondary.copyWith(color: colors.mutedForeground),
                               ),
                             ),
-                          FButton(
-                            onPress: canSave ? _saveAndClose : null,
-                            child: Text(t.transactions.done),
-                          ),
+                          FButton(onPress: canSave ? _saveAndClose : null, child: Text(t.transactions.done)),
                         ],
                       ],
                     ),

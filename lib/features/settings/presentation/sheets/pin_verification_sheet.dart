@@ -24,7 +24,7 @@ Future<bool> showPinVerificationSheet(BuildContext context) async {
 /// A bottom sheet that verifies the user's PIN/Biometric.
 class PinVerificationSheet extends ConsumerStatefulWidget {
   /// Creates a [PinVerificationSheet].
-  const PinVerificationSheet({super.key});
+  const new({super.key});
 
   @override
   ConsumerState<PinVerificationSheet> createState() => _PinVerificationSheetState();

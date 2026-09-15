@@ -48,12 +48,7 @@ void main() {
     expect(find.text('My E2E Budget'), findsOneWidget);
 
     // 3. Update Budget
-    final budgetCard = find
-        .ancestor(
-          of: find.text('My E2E Budget'),
-          matching: find.byType(BudgetCard),
-        )
-        .first;
+    final budgetCard = find.ancestor(of: find.text('My E2E Budget'), matching: find.byType(BudgetCard)).first;
 
     // Slide left to reveal edit action
     await tester.drag(budgetCard, const Offset(-500, 0));
@@ -78,10 +73,7 @@ void main() {
 
     // 4. Delete Budget
     final updatedBudgetCard = find
-        .ancestor(
-          of: find.text('My E2E Budget Edited'),
-          matching: find.byType(BudgetCard),
-        )
+        .ancestor(of: find.text('My E2E Budget Edited'), matching: find.byType(BudgetCard))
         .first;
 
     // Slide right to reveal delete action

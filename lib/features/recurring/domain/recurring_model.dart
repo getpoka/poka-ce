@@ -6,7 +6,7 @@ part 'recurring_model.g.dart';
 
 @freezed
 abstract class RecurringTransactionModel with _$RecurringTransactionModel {
-  const factory RecurringTransactionModel({
+  const factory({
     required String id,
     required String accountId,
     required TransactionType type,
@@ -22,5 +22,5 @@ abstract class RecurringTransactionModel with _$RecurringTransactionModel {
     @Default(true) bool isActive,
   }) = _RecurringTransactionModel;
 
-  factory RecurringTransactionModel.fromJson(Map<String, dynamic> json) => _$RecurringTransactionModelFromJson(json);
+  factory fromJson(Map<String, dynamic> json) => _$RecurringTransactionModelFromJson(json);
 }

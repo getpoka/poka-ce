@@ -3,11 +3,7 @@ import 'package:forui/forui.dart';
 import 'package:poka_ce/shared/widgets/poka_section_label.dart';
 
 class SettingsMenuSection extends StatelessWidget {
-  const SettingsMenuSection({
-    required this.title,
-    required this.items,
-    super.key,
-  });
+  const new({required this.title, required this.items, super.key});
 
   final String title;
   final List<FItemMixin> items;
@@ -19,9 +15,7 @@ class SettingsMenuSection extends StatelessWidget {
       children: [
         PokaSectionLabel(title: title),
         const SizedBox(height: 8),
-        FItemGroup(
-          children: items,
-        ),
+        FItemGroup(children: items),
       ],
     );
   }

@@ -19,15 +19,9 @@ void main() {
   Widget wrapInApp(Widget child) {
     return ProviderScope(
       child: MaterialApp(
-        localizationsDelegates: const [
-          DefaultMaterialLocalizations.delegate,
-          DefaultWidgetsLocalizations.delegate,
-        ],
+        localizationsDelegates: const [DefaultMaterialLocalizations.delegate, DefaultWidgetsLocalizations.delegate],
         builder: (context, child) => TranslationProvider(
-          child: FTheme(
-            data: lightTheme,
-            child: child!,
-          ),
+          child: FTheme(data: lightTheme, child: child!),
         ),
         home: child,
       ),

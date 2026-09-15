@@ -18,16 +18,14 @@ final budgetProgressProvider = BudgetProgressFamily._();
 final class BudgetProgressProvider extends $FunctionalProvider<AsyncValue<int>, int, FutureOr<int>>
     with $FutureModifier<int>, $FutureProvider<int> {
   /// Calculates the current cycle's total spent amount for [budget], reactively recomputing whenever transactions mutate.
-  BudgetProgressProvider._({
-    required BudgetProgressFamily super.from,
-    required BudgetModel super.argument,
-  }) : super(
-         retry: null,
-         name: r'budgetProgressProvider',
-         isAutoDispose: true,
-         dependencies: null,
-         $allTransitiveDependencies: null,
-       );
+  BudgetProgressProvider._({required BudgetProgressFamily super.from, required BudgetModel super.argument})
+    : super(
+        retry: null,
+        name: r'budgetProgressProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
   @override
   String debugGetCreateSourceHash() => _$budgetProgressHash();

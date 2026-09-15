@@ -7,7 +7,7 @@ part 'account_model.g.dart';
 /// Represents a financial account (e.g., Wallet, Bank) or Pocket.
 @freezed
 abstract class AccountModel with _$AccountModel {
-  const factory AccountModel({
+  const factory({
     required String id,
     required String name,
     required AccountType type,
@@ -22,9 +22,9 @@ abstract class AccountModel with _$AccountModel {
     @Default(0) int sort,
     @Default([]) List<String> restrictedCategoryIds,
   }) = _AccountModel;
-  const AccountModel._();
+  const new _();
 
-  factory AccountModel.fromJson(Map<String, dynamic> json) => _$AccountModelFromJson(json);
+  factory fromJson(Map<String, dynamic> json) => _$AccountModelFromJson(json);
 
   bool get isPocket => parentId != null;
 

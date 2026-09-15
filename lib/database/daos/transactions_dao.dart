@@ -11,7 +11,7 @@ part 'transactions_dao.g.dart';
 /// Holds a [Transaction] header alongside its associated child [TransactionItem] line items.
 class TransactionWithItems {
   /// Creates a [TransactionWithItems] bundle.
-  TransactionWithItems(this.transaction, this.items);
+  new(this.transaction, this.items);
 
   /// The parent transaction receipt header.
   final Transaction transaction;
@@ -26,7 +26,7 @@ class TransactionWithItems {
 @DriftAccessor(tables: [Transactions, TransactionItems, Accounts, Budgets, BudgetRecords, Debts])
 class TransactionsDao extends DatabaseAccessor<AppDatabase> with _$TransactionsDaoMixin {
   /// Creates a [TransactionsDao] attached to [attachedDatabase].
-  TransactionsDao(super.attachedDatabase);
+  new(super.attachedDatabase);
 
   /// Retrieves all transaction headers ordered newest first.
   Future<List<Transaction>> getAllTransactions() =>
@@ -49,10 +49,7 @@ class TransactionsDao extends DatabaseAccessor<AppDatabase> with _$TransactionsD
       final tx = row.readTable(transactions);
       final item = row.readTableOrNull(transactionItems);
 
-      final entry = grouped.putIfAbsent(
-        tx.id,
-        () => TransactionWithItems(tx, []),
-      );
+      final entry = grouped.putIfAbsent(tx.id, () => TransactionWithItems(tx, []));
 
       if (item != null) {
         entry.items.add(item);
@@ -73,10 +70,7 @@ class TransactionsDao extends DatabaseAccessor<AppDatabase> with _$TransactionsD
         final tx = row.readTable(transactions);
         final item = row.readTableOrNull(transactionItems);
 
-        final entry = grouped.putIfAbsent(
-          tx.id,
-          () => TransactionWithItems(tx, []),
-        );
+        final entry = grouped.putIfAbsent(tx.id, () => TransactionWithItems(tx, []));
 
         if (item != null) {
           entry.items.add(item);
@@ -96,9 +90,8 @@ class TransactionsDao extends DatabaseAccessor<AppDatabase> with _$TransactionsD
     Set<String> debtIds = const {},
     Set<String> recurringIds = const {},
   }) {
-    final query = select(transactions).join([
-      leftOuterJoin(transactionItems, transactionItems.transactionId.equalsExp(transactions.id)),
-    ]);
+    final query = select(transactions)
+        .join([leftOuterJoin(transactionItems, transactionItems.transactionId.equalsExp(transactions.id))]);
 
     if (startDate != null) {
       query.where(transactions.transactionDate.isBiggerOrEqualValue(startDate));
@@ -137,10 +130,7 @@ class TransactionsDao extends DatabaseAccessor<AppDatabase> with _$TransactionsD
         final tx = row.readTable(transactions);
         final item = row.readTableOrNull(transactionItems);
 
-        final entry = grouped.putIfAbsent(
-          tx.id,
-          () => TransactionWithItems(tx, []),
-        );
+        final entry = grouped.putIfAbsent(tx.id, () => TransactionWithItems(tx, []));
 
         if (item != null) {
           entry.items.add(item);
@@ -164,14 +154,12 @@ class TransactionsDao extends DatabaseAccessor<AppDatabase> with _$TransactionsD
     TransactionsCompanion transactionHeader,
     List<TransactionItemsCompanion> items,
   ) async {
-    return transaction(() async {
+    return await transaction(() async {
       final headerStr = transactionHeader.id.value;
       await into(transactions).insert(transactionHeader);
 
       for (final item in items) {
-        await into(transactionItems).insert(
-          item.copyWith(transactionId: Value(headerStr)),
-        );
+        await into(transactionItems).insert(item.copyWith(transactionId: Value(headerStr)));
       }
 
       final accountId = transactionHeader.accountId.value;
@@ -208,9 +196,7 @@ class TransactionsDao extends DatabaseAccessor<AppDatabase> with _$TransactionsD
           final catId = item.categoryId.present ? item.categoryId.value : null;
 
           final matchingRecords =
-              await (select(budgetRecords).join([
-                      innerJoin(budgets, budgets.id.equalsExp(budgetRecords.budgetId)),
-                    ])
+              await (select(budgetRecords).join([innerJoin(budgets, budgets.id.equalsExp(budgetRecords.budgetId))])
                     ..where(budgets.accountId.isNull() | budgets.accountId.equals(accountId))
                     ..where(
                       budgets.categoryId.isNull() |
@@ -233,9 +219,7 @@ class TransactionsDao extends DatabaseAccessor<AppDatabase> with _$TransactionsD
           final destId = transactionHeader.destinationAccountId.value!;
           final destAccount = await (select(accounts)..where((a) => a.id.equals(destId))).getSingleOrNull();
           if (destAccount != null) {
-            await (update(
-              accounts,
-            )..where((a) => a.id.equals(destId))).write(
+            await (update(accounts)..where((a) => a.id.equals(destId))).write(
               AccountsCompanion(balance: Value(destAccount.balance + amount)),
             );
           }
@@ -261,7 +245,7 @@ class TransactionsDao extends DatabaseAccessor<AppDatabase> with _$TransactionsD
   /// Permanently deletes a transaction and completely reverses its balance mutations,
   /// budget deductions, and debt repayment progress prior to deletion.
   Future<void> deleteTransaction(String id) async {
-    return transaction(() async {
+    return await transaction(() async {
       final tx = await getTransaction(id);
       if (tx == null) return;
 
@@ -297,9 +281,7 @@ class TransactionsDao extends DatabaseAccessor<AppDatabase> with _$TransactionsD
           final catId = item.categoryId;
 
           final matchingRecords =
-              await (select(budgetRecords).join([
-                      innerJoin(budgets, budgets.id.equalsExp(budgetRecords.budgetId)),
-                    ])
+              await (select(budgetRecords).join([innerJoin(budgets, budgets.id.equalsExp(budgetRecords.budgetId))])
                     ..where(budgets.accountId.isNull() | budgets.accountId.equals(accountId))
                     ..where(
                       budgets.categoryId.isNull() |
@@ -321,9 +303,7 @@ class TransactionsDao extends DatabaseAccessor<AppDatabase> with _$TransactionsD
           final destId = tx.destinationAccountId!;
           final destAccount = await (select(accounts)..where((a) => a.id.equals(destId))).getSingleOrNull();
           if (destAccount != null) {
-            await (update(
-              accounts,
-            )..where((a) => a.id.equals(destId))).write(
+            await (update(accounts)..where((a) => a.id.equals(destId))).write(
               AccountsCompanion(balance: Value(destAccount.balance - amount)),
             );
           }
@@ -352,11 +332,8 @@ class TransactionsDao extends DatabaseAccessor<AppDatabase> with _$TransactionsD
   ///
   /// Reversal-first guarantees that old budget quotas and wallet mutations are perfectly
   /// rolled back before the new line items apply, eliminating drift bugs.
-  Future<void> updateTransaction(
-    TransactionsCompanion transactionHeader,
-    List<TransactionItemsCompanion> items,
-  ) async {
-    return transaction(() async {
+  Future<void> updateTransaction(TransactionsCompanion transactionHeader, List<TransactionItemsCompanion> items) async {
+    return await transaction(() async {
       final headerStr = transactionHeader.id.value;
       await deleteTransaction(headerStr);
       await insertTransactionWithItems(transactionHeader, items);
@@ -367,6 +344,6 @@ class TransactionsDao extends DatabaseAccessor<AppDatabase> with _$TransactionsD
   Future<int> clearOldTransactions(DateTime beforeDate) async {
     // Delete transactions older than beforeDate without touching current balances.
     // The detail items are pruned automatically via SQLite cascade delete.
-    return (delete(transactions)..where((t) => t.transactionDate.isSmallerThanValue(beforeDate))).go();
+    return await (delete(transactions)..where((t) => t.transactionDate.isSmallerThanValue(beforeDate))).go();
   }
 }

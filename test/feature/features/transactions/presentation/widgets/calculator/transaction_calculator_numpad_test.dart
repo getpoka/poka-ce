@@ -6,9 +6,7 @@ import 'package:poka_ce/features/transactions/presentation/widgets/calculator/tr
 void main() {
   Widget wrapNumpad(Widget child) {
     return MaterialApp(
-      home: Scaffold(
-        body: Center(child: child),
-      ),
+      home: Scaffold(body: Center(child: child)),
     );
   }
 
@@ -16,13 +14,7 @@ void main() {
     testWidgets('renders all digit keys and operators', (tester) async {
       final values = <String>[];
       await tester.pumpWidget(
-        wrapNumpad(
-          TransactionCalculatorNumpad(
-            value: '',
-            onKeyPressed: values.add,
-            typeColor: Colors.green,
-          ),
-        ),
+        wrapNumpad(TransactionCalculatorNumpad(value: '', onKeyPressed: values.add, typeColor: Colors.green)),
       );
 
       final expectedKeys = ['7', '8', '9', '÷', '4', '5', '6', '×', '1', '2', '3', '−', '0', '.', '+', '+/-'];
@@ -37,13 +29,7 @@ void main() {
 
     testWidgets('shows = when has operator', (tester) async {
       await tester.pumpWidget(
-        wrapNumpad(
-          TransactionCalculatorNumpad(
-            value: '10+5',
-            onKeyPressed: (_) {},
-            typeColor: Colors.green,
-          ),
-        ),
+        wrapNumpad(TransactionCalculatorNumpad(value: '10+5', onKeyPressed: (_) {}, typeColor: Colors.green)),
       );
       expect(find.text('='), findsOneWidget);
       expect(find.byIcon(FPhosphorIcons.check), findsNothing);
@@ -51,13 +37,7 @@ void main() {
 
     testWidgets('shows check when no operator', (tester) async {
       await tester.pumpWidget(
-        wrapNumpad(
-          TransactionCalculatorNumpad(
-            value: '10',
-            onKeyPressed: (_) {},
-            typeColor: Colors.green,
-          ),
-        ),
+        wrapNumpad(TransactionCalculatorNumpad(value: '10', onKeyPressed: (_) {}, typeColor: Colors.green)),
       );
       expect(find.text('='), findsNothing);
       expect(find.byIcon(FPhosphorIcons.check), findsOneWidget);
@@ -66,13 +46,7 @@ void main() {
     testWidgets('tapping digits and operators calls onKeyPressed', (tester) async {
       final values = <String>[];
       await tester.pumpWidget(
-        wrapNumpad(
-          TransactionCalculatorNumpad(
-            value: '',
-            onKeyPressed: values.add,
-            typeColor: Colors.green,
-          ),
-        ),
+        wrapNumpad(TransactionCalculatorNumpad(value: '', onKeyPressed: values.add, typeColor: Colors.green)),
       );
 
       await tester.tap(find.text('7'));
@@ -88,13 +62,7 @@ void main() {
     testWidgets('tapping action key emits OK or = based on operator presence', (tester) async {
       final values = <String>[];
       await tester.pumpWidget(
-        wrapNumpad(
-          TransactionCalculatorNumpad(
-            value: '10+5',
-            onKeyPressed: values.add,
-            typeColor: Colors.green,
-          ),
-        ),
+        wrapNumpad(TransactionCalculatorNumpad(value: '10+5', onKeyPressed: values.add, typeColor: Colors.green)),
       );
       await tester.tap(find.text('='));
       await tester.pump();
@@ -102,13 +70,7 @@ void main() {
 
       final values2 = <String>[];
       await tester.pumpWidget(
-        wrapNumpad(
-          TransactionCalculatorNumpad(
-            value: '10',
-            onKeyPressed: values2.add,
-            typeColor: Colors.green,
-          ),
-        ),
+        wrapNumpad(TransactionCalculatorNumpad(value: '10', onKeyPressed: values2.add, typeColor: Colors.green)),
       );
       await tester.tap(find.byIcon(FPhosphorIcons.check));
       await tester.pump();
@@ -118,13 +80,7 @@ void main() {
     testWidgets('long pressing 0 emits 000', (tester) async {
       final values = <String>[];
       await tester.pumpWidget(
-        wrapNumpad(
-          TransactionCalculatorNumpad(
-            value: '',
-            onKeyPressed: values.add,
-            typeColor: Colors.green,
-          ),
-        ),
+        wrapNumpad(TransactionCalculatorNumpad(value: '', onKeyPressed: values.add, typeColor: Colors.green)),
       );
       await tester.longPress(find.text('0'));
       await tester.pump();
@@ -134,13 +90,7 @@ void main() {
     testWidgets('long pressing backspace emits C', (tester) async {
       final values = <String>[];
       await tester.pumpWidget(
-        wrapNumpad(
-          TransactionCalculatorNumpad(
-            value: '',
-            onKeyPressed: values.add,
-            typeColor: Colors.green,
-          ),
-        ),
+        wrapNumpad(TransactionCalculatorNumpad(value: '', onKeyPressed: values.add, typeColor: Colors.green)),
       );
       await tester.longPress(find.byIcon(FPhosphorIcons.backspace));
       await tester.pump();

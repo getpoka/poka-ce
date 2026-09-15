@@ -396,10 +396,7 @@ void main() {
     test('setType to income clears split items', () {
       final container = createContainer();
       final n = container.read(transactionFormProvider(args).notifier);
-      n.setSplitItems([
-        const SplitItem(amount: 100, categoryId: 'a'),
-        const SplitItem(amount: 200, categoryId: 'b'),
-      ]);
+      n.setSplitItems([const SplitItem(amount: 100, categoryId: 'a'), const SplitItem(amount: 200, categoryId: 'b')]);
       expect(container.read(transactionFormProvider(args)).splitItems, isNotNull);
       n.setType(TransactionType.income);
       expect(container.read(transactionFormProvider(args)).splitItems, isNull);
@@ -409,10 +406,7 @@ void main() {
       final container = createContainer();
       final n = container.read(transactionFormProvider(args).notifier);
       n.onKeyPressed('5+5');
-      n.setSplitItems([
-        const SplitItem(amount: 100, categoryId: 'a'),
-        const SplitItem(amount: 250, categoryId: 'b'),
-      ]);
+      n.setSplitItems([const SplitItem(amount: 100, categoryId: 'a'), const SplitItem(amount: 250, categoryId: 'b')]);
       final s = container.read(transactionFormProvider(args));
       expect(s.splitItems!.length, 2);
       expect(s.amountExpression, '350');
@@ -422,10 +416,7 @@ void main() {
     test('setSplitItems null resets expression', () {
       final container = createContainer();
       final n = container.read(transactionFormProvider(args).notifier);
-      n.setSplitItems([
-        const SplitItem(amount: 100, categoryId: 'a'),
-        const SplitItem(amount: 250, categoryId: 'b'),
-      ]);
+      n.setSplitItems([const SplitItem(amount: 100, categoryId: 'a'), const SplitItem(amount: 250, categoryId: 'b')]);
       n.setSplitItems(null);
       final s = container.read(transactionFormProvider(args));
       expect(s.splitItems, isNull);
@@ -603,9 +594,7 @@ void main() {
       ]);
       await n.save();
       expect(container.read(transactionFormProvider(args)).isSuccess, true);
-      verify(
-        () => mockBudgetAlertService.checkAlerts(),
-      ).called(1);
+      verify(() => mockBudgetAlertService.checkAlerts()).called(1);
     });
 
     test('split save via update use case', () async {

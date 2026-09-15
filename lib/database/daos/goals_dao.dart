@@ -9,7 +9,7 @@ part 'goals_dao.g.dart';
 @DriftAccessor(tables: [Goals, Accounts])
 class GoalsDao extends DatabaseAccessor<AppDatabase> with _$GoalsDaoMixin {
   /// Creates a [GoalsDao] attached to [attachedDatabase].
-  GoalsDao(super.attachedDatabase);
+  new(super.attachedDatabase);
 
   /// Retrieves all savings goals.
   Future<List<Goal>> getAllGoals() => select(goals).get();
@@ -31,7 +31,7 @@ class GoalsDao extends DatabaseAccessor<AppDatabase> with _$GoalsDaoMixin {
 
   /// Atomically inserts a goal and its dedicated pocket account in a single transaction.
   Future<void> insertGoalWithAccount(GoalsCompanion goal, AccountsCompanion account) async {
-    return transaction(() async {
+    return await transaction(() async {
       await into(accounts).insert(account);
       await into(goals).insert(goal);
     });
@@ -39,7 +39,7 @@ class GoalsDao extends DatabaseAccessor<AppDatabase> with _$GoalsDaoMixin {
 
   /// Deletes a goal and its associated pocket account, allowing cascade deletion to clean up.
   Future<void> deleteGoalWithAccount(String goalId) async {
-    return transaction(() async {
+    return await transaction(() async {
       final goal = await getGoal(goalId);
       if (goal != null) {
         // Since Goals references Accounts with cascade delete,

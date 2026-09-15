@@ -19,9 +19,7 @@ void main() {
 
   Widget wrap(Widget child, {SettingsState? state}) {
     return ProviderScope(
-      overrides: [
-        settingsProvider.overrideWith(() => _FakeSettingsNotifier(state ?? const SettingsState())),
-      ],
+      overrides: [settingsProvider.overrideWith(() => _FakeSettingsNotifier(state ?? const SettingsState()))],
       child: TranslationProvider(
         child: MaterialApp(
           builder: (context, c) => FTheme(data: lightTheme, child: c!),

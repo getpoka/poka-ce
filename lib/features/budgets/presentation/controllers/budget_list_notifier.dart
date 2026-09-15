@@ -15,7 +15,7 @@ class BudgetListNotifier extends _$BudgetListNotifier {
     final result = await repo.getBudgets();
     return switch (result) {
       Success(value: final budgets) => budgets,
-      ErrorResult(error: final failure) => Future.error(failure, StackTrace.current),
+      ErrorResult(error: final failure) => await Future.error(failure, StackTrace.current),
     };
   }
 
@@ -27,7 +27,7 @@ class BudgetListNotifier extends _$BudgetListNotifier {
       final result = await repo.getBudgets();
       return switch (result) {
         Success(value: final budgets) => budgets,
-        ErrorResult(error: final failure) => Future.error(failure, StackTrace.current),
+        ErrorResult(error: final failure) => await Future.error(failure, StackTrace.current),
       };
     });
   }

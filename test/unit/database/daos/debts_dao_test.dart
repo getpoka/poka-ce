@@ -191,11 +191,7 @@ void main() {
         transactionDate: DateTime.now().toUtc(),
       );
 
-      final item = TransactionItemsCompanion.insert(
-        id: const Value('item1'),
-        transactionId: 'tx1',
-        amount: 20000,
-      );
+      final item = TransactionItemsCompanion.insert(id: const Value('item1'), transactionId: 'tx1', amount: 20000);
 
       await db.debtsDao.insertDebtWithTransaction(debt, tx, item);
 
@@ -242,11 +238,7 @@ void main() {
         transactionDate: DateTime.now().toUtc(),
       );
 
-      final item = TransactionItemsCompanion.insert(
-        id: const Value('item1'),
-        transactionId: 'tx1',
-        amount: 30000,
-      );
+      final item = TransactionItemsCompanion.insert(id: const Value('item1'), transactionId: 'tx1', amount: 30000);
 
       await db.debtsDao.insertDebtWithTransaction(debt, tx, item);
       var acc = await (db.select(db.accounts)..where((a) => a.id.equals('acc1'))).getSingle();
@@ -324,11 +316,7 @@ void main() {
         transactionDate: now,
       );
 
-      final item = TransactionItemsCompanion.insert(
-        id: const Value('item1'),
-        transactionId: 'tx1',
-        amount: 30000,
-      );
+      final item = TransactionItemsCompanion.insert(id: const Value('item1'), transactionId: 'tx1', amount: 30000);
 
       await db.debtsDao.insertDebtWithTransaction(debt, tx, item);
 

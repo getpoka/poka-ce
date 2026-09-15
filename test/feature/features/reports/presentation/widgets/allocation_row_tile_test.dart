@@ -13,9 +13,7 @@ void main() {
 
   Widget wrap({bool? isVisible, bool isBalanceVisible = true}) {
     return ProviderScope(
-      overrides: [
-        balanceVisibilityProvider.overrideWithValue(isBalanceVisible),
-      ],
+      overrides: [balanceVisibilityProvider.overrideWithValue(isBalanceVisible)],
       child: TranslationProvider(
         child: MaterialApp(
           builder: (context, child) => FTheme(data: lightTheme, child: child!),

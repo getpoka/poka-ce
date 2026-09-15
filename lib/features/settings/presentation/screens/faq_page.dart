@@ -8,7 +8,7 @@ import 'package:poka_ce/theme/theme.dart';
 /// Data holder for a single Frequently Asked Question and its answer.
 class FaqItem {
   /// Creates a [FaqItem] with the given [question] and [answer].
-  FaqItem(this.question, this.answer);
+  new(this.question, this.answer);
 
   /// The question text.
   final String question;
@@ -19,34 +19,24 @@ class FaqItem {
 
 /// Frequently Asked Questions screen with searchable accordion questions.
 class FaqPage extends StatelessWidget {
-  const FaqPage({super.key});
+  const new({super.key});
 
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;
 
     return FScaffold(
-      header: PokaHeader(
-        title: t.settings.faq,
-        showBack: true,
-      ),
+      header: PokaHeader(title: t.settings.faq, showBack: true),
       child: FutureBuilder<String>(
         future: rootBundle
             .loadString('assets/data/faq.md')
-            .catchError(
-              (_) => rootBundle.loadString('packages/poka_ce/assets/data/faq.md'),
-            ),
+            .catchError((_) => rootBundle.loadString('packages/poka_ce/assets/data/faq.md')),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: FCircularProgress());
           }
           if (snapshot.hasError) {
-            return Center(
-              child: Text(
-                t.settings.errorLoadingContent,
-                style: theme.typography.body.lg,
-              ),
-            );
+            return Center(child: Text(t.settings.errorLoadingContent, style: theme.typography.body.lg));
           }
 
           final content = snapshot.data ?? '';
@@ -58,10 +48,7 @@ class FaqPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 20,
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
                   child: Column(
                     children: [
                       Container(
@@ -70,11 +57,7 @@ class FaqPage extends StatelessWidget {
                           color: theme.colors.primary.withValues(alpha: 0.1),
                           shape: BoxShape.circle,
                         ),
-                        child: Icon(
-                          FPhosphorIcons.question,
-                          size: 48,
-                          color: theme.colors.primary,
-                        ),
+                        child: Icon(FPhosphorIcons.question, size: 48, color: theme.colors.primary),
                       ),
                       const SizedBox(height: 16),
                       Text(
@@ -88,9 +71,7 @@ class FaqPage extends StatelessWidget {
                       const SizedBox(height: 8),
                       Text(
                         t.settings.faqDesc,
-                        style: theme.typography.bodyPrimary.copyWith(
-                          color: theme.colors.mutedForeground,
-                        ),
+                        style: theme.typography.bodyPrimary.copyWith(color: theme.colors.mutedForeground),
                         textAlign: TextAlign.center,
                       ),
                     ],
@@ -100,10 +81,7 @@ class FaqPage extends StatelessWidget {
                 FAccordion(
                   children: items.map((item) {
                     return FAccordionItem(
-                      title: Text(
-                        item.question,
-                        style: const TextStyle(fontWeight: FontWeight.w600),
-                      ),
+                      title: Text(item.question, style: const TextStyle(fontWeight: FontWeight.w600)),
                       child: MarkdownBody(
                         data: item.answer,
                         styleSheet: MarkdownStyleSheet(

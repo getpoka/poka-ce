@@ -10,7 +10,7 @@ part 'categories_dao.g.dart';
 @DriftAccessor(tables: [Categories, AccountCategories])
 class CategoriesDao extends DatabaseAccessor<AppDatabase> with _$CategoriesDaoMixin {
   /// Creates a [CategoriesDao] attached to [attachedDatabase].
-  CategoriesDao(super.attachedDatabase);
+  new(super.attachedDatabase);
 
   /// Retrieves all categories ordered by their sort index.
   Future<List<Category>> getAllCategories() =>
@@ -63,11 +63,7 @@ class CategoriesDao extends DatabaseAccessor<AppDatabase> with _$CategoriesDaoMi
   Future<void> updateCategoriesSort(Map<String, int> orders) async {
     await batch((batch) {
       for (final entry in orders.entries) {
-        batch.update(
-          categories,
-          CategoriesCompanion(sort: Value(entry.value)),
-          where: (t) => t.id.equals(entry.key),
-        );
+        batch.update(categories, CategoriesCompanion(sort: Value(entry.value)), where: (t) => t.id.equals(entry.key));
       }
     });
   }
@@ -75,7 +71,7 @@ class CategoriesDao extends DatabaseAccessor<AppDatabase> with _$CategoriesDaoMi
   /// Synchronizes account category restrictions so that any account restricting
   /// the parent category will automatically restrict the child category as well.
   Future<void> syncSubCategoryToAccounts(String parentId, String childId) async {
-    return transaction(() async {
+    return await transaction(() async {
       // Find all accounts that restrict this parent category
       final query = select(accountCategories)..where((t) => t.categoryId.equals(parentId));
       final rows = await query.get();
@@ -83,10 +79,7 @@ class CategoriesDao extends DatabaseAccessor<AppDatabase> with _$CategoriesDaoMi
       for (final row in rows) {
         // Insert the child category for the same account
         await into(accountCategories).insert(
-          AccountCategoriesCompanion.insert(
-            accountId: row.accountId,
-            categoryId: childId,
-          ),
+          AccountCategoriesCompanion.insert(accountId: row.accountId, categoryId: childId),
           mode: InsertMode.insertOrIgnore, // in case it already exists
         );
       }

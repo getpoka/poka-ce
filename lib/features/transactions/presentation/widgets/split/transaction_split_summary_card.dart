@@ -7,7 +7,7 @@ import 'package:poka_ce/theme/theme.dart';
 
 /// A summary card for a transaction that has split items.
 class TransactionSplitSummaryCard extends StatelessWidget {
-  const TransactionSplitSummaryCard({
+  const new({
     required this.splits,
     required this.transactionType,
     required this.onEdit,
@@ -29,10 +29,7 @@ class TransactionSplitSummaryCard extends StatelessWidget {
       children: [
         FTile(
           prefix: Icon(FPhosphorIcons.arrowsSplit, color: theme.colors.primary),
-          title: Text(
-            t.transactions.splitItems(count: splits.length),
-            style: theme.typography.titleCard,
-          ),
+          title: Text(t.transactions.splitItems(count: splits.length), style: theme.typography.titleCard),
           subtitle: PokaAmountText(
             amount: total,
             type: transactionType,

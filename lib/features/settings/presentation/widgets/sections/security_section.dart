@@ -10,7 +10,7 @@ import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/poka_switch.dart';
 
 class SecuritySection extends ConsumerWidget {
-  const SecuritySection({super.key});
+  const new({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

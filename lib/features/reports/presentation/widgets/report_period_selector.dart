@@ -8,7 +8,7 @@ import 'package:poka_ce/theme/theme.dart';
 
 /// Horizontal scrollable period chip bar + custom date range support.
 class ReportPeriodSelector extends ConsumerWidget {
-  const ReportPeriodSelector({super.key});
+  const new({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -74,11 +74,7 @@ class ReportPeriodSelector extends ConsumerWidget {
 // ─────────────────────────────────────────────────────────────────────────────
 
 class _CustomRangeDialog extends StatefulWidget {
-  const _CustomRangeDialog({
-    required this.initial,
-    required this.now,
-    required this.animation,
-  });
+  const new({required this.initial, required this.now, required this.animation});
   final (DateTime, DateTime)? initial;
   final DateTime now;
   final Animation<double> animation;
@@ -129,11 +125,7 @@ class _CustomRangeDialogState extends State<_CustomRangeDialog> {
 // ─────────────────────────────────────────────────────────────────────────────
 
 class _PeriodChip extends StatelessWidget {
-  const _PeriodChip({
-    required this.label,
-    required this.isSelected,
-    required this.onTap,
-  });
+  const new({required this.label, required this.isSelected, required this.onTap});
 
   final String label;
   final bool isSelected;
@@ -151,9 +143,7 @@ class _PeriodChip extends StatelessWidget {
         decoration: BoxDecoration(
           color: isSelected ? theme.colors.primary : theme.colors.muted,
           borderRadius: BorderRadius.circular(20),
-          border: Border.all(
-            color: isSelected ? theme.colors.primary : theme.colors.border.withValues(alpha: 0.6),
-          ),
+          border: Border.all(color: isSelected ? theme.colors.primary : theme.colors.border.withValues(alpha: 0.6)),
         ),
         child: Text(
           label,
@@ -169,7 +159,7 @@ class _PeriodChip extends StatelessWidget {
 
 /// Shows custom date range label when period is custom.
 class ReportCustomDateLabel extends ConsumerWidget {
-  const ReportCustomDateLabel({super.key});
+  const new({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -184,12 +174,7 @@ class ReportCustomDateLabel extends ConsumerWidget {
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
-      child: Text(
-        label,
-        style: theme.typography.bodySecondary.copyWith(
-          color: theme.colors.mutedForeground,
-        ),
-      ),
+      child: Text(label, style: theme.typography.bodySecondary.copyWith(color: theme.colors.mutedForeground)),
     );
   }
 }

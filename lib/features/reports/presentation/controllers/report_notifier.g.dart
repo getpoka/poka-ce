@@ -36,10 +36,7 @@ final class ReportNotifierProvider extends $NotifierProvider<ReportNotifier, Rep
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(ReportState value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<ReportState>(value),
-    );
+    return $ProviderOverride(origin: this, providerOverride: $SyncValueProvider<ReportState>(value));
   }
 }
 

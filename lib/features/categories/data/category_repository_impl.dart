@@ -13,7 +13,7 @@ import 'package:poka_ce/features/categories/domain/i_category_repository.dart';
 /// and error handling. It validates the maximum tree depth to maintain a 1-level flat tree.
 class CategoryRepositoryImpl implements ICategoryRepository {
   /// Creates a [CategoryRepositoryImpl] backed by the provided [CategoriesDao].
-  CategoryRepositoryImpl(this._dao);
+  new(this._dao);
 
   final CategoriesDao _dao;
 

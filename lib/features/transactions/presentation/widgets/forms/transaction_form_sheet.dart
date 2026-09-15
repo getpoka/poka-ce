@@ -29,7 +29,7 @@ import 'package:poka_ce/theme/theme.dart';
 
 /// Bottom sheet for creating a new transaction (simple or split) or editing an existing one.
 class TransactionFormSheet extends HookConsumerWidget {
-  const TransactionFormSheet({
+  const new({
     super.key,
     this.initialType,
     this.initialTransaction,
@@ -136,11 +136,7 @@ class TransactionFormSheet extends HookConsumerWidget {
         ref.read(transactionListNotifierProvider.notifier).refresh();
         Navigator.of(context).pop(true);
       } else if (next.error != null && next.error != prev?.error) {
-        showPokaToast(
-          context: context,
-          title: Text(next.error.toString()),
-          variant: FToastVariant.destructive,
-        );
+        showPokaToast(context: context, title: Text(next.error.toString()), variant: FToastVariant.destructive);
       }
     });
 
@@ -296,10 +292,7 @@ class TransactionFormSheet extends HookConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              TransactionTypeSwitcher(
-                selectedType: state.type,
-                onChanged: notifier.setType,
-              ),
+              TransactionTypeSwitcher(selectedType: state.type, onChanged: notifier.setType),
               const SizedBox(height: 10),
               TransactionDateNav(
                 selectedDate: state.date,
@@ -351,10 +344,7 @@ class TransactionFormSheet extends HookConsumerWidget {
                     child: Center(child: FCircularProgress()),
                   )
                 else
-                  FButton(
-                    onPress: handleSave,
-                    child: Text(t.transactions.saveSplitTransaction),
-                  ),
+                  FButton(onPress: handleSave, child: Text(t.transactions.saveSplitTransaction)),
                 const SizedBox(height: 18),
               ],
             ),

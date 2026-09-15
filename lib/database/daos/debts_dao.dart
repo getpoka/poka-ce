@@ -12,7 +12,7 @@ part 'debts_dao.g.dart';
 @DriftAccessor(tables: [Debts, Transactions, TransactionItems, Accounts, Budgets, BudgetRecords])
 class DebtsDao extends DatabaseAccessor<AppDatabase> with _$DebtsDaoMixin {
   /// Creates a [DebtsDao] attached to [attachedDatabase].
-  DebtsDao(super.attachedDatabase);
+  new(super.attachedDatabase);
 
   /// Retrieves all debts and loans.
   Future<List<Debt>> getAllDebts() => select(debts).get();
@@ -70,9 +70,7 @@ class DebtsDao extends DatabaseAccessor<AppDatabase> with _$DebtsDaoMixin {
         final catId = transactionItem.categoryId.present ? transactionItem.categoryId.value : null;
 
         final matchingRecords =
-            await (select(budgetRecords).join([
-                    innerJoin(budgets, budgets.id.equalsExp(budgetRecords.budgetId)),
-                  ])
+            await (select(budgetRecords).join([innerJoin(budgets, budgets.id.equalsExp(budgetRecords.budgetId))])
                   ..where(budgets.accountId.isNull() | budgets.accountId.equals(accountId))
                   ..where(
                     budgets.categoryId.isNull() |
@@ -126,9 +124,7 @@ class DebtsDao extends DatabaseAccessor<AppDatabase> with _$DebtsDaoMixin {
             final catId = item.categoryId;
 
             final matchingRecords =
-                await (select(budgetRecords).join([
-                        innerJoin(budgets, budgets.id.equalsExp(budgetRecords.budgetId)),
-                      ])
+                await (select(budgetRecords).join([innerJoin(budgets, budgets.id.equalsExp(budgetRecords.budgetId))])
                       ..where(budgets.accountId.isNull() | budgets.accountId.equals(tx.accountId))
                       ..where(
                         budgets.categoryId.isNull() |

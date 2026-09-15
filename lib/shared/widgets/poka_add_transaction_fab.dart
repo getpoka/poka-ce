@@ -10,10 +10,7 @@ import 'package:poka_ce/features/transactions/presentation/widgets/forms/transac
 /// the FAB from same-colored chart elements behind it.
 class PokaAddTransactionFab extends StatelessWidget {
   /// Creates a [PokaAddTransactionFab].
-  const PokaAddTransactionFab({
-    this.onTap,
-    super.key,
-  });
+  const new({this.onTap, super.key});
 
   /// Optional tap callback. Defaults to opening [TransactionFormSheet].
   final VoidCallback? onTap;
@@ -36,22 +33,12 @@ class PokaAddTransactionFab extends StatelessWidget {
       // the FAB from same-colored chart elements behind it.
       child: Container(
         padding: const EdgeInsets.all(3),
-        decoration: BoxDecoration(
-          color: theme.colors.card,
-          shape: BoxShape.circle,
-        ),
+        decoration: BoxDecoration(color: theme.colors.card, shape: BoxShape.circle),
         child: Container(
           width: 48,
           height: 48,
-          decoration: BoxDecoration(
-            color: theme.colors.primary,
-            shape: BoxShape.circle,
-          ),
-          child: Icon(
-            FPhosphorIcons.plus,
-            size: 20,
-            color: theme.colors.primaryForeground,
-          ),
+          decoration: BoxDecoration(color: theme.colors.primary, shape: BoxShape.circle),
+          child: Icon(FPhosphorIcons.plus, size: 20, color: theme.colors.primaryForeground),
         ),
       ),
     );

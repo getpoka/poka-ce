@@ -19,11 +19,7 @@ import 'package:poka_ce/theme/theme.dart';
 /// Shown from [TransactionSplitSheet]. Pops with the resulting [SplitItem],
 /// or null when the user cancels with the X button.
 class TransactionSplitItemFormSheet extends ConsumerStatefulWidget {
-  const TransactionSplitItemFormSheet({
-    required this.transactionType,
-    this.initialItem,
-    super.key,
-  });
+  const new({required this.transactionType, this.initialItem, super.key});
 
   final TransactionType transactionType;
 
@@ -41,10 +37,7 @@ class TransactionSplitItemFormSheet extends ConsumerStatefulWidget {
       context: context,
       isScrollControlled: true,
       persistent: false,
-      builder: (_) => TransactionSplitItemFormSheet(
-        transactionType: transactionType,
-        initialItem: initialItem,
-      ),
+      builder: (_) => TransactionSplitItemFormSheet(transactionType: transactionType, initialItem: initialItem),
     );
   }
 

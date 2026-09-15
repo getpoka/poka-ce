@@ -16,7 +16,7 @@ import 'package:poka_ce/theme/theme.dart';
 /// Each goal is linked to a dedicated Pocket account whose balance reflects
 /// the amount saved so far (per PLANS.md §5).
 class GoalListPage extends ConsumerWidget {
-  const GoalListPage({super.key});
+  const new({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -24,10 +24,7 @@ class GoalListPage extends ConsumerWidget {
     final asyncGoals = ref.watch(goalProvider);
 
     return FScaffold(
-      header: PokaHeader(
-        title: context.t.dashboard.goals,
-        showBack: true,
-      ),
+      header: PokaHeader(title: context.t.dashboard.goals, showBack: true),
       child: asyncGoals.when(
         data: (_) {
           if (goalStates.isEmpty) {
@@ -56,7 +53,7 @@ class GoalListPage extends ConsumerWidget {
 // ─────────────────────────────────────────────────────────────────────────────
 
 class _GoalContent extends ConsumerWidget {
-  const _GoalContent();
+  const new();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -78,9 +75,7 @@ class _GoalContent extends ConsumerWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              PokaSectionLabel(
-                title: hasPastGoals ? t.goals.activeGoals : context.t.dashboard.goals,
-              ),
+              PokaSectionLabel(title: hasPastGoals ? t.goals.activeGoals : context.t.dashboard.goals),
               Builder(
                 builder: (context) => GestureDetector(
                   key: const Key('goal-add-button'),

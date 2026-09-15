@@ -9,7 +9,7 @@ import 'package:poka_ce/shared/widgets/poka_hero_card.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class GoalSummaryCard extends ConsumerWidget {
-  const GoalSummaryCard({required this.totalGoals, super.key});
+  const new({required this.totalGoals, super.key});
 
   final int totalGoals;
 

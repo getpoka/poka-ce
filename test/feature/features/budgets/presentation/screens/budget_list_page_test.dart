@@ -53,12 +53,7 @@ void main() {
 
   late MockBudgetRepository mockBudgetRepo;
 
-  Widget wrapBudget(
-    List<BudgetModel> budgets, {
-    int spentValue = 200,
-    bool spentError = false,
-    bool loading = false,
-  }) {
+  Widget wrapBudget(List<BudgetModel> budgets, {int spentValue = 200, bool spentError = false, bool loading = false}) {
     mockBudgetRepo = MockBudgetRepository();
     if (spentError) {
       when(

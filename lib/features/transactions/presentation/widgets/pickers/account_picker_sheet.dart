@@ -10,17 +10,14 @@ import 'package:poka_ce/shared/widgets/poka_pocket_selector.dart';
 /// Used outside the transaction form (e.g., goal/debt flows) where the caller
 /// only needs to call `.show()` and get back an [AccountModel].
 class AccountPickerSheet extends ConsumerWidget {
-  const AccountPickerSheet({super.key});
+  const new({super.key});
 
   /// Shows the account picker and returns the selected [AccountModel], or null
   /// if the user dismisses without selecting.
   static Future<AccountModel?> show(BuildContext context) async {
     final accounts = ProviderScope.containerOf(context).read(dashboardProvider).accounts;
 
-    return PokaPocketSelector.show(
-      context,
-      accounts: accounts,
-    );
+    return await PokaPocketSelector.show(context, accounts: accounts);
   }
 
   @override

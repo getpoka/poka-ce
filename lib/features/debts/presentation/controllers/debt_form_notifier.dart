@@ -14,7 +14,7 @@ part 'debt_form_notifier.g.dart';
 /// Form state holding user inputs, validation status, and linked account/category for debt/loan creation.
 @freezed
 abstract class DebtFormState with _$DebtFormState {
-  const factory DebtFormState({
+  const factory({
     DebtModel? initialDebt,
     @Default('') String accountId,
     @Default('') String categoryId,
@@ -106,10 +106,7 @@ class DebtForm extends _$DebtForm {
       state = state.copyWith(error: t.debts.amountGreaterThanZero, isSaving: false);
       return;
     }
-    state = state.copyWith(
-      isSaving: true,
-      error: null,
-    );
+    state = state.copyWith(isSaving: true, error: null);
     final repo = ref.read(debtRepositoryProvider);
 
     final now = DateTimeUtils.nowUtc();
@@ -144,10 +141,7 @@ class DebtForm extends _$DebtForm {
       case Success():
         state = state.copyWith(isSaving: false, isSuccess: true);
       case ErrorResult(error: final failure):
-        state = state.copyWith(
-          error: failure.message,
-          isSaving: false,
-        );
+        state = state.copyWith(error: failure.message, isSaving: false);
     }
   }
 }

@@ -18,9 +18,7 @@ void main() {
   setUp(() => mockRepo = MockCategoryRepository());
 
   ProviderContainer createContainer() {
-    final container = ProviderContainer(
-      overrides: [categoryRepositoryProvider.overrideWithValue(mockRepo)],
-    );
+    final container = ProviderContainer(overrides: [categoryRepositoryProvider.overrideWithValue(mockRepo)]);
     container.listen(categoryListProvider, (_, __) {});
     addTearDown(container.dispose);
     return container;
@@ -101,9 +99,8 @@ void main() {
 
     test('toggleActive failure does not refresh', () async {
       when(() => mockRepo.getCategories()).thenAnswer((_) async => const Success([]));
-      when(
-        () => mockRepo.toggleCategoryActiveStatus(any(), isActive: any(named: 'isActive')),
-      ).thenAnswer((_) async => const ErrorResult(DatabaseFailure('fail')));
+      when(() => mockRepo.toggleCategoryActiveStatus(any(), isActive: any(named: 'isActive')))
+          .thenAnswer((_) async => const ErrorResult(DatabaseFailure('fail')));
       final container = createContainer();
       await wait();
       clearInteractions(mockRepo);

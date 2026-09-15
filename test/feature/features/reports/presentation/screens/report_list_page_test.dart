@@ -75,9 +75,7 @@ void main() {
     testWidgets('renders header, export button, and tabs when loaded', (tester) async {
       const state = ReportState(
         isLoading: false,
-        data: ReportData(
-          summary: ReportSummary(totalIncome: 1000, totalExpense: 400),
-        ),
+        data: ReportData(summary: ReportSummary(totalIncome: 1000, totalExpense: 400)),
       );
 
       await tester.pumpWidget(buildTestableWidget(state));
@@ -92,10 +90,7 @@ void main() {
     });
 
     testWidgets('renders privacy toggle button and toggles visibility state', (tester) async {
-      const state = ReportState(
-        isLoading: false,
-        data: ReportData(),
-      );
+      const state = ReportState(isLoading: false, data: ReportData());
 
       await tester.pumpWidget(
         ProviderScope(
@@ -141,10 +136,7 @@ void main() {
       when(() => mockExcelExportService.exportAndShare(sharePositionOrigin: any(named: 'sharePositionOrigin')))
           .thenAnswer((_) async => Success(File('test.xlsx')));
 
-      const state = ReportState(
-        isLoading: false,
-        data: ReportData(),
-      );
+      const state = ReportState(isLoading: false, data: ReportData());
 
       await tester.pumpWidget(buildTestableWidget(state));
       await tester.pumpAndSettle();
@@ -164,10 +156,7 @@ void main() {
       when(() => mockExcelExportService.exportAndShare(sharePositionOrigin: any(named: 'sharePositionOrigin')))
           .thenAnswer((_) async => const ErrorResult(UnexpectedFailure('error')));
 
-      const state = ReportState(
-        isLoading: false,
-        data: ReportData(),
-      );
+      const state = ReportState(isLoading: false, data: ReportData());
 
       await tester.pumpWidget(buildTestableWidget(state));
       await tester.pumpAndSettle();

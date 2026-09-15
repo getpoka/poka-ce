@@ -6,7 +6,7 @@ import 'package:forui_phosphor/forui_phosphor.dart';
 /// It features a grid of numbers and action buttons (like backspace and confirm).
 class PokaNumpad extends StatelessWidget {
   /// Creates a PokaNumpad.
-  const PokaNumpad({
+  const new({
     required this.onNumberPressed,
     required this.onBackspacePressed,
     required this.onConfirmPressed,
@@ -67,12 +67,7 @@ class PokaNumpad extends StatelessWidget {
   Widget _buildNumberButton(BuildContext context, int number) {
     return FButton(
       onPress: () => onNumberPressed(number),
-      child: Text(
-        number.toString(),
-        style: context.theme.typography.body.xl.copyWith(
-          fontWeight: FontWeight.w500,
-        ),
-      ),
+      child: Text(number.toString(), style: context.theme.typography.body.xl.copyWith(fontWeight: FontWeight.w500)),
     );
   }
 
@@ -82,9 +77,6 @@ class PokaNumpad extends StatelessWidget {
     required VoidCallback onPressed,
     bool isPrimary = false,
   }) {
-    return FButton(
-      onPress: onPressed,
-      child: child,
-    );
+    return FButton(onPress: onPressed, child: child);
   }
 }

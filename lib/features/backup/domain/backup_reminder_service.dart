@@ -9,7 +9,7 @@ enum BackupReminderInterval {
   weekly('weekly'),
   monthly('monthly');
 
-  const BackupReminderInterval(this.value);
+  new(this.value);
   final String value;
 
   /// Parses a raw string into [BackupReminderInterval]. Defaults to [weekly].
@@ -51,10 +51,7 @@ final backupReminderNotifierProvider = NotifierProvider<BackupReminderNotifier, 
 /// the user when an offline backup has not been performed within their configured interval.
 class BackupReminderService {
   /// Creates a [BackupReminderService].
-  const BackupReminderService({
-    required this._prefs,
-    required this._notificationService,
-  });
+  const new({required this._prefs, required this._notificationService});
 
   final PreferencesService _prefs;
   final NotificationService _notificationService;

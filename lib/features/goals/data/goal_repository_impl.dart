@@ -12,7 +12,7 @@ import 'package:poka_ce/features/goals/domain/i_goal_repository.dart';
 /// Implementation of [IGoalRepository] mapping Drift DAO rows to pure Freezed domain models.
 class GoalRepositoryImpl implements IGoalRepository {
   /// Creates a [GoalRepositoryImpl] backed by the provided [GoalsDao].
-  GoalRepositoryImpl(this._dao);
+  new(this._dao);
 
   final GoalsDao _dao;
 

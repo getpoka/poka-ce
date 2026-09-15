@@ -20,11 +20,7 @@ import 'package:poka_ce/shared/widgets/poka_switch.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class RecurringCard extends ConsumerWidget {
-  const RecurringCard({
-    required this.recurring,
-    this.isInteractive = true,
-    super.key,
-  });
+  const new({required this.recurring, this.isInteractive = true, super.key});
 
   final RecurringTransactionModel recurring;
   final bool isInteractive;
@@ -99,11 +95,7 @@ class RecurringCard extends ConsumerWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                PokaAmountText(
-                  amount: recurring.amount,
-                  type: recurring.type,
-                  style: theme.typography.amountCard,
-                ),
+                PokaAmountText(amount: recurring.amount, type: recurring.type, style: theme.typography.amountCard),
                 RecurringNextDateChip(nextDate: recurring.nextDate),
               ],
             ),

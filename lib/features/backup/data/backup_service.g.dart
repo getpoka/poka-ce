@@ -43,10 +43,7 @@ final class BackupServiceProvider extends $FunctionalProvider<BackupService, Bac
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(BackupService value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<BackupService>(value),
-    );
+    return $ProviderOverride(origin: this, providerOverride: $SyncValueProvider<BackupService>(value));
   }
 }
 

@@ -17,10 +17,7 @@ void main() {
         home: Scaffold(
           body: Padding(
             padding: const EdgeInsets.all(16),
-            child: PokaColorPicker(
-              selectedColor: selectedColor,
-              onColorSelected: onSelected,
-            ),
+            child: PokaColorPicker(selectedColor: selectedColor, onColorSelected: onSelected),
           ),
         ),
       ),
@@ -56,18 +53,14 @@ void main() {
     });
 
     testWidgets('marks the selected preset with a check icon', (tester) async {
-      await tester.pumpWidget(
-        wrap(selectedColor: '#3B82F6', onSelected: (_) {}),
-      );
+      await tester.pumpWidget(wrap(selectedColor: '#3B82F6', onSelected: (_) {}));
       await tester.pump();
 
       expect(find.byIcon(FPhosphorIcons.check), findsOneWidget);
     });
 
     testWidgets('marks a custom color as selected', (tester) async {
-      await tester.pumpWidget(
-        wrap(selectedColor: '#123456', onSelected: (_) {}),
-      );
+      await tester.pumpWidget(wrap(selectedColor: '#123456', onSelected: (_) {}));
       await tester.pump();
 
       // Custom color selected -> shows a check inside the custom swatch.

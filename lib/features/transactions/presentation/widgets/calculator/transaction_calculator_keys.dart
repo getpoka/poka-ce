@@ -10,14 +10,11 @@ import 'package:forui_phosphor/forui_phosphor.dart';
 // ─── Layout helpers ───────────────────────────────────────────────────────────
 
 class TransactionCalculatorRow extends StatelessWidget {
-  const TransactionCalculatorRow({required this.children, super.key});
+  const new({required this.children, super.key});
   final List<Widget> children;
 
   @override
-  Widget build(BuildContext context) => SizedBox(
-    height: 56,
-    child: Row(children: children),
-  );
+  Widget build(BuildContext context) => SizedBox(height: 56, child: Row(children: children));
 }
 
 // ─── Key variants ─────────────────────────────────────────────────────────────
@@ -25,7 +22,7 @@ class TransactionCalculatorRow extends StatelessWidget {
 enum TransactionCalculatorKeyVariant { number, operator }
 
 class TransactionCalculatorKey extends HookWidget {
-  const TransactionCalculatorKey({
+  const new({
     required this.theme,
     required this.onTap,
     this.label,
@@ -93,13 +90,7 @@ class TransactionCalculatorKey extends HookWidget {
 }
 
 class TransactionCalculatorActionKey extends HookWidget {
-  const TransactionCalculatorActionKey({
-    required this.theme,
-    required this.typeColor,
-    required this.isEvaluate,
-    required this.onTap,
-    super.key,
-  });
+  const new({required this.theme, required this.typeColor, required this.isEvaluate, required this.onTap, super.key});
 
   final FThemeData theme;
   final Color typeColor;
@@ -141,11 +132,7 @@ class TransactionCalculatorActionKey extends HookWidget {
                           fontWeight: FontWeight.w400,
                         ),
                       )
-                    : Icon(
-                        FPhosphorIcons.check,
-                        size: 20,
-                        color: typeColor,
-                      ),
+                    : Icon(FPhosphorIcons.check, size: 20, color: typeColor),
               ),
             ),
           ),

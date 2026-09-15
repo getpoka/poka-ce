@@ -7,9 +7,7 @@ abstract class IRecurringRepository {
   Future<Result<List<RecurringTransactionModel>, Failure>> getActiveRecurringTransactions();
 
   /// Returns all active recurring transactions due on or before [asOf].
-  Future<Result<List<RecurringTransactionModel>, Failure>> getDueRecurringTransactions(
-    DateTime asOf,
-  );
+  Future<Result<List<RecurringTransactionModel>, Failure>> getDueRecurringTransactions(DateTime asOf);
 
   Future<Result<RecurringTransactionModel, Failure>> getRecurringById(String id);
   Future<Result<void, Failure>> createRecurring(RecurringTransactionModel model);

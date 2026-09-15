@@ -10,7 +10,7 @@ part 'recurring_list_notifier.g.dart';
 /// Immutable UI state holding the list of recurring transaction blueprints.
 @freezed
 abstract class RecurringListState with _$RecurringListState {
-  const factory RecurringListState({
+  const factory({
     @Default([]) List<RecurringTransactionModel> recurrings,
     @Default(false) bool isLoading,
     String? error,
@@ -37,16 +37,10 @@ class RecurringListNotifier extends _$RecurringListNotifier {
 
     result.fold(
       (recurrings) {
-        state = state.copyWith(
-          recurrings: recurrings,
-          isLoading: false,
-        );
+        state = state.copyWith(recurrings: recurrings, isLoading: false);
       },
       (failure) {
-        state = state.copyWith(
-          error: failure.message,
-          isLoading: false,
-        );
+        state = state.copyWith(error: failure.message, isLoading: false);
       },
     );
   }

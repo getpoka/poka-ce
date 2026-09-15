@@ -32,7 +32,4 @@ Map<String, dynamic> _$GoalModelToJson(_GoalModel instance) => <String, dynamic>
   'color': instance.color,
 };
 
-const _$GoalStatusEnumMap = {
-  GoalStatus.active: 'active',
-  GoalStatus.completed: 'completed',
-};
+const _$GoalStatusEnumMap = {GoalStatus.active: 'active', GoalStatus.completed: 'completed'};

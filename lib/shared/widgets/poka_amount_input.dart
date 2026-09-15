@@ -10,12 +10,7 @@ import 'package:poka_ce/theme/theme.dart';
 /// Tapping it opens a bottom sheet with a Numpad for numeric entry.
 class PokaAmountInput extends StatefulWidget {
   /// Creates a PokaAmountInput.
-  const PokaAmountInput({
-    required this.amount,
-    required this.onAmountChanged,
-    required this.type,
-    super.key,
-  });
+  const new({required this.amount, required this.onAmountChanged, required this.type, super.key});
 
   /// The current amount to display.
   final int amount;
@@ -93,15 +88,9 @@ class _PokaAmountInputState extends State<PokaAmountInput> {
           children: [
             Text(
               t.shared.amount,
-              style: context.theme.typography.bodyPrimary.copyWith(
-                color: context.theme.colors.mutedForeground,
-              ),
+              style: context.theme.typography.bodyPrimary.copyWith(color: context.theme.colors.mutedForeground),
             ),
-            PokaAmountText(
-              amount: widget.amount,
-              type: widget.type,
-              style: context.theme.typography.titleCard,
-            ),
+            PokaAmountText(amount: widget.amount, type: widget.type, style: context.theme.typography.titleCard),
           ],
         ),
       ),

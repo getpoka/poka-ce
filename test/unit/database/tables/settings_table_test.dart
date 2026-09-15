@@ -18,9 +18,7 @@ void main() {
     test('insert, copyWith, equality and json round trip', () async {
       await db
           .into(db.currencies)
-          .insert(
-            CurrenciesCompanion.insert(id: const Value('cur1'), name: 'Rupiah', code: 'IDR', symbol: 'Rp'),
-          );
+          .insert(CurrenciesCompanion.insert(id: const Value('cur1'), name: 'Rupiah', code: 'IDR', symbol: 'Rp'));
       final row = await db.select(db.currencies).getSingle();
 
       expect(row.code, 'IDR');

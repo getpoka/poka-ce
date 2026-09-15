@@ -11,7 +11,7 @@ import 'package:poka_ce/theme/theme.dart';
 /// Hero card showing the period's net balance, income, and expense totals.
 /// Uses the primary gradient background following the budget summary card pattern.
 class TransactionListSummaryCard extends ConsumerWidget {
-  const TransactionListSummaryCard({required this.state, super.key});
+  const new({required this.state, super.key});
 
   final TransactionListState state;
 
@@ -36,11 +36,7 @@ class TransactionListSummaryCard extends ConsumerWidget {
           },
           label: state.periodShortLabel,
         ),
-        if (state.filter.isActive)
-          PokaHeroCardPill(
-            icon: FPhosphorIcons.funnelSimple,
-            label: t.transactions.filtered,
-          ),
+        if (state.filter.isActive) PokaHeroCardPill(icon: FPhosphorIcons.funnelSimple, label: t.transactions.filtered),
       ],
       trailing: GestureDetector(
         onTap: () => ref.read(balanceVisibilityProvider.notifier).toggle(),
@@ -54,9 +50,7 @@ class TransactionListSummaryCard extends ConsumerWidget {
       amount: PokaAmountText(
         amount: net.abs(),
         type: isPositive ? TransactionType.income : TransactionType.expense,
-        style: theme.typography.amountSection.copyWith(
-          color: theme.colors.primaryForeground,
-        ),
+        style: theme.typography.amountSection.copyWith(color: theme.colors.primaryForeground),
       ),
       // No progress bar
       leftSubAmount: PokaHeroCardSubAmount(

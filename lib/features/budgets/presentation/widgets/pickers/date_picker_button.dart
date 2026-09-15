@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 
 class DatePickerButton extends HookWidget {
-  const DatePickerButton({required this.date, required this.onChanged, super.key});
+  const new({required this.date, required this.onChanged, super.key});
 
   final DateTime? date;
   final ValueChanged<DateTime> onChanged;

@@ -39,10 +39,7 @@ final class CategoryFormNotifierProvider extends $NotifierProvider<CategoryFormN
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(CategoryFormState value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<CategoryFormState>(value),
-    );
+    return $ProviderOverride(origin: this, providerOverride: $SyncValueProvider<CategoryFormState>(value));
   }
 }
 

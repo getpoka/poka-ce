@@ -48,12 +48,7 @@ void main() {
     expect(find.text('My E2E Goal'), findsOneWidget);
 
     // 3. Update Goal
-    final goalCard = find
-        .ancestor(
-          of: find.text('My E2E Goal'),
-          matching: find.byType(GoalCard),
-        )
-        .first;
+    final goalCard = find.ancestor(of: find.text('My E2E Goal'), matching: find.byType(GoalCard)).first;
 
     // Slide left to reveal edit action
     await tester.drag(goalCard, const Offset(-500, 0));
@@ -77,12 +72,7 @@ void main() {
     expect(find.text('My E2E Goal Edited'), findsOneWidget);
 
     // 4. Delete Goal
-    final updatedGoalCard = find
-        .ancestor(
-          of: find.text('My E2E Goal Edited'),
-          matching: find.byType(GoalCard),
-        )
-        .first;
+    final updatedGoalCard = find.ancestor(of: find.text('My E2E Goal Edited'), matching: find.byType(GoalCard)).first;
 
     // Slide right to reveal delete action
     await tester.drag(updatedGoalCard, const Offset(500, 0));

@@ -12,7 +12,7 @@ part 'account_form_notifier.g.dart';
 /// Form state capturing user input for creating or editing an account/pocket.
 @freezed
 abstract class AccountFormState with _$AccountFormState {
-  const factory AccountFormState({
+  const factory({
     AccountModel? initialAccount,
     @Default('') String name,
     @Default(AccountType.assets) AccountType type,
@@ -169,10 +169,7 @@ class AccountFormNotifier extends _$AccountFormNotifier {
       case Success():
         state = state.copyWith(isSaving: false, isSuccess: true);
       case ErrorResult(error: final failure):
-        state = state.copyWith(
-          error: failure.message,
-          isSaving: false,
-        );
+        state = state.copyWith(error: failure.message, isSaving: false);
     }
   }
 }

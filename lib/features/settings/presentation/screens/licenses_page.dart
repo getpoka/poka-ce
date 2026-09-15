@@ -38,17 +38,14 @@ const List<(String, String)> _licenseNames = [
 /// "Powered by Flutter" footer is omitted.
 class LicensesScreen extends StatelessWidget {
   /// Creates a [LicensesScreen].
-  const LicensesScreen({super.key});
+  const new({super.key});
 
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;
 
     return FScaffold(
-      header: PokaHeader(
-        title: t.settings.openSourceLicenses,
-        showBack: true,
-      ),
+      header: PokaHeader(title: t.settings.openSourceLicenses, showBack: true),
       child: FutureBuilder<List<LicenseEntry>>(
         future: LicenseRegistry.licenses.toList(),
         builder: (context, snapshot) {
@@ -61,9 +58,7 @@ class LicensesScreen extends StatelessWidget {
             return Center(
               child: Text(
                 t.settings.noLicensesFound,
-                style: theme.typography.bodyPrimary.copyWith(
-                  color: theme.colors.mutedForeground,
-                ),
+                style: theme.typography.bodyPrimary.copyWith(color: theme.colors.mutedForeground),
               ),
             );
           }
@@ -89,10 +84,7 @@ class LicensesScreen extends StatelessWidget {
             separatorBuilder: (_, _) => const SizedBox(height: 12),
             itemBuilder: (context, index) {
               final package = packages[index];
-              return _LicenseTile(
-                package: package,
-                texts: byPackage[package]!,
-              );
+              return _LicenseTile(package: package, texts: byPackage[package]!);
             },
           );
         },
@@ -103,7 +95,7 @@ class LicensesScreen extends StatelessWidget {
 
 /// A distinct license text together with its detected license name.
 class _LicenseText {
-  const _LicenseText({required this.name, required this.text});
+  const new({required this.name, required this.text});
 
   /// Detected license name (e.g. "BSD License"), empty when unknown.
   final String name;
@@ -130,10 +122,7 @@ _LicenseText _licenseText(LicenseEntry entry) {
 /// Tapping the header toggles the license bodies via [FCollapsible].
 class _LicenseTile extends StatefulWidget {
   /// Creates a [_LicenseTile] for the given [package] and [texts].
-  const _LicenseTile({
-    required this.package,
-    required this.texts,
-  });
+  const new({required this.package, required this.texts});
 
   /// The package name.
   final String package;
@@ -198,10 +187,7 @@ class _LicenseTileState extends State<_LicenseTile> {
                   ),
                   if (showCount) ...[
                     Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: theme.style.app.xs,
-                        vertical: 2,
-                      ),
+                      padding: EdgeInsets.symmetric(horizontal: theme.style.app.xs, vertical: 2),
                       decoration: BoxDecoration(
                         color: theme.colors.primary.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(100),
@@ -235,12 +221,7 @@ class _LicenseTileState extends State<_LicenseTile> {
               return FCollapsible(value: value, child: child!);
             },
             child: Padding(
-              padding: EdgeInsets.fromLTRB(
-                theme.style.app.lg,
-                0,
-                theme.style.app.lg,
-                theme.style.app.lg,
-              ),
+              padding: EdgeInsets.fromLTRB(theme.style.app.lg, 0, theme.style.app.lg, theme.style.app.lg),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

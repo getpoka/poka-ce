@@ -17,10 +17,7 @@ void main() {
       overrides: [...overrides],
       child: TranslationProvider(
         child: MaterialApp(
-          builder: (context, child) => FTheme(
-            data: lightTheme,
-            child: child!,
-          ),
+          builder: (context, child) => FTheme(data: lightTheme, child: child!),
           home: Scaffold(body: child),
         ),
       ),
@@ -28,11 +25,7 @@ void main() {
   }
 
   ReportState baseState({ReportPeriod period = ReportPeriod.thisMonth}) {
-    return ReportState(
-      isLoading: false,
-      period: period,
-      data: ReportData(),
-    );
+    return ReportState(isLoading: false, period: period, data: ReportData());
   }
 
   group('ReportPeriodSelector', () {
@@ -42,9 +35,7 @@ void main() {
       await tester.pumpWidget(
         buildTestableWidget(
           const ReportPeriodSelector(),
-          overrides: [
-            reportProvider.overrideWith(() => _FakeReportNotifier(reportState)),
-          ],
+          overrides: [reportProvider.overrideWith(() => _FakeReportNotifier(reportState))],
         ),
       );
 
@@ -75,9 +66,7 @@ void main() {
       await tester.pumpWidget(
         buildTestableWidget(
           const ReportPeriodSelector(),
-          overrides: [
-            reportProvider.overrideWith(() => _FakeReportNotifier(reportState)),
-          ],
+          overrides: [reportProvider.overrideWith(() => _FakeReportNotifier(reportState))],
         ),
       );
 
@@ -102,9 +91,7 @@ void main() {
       await tester.pumpWidget(
         buildTestableWidget(
           const ReportCustomDateLabel(),
-          overrides: [
-            reportProvider.overrideWith(() => _FakeReportNotifier(reportState)),
-          ],
+          overrides: [reportProvider.overrideWith(() => _FakeReportNotifier(reportState))],
         ),
       );
 
@@ -113,18 +100,12 @@ void main() {
     });
 
     testWidgets('hides custom label when not custom', (tester) async {
-      final reportState = ReportState(
-        isLoading: false,
-        period: ReportPeriod.thisMonth,
-        data: ReportData(),
-      );
+      final reportState = ReportState(isLoading: false, period: ReportPeriod.thisMonth, data: ReportData());
 
       await tester.pumpWidget(
         buildTestableWidget(
           const ReportCustomDateLabel(),
-          overrides: [
-            reportProvider.overrideWith(() => _FakeReportNotifier(reportState)),
-          ],
+          overrides: [reportProvider.overrideWith(() => _FakeReportNotifier(reportState))],
         ),
       );
 

@@ -11,7 +11,7 @@ import 'package:poka_ce/shared/widgets/sheets/poka_sheet.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class CategorySelectionSheet extends ConsumerWidget {
-  const CategorySelectionSheet({required this.notifier, super.key});
+  const new({required this.notifier, super.key});
 
   final AccountFormNotifier notifier;
 
@@ -53,9 +53,7 @@ class CategorySelectionSheet extends ConsumerWidget {
           child: Center(
             child: Text(
               t.accounts.noCategoriesAvailable,
-              style: context.theme.typography.body.md.copyWith(
-                color: context.theme.colors.mutedForeground,
-              ),
+              style: context.theme.typography.body.md.copyWith(color: context.theme.colors.mutedForeground),
             ),
           ),
         );
@@ -77,16 +75,11 @@ class CategorySelectionSheet extends ConsumerWidget {
         final tiles = <FSelectTile<String>>[
           FSelectTile.suffix(
             prefix: Icon(IconUtil.getIcon(parent.icon), size: 18, color: color),
-            title: Text(
-              parent.name,
-              style: context.theme.typography.titleCard,
-            ),
+            title: Text(parent.name, style: context.theme.typography.titleCard),
             subtitle: children.isNotEmpty
                 ? Text(
                     t.accounts.subcategoriesCount(count: children.length),
-                    style: context.theme.typography.bodySecondary.copyWith(
-                      color: context.theme.colors.mutedForeground,
-                    ),
+                    style: context.theme.typography.bodySecondary.copyWith(color: context.theme.colors.mutedForeground),
                   )
                 : null,
             value: parent.id,
@@ -96,11 +89,7 @@ class CategorySelectionSheet extends ConsumerWidget {
             return FSelectTile.suffix(
               prefix: Padding(
                 padding: const EdgeInsets.only(left: 12),
-                child: Icon(
-                  IconUtil.getIcon(child.icon),
-                  size: 16,
-                  color: childColor,
-                ),
+                child: Icon(IconUtil.getIcon(child.icon), size: 16, color: childColor),
               ),
               title: Text(child.name),
               value: child.id,
@@ -124,11 +113,7 @@ class CategorySelectionSheet extends ConsumerWidget {
                     notifier.toggleParentCategory(parent.id, childIds);
                   } else {
                     // Child tile tapped → toggle single child + sync parent
-                    notifier.toggleChildCategory(
-                      categoryId: toggled,
-                      parentId: parent.id,
-                      allSiblingIds: childIds,
-                    );
+                    notifier.toggleChildCategory(categoryId: toggled, parentId: parent.id, allSiblingIds: childIds);
                   }
                 },
               ),
@@ -150,14 +135,8 @@ class CategorySelectionSheet extends ConsumerWidget {
       title: t.accounts.allowedCategories,
       child: FTabs(
         children: [
-          FTabEntry(
-            label: Text(t.accounts.income),
-            child: buildTab(incomeRoots),
-          ),
-          FTabEntry(
-            label: Text(t.accounts.expense),
-            child: buildTab(expenseRoots),
-          ),
+          FTabEntry(label: Text(t.accounts.income), child: buildTab(incomeRoots)),
+          FTabEntry(label: Text(t.accounts.expense), child: buildTab(expenseRoots)),
         ],
       ),
     );

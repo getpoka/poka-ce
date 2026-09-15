@@ -7,10 +7,7 @@ import 'package:poka_ce/shared/widgets/sheets/poka_sheet.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 // Helper to wrap with TranslationProvider + FTheme + MaterialApp + Scaffold
-Widget wrapWithTheme(
-  Widget child, {
-  EdgeInsets viewPadding = EdgeInsets.zero,
-}) {
+Widget wrapWithTheme(Widget child, {EdgeInsets viewPadding = EdgeInsets.zero}) {
   return TranslationProvider(
     child: MaterialApp(
       builder: (context, c) => FTheme(data: lightTheme, child: c!),
@@ -173,9 +170,7 @@ void main() {
           Builder(
             builder: (context) {
               final inset = pokaSheetBottomInset(context);
-              return Text(
-                'l:${inset.left} t:${inset.top} r:${inset.right} b:${inset.bottom}',
-              );
+              return Text('l:${inset.left} t:${inset.top} r:${inset.right} b:${inset.bottom}');
             },
           ),
           viewPadding: const EdgeInsets.only(bottom: 10, top: 5, left: 5),
@@ -264,12 +259,7 @@ void main() {
 
     testWidgets('custom padding is applied plus bottom inset', (tester) async {
       const customPadding = EdgeInsets.fromLTRB(10, 10, 10, 10);
-      await tester.pumpWidget(
-        wrapSheet(
-          padding: customPadding,
-          viewPadding: const EdgeInsets.only(bottom: 34),
-        ),
-      );
+      await tester.pumpWidget(wrapSheet(padding: customPadding, viewPadding: const EdgeInsets.only(bottom: 34)));
       // effectivePadding = customPadding.add(bottom: 46)
       // Find Padding widget that wraps child
       final paddingWidgets = tester.widgetList<Padding>(find.byType(Padding));
@@ -289,9 +279,7 @@ void main() {
     });
 
     testWidgets('default padding adds bottom inset', (tester) async {
-      await tester.pumpWidget(
-        wrapSheet(viewPadding: const EdgeInsets.only(bottom: 20)),
-      );
+      await tester.pumpWidget(wrapSheet(viewPadding: const EdgeInsets.only(bottom: 20)));
       // wrapSheet helper default padding 20,8,20,0 + bottom 32 => 20,8,20,32
       final paddingWidgets = tester.widgetList<Padding>(find.byType(Padding));
       bool found = false;
@@ -308,16 +296,12 @@ void main() {
     });
 
     testWidgets('leading widget is displayed', (tester) async {
-      await tester.pumpWidget(
-        wrapSheet(leading: const Text('Leading Widget')),
-      );
+      await tester.pumpWidget(wrapSheet(leading: const Text('Leading Widget')));
       expect(find.text('Leading Widget'), findsOneWidget);
     });
 
     testWidgets('trailing widget is displayed', (tester) async {
-      await tester.pumpWidget(
-        wrapSheet(trailing: const Text('Trailing Widget')),
-      );
+      await tester.pumpWidget(wrapSheet(trailing: const Text('Trailing Widget')));
       expect(find.text('Trailing Widget'), findsOneWidget);
       // Should show trailing instead of close button
       expect(find.byIcon(FPhosphorIcons.x), findsNothing);
@@ -325,10 +309,7 @@ void main() {
 
     testWidgets('leading and trailing both displayed', (tester) async {
       await tester.pumpWidget(
-        wrapSheet(
-          leading: const Icon(FPhosphorIcons.house),
-          trailing: const Text('Custom Trailing'),
-        ),
+        wrapSheet(leading: const Icon(FPhosphorIcons.house), trailing: const Text('Custom Trailing')),
       );
       expect(find.byIcon(FPhosphorIcons.house), findsOneWidget);
       expect(find.text('Custom Trailing'), findsOneWidget);
@@ -349,13 +330,7 @@ void main() {
     });
 
     testWidgets('shows child with custom widget', (tester) async {
-      await tester.pumpWidget(
-        wrapSheet(
-          child: const Column(
-            children: [Text('A'), Text('B')],
-          ),
-        ),
-      );
+      await tester.pumpWidget(wrapSheet(child: const Column(children: [Text('A'), Text('B')])));
       expect(find.text('A'), findsOneWidget);
       expect(find.text('B'), findsOneWidget);
     });
@@ -430,9 +405,7 @@ void main() {
 
     testWidgets('useRootNavigator false works', (tester) async {
       String? result;
-      await tester.pumpWidget(
-        wrapHost(SheetHost(useRootNavigator: false, onResult: (v) => result = v as String?)),
-      );
+      await tester.pumpWidget(wrapHost(SheetHost(useRootNavigator: false, onResult: (v) => result = v as String?)));
       await tester.tap(find.text('Open Sheet'));
       await tester.pumpAndSettle();
 
@@ -444,9 +417,7 @@ void main() {
 
     testWidgets('isScrollControlled true still shows sheet', (tester) async {
       String? result;
-      await tester.pumpWidget(
-        wrapHost(SheetHost(isScrollControlled: true, onResult: (v) => result = v as String?)),
-      );
+      await tester.pumpWidget(wrapHost(SheetHost(isScrollControlled: true, onResult: (v) => result = v as String?)));
       await tester.tap(find.text('Open Sheet'));
       await tester.pumpAndSettle();
       expect(find.text('Inside Sheet'), findsOneWidget);
@@ -457,9 +428,7 @@ void main() {
 
     testWidgets('isScrollControlled false still shows sheet', (tester) async {
       String? result;
-      await tester.pumpWidget(
-        wrapHost(SheetHost(isScrollControlled: false, onResult: (v) => result = v as String?)),
-      );
+      await tester.pumpWidget(wrapHost(SheetHost(isScrollControlled: false, onResult: (v) => result = v as String?)));
       await tester.tap(find.text('Open Sheet'));
       await tester.pumpAndSettle();
       expect(find.text('Inside Sheet'), findsOneWidget);
@@ -469,9 +438,7 @@ void main() {
     });
 
     testWidgets('decoration uses theme background color', (tester) async {
-      await tester.pumpWidget(
-        wrapHost(const SheetHost(fitContent: false)),
-      );
+      await tester.pumpWidget(wrapHost(const SheetHost(fitContent: false)));
       await tester.tap(find.text('Open Sheet'));
       await tester.pumpAndSettle();
 
@@ -494,9 +461,7 @@ void main() {
     });
 
     testWidgets('barrier tap dismisses when persistent false', (tester) async {
-      await tester.pumpWidget(
-        wrapHost(const SheetHost(persistent: false)),
-      );
+      await tester.pumpWidget(wrapHost(const SheetHost(persistent: false)));
       await tester.tap(find.text('Open Sheet'));
       await tester.pumpAndSettle();
       expect(find.text('Inside Sheet'), findsOneWidget);

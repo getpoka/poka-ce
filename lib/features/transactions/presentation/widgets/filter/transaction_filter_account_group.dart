@@ -8,12 +8,7 @@ import 'package:poka_ce/shared/widgets/poka_pill.dart';
 
 /// A group of selectable pills for filtering by account.
 class TransactionFilterAccountGroup extends HookWidget {
-  const TransactionFilterAccountGroup({
-    required this.accounts,
-    required this.selectedIds,
-    required this.onChanged,
-    super.key,
-  });
+  const new({required this.accounts, required this.selectedIds, required this.onChanged, super.key});
 
   final List<AccountModel> accounts;
   final Set<String> selectedIds;
@@ -41,11 +36,7 @@ class TransactionFilterAccountGroup extends HookWidget {
             children: topAccounts.map((account) {
               final isSelected = selectedIds.contains(account.id);
               final isExpanded = activeParentId.value == account.id;
-              final color = Color(
-                int.parse(
-                  account.color?.replaceFirst('#', '0xFF') ?? '0xFF94A3B8',
-                ),
-              );
+              final color = Color(int.parse(account.color?.replaceFirst('#', '0xFF') ?? '0xFF94A3B8'));
               return PokaPill(
                 icon: IconUtil.getIcon(account.icon),
                 label: account.name,
@@ -79,11 +70,7 @@ class TransactionFilterAccountGroup extends HookWidget {
             PokaPillScrollRow(
               children: accountChildren.map((pocket) {
                 final isSelected = selectedIds.contains(pocket.id);
-                final color = Color(
-                  int.parse(
-                    pocket.color?.replaceFirst('#', '0xFF') ?? '0xFF94A3B8',
-                  ),
-                );
+                final color = Color(int.parse(pocket.color?.replaceFirst('#', '0xFF') ?? '0xFF94A3B8'));
                 return PokaPill(
                   icon: IconUtil.getIcon(pocket.icon),
                   label: pocket.name,

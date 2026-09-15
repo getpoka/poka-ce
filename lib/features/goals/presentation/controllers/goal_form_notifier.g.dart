@@ -36,10 +36,7 @@ final class GoalFormNotifierProvider extends $NotifierProvider<GoalFormNotifier,
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(GoalFormState value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<GoalFormState>(value),
-    );
+    return $ProviderOverride(origin: this, providerOverride: $SyncValueProvider<GoalFormState>(value));
   }
 }
 

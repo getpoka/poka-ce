@@ -14,10 +14,7 @@ import 'package:poka_ce/theme/theme.dart';
 
 /// Screen for displaying details of a specific category and its sub-categories.
 class CategoryDetailPage extends ConsumerWidget {
-  const CategoryDetailPage({
-    required this.category,
-    super.key,
-  });
+  const new({required this.category, super.key});
 
   final CategoryModel category;
 
@@ -32,10 +29,7 @@ class CategoryDetailPage extends ConsumerWidget {
     final subcategories = categories.where((c) => c.parentId == activeCategory.id).toList();
 
     return FScaffold(
-      header: PokaHeader(
-        title: activeCategory.name,
-        showBack: true,
-      ),
+      header: PokaHeader(title: activeCategory.name, showBack: true),
       child: RefreshIndicator(
         onRefresh: () => ref.read(categoryListProvider.notifier).refresh(),
         child: SingleChildScrollView(
@@ -90,11 +84,8 @@ class CategoryDetailPage extends ConsumerWidget {
                   title: t.categories.noSubcategoriesYet,
                   subtitle: t.categories.emptySubcategorySubtitle,
                   actionLabel: t.categories.addSubcategory,
-                  onAction: () => CategoryFormSheet.show(
-                    context,
-                    parentId: activeCategory.id,
-                    initialType: activeCategory.type,
-                  ),
+                  onAction: () =>
+                      CategoryFormSheet.show(context, parentId: activeCategory.id, initialType: activeCategory.type),
                 )
               else
                 ReorderableListView.builder(
@@ -105,20 +96,12 @@ class CategoryDetailPage extends ConsumerWidget {
                     HapticFeedback.mediumImpact();
                   },
                   proxyDecorator: (child, index, animation) {
-                    return Material(
-                      color: Colors.transparent,
-                      child: child,
-                    );
+                    return Material(color: Colors.transparent, child: child);
                   },
                   onReorderItem: (oldIndex, newIndex) {
                     ref
                         .read(categoryListProvider.notifier)
-                        .reorderCategories(
-                          oldIndex,
-                          newIndex,
-                          activeCategory.type,
-                          parentId: activeCategory.id,
-                        );
+                        .reorderCategories(oldIndex, newIndex, activeCategory.type, parentId: activeCategory.id);
                   },
                   itemBuilder: (context, index) {
                     final subcat = subcategories[index];

@@ -19,9 +19,7 @@ void main() {
   late AccountRepositoryImpl repository;
 
   setUpAll(() {
-    registerFallbackValue(
-      const db.AccountsCompanion(),
-    );
+    registerFallbackValue(const db.AccountsCompanion());
   });
 
   setUp(() {
@@ -35,10 +33,7 @@ void main() {
     final result = await repository.getAccounts();
 
     expect(result, isA<ErrorResult<List<AccountModel>, Failure>>());
-    result.fold(
-      (_) => fail('Should not succeed'),
-      (error) => expect(error, isA<DatabaseFailure>()),
-    );
+    result.fold((_) => fail('Should not succeed'), (error) => expect(error, isA<DatabaseFailure>()));
   });
 
   test('getAccountById returns DatabaseFailure when DAO throws', () async {
@@ -47,10 +42,7 @@ void main() {
     final result = await repository.getAccountById('acc-1');
 
     expect(result, isA<ErrorResult<AccountModel, Failure>>());
-    result.fold(
-      (_) => fail('Should not succeed'),
-      (error) => expect(error, isA<DatabaseFailure>()),
-    );
+    result.fold((_) => fail('Should not succeed'), (error) => expect(error, isA<DatabaseFailure>()));
   });
 
   test('createAccount returns DatabaseFailure when DAO throws', () async {
@@ -59,13 +51,8 @@ void main() {
     final result = await repository.createAccount(_buildAccount());
 
     expect(result, isA<ErrorResult<void, Failure>>());
-    result.fold(
-      (_) => fail('Should not succeed'),
-      (error) => expect(error, isA<DatabaseFailure>()),
-    );
-    verifyNever(
-      () => dao.setAccountCategories(any(), any<List<String>>()),
-    );
+    result.fold((_) => fail('Should not succeed'), (error) => expect(error, isA<DatabaseFailure>()));
+    verifyNever(() => dao.setAccountCategories(any(), any<List<String>>()));
   });
 
   test('updateAccount returns DatabaseFailure when DAO throws', () async {
@@ -74,10 +61,7 @@ void main() {
     final result = await repository.updateAccount(_buildAccount());
 
     expect(result, isA<ErrorResult<void, Failure>>());
-    result.fold(
-      (_) => fail('Should not succeed'),
-      (error) => expect(error, isA<DatabaseFailure>()),
-    );
+    result.fold((_) => fail('Should not succeed'), (error) => expect(error, isA<DatabaseFailure>()));
   });
 
   test('deactivateAccount returns DatabaseFailure when DAO throws', () async {
@@ -86,10 +70,7 @@ void main() {
     final result = await repository.deactivateAccount('acc-1');
 
     expect(result, isA<ErrorResult<void, Failure>>());
-    result.fold(
-      (_) => fail('Should not succeed'),
-      (error) => expect(error, isA<DatabaseFailure>()),
-    );
+    result.fold((_) => fail('Should not succeed'), (error) => expect(error, isA<DatabaseFailure>()));
   });
 }
 

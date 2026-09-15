@@ -58,14 +58,11 @@ void main() {
     final result = await repository.getAccountById('acc2');
 
     expect(result, isA<Success<AccountModel, Failure>>());
-    result.fold(
-      (value) {
-        expect(value.id, 'acc2');
-        expect(value.name, 'Bank');
-        expect(value.balance, 100000);
-      },
-      (error) => fail('Should not be error'),
-    );
+    result.fold((value) {
+      expect(value.id, 'acc2');
+      expect(value.name, 'Bank');
+      expect(value.balance, 100000);
+    }, (error) => fail('Should not be error'));
   });
 
   test('createAccount persists initialBalance and category restrictions', () async {
@@ -101,13 +98,10 @@ void main() {
 
     final fetchedResult = await repository.getAccountById('acc3');
     expect(fetchedResult, isA<Success<AccountModel, Failure>>());
-    fetchedResult.fold(
-      (value) {
-        expect(value.initialBalance, 150000);
-        expect(value.restrictedCategoryIds, ['cat1']);
-      },
-      (error) => fail('Failed to fetch account'),
-    );
+    fetchedResult.fold((value) {
+      expect(value.initialBalance, 150000);
+      expect(value.restrictedCategoryIds, ['cat1']);
+    }, (error) => fail('Failed to fetch account'));
   });
 
   test('updateAccount updates initialBalance and clears category restrictions', () async {
@@ -137,24 +131,17 @@ void main() {
     await repository.createAccount(model);
 
     // Update with empty restricted categories and new initial balance
-    final updatedModel = model.copyWith(
-      name: 'Updated Wallet',
-      initialBalance: 200000,
-      restrictedCategoryIds: [],
-    );
+    final updatedModel = model.copyWith(name: 'Updated Wallet', initialBalance: 200000, restrictedCategoryIds: []);
     final updateResult = await repository.updateAccount(updatedModel);
     expect(updateResult, isA<Success<void, Failure>>());
 
     final fetchedResult = await repository.getAccountById('acc4');
     expect(fetchedResult, isA<Success<AccountModel, Failure>>());
-    fetchedResult.fold(
-      (value) {
-        expect(value.name, 'Updated Wallet');
-        expect(value.initialBalance, 200000);
-        expect(value.restrictedCategoryIds, isEmpty);
-      },
-      (error) => fail('Failed to fetch account'),
-    );
+    fetchedResult.fold((value) {
+      expect(value.name, 'Updated Wallet');
+      expect(value.initialBalance, 200000);
+      expect(value.restrictedCategoryIds, isEmpty);
+    }, (error) => fail('Failed to fetch account'));
   });
 
   test('deactivateAccount sets isActive to false', () async {

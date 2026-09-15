@@ -10,9 +10,7 @@ void main() {
     test('providers can be overridden and read', () async {
       final db = AppDatabase(connection: NativeDatabase.memory());
       addTearDown(db.close);
-      final container = ProviderContainer(
-        overrides: [databaseProvider.overrideWithValue(db)],
-      );
+      final container = ProviderContainer(overrides: [databaseProvider.overrideWithValue(db)]);
       addTearDown(container.dispose);
       // Just ensure providers exist and are readable via override
       expect(container.read(databaseProvider), same(db));
@@ -29,9 +27,7 @@ void main() {
     test('databaseProvider returns same instance within container', () {
       final db = AppDatabase(connection: NativeDatabase.memory());
       addTearDown(db.close);
-      final container = ProviderContainer(
-        overrides: [databaseProvider.overrideWithValue(db)],
-      );
+      final container = ProviderContainer(overrides: [databaseProvider.overrideWithValue(db)]);
       addTearDown(container.dispose);
       final db1 = container.read(databaseProvider);
       final db2 = container.read(databaseProvider);

@@ -79,11 +79,11 @@ FTileGroupStyle tileGroupStyle({
   ),
   tileStyles: FTileStyles(
     FVariants.from(
-      _tileStyle(colors: colors, typography: typography, style: style).copyWith(
-        contentDecoration: .delta([
-          .all(const .shapeDelta(shape: RoundedSuperellipseBorder())),
-        ]),
-      ),
+      _tileStyle(
+        colors: colors,
+        typography: typography,
+        style: style,
+      ).copyWith(contentDecoration: .delta([.all(const .shapeDelta(shape: RoundedSuperellipseBorder()))])),
       variants: {
         [.primary]: const .delta(),
         [.destructive]: .delta(
@@ -105,28 +105,14 @@ FTileGroupStyle tileGroupStyle({
     ),
   ),
   descriptionTextStyle: style.formFieldStyle.descriptionTextStyle.apply([
-    .all(
-      .delta(
-        fontSize: typography.caption.fontSize,
-        height: typography.caption.height,
-      ),
-    ),
+    .all(.delta(fontSize: typography.caption.fontSize, height: typography.caption.height)),
   ]),
   errorTextStyle: style.formFieldStyle.errorTextStyle.apply([
-    .all(
-      .delta(
-        fontSize: typography.caption.fontSize,
-        height: typography.caption.height,
-      ),
-    ),
+    .all(.delta(fontSize: typography.caption.fontSize, height: typography.caption.height)),
   ]),
 );
 
-FTileStyle _tileStyle({
-  required FColors colors,
-  required FTypography typography,
-  required FStyle style,
-}) => FTileStyle(
+FTileStyle _tileStyle({required FColors colors, required FTypography typography, required FStyle style}) => FTileStyle(
   backgroundColor: .all(colors.card),
   contentDecoration: FVariants.from(
     ShapeDecoration(
@@ -159,9 +145,7 @@ FTileStyle _tileStyle({
     pressedEnterDuration: .zero,
     pressedExitDuration: const Duration(milliseconds: 25),
   ),
-  focusedOutlineStyle: style.focusedOutlineStyle.copyWith(
-    spacing: -style.borderWidth * 2,
-  ),
+  focusedOutlineStyle: style.focusedOutlineStyle.copyWith(spacing: -style.borderWidth * 2),
   shape: RoundedSuperellipseBorder(borderRadius: style.borderRadius.md),
   padding: .zero,
 );

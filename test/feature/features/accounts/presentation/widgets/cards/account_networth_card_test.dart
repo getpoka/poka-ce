@@ -34,10 +34,7 @@ void main() {
       ],
       child: TranslationProvider(
         child: MaterialApp(
-          builder: (context, child) => FTheme(
-            data: lightTheme,
-            child: child!,
-          ),
+          builder: (context, child) => FTheme(data: lightTheme, child: child!),
           home: Scaffold(
             body: SingleChildScrollView(
               child: AccountNetworthCard(
@@ -57,12 +54,7 @@ void main() {
   group('AccountNetworthCard', () {
     testWidgets('displays correct text when visible', (tester) async {
       await tester.pumpWidget(
-        createWidgetUnderTest(
-          netWorth: 1234.56,
-          totalAssets: 2000,
-          totalLiabilities: 765.44,
-          activeAccountCount: 3,
-        ),
+        createWidgetUnderTest(netWorth: 1234.56, totalAssets: 2000, totalLiabilities: 765.44, activeAccountCount: 3),
       );
       await tester.pump();
 
@@ -78,27 +70,17 @@ void main() {
     });
 
     testWidgets('obscures text when isBalanceVisible is false', (tester) async {
-      await tester.pumpWidget(
-        createWidgetUnderTest(
-          netWorth: 1234.56,
-          isBalanceVisible: false,
-        ),
-      );
+      await tester.pumpWidget(createWidgetUnderTest(netWorth: 1234.56, isBalanceVisible: false));
       await tester.pump();
 
       expect(find.text('USD ••••••'), findsNWidgets(3)); // net worth, assets, liabilities
       // should not show raw formatted value
       expect(find.textContaining('1,234'), findsNothing);
-      expect(
-        find.byWidgetPredicate((w) => w is Icon && w.icon == FPhosphorIcons.eyeClosed),
-        findsOneWidget,
-      );
+      expect(find.byWidgetPredicate((w) => w is Icon && w.icon == FPhosphorIcons.eyeClosed), findsOneWidget);
     });
 
     testWidgets('calls toggle and changes icon when eye is tapped', (tester) async {
-      await tester.pumpWidget(
-        createWidgetUnderTest(),
-      );
+      await tester.pumpWidget(createWidgetUnderTest());
       await tester.pump();
 
       expect(find.byWidgetPredicate((w) => w is Icon && w.icon == FPhosphorIcons.eye), findsOneWidget);
@@ -107,26 +89,15 @@ void main() {
       await tester.pump();
 
       // After tap, icon should change to eyeClosed via provider
-      expect(
-        find.byWidgetPredicate((w) => w is Icon && w.icon == FPhosphorIcons.eyeClosed),
-        findsOneWidget,
-      );
+      expect(find.byWidgetPredicate((w) => w is Icon && w.icon == FPhosphorIcons.eyeClosed), findsOneWidget);
       // amounts should now be obscured
       expect(find.text('USD ••••••'), findsNWidgets(3));
     });
 
     testWidgets('tapping eye when hidden makes visible again', (tester) async {
-      await tester.pumpWidget(
-        createWidgetUnderTest(
-          netWorth: 500,
-          isBalanceVisible: false,
-        ),
-      );
+      await tester.pumpWidget(createWidgetUnderTest(netWorth: 500, isBalanceVisible: false));
       await tester.pump();
-      expect(
-        find.byWidgetPredicate((w) => w is Icon && w.icon == FPhosphorIcons.eyeClosed),
-        findsOneWidget,
-      );
+      expect(find.byWidgetPredicate((w) => w is Icon && w.icon == FPhosphorIcons.eyeClosed), findsOneWidget);
       await tester.tap(find.byWidgetPredicate((w) => w is Icon && w.icon == FPhosphorIcons.eyeClosed));
       await tester.pump();
       expect(find.byWidgetPredicate((w) => w is Icon && w.icon == FPhosphorIcons.eye), findsOneWidget);
@@ -135,12 +106,7 @@ void main() {
 
     testWidgets('displays zero accounts and handles zero balances', (tester) async {
       await tester.pumpWidget(
-        createWidgetUnderTest(
-          netWorth: 0,
-          totalAssets: 0,
-          totalLiabilities: 0,
-          activeAccountCount: 0,
-        ),
+        createWidgetUnderTest(netWorth: 0, totalAssets: 0, totalLiabilities: 0, activeAccountCount: 0),
       );
       await tester.pump();
       expect(find.text('0 accounts'), findsOneWidget);
@@ -169,23 +135,13 @@ void main() {
       expect(find.byWidgetPredicate((w) => w is Icon && w.icon == FPhosphorIcons.wallet), findsOneWidget);
       expect(find.byWidgetPredicate((w) => w is Icon && w.icon == FPhosphorIcons.bank), findsOneWidget);
       // sub balance icons
-      expect(
-        find.byWidgetPredicate((w) => w is Icon && w.icon == FPhosphorIcons.trendUp),
-        findsOneWidget,
-      );
-      expect(
-        find.byWidgetPredicate((w) => w is Icon && w.icon == FPhosphorIcons.trendDown),
-        findsOneWidget,
-      );
+      expect(find.byWidgetPredicate((w) => w is Icon && w.icon == FPhosphorIcons.trendUp), findsOneWidget);
+      expect(find.byWidgetPredicate((w) => w is Icon && w.icon == FPhosphorIcons.trendDown), findsOneWidget);
       // divider removed from UI
     });
 
     testWidgets('renders sparkline in background when sparklineData is provided', (tester) async {
-      await tester.pumpWidget(
-        createWidgetUnderTest(
-          sparklineData: [1000, 1100, 1050, 1200, 1150, 1300, 1400],
-        ),
-      );
+      await tester.pumpWidget(createWidgetUnderTest(sparklineData: [1000, 1100, 1050, 1200, 1150, 1300, 1400]));
       await tester.pumpAndSettle();
 
       expect(find.byType(PokaSparkline), findsOneWidget);
@@ -215,13 +171,7 @@ class _FakeSettingsNotifier extends SettingsNotifier {
       settings: SettingsModel(
         themeMode: 'system',
         language: 'en',
-        baseCurrency: CurrencyModel(
-          id: '1',
-          code: currency,
-          symbol: currency,
-          precision: 2,
-          name: 'USD',
-        ),
+        baseCurrency: CurrencyModel(id: '1', code: currency, symbol: currency, precision: 2, name: 'USD'),
       ),
     );
   }

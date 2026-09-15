@@ -15,11 +15,7 @@ enum ReportPeriod { thisMonth, lastMonth, last3Months, last6Months, custom }
 
 /// Summary of income / expense / net for a period.
 class ReportSummary {
-  const ReportSummary({
-    this.totalIncome = 0,
-    this.totalExpense = 0,
-    this.transactionCount = 0,
-  });
+  const new({this.totalIncome = 0, this.totalExpense = 0, this.transactionCount = 0});
 
   final double totalIncome;
   final double totalExpense;
@@ -35,11 +31,7 @@ class ReportSummary {
 
 /// Period-over-period comparison data.
 class ReportComparison {
-  const ReportComparison({
-    this.prevIncome = 0,
-    this.prevExpense = 0,
-    this.prevNetCashflow = 0,
-  });
+  const new({this.prevIncome = 0, this.prevExpense = 0, this.prevNetCashflow = 0});
 
   final double prevIncome;
   final double prevExpense;
@@ -64,7 +56,7 @@ class ReportComparison {
 
 /// One category's spend/income item for the report.
 class ReportCategoryItem {
-  const ReportCategoryItem({
+  const new({
     required this.name,
     required this.color,
     required this.amount,
@@ -83,7 +75,7 @@ class ReportCategoryItem {
 
 /// A single weekly/monthly data point for the trend chart.
 class ReportTrendPoint {
-  const ReportTrendPoint({
+  const new({
     required this.label,
     required this.income,
     required this.expense,
@@ -100,11 +92,7 @@ class ReportTrendPoint {
 
 /// Spending allocation by budget category (Need / Want / Save).
 class ReportBudgetAllocation {
-  const ReportBudgetAllocation({
-    this.need = 0,
-    this.want = 0,
-    this.saving = 0,
-  });
+  const new({this.need = 0, this.want = 0, this.saving = 0});
 
   final double need;
   final double want;
@@ -118,7 +106,7 @@ class ReportBudgetAllocation {
 
 /// Aggregated report data for the selected period.
 class ReportData {
-  const ReportData({
+  const new({
     this.summary = const ReportSummary(),
     this.comparison = const ReportComparison(),
     this.expenseCategoryItems = const [],
@@ -141,7 +129,7 @@ class ReportData {
 
 /// Pure static calculation service — no Flutter/state dependencies.
 class ReportAnalyticsService {
-  const ReportAnalyticsService._();
+  const new _();
 
   /// Computes comprehensive financial report metrics (cashflow, category breakdown, trends, and budget utilization)
   /// for the specified [period] across [allTransactions] and [categories].
@@ -202,11 +190,7 @@ class ReportAnalyticsService {
       }
     }
 
-    final summary = ReportSummary(
-      totalIncome: income,
-      totalExpense: expense,
-      transactionCount: txCount,
-    );
+    final summary = ReportSummary(totalIncome: income, totalExpense: expense, transactionCount: txCount);
 
     // ── Previous period summary (for comparison) ──────────────────────────────
     var prevIncome = 0.0;
@@ -299,22 +283,14 @@ class ReportAnalyticsService {
     };
   }
 
-  static List<TransactionModel> _filterTx(
-    List<TransactionModel> txs,
-    DateTime start,
-    DateTime end,
-  ) {
+  static List<TransactionModel> _filterTx(List<TransactionModel> txs, DateTime start, DateTime end) {
     return txs.where((t) {
       final d = t.transactionDate.toLocal();
       return d.isAfter(start.subtract(const Duration(seconds: 1))) && d.isBefore(end.add(const Duration(seconds: 1)));
     }).toList();
   }
 
-  static List<ReportTrendPoint> _buildTrend(
-    List<TransactionModel> txs,
-    ReportPeriod period,
-    DateTime start,
-  ) {
+  static List<ReportTrendPoint> _buildTrend(List<TransactionModel> txs, ReportPeriod period, DateTime start) {
     if (period == ReportPeriod.thisMonth || period == ReportPeriod.lastMonth || period == ReportPeriod.custom) {
       return _buildWeeklyTrend(txs, start);
     }
@@ -322,10 +298,7 @@ class ReportAnalyticsService {
     return _buildMonthlyTrend(txs, start, months);
   }
 
-  static List<ReportTrendPoint> _buildWeeklyTrend(
-    List<TransactionModel> txs,
-    DateTime start,
-  ) {
+  static List<ReportTrendPoint> _buildWeeklyTrend(List<TransactionModel> txs, DateTime start) {
     final buckets = List.generate(4, (_) => (income: 0.0, expense: 0.0));
     for (final tx in txs) {
       final d = tx.transactionDate.toLocal();
@@ -355,11 +328,7 @@ class ReportAnalyticsService {
     );
   }
 
-  static List<ReportTrendPoint> _buildMonthlyTrend(
-    List<TransactionModel> txs,
-    DateTime start,
-    int months,
-  ) {
+  static List<ReportTrendPoint> _buildMonthlyTrend(List<TransactionModel> txs, DateTime start, int months) {
     final now = DateTime.now();
     final points = <ReportTrendPoint>[];
     final monthlyData = <String, (double income, double expense)>{};

@@ -14,7 +14,7 @@ import 'package:poka_ce/theme/theme.dart';
 /// Dedicated screen for unlocking the app via PIN or Biometrics.
 /// Shows automatically if the user has a valid session but the app is locked.
 class LockScreen extends ConsumerStatefulWidget {
-  const LockScreen({super.key});
+  const new({super.key});
 
   @override
   ConsumerState<LockScreen> createState() => _LockScreenState();
@@ -75,10 +75,7 @@ class _LockScreenState extends ConsumerState<LockScreen> {
   Future<void> _triggerBiometric() async {
     final authenticated = await ref.read(appLockControllerProvider.notifier).authenticateBiometric();
     if (authenticated && mounted) {
-      showPokaToast(
-        context: context,
-        title: Text(context.t.lock.unlocked),
-      );
+      showPokaToast(context: context, title: Text(context.t.lock.unlocked));
       context.go('/');
     }
   }
@@ -112,20 +109,14 @@ class _LockScreenState extends ConsumerState<LockScreen> {
 
     switch (result) {
       case PinVerificationResult.success:
-        showPokaToast(
-          context: context,
-          title: Text(context.t.lock.unlocked),
-        );
+        showPokaToast(context: context, title: Text(context.t.lock.unlocked));
         context.go('/');
       case PinVerificationResult.wrongPin:
         setState(() {
           _isError = true;
           _pin = '';
         });
-        showPokaToast(
-          context: context,
-          title: Text(context.t.lock.invalidPin),
-        );
+        showPokaToast(context: context, title: Text(context.t.lock.invalidPin));
       case PinVerificationResult.lockedOut:
         _startLockoutTimer();
         setState(() {
@@ -161,10 +152,7 @@ class _LockScreenState extends ConsumerState<LockScreen> {
                   const Spacer(),
                   const Icon(FPhosphorIcons.lockKey, size: 48),
                   const SizedBox(height: 16),
-                  Text(
-                    context.t.lock.enterPin,
-                    style: context.theme.typography.display.sm,
-                  ),
+                  Text(context.t.lock.enterPin, style: context.theme.typography.display.sm),
                   const SizedBox(height: 8),
                   Text(
                     subtitle,

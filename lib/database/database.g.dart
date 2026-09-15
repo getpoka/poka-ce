@@ -46,9 +46,7 @@ class $CurrenciesTable extends Currencies with TableInfo<$CurrenciesTable, Curre
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
-  static const VerificationMeta _precisionMeta = const VerificationMeta(
-    'precision',
-  );
+  static const VerificationMeta _precisionMeta = const VerificationMeta('precision');
   @override
   late final GeneratedColumn<int> precision = GeneratedColumn<int>(
     'precision',
@@ -58,9 +56,7 @@ class $CurrenciesTable extends Currencies with TableInfo<$CurrenciesTable, Curre
     requiredDuringInsert: false,
     defaultValue: const Constant(2),
   );
-  static const VerificationMeta _createdAtMeta = const VerificationMeta(
-    'createdAt',
-  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta('createdAt');
   @override
   late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
     'created_at',
@@ -70,9 +66,7 @@ class $CurrenciesTable extends Currencies with TableInfo<$CurrenciesTable, Curre
     requiredDuringInsert: false,
     defaultValue: currentDateAndTime,
   );
-  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
-    'updatedAt',
-  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta('updatedAt');
   @override
   late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
     'updated_at',
@@ -83,71 +77,42 @@ class $CurrenciesTable extends Currencies with TableInfo<$CurrenciesTable, Curre
     defaultValue: currentDateAndTime,
   );
   @override
-  List<GeneratedColumn> get $columns => [
-    id,
-    name,
-    code,
-    symbol,
-    precision,
-    createdAt,
-    updatedAt,
-  ];
+  List<GeneratedColumn> get $columns => [id, name, code, symbol, precision, createdAt, updatedAt];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
   static const String $name = 'currencies';
   @override
-  VerificationContext validateIntegrity(
-    Insertable<Currency> instance, {
-    bool isInserting = false,
-  }) {
+  VerificationContext validateIntegrity(Insertable<Currency> instance, {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
     if (data.containsKey('name')) {
-      context.handle(
-        _nameMeta,
-        name.isAcceptableOrUnknown(data['name']!, _nameMeta),
-      );
+      context.handle(_nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
     } else if (isInserting) {
       context.missing(_nameMeta);
     }
     if (data.containsKey('code')) {
-      context.handle(
-        _codeMeta,
-        code.isAcceptableOrUnknown(data['code']!, _codeMeta),
-      );
+      context.handle(_codeMeta, code.isAcceptableOrUnknown(data['code']!, _codeMeta));
     } else if (isInserting) {
       context.missing(_codeMeta);
     }
     if (data.containsKey('symbol')) {
-      context.handle(
-        _symbolMeta,
-        symbol.isAcceptableOrUnknown(data['symbol']!, _symbolMeta),
-      );
+      context.handle(_symbolMeta, symbol.isAcceptableOrUnknown(data['symbol']!, _symbolMeta));
     } else if (isInserting) {
       context.missing(_symbolMeta);
     }
     if (data.containsKey('precision')) {
-      context.handle(
-        _precisionMeta,
-        precision.isAcceptableOrUnknown(data['precision']!, _precisionMeta),
-      );
+      context.handle(_precisionMeta, precision.isAcceptableOrUnknown(data['precision']!, _precisionMeta));
     }
     if (data.containsKey('created_at')) {
-      context.handle(
-        _createdAtMeta,
-        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
-      );
+      context.handle(_createdAtMeta, createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
     }
     if (data.containsKey('updated_at')) {
-      context.handle(
-        _updatedAtMeta,
-        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
-      );
+      context.handle(_updatedAtMeta, updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta));
     }
     return context;
   }
@@ -158,34 +123,13 @@ class $CurrenciesTable extends Currencies with TableInfo<$CurrenciesTable, Curre
   Currency map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return Currency(
-      id: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}id'],
-      )!,
-      name: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}name'],
-      )!,
-      code: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}code'],
-      )!,
-      symbol: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}symbol'],
-      )!,
-      precision: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}precision'],
-      )!,
-      createdAt: attachedDatabase.typeMapping.read(
-        DriftSqlType.dateTime,
-        data['${effectivePrefix}created_at'],
-      )!,
-      updatedAt: attachedDatabase.typeMapping.read(
-        DriftSqlType.dateTime,
-        data['${effectivePrefix}updated_at'],
-      )!,
+      id: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      name: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}name'])!,
+      code: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}code'])!,
+      symbol: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}symbol'])!,
+      precision: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}precision'])!,
+      createdAt: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
+      updatedAt: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}updated_at'])!,
     );
   }
 
@@ -237,10 +181,7 @@ class Currency extends DataClass implements Insertable<Currency> {
     );
   }
 
-  factory Currency.fromJson(
-    Map<String, dynamic> json, {
-    ValueSerializer? serializer,
-  }) {
+  factory Currency.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return Currency(
       id: serializer.fromJson<String>(json['id']),
@@ -468,9 +409,7 @@ class $SettingsTable extends Settings with TableInfo<$SettingsTable, Setting> {
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
-  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
-    'updatedAt',
-  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta('updatedAt');
   @override
   late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
     'updated_at',
@@ -488,33 +427,21 @@ class $SettingsTable extends Settings with TableInfo<$SettingsTable, Setting> {
   String get actualTableName => $name;
   static const String $name = 'settings';
   @override
-  VerificationContext validateIntegrity(
-    Insertable<Setting> instance, {
-    bool isInserting = false,
-  }) {
+  VerificationContext validateIntegrity(Insertable<Setting> instance, {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('key')) {
-      context.handle(
-        _keyMeta,
-        key.isAcceptableOrUnknown(data['key']!, _keyMeta),
-      );
+      context.handle(_keyMeta, key.isAcceptableOrUnknown(data['key']!, _keyMeta));
     } else if (isInserting) {
       context.missing(_keyMeta);
     }
     if (data.containsKey('value')) {
-      context.handle(
-        _valueMeta,
-        value.isAcceptableOrUnknown(data['value']!, _valueMeta),
-      );
+      context.handle(_valueMeta, value.isAcceptableOrUnknown(data['value']!, _valueMeta));
     } else if (isInserting) {
       context.missing(_valueMeta);
     }
     if (data.containsKey('updated_at')) {
-      context.handle(
-        _updatedAtMeta,
-        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
-      );
+      context.handle(_updatedAtMeta, updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta));
     }
     return context;
   }
@@ -525,18 +452,9 @@ class $SettingsTable extends Settings with TableInfo<$SettingsTable, Setting> {
   Setting map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return Setting(
-      key: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}key'],
-      )!,
-      value: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}value'],
-      )!,
-      updatedAt: attachedDatabase.typeMapping.read(
-        DriftSqlType.dateTime,
-        data['${effectivePrefix}updated_at'],
-      )!,
+      key: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}key'])!,
+      value: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}value'])!,
+      updatedAt: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}updated_at'])!,
     );
   }
 
@@ -550,11 +468,7 @@ class Setting extends DataClass implements Insertable<Setting> {
   final String key;
   final String value;
   final DateTime updatedAt;
-  const Setting({
-    required this.key,
-    required this.value,
-    required this.updatedAt,
-  });
+  const Setting({required this.key, required this.value, required this.updatedAt});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -565,17 +479,10 @@ class Setting extends DataClass implements Insertable<Setting> {
   }
 
   SettingsCompanion toCompanion(bool nullToAbsent) {
-    return SettingsCompanion(
-      key: Value(key),
-      value: Value(value),
-      updatedAt: Value(updatedAt),
-    );
+    return SettingsCompanion(key: Value(key), value: Value(value), updatedAt: Value(updatedAt));
   }
 
-  factory Setting.fromJson(
-    Map<String, dynamic> json, {
-    ValueSerializer? serializer,
-  }) {
+  factory Setting.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return Setting(
       key: serializer.fromJson<String>(json['key']),
@@ -593,11 +500,8 @@ class Setting extends DataClass implements Insertable<Setting> {
     };
   }
 
-  Setting copyWith({String? key, String? value, DateTime? updatedAt}) => Setting(
-    key: key ?? this.key,
-    value: value ?? this.value,
-    updatedAt: updatedAt ?? this.updatedAt,
-  );
+  Setting copyWith({String? key, String? value, DateTime? updatedAt}) =>
+      Setting(key: key ?? this.key, value: value ?? this.value, updatedAt: updatedAt ?? this.updatedAt);
   Setting copyWithCompanion(SettingsCompanion data) {
     return Setting(
       key: data.key.present ? data.key.value : this.key,
@@ -742,9 +646,7 @@ class $CategoriesTable extends Categories with TableInfo<$CategoriesTable, Categ
     type: DriftSqlType.string,
     requiredDuringInsert: false,
   );
-  static const VerificationMeta _parentIdMeta = const VerificationMeta(
-    'parentId',
-  );
+  static const VerificationMeta _parentIdMeta = const VerificationMeta('parentId');
   @override
   late final GeneratedColumn<String> parentId = GeneratedColumn<String>(
     'parent_id',
@@ -752,9 +654,7 @@ class $CategoriesTable extends Categories with TableInfo<$CategoriesTable, Categ
     true,
     type: DriftSqlType.string,
     requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'REFERENCES categories (id) ON DELETE CASCADE',
-    ),
+    defaultConstraints: GeneratedColumn.constraintIsAlways('REFERENCES categories (id) ON DELETE CASCADE'),
   );
   @override
   late final GeneratedColumnWithTypeConverter<CategoryType, String> type = GeneratedColumn<String>(
@@ -774,9 +674,7 @@ class $CategoriesTable extends Categories with TableInfo<$CategoriesTable, Categ
     requiredDuringInsert: false,
     defaultValue: const Constant(0),
   );
-  static const VerificationMeta _isActiveMeta = const VerificationMeta(
-    'isActive',
-  );
+  static const VerificationMeta _isActiveMeta = const VerificationMeta('isActive');
   @override
   late final GeneratedColumn<bool> isActive = GeneratedColumn<bool>(
     'is_active',
@@ -784,14 +682,10 @@ class $CategoriesTable extends Categories with TableInfo<$CategoriesTable, Categ
     false,
     type: DriftSqlType.bool,
     requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'CHECK ("is_active" IN (0, 1))',
-    ),
+    defaultConstraints: GeneratedColumn.constraintIsAlways('CHECK ("is_active" IN (0, 1))'),
     defaultValue: const Constant(true),
   );
-  static const VerificationMeta _createdAtMeta = const VerificationMeta(
-    'createdAt',
-  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta('createdAt');
   @override
   late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
     'created_at',
@@ -801,9 +695,7 @@ class $CategoriesTable extends Categories with TableInfo<$CategoriesTable, Categ
     requiredDuringInsert: false,
     defaultValue: currentDateAndTime,
   );
-  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
-    'updatedAt',
-  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta('updatedAt');
   @override
   late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
     'updated_at',
@@ -814,82 +706,44 @@ class $CategoriesTable extends Categories with TableInfo<$CategoriesTable, Categ
     defaultValue: currentDateAndTime,
   );
   @override
-  List<GeneratedColumn> get $columns => [
-    id,
-    name,
-    icon,
-    color,
-    parentId,
-    type,
-    sort,
-    isActive,
-    createdAt,
-    updatedAt,
-  ];
+  List<GeneratedColumn> get $columns => [id, name, icon, color, parentId, type, sort, isActive, createdAt, updatedAt];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
   static const String $name = 'categories';
   @override
-  VerificationContext validateIntegrity(
-    Insertable<Category> instance, {
-    bool isInserting = false,
-  }) {
+  VerificationContext validateIntegrity(Insertable<Category> instance, {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
     if (data.containsKey('name')) {
-      context.handle(
-        _nameMeta,
-        name.isAcceptableOrUnknown(data['name']!, _nameMeta),
-      );
+      context.handle(_nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
     } else if (isInserting) {
       context.missing(_nameMeta);
     }
     if (data.containsKey('icon')) {
-      context.handle(
-        _iconMeta,
-        icon.isAcceptableOrUnknown(data['icon']!, _iconMeta),
-      );
+      context.handle(_iconMeta, icon.isAcceptableOrUnknown(data['icon']!, _iconMeta));
     }
     if (data.containsKey('color')) {
-      context.handle(
-        _colorMeta,
-        color.isAcceptableOrUnknown(data['color']!, _colorMeta),
-      );
+      context.handle(_colorMeta, color.isAcceptableOrUnknown(data['color']!, _colorMeta));
     }
     if (data.containsKey('parent_id')) {
-      context.handle(
-        _parentIdMeta,
-        parentId.isAcceptableOrUnknown(data['parent_id']!, _parentIdMeta),
-      );
+      context.handle(_parentIdMeta, parentId.isAcceptableOrUnknown(data['parent_id']!, _parentIdMeta));
     }
     if (data.containsKey('sort')) {
-      context.handle(
-        _sortMeta,
-        sort.isAcceptableOrUnknown(data['sort']!, _sortMeta),
-      );
+      context.handle(_sortMeta, sort.isAcceptableOrUnknown(data['sort']!, _sortMeta));
     }
     if (data.containsKey('is_active')) {
-      context.handle(
-        _isActiveMeta,
-        isActive.isAcceptableOrUnknown(data['is_active']!, _isActiveMeta),
-      );
+      context.handle(_isActiveMeta, isActive.isAcceptableOrUnknown(data['is_active']!, _isActiveMeta));
     }
     if (data.containsKey('created_at')) {
-      context.handle(
-        _createdAtMeta,
-        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
-      );
+      context.handle(_createdAtMeta, createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
     }
     if (data.containsKey('updated_at')) {
-      context.handle(
-        _updatedAtMeta,
-        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
-      );
+      context.handle(_updatedAtMeta, updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta));
     }
     return context;
   }
@@ -900,48 +754,18 @@ class $CategoriesTable extends Categories with TableInfo<$CategoriesTable, Categ
   Category map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return Category(
-      id: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}id'],
-      )!,
-      name: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}name'],
-      )!,
-      icon: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}icon'],
-      ),
-      color: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}color'],
-      ),
-      parentId: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}parent_id'],
-      ),
+      id: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      name: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}name'])!,
+      icon: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}icon']),
+      color: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}color']),
+      parentId: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}parent_id']),
       type: $CategoriesTable.$convertertype.fromSql(
-        attachedDatabase.typeMapping.read(
-          DriftSqlType.string,
-          data['${effectivePrefix}type'],
-        )!,
+        attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}type'])!,
       ),
-      sort: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}sort'],
-      )!,
-      isActive: attachedDatabase.typeMapping.read(
-        DriftSqlType.bool,
-        data['${effectivePrefix}is_active'],
-      )!,
-      createdAt: attachedDatabase.typeMapping.read(
-        DriftSqlType.dateTime,
-        data['${effectivePrefix}created_at'],
-      )!,
-      updatedAt: attachedDatabase.typeMapping.read(
-        DriftSqlType.dateTime,
-        data['${effectivePrefix}updated_at'],
-      )!,
+      sort: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}sort'])!,
+      isActive: attachedDatabase.typeMapping.read(DriftSqlType.bool, data['${effectivePrefix}is_active'])!,
+      createdAt: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
+      updatedAt: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}updated_at'])!,
     );
   }
 
@@ -991,9 +815,7 @@ class Category extends DataClass implements Insertable<Category> {
       map['parent_id'] = Variable<String>(parentId);
     }
     {
-      map['type'] = Variable<String>(
-        $CategoriesTable.$convertertype.toSql(type),
-      );
+      map['type'] = Variable<String>($CategoriesTable.$convertertype.toSql(type));
     }
     map['sort'] = Variable<int>(sort);
     map['is_active'] = Variable<bool>(isActive);
@@ -1017,10 +839,7 @@ class Category extends DataClass implements Insertable<Category> {
     );
   }
 
-  factory Category.fromJson(
-    Map<String, dynamic> json, {
-    ValueSerializer? serializer,
-  }) {
+  factory Category.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return Category(
       id: serializer.fromJson<String>(json['id']),
@@ -1028,9 +847,7 @@ class Category extends DataClass implements Insertable<Category> {
       icon: serializer.fromJson<String?>(json['icon']),
       color: serializer.fromJson<String?>(json['color']),
       parentId: serializer.fromJson<String?>(json['parentId']),
-      type: $CategoriesTable.$convertertype.fromJson(
-        serializer.fromJson<String>(json['type']),
-      ),
+      type: $CategoriesTable.$convertertype.fromJson(serializer.fromJson<String>(json['type'])),
       sort: serializer.fromJson<int>(json['sort']),
       isActive: serializer.fromJson<bool>(json['isActive']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
@@ -1046,9 +863,7 @@ class Category extends DataClass implements Insertable<Category> {
       'icon': serializer.toJson<String?>(icon),
       'color': serializer.toJson<String?>(color),
       'parentId': serializer.toJson<String?>(parentId),
-      'type': serializer.toJson<String>(
-        $CategoriesTable.$convertertype.toJson(type),
-      ),
+      'type': serializer.toJson<String>($CategoriesTable.$convertertype.toJson(type)),
       'sort': serializer.toJson<int>(sort),
       'isActive': serializer.toJson<bool>(isActive),
       'createdAt': serializer.toJson<DateTime>(createdAt),
@@ -1112,18 +927,7 @@ class Category extends DataClass implements Insertable<Category> {
   }
 
   @override
-  int get hashCode => Object.hash(
-    id,
-    name,
-    icon,
-    color,
-    parentId,
-    type,
-    sort,
-    isActive,
-    createdAt,
-    updatedAt,
-  );
+  int get hashCode => Object.hash(id, name, icon, color, parentId, type, sort, isActive, createdAt, updatedAt);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -1254,9 +1058,7 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
       map['parent_id'] = Variable<String>(parentId.value);
     }
     if (type.present) {
-      map['type'] = Variable<String>(
-        $CategoriesTable.$convertertype.toSql(type.value),
-      );
+      map['type'] = Variable<String>($CategoriesTable.$convertertype.toSql(type.value));
     }
     if (sort.present) {
       map['sort'] = Variable<int>(sort.value);
@@ -1345,9 +1147,7 @@ class $AccountsTable extends Accounts with TableInfo<$AccountsTable, Account> {
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   ).withConverter<AccountType>($AccountsTable.$convertertype);
-  static const VerificationMeta _balanceMeta = const VerificationMeta(
-    'balance',
-  );
+  static const VerificationMeta _balanceMeta = const VerificationMeta('balance');
   @override
   late final GeneratedColumn<int> balance = GeneratedColumn<int>(
     'balance',
@@ -1357,9 +1157,7 @@ class $AccountsTable extends Accounts with TableInfo<$AccountsTable, Account> {
     requiredDuringInsert: false,
     defaultValue: const Constant(0),
   );
-  static const VerificationMeta _initialBalanceMeta = const VerificationMeta(
-    'initialBalance',
-  );
+  static const VerificationMeta _initialBalanceMeta = const VerificationMeta('initialBalance');
   @override
   late final GeneratedColumn<int> initialBalance = GeneratedColumn<int>(
     'initial_balance',
@@ -1369,9 +1167,7 @@ class $AccountsTable extends Accounts with TableInfo<$AccountsTable, Account> {
     requiredDuringInsert: false,
     defaultValue: const Constant(0),
   );
-  static const VerificationMeta _parentIdMeta = const VerificationMeta(
-    'parentId',
-  );
+  static const VerificationMeta _parentIdMeta = const VerificationMeta('parentId');
   @override
   late final GeneratedColumn<String> parentId = GeneratedColumn<String>(
     'parent_id',
@@ -1379,13 +1175,9 @@ class $AccountsTable extends Accounts with TableInfo<$AccountsTable, Account> {
     true,
     type: DriftSqlType.string,
     requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'REFERENCES accounts (id) ON DELETE CASCADE',
-    ),
+    defaultConstraints: GeneratedColumn.constraintIsAlways('REFERENCES accounts (id) ON DELETE CASCADE'),
   );
-  static const VerificationMeta _isActiveMeta = const VerificationMeta(
-    'isActive',
-  );
+  static const VerificationMeta _isActiveMeta = const VerificationMeta('isActive');
   @override
   late final GeneratedColumn<bool> isActive = GeneratedColumn<bool>(
     'is_active',
@@ -1393,9 +1185,7 @@ class $AccountsTable extends Accounts with TableInfo<$AccountsTable, Account> {
     false,
     type: DriftSqlType.bool,
     requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'CHECK ("is_active" IN (0, 1))',
-    ),
+    defaultConstraints: GeneratedColumn.constraintIsAlways('CHECK ("is_active" IN (0, 1))'),
     defaultValue: const Constant(true),
   );
   static const VerificationMeta _sortMeta = const VerificationMeta('sort');
@@ -1408,9 +1198,7 @@ class $AccountsTable extends Accounts with TableInfo<$AccountsTable, Account> {
     requiredDuringInsert: false,
     defaultValue: const Constant(0),
   );
-  static const VerificationMeta _createdAtMeta = const VerificationMeta(
-    'createdAt',
-  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta('createdAt');
   @override
   late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
     'created_at',
@@ -1420,9 +1208,7 @@ class $AccountsTable extends Accounts with TableInfo<$AccountsTable, Account> {
     requiredDuringInsert: false,
     defaultValue: currentDateAndTime,
   );
-  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
-    'updatedAt',
-  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta('updatedAt');
   @override
   late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
     'updated_at',
@@ -1453,79 +1239,46 @@ class $AccountsTable extends Accounts with TableInfo<$AccountsTable, Account> {
   String get actualTableName => $name;
   static const String $name = 'accounts';
   @override
-  VerificationContext validateIntegrity(
-    Insertable<Account> instance, {
-    bool isInserting = false,
-  }) {
+  VerificationContext validateIntegrity(Insertable<Account> instance, {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
     if (data.containsKey('name')) {
-      context.handle(
-        _nameMeta,
-        name.isAcceptableOrUnknown(data['name']!, _nameMeta),
-      );
+      context.handle(_nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
     } else if (isInserting) {
       context.missing(_nameMeta);
     }
     if (data.containsKey('icon')) {
-      context.handle(
-        _iconMeta,
-        icon.isAcceptableOrUnknown(data['icon']!, _iconMeta),
-      );
+      context.handle(_iconMeta, icon.isAcceptableOrUnknown(data['icon']!, _iconMeta));
     }
     if (data.containsKey('color')) {
-      context.handle(
-        _colorMeta,
-        color.isAcceptableOrUnknown(data['color']!, _colorMeta),
-      );
+      context.handle(_colorMeta, color.isAcceptableOrUnknown(data['color']!, _colorMeta));
     }
     if (data.containsKey('balance')) {
-      context.handle(
-        _balanceMeta,
-        balance.isAcceptableOrUnknown(data['balance']!, _balanceMeta),
-      );
+      context.handle(_balanceMeta, balance.isAcceptableOrUnknown(data['balance']!, _balanceMeta));
     }
     if (data.containsKey('initial_balance')) {
       context.handle(
         _initialBalanceMeta,
-        initialBalance.isAcceptableOrUnknown(
-          data['initial_balance']!,
-          _initialBalanceMeta,
-        ),
+        initialBalance.isAcceptableOrUnknown(data['initial_balance']!, _initialBalanceMeta),
       );
     }
     if (data.containsKey('parent_id')) {
-      context.handle(
-        _parentIdMeta,
-        parentId.isAcceptableOrUnknown(data['parent_id']!, _parentIdMeta),
-      );
+      context.handle(_parentIdMeta, parentId.isAcceptableOrUnknown(data['parent_id']!, _parentIdMeta));
     }
     if (data.containsKey('is_active')) {
-      context.handle(
-        _isActiveMeta,
-        isActive.isAcceptableOrUnknown(data['is_active']!, _isActiveMeta),
-      );
+      context.handle(_isActiveMeta, isActive.isAcceptableOrUnknown(data['is_active']!, _isActiveMeta));
     }
     if (data.containsKey('sort')) {
-      context.handle(
-        _sortMeta,
-        sort.isAcceptableOrUnknown(data['sort']!, _sortMeta),
-      );
+      context.handle(_sortMeta, sort.isAcceptableOrUnknown(data['sort']!, _sortMeta));
     }
     if (data.containsKey('created_at')) {
-      context.handle(
-        _createdAtMeta,
-        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
-      );
+      context.handle(_createdAtMeta, createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
     }
     if (data.containsKey('updated_at')) {
-      context.handle(
-        _updatedAtMeta,
-        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
-      );
+      context.handle(_updatedAtMeta, updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta));
     }
     return context;
   }
@@ -1536,56 +1289,20 @@ class $AccountsTable extends Accounts with TableInfo<$AccountsTable, Account> {
   Account map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return Account(
-      id: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}id'],
-      )!,
-      name: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}name'],
-      )!,
-      icon: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}icon'],
-      ),
-      color: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}color'],
-      ),
+      id: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      name: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}name'])!,
+      icon: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}icon']),
+      color: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}color']),
       type: $AccountsTable.$convertertype.fromSql(
-        attachedDatabase.typeMapping.read(
-          DriftSqlType.string,
-          data['${effectivePrefix}type'],
-        )!,
+        attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}type'])!,
       ),
-      balance: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}balance'],
-      )!,
-      initialBalance: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}initial_balance'],
-      )!,
-      parentId: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}parent_id'],
-      ),
-      isActive: attachedDatabase.typeMapping.read(
-        DriftSqlType.bool,
-        data['${effectivePrefix}is_active'],
-      )!,
-      sort: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}sort'],
-      )!,
-      createdAt: attachedDatabase.typeMapping.read(
-        DriftSqlType.dateTime,
-        data['${effectivePrefix}created_at'],
-      )!,
-      updatedAt: attachedDatabase.typeMapping.read(
-        DriftSqlType.dateTime,
-        data['${effectivePrefix}updated_at'],
-      )!,
+      balance: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}balance'])!,
+      initialBalance: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}initial_balance'])!,
+      parentId: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}parent_id']),
+      isActive: attachedDatabase.typeMapping.read(DriftSqlType.bool, data['${effectivePrefix}is_active'])!,
+      sort: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}sort'])!,
+      createdAt: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
+      updatedAt: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}updated_at'])!,
     );
   }
 
@@ -1667,19 +1384,14 @@ class Account extends DataClass implements Insertable<Account> {
     );
   }
 
-  factory Account.fromJson(
-    Map<String, dynamic> json, {
-    ValueSerializer? serializer,
-  }) {
+  factory Account.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return Account(
       id: serializer.fromJson<String>(json['id']),
       name: serializer.fromJson<String>(json['name']),
       icon: serializer.fromJson<String?>(json['icon']),
       color: serializer.fromJson<String?>(json['color']),
-      type: $AccountsTable.$convertertype.fromJson(
-        serializer.fromJson<String>(json['type']),
-      ),
+      type: $AccountsTable.$convertertype.fromJson(serializer.fromJson<String>(json['type'])),
       balance: serializer.fromJson<int>(json['balance']),
       initialBalance: serializer.fromJson<int>(json['initialBalance']),
       parentId: serializer.fromJson<String?>(json['parentId']),
@@ -1697,9 +1409,7 @@ class Account extends DataClass implements Insertable<Account> {
       'name': serializer.toJson<String>(name),
       'icon': serializer.toJson<String?>(icon),
       'color': serializer.toJson<String?>(color),
-      'type': serializer.toJson<String>(
-        $AccountsTable.$convertertype.toJson(type),
-      ),
+      'type': serializer.toJson<String>($AccountsTable.$convertertype.toJson(type)),
       'balance': serializer.toJson<int>(balance),
       'initialBalance': serializer.toJson<int>(initialBalance),
       'parentId': serializer.toJson<String?>(parentId),
@@ -1774,20 +1484,8 @@ class Account extends DataClass implements Insertable<Account> {
   }
 
   @override
-  int get hashCode => Object.hash(
-    id,
-    name,
-    icon,
-    color,
-    type,
-    balance,
-    initialBalance,
-    parentId,
-    isActive,
-    sort,
-    createdAt,
-    updatedAt,
-  );
+  int get hashCode =>
+      Object.hash(id, name, icon, color, type, balance, initialBalance, parentId, isActive, sort, createdAt, updatedAt);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -1931,9 +1629,7 @@ class AccountsCompanion extends UpdateCompanion<Account> {
       map['color'] = Variable<String>(color.value);
     }
     if (type.present) {
-      map['type'] = Variable<String>(
-        $AccountsTable.$convertertype.toSql(type.value),
-      );
+      map['type'] = Variable<String>($AccountsTable.$convertertype.toSql(type.value));
     }
     if (balance.present) {
       map['balance'] = Variable<int>(balance.value);
@@ -1988,9 +1684,7 @@ class $AccountCategoriesTable extends AccountCategories with TableInfo<$AccountC
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $AccountCategoriesTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _accountIdMeta = const VerificationMeta(
-    'accountId',
-  );
+  static const VerificationMeta _accountIdMeta = const VerificationMeta('accountId');
   @override
   late final GeneratedColumn<String> accountId = GeneratedColumn<String>(
     'account_id',
@@ -1998,13 +1692,9 @@ class $AccountCategoriesTable extends AccountCategories with TableInfo<$AccountC
     false,
     type: DriftSqlType.string,
     requiredDuringInsert: true,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'REFERENCES accounts (id) ON DELETE CASCADE',
-    ),
+    defaultConstraints: GeneratedColumn.constraintIsAlways('REFERENCES accounts (id) ON DELETE CASCADE'),
   );
-  static const VerificationMeta _categoryIdMeta = const VerificationMeta(
-    'categoryId',
-  );
+  static const VerificationMeta _categoryIdMeta = const VerificationMeta('categoryId');
   @override
   late final GeneratedColumn<String> categoryId = GeneratedColumn<String>(
     'category_id',
@@ -2012,13 +1702,9 @@ class $AccountCategoriesTable extends AccountCategories with TableInfo<$AccountC
     false,
     type: DriftSqlType.string,
     requiredDuringInsert: true,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'REFERENCES categories (id) ON DELETE CASCADE',
-    ),
+    defaultConstraints: GeneratedColumn.constraintIsAlways('REFERENCES categories (id) ON DELETE CASCADE'),
   );
-  static const VerificationMeta _createdAtMeta = const VerificationMeta(
-    'createdAt',
-  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta('createdAt');
   @override
   late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
     'created_at',
@@ -2028,9 +1714,7 @@ class $AccountCategoriesTable extends AccountCategories with TableInfo<$AccountC
     requiredDuringInsert: false,
     defaultValue: currentDateAndTime,
   );
-  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
-    'updatedAt',
-  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta('updatedAt');
   @override
   late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
     'updated_at',
@@ -2041,51 +1725,31 @@ class $AccountCategoriesTable extends AccountCategories with TableInfo<$AccountC
     defaultValue: currentDateAndTime,
   );
   @override
-  List<GeneratedColumn> get $columns => [
-    accountId,
-    categoryId,
-    createdAt,
-    updatedAt,
-  ];
+  List<GeneratedColumn> get $columns => [accountId, categoryId, createdAt, updatedAt];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
   static const String $name = 'account_categories';
   @override
-  VerificationContext validateIntegrity(
-    Insertable<AccountCategory> instance, {
-    bool isInserting = false,
-  }) {
+  VerificationContext validateIntegrity(Insertable<AccountCategory> instance, {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('account_id')) {
-      context.handle(
-        _accountIdMeta,
-        accountId.isAcceptableOrUnknown(data['account_id']!, _accountIdMeta),
-      );
+      context.handle(_accountIdMeta, accountId.isAcceptableOrUnknown(data['account_id']!, _accountIdMeta));
     } else if (isInserting) {
       context.missing(_accountIdMeta);
     }
     if (data.containsKey('category_id')) {
-      context.handle(
-        _categoryIdMeta,
-        categoryId.isAcceptableOrUnknown(data['category_id']!, _categoryIdMeta),
-      );
+      context.handle(_categoryIdMeta, categoryId.isAcceptableOrUnknown(data['category_id']!, _categoryIdMeta));
     } else if (isInserting) {
       context.missing(_categoryIdMeta);
     }
     if (data.containsKey('created_at')) {
-      context.handle(
-        _createdAtMeta,
-        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
-      );
+      context.handle(_createdAtMeta, createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
     }
     if (data.containsKey('updated_at')) {
-      context.handle(
-        _updatedAtMeta,
-        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
-      );
+      context.handle(_updatedAtMeta, updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta));
     }
     return context;
   }
@@ -2096,22 +1760,10 @@ class $AccountCategoriesTable extends AccountCategories with TableInfo<$AccountC
   AccountCategory map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return AccountCategory(
-      accountId: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}account_id'],
-      )!,
-      categoryId: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}category_id'],
-      )!,
-      createdAt: attachedDatabase.typeMapping.read(
-        DriftSqlType.dateTime,
-        data['${effectivePrefix}created_at'],
-      )!,
-      updatedAt: attachedDatabase.typeMapping.read(
-        DriftSqlType.dateTime,
-        data['${effectivePrefix}updated_at'],
-      )!,
+      accountId: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}account_id'])!,
+      categoryId: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}category_id'])!,
+      createdAt: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
+      updatedAt: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}updated_at'])!,
     );
   }
 
@@ -2151,10 +1803,7 @@ class AccountCategory extends DataClass implements Insertable<AccountCategory> {
     );
   }
 
-  factory AccountCategory.fromJson(
-    Map<String, dynamic> json, {
-    ValueSerializer? serializer,
-  }) {
+  factory AccountCategory.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return AccountCategory(
       accountId: serializer.fromJson<String>(json['accountId']),
@@ -2174,17 +1823,13 @@ class AccountCategory extends DataClass implements Insertable<AccountCategory> {
     };
   }
 
-  AccountCategory copyWith({
-    String? accountId,
-    String? categoryId,
-    DateTime? createdAt,
-    DateTime? updatedAt,
-  }) => AccountCategory(
-    accountId: accountId ?? this.accountId,
-    categoryId: categoryId ?? this.categoryId,
-    createdAt: createdAt ?? this.createdAt,
-    updatedAt: updatedAt ?? this.updatedAt,
-  );
+  AccountCategory copyWith({String? accountId, String? categoryId, DateTime? createdAt, DateTime? updatedAt}) =>
+      AccountCategory(
+        accountId: accountId ?? this.accountId,
+        categoryId: categoryId ?? this.categoryId,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt,
+      );
   AccountCategory copyWithCompanion(AccountCategoriesCompanion data) {
     return AccountCategory(
       accountId: data.accountId.present ? data.accountId.value : this.accountId,
@@ -2337,9 +1982,7 @@ class $BudgetsTable extends Budgets with TableInfo<$BudgetsTable, Budget> {
     type: DriftSqlType.int,
     requiredDuringInsert: true,
   );
-  static const VerificationMeta _categoryIdMeta = const VerificationMeta(
-    'categoryId',
-  );
+  static const VerificationMeta _categoryIdMeta = const VerificationMeta('categoryId');
   @override
   late final GeneratedColumn<String> categoryId = GeneratedColumn<String>(
     'category_id',
@@ -2347,13 +1990,9 @@ class $BudgetsTable extends Budgets with TableInfo<$BudgetsTable, Budget> {
     true,
     type: DriftSqlType.string,
     requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'REFERENCES categories (id) ON DELETE SET NULL',
-    ),
+    defaultConstraints: GeneratedColumn.constraintIsAlways('REFERENCES categories (id) ON DELETE SET NULL'),
   );
-  static const VerificationMeta _accountIdMeta = const VerificationMeta(
-    'accountId',
-  );
+  static const VerificationMeta _accountIdMeta = const VerificationMeta('accountId');
   @override
   late final GeneratedColumn<String> accountId = GeneratedColumn<String>(
     'account_id',
@@ -2361,9 +2000,7 @@ class $BudgetsTable extends Budgets with TableInfo<$BudgetsTable, Budget> {
     true,
     type: DriftSqlType.string,
     requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'REFERENCES accounts (id) ON DELETE SET NULL',
-    ),
+    defaultConstraints: GeneratedColumn.constraintIsAlways('REFERENCES accounts (id) ON DELETE SET NULL'),
   );
   @override
   late final GeneratedColumnWithTypeConverter<BudgetPeriod, String> period = GeneratedColumn<String>(
@@ -2373,9 +2010,7 @@ class $BudgetsTable extends Budgets with TableInfo<$BudgetsTable, Budget> {
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   ).withConverter<BudgetPeriod>($BudgetsTable.$converterperiod);
-  static const VerificationMeta _resetDayMeta = const VerificationMeta(
-    'resetDay',
-  );
+  static const VerificationMeta _resetDayMeta = const VerificationMeta('resetDay');
   @override
   late final GeneratedColumn<int> resetDay = GeneratedColumn<int>(
     'reset_day',
@@ -2384,9 +2019,7 @@ class $BudgetsTable extends Budgets with TableInfo<$BudgetsTable, Budget> {
     type: DriftSqlType.int,
     requiredDuringInsert: false,
   );
-  static const VerificationMeta _alertThresholdMeta = const VerificationMeta(
-    'alertThreshold',
-  );
+  static const VerificationMeta _alertThresholdMeta = const VerificationMeta('alertThreshold');
   @override
   late final GeneratedColumn<int> alertThreshold = GeneratedColumn<int>(
     'alert_threshold',
@@ -2395,9 +2028,7 @@ class $BudgetsTable extends Budgets with TableInfo<$BudgetsTable, Budget> {
     type: DriftSqlType.int,
     requiredDuringInsert: false,
   );
-  static const VerificationMeta _startDateMeta = const VerificationMeta(
-    'startDate',
-  );
+  static const VerificationMeta _startDateMeta = const VerificationMeta('startDate');
   @override
   late final GeneratedColumn<DateTime> startDate = GeneratedColumn<DateTime>(
     'start_date',
@@ -2406,9 +2037,7 @@ class $BudgetsTable extends Budgets with TableInfo<$BudgetsTable, Budget> {
     type: DriftSqlType.dateTime,
     requiredDuringInsert: true,
   );
-  static const VerificationMeta _endDateMeta = const VerificationMeta(
-    'endDate',
-  );
+  static const VerificationMeta _endDateMeta = const VerificationMeta('endDate');
   @override
   late final GeneratedColumn<DateTime> endDate = GeneratedColumn<DateTime>(
     'end_date',
@@ -2417,9 +2046,7 @@ class $BudgetsTable extends Budgets with TableInfo<$BudgetsTable, Budget> {
     type: DriftSqlType.dateTime,
     requiredDuringInsert: false,
   );
-  static const VerificationMeta _createdAtMeta = const VerificationMeta(
-    'createdAt',
-  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta('createdAt');
   @override
   late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
     'created_at',
@@ -2429,9 +2056,7 @@ class $BudgetsTable extends Budgets with TableInfo<$BudgetsTable, Budget> {
     requiredDuringInsert: false,
     defaultValue: currentDateAndTime,
   );
-  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
-    'updatedAt',
-  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta('updatedAt');
   @override
   late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
     'updated_at',
@@ -2462,83 +2087,50 @@ class $BudgetsTable extends Budgets with TableInfo<$BudgetsTable, Budget> {
   String get actualTableName => $name;
   static const String $name = 'budgets';
   @override
-  VerificationContext validateIntegrity(
-    Insertable<Budget> instance, {
-    bool isInserting = false,
-  }) {
+  VerificationContext validateIntegrity(Insertable<Budget> instance, {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
     if (data.containsKey('name')) {
-      context.handle(
-        _nameMeta,
-        name.isAcceptableOrUnknown(data['name']!, _nameMeta),
-      );
+      context.handle(_nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
     } else if (isInserting) {
       context.missing(_nameMeta);
     }
     if (data.containsKey('amount')) {
-      context.handle(
-        _amountMeta,
-        amount.isAcceptableOrUnknown(data['amount']!, _amountMeta),
-      );
+      context.handle(_amountMeta, amount.isAcceptableOrUnknown(data['amount']!, _amountMeta));
     } else if (isInserting) {
       context.missing(_amountMeta);
     }
     if (data.containsKey('category_id')) {
-      context.handle(
-        _categoryIdMeta,
-        categoryId.isAcceptableOrUnknown(data['category_id']!, _categoryIdMeta),
-      );
+      context.handle(_categoryIdMeta, categoryId.isAcceptableOrUnknown(data['category_id']!, _categoryIdMeta));
     }
     if (data.containsKey('account_id')) {
-      context.handle(
-        _accountIdMeta,
-        accountId.isAcceptableOrUnknown(data['account_id']!, _accountIdMeta),
-      );
+      context.handle(_accountIdMeta, accountId.isAcceptableOrUnknown(data['account_id']!, _accountIdMeta));
     }
     if (data.containsKey('reset_day')) {
-      context.handle(
-        _resetDayMeta,
-        resetDay.isAcceptableOrUnknown(data['reset_day']!, _resetDayMeta),
-      );
+      context.handle(_resetDayMeta, resetDay.isAcceptableOrUnknown(data['reset_day']!, _resetDayMeta));
     }
     if (data.containsKey('alert_threshold')) {
       context.handle(
         _alertThresholdMeta,
-        alertThreshold.isAcceptableOrUnknown(
-          data['alert_threshold']!,
-          _alertThresholdMeta,
-        ),
+        alertThreshold.isAcceptableOrUnknown(data['alert_threshold']!, _alertThresholdMeta),
       );
     }
     if (data.containsKey('start_date')) {
-      context.handle(
-        _startDateMeta,
-        startDate.isAcceptableOrUnknown(data['start_date']!, _startDateMeta),
-      );
+      context.handle(_startDateMeta, startDate.isAcceptableOrUnknown(data['start_date']!, _startDateMeta));
     } else if (isInserting) {
       context.missing(_startDateMeta);
     }
     if (data.containsKey('end_date')) {
-      context.handle(
-        _endDateMeta,
-        endDate.isAcceptableOrUnknown(data['end_date']!, _endDateMeta),
-      );
+      context.handle(_endDateMeta, endDate.isAcceptableOrUnknown(data['end_date']!, _endDateMeta));
     }
     if (data.containsKey('created_at')) {
-      context.handle(
-        _createdAtMeta,
-        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
-      );
+      context.handle(_createdAtMeta, createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
     }
     if (data.containsKey('updated_at')) {
-      context.handle(
-        _updatedAtMeta,
-        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
-      );
+      context.handle(_updatedAtMeta, updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta));
     }
     return context;
   }
@@ -2549,56 +2141,20 @@ class $BudgetsTable extends Budgets with TableInfo<$BudgetsTable, Budget> {
   Budget map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return Budget(
-      id: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}id'],
-      )!,
-      name: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}name'],
-      )!,
-      amount: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}amount'],
-      )!,
-      categoryId: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}category_id'],
-      ),
-      accountId: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}account_id'],
-      ),
+      id: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      name: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}name'])!,
+      amount: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}amount'])!,
+      categoryId: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}category_id']),
+      accountId: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}account_id']),
       period: $BudgetsTable.$converterperiod.fromSql(
-        attachedDatabase.typeMapping.read(
-          DriftSqlType.string,
-          data['${effectivePrefix}period'],
-        )!,
+        attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}period'])!,
       ),
-      resetDay: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}reset_day'],
-      ),
-      alertThreshold: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}alert_threshold'],
-      ),
-      startDate: attachedDatabase.typeMapping.read(
-        DriftSqlType.dateTime,
-        data['${effectivePrefix}start_date'],
-      )!,
-      endDate: attachedDatabase.typeMapping.read(
-        DriftSqlType.dateTime,
-        data['${effectivePrefix}end_date'],
-      ),
-      createdAt: attachedDatabase.typeMapping.read(
-        DriftSqlType.dateTime,
-        data['${effectivePrefix}created_at'],
-      )!,
-      updatedAt: attachedDatabase.typeMapping.read(
-        DriftSqlType.dateTime,
-        data['${effectivePrefix}updated_at'],
-      )!,
+      resetDay: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}reset_day']),
+      alertThreshold: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}alert_threshold']),
+      startDate: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}start_date'])!,
+      endDate: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}end_date']),
+      createdAt: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
+      updatedAt: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}updated_at'])!,
     );
   }
 
@@ -2652,9 +2208,7 @@ class Budget extends DataClass implements Insertable<Budget> {
       map['account_id'] = Variable<String>(accountId);
     }
     {
-      map['period'] = Variable<String>(
-        $BudgetsTable.$converterperiod.toSql(period),
-      );
+      map['period'] = Variable<String>($BudgetsTable.$converterperiod.toSql(period));
     }
     if (!nullToAbsent || resetDay != null) {
       map['reset_day'] = Variable<int>(resetDay);
@@ -2688,10 +2242,7 @@ class Budget extends DataClass implements Insertable<Budget> {
     );
   }
 
-  factory Budget.fromJson(
-    Map<String, dynamic> json, {
-    ValueSerializer? serializer,
-  }) {
+  factory Budget.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return Budget(
       id: serializer.fromJson<String>(json['id']),
@@ -2699,9 +2250,7 @@ class Budget extends DataClass implements Insertable<Budget> {
       amount: serializer.fromJson<int>(json['amount']),
       categoryId: serializer.fromJson<String?>(json['categoryId']),
       accountId: serializer.fromJson<String?>(json['accountId']),
-      period: $BudgetsTable.$converterperiod.fromJson(
-        serializer.fromJson<String>(json['period']),
-      ),
+      period: $BudgetsTable.$converterperiod.fromJson(serializer.fromJson<String>(json['period'])),
       resetDay: serializer.fromJson<int?>(json['resetDay']),
       alertThreshold: serializer.fromJson<int?>(json['alertThreshold']),
       startDate: serializer.fromJson<DateTime>(json['startDate']),
@@ -2719,9 +2268,7 @@ class Budget extends DataClass implements Insertable<Budget> {
       'amount': serializer.toJson<int>(amount),
       'categoryId': serializer.toJson<String?>(categoryId),
       'accountId': serializer.toJson<String?>(accountId),
-      'period': serializer.toJson<String>(
-        $BudgetsTable.$converterperiod.toJson(period),
-      ),
+      'period': serializer.toJson<String>($BudgetsTable.$converterperiod.toJson(period)),
       'resetDay': serializer.toJson<int?>(resetDay),
       'alertThreshold': serializer.toJson<int?>(alertThreshold),
       'startDate': serializer.toJson<DateTime>(startDate),
@@ -2957,9 +2504,7 @@ class BudgetsCompanion extends UpdateCompanion<Budget> {
       map['account_id'] = Variable<String>(accountId.value);
     }
     if (period.present) {
-      map['period'] = Variable<String>(
-        $BudgetsTable.$converterperiod.toSql(period.value),
-      );
+      map['period'] = Variable<String>($BudgetsTable.$converterperiod.toSql(period.value));
     }
     if (resetDay.present) {
       map['reset_day'] = Variable<int>(resetDay.value);
@@ -3021,9 +2566,7 @@ class $BudgetRecordsTable extends BudgetRecords with TableInfo<$BudgetRecordsTab
     requiredDuringInsert: false,
     clientDefault: () => const Uuid().v7(),
   );
-  static const VerificationMeta _budgetIdMeta = const VerificationMeta(
-    'budgetId',
-  );
+  static const VerificationMeta _budgetIdMeta = const VerificationMeta('budgetId');
   @override
   late final GeneratedColumn<String> budgetId = GeneratedColumn<String>(
     'budget_id',
@@ -3031,13 +2574,9 @@ class $BudgetRecordsTable extends BudgetRecords with TableInfo<$BudgetRecordsTab
     false,
     type: DriftSqlType.string,
     requiredDuringInsert: true,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'REFERENCES budgets (id) ON DELETE CASCADE',
-    ),
+    defaultConstraints: GeneratedColumn.constraintIsAlways('REFERENCES budgets (id) ON DELETE CASCADE'),
   );
-  static const VerificationMeta _spentAmountMeta = const VerificationMeta(
-    'spentAmount',
-  );
+  static const VerificationMeta _spentAmountMeta = const VerificationMeta('spentAmount');
   @override
   late final GeneratedColumn<int> spentAmount = GeneratedColumn<int>(
     'spent_amount',
@@ -3047,9 +2586,7 @@ class $BudgetRecordsTable extends BudgetRecords with TableInfo<$BudgetRecordsTab
     requiredDuringInsert: false,
     defaultValue: const Constant(0),
   );
-  static const VerificationMeta _periodStartMeta = const VerificationMeta(
-    'periodStart',
-  );
+  static const VerificationMeta _periodStartMeta = const VerificationMeta('periodStart');
   @override
   late final GeneratedColumn<DateTime> periodStart = GeneratedColumn<DateTime>(
     'period_start',
@@ -3058,9 +2595,7 @@ class $BudgetRecordsTable extends BudgetRecords with TableInfo<$BudgetRecordsTab
     type: DriftSqlType.dateTime,
     requiredDuringInsert: true,
   );
-  static const VerificationMeta _periodEndMeta = const VerificationMeta(
-    'periodEnd',
-  );
+  static const VerificationMeta _periodEndMeta = const VerificationMeta('periodEnd');
   @override
   late final GeneratedColumn<DateTime> periodEnd = GeneratedColumn<DateTime>(
     'period_end',
@@ -3069,9 +2604,7 @@ class $BudgetRecordsTable extends BudgetRecords with TableInfo<$BudgetRecordsTab
     type: DriftSqlType.dateTime,
     requiredDuringInsert: true,
   );
-  static const VerificationMeta _createdAtMeta = const VerificationMeta(
-    'createdAt',
-  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta('createdAt');
   @override
   late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
     'created_at',
@@ -3081,9 +2614,7 @@ class $BudgetRecordsTable extends BudgetRecords with TableInfo<$BudgetRecordsTab
     requiredDuringInsert: false,
     defaultValue: currentDateAndTime,
   );
-  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
-    'updatedAt',
-  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta('updatedAt');
   @override
   late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
     'updated_at',
@@ -3094,77 +2625,42 @@ class $BudgetRecordsTable extends BudgetRecords with TableInfo<$BudgetRecordsTab
     defaultValue: currentDateAndTime,
   );
   @override
-  List<GeneratedColumn> get $columns => [
-    id,
-    budgetId,
-    spentAmount,
-    periodStart,
-    periodEnd,
-    createdAt,
-    updatedAt,
-  ];
+  List<GeneratedColumn> get $columns => [id, budgetId, spentAmount, periodStart, periodEnd, createdAt, updatedAt];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
   static const String $name = 'budget_records';
   @override
-  VerificationContext validateIntegrity(
-    Insertable<BudgetRecord> instance, {
-    bool isInserting = false,
-  }) {
+  VerificationContext validateIntegrity(Insertable<BudgetRecord> instance, {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
     if (data.containsKey('budget_id')) {
-      context.handle(
-        _budgetIdMeta,
-        budgetId.isAcceptableOrUnknown(data['budget_id']!, _budgetIdMeta),
-      );
+      context.handle(_budgetIdMeta, budgetId.isAcceptableOrUnknown(data['budget_id']!, _budgetIdMeta));
     } else if (isInserting) {
       context.missing(_budgetIdMeta);
     }
     if (data.containsKey('spent_amount')) {
-      context.handle(
-        _spentAmountMeta,
-        spentAmount.isAcceptableOrUnknown(
-          data['spent_amount']!,
-          _spentAmountMeta,
-        ),
-      );
+      context.handle(_spentAmountMeta, spentAmount.isAcceptableOrUnknown(data['spent_amount']!, _spentAmountMeta));
     }
     if (data.containsKey('period_start')) {
-      context.handle(
-        _periodStartMeta,
-        periodStart.isAcceptableOrUnknown(
-          data['period_start']!,
-          _periodStartMeta,
-        ),
-      );
+      context.handle(_periodStartMeta, periodStart.isAcceptableOrUnknown(data['period_start']!, _periodStartMeta));
     } else if (isInserting) {
       context.missing(_periodStartMeta);
     }
     if (data.containsKey('period_end')) {
-      context.handle(
-        _periodEndMeta,
-        periodEnd.isAcceptableOrUnknown(data['period_end']!, _periodEndMeta),
-      );
+      context.handle(_periodEndMeta, periodEnd.isAcceptableOrUnknown(data['period_end']!, _periodEndMeta));
     } else if (isInserting) {
       context.missing(_periodEndMeta);
     }
     if (data.containsKey('created_at')) {
-      context.handle(
-        _createdAtMeta,
-        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
-      );
+      context.handle(_createdAtMeta, createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
     }
     if (data.containsKey('updated_at')) {
-      context.handle(
-        _updatedAtMeta,
-        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
-      );
+      context.handle(_updatedAtMeta, updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta));
     }
     return context;
   }
@@ -3175,34 +2671,13 @@ class $BudgetRecordsTable extends BudgetRecords with TableInfo<$BudgetRecordsTab
   BudgetRecord map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return BudgetRecord(
-      id: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}id'],
-      )!,
-      budgetId: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}budget_id'],
-      )!,
-      spentAmount: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}spent_amount'],
-      )!,
-      periodStart: attachedDatabase.typeMapping.read(
-        DriftSqlType.dateTime,
-        data['${effectivePrefix}period_start'],
-      )!,
-      periodEnd: attachedDatabase.typeMapping.read(
-        DriftSqlType.dateTime,
-        data['${effectivePrefix}period_end'],
-      )!,
-      createdAt: attachedDatabase.typeMapping.read(
-        DriftSqlType.dateTime,
-        data['${effectivePrefix}created_at'],
-      )!,
-      updatedAt: attachedDatabase.typeMapping.read(
-        DriftSqlType.dateTime,
-        data['${effectivePrefix}updated_at'],
-      )!,
+      id: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      budgetId: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}budget_id'])!,
+      spentAmount: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}spent_amount'])!,
+      periodStart: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}period_start'])!,
+      periodEnd: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}period_end'])!,
+      createdAt: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
+      updatedAt: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}updated_at'])!,
     );
   }
 
@@ -3254,10 +2729,7 @@ class BudgetRecord extends DataClass implements Insertable<BudgetRecord> {
     );
   }
 
-  factory BudgetRecord.fromJson(
-    Map<String, dynamic> json, {
-    ValueSerializer? serializer,
-  }) {
+  factory BudgetRecord.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return BudgetRecord(
       id: serializer.fromJson<String>(json['id']),
@@ -3327,15 +2799,7 @@ class BudgetRecord extends DataClass implements Insertable<BudgetRecord> {
   }
 
   @override
-  int get hashCode => Object.hash(
-    id,
-    budgetId,
-    spentAmount,
-    periodStart,
-    periodEnd,
-    createdAt,
-    updatedAt,
-  );
+  int get hashCode => Object.hash(id, budgetId, spentAmount, periodStart, periodEnd, createdAt, updatedAt);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -3486,9 +2950,7 @@ class $RecurringTransactionsTable extends RecurringTransactions
     requiredDuringInsert: false,
     clientDefault: () => const Uuid().v7(),
   );
-  static const VerificationMeta _accountIdMeta = const VerificationMeta(
-    'accountId',
-  );
+  static const VerificationMeta _accountIdMeta = const VerificationMeta('accountId');
   @override
   late final GeneratedColumn<String> accountId = GeneratedColumn<String>(
     'account_id',
@@ -3496,9 +2958,7 @@ class $RecurringTransactionsTable extends RecurringTransactions
     false,
     type: DriftSqlType.string,
     requiredDuringInsert: true,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'REFERENCES accounts (id) ON DELETE CASCADE',
-    ),
+    defaultConstraints: GeneratedColumn.constraintIsAlways('REFERENCES accounts (id) ON DELETE CASCADE'),
   );
   static const VerificationMeta _destinationAccountIdMeta = const VerificationMeta('destinationAccountId');
   @override
@@ -3508,13 +2968,9 @@ class $RecurringTransactionsTable extends RecurringTransactions
     true,
     type: DriftSqlType.string,
     requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'REFERENCES accounts (id) ON DELETE SET NULL',
-    ),
+    defaultConstraints: GeneratedColumn.constraintIsAlways('REFERENCES accounts (id) ON DELETE SET NULL'),
   );
-  static const VerificationMeta _categoryIdMeta = const VerificationMeta(
-    'categoryId',
-  );
+  static const VerificationMeta _categoryIdMeta = const VerificationMeta('categoryId');
   @override
   late final GeneratedColumn<String> categoryId = GeneratedColumn<String>(
     'category_id',
@@ -3522,32 +2978,24 @@ class $RecurringTransactionsTable extends RecurringTransactions
     true,
     type: DriftSqlType.string,
     requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'REFERENCES categories (id) ON DELETE SET NULL',
-    ),
+    defaultConstraints: GeneratedColumn.constraintIsAlways('REFERENCES categories (id) ON DELETE SET NULL'),
   );
   @override
-  late final GeneratedColumnWithTypeConverter<TransactionAllocation?, String> allocation =
-      GeneratedColumn<String>(
-        'allocation',
-        aliasedName,
-        true,
-        type: DriftSqlType.string,
-        requiredDuringInsert: false,
-      ).withConverter<TransactionAllocation?>(
-        $RecurringTransactionsTable.$converterallocationn,
-      );
+  late final GeneratedColumnWithTypeConverter<TransactionAllocation?, String> allocation = GeneratedColumn<String>(
+    'allocation',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  ).withConverter<TransactionAllocation?>($RecurringTransactionsTable.$converterallocationn);
   @override
-  late final GeneratedColumnWithTypeConverter<TransactionType, String> type =
-      GeneratedColumn<String>(
-        'type',
-        aliasedName,
-        false,
-        type: DriftSqlType.string,
-        requiredDuringInsert: true,
-      ).withConverter<TransactionType>(
-        $RecurringTransactionsTable.$convertertype,
-      );
+  late final GeneratedColumnWithTypeConverter<TransactionType, String> type = GeneratedColumn<String>(
+    'type',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  ).withConverter<TransactionType>($RecurringTransactionsTable.$convertertype);
   static const VerificationMeta _amountMeta = const VerificationMeta('amount');
   @override
   late final GeneratedColumn<int> amount = GeneratedColumn<int>(
@@ -3567,19 +3015,14 @@ class $RecurringTransactionsTable extends RecurringTransactions
     requiredDuringInsert: false,
   );
   @override
-  late final GeneratedColumnWithTypeConverter<RecurringPeriod, String> period =
-      GeneratedColumn<String>(
-        'period',
-        aliasedName,
-        false,
-        type: DriftSqlType.string,
-        requiredDuringInsert: true,
-      ).withConverter<RecurringPeriod>(
-        $RecurringTransactionsTable.$converterperiod,
-      );
-  static const VerificationMeta _nextDateMeta = const VerificationMeta(
-    'nextDate',
-  );
+  late final GeneratedColumnWithTypeConverter<RecurringPeriod, String> period = GeneratedColumn<String>(
+    'period',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  ).withConverter<RecurringPeriod>($RecurringTransactionsTable.$converterperiod);
+  static const VerificationMeta _nextDateMeta = const VerificationMeta('nextDate');
   @override
   late final GeneratedColumn<DateTime> nextDate = GeneratedColumn<DateTime>(
     'next_date',
@@ -3588,9 +3031,7 @@ class $RecurringTransactionsTable extends RecurringTransactions
     type: DriftSqlType.dateTime,
     requiredDuringInsert: true,
   );
-  static const VerificationMeta _isActiveMeta = const VerificationMeta(
-    'isActive',
-  );
+  static const VerificationMeta _isActiveMeta = const VerificationMeta('isActive');
   @override
   late final GeneratedColumn<bool> isActive = GeneratedColumn<bool>(
     'is_active',
@@ -3598,14 +3039,10 @@ class $RecurringTransactionsTable extends RecurringTransactions
     false,
     type: DriftSqlType.bool,
     requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'CHECK ("is_active" IN (0, 1))',
-    ),
+    defaultConstraints: GeneratedColumn.constraintIsAlways('CHECK ("is_active" IN (0, 1))'),
     defaultValue: const Constant(true),
   );
-  static const VerificationMeta _createdAtMeta = const VerificationMeta(
-    'createdAt',
-  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta('createdAt');
   @override
   late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
     'created_at',
@@ -3615,9 +3052,7 @@ class $RecurringTransactionsTable extends RecurringTransactions
     requiredDuringInsert: false,
     defaultValue: currentDateAndTime,
   );
-  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
-    'updatedAt',
-  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta('updatedAt');
   @override
   late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
     'updated_at',
@@ -3649,77 +3084,47 @@ class $RecurringTransactionsTable extends RecurringTransactions
   String get actualTableName => $name;
   static const String $name = 'recurring_transactions';
   @override
-  VerificationContext validateIntegrity(
-    Insertable<RecurringTransaction> instance, {
-    bool isInserting = false,
-  }) {
+  VerificationContext validateIntegrity(Insertable<RecurringTransaction> instance, {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
     if (data.containsKey('account_id')) {
-      context.handle(
-        _accountIdMeta,
-        accountId.isAcceptableOrUnknown(data['account_id']!, _accountIdMeta),
-      );
+      context.handle(_accountIdMeta, accountId.isAcceptableOrUnknown(data['account_id']!, _accountIdMeta));
     } else if (isInserting) {
       context.missing(_accountIdMeta);
     }
     if (data.containsKey('destination_account_id')) {
       context.handle(
         _destinationAccountIdMeta,
-        destinationAccountId.isAcceptableOrUnknown(
-          data['destination_account_id']!,
-          _destinationAccountIdMeta,
-        ),
+        destinationAccountId.isAcceptableOrUnknown(data['destination_account_id']!, _destinationAccountIdMeta),
       );
     }
     if (data.containsKey('category_id')) {
-      context.handle(
-        _categoryIdMeta,
-        categoryId.isAcceptableOrUnknown(data['category_id']!, _categoryIdMeta),
-      );
+      context.handle(_categoryIdMeta, categoryId.isAcceptableOrUnknown(data['category_id']!, _categoryIdMeta));
     }
     if (data.containsKey('amount')) {
-      context.handle(
-        _amountMeta,
-        amount.isAcceptableOrUnknown(data['amount']!, _amountMeta),
-      );
+      context.handle(_amountMeta, amount.isAcceptableOrUnknown(data['amount']!, _amountMeta));
     } else if (isInserting) {
       context.missing(_amountMeta);
     }
     if (data.containsKey('note')) {
-      context.handle(
-        _noteMeta,
-        note.isAcceptableOrUnknown(data['note']!, _noteMeta),
-      );
+      context.handle(_noteMeta, note.isAcceptableOrUnknown(data['note']!, _noteMeta));
     }
     if (data.containsKey('next_date')) {
-      context.handle(
-        _nextDateMeta,
-        nextDate.isAcceptableOrUnknown(data['next_date']!, _nextDateMeta),
-      );
+      context.handle(_nextDateMeta, nextDate.isAcceptableOrUnknown(data['next_date']!, _nextDateMeta));
     } else if (isInserting) {
       context.missing(_nextDateMeta);
     }
     if (data.containsKey('is_active')) {
-      context.handle(
-        _isActiveMeta,
-        isActive.isAcceptableOrUnknown(data['is_active']!, _isActiveMeta),
-      );
+      context.handle(_isActiveMeta, isActive.isAcceptableOrUnknown(data['is_active']!, _isActiveMeta));
     }
     if (data.containsKey('created_at')) {
-      context.handle(
-        _createdAtMeta,
-        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
-      );
+      context.handle(_createdAtMeta, createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
     }
     if (data.containsKey('updated_at')) {
-      context.handle(
-        _updatedAtMeta,
-        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
-      );
+      context.handle(_updatedAtMeta, updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta));
     }
     return context;
   }
@@ -3730,64 +3135,28 @@ class $RecurringTransactionsTable extends RecurringTransactions
   RecurringTransaction map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return RecurringTransaction(
-      id: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}id'],
-      )!,
-      accountId: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}account_id'],
-      )!,
+      id: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      accountId: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}account_id'])!,
       destinationAccountId: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}destination_account_id'],
       ),
-      categoryId: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}category_id'],
-      ),
+      categoryId: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}category_id']),
       allocation: $RecurringTransactionsTable.$converterallocationn.fromSql(
-        attachedDatabase.typeMapping.read(
-          DriftSqlType.string,
-          data['${effectivePrefix}allocation'],
-        ),
+        attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}allocation']),
       ),
       type: $RecurringTransactionsTable.$convertertype.fromSql(
-        attachedDatabase.typeMapping.read(
-          DriftSqlType.string,
-          data['${effectivePrefix}type'],
-        )!,
+        attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}type'])!,
       ),
-      amount: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}amount'],
-      )!,
-      note: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}note'],
-      ),
+      amount: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}amount'])!,
+      note: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}note']),
       period: $RecurringTransactionsTable.$converterperiod.fromSql(
-        attachedDatabase.typeMapping.read(
-          DriftSqlType.string,
-          data['${effectivePrefix}period'],
-        )!,
+        attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}period'])!,
       ),
-      nextDate: attachedDatabase.typeMapping.read(
-        DriftSqlType.dateTime,
-        data['${effectivePrefix}next_date'],
-      )!,
-      isActive: attachedDatabase.typeMapping.read(
-        DriftSqlType.bool,
-        data['${effectivePrefix}is_active'],
-      )!,
-      createdAt: attachedDatabase.typeMapping.read(
-        DriftSqlType.dateTime,
-        data['${effectivePrefix}created_at'],
-      )!,
-      updatedAt: attachedDatabase.typeMapping.read(
-        DriftSqlType.dateTime,
-        data['${effectivePrefix}updated_at'],
-      )!,
+      nextDate: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}next_date'])!,
+      isActive: attachedDatabase.typeMapping.read(DriftSqlType.bool, data['${effectivePrefix}is_active'])!,
+      createdAt: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
+      updatedAt: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}updated_at'])!,
     );
   }
 
@@ -3850,23 +3219,17 @@ class RecurringTransaction extends DataClass implements Insertable<RecurringTran
       map['category_id'] = Variable<String>(categoryId);
     }
     if (!nullToAbsent || allocation != null) {
-      map['allocation'] = Variable<String>(
-        $RecurringTransactionsTable.$converterallocationn.toSql(allocation),
-      );
+      map['allocation'] = Variable<String>($RecurringTransactionsTable.$converterallocationn.toSql(allocation));
     }
     {
-      map['type'] = Variable<String>(
-        $RecurringTransactionsTable.$convertertype.toSql(type),
-      );
+      map['type'] = Variable<String>($RecurringTransactionsTable.$convertertype.toSql(type));
     }
     map['amount'] = Variable<int>(amount);
     if (!nullToAbsent || note != null) {
       map['note'] = Variable<String>(note);
     }
     {
-      map['period'] = Variable<String>(
-        $RecurringTransactionsTable.$converterperiod.toSql(period),
-      );
+      map['period'] = Variable<String>($RecurringTransactionsTable.$converterperiod.toSql(period));
     }
     map['next_date'] = Variable<DateTime>(nextDate);
     map['is_active'] = Variable<bool>(isActive);
@@ -3895,29 +3258,20 @@ class RecurringTransaction extends DataClass implements Insertable<RecurringTran
     );
   }
 
-  factory RecurringTransaction.fromJson(
-    Map<String, dynamic> json, {
-    ValueSerializer? serializer,
-  }) {
+  factory RecurringTransaction.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return RecurringTransaction(
       id: serializer.fromJson<String>(json['id']),
       accountId: serializer.fromJson<String>(json['accountId']),
-      destinationAccountId: serializer.fromJson<String?>(
-        json['destinationAccountId'],
-      ),
+      destinationAccountId: serializer.fromJson<String?>(json['destinationAccountId']),
       categoryId: serializer.fromJson<String?>(json['categoryId']),
       allocation: $RecurringTransactionsTable.$converterallocationn.fromJson(
         serializer.fromJson<String?>(json['allocation']),
       ),
-      type: $RecurringTransactionsTable.$convertertype.fromJson(
-        serializer.fromJson<String>(json['type']),
-      ),
+      type: $RecurringTransactionsTable.$convertertype.fromJson(serializer.fromJson<String>(json['type'])),
       amount: serializer.fromJson<int>(json['amount']),
       note: serializer.fromJson<String?>(json['note']),
-      period: $RecurringTransactionsTable.$converterperiod.fromJson(
-        serializer.fromJson<String>(json['period']),
-      ),
+      period: $RecurringTransactionsTable.$converterperiod.fromJson(serializer.fromJson<String>(json['period'])),
       nextDate: serializer.fromJson<DateTime>(json['nextDate']),
       isActive: serializer.fromJson<bool>(json['isActive']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
@@ -3932,17 +3286,11 @@ class RecurringTransaction extends DataClass implements Insertable<RecurringTran
       'accountId': serializer.toJson<String>(accountId),
       'destinationAccountId': serializer.toJson<String?>(destinationAccountId),
       'categoryId': serializer.toJson<String?>(categoryId),
-      'allocation': serializer.toJson<String?>(
-        $RecurringTransactionsTable.$converterallocationn.toJson(allocation),
-      ),
-      'type': serializer.toJson<String>(
-        $RecurringTransactionsTable.$convertertype.toJson(type),
-      ),
+      'allocation': serializer.toJson<String?>($RecurringTransactionsTable.$converterallocationn.toJson(allocation)),
+      'type': serializer.toJson<String>($RecurringTransactionsTable.$convertertype.toJson(type)),
       'amount': serializer.toJson<int>(amount),
       'note': serializer.toJson<String?>(note),
-      'period': serializer.toJson<String>(
-        $RecurringTransactionsTable.$converterperiod.toJson(period),
-      ),
+      'period': serializer.toJson<String>($RecurringTransactionsTable.$converterperiod.toJson(period)),
       'nextDate': serializer.toJson<DateTime>(nextDate),
       'isActive': serializer.toJson<bool>(isActive),
       'createdAt': serializer.toJson<DateTime>(createdAt),
@@ -4183,24 +3531,16 @@ class RecurringTransactionsCompanion extends UpdateCompanion<RecurringTransactio
       map['account_id'] = Variable<String>(accountId.value);
     }
     if (destinationAccountId.present) {
-      map['destination_account_id'] = Variable<String>(
-        destinationAccountId.value,
-      );
+      map['destination_account_id'] = Variable<String>(destinationAccountId.value);
     }
     if (categoryId.present) {
       map['category_id'] = Variable<String>(categoryId.value);
     }
     if (allocation.present) {
-      map['allocation'] = Variable<String>(
-        $RecurringTransactionsTable.$converterallocationn.toSql(
-          allocation.value,
-        ),
-      );
+      map['allocation'] = Variable<String>($RecurringTransactionsTable.$converterallocationn.toSql(allocation.value));
     }
     if (type.present) {
-      map['type'] = Variable<String>(
-        $RecurringTransactionsTable.$convertertype.toSql(type.value),
-      );
+      map['type'] = Variable<String>($RecurringTransactionsTable.$convertertype.toSql(type.value));
     }
     if (amount.present) {
       map['amount'] = Variable<int>(amount.value);
@@ -4209,9 +3549,7 @@ class RecurringTransactionsCompanion extends UpdateCompanion<RecurringTransactio
       map['note'] = Variable<String>(note.value);
     }
     if (period.present) {
-      map['period'] = Variable<String>(
-        $RecurringTransactionsTable.$converterperiod.toSql(period.value),
-      );
+      map['period'] = Variable<String>($RecurringTransactionsTable.$converterperiod.toSql(period.value));
     }
     if (nextDate.present) {
       map['next_date'] = Variable<DateTime>(nextDate.value);
@@ -4268,9 +3606,7 @@ class $DebtsTable extends Debts with TableInfo<$DebtsTable, Debt> {
     requiredDuringInsert: false,
     clientDefault: () => const Uuid().v7(),
   );
-  static const VerificationMeta _personNameMeta = const VerificationMeta(
-    'personName',
-  );
+  static const VerificationMeta _personNameMeta = const VerificationMeta('personName');
   @override
   late final GeneratedColumn<String> personName = GeneratedColumn<String>(
     'person_name',
@@ -4296,9 +3632,7 @@ class $DebtsTable extends Debts with TableInfo<$DebtsTable, Debt> {
     type: DriftSqlType.int,
     requiredDuringInsert: true,
   );
-  static const VerificationMeta _remainingAmountMeta = const VerificationMeta(
-    'remainingAmount',
-  );
+  static const VerificationMeta _remainingAmountMeta = const VerificationMeta('remainingAmount');
   @override
   late final GeneratedColumn<int> remainingAmount = GeneratedColumn<int>(
     'remaining_amount',
@@ -4315,9 +3649,7 @@ class $DebtsTable extends Debts with TableInfo<$DebtsTable, Debt> {
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   ).withConverter<DebtStatus>($DebtsTable.$converterstatus);
-  static const VerificationMeta _dueDateMeta = const VerificationMeta(
-    'dueDate',
-  );
+  static const VerificationMeta _dueDateMeta = const VerificationMeta('dueDate');
   @override
   late final GeneratedColumn<DateTime> dueDate = GeneratedColumn<DateTime>(
     'due_date',
@@ -4335,9 +3667,7 @@ class $DebtsTable extends Debts with TableInfo<$DebtsTable, Debt> {
     type: DriftSqlType.string,
     requiredDuringInsert: false,
   );
-  static const VerificationMeta _createdAtMeta = const VerificationMeta(
-    'createdAt',
-  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta('createdAt');
   @override
   late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
     'created_at',
@@ -4347,9 +3677,7 @@ class $DebtsTable extends Debts with TableInfo<$DebtsTable, Debt> {
     requiredDuringInsert: false,
     defaultValue: currentDateAndTime,
   );
-  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
-    'updatedAt',
-  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta('updatedAt');
   @override
   late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
     'updated_at',
@@ -4378,65 +3706,41 @@ class $DebtsTable extends Debts with TableInfo<$DebtsTable, Debt> {
   String get actualTableName => $name;
   static const String $name = 'debts';
   @override
-  VerificationContext validateIntegrity(
-    Insertable<Debt> instance, {
-    bool isInserting = false,
-  }) {
+  VerificationContext validateIntegrity(Insertable<Debt> instance, {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
     if (data.containsKey('person_name')) {
-      context.handle(
-        _personNameMeta,
-        personName.isAcceptableOrUnknown(data['person_name']!, _personNameMeta),
-      );
+      context.handle(_personNameMeta, personName.isAcceptableOrUnknown(data['person_name']!, _personNameMeta));
     } else if (isInserting) {
       context.missing(_personNameMeta);
     }
     if (data.containsKey('amount')) {
-      context.handle(
-        _amountMeta,
-        amount.isAcceptableOrUnknown(data['amount']!, _amountMeta),
-      );
+      context.handle(_amountMeta, amount.isAcceptableOrUnknown(data['amount']!, _amountMeta));
     } else if (isInserting) {
       context.missing(_amountMeta);
     }
     if (data.containsKey('remaining_amount')) {
       context.handle(
         _remainingAmountMeta,
-        remainingAmount.isAcceptableOrUnknown(
-          data['remaining_amount']!,
-          _remainingAmountMeta,
-        ),
+        remainingAmount.isAcceptableOrUnknown(data['remaining_amount']!, _remainingAmountMeta),
       );
     } else if (isInserting) {
       context.missing(_remainingAmountMeta);
     }
     if (data.containsKey('due_date')) {
-      context.handle(
-        _dueDateMeta,
-        dueDate.isAcceptableOrUnknown(data['due_date']!, _dueDateMeta),
-      );
+      context.handle(_dueDateMeta, dueDate.isAcceptableOrUnknown(data['due_date']!, _dueDateMeta));
     }
     if (data.containsKey('note')) {
-      context.handle(
-        _noteMeta,
-        note.isAcceptableOrUnknown(data['note']!, _noteMeta),
-      );
+      context.handle(_noteMeta, note.isAcceptableOrUnknown(data['note']!, _noteMeta));
     }
     if (data.containsKey('created_at')) {
-      context.handle(
-        _createdAtMeta,
-        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
-      );
+      context.handle(_createdAtMeta, createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
     }
     if (data.containsKey('updated_at')) {
-      context.handle(
-        _updatedAtMeta,
-        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
-      );
+      context.handle(_updatedAtMeta, updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta));
     }
     return context;
   }
@@ -4447,50 +3751,20 @@ class $DebtsTable extends Debts with TableInfo<$DebtsTable, Debt> {
   Debt map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return Debt(
-      id: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}id'],
-      )!,
-      personName: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}person_name'],
-      )!,
+      id: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      personName: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}person_name'])!,
       type: $DebtsTable.$convertertype.fromSql(
-        attachedDatabase.typeMapping.read(
-          DriftSqlType.string,
-          data['${effectivePrefix}type'],
-        )!,
+        attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}type'])!,
       ),
-      amount: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}amount'],
-      )!,
-      remainingAmount: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}remaining_amount'],
-      )!,
+      amount: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}amount'])!,
+      remainingAmount: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}remaining_amount'])!,
       status: $DebtsTable.$converterstatus.fromSql(
-        attachedDatabase.typeMapping.read(
-          DriftSqlType.string,
-          data['${effectivePrefix}status'],
-        )!,
+        attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}status'])!,
       ),
-      dueDate: attachedDatabase.typeMapping.read(
-        DriftSqlType.dateTime,
-        data['${effectivePrefix}due_date'],
-      ),
-      note: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}note'],
-      ),
-      createdAt: attachedDatabase.typeMapping.read(
-        DriftSqlType.dateTime,
-        data['${effectivePrefix}created_at'],
-      )!,
-      updatedAt: attachedDatabase.typeMapping.read(
-        DriftSqlType.dateTime,
-        data['${effectivePrefix}updated_at'],
-      )!,
+      dueDate: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}due_date']),
+      note: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}note']),
+      createdAt: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
+      updatedAt: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}updated_at'])!,
     );
   }
 
@@ -4537,9 +3811,7 @@ class Debt extends DataClass implements Insertable<Debt> {
     map['amount'] = Variable<int>(amount);
     map['remaining_amount'] = Variable<int>(remainingAmount);
     {
-      map['status'] = Variable<String>(
-        $DebtsTable.$converterstatus.toSql(status),
-      );
+      map['status'] = Variable<String>($DebtsTable.$converterstatus.toSql(status));
     }
     if (!nullToAbsent || dueDate != null) {
       map['due_date'] = Variable<DateTime>(dueDate);
@@ -4567,22 +3839,15 @@ class Debt extends DataClass implements Insertable<Debt> {
     );
   }
 
-  factory Debt.fromJson(
-    Map<String, dynamic> json, {
-    ValueSerializer? serializer,
-  }) {
+  factory Debt.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return Debt(
       id: serializer.fromJson<String>(json['id']),
       personName: serializer.fromJson<String>(json['personName']),
-      type: $DebtsTable.$convertertype.fromJson(
-        serializer.fromJson<String>(json['type']),
-      ),
+      type: $DebtsTable.$convertertype.fromJson(serializer.fromJson<String>(json['type'])),
       amount: serializer.fromJson<int>(json['amount']),
       remainingAmount: serializer.fromJson<int>(json['remainingAmount']),
-      status: $DebtsTable.$converterstatus.fromJson(
-        serializer.fromJson<String>(json['status']),
-      ),
+      status: $DebtsTable.$converterstatus.fromJson(serializer.fromJson<String>(json['status'])),
       dueDate: serializer.fromJson<DateTime?>(json['dueDate']),
       note: serializer.fromJson<String?>(json['note']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
@@ -4595,14 +3860,10 @@ class Debt extends DataClass implements Insertable<Debt> {
     return <String, dynamic>{
       'id': serializer.toJson<String>(id),
       'personName': serializer.toJson<String>(personName),
-      'type': serializer.toJson<String>(
-        $DebtsTable.$convertertype.toJson(type),
-      ),
+      'type': serializer.toJson<String>($DebtsTable.$convertertype.toJson(type)),
       'amount': serializer.toJson<int>(amount),
       'remainingAmount': serializer.toJson<int>(remainingAmount),
-      'status': serializer.toJson<String>(
-        $DebtsTable.$converterstatus.toJson(status),
-      ),
+      'status': serializer.toJson<String>($DebtsTable.$converterstatus.toJson(status)),
       'dueDate': serializer.toJson<DateTime?>(dueDate),
       'note': serializer.toJson<String?>(note),
       'createdAt': serializer.toJson<DateTime>(createdAt),
@@ -4666,18 +3927,8 @@ class Debt extends DataClass implements Insertable<Debt> {
   }
 
   @override
-  int get hashCode => Object.hash(
-    id,
-    personName,
-    type,
-    amount,
-    remainingAmount,
-    status,
-    dueDate,
-    note,
-    createdAt,
-    updatedAt,
-  );
+  int get hashCode =>
+      Object.hash(id, personName, type, amount, remainingAmount, status, dueDate, note, createdAt, updatedAt);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -4802,9 +4053,7 @@ class DebtsCompanion extends UpdateCompanion<Debt> {
       map['person_name'] = Variable<String>(personName.value);
     }
     if (type.present) {
-      map['type'] = Variable<String>(
-        $DebtsTable.$convertertype.toSql(type.value),
-      );
+      map['type'] = Variable<String>($DebtsTable.$convertertype.toSql(type.value));
     }
     if (amount.present) {
       map['amount'] = Variable<int>(amount.value);
@@ -4813,9 +4062,7 @@ class DebtsCompanion extends UpdateCompanion<Debt> {
       map['remaining_amount'] = Variable<int>(remainingAmount.value);
     }
     if (status.present) {
-      map['status'] = Variable<String>(
-        $DebtsTable.$converterstatus.toSql(status.value),
-      );
+      map['status'] = Variable<String>($DebtsTable.$converterstatus.toSql(status.value));
     }
     if (dueDate.present) {
       map['due_date'] = Variable<DateTime>(dueDate.value);
@@ -4869,9 +4116,7 @@ class $TransactionsTable extends Transactions with TableInfo<$TransactionsTable,
     requiredDuringInsert: false,
     clientDefault: () => const Uuid().v7(),
   );
-  static const VerificationMeta _accountIdMeta = const VerificationMeta(
-    'accountId',
-  );
+  static const VerificationMeta _accountIdMeta = const VerificationMeta('accountId');
   @override
   late final GeneratedColumn<String> accountId = GeneratedColumn<String>(
     'account_id',
@@ -4879,9 +4124,7 @@ class $TransactionsTable extends Transactions with TableInfo<$TransactionsTable,
     false,
     type: DriftSqlType.string,
     requiredDuringInsert: true,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'REFERENCES accounts (id) ON DELETE CASCADE',
-    ),
+    defaultConstraints: GeneratedColumn.constraintIsAlways('REFERENCES accounts (id) ON DELETE CASCADE'),
   );
   static const VerificationMeta _destinationAccountIdMeta = const VerificationMeta('destinationAccountId');
   @override
@@ -4891,9 +4134,7 @@ class $TransactionsTable extends Transactions with TableInfo<$TransactionsTable,
     true,
     type: DriftSqlType.string,
     requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'REFERENCES accounts (id) ON DELETE CASCADE',
-    ),
+    defaultConstraints: GeneratedColumn.constraintIsAlways('REFERENCES accounts (id) ON DELETE CASCADE'),
   );
   @override
   late final GeneratedColumnWithTypeConverter<TransactionType, String> type = GeneratedColumn<String>(
@@ -4912,9 +4153,7 @@ class $TransactionsTable extends Transactions with TableInfo<$TransactionsTable,
     type: DriftSqlType.int,
     requiredDuringInsert: true,
   );
-  static const VerificationMeta _transactionDateMeta = const VerificationMeta(
-    'transactionDate',
-  );
+  static const VerificationMeta _transactionDateMeta = const VerificationMeta('transactionDate');
   @override
   late final GeneratedColumn<DateTime> transactionDate = GeneratedColumn<DateTime>(
     'transaction_date',
@@ -4940,9 +4179,7 @@ class $TransactionsTable extends Transactions with TableInfo<$TransactionsTable,
     true,
     type: DriftSqlType.string,
     requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'REFERENCES recurring_transactions (id) ON DELETE SET NULL',
-    ),
+    defaultConstraints: GeneratedColumn.constraintIsAlways('REFERENCES recurring_transactions (id) ON DELETE SET NULL'),
   );
   static const VerificationMeta _debtIdMeta = const VerificationMeta('debtId');
   @override
@@ -4952,13 +4189,9 @@ class $TransactionsTable extends Transactions with TableInfo<$TransactionsTable,
     true,
     type: DriftSqlType.string,
     requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'REFERENCES debts (id) ON DELETE SET NULL',
-    ),
+    defaultConstraints: GeneratedColumn.constraintIsAlways('REFERENCES debts (id) ON DELETE SET NULL'),
   );
-  static const VerificationMeta _createdAtMeta = const VerificationMeta(
-    'createdAt',
-  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta('createdAt');
   @override
   late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
     'created_at',
@@ -4968,9 +4201,7 @@ class $TransactionsTable extends Transactions with TableInfo<$TransactionsTable,
     requiredDuringInsert: false,
     defaultValue: currentDateAndTime,
   );
-  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
-    'updatedAt',
-  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta('updatedAt');
   @override
   late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
     'updated_at',
@@ -5000,83 +4231,53 @@ class $TransactionsTable extends Transactions with TableInfo<$TransactionsTable,
   String get actualTableName => $name;
   static const String $name = 'transactions';
   @override
-  VerificationContext validateIntegrity(
-    Insertable<Transaction> instance, {
-    bool isInserting = false,
-  }) {
+  VerificationContext validateIntegrity(Insertable<Transaction> instance, {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
     if (data.containsKey('account_id')) {
-      context.handle(
-        _accountIdMeta,
-        accountId.isAcceptableOrUnknown(data['account_id']!, _accountIdMeta),
-      );
+      context.handle(_accountIdMeta, accountId.isAcceptableOrUnknown(data['account_id']!, _accountIdMeta));
     } else if (isInserting) {
       context.missing(_accountIdMeta);
     }
     if (data.containsKey('destination_account_id')) {
       context.handle(
         _destinationAccountIdMeta,
-        destinationAccountId.isAcceptableOrUnknown(
-          data['destination_account_id']!,
-          _destinationAccountIdMeta,
-        ),
+        destinationAccountId.isAcceptableOrUnknown(data['destination_account_id']!, _destinationAccountIdMeta),
       );
     }
     if (data.containsKey('amount')) {
-      context.handle(
-        _amountMeta,
-        amount.isAcceptableOrUnknown(data['amount']!, _amountMeta),
-      );
+      context.handle(_amountMeta, amount.isAcceptableOrUnknown(data['amount']!, _amountMeta));
     } else if (isInserting) {
       context.missing(_amountMeta);
     }
     if (data.containsKey('transaction_date')) {
       context.handle(
         _transactionDateMeta,
-        transactionDate.isAcceptableOrUnknown(
-          data['transaction_date']!,
-          _transactionDateMeta,
-        ),
+        transactionDate.isAcceptableOrUnknown(data['transaction_date']!, _transactionDateMeta),
       );
     } else if (isInserting) {
       context.missing(_transactionDateMeta);
     }
     if (data.containsKey('note')) {
-      context.handle(
-        _noteMeta,
-        note.isAcceptableOrUnknown(data['note']!, _noteMeta),
-      );
+      context.handle(_noteMeta, note.isAcceptableOrUnknown(data['note']!, _noteMeta));
     }
     if (data.containsKey('recurring_transaction_id')) {
       context.handle(
         _recurringTransactionIdMeta,
-        recurringTransactionId.isAcceptableOrUnknown(
-          data['recurring_transaction_id']!,
-          _recurringTransactionIdMeta,
-        ),
+        recurringTransactionId.isAcceptableOrUnknown(data['recurring_transaction_id']!, _recurringTransactionIdMeta),
       );
     }
     if (data.containsKey('debt_id')) {
-      context.handle(
-        _debtIdMeta,
-        debtId.isAcceptableOrUnknown(data['debt_id']!, _debtIdMeta),
-      );
+      context.handle(_debtIdMeta, debtId.isAcceptableOrUnknown(data['debt_id']!, _debtIdMeta));
     }
     if (data.containsKey('created_at')) {
-      context.handle(
-        _createdAtMeta,
-        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
-      );
+      context.handle(_createdAtMeta, createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
     }
     if (data.containsKey('updated_at')) {
-      context.handle(
-        _updatedAtMeta,
-        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
-      );
+      context.handle(_updatedAtMeta, updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta));
     }
     return context;
   }
@@ -5087,52 +4288,28 @@ class $TransactionsTable extends Transactions with TableInfo<$TransactionsTable,
   Transaction map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return Transaction(
-      id: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}id'],
-      )!,
-      accountId: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}account_id'],
-      )!,
+      id: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      accountId: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}account_id'])!,
       destinationAccountId: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}destination_account_id'],
       ),
       type: $TransactionsTable.$convertertype.fromSql(
-        attachedDatabase.typeMapping.read(
-          DriftSqlType.string,
-          data['${effectivePrefix}type'],
-        )!,
+        attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}type'])!,
       ),
-      amount: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}amount'],
-      )!,
+      amount: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}amount'])!,
       transactionDate: attachedDatabase.typeMapping.read(
         DriftSqlType.dateTime,
         data['${effectivePrefix}transaction_date'],
       )!,
-      note: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}note'],
-      ),
+      note: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}note']),
       recurringTransactionId: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}recurring_transaction_id'],
       ),
-      debtId: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}debt_id'],
-      ),
-      createdAt: attachedDatabase.typeMapping.read(
-        DriftSqlType.dateTime,
-        data['${effectivePrefix}created_at'],
-      )!,
-      updatedAt: attachedDatabase.typeMapping.read(
-        DriftSqlType.dateTime,
-        data['${effectivePrefix}updated_at'],
-      )!,
+      debtId: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}debt_id']),
+      createdAt: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
+      updatedAt: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}updated_at'])!,
     );
   }
 
@@ -5180,9 +4357,7 @@ class Transaction extends DataClass implements Insertable<Transaction> {
       map['destination_account_id'] = Variable<String>(destinationAccountId);
     }
     {
-      map['type'] = Variable<String>(
-        $TransactionsTable.$convertertype.toSql(type),
-      );
+      map['type'] = Variable<String>($TransactionsTable.$convertertype.toSql(type));
     }
     map['amount'] = Variable<int>(amount);
     map['transaction_date'] = Variable<DateTime>(transactionDate);
@@ -5190,9 +4365,7 @@ class Transaction extends DataClass implements Insertable<Transaction> {
       map['note'] = Variable<String>(note);
     }
     if (!nullToAbsent || recurringTransactionId != null) {
-      map['recurring_transaction_id'] = Variable<String>(
-        recurringTransactionId,
-      );
+      map['recurring_transaction_id'] = Variable<String>(recurringTransactionId);
     }
     if (!nullToAbsent || debtId != null) {
       map['debt_id'] = Variable<String>(debtId);
@@ -5222,26 +4395,17 @@ class Transaction extends DataClass implements Insertable<Transaction> {
     );
   }
 
-  factory Transaction.fromJson(
-    Map<String, dynamic> json, {
-    ValueSerializer? serializer,
-  }) {
+  factory Transaction.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return Transaction(
       id: serializer.fromJson<String>(json['id']),
       accountId: serializer.fromJson<String>(json['accountId']),
-      destinationAccountId: serializer.fromJson<String?>(
-        json['destinationAccountId'],
-      ),
-      type: $TransactionsTable.$convertertype.fromJson(
-        serializer.fromJson<String>(json['type']),
-      ),
+      destinationAccountId: serializer.fromJson<String?>(json['destinationAccountId']),
+      type: $TransactionsTable.$convertertype.fromJson(serializer.fromJson<String>(json['type'])),
       amount: serializer.fromJson<int>(json['amount']),
       transactionDate: serializer.fromJson<DateTime>(json['transactionDate']),
       note: serializer.fromJson<String?>(json['note']),
-      recurringTransactionId: serializer.fromJson<String?>(
-        json['recurringTransactionId'],
-      ),
+      recurringTransactionId: serializer.fromJson<String?>(json['recurringTransactionId']),
       debtId: serializer.fromJson<String?>(json['debtId']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
       updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
@@ -5254,15 +4418,11 @@ class Transaction extends DataClass implements Insertable<Transaction> {
       'id': serializer.toJson<String>(id),
       'accountId': serializer.toJson<String>(accountId),
       'destinationAccountId': serializer.toJson<String?>(destinationAccountId),
-      'type': serializer.toJson<String>(
-        $TransactionsTable.$convertertype.toJson(type),
-      ),
+      'type': serializer.toJson<String>($TransactionsTable.$convertertype.toJson(type)),
       'amount': serializer.toJson<int>(amount),
       'transactionDate': serializer.toJson<DateTime>(transactionDate),
       'note': serializer.toJson<String?>(note),
-      'recurringTransactionId': serializer.toJson<String?>(
-        recurringTransactionId,
-      ),
+      'recurringTransactionId': serializer.toJson<String?>(recurringTransactionId),
       'debtId': serializer.toJson<String?>(debtId),
       'createdAt': serializer.toJson<DateTime>(createdAt),
       'updatedAt': serializer.toJson<DateTime>(updatedAt),
@@ -5477,14 +4637,10 @@ class TransactionsCompanion extends UpdateCompanion<Transaction> {
       map['account_id'] = Variable<String>(accountId.value);
     }
     if (destinationAccountId.present) {
-      map['destination_account_id'] = Variable<String>(
-        destinationAccountId.value,
-      );
+      map['destination_account_id'] = Variable<String>(destinationAccountId.value);
     }
     if (type.present) {
-      map['type'] = Variable<String>(
-        $TransactionsTable.$convertertype.toSql(type.value),
-      );
+      map['type'] = Variable<String>($TransactionsTable.$convertertype.toSql(type.value));
     }
     if (amount.present) {
       map['amount'] = Variable<int>(amount.value);
@@ -5496,9 +4652,7 @@ class TransactionsCompanion extends UpdateCompanion<Transaction> {
       map['note'] = Variable<String>(note.value);
     }
     if (recurringTransactionId.present) {
-      map['recurring_transaction_id'] = Variable<String>(
-        recurringTransactionId.value,
-      );
+      map['recurring_transaction_id'] = Variable<String>(recurringTransactionId.value);
     }
     if (debtId.present) {
       map['debt_id'] = Variable<String>(debtId.value);
@@ -5550,9 +4704,7 @@ class $TransactionItemsTable extends TransactionItems with TableInfo<$Transactio
     requiredDuringInsert: false,
     clientDefault: () => const Uuid().v7(),
   );
-  static const VerificationMeta _transactionIdMeta = const VerificationMeta(
-    'transactionId',
-  );
+  static const VerificationMeta _transactionIdMeta = const VerificationMeta('transactionId');
   @override
   late final GeneratedColumn<String> transactionId = GeneratedColumn<String>(
     'transaction_id',
@@ -5560,13 +4712,9 @@ class $TransactionItemsTable extends TransactionItems with TableInfo<$Transactio
     false,
     type: DriftSqlType.string,
     requiredDuringInsert: true,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'REFERENCES transactions (id) ON DELETE CASCADE',
-    ),
+    defaultConstraints: GeneratedColumn.constraintIsAlways('REFERENCES transactions (id) ON DELETE CASCADE'),
   );
-  static const VerificationMeta _categoryIdMeta = const VerificationMeta(
-    'categoryId',
-  );
+  static const VerificationMeta _categoryIdMeta = const VerificationMeta('categoryId');
   @override
   late final GeneratedColumn<String> categoryId = GeneratedColumn<String>(
     'category_id',
@@ -5574,21 +4722,16 @@ class $TransactionItemsTable extends TransactionItems with TableInfo<$Transactio
     true,
     type: DriftSqlType.string,
     requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'REFERENCES categories (id) ON DELETE SET NULL',
-    ),
+    defaultConstraints: GeneratedColumn.constraintIsAlways('REFERENCES categories (id) ON DELETE SET NULL'),
   );
   @override
-  late final GeneratedColumnWithTypeConverter<TransactionAllocation?, String> allocation =
-      GeneratedColumn<String>(
-        'allocation',
-        aliasedName,
-        true,
-        type: DriftSqlType.string,
-        requiredDuringInsert: false,
-      ).withConverter<TransactionAllocation?>(
-        $TransactionItemsTable.$converterallocationn,
-      );
+  late final GeneratedColumnWithTypeConverter<TransactionAllocation?, String> allocation = GeneratedColumn<String>(
+    'allocation',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  ).withConverter<TransactionAllocation?>($TransactionItemsTable.$converterallocationn);
   static const VerificationMeta _amountMeta = const VerificationMeta('amount');
   @override
   late final GeneratedColumn<int> amount = GeneratedColumn<int>(
@@ -5607,9 +4750,7 @@ class $TransactionItemsTable extends TransactionItems with TableInfo<$Transactio
     type: DriftSqlType.string,
     requiredDuringInsert: false,
   );
-  static const VerificationMeta _createdAtMeta = const VerificationMeta(
-    'createdAt',
-  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta('createdAt');
   @override
   late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
     'created_at',
@@ -5619,9 +4760,7 @@ class $TransactionItemsTable extends TransactionItems with TableInfo<$Transactio
     requiredDuringInsert: false,
     defaultValue: currentDateAndTime,
   );
-  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
-    'updatedAt',
-  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta('updatedAt');
   @override
   late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
     'updated_at',
@@ -5632,26 +4771,14 @@ class $TransactionItemsTable extends TransactionItems with TableInfo<$Transactio
     defaultValue: currentDateAndTime,
   );
   @override
-  List<GeneratedColumn> get $columns => [
-    id,
-    transactionId,
-    categoryId,
-    allocation,
-    amount,
-    note,
-    createdAt,
-    updatedAt,
-  ];
+  List<GeneratedColumn> get $columns => [id, transactionId, categoryId, allocation, amount, note, createdAt, updatedAt];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
   static const String $name = 'transaction_items';
   @override
-  VerificationContext validateIntegrity(
-    Insertable<TransactionItem> instance, {
-    bool isInserting = false,
-  }) {
+  VerificationContext validateIntegrity(Insertable<TransactionItem> instance, {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
@@ -5660,45 +4787,27 @@ class $TransactionItemsTable extends TransactionItems with TableInfo<$Transactio
     if (data.containsKey('transaction_id')) {
       context.handle(
         _transactionIdMeta,
-        transactionId.isAcceptableOrUnknown(
-          data['transaction_id']!,
-          _transactionIdMeta,
-        ),
+        transactionId.isAcceptableOrUnknown(data['transaction_id']!, _transactionIdMeta),
       );
     } else if (isInserting) {
       context.missing(_transactionIdMeta);
     }
     if (data.containsKey('category_id')) {
-      context.handle(
-        _categoryIdMeta,
-        categoryId.isAcceptableOrUnknown(data['category_id']!, _categoryIdMeta),
-      );
+      context.handle(_categoryIdMeta, categoryId.isAcceptableOrUnknown(data['category_id']!, _categoryIdMeta));
     }
     if (data.containsKey('amount')) {
-      context.handle(
-        _amountMeta,
-        amount.isAcceptableOrUnknown(data['amount']!, _amountMeta),
-      );
+      context.handle(_amountMeta, amount.isAcceptableOrUnknown(data['amount']!, _amountMeta));
     } else if (isInserting) {
       context.missing(_amountMeta);
     }
     if (data.containsKey('note')) {
-      context.handle(
-        _noteMeta,
-        note.isAcceptableOrUnknown(data['note']!, _noteMeta),
-      );
+      context.handle(_noteMeta, note.isAcceptableOrUnknown(data['note']!, _noteMeta));
     }
     if (data.containsKey('created_at')) {
-      context.handle(
-        _createdAtMeta,
-        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
-      );
+      context.handle(_createdAtMeta, createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
     }
     if (data.containsKey('updated_at')) {
-      context.handle(
-        _updatedAtMeta,
-        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
-      );
+      context.handle(_updatedAtMeta, updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta));
     }
     return context;
   }
@@ -5709,40 +4818,16 @@ class $TransactionItemsTable extends TransactionItems with TableInfo<$Transactio
   TransactionItem map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return TransactionItem(
-      id: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}id'],
-      )!,
-      transactionId: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}transaction_id'],
-      )!,
-      categoryId: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}category_id'],
-      ),
+      id: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      transactionId: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}transaction_id'])!,
+      categoryId: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}category_id']),
       allocation: $TransactionItemsTable.$converterallocationn.fromSql(
-        attachedDatabase.typeMapping.read(
-          DriftSqlType.string,
-          data['${effectivePrefix}allocation'],
-        ),
+        attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}allocation']),
       ),
-      amount: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}amount'],
-      )!,
-      note: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}note'],
-      ),
-      createdAt: attachedDatabase.typeMapping.read(
-        DriftSqlType.dateTime,
-        data['${effectivePrefix}created_at'],
-      )!,
-      updatedAt: attachedDatabase.typeMapping.read(
-        DriftSqlType.dateTime,
-        data['${effectivePrefix}updated_at'],
-      )!,
+      amount: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}amount'])!,
+      note: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}note']),
+      createdAt: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
+      updatedAt: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}updated_at'])!,
     );
   }
 
@@ -5786,9 +4871,7 @@ class TransactionItem extends DataClass implements Insertable<TransactionItem> {
       map['category_id'] = Variable<String>(categoryId);
     }
     if (!nullToAbsent || allocation != null) {
-      map['allocation'] = Variable<String>(
-        $TransactionItemsTable.$converterallocationn.toSql(allocation),
-      );
+      map['allocation'] = Variable<String>($TransactionItemsTable.$converterallocationn.toSql(allocation));
     }
     map['amount'] = Variable<int>(amount);
     if (!nullToAbsent || note != null) {
@@ -5812,10 +4895,7 @@ class TransactionItem extends DataClass implements Insertable<TransactionItem> {
     );
   }
 
-  factory TransactionItem.fromJson(
-    Map<String, dynamic> json, {
-    ValueSerializer? serializer,
-  }) {
+  factory TransactionItem.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return TransactionItem(
       id: serializer.fromJson<String>(json['id']),
@@ -5837,9 +4917,7 @@ class TransactionItem extends DataClass implements Insertable<TransactionItem> {
       'id': serializer.toJson<String>(id),
       'transactionId': serializer.toJson<String>(transactionId),
       'categoryId': serializer.toJson<String?>(categoryId),
-      'allocation': serializer.toJson<String?>(
-        $TransactionItemsTable.$converterallocationn.toJson(allocation),
-      ),
+      'allocation': serializer.toJson<String?>($TransactionItemsTable.$converterallocationn.toJson(allocation)),
       'amount': serializer.toJson<int>(amount),
       'note': serializer.toJson<String?>(note),
       'createdAt': serializer.toJson<DateTime>(createdAt),
@@ -5895,16 +4973,7 @@ class TransactionItem extends DataClass implements Insertable<TransactionItem> {
   }
 
   @override
-  int get hashCode => Object.hash(
-    id,
-    transactionId,
-    categoryId,
-    allocation,
-    amount,
-    note,
-    createdAt,
-    updatedAt,
-  );
+  int get hashCode => Object.hash(id, transactionId, categoryId, allocation, amount, note, createdAt, updatedAt);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -6013,9 +5082,7 @@ class TransactionItemsCompanion extends UpdateCompanion<TransactionItem> {
       map['category_id'] = Variable<String>(categoryId.value);
     }
     if (allocation.present) {
-      map['allocation'] = Variable<String>(
-        $TransactionItemsTable.$converterallocationn.toSql(allocation.value),
-      );
+      map['allocation'] = Variable<String>($TransactionItemsTable.$converterallocationn.toSql(allocation.value));
     }
     if (amount.present) {
       map['amount'] = Variable<int>(amount.value);
@@ -6067,9 +5134,7 @@ class $GoalsTable extends Goals with TableInfo<$GoalsTable, Goal> {
     requiredDuringInsert: false,
     clientDefault: () => const Uuid().v7(),
   );
-  static const VerificationMeta _accountIdMeta = const VerificationMeta(
-    'accountId',
-  );
+  static const VerificationMeta _accountIdMeta = const VerificationMeta('accountId');
   @override
   late final GeneratedColumn<String> accountId = GeneratedColumn<String>(
     'account_id',
@@ -6077,9 +5142,7 @@ class $GoalsTable extends Goals with TableInfo<$GoalsTable, Goal> {
     false,
     type: DriftSqlType.string,
     requiredDuringInsert: true,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'UNIQUE REFERENCES accounts (id) ON DELETE CASCADE',
-    ),
+    defaultConstraints: GeneratedColumn.constraintIsAlways('UNIQUE REFERENCES accounts (id) ON DELETE CASCADE'),
   );
   static const VerificationMeta _nameMeta = const VerificationMeta('name');
   @override
@@ -6090,9 +5153,7 @@ class $GoalsTable extends Goals with TableInfo<$GoalsTable, Goal> {
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
-  static const VerificationMeta _targetAmountMeta = const VerificationMeta(
-    'targetAmount',
-  );
+  static const VerificationMeta _targetAmountMeta = const VerificationMeta('targetAmount');
   @override
   late final GeneratedColumn<int> targetAmount = GeneratedColumn<int>(
     'target_amount',
@@ -6101,9 +5162,7 @@ class $GoalsTable extends Goals with TableInfo<$GoalsTable, Goal> {
     type: DriftSqlType.int,
     requiredDuringInsert: true,
   );
-  static const VerificationMeta _targetDateMeta = const VerificationMeta(
-    'targetDate',
-  );
+  static const VerificationMeta _targetDateMeta = const VerificationMeta('targetDate');
   @override
   late final GeneratedColumn<DateTime> targetDate = GeneratedColumn<DateTime>(
     'target_date',
@@ -6130,9 +5189,7 @@ class $GoalsTable extends Goals with TableInfo<$GoalsTable, Goal> {
     type: DriftSqlType.string,
     requiredDuringInsert: false,
   );
-  static const VerificationMeta _createdAtMeta = const VerificationMeta(
-    'createdAt',
-  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta('createdAt');
   @override
   late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
     'created_at',
@@ -6142,9 +5199,7 @@ class $GoalsTable extends Goals with TableInfo<$GoalsTable, Goal> {
     requiredDuringInsert: false,
     defaultValue: currentDateAndTime,
   );
-  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
-    'updatedAt',
-  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta('updatedAt');
   @override
   late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
     'updated_at',
@@ -6182,71 +5237,41 @@ class $GoalsTable extends Goals with TableInfo<$GoalsTable, Goal> {
   String get actualTableName => $name;
   static const String $name = 'goals';
   @override
-  VerificationContext validateIntegrity(
-    Insertable<Goal> instance, {
-    bool isInserting = false,
-  }) {
+  VerificationContext validateIntegrity(Insertable<Goal> instance, {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
     if (data.containsKey('account_id')) {
-      context.handle(
-        _accountIdMeta,
-        accountId.isAcceptableOrUnknown(data['account_id']!, _accountIdMeta),
-      );
+      context.handle(_accountIdMeta, accountId.isAcceptableOrUnknown(data['account_id']!, _accountIdMeta));
     } else if (isInserting) {
       context.missing(_accountIdMeta);
     }
     if (data.containsKey('name')) {
-      context.handle(
-        _nameMeta,
-        name.isAcceptableOrUnknown(data['name']!, _nameMeta),
-      );
+      context.handle(_nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
     } else if (isInserting) {
       context.missing(_nameMeta);
     }
     if (data.containsKey('target_amount')) {
-      context.handle(
-        _targetAmountMeta,
-        targetAmount.isAcceptableOrUnknown(
-          data['target_amount']!,
-          _targetAmountMeta,
-        ),
-      );
+      context.handle(_targetAmountMeta, targetAmount.isAcceptableOrUnknown(data['target_amount']!, _targetAmountMeta));
     } else if (isInserting) {
       context.missing(_targetAmountMeta);
     }
     if (data.containsKey('target_date')) {
-      context.handle(
-        _targetDateMeta,
-        targetDate.isAcceptableOrUnknown(data['target_date']!, _targetDateMeta),
-      );
+      context.handle(_targetDateMeta, targetDate.isAcceptableOrUnknown(data['target_date']!, _targetDateMeta));
     }
     if (data.containsKey('icon')) {
-      context.handle(
-        _iconMeta,
-        icon.isAcceptableOrUnknown(data['icon']!, _iconMeta),
-      );
+      context.handle(_iconMeta, icon.isAcceptableOrUnknown(data['icon']!, _iconMeta));
     }
     if (data.containsKey('color')) {
-      context.handle(
-        _colorMeta,
-        color.isAcceptableOrUnknown(data['color']!, _colorMeta),
-      );
+      context.handle(_colorMeta, color.isAcceptableOrUnknown(data['color']!, _colorMeta));
     }
     if (data.containsKey('created_at')) {
-      context.handle(
-        _createdAtMeta,
-        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
-      );
+      context.handle(_createdAtMeta, createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
     }
     if (data.containsKey('updated_at')) {
-      context.handle(
-        _updatedAtMeta,
-        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
-      );
+      context.handle(_updatedAtMeta, updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta));
     }
     return context;
   }
@@ -6257,47 +5282,17 @@ class $GoalsTable extends Goals with TableInfo<$GoalsTable, Goal> {
   Goal map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return Goal(
-      id: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}id'],
-      )!,
-      accountId: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}account_id'],
-      )!,
-      name: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}name'],
-      )!,
-      targetAmount: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}target_amount'],
-      )!,
-      targetDate: attachedDatabase.typeMapping.read(
-        DriftSqlType.dateTime,
-        data['${effectivePrefix}target_date'],
-      ),
-      icon: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}icon'],
-      ),
-      color: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}color'],
-      ),
-      createdAt: attachedDatabase.typeMapping.read(
-        DriftSqlType.dateTime,
-        data['${effectivePrefix}created_at'],
-      )!,
-      updatedAt: attachedDatabase.typeMapping.read(
-        DriftSqlType.dateTime,
-        data['${effectivePrefix}updated_at'],
-      )!,
+      id: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      accountId: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}account_id'])!,
+      name: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}name'])!,
+      targetAmount: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}target_amount'])!,
+      targetDate: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}target_date']),
+      icon: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}icon']),
+      color: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}color']),
+      createdAt: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
+      updatedAt: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}updated_at'])!,
       status: $GoalsTable.$converterstatus.fromSql(
-        attachedDatabase.typeMapping.read(
-          DriftSqlType.string,
-          data['${effectivePrefix}status'],
-        )!,
+        attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}status'])!,
       ),
     );
   }
@@ -6352,9 +5347,7 @@ class Goal extends DataClass implements Insertable<Goal> {
     map['created_at'] = Variable<DateTime>(createdAt);
     map['updated_at'] = Variable<DateTime>(updatedAt);
     {
-      map['status'] = Variable<String>(
-        $GoalsTable.$converterstatus.toSql(status),
-      );
+      map['status'] = Variable<String>($GoalsTable.$converterstatus.toSql(status));
     }
     return map;
   }
@@ -6374,10 +5367,7 @@ class Goal extends DataClass implements Insertable<Goal> {
     );
   }
 
-  factory Goal.fromJson(
-    Map<String, dynamic> json, {
-    ValueSerializer? serializer,
-  }) {
+  factory Goal.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return Goal(
       id: serializer.fromJson<String>(json['id']),
@@ -6389,9 +5379,7 @@ class Goal extends DataClass implements Insertable<Goal> {
       color: serializer.fromJson<String?>(json['color']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
       updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
-      status: $GoalsTable.$converterstatus.fromJson(
-        serializer.fromJson<String>(json['status']),
-      ),
+      status: $GoalsTable.$converterstatus.fromJson(serializer.fromJson<String>(json['status'])),
     );
   }
   @override
@@ -6407,9 +5395,7 @@ class Goal extends DataClass implements Insertable<Goal> {
       'color': serializer.toJson<String?>(color),
       'createdAt': serializer.toJson<DateTime>(createdAt),
       'updatedAt': serializer.toJson<DateTime>(updatedAt),
-      'status': serializer.toJson<String>(
-        $GoalsTable.$converterstatus.toJson(status),
-      ),
+      'status': serializer.toJson<String>($GoalsTable.$converterstatus.toJson(status)),
     };
   }
 
@@ -6469,18 +5455,8 @@ class Goal extends DataClass implements Insertable<Goal> {
   }
 
   @override
-  int get hashCode => Object.hash(
-    id,
-    accountId,
-    name,
-    targetAmount,
-    targetDate,
-    icon,
-    color,
-    createdAt,
-    updatedAt,
-    status,
-  );
+  int get hashCode =>
+      Object.hash(id, accountId, name, targetAmount, targetDate, icon, color, createdAt, updatedAt, status);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -6624,9 +5600,7 @@ class GoalsCompanion extends UpdateCompanion<Goal> {
       map['updated_at'] = Variable<DateTime>(updatedAt.value);
     }
     if (status.present) {
-      map['status'] = Variable<String>(
-        $GoalsTable.$converterstatus.toSql(status.value),
-      );
+      map['status'] = Variable<String>($GoalsTable.$converterstatus.toSql(status.value));
     }
     if (rowid.present) {
       map['rowid'] = Variable<int>(rowid.value);
@@ -6666,9 +5640,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $RecurringTransactionsTable recurringTransactions = $RecurringTransactionsTable(this);
   late final $DebtsTable debts = $DebtsTable(this);
   late final $TransactionsTable transactions = $TransactionsTable(this);
-  late final $TransactionItemsTable transactionItems = $TransactionItemsTable(
-    this,
-  );
+  late final $TransactionItemsTable transactionItems = $TransactionItemsTable(this);
   late final $GoalsTable goals = $GoalsTable(this);
   late final Index idxAccountsParentId = Index(
     'idx_accounts_parent_id',
@@ -6715,122 +5687,71 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   @override
   StreamQueryUpdateRules get streamUpdateRules => const StreamQueryUpdateRules([
     WritePropagation(
-      on: TableUpdateQuery.onTableName(
-        'categories',
-        limitUpdateKind: UpdateKind.delete,
-      ),
+      on: TableUpdateQuery.onTableName('categories', limitUpdateKind: UpdateKind.delete),
       result: [TableUpdate('categories', kind: UpdateKind.delete)],
     ),
     WritePropagation(
-      on: TableUpdateQuery.onTableName(
-        'accounts',
-        limitUpdateKind: UpdateKind.delete,
-      ),
+      on: TableUpdateQuery.onTableName('accounts', limitUpdateKind: UpdateKind.delete),
       result: [TableUpdate('accounts', kind: UpdateKind.delete)],
     ),
     WritePropagation(
-      on: TableUpdateQuery.onTableName(
-        'accounts',
-        limitUpdateKind: UpdateKind.delete,
-      ),
+      on: TableUpdateQuery.onTableName('accounts', limitUpdateKind: UpdateKind.delete),
       result: [TableUpdate('account_categories', kind: UpdateKind.delete)],
     ),
     WritePropagation(
-      on: TableUpdateQuery.onTableName(
-        'categories',
-        limitUpdateKind: UpdateKind.delete,
-      ),
+      on: TableUpdateQuery.onTableName('categories', limitUpdateKind: UpdateKind.delete),
       result: [TableUpdate('account_categories', kind: UpdateKind.delete)],
     ),
     WritePropagation(
-      on: TableUpdateQuery.onTableName(
-        'categories',
-        limitUpdateKind: UpdateKind.delete,
-      ),
+      on: TableUpdateQuery.onTableName('categories', limitUpdateKind: UpdateKind.delete),
       result: [TableUpdate('budgets', kind: UpdateKind.update)],
     ),
     WritePropagation(
-      on: TableUpdateQuery.onTableName(
-        'accounts',
-        limitUpdateKind: UpdateKind.delete,
-      ),
+      on: TableUpdateQuery.onTableName('accounts', limitUpdateKind: UpdateKind.delete),
       result: [TableUpdate('budgets', kind: UpdateKind.update)],
     ),
     WritePropagation(
-      on: TableUpdateQuery.onTableName(
-        'budgets',
-        limitUpdateKind: UpdateKind.delete,
-      ),
+      on: TableUpdateQuery.onTableName('budgets', limitUpdateKind: UpdateKind.delete),
       result: [TableUpdate('budget_records', kind: UpdateKind.delete)],
     ),
     WritePropagation(
-      on: TableUpdateQuery.onTableName(
-        'accounts',
-        limitUpdateKind: UpdateKind.delete,
-      ),
+      on: TableUpdateQuery.onTableName('accounts', limitUpdateKind: UpdateKind.delete),
       result: [TableUpdate('recurring_transactions', kind: UpdateKind.delete)],
     ),
     WritePropagation(
-      on: TableUpdateQuery.onTableName(
-        'accounts',
-        limitUpdateKind: UpdateKind.delete,
-      ),
+      on: TableUpdateQuery.onTableName('accounts', limitUpdateKind: UpdateKind.delete),
       result: [TableUpdate('recurring_transactions', kind: UpdateKind.update)],
     ),
     WritePropagation(
-      on: TableUpdateQuery.onTableName(
-        'categories',
-        limitUpdateKind: UpdateKind.delete,
-      ),
+      on: TableUpdateQuery.onTableName('categories', limitUpdateKind: UpdateKind.delete),
       result: [TableUpdate('recurring_transactions', kind: UpdateKind.update)],
     ),
     WritePropagation(
-      on: TableUpdateQuery.onTableName(
-        'accounts',
-        limitUpdateKind: UpdateKind.delete,
-      ),
+      on: TableUpdateQuery.onTableName('accounts', limitUpdateKind: UpdateKind.delete),
       result: [TableUpdate('transactions', kind: UpdateKind.delete)],
     ),
     WritePropagation(
-      on: TableUpdateQuery.onTableName(
-        'accounts',
-        limitUpdateKind: UpdateKind.delete,
-      ),
+      on: TableUpdateQuery.onTableName('accounts', limitUpdateKind: UpdateKind.delete),
       result: [TableUpdate('transactions', kind: UpdateKind.delete)],
     ),
     WritePropagation(
-      on: TableUpdateQuery.onTableName(
-        'recurring_transactions',
-        limitUpdateKind: UpdateKind.delete,
-      ),
+      on: TableUpdateQuery.onTableName('recurring_transactions', limitUpdateKind: UpdateKind.delete),
       result: [TableUpdate('transactions', kind: UpdateKind.update)],
     ),
     WritePropagation(
-      on: TableUpdateQuery.onTableName(
-        'debts',
-        limitUpdateKind: UpdateKind.delete,
-      ),
+      on: TableUpdateQuery.onTableName('debts', limitUpdateKind: UpdateKind.delete),
       result: [TableUpdate('transactions', kind: UpdateKind.update)],
     ),
     WritePropagation(
-      on: TableUpdateQuery.onTableName(
-        'transactions',
-        limitUpdateKind: UpdateKind.delete,
-      ),
+      on: TableUpdateQuery.onTableName('transactions', limitUpdateKind: UpdateKind.delete),
       result: [TableUpdate('transaction_items', kind: UpdateKind.delete)],
     ),
     WritePropagation(
-      on: TableUpdateQuery.onTableName(
-        'categories',
-        limitUpdateKind: UpdateKind.delete,
-      ),
+      on: TableUpdateQuery.onTableName('categories', limitUpdateKind: UpdateKind.delete),
       result: [TableUpdate('transaction_items', kind: UpdateKind.update)],
     ),
     WritePropagation(
-      on: TableUpdateQuery.onTableName(
-        'accounts',
-        limitUpdateKind: UpdateKind.delete,
-      ),
+      on: TableUpdateQuery.onTableName('accounts', limitUpdateKind: UpdateKind.delete),
       result: [TableUpdate('goals', kind: UpdateKind.delete)],
     ),
   ]);
@@ -6865,40 +5786,23 @@ class $$CurrenciesTableFilterComposer extends Composer<_$AppDatabase, $Currencie
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnFilters<String> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<String> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get name => $composableBuilder(
-    column: $table.name,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<String> get name => $composableBuilder(column: $table.name, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get code => $composableBuilder(
-    column: $table.code,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<String> get code => $composableBuilder(column: $table.code, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get symbol => $composableBuilder(
-    column: $table.symbol,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<String> get symbol =>
+      $composableBuilder(column: $table.symbol, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<int> get precision => $composableBuilder(
-    column: $table.precision,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<int> get precision =>
+      $composableBuilder(column: $table.precision, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<DateTime> get createdAt => $composableBuilder(
-    column: $table.createdAt,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
-    column: $table.updatedAt,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => ColumnFilters(column));
 }
 
 class $$CurrenciesTableOrderingComposer extends Composer<_$AppDatabase, $CurrenciesTable> {
@@ -6909,40 +5813,25 @@ class $$CurrenciesTableOrderingComposer extends Composer<_$AppDatabase, $Currenc
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnOrderings<String> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get name => $composableBuilder(
-    column: $table.name,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get name =>
+      $composableBuilder(column: $table.name, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get code => $composableBuilder(
-    column: $table.code,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get code =>
+      $composableBuilder(column: $table.code, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get symbol => $composableBuilder(
-    column: $table.symbol,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get symbol =>
+      $composableBuilder(column: $table.symbol, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<int> get precision => $composableBuilder(
-    column: $table.precision,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<int> get precision =>
+      $composableBuilder(column: $table.precision, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
-    column: $table.createdAt,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
-    column: $table.updatedAt,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => ColumnOrderings(column));
 }
 
 class $$CurrenciesTableAnnotationComposer extends Composer<_$AppDatabase, $CurrenciesTable> {
@@ -7072,20 +5961,13 @@ class $$SettingsTableFilterComposer extends Composer<_$AppDatabase, $SettingsTab
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnFilters<String> get key => $composableBuilder(
-    column: $table.key,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<String> get key => $composableBuilder(column: $table.key, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get value => $composableBuilder(
-    column: $table.value,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<String> get value =>
+      $composableBuilder(column: $table.value, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
-    column: $table.updatedAt,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => ColumnFilters(column));
 }
 
 class $$SettingsTableOrderingComposer extends Composer<_$AppDatabase, $SettingsTable> {
@@ -7096,20 +5978,14 @@ class $$SettingsTableOrderingComposer extends Composer<_$AppDatabase, $SettingsT
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnOrderings<String> get key => $composableBuilder(
-    column: $table.key,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get key =>
+      $composableBuilder(column: $table.key, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get value => $composableBuilder(
-    column: $table.value,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get value =>
+      $composableBuilder(column: $table.value, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
-    column: $table.updatedAt,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => ColumnOrderings(column));
 }
 
 class $$SettingsTableAnnotationComposer extends Composer<_$AppDatabase, $SettingsTable> {
@@ -7150,30 +6026,18 @@ class $$SettingsTableTableManager
           createFilteringComposer: () => $$SettingsTableFilterComposer($db: db, $table: table),
           createOrderingComposer: () => $$SettingsTableOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () => $$SettingsTableAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback:
-              ({
-                Value<String> key = const Value.absent(),
-                Value<String> value = const Value.absent(),
-                Value<DateTime> updatedAt = const Value.absent(),
-                Value<int> rowid = const Value.absent(),
-              }) => SettingsCompanion(
-                key: key,
-                value: value,
-                updatedAt: updatedAt,
-                rowid: rowid,
-              ),
-          createCompanionCallback:
-              ({
-                required String key,
-                required String value,
-                Value<DateTime> updatedAt = const Value.absent(),
-                Value<int> rowid = const Value.absent(),
-              }) => SettingsCompanion.insert(
-                key: key,
-                value: value,
-                updatedAt: updatedAt,
-                rowid: rowid,
-              ),
+          updateCompanionCallback: ({
+            Value<String> key = const Value.absent(),
+            Value<String> value = const Value.absent(),
+            Value<DateTime> updatedAt = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) => SettingsCompanion(key: key, value: value, updatedAt: updatedAt, rowid: rowid),
+          createCompanionCallback: ({
+            required String key,
+            required String value,
+            Value<DateTime> updatedAt = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) => SettingsCompanion.insert(key: key, value: value, updatedAt: updatedAt, rowid: rowid),
           withReferenceMapper: (p0) => p0.map((e) => (e.readTable(table), BaseReferences(db, table, e))).toList(),
           prefetchHooksCallback: null,
         ),
@@ -7230,23 +6094,16 @@ final class $$CategoriesTableReferences extends BaseReferences<_$AppDatabase, $C
   $$CategoriesTableProcessedTableManager? get parentId {
     final $_column = $_itemColumn<String>('parent_id');
     if ($_column == null) return null;
-    final manager = $$CategoriesTableTableManager(
-      $_db,
-      $_db.categories,
-    ).filter((f) => f.id.sqlEquals($_column));
+    final manager = $$CategoriesTableTableManager($_db, $_db.categories).filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_parentIdTable($_db));
     if (item == null) return manager;
-    return ProcessedTableManager(
-      manager.$state.copyWith(prefetchedData: [item]),
-    );
+    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: [item]));
   }
 
   static MultiTypedResultKey<$AccountCategoriesTable, List<AccountCategory>> _accountCategoriesRefsTable(
     _$AppDatabase db,
-  ) => MultiTypedResultKey.fromTable(
-    db.accountCategories,
-    aliasName: 'categories__id__account_categories__category_id',
-  );
+  ) =>
+      MultiTypedResultKey.fromTable(db.accountCategories, aliasName: 'categories__id__account_categories__category_id');
 
   $$AccountCategoriesTableProcessedTableManager get accountCategoriesRefs {
     final manager = $$AccountCategoriesTableTableManager(
@@ -7254,20 +6111,12 @@ final class $$CategoriesTableReferences extends BaseReferences<_$AppDatabase, $C
       $_db.accountCategories,
     ).filter((f) => f.categoryId.id.sqlEquals($_itemColumn<String>('id')!));
 
-    final cache = $_typedResult.readTableOrNull(
-      _accountCategoriesRefsTable($_db),
-    );
-    return ProcessedTableManager(
-      manager.$state.copyWith(prefetchedData: cache),
-    );
+    final cache = $_typedResult.readTableOrNull(_accountCategoriesRefsTable($_db));
+    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: cache));
   }
 
-  static MultiTypedResultKey<$BudgetsTable, List<Budget>> _budgetsRefsTable(
-    _$AppDatabase db,
-  ) => MultiTypedResultKey.fromTable(
-    db.budgets,
-    aliasName: 'categories__id__budgets__category_id',
-  );
+  static MultiTypedResultKey<$BudgetsTable, List<Budget>> _budgetsRefsTable(_$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(db.budgets, aliasName: 'categories__id__budgets__category_id');
 
   $$BudgetsTableProcessedTableManager get budgetsRefs {
     final manager = $$BudgetsTableTableManager(
@@ -7276,9 +6125,7 @@ final class $$CategoriesTableReferences extends BaseReferences<_$AppDatabase, $C
     ).filter((f) => f.categoryId.id.sqlEquals($_itemColumn<String>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_budgetsRefsTable($_db));
-    return ProcessedTableManager(
-      manager.$state.copyWith(prefetchedData: cache),
-    );
+    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: cache));
   }
 
   static MultiTypedResultKey<$RecurringTransactionsTable, List<RecurringTransaction>> _recurringTransactionsRefsTable(
@@ -7294,20 +6141,13 @@ final class $$CategoriesTableReferences extends BaseReferences<_$AppDatabase, $C
       $_db.recurringTransactions,
     ).filter((f) => f.categoryId.id.sqlEquals($_itemColumn<String>('id')!));
 
-    final cache = $_typedResult.readTableOrNull(
-      _recurringTransactionsRefsTable($_db),
-    );
-    return ProcessedTableManager(
-      manager.$state.copyWith(prefetchedData: cache),
-    );
+    final cache = $_typedResult.readTableOrNull(_recurringTransactionsRefsTable($_db));
+    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: cache));
   }
 
   static MultiTypedResultKey<$TransactionItemsTable, List<TransactionItem>> _transactionItemsRefsTable(
     _$AppDatabase db,
-  ) => MultiTypedResultKey.fromTable(
-    db.transactionItems,
-    aliasName: 'categories__id__transaction_items__category_id',
-  );
+  ) => MultiTypedResultKey.fromTable(db.transactionItems, aliasName: 'categories__id__transaction_items__category_id');
 
   $$TransactionItemsTableProcessedTableManager get transactionItemsRefs {
     final manager = $$TransactionItemsTableTableManager(
@@ -7315,12 +6155,8 @@ final class $$CategoriesTableReferences extends BaseReferences<_$AppDatabase, $C
       $_db.transactionItems,
     ).filter((f) => f.categoryId.id.sqlEquals($_itemColumn<String>('id')!));
 
-    final cache = $_typedResult.readTableOrNull(
-      _transactionItemsRefsTable($_db),
-    );
-    return ProcessedTableManager(
-      manager.$state.copyWith(prefetchedData: cache),
-    );
+    final cache = $_typedResult.readTableOrNull(_transactionItemsRefsTable($_db));
+    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: cache));
   }
 }
 
@@ -7332,50 +6168,28 @@ class $$CategoriesTableFilterComposer extends Composer<_$AppDatabase, $Categorie
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnFilters<String> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<String> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get name => $composableBuilder(
-    column: $table.name,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<String> get name => $composableBuilder(column: $table.name, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get icon => $composableBuilder(
-    column: $table.icon,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<String> get icon => $composableBuilder(column: $table.icon, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get color => $composableBuilder(
-    column: $table.color,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<String> get color =>
+      $composableBuilder(column: $table.color, builder: (column) => ColumnFilters(column));
 
-  ColumnWithTypeConverterFilters<CategoryType, CategoryType, String> get type => $composableBuilder(
-    column: $table.type,
-    builder: (column) => ColumnWithTypeConverterFilters(column),
-  );
+  ColumnWithTypeConverterFilters<CategoryType, CategoryType, String> get type =>
+      $composableBuilder(column: $table.type, builder: (column) => ColumnWithTypeConverterFilters(column));
 
-  ColumnFilters<int> get sort => $composableBuilder(
-    column: $table.sort,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<int> get sort => $composableBuilder(column: $table.sort, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<bool> get isActive => $composableBuilder(
-    column: $table.isActive,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<bool> get isActive =>
+      $composableBuilder(column: $table.isActive, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<DateTime> get createdAt => $composableBuilder(
-    column: $table.createdAt,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
-    column: $table.updatedAt,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => ColumnFilters(column));
 
   $$CategoriesTableFilterComposer get parentId {
     final $$CategoriesTableFilterComposer composer = $composerBuilder(
@@ -7383,12 +6197,8 @@ class $$CategoriesTableFilterComposer extends Composer<_$AppDatabase, $Categorie
       getCurrentColumn: (t) => t.parentId,
       referencedTable: $db.categories,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$CategoriesTableFilterComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$CategoriesTableFilterComposer(
             $db: $db,
             $table: $db.categories,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -7399,20 +6209,14 @@ class $$CategoriesTableFilterComposer extends Composer<_$AppDatabase, $Categorie
     return composer;
   }
 
-  Expression<bool> accountCategoriesRefs(
-    Expression<bool> Function($$AccountCategoriesTableFilterComposer f) f,
-  ) {
+  Expression<bool> accountCategoriesRefs(Expression<bool> Function($$AccountCategoriesTableFilterComposer f) f) {
     final $$AccountCategoriesTableFilterComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.accountCategories,
       getReferencedColumn: (t) => t.categoryId,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$AccountCategoriesTableFilterComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$AccountCategoriesTableFilterComposer(
             $db: $db,
             $table: $db.accountCategories,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -7423,20 +6227,14 @@ class $$CategoriesTableFilterComposer extends Composer<_$AppDatabase, $Categorie
     return f(composer);
   }
 
-  Expression<bool> budgetsRefs(
-    Expression<bool> Function($$BudgetsTableFilterComposer f) f,
-  ) {
+  Expression<bool> budgetsRefs(Expression<bool> Function($$BudgetsTableFilterComposer f) f) {
     final $$BudgetsTableFilterComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.budgets,
       getReferencedColumn: (t) => t.categoryId,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$BudgetsTableFilterComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$BudgetsTableFilterComposer(
             $db: $db,
             $table: $db.budgets,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -7455,12 +6253,8 @@ class $$CategoriesTableFilterComposer extends Composer<_$AppDatabase, $Categorie
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.recurringTransactions,
       getReferencedColumn: (t) => t.categoryId,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$RecurringTransactionsTableFilterComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$RecurringTransactionsTableFilterComposer(
             $db: $db,
             $table: $db.recurringTransactions,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -7471,20 +6265,14 @@ class $$CategoriesTableFilterComposer extends Composer<_$AppDatabase, $Categorie
     return f(composer);
   }
 
-  Expression<bool> transactionItemsRefs(
-    Expression<bool> Function($$TransactionItemsTableFilterComposer f) f,
-  ) {
+  Expression<bool> transactionItemsRefs(Expression<bool> Function($$TransactionItemsTableFilterComposer f) f) {
     final $$TransactionItemsTableFilterComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.transactionItems,
       getReferencedColumn: (t) => t.categoryId,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$TransactionItemsTableFilterComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$TransactionItemsTableFilterComposer(
             $db: $db,
             $table: $db.transactionItems,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -7504,50 +6292,31 @@ class $$CategoriesTableOrderingComposer extends Composer<_$AppDatabase, $Categor
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnOrderings<String> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get name => $composableBuilder(
-    column: $table.name,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get name =>
+      $composableBuilder(column: $table.name, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get icon => $composableBuilder(
-    column: $table.icon,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get icon =>
+      $composableBuilder(column: $table.icon, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get color => $composableBuilder(
-    column: $table.color,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get color =>
+      $composableBuilder(column: $table.color, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get type => $composableBuilder(
-    column: $table.type,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get type =>
+      $composableBuilder(column: $table.type, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<int> get sort => $composableBuilder(
-    column: $table.sort,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<int> get sort =>
+      $composableBuilder(column: $table.sort, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<bool> get isActive => $composableBuilder(
-    column: $table.isActive,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<bool> get isActive =>
+      $composableBuilder(column: $table.isActive, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
-    column: $table.createdAt,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
-    column: $table.updatedAt,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => ColumnOrderings(column));
 
   $$CategoriesTableOrderingComposer get parentId {
     final $$CategoriesTableOrderingComposer composer = $composerBuilder(
@@ -7555,12 +6324,8 @@ class $$CategoriesTableOrderingComposer extends Composer<_$AppDatabase, $Categor
       getCurrentColumn: (t) => t.parentId,
       referencedTable: $db.categories,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$CategoriesTableOrderingComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$CategoriesTableOrderingComposer(
             $db: $db,
             $table: $db.categories,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -7605,12 +6370,8 @@ class $$CategoriesTableAnnotationComposer extends Composer<_$AppDatabase, $Categ
       getCurrentColumn: (t) => t.parentId,
       referencedTable: $db.categories,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$CategoriesTableAnnotationComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$CategoriesTableAnnotationComposer(
             $db: $db,
             $table: $db.categories,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -7629,12 +6390,8 @@ class $$CategoriesTableAnnotationComposer extends Composer<_$AppDatabase, $Categ
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.accountCategories,
       getReferencedColumn: (t) => t.categoryId,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$AccountCategoriesTableAnnotationComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$AccountCategoriesTableAnnotationComposer(
             $db: $db,
             $table: $db.accountCategories,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -7645,20 +6402,14 @@ class $$CategoriesTableAnnotationComposer extends Composer<_$AppDatabase, $Categ
     return f(composer);
   }
 
-  Expression<T> budgetsRefs<T extends Object>(
-    Expression<T> Function($$BudgetsTableAnnotationComposer a) f,
-  ) {
+  Expression<T> budgetsRefs<T extends Object>(Expression<T> Function($$BudgetsTableAnnotationComposer a) f) {
     final $$BudgetsTableAnnotationComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.budgets,
       getReferencedColumn: (t) => t.categoryId,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$BudgetsTableAnnotationComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$BudgetsTableAnnotationComposer(
             $db: $db,
             $table: $db.budgets,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -7677,12 +6428,8 @@ class $$CategoriesTableAnnotationComposer extends Composer<_$AppDatabase, $Categ
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.recurringTransactions,
       getReferencedColumn: (t) => t.categoryId,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$RecurringTransactionsTableAnnotationComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$RecurringTransactionsTableAnnotationComposer(
             $db: $db,
             $table: $db.recurringTransactions,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -7701,12 +6448,8 @@ class $$CategoriesTableAnnotationComposer extends Composer<_$AppDatabase, $Categ
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.transactionItems,
       getReferencedColumn: (t) => t.categoryId,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$TransactionItemsTableAnnotationComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$TransactionItemsTableAnnotationComposer(
             $db: $db,
             $table: $db.transactionItems,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -7799,14 +6542,8 @@ class $$CategoriesTableTableManager
                 updatedAt: updatedAt,
                 rowid: rowid,
               ),
-          withReferenceMapper: (p0) => p0
-              .map(
-                (e) => (
-                  e.readTable(table),
-                  $$CategoriesTableReferences(db, table, e),
-                ),
-              )
-              .toList(),
+          withReferenceMapper: (p0) =>
+              p0.map((e) => (e.readTable(table), $$CategoriesTableReferences(db, table, e))).toList(),
           prefetchHooksCallback:
               ({
                 parentId = false,
@@ -7856,56 +6593,39 @@ class $$CategoriesTableTableManager
                         await $_getPrefetchedData<Category, $CategoriesTable, AccountCategory>(
                           currentTable: table,
                           referencedTable: $$CategoriesTableReferences._accountCategoriesRefsTable(db),
-                          managerFromTypedResult: (p0) => $$CategoriesTableReferences(
-                            db,
-                            table,
-                            p0,
-                          ).accountCategoriesRefs,
-                          referencedItemsForCurrentItem: (item, referencedItems) => referencedItems.where(
-                            (e) => e.categoryId == item.id,
-                          ),
+                          managerFromTypedResult: (p0) =>
+                              $$CategoriesTableReferences(db, table, p0).accountCategoriesRefs,
+                          referencedItemsForCurrentItem: (item, referencedItems) =>
+                              referencedItems.where((e) => e.categoryId == item.id),
                           typedResults: items,
                         ),
                       if (budgetsRefs)
                         await $_getPrefetchedData<Category, $CategoriesTable, Budget>(
                           currentTable: table,
                           referencedTable: $$CategoriesTableReferences._budgetsRefsTable(db),
-                          managerFromTypedResult: (p0) => $$CategoriesTableReferences(
-                            db,
-                            table,
-                            p0,
-                          ).budgetsRefs,
-                          referencedItemsForCurrentItem: (item, referencedItems) => referencedItems.where(
-                            (e) => e.categoryId == item.id,
-                          ),
+                          managerFromTypedResult: (p0) => $$CategoriesTableReferences(db, table, p0).budgetsRefs,
+                          referencedItemsForCurrentItem: (item, referencedItems) =>
+                              referencedItems.where((e) => e.categoryId == item.id),
                           typedResults: items,
                         ),
                       if (recurringTransactionsRefs)
                         await $_getPrefetchedData<Category, $CategoriesTable, RecurringTransaction>(
                           currentTable: table,
                           referencedTable: $$CategoriesTableReferences._recurringTransactionsRefsTable(db),
-                          managerFromTypedResult: (p0) => $$CategoriesTableReferences(
-                            db,
-                            table,
-                            p0,
-                          ).recurringTransactionsRefs,
-                          referencedItemsForCurrentItem: (item, referencedItems) => referencedItems.where(
-                            (e) => e.categoryId == item.id,
-                          ),
+                          managerFromTypedResult: (p0) =>
+                              $$CategoriesTableReferences(db, table, p0).recurringTransactionsRefs,
+                          referencedItemsForCurrentItem: (item, referencedItems) =>
+                              referencedItems.where((e) => e.categoryId == item.id),
                           typedResults: items,
                         ),
                       if (transactionItemsRefs)
                         await $_getPrefetchedData<Category, $CategoriesTable, TransactionItem>(
                           currentTable: table,
                           referencedTable: $$CategoriesTableReferences._transactionItemsRefsTable(db),
-                          managerFromTypedResult: (p0) => $$CategoriesTableReferences(
-                            db,
-                            table,
-                            p0,
-                          ).transactionItemsRefs,
-                          referencedItemsForCurrentItem: (item, referencedItems) => referencedItems.where(
-                            (e) => e.categoryId == item.id,
-                          ),
+                          managerFromTypedResult: (p0) =>
+                              $$CategoriesTableReferences(db, table, p0).transactionItemsRefs,
+                          referencedItemsForCurrentItem: (item, referencedItems) =>
+                              referencedItems.where((e) => e.categoryId == item.id),
                           typedResults: items,
                         ),
                     ];
@@ -7976,23 +6696,15 @@ final class $$AccountsTableReferences extends BaseReferences<_$AppDatabase, $Acc
   $$AccountsTableProcessedTableManager? get parentId {
     final $_column = $_itemColumn<String>('parent_id');
     if ($_column == null) return null;
-    final manager = $$AccountsTableTableManager(
-      $_db,
-      $_db.accounts,
-    ).filter((f) => f.id.sqlEquals($_column));
+    final manager = $$AccountsTableTableManager($_db, $_db.accounts).filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_parentIdTable($_db));
     if (item == null) return manager;
-    return ProcessedTableManager(
-      manager.$state.copyWith(prefetchedData: [item]),
-    );
+    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: [item]));
   }
 
   static MultiTypedResultKey<$AccountCategoriesTable, List<AccountCategory>> _accountCategoriesRefsTable(
     _$AppDatabase db,
-  ) => MultiTypedResultKey.fromTable(
-    db.accountCategories,
-    aliasName: 'accounts__id__account_categories__account_id',
-  );
+  ) => MultiTypedResultKey.fromTable(db.accountCategories, aliasName: 'accounts__id__account_categories__account_id');
 
   $$AccountCategoriesTableProcessedTableManager get accountCategoriesRefs {
     final manager = $$AccountCategoriesTableTableManager(
@@ -8000,20 +6712,12 @@ final class $$AccountsTableReferences extends BaseReferences<_$AppDatabase, $Acc
       $_db.accountCategories,
     ).filter((f) => f.accountId.id.sqlEquals($_itemColumn<String>('id')!));
 
-    final cache = $_typedResult.readTableOrNull(
-      _accountCategoriesRefsTable($_db),
-    );
-    return ProcessedTableManager(
-      manager.$state.copyWith(prefetchedData: cache),
-    );
+    final cache = $_typedResult.readTableOrNull(_accountCategoriesRefsTable($_db));
+    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: cache));
   }
 
-  static MultiTypedResultKey<$BudgetsTable, List<Budget>> _budgetsRefsTable(
-    _$AppDatabase db,
-  ) => MultiTypedResultKey.fromTable(
-    db.budgets,
-    aliasName: 'accounts__id__budgets__account_id',
-  );
+  static MultiTypedResultKey<$BudgetsTable, List<Budget>> _budgetsRefsTable(_$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(db.budgets, aliasName: 'accounts__id__budgets__account_id');
 
   $$BudgetsTableProcessedTableManager get budgetsRefs {
     final manager = $$BudgetsTableTableManager(
@@ -8022,9 +6726,7 @@ final class $$AccountsTableReferences extends BaseReferences<_$AppDatabase, $Acc
     ).filter((f) => f.accountId.id.sqlEquals($_itemColumn<String>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_budgetsRefsTable($_db));
-    return ProcessedTableManager(
-      manager.$state.copyWith(prefetchedData: cache),
-    );
+    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: cache));
   }
 
   static MultiTypedResultKey<$RecurringTransactionsTable, List<RecurringTransaction>> _recurringSourceTable(
@@ -8041,9 +6743,7 @@ final class $$AccountsTableReferences extends BaseReferences<_$AppDatabase, $Acc
     ).filter((f) => f.accountId.id.sqlEquals($_itemColumn<String>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_recurringSourceTable($_db));
-    return ProcessedTableManager(
-      manager.$state.copyWith(prefetchedData: cache),
-    );
+    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: cache));
   }
 
   static MultiTypedResultKey<$RecurringTransactionsTable, List<RecurringTransaction>> _recurringDestinationTable(
@@ -8054,27 +6754,17 @@ final class $$AccountsTableReferences extends BaseReferences<_$AppDatabase, $Acc
   );
 
   $$RecurringTransactionsTableProcessedTableManager get recurringDestination {
-    final manager =
-        $$RecurringTransactionsTableTableManager(
-          $_db,
-          $_db.recurringTransactions,
-        ).filter(
-          (f) => f.destinationAccountId.id.sqlEquals($_itemColumn<String>('id')!),
-        );
+    final manager = $$RecurringTransactionsTableTableManager(
+      $_db,
+      $_db.recurringTransactions,
+    ).filter((f) => f.destinationAccountId.id.sqlEquals($_itemColumn<String>('id')!));
 
-    final cache = $_typedResult.readTableOrNull(
-      _recurringDestinationTable($_db),
-    );
-    return ProcessedTableManager(
-      manager.$state.copyWith(prefetchedData: cache),
-    );
+    final cache = $_typedResult.readTableOrNull(_recurringDestinationTable($_db));
+    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: cache));
   }
 
   static MultiTypedResultKey<$TransactionsTable, List<Transaction>> _transactionSourceTable(_$AppDatabase db) =>
-      MultiTypedResultKey.fromTable(
-        db.transactions,
-        aliasName: 'accounts__id__transactions__account_id',
-      );
+      MultiTypedResultKey.fromTable(db.transactions, aliasName: 'accounts__id__transactions__account_id');
 
   $$TransactionsTableProcessedTableManager get transactionSource {
     final manager = $$TransactionsTableTableManager(
@@ -8083,36 +6773,24 @@ final class $$AccountsTableReferences extends BaseReferences<_$AppDatabase, $Acc
     ).filter((f) => f.accountId.id.sqlEquals($_itemColumn<String>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_transactionSourceTable($_db));
-    return ProcessedTableManager(
-      manager.$state.copyWith(prefetchedData: cache),
-    );
+    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: cache));
   }
 
   static MultiTypedResultKey<$TransactionsTable, List<Transaction>> _transactionDestinationTable(_$AppDatabase db) =>
-      MultiTypedResultKey.fromTable(
-        db.transactions,
-        aliasName: 'accounts__id__transactions__destination_account_id',
-      );
+      MultiTypedResultKey.fromTable(db.transactions, aliasName: 'accounts__id__transactions__destination_account_id');
 
   $$TransactionsTableProcessedTableManager get transactionDestination {
-    final manager = $$TransactionsTableTableManager($_db, $_db.transactions).filter(
-      (f) => f.destinationAccountId.id.sqlEquals($_itemColumn<String>('id')!),
-    );
+    final manager = $$TransactionsTableTableManager(
+      $_db,
+      $_db.transactions,
+    ).filter((f) => f.destinationAccountId.id.sqlEquals($_itemColumn<String>('id')!));
 
-    final cache = $_typedResult.readTableOrNull(
-      _transactionDestinationTable($_db),
-    );
-    return ProcessedTableManager(
-      manager.$state.copyWith(prefetchedData: cache),
-    );
+    final cache = $_typedResult.readTableOrNull(_transactionDestinationTable($_db));
+    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: cache));
   }
 
-  static MultiTypedResultKey<$GoalsTable, List<Goal>> _goalsRefsTable(
-    _$AppDatabase db,
-  ) => MultiTypedResultKey.fromTable(
-    db.goals,
-    aliasName: 'accounts__id__goals__account_id',
-  );
+  static MultiTypedResultKey<$GoalsTable, List<Goal>> _goalsRefsTable(_$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(db.goals, aliasName: 'accounts__id__goals__account_id');
 
   $$GoalsTableProcessedTableManager get goalsRefs {
     final manager = $$GoalsTableTableManager(
@@ -8121,9 +6799,7 @@ final class $$AccountsTableReferences extends BaseReferences<_$AppDatabase, $Acc
     ).filter((f) => f.accountId.id.sqlEquals($_itemColumn<String>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_goalsRefsTable($_db));
-    return ProcessedTableManager(
-      manager.$state.copyWith(prefetchedData: cache),
-    );
+    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: cache));
   }
 }
 
@@ -8135,60 +6811,34 @@ class $$AccountsTableFilterComposer extends Composer<_$AppDatabase, $AccountsTab
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnFilters<String> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<String> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get name => $composableBuilder(
-    column: $table.name,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<String> get name => $composableBuilder(column: $table.name, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get icon => $composableBuilder(
-    column: $table.icon,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<String> get icon => $composableBuilder(column: $table.icon, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get color => $composableBuilder(
-    column: $table.color,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<String> get color =>
+      $composableBuilder(column: $table.color, builder: (column) => ColumnFilters(column));
 
-  ColumnWithTypeConverterFilters<AccountType, AccountType, String> get type => $composableBuilder(
-    column: $table.type,
-    builder: (column) => ColumnWithTypeConverterFilters(column),
-  );
+  ColumnWithTypeConverterFilters<AccountType, AccountType, String> get type =>
+      $composableBuilder(column: $table.type, builder: (column) => ColumnWithTypeConverterFilters(column));
 
-  ColumnFilters<int> get balance => $composableBuilder(
-    column: $table.balance,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<int> get balance =>
+      $composableBuilder(column: $table.balance, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<int> get initialBalance => $composableBuilder(
-    column: $table.initialBalance,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<int> get initialBalance =>
+      $composableBuilder(column: $table.initialBalance, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<bool> get isActive => $composableBuilder(
-    column: $table.isActive,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<bool> get isActive =>
+      $composableBuilder(column: $table.isActive, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<int> get sort => $composableBuilder(
-    column: $table.sort,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<int> get sort => $composableBuilder(column: $table.sort, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<DateTime> get createdAt => $composableBuilder(
-    column: $table.createdAt,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
-    column: $table.updatedAt,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => ColumnFilters(column));
 
   $$AccountsTableFilterComposer get parentId {
     final $$AccountsTableFilterComposer composer = $composerBuilder(
@@ -8196,12 +6846,8 @@ class $$AccountsTableFilterComposer extends Composer<_$AppDatabase, $AccountsTab
       getCurrentColumn: (t) => t.parentId,
       referencedTable: $db.accounts,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$AccountsTableFilterComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$AccountsTableFilterComposer(
             $db: $db,
             $table: $db.accounts,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -8212,20 +6858,14 @@ class $$AccountsTableFilterComposer extends Composer<_$AppDatabase, $AccountsTab
     return composer;
   }
 
-  Expression<bool> accountCategoriesRefs(
-    Expression<bool> Function($$AccountCategoriesTableFilterComposer f) f,
-  ) {
+  Expression<bool> accountCategoriesRefs(Expression<bool> Function($$AccountCategoriesTableFilterComposer f) f) {
     final $$AccountCategoriesTableFilterComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.accountCategories,
       getReferencedColumn: (t) => t.accountId,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$AccountCategoriesTableFilterComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$AccountCategoriesTableFilterComposer(
             $db: $db,
             $table: $db.accountCategories,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -8236,20 +6876,14 @@ class $$AccountsTableFilterComposer extends Composer<_$AppDatabase, $AccountsTab
     return f(composer);
   }
 
-  Expression<bool> budgetsRefs(
-    Expression<bool> Function($$BudgetsTableFilterComposer f) f,
-  ) {
+  Expression<bool> budgetsRefs(Expression<bool> Function($$BudgetsTableFilterComposer f) f) {
     final $$BudgetsTableFilterComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.budgets,
       getReferencedColumn: (t) => t.accountId,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$BudgetsTableFilterComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$BudgetsTableFilterComposer(
             $db: $db,
             $table: $db.budgets,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -8260,20 +6894,14 @@ class $$AccountsTableFilterComposer extends Composer<_$AppDatabase, $AccountsTab
     return f(composer);
   }
 
-  Expression<bool> recurringSource(
-    Expression<bool> Function($$RecurringTransactionsTableFilterComposer f) f,
-  ) {
+  Expression<bool> recurringSource(Expression<bool> Function($$RecurringTransactionsTableFilterComposer f) f) {
     final $$RecurringTransactionsTableFilterComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.recurringTransactions,
       getReferencedColumn: (t) => t.accountId,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$RecurringTransactionsTableFilterComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$RecurringTransactionsTableFilterComposer(
             $db: $db,
             $table: $db.recurringTransactions,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -8284,20 +6912,14 @@ class $$AccountsTableFilterComposer extends Composer<_$AppDatabase, $AccountsTab
     return f(composer);
   }
 
-  Expression<bool> recurringDestination(
-    Expression<bool> Function($$RecurringTransactionsTableFilterComposer f) f,
-  ) {
+  Expression<bool> recurringDestination(Expression<bool> Function($$RecurringTransactionsTableFilterComposer f) f) {
     final $$RecurringTransactionsTableFilterComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.recurringTransactions,
       getReferencedColumn: (t) => t.destinationAccountId,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$RecurringTransactionsTableFilterComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$RecurringTransactionsTableFilterComposer(
             $db: $db,
             $table: $db.recurringTransactions,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -8308,20 +6930,14 @@ class $$AccountsTableFilterComposer extends Composer<_$AppDatabase, $AccountsTab
     return f(composer);
   }
 
-  Expression<bool> transactionSource(
-    Expression<bool> Function($$TransactionsTableFilterComposer f) f,
-  ) {
+  Expression<bool> transactionSource(Expression<bool> Function($$TransactionsTableFilterComposer f) f) {
     final $$TransactionsTableFilterComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.transactions,
       getReferencedColumn: (t) => t.accountId,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$TransactionsTableFilterComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$TransactionsTableFilterComposer(
             $db: $db,
             $table: $db.transactions,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -8332,20 +6948,14 @@ class $$AccountsTableFilterComposer extends Composer<_$AppDatabase, $AccountsTab
     return f(composer);
   }
 
-  Expression<bool> transactionDestination(
-    Expression<bool> Function($$TransactionsTableFilterComposer f) f,
-  ) {
+  Expression<bool> transactionDestination(Expression<bool> Function($$TransactionsTableFilterComposer f) f) {
     final $$TransactionsTableFilterComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.transactions,
       getReferencedColumn: (t) => t.destinationAccountId,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$TransactionsTableFilterComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$TransactionsTableFilterComposer(
             $db: $db,
             $table: $db.transactions,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -8356,20 +6966,14 @@ class $$AccountsTableFilterComposer extends Composer<_$AppDatabase, $AccountsTab
     return f(composer);
   }
 
-  Expression<bool> goalsRefs(
-    Expression<bool> Function($$GoalsTableFilterComposer f) f,
-  ) {
+  Expression<bool> goalsRefs(Expression<bool> Function($$GoalsTableFilterComposer f) f) {
     final $$GoalsTableFilterComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.goals,
       getReferencedColumn: (t) => t.accountId,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$GoalsTableFilterComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$GoalsTableFilterComposer(
             $db: $db,
             $table: $db.goals,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -8389,60 +6993,37 @@ class $$AccountsTableOrderingComposer extends Composer<_$AppDatabase, $AccountsT
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnOrderings<String> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get name => $composableBuilder(
-    column: $table.name,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get name =>
+      $composableBuilder(column: $table.name, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get icon => $composableBuilder(
-    column: $table.icon,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get icon =>
+      $composableBuilder(column: $table.icon, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get color => $composableBuilder(
-    column: $table.color,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get color =>
+      $composableBuilder(column: $table.color, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get type => $composableBuilder(
-    column: $table.type,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get type =>
+      $composableBuilder(column: $table.type, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<int> get balance => $composableBuilder(
-    column: $table.balance,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<int> get balance =>
+      $composableBuilder(column: $table.balance, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<int> get initialBalance => $composableBuilder(
-    column: $table.initialBalance,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<int> get initialBalance =>
+      $composableBuilder(column: $table.initialBalance, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<bool> get isActive => $composableBuilder(
-    column: $table.isActive,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<bool> get isActive =>
+      $composableBuilder(column: $table.isActive, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<int> get sort => $composableBuilder(
-    column: $table.sort,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<int> get sort =>
+      $composableBuilder(column: $table.sort, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
-    column: $table.createdAt,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
-    column: $table.updatedAt,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => ColumnOrderings(column));
 
   $$AccountsTableOrderingComposer get parentId {
     final $$AccountsTableOrderingComposer composer = $composerBuilder(
@@ -8450,12 +7031,8 @@ class $$AccountsTableOrderingComposer extends Composer<_$AppDatabase, $AccountsT
       getCurrentColumn: (t) => t.parentId,
       referencedTable: $db.accounts,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$AccountsTableOrderingComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$AccountsTableOrderingComposer(
             $db: $db,
             $table: $db.accounts,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -8488,10 +7065,8 @@ class $$AccountsTableAnnotationComposer extends Composer<_$AppDatabase, $Account
 
   GeneratedColumn<int> get balance => $composableBuilder(column: $table.balance, builder: (column) => column);
 
-  GeneratedColumn<int> get initialBalance => $composableBuilder(
-    column: $table.initialBalance,
-    builder: (column) => column,
-  );
+  GeneratedColumn<int> get initialBalance =>
+      $composableBuilder(column: $table.initialBalance, builder: (column) => column);
 
   GeneratedColumn<bool> get isActive => $composableBuilder(column: $table.isActive, builder: (column) => column);
 
@@ -8507,12 +7082,8 @@ class $$AccountsTableAnnotationComposer extends Composer<_$AppDatabase, $Account
       getCurrentColumn: (t) => t.parentId,
       referencedTable: $db.accounts,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$AccountsTableAnnotationComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$AccountsTableAnnotationComposer(
             $db: $db,
             $table: $db.accounts,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -8531,12 +7102,8 @@ class $$AccountsTableAnnotationComposer extends Composer<_$AppDatabase, $Account
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.accountCategories,
       getReferencedColumn: (t) => t.accountId,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$AccountCategoriesTableAnnotationComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$AccountCategoriesTableAnnotationComposer(
             $db: $db,
             $table: $db.accountCategories,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -8547,20 +7114,14 @@ class $$AccountsTableAnnotationComposer extends Composer<_$AppDatabase, $Account
     return f(composer);
   }
 
-  Expression<T> budgetsRefs<T extends Object>(
-    Expression<T> Function($$BudgetsTableAnnotationComposer a) f,
-  ) {
+  Expression<T> budgetsRefs<T extends Object>(Expression<T> Function($$BudgetsTableAnnotationComposer a) f) {
     final $$BudgetsTableAnnotationComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.budgets,
       getReferencedColumn: (t) => t.accountId,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$BudgetsTableAnnotationComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$BudgetsTableAnnotationComposer(
             $db: $db,
             $table: $db.budgets,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -8579,12 +7140,8 @@ class $$AccountsTableAnnotationComposer extends Composer<_$AppDatabase, $Account
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.recurringTransactions,
       getReferencedColumn: (t) => t.accountId,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$RecurringTransactionsTableAnnotationComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$RecurringTransactionsTableAnnotationComposer(
             $db: $db,
             $table: $db.recurringTransactions,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -8603,12 +7160,8 @@ class $$AccountsTableAnnotationComposer extends Composer<_$AppDatabase, $Account
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.recurringTransactions,
       getReferencedColumn: (t) => t.destinationAccountId,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$RecurringTransactionsTableAnnotationComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$RecurringTransactionsTableAnnotationComposer(
             $db: $db,
             $table: $db.recurringTransactions,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -8619,20 +7172,14 @@ class $$AccountsTableAnnotationComposer extends Composer<_$AppDatabase, $Account
     return f(composer);
   }
 
-  Expression<T> transactionSource<T extends Object>(
-    Expression<T> Function($$TransactionsTableAnnotationComposer a) f,
-  ) {
+  Expression<T> transactionSource<T extends Object>(Expression<T> Function($$TransactionsTableAnnotationComposer a) f) {
     final $$TransactionsTableAnnotationComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.transactions,
       getReferencedColumn: (t) => t.accountId,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$TransactionsTableAnnotationComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$TransactionsTableAnnotationComposer(
             $db: $db,
             $table: $db.transactions,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -8651,12 +7198,8 @@ class $$AccountsTableAnnotationComposer extends Composer<_$AppDatabase, $Account
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.transactions,
       getReferencedColumn: (t) => t.destinationAccountId,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$TransactionsTableAnnotationComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$TransactionsTableAnnotationComposer(
             $db: $db,
             $table: $db.transactions,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -8667,20 +7210,14 @@ class $$AccountsTableAnnotationComposer extends Composer<_$AppDatabase, $Account
     return f(composer);
   }
 
-  Expression<T> goalsRefs<T extends Object>(
-    Expression<T> Function($$GoalsTableAnnotationComposer a) f,
-  ) {
+  Expression<T> goalsRefs<T extends Object>(Expression<T> Function($$GoalsTableAnnotationComposer a) f) {
     final $$GoalsTableAnnotationComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.goals,
       getReferencedColumn: (t) => t.accountId,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$GoalsTableAnnotationComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$GoalsTableAnnotationComposer(
             $db: $db,
             $table: $db.goals,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -8784,14 +7321,8 @@ class $$AccountsTableTableManager
                 updatedAt: updatedAt,
                 rowid: rowid,
               ),
-          withReferenceMapper: (p0) => p0
-              .map(
-                (e) => (
-                  e.readTable(table),
-                  $$AccountsTableReferences(db, table, e),
-                ),
-              )
-              .toList(),
+          withReferenceMapper: (p0) =>
+              p0.map((e) => (e.readTable(table), $$AccountsTableReferences(db, table, e))).toList(),
           prefetchHooksCallback:
               ({
                 parentId = false,
@@ -8847,98 +7378,65 @@ class $$AccountsTableTableManager
                         await $_getPrefetchedData<Account, $AccountsTable, AccountCategory>(
                           currentTable: table,
                           referencedTable: $$AccountsTableReferences._accountCategoriesRefsTable(db),
-                          managerFromTypedResult: (p0) => $$AccountsTableReferences(
-                            db,
-                            table,
-                            p0,
-                          ).accountCategoriesRefs,
-                          referencedItemsForCurrentItem: (item, referencedItems) => referencedItems.where(
-                            (e) => e.accountId == item.id,
-                          ),
+                          managerFromTypedResult: (p0) =>
+                              $$AccountsTableReferences(db, table, p0).accountCategoriesRefs,
+                          referencedItemsForCurrentItem: (item, referencedItems) =>
+                              referencedItems.where((e) => e.accountId == item.id),
                           typedResults: items,
                         ),
                       if (budgetsRefs)
                         await $_getPrefetchedData<Account, $AccountsTable, Budget>(
                           currentTable: table,
                           referencedTable: $$AccountsTableReferences._budgetsRefsTable(db),
-                          managerFromTypedResult: (p0) => $$AccountsTableReferences(
-                            db,
-                            table,
-                            p0,
-                          ).budgetsRefs,
-                          referencedItemsForCurrentItem: (item, referencedItems) => referencedItems.where(
-                            (e) => e.accountId == item.id,
-                          ),
+                          managerFromTypedResult: (p0) => $$AccountsTableReferences(db, table, p0).budgetsRefs,
+                          referencedItemsForCurrentItem: (item, referencedItems) =>
+                              referencedItems.where((e) => e.accountId == item.id),
                           typedResults: items,
                         ),
                       if (recurringSource)
                         await $_getPrefetchedData<Account, $AccountsTable, RecurringTransaction>(
                           currentTable: table,
                           referencedTable: $$AccountsTableReferences._recurringSourceTable(db),
-                          managerFromTypedResult: (p0) => $$AccountsTableReferences(
-                            db,
-                            table,
-                            p0,
-                          ).recurringSource,
-                          referencedItemsForCurrentItem: (item, referencedItems) => referencedItems.where(
-                            (e) => e.accountId == item.id,
-                          ),
+                          managerFromTypedResult: (p0) => $$AccountsTableReferences(db, table, p0).recurringSource,
+                          referencedItemsForCurrentItem: (item, referencedItems) =>
+                              referencedItems.where((e) => e.accountId == item.id),
                           typedResults: items,
                         ),
                       if (recurringDestination)
                         await $_getPrefetchedData<Account, $AccountsTable, RecurringTransaction>(
                           currentTable: table,
                           referencedTable: $$AccountsTableReferences._recurringDestinationTable(db),
-                          managerFromTypedResult: (p0) => $$AccountsTableReferences(
-                            db,
-                            table,
-                            p0,
-                          ).recurringDestination,
-                          referencedItemsForCurrentItem: (item, referencedItems) => referencedItems.where(
-                            (e) => e.destinationAccountId == item.id,
-                          ),
+                          managerFromTypedResult: (p0) => $$AccountsTableReferences(db, table, p0).recurringDestination,
+                          referencedItemsForCurrentItem: (item, referencedItems) =>
+                              referencedItems.where((e) => e.destinationAccountId == item.id),
                           typedResults: items,
                         ),
                       if (transactionSource)
                         await $_getPrefetchedData<Account, $AccountsTable, Transaction>(
                           currentTable: table,
                           referencedTable: $$AccountsTableReferences._transactionSourceTable(db),
-                          managerFromTypedResult: (p0) => $$AccountsTableReferences(
-                            db,
-                            table,
-                            p0,
-                          ).transactionSource,
-                          referencedItemsForCurrentItem: (item, referencedItems) => referencedItems.where(
-                            (e) => e.accountId == item.id,
-                          ),
+                          managerFromTypedResult: (p0) => $$AccountsTableReferences(db, table, p0).transactionSource,
+                          referencedItemsForCurrentItem: (item, referencedItems) =>
+                              referencedItems.where((e) => e.accountId == item.id),
                           typedResults: items,
                         ),
                       if (transactionDestination)
                         await $_getPrefetchedData<Account, $AccountsTable, Transaction>(
                           currentTable: table,
                           referencedTable: $$AccountsTableReferences._transactionDestinationTable(db),
-                          managerFromTypedResult: (p0) => $$AccountsTableReferences(
-                            db,
-                            table,
-                            p0,
-                          ).transactionDestination,
-                          referencedItemsForCurrentItem: (item, referencedItems) => referencedItems.where(
-                            (e) => e.destinationAccountId == item.id,
-                          ),
+                          managerFromTypedResult: (p0) =>
+                              $$AccountsTableReferences(db, table, p0).transactionDestination,
+                          referencedItemsForCurrentItem: (item, referencedItems) =>
+                              referencedItems.where((e) => e.destinationAccountId == item.id),
                           typedResults: items,
                         ),
                       if (goalsRefs)
                         await $_getPrefetchedData<Account, $AccountsTable, Goal>(
                           currentTable: table,
                           referencedTable: $$AccountsTableReferences._goalsRefsTable(db),
-                          managerFromTypedResult: (p0) => $$AccountsTableReferences(
-                            db,
-                            table,
-                            p0,
-                          ).goalsRefs,
-                          referencedItemsForCurrentItem: (item, referencedItems) => referencedItems.where(
-                            (e) => e.accountId == item.id,
-                          ),
+                          managerFromTypedResult: (p0) => $$AccountsTableReferences(db, table, p0).goalsRefs,
+                          referencedItemsForCurrentItem: (item, referencedItems) =>
+                              referencedItems.where((e) => e.accountId == item.id),
                           typedResults: items,
                         ),
                     ];
@@ -8989,11 +7487,7 @@ typedef $$AccountCategoriesTableUpdateCompanionBuilder = AccountCategoriesCompan
 
 final class $$AccountCategoriesTableReferences
     extends BaseReferences<_$AppDatabase, $AccountCategoriesTable, AccountCategory> {
-  $$AccountCategoriesTableReferences(
-    super.$_db,
-    super.$_table,
-    super.$_typedResult,
-  );
+  $$AccountCategoriesTableReferences(super.$_db, super.$_table, super.$_typedResult);
 
   static $AccountsTable _accountIdTable(_$AppDatabase db) =>
       db.accounts.createAlias('account_categories__account_id__accounts__id');
@@ -9001,15 +7495,10 @@ final class $$AccountCategoriesTableReferences
   $$AccountsTableProcessedTableManager get accountId {
     final $_column = $_itemColumn<String>('account_id')!;
 
-    final manager = $$AccountsTableTableManager(
-      $_db,
-      $_db.accounts,
-    ).filter((f) => f.id.sqlEquals($_column));
+    final manager = $$AccountsTableTableManager($_db, $_db.accounts).filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_accountIdTable($_db));
     if (item == null) return manager;
-    return ProcessedTableManager(
-      manager.$state.copyWith(prefetchedData: [item]),
-    );
+    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: [item]));
   }
 
   static $CategoriesTable _categoryIdTable(_$AppDatabase db) =>
@@ -9018,15 +7507,10 @@ final class $$AccountCategoriesTableReferences
   $$CategoriesTableProcessedTableManager get categoryId {
     final $_column = $_itemColumn<String>('category_id')!;
 
-    final manager = $$CategoriesTableTableManager(
-      $_db,
-      $_db.categories,
-    ).filter((f) => f.id.sqlEquals($_column));
+    final manager = $$CategoriesTableTableManager($_db, $_db.categories).filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_categoryIdTable($_db));
     if (item == null) return manager;
-    return ProcessedTableManager(
-      manager.$state.copyWith(prefetchedData: [item]),
-    );
+    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: [item]));
   }
 }
 
@@ -9038,15 +7522,11 @@ class $$AccountCategoriesTableFilterComposer extends Composer<_$AppDatabase, $Ac
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnFilters<DateTime> get createdAt => $composableBuilder(
-    column: $table.createdAt,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
-    column: $table.updatedAt,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => ColumnFilters(column));
 
   $$AccountsTableFilterComposer get accountId {
     final $$AccountsTableFilterComposer composer = $composerBuilder(
@@ -9054,12 +7534,8 @@ class $$AccountCategoriesTableFilterComposer extends Composer<_$AppDatabase, $Ac
       getCurrentColumn: (t) => t.accountId,
       referencedTable: $db.accounts,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$AccountsTableFilterComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$AccountsTableFilterComposer(
             $db: $db,
             $table: $db.accounts,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -9076,12 +7552,8 @@ class $$AccountCategoriesTableFilterComposer extends Composer<_$AppDatabase, $Ac
       getCurrentColumn: (t) => t.categoryId,
       referencedTable: $db.categories,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$CategoriesTableFilterComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$CategoriesTableFilterComposer(
             $db: $db,
             $table: $db.categories,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -9101,15 +7573,11 @@ class $$AccountCategoriesTableOrderingComposer extends Composer<_$AppDatabase, $
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
-    column: $table.createdAt,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
-    column: $table.updatedAt,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => ColumnOrderings(column));
 
   $$AccountsTableOrderingComposer get accountId {
     final $$AccountsTableOrderingComposer composer = $composerBuilder(
@@ -9117,12 +7585,8 @@ class $$AccountCategoriesTableOrderingComposer extends Composer<_$AppDatabase, $
       getCurrentColumn: (t) => t.accountId,
       referencedTable: $db.accounts,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$AccountsTableOrderingComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$AccountsTableOrderingComposer(
             $db: $db,
             $table: $db.accounts,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -9139,12 +7603,8 @@ class $$AccountCategoriesTableOrderingComposer extends Composer<_$AppDatabase, $
       getCurrentColumn: (t) => t.categoryId,
       referencedTable: $db.categories,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$CategoriesTableOrderingComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$CategoriesTableOrderingComposer(
             $db: $db,
             $table: $db.categories,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -9174,12 +7634,8 @@ class $$AccountCategoriesTableAnnotationComposer extends Composer<_$AppDatabase,
       getCurrentColumn: (t) => t.accountId,
       referencedTable: $db.accounts,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$AccountsTableAnnotationComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$AccountsTableAnnotationComposer(
             $db: $db,
             $table: $db.accounts,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -9196,12 +7652,8 @@ class $$AccountCategoriesTableAnnotationComposer extends Composer<_$AppDatabase,
       getCurrentColumn: (t) => t.categoryId,
       referencedTable: $db.categories,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$CategoriesTableAnnotationComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$CategoriesTableAnnotationComposer(
             $db: $db,
             $table: $db.categories,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -9228,19 +7680,14 @@ class $$AccountCategoriesTableTableManager
           AccountCategory,
           PrefetchHooks Function({bool accountId, bool categoryId})
         > {
-  $$AccountCategoriesTableTableManager(
-    _$AppDatabase db,
-    $AccountCategoriesTable table,
-  ) : super(
+  $$AccountCategoriesTableTableManager(_$AppDatabase db, $AccountCategoriesTable table)
+    : super(
         TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () => $$AccountCategoriesTableFilterComposer($db: db, $table: table),
           createOrderingComposer: () => $$AccountCategoriesTableOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer: () => $$AccountCategoriesTableAnnotationComposer(
-            $db: db,
-            $table: table,
-          ),
+          createComputedFieldComposer: () => $$AccountCategoriesTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
                 Value<String> accountId = const Value.absent(),
@@ -9269,14 +7716,8 @@ class $$AccountCategoriesTableTableManager
                 updatedAt: updatedAt,
                 rowid: rowid,
               ),
-          withReferenceMapper: (p0) => p0
-              .map(
-                (e) => (
-                  e.readTable(table),
-                  $$AccountCategoriesTableReferences(db, table, e),
-                ),
-              )
-              .toList(),
+          withReferenceMapper: (p0) =>
+              p0.map((e) => (e.readTable(table), $$AccountCategoriesTableReferences(db, table, e))).toList(),
           prefetchHooksCallback: ({accountId = false, categoryId = false}) {
             return PrefetchHooks(
               db: db,
@@ -9379,15 +7820,10 @@ final class $$BudgetsTableReferences extends BaseReferences<_$AppDatabase, $Budg
   $$CategoriesTableProcessedTableManager? get categoryId {
     final $_column = $_itemColumn<String>('category_id');
     if ($_column == null) return null;
-    final manager = $$CategoriesTableTableManager(
-      $_db,
-      $_db.categories,
-    ).filter((f) => f.id.sqlEquals($_column));
+    final manager = $$CategoriesTableTableManager($_db, $_db.categories).filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_categoryIdTable($_db));
     if (item == null) return manager;
-    return ProcessedTableManager(
-      manager.$state.copyWith(prefetchedData: [item]),
-    );
+    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: [item]));
   }
 
   static $AccountsTable _accountIdTable(_$AppDatabase db) =>
@@ -9396,22 +7832,14 @@ final class $$BudgetsTableReferences extends BaseReferences<_$AppDatabase, $Budg
   $$AccountsTableProcessedTableManager? get accountId {
     final $_column = $_itemColumn<String>('account_id');
     if ($_column == null) return null;
-    final manager = $$AccountsTableTableManager(
-      $_db,
-      $_db.accounts,
-    ).filter((f) => f.id.sqlEquals($_column));
+    final manager = $$AccountsTableTableManager($_db, $_db.accounts).filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_accountIdTable($_db));
     if (item == null) return manager;
-    return ProcessedTableManager(
-      manager.$state.copyWith(prefetchedData: [item]),
-    );
+    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: [item]));
   }
 
   static MultiTypedResultKey<$BudgetRecordsTable, List<BudgetRecord>> _budgetRecordsRefsTable(_$AppDatabase db) =>
-      MultiTypedResultKey.fromTable(
-        db.budgetRecords,
-        aliasName: 'budgets__id__budget_records__budget_id',
-      );
+      MultiTypedResultKey.fromTable(db.budgetRecords, aliasName: 'budgets__id__budget_records__budget_id');
 
   $$BudgetRecordsTableProcessedTableManager get budgetRecordsRefs {
     final manager = $$BudgetRecordsTableTableManager(
@@ -9420,9 +7848,7 @@ final class $$BudgetsTableReferences extends BaseReferences<_$AppDatabase, $Budg
     ).filter((f) => f.budgetId.id.sqlEquals($_itemColumn<String>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_budgetRecordsRefsTable($_db));
-    return ProcessedTableManager(
-      manager.$state.copyWith(prefetchedData: cache),
-    );
+    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: cache));
   }
 }
 
@@ -9434,55 +7860,33 @@ class $$BudgetsTableFilterComposer extends Composer<_$AppDatabase, $BudgetsTable
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnFilters<String> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<String> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get name => $composableBuilder(
-    column: $table.name,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<String> get name => $composableBuilder(column: $table.name, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<int> get amount => $composableBuilder(
-    column: $table.amount,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<int> get amount =>
+      $composableBuilder(column: $table.amount, builder: (column) => ColumnFilters(column));
 
-  ColumnWithTypeConverterFilters<BudgetPeriod, BudgetPeriod, String> get period => $composableBuilder(
-    column: $table.period,
-    builder: (column) => ColumnWithTypeConverterFilters(column),
-  );
+  ColumnWithTypeConverterFilters<BudgetPeriod, BudgetPeriod, String> get period =>
+      $composableBuilder(column: $table.period, builder: (column) => ColumnWithTypeConverterFilters(column));
 
-  ColumnFilters<int> get resetDay => $composableBuilder(
-    column: $table.resetDay,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<int> get resetDay =>
+      $composableBuilder(column: $table.resetDay, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<int> get alertThreshold => $composableBuilder(
-    column: $table.alertThreshold,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<int> get alertThreshold =>
+      $composableBuilder(column: $table.alertThreshold, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<DateTime> get startDate => $composableBuilder(
-    column: $table.startDate,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<DateTime> get startDate =>
+      $composableBuilder(column: $table.startDate, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<DateTime> get endDate => $composableBuilder(
-    column: $table.endDate,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<DateTime> get endDate =>
+      $composableBuilder(column: $table.endDate, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<DateTime> get createdAt => $composableBuilder(
-    column: $table.createdAt,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
-    column: $table.updatedAt,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => ColumnFilters(column));
 
   $$CategoriesTableFilterComposer get categoryId {
     final $$CategoriesTableFilterComposer composer = $composerBuilder(
@@ -9490,12 +7894,8 @@ class $$BudgetsTableFilterComposer extends Composer<_$AppDatabase, $BudgetsTable
       getCurrentColumn: (t) => t.categoryId,
       referencedTable: $db.categories,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$CategoriesTableFilterComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$CategoriesTableFilterComposer(
             $db: $db,
             $table: $db.categories,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -9512,12 +7912,8 @@ class $$BudgetsTableFilterComposer extends Composer<_$AppDatabase, $BudgetsTable
       getCurrentColumn: (t) => t.accountId,
       referencedTable: $db.accounts,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$AccountsTableFilterComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$AccountsTableFilterComposer(
             $db: $db,
             $table: $db.accounts,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -9528,20 +7924,14 @@ class $$BudgetsTableFilterComposer extends Composer<_$AppDatabase, $BudgetsTable
     return composer;
   }
 
-  Expression<bool> budgetRecordsRefs(
-    Expression<bool> Function($$BudgetRecordsTableFilterComposer f) f,
-  ) {
+  Expression<bool> budgetRecordsRefs(Expression<bool> Function($$BudgetRecordsTableFilterComposer f) f) {
     final $$BudgetRecordsTableFilterComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.budgetRecords,
       getReferencedColumn: (t) => t.budgetId,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$BudgetRecordsTableFilterComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$BudgetRecordsTableFilterComposer(
             $db: $db,
             $table: $db.budgetRecords,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -9561,55 +7951,34 @@ class $$BudgetsTableOrderingComposer extends Composer<_$AppDatabase, $BudgetsTab
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnOrderings<String> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get name => $composableBuilder(
-    column: $table.name,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get name =>
+      $composableBuilder(column: $table.name, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<int> get amount => $composableBuilder(
-    column: $table.amount,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<int> get amount =>
+      $composableBuilder(column: $table.amount, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get period => $composableBuilder(
-    column: $table.period,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get period =>
+      $composableBuilder(column: $table.period, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<int> get resetDay => $composableBuilder(
-    column: $table.resetDay,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<int> get resetDay =>
+      $composableBuilder(column: $table.resetDay, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<int> get alertThreshold => $composableBuilder(
-    column: $table.alertThreshold,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<int> get alertThreshold =>
+      $composableBuilder(column: $table.alertThreshold, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get startDate => $composableBuilder(
-    column: $table.startDate,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<DateTime> get startDate =>
+      $composableBuilder(column: $table.startDate, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get endDate => $composableBuilder(
-    column: $table.endDate,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<DateTime> get endDate =>
+      $composableBuilder(column: $table.endDate, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
-    column: $table.createdAt,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
-    column: $table.updatedAt,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => ColumnOrderings(column));
 
   $$CategoriesTableOrderingComposer get categoryId {
     final $$CategoriesTableOrderingComposer composer = $composerBuilder(
@@ -9617,12 +7986,8 @@ class $$BudgetsTableOrderingComposer extends Composer<_$AppDatabase, $BudgetsTab
       getCurrentColumn: (t) => t.categoryId,
       referencedTable: $db.categories,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$CategoriesTableOrderingComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$CategoriesTableOrderingComposer(
             $db: $db,
             $table: $db.categories,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -9639,12 +8004,8 @@ class $$BudgetsTableOrderingComposer extends Composer<_$AppDatabase, $BudgetsTab
       getCurrentColumn: (t) => t.accountId,
       referencedTable: $db.accounts,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$AccountsTableOrderingComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$AccountsTableOrderingComposer(
             $db: $db,
             $table: $db.accounts,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -9675,10 +8036,8 @@ class $$BudgetsTableAnnotationComposer extends Composer<_$AppDatabase, $BudgetsT
 
   GeneratedColumn<int> get resetDay => $composableBuilder(column: $table.resetDay, builder: (column) => column);
 
-  GeneratedColumn<int> get alertThreshold => $composableBuilder(
-    column: $table.alertThreshold,
-    builder: (column) => column,
-  );
+  GeneratedColumn<int> get alertThreshold =>
+      $composableBuilder(column: $table.alertThreshold, builder: (column) => column);
 
   GeneratedColumn<DateTime> get startDate => $composableBuilder(column: $table.startDate, builder: (column) => column);
 
@@ -9694,12 +8053,8 @@ class $$BudgetsTableAnnotationComposer extends Composer<_$AppDatabase, $BudgetsT
       getCurrentColumn: (t) => t.categoryId,
       referencedTable: $db.categories,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$CategoriesTableAnnotationComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$CategoriesTableAnnotationComposer(
             $db: $db,
             $table: $db.categories,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -9716,12 +8071,8 @@ class $$BudgetsTableAnnotationComposer extends Composer<_$AppDatabase, $BudgetsT
       getCurrentColumn: (t) => t.accountId,
       referencedTable: $db.accounts,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$AccountsTableAnnotationComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$AccountsTableAnnotationComposer(
             $db: $db,
             $table: $db.accounts,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -9740,12 +8091,8 @@ class $$BudgetsTableAnnotationComposer extends Composer<_$AppDatabase, $BudgetsT
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.budgetRecords,
       getReferencedColumn: (t) => t.budgetId,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$BudgetRecordsTableAnnotationComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$BudgetRecordsTableAnnotationComposer(
             $db: $db,
             $table: $db.budgetRecords,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -9770,11 +8117,7 @@ class $$BudgetsTableTableManager
           $$BudgetsTableUpdateCompanionBuilder,
           (Budget, $$BudgetsTableReferences),
           Budget,
-          PrefetchHooks Function({
-            bool categoryId,
-            bool accountId,
-            bool budgetRecordsRefs,
-          })
+          PrefetchHooks Function({bool categoryId, bool accountId, bool budgetRecordsRefs})
         > {
   $$BudgetsTableTableManager(_$AppDatabase db, $BudgetsTable table)
     : super(
@@ -9844,80 +8187,62 @@ class $$BudgetsTableTableManager
                 updatedAt: updatedAt,
                 rowid: rowid,
               ),
-          withReferenceMapper: (p0) => p0
-              .map(
-                (e) => (
-                  e.readTable(table),
-                  $$BudgetsTableReferences(db, table, e),
-                ),
-              )
-              .toList(),
-          prefetchHooksCallback:
-              ({
-                categoryId = false,
-                accountId = false,
-                budgetRecordsRefs = false,
-              }) {
-                return PrefetchHooks(
-                  db: db,
-                  explicitlyWatchedTables: [
-                    if (budgetRecordsRefs) db.budgetRecords,
-                  ],
-                  addJoins:
-                      <
-                        T extends TableManagerState<
-                          dynamic,
-                          dynamic,
-                          dynamic,
-                          dynamic,
-                          dynamic,
-                          dynamic,
-                          dynamic,
-                          dynamic,
-                          dynamic,
-                          dynamic,
-                          dynamic
-                        >
-                      >(state) {
-                        if (categoryId) {
-                          state = state.withJoin(
-                            currentTable: table,
-                            currentColumn: table.categoryId,
-                            referencedTable: $$BudgetsTableReferences._categoryIdTable(db),
-                            referencedColumn: $$BudgetsTableReferences._categoryIdTable(db).id,
-                          ) as T;
-                        }
-                        if (accountId) {
-                          state = state.withJoin(
-                            currentTable: table,
-                            currentColumn: table.accountId,
-                            referencedTable: $$BudgetsTableReferences._accountIdTable(db),
-                            referencedColumn: $$BudgetsTableReferences._accountIdTable(db).id,
-                          ) as T;
-                        }
+          withReferenceMapper: (p0) =>
+              p0.map((e) => (e.readTable(table), $$BudgetsTableReferences(db, table, e))).toList(),
+          prefetchHooksCallback: ({categoryId = false, accountId = false, budgetRecordsRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [if (budgetRecordsRefs) db.budgetRecords],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (categoryId) {
+                      state = state.withJoin(
+                        currentTable: table,
+                        currentColumn: table.categoryId,
+                        referencedTable: $$BudgetsTableReferences._categoryIdTable(db),
+                        referencedColumn: $$BudgetsTableReferences._categoryIdTable(db).id,
+                      ) as T;
+                    }
+                    if (accountId) {
+                      state = state.withJoin(
+                        currentTable: table,
+                        currentColumn: table.accountId,
+                        referencedTable: $$BudgetsTableReferences._accountIdTable(db),
+                        referencedColumn: $$BudgetsTableReferences._accountIdTable(db).id,
+                      ) as T;
+                    }
 
-                        return state;
-                      },
-                  getPrefetchedDataCallback: (items) async {
-                    return [
-                      if (budgetRecordsRefs)
-                        await $_getPrefetchedData<Budget, $BudgetsTable, BudgetRecord>(
-                          currentTable: table,
-                          referencedTable: $$BudgetsTableReferences._budgetRecordsRefsTable(db),
-                          managerFromTypedResult: (p0) => $$BudgetsTableReferences(
-                            db,
-                            table,
-                            p0,
-                          ).budgetRecordsRefs,
-                          referencedItemsForCurrentItem: (item, referencedItems) => referencedItems.where(
-                            (e) => e.budgetId == item.id,
-                          ),
-                          typedResults: items,
-                        ),
-                    ];
+                    return state;
                   },
-                );
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (budgetRecordsRefs)
+                    await $_getPrefetchedData<Budget, $BudgetsTable, BudgetRecord>(
+                      currentTable: table,
+                      referencedTable: $$BudgetsTableReferences._budgetRecordsRefsTable(db),
+                      managerFromTypedResult: (p0) => $$BudgetsTableReferences(db, table, p0).budgetRecordsRefs,
+                      referencedItemsForCurrentItem: (item, referencedItems) =>
+                          referencedItems.where((e) => e.budgetId == item.id),
+                      typedResults: items,
+                    ),
+                ];
               },
+            );
+          },
         ),
       );
 }
@@ -9934,11 +8259,7 @@ typedef $$BudgetsTableProcessedTableManager =
       $$BudgetsTableUpdateCompanionBuilder,
       (Budget, $$BudgetsTableReferences),
       Budget,
-      PrefetchHooks Function({
-        bool categoryId,
-        bool accountId,
-        bool budgetRecordsRefs,
-      })
+      PrefetchHooks Function({bool categoryId, bool accountId, bool budgetRecordsRefs})
     >;
 typedef $$BudgetRecordsTableCreateCompanionBuilder = BudgetRecordsCompanion Function({
   Value<String> id,
@@ -9962,11 +8283,7 @@ typedef $$BudgetRecordsTableUpdateCompanionBuilder = BudgetRecordsCompanion Func
 });
 
 final class $$BudgetRecordsTableReferences extends BaseReferences<_$AppDatabase, $BudgetRecordsTable, BudgetRecord> {
-  $$BudgetRecordsTableReferences(
-    super.$_db,
-    super.$_table,
-    super.$_typedResult,
-  );
+  $$BudgetRecordsTableReferences(super.$_db, super.$_table, super.$_typedResult);
 
   static $BudgetsTable _budgetIdTable(_$AppDatabase db) =>
       db.budgets.createAlias('budget_records__budget_id__budgets__id');
@@ -9974,15 +8291,10 @@ final class $$BudgetRecordsTableReferences extends BaseReferences<_$AppDatabase,
   $$BudgetsTableProcessedTableManager get budgetId {
     final $_column = $_itemColumn<String>('budget_id')!;
 
-    final manager = $$BudgetsTableTableManager(
-      $_db,
-      $_db.budgets,
-    ).filter((f) => f.id.sqlEquals($_column));
+    final manager = $$BudgetsTableTableManager($_db, $_db.budgets).filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_budgetIdTable($_db));
     if (item == null) return manager;
-    return ProcessedTableManager(
-      manager.$state.copyWith(prefetchedData: [item]),
-    );
+    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: [item]));
   }
 }
 
@@ -9994,35 +8306,22 @@ class $$BudgetRecordsTableFilterComposer extends Composer<_$AppDatabase, $Budget
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnFilters<String> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<String> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<int> get spentAmount => $composableBuilder(
-    column: $table.spentAmount,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<int> get spentAmount =>
+      $composableBuilder(column: $table.spentAmount, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<DateTime> get periodStart => $composableBuilder(
-    column: $table.periodStart,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<DateTime> get periodStart =>
+      $composableBuilder(column: $table.periodStart, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<DateTime> get periodEnd => $composableBuilder(
-    column: $table.periodEnd,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<DateTime> get periodEnd =>
+      $composableBuilder(column: $table.periodEnd, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<DateTime> get createdAt => $composableBuilder(
-    column: $table.createdAt,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
-    column: $table.updatedAt,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => ColumnFilters(column));
 
   $$BudgetsTableFilterComposer get budgetId {
     final $$BudgetsTableFilterComposer composer = $composerBuilder(
@@ -10030,12 +8329,8 @@ class $$BudgetRecordsTableFilterComposer extends Composer<_$AppDatabase, $Budget
       getCurrentColumn: (t) => t.budgetId,
       referencedTable: $db.budgets,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$BudgetsTableFilterComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$BudgetsTableFilterComposer(
             $db: $db,
             $table: $db.budgets,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -10055,35 +8350,22 @@ class $$BudgetRecordsTableOrderingComposer extends Composer<_$AppDatabase, $Budg
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnOrderings<String> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<int> get spentAmount => $composableBuilder(
-    column: $table.spentAmount,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<int> get spentAmount =>
+      $composableBuilder(column: $table.spentAmount, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get periodStart => $composableBuilder(
-    column: $table.periodStart,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<DateTime> get periodStart =>
+      $composableBuilder(column: $table.periodStart, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get periodEnd => $composableBuilder(
-    column: $table.periodEnd,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<DateTime> get periodEnd =>
+      $composableBuilder(column: $table.periodEnd, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
-    column: $table.createdAt,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
-    column: $table.updatedAt,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => ColumnOrderings(column));
 
   $$BudgetsTableOrderingComposer get budgetId {
     final $$BudgetsTableOrderingComposer composer = $composerBuilder(
@@ -10091,12 +8373,8 @@ class $$BudgetRecordsTableOrderingComposer extends Composer<_$AppDatabase, $Budg
       getCurrentColumn: (t) => t.budgetId,
       referencedTable: $db.budgets,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$BudgetsTableOrderingComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$BudgetsTableOrderingComposer(
             $db: $db,
             $table: $db.budgets,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -10118,15 +8396,10 @@ class $$BudgetRecordsTableAnnotationComposer extends Composer<_$AppDatabase, $Bu
   });
   GeneratedColumn<String> get id => $composableBuilder(column: $table.id, builder: (column) => column);
 
-  GeneratedColumn<int> get spentAmount => $composableBuilder(
-    column: $table.spentAmount,
-    builder: (column) => column,
-  );
+  GeneratedColumn<int> get spentAmount => $composableBuilder(column: $table.spentAmount, builder: (column) => column);
 
-  GeneratedColumn<DateTime> get periodStart => $composableBuilder(
-    column: $table.periodStart,
-    builder: (column) => column,
-  );
+  GeneratedColumn<DateTime> get periodStart =>
+      $composableBuilder(column: $table.periodStart, builder: (column) => column);
 
   GeneratedColumn<DateTime> get periodEnd => $composableBuilder(column: $table.periodEnd, builder: (column) => column);
 
@@ -10140,12 +8413,8 @@ class $$BudgetRecordsTableAnnotationComposer extends Composer<_$AppDatabase, $Bu
       getCurrentColumn: (t) => t.budgetId,
       referencedTable: $db.budgets,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$BudgetsTableAnnotationComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$BudgetsTableAnnotationComposer(
             $db: $db,
             $table: $db.budgets,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -10220,14 +8489,8 @@ class $$BudgetRecordsTableTableManager
                 updatedAt: updatedAt,
                 rowid: rowid,
               ),
-          withReferenceMapper: (p0) => p0
-              .map(
-                (e) => (
-                  e.readTable(table),
-                  $$BudgetRecordsTableReferences(db, table, e),
-                ),
-              )
-              .toList(),
+          withReferenceMapper: (p0) =>
+              p0.map((e) => (e.readTable(table), $$BudgetRecordsTableReferences(db, table, e))).toList(),
           prefetchHooksCallback: ({budgetId = false}) {
             return PrefetchHooks(
               db: db,
@@ -10317,11 +8580,7 @@ typedef $$RecurringTransactionsTableUpdateCompanionBuilder = RecurringTransactio
 
 final class $$RecurringTransactionsTableReferences
     extends BaseReferences<_$AppDatabase, $RecurringTransactionsTable, RecurringTransaction> {
-  $$RecurringTransactionsTableReferences(
-    super.$_db,
-    super.$_table,
-    super.$_typedResult,
-  );
+  $$RecurringTransactionsTableReferences(super.$_db, super.$_table, super.$_typedResult);
 
   static $AccountsTable _accountIdTable(_$AppDatabase db) =>
       db.accounts.createAlias('recurring_transactions__account_id__accounts__id');
@@ -10329,35 +8588,22 @@ final class $$RecurringTransactionsTableReferences
   $$AccountsTableProcessedTableManager get accountId {
     final $_column = $_itemColumn<String>('account_id')!;
 
-    final manager = $$AccountsTableTableManager(
-      $_db,
-      $_db.accounts,
-    ).filter((f) => f.id.sqlEquals($_column));
+    final manager = $$AccountsTableTableManager($_db, $_db.accounts).filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_accountIdTable($_db));
     if (item == null) return manager;
-    return ProcessedTableManager(
-      manager.$state.copyWith(prefetchedData: [item]),
-    );
+    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: [item]));
   }
 
-  static $AccountsTable _destinationAccountIdTable(_$AppDatabase db) => db.accounts.createAlias(
-    'recurring_transactions__destination_account_id__accounts__id',
-  );
+  static $AccountsTable _destinationAccountIdTable(_$AppDatabase db) =>
+      db.accounts.createAlias('recurring_transactions__destination_account_id__accounts__id');
 
   $$AccountsTableProcessedTableManager? get destinationAccountId {
     final $_column = $_itemColumn<String>('destination_account_id');
     if ($_column == null) return null;
-    final manager = $$AccountsTableTableManager(
-      $_db,
-      $_db.accounts,
-    ).filter((f) => f.id.sqlEquals($_column));
-    final item = $_typedResult.readTableOrNull(
-      _destinationAccountIdTable($_db),
-    );
+    final manager = $$AccountsTableTableManager($_db, $_db.accounts).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_destinationAccountIdTable($_db));
     if (item == null) return manager;
-    return ProcessedTableManager(
-      manager.$state.copyWith(prefetchedData: [item]),
-    );
+    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: [item]));
   }
 
   static $CategoriesTable _categoryIdTable(_$AppDatabase db) =>
@@ -10366,15 +8612,10 @@ final class $$RecurringTransactionsTableReferences
   $$CategoriesTableProcessedTableManager? get categoryId {
     final $_column = $_itemColumn<String>('category_id');
     if ($_column == null) return null;
-    final manager = $$CategoriesTableTableManager(
-      $_db,
-      $_db.categories,
-    ).filter((f) => f.id.sqlEquals($_column));
+    final manager = $$CategoriesTableTableManager($_db, $_db.categories).filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_categoryIdTable($_db));
     if (item == null) return manager;
-    return ProcessedTableManager(
-      manager.$state.copyWith(prefetchedData: [item]),
-    );
+    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: [item]));
   }
 
   static MultiTypedResultKey<$TransactionsTable, List<Transaction>> _transactionsRefsTable(_$AppDatabase db) =>
@@ -10384,16 +8625,13 @@ final class $$RecurringTransactionsTableReferences
       );
 
   $$TransactionsTableProcessedTableManager get transactionsRefs {
-    final manager = $$TransactionsTableTableManager($_db, $_db.transactions).filter(
-      (f) => f.recurringTransactionId.id.sqlEquals(
-        $_itemColumn<String>('id')!,
-      ),
-    );
+    final manager = $$TransactionsTableTableManager(
+      $_db,
+      $_db.transactions,
+    ).filter((f) => f.recurringTransactionId.id.sqlEquals($_itemColumn<String>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_transactionsRefsTable($_db));
-    return ProcessedTableManager(
-      manager.$state.copyWith(prefetchedData: cache),
-    );
+    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: cache));
   }
 }
 
@@ -10405,56 +8643,33 @@ class $$RecurringTransactionsTableFilterComposer extends Composer<_$AppDatabase,
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnFilters<String> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<String> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnFilters(column));
 
   ColumnWithTypeConverterFilters<TransactionAllocation?, TransactionAllocation, String> get allocation =>
-      $composableBuilder(
-        column: $table.allocation,
-        builder: (column) => ColumnWithTypeConverterFilters(column),
-      );
+      $composableBuilder(column: $table.allocation, builder: (column) => ColumnWithTypeConverterFilters(column));
 
-  ColumnWithTypeConverterFilters<TransactionType, TransactionType, String> get type => $composableBuilder(
-    column: $table.type,
-    builder: (column) => ColumnWithTypeConverterFilters(column),
-  );
+  ColumnWithTypeConverterFilters<TransactionType, TransactionType, String> get type =>
+      $composableBuilder(column: $table.type, builder: (column) => ColumnWithTypeConverterFilters(column));
 
-  ColumnFilters<int> get amount => $composableBuilder(
-    column: $table.amount,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<int> get amount =>
+      $composableBuilder(column: $table.amount, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get note => $composableBuilder(
-    column: $table.note,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<String> get note => $composableBuilder(column: $table.note, builder: (column) => ColumnFilters(column));
 
-  ColumnWithTypeConverterFilters<RecurringPeriod, RecurringPeriod, String> get period => $composableBuilder(
-    column: $table.period,
-    builder: (column) => ColumnWithTypeConverterFilters(column),
-  );
+  ColumnWithTypeConverterFilters<RecurringPeriod, RecurringPeriod, String> get period =>
+      $composableBuilder(column: $table.period, builder: (column) => ColumnWithTypeConverterFilters(column));
 
-  ColumnFilters<DateTime> get nextDate => $composableBuilder(
-    column: $table.nextDate,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<DateTime> get nextDate =>
+      $composableBuilder(column: $table.nextDate, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<bool> get isActive => $composableBuilder(
-    column: $table.isActive,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<bool> get isActive =>
+      $composableBuilder(column: $table.isActive, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<DateTime> get createdAt => $composableBuilder(
-    column: $table.createdAt,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
-    column: $table.updatedAt,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => ColumnFilters(column));
 
   $$AccountsTableFilterComposer get accountId {
     final $$AccountsTableFilterComposer composer = $composerBuilder(
@@ -10462,12 +8677,8 @@ class $$RecurringTransactionsTableFilterComposer extends Composer<_$AppDatabase,
       getCurrentColumn: (t) => t.accountId,
       referencedTable: $db.accounts,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$AccountsTableFilterComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$AccountsTableFilterComposer(
             $db: $db,
             $table: $db.accounts,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -10484,12 +8695,8 @@ class $$RecurringTransactionsTableFilterComposer extends Composer<_$AppDatabase,
       getCurrentColumn: (t) => t.destinationAccountId,
       referencedTable: $db.accounts,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$AccountsTableFilterComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$AccountsTableFilterComposer(
             $db: $db,
             $table: $db.accounts,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -10506,12 +8713,8 @@ class $$RecurringTransactionsTableFilterComposer extends Composer<_$AppDatabase,
       getCurrentColumn: (t) => t.categoryId,
       referencedTable: $db.categories,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$CategoriesTableFilterComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$CategoriesTableFilterComposer(
             $db: $db,
             $table: $db.categories,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -10522,20 +8725,14 @@ class $$RecurringTransactionsTableFilterComposer extends Composer<_$AppDatabase,
     return composer;
   }
 
-  Expression<bool> transactionsRefs(
-    Expression<bool> Function($$TransactionsTableFilterComposer f) f,
-  ) {
+  Expression<bool> transactionsRefs(Expression<bool> Function($$TransactionsTableFilterComposer f) f) {
     final $$TransactionsTableFilterComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.transactions,
       getReferencedColumn: (t) => t.recurringTransactionId,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$TransactionsTableFilterComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$TransactionsTableFilterComposer(
             $db: $db,
             $table: $db.transactions,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -10555,55 +8752,34 @@ class $$RecurringTransactionsTableOrderingComposer extends Composer<_$AppDatabas
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnOrderings<String> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get allocation => $composableBuilder(
-    column: $table.allocation,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get allocation =>
+      $composableBuilder(column: $table.allocation, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get type => $composableBuilder(
-    column: $table.type,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get type =>
+      $composableBuilder(column: $table.type, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<int> get amount => $composableBuilder(
-    column: $table.amount,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<int> get amount =>
+      $composableBuilder(column: $table.amount, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get note => $composableBuilder(
-    column: $table.note,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get note =>
+      $composableBuilder(column: $table.note, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get period => $composableBuilder(
-    column: $table.period,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get period =>
+      $composableBuilder(column: $table.period, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get nextDate => $composableBuilder(
-    column: $table.nextDate,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<DateTime> get nextDate =>
+      $composableBuilder(column: $table.nextDate, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<bool> get isActive => $composableBuilder(
-    column: $table.isActive,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<bool> get isActive =>
+      $composableBuilder(column: $table.isActive, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
-    column: $table.createdAt,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
-    column: $table.updatedAt,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => ColumnOrderings(column));
 
   $$AccountsTableOrderingComposer get accountId {
     final $$AccountsTableOrderingComposer composer = $composerBuilder(
@@ -10611,12 +8787,8 @@ class $$RecurringTransactionsTableOrderingComposer extends Composer<_$AppDatabas
       getCurrentColumn: (t) => t.accountId,
       referencedTable: $db.accounts,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$AccountsTableOrderingComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$AccountsTableOrderingComposer(
             $db: $db,
             $table: $db.accounts,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -10633,12 +8805,8 @@ class $$RecurringTransactionsTableOrderingComposer extends Composer<_$AppDatabas
       getCurrentColumn: (t) => t.destinationAccountId,
       referencedTable: $db.accounts,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$AccountsTableOrderingComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$AccountsTableOrderingComposer(
             $db: $db,
             $table: $db.accounts,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -10655,12 +8823,8 @@ class $$RecurringTransactionsTableOrderingComposer extends Composer<_$AppDatabas
       getCurrentColumn: (t) => t.categoryId,
       referencedTable: $db.categories,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$CategoriesTableOrderingComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$CategoriesTableOrderingComposer(
             $db: $db,
             $table: $db.categories,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -10682,10 +8846,8 @@ class $$RecurringTransactionsTableAnnotationComposer extends Composer<_$AppDatab
   });
   GeneratedColumn<String> get id => $composableBuilder(column: $table.id, builder: (column) => column);
 
-  GeneratedColumnWithTypeConverter<TransactionAllocation?, String> get allocation => $composableBuilder(
-    column: $table.allocation,
-    builder: (column) => column,
-  );
+  GeneratedColumnWithTypeConverter<TransactionAllocation?, String> get allocation =>
+      $composableBuilder(column: $table.allocation, builder: (column) => column);
 
   GeneratedColumnWithTypeConverter<TransactionType, String> get type =>
       $composableBuilder(column: $table.type, builder: (column) => column);
@@ -10711,12 +8873,8 @@ class $$RecurringTransactionsTableAnnotationComposer extends Composer<_$AppDatab
       getCurrentColumn: (t) => t.accountId,
       referencedTable: $db.accounts,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$AccountsTableAnnotationComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$AccountsTableAnnotationComposer(
             $db: $db,
             $table: $db.accounts,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -10733,12 +8891,8 @@ class $$RecurringTransactionsTableAnnotationComposer extends Composer<_$AppDatab
       getCurrentColumn: (t) => t.destinationAccountId,
       referencedTable: $db.accounts,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$AccountsTableAnnotationComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$AccountsTableAnnotationComposer(
             $db: $db,
             $table: $db.accounts,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -10755,12 +8909,8 @@ class $$RecurringTransactionsTableAnnotationComposer extends Composer<_$AppDatab
       getCurrentColumn: (t) => t.categoryId,
       referencedTable: $db.categories,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$CategoriesTableAnnotationComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$CategoriesTableAnnotationComposer(
             $db: $db,
             $table: $db.categories,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -10771,20 +8921,14 @@ class $$RecurringTransactionsTableAnnotationComposer extends Composer<_$AppDatab
     return composer;
   }
 
-  Expression<T> transactionsRefs<T extends Object>(
-    Expression<T> Function($$TransactionsTableAnnotationComposer a) f,
-  ) {
+  Expression<T> transactionsRefs<T extends Object>(Expression<T> Function($$TransactionsTableAnnotationComposer a) f) {
     final $$TransactionsTableAnnotationComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.transactions,
       getReferencedColumn: (t) => t.recurringTransactionId,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$TransactionsTableAnnotationComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$TransactionsTableAnnotationComposer(
             $db: $db,
             $table: $db.transactions,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -10809,32 +8953,16 @@ class $$RecurringTransactionsTableTableManager
           $$RecurringTransactionsTableUpdateCompanionBuilder,
           (RecurringTransaction, $$RecurringTransactionsTableReferences),
           RecurringTransaction,
-          PrefetchHooks Function({
-            bool accountId,
-            bool destinationAccountId,
-            bool categoryId,
-            bool transactionsRefs,
-          })
+          PrefetchHooks Function({bool accountId, bool destinationAccountId, bool categoryId, bool transactionsRefs})
         > {
-  $$RecurringTransactionsTableTableManager(
-    _$AppDatabase db,
-    $RecurringTransactionsTable table,
-  ) : super(
+  $$RecurringTransactionsTableTableManager(_$AppDatabase db, $RecurringTransactionsTable table)
+    : super(
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer: () => $$RecurringTransactionsTableFilterComposer(
-            $db: db,
-            $table: table,
-          ),
-          createOrderingComposer: () => $$RecurringTransactionsTableOrderingComposer(
-            $db: db,
-            $table: table,
-          ),
-          createComputedFieldComposer: () => $$RecurringTransactionsTableAnnotationComposer(
-            $db: db,
-            $table: table,
-          ),
+          createFilteringComposer: () => $$RecurringTransactionsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () => $$RecurringTransactionsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () => $$RecurringTransactionsTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
                 Value<String> id = const Value.absent(),
@@ -10899,26 +9027,13 @@ class $$RecurringTransactionsTableTableManager
                 updatedAt: updatedAt,
                 rowid: rowid,
               ),
-          withReferenceMapper: (p0) => p0
-              .map(
-                (e) => (
-                  e.readTable(table),
-                  $$RecurringTransactionsTableReferences(db, table, e),
-                ),
-              )
-              .toList(),
+          withReferenceMapper: (p0) =>
+              p0.map((e) => (e.readTable(table), $$RecurringTransactionsTableReferences(db, table, e))).toList(),
           prefetchHooksCallback:
-              ({
-                accountId = false,
-                destinationAccountId = false,
-                categoryId = false,
-                transactionsRefs = false,
-              }) {
+              ({accountId = false, destinationAccountId = false, categoryId = false, transactionsRefs = false}) {
                 return PrefetchHooks(
                   db: db,
-                  explicitlyWatchedTables: [
-                    if (transactionsRefs) db.transactions,
-                  ],
+                  explicitlyWatchedTables: [if (transactionsRefs) db.transactions],
                   addJoins:
                       <
                         T extends TableManagerState<
@@ -10968,14 +9083,10 @@ class $$RecurringTransactionsTableTableManager
                         await $_getPrefetchedData<RecurringTransaction, $RecurringTransactionsTable, Transaction>(
                           currentTable: table,
                           referencedTable: $$RecurringTransactionsTableReferences._transactionsRefsTable(db),
-                          managerFromTypedResult: (p0) => $$RecurringTransactionsTableReferences(
-                            db,
-                            table,
-                            p0,
-                          ).transactionsRefs,
-                          referencedItemsForCurrentItem: (item, referencedItems) => referencedItems.where(
-                            (e) => e.recurringTransactionId == item.id,
-                          ),
+                          managerFromTypedResult: (p0) =>
+                              $$RecurringTransactionsTableReferences(db, table, p0).transactionsRefs,
+                          referencedItemsForCurrentItem: (item, referencedItems) =>
+                              referencedItems.where((e) => e.recurringTransactionId == item.id),
                           typedResults: items,
                         ),
                     ];
@@ -10998,12 +9109,7 @@ typedef $$RecurringTransactionsTableProcessedTableManager =
       $$RecurringTransactionsTableUpdateCompanionBuilder,
       (RecurringTransaction, $$RecurringTransactionsTableReferences),
       RecurringTransaction,
-      PrefetchHooks Function({
-        bool accountId,
-        bool destinationAccountId,
-        bool categoryId,
-        bool transactionsRefs,
-      })
+      PrefetchHooks Function({bool accountId, bool destinationAccountId, bool categoryId, bool transactionsRefs})
     >;
 typedef $$DebtsTableCreateCompanionBuilder = DebtsCompanion Function({
   Value<String> id,
@@ -11036,10 +9142,7 @@ final class $$DebtsTableReferences extends BaseReferences<_$AppDatabase, $DebtsT
   $$DebtsTableReferences(super.$_db, super.$_table, super.$_typedResult);
 
   static MultiTypedResultKey<$TransactionsTable, List<Transaction>> _transactionsRefsTable(_$AppDatabase db) =>
-      MultiTypedResultKey.fromTable(
-        db.transactions,
-        aliasName: 'debts__id__transactions__debt_id',
-      );
+      MultiTypedResultKey.fromTable(db.transactions, aliasName: 'debts__id__transactions__debt_id');
 
   $$TransactionsTableProcessedTableManager get transactionsRefs {
     final manager = $$TransactionsTableTableManager(
@@ -11048,9 +9151,7 @@ final class $$DebtsTableReferences extends BaseReferences<_$AppDatabase, $DebtsT
     ).filter((f) => f.debtId.id.sqlEquals($_itemColumn<String>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_transactionsRefsTable($_db));
-    return ProcessedTableManager(
-      manager.$state.copyWith(prefetchedData: cache),
-    );
+    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: cache));
   }
 }
 
@@ -11062,70 +9163,42 @@ class $$DebtsTableFilterComposer extends Composer<_$AppDatabase, $DebtsTable> {
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnFilters<String> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<String> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get personName => $composableBuilder(
-    column: $table.personName,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<String> get personName =>
+      $composableBuilder(column: $table.personName, builder: (column) => ColumnFilters(column));
 
-  ColumnWithTypeConverterFilters<DebtType, DebtType, String> get type => $composableBuilder(
-    column: $table.type,
-    builder: (column) => ColumnWithTypeConverterFilters(column),
-  );
+  ColumnWithTypeConverterFilters<DebtType, DebtType, String> get type =>
+      $composableBuilder(column: $table.type, builder: (column) => ColumnWithTypeConverterFilters(column));
 
-  ColumnFilters<int> get amount => $composableBuilder(
-    column: $table.amount,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<int> get amount =>
+      $composableBuilder(column: $table.amount, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<int> get remainingAmount => $composableBuilder(
-    column: $table.remainingAmount,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<int> get remainingAmount =>
+      $composableBuilder(column: $table.remainingAmount, builder: (column) => ColumnFilters(column));
 
-  ColumnWithTypeConverterFilters<DebtStatus, DebtStatus, String> get status => $composableBuilder(
-    column: $table.status,
-    builder: (column) => ColumnWithTypeConverterFilters(column),
-  );
+  ColumnWithTypeConverterFilters<DebtStatus, DebtStatus, String> get status =>
+      $composableBuilder(column: $table.status, builder: (column) => ColumnWithTypeConverterFilters(column));
 
-  ColumnFilters<DateTime> get dueDate => $composableBuilder(
-    column: $table.dueDate,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<DateTime> get dueDate =>
+      $composableBuilder(column: $table.dueDate, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get note => $composableBuilder(
-    column: $table.note,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<String> get note => $composableBuilder(column: $table.note, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<DateTime> get createdAt => $composableBuilder(
-    column: $table.createdAt,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
-    column: $table.updatedAt,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => ColumnFilters(column));
 
-  Expression<bool> transactionsRefs(
-    Expression<bool> Function($$TransactionsTableFilterComposer f) f,
-  ) {
+  Expression<bool> transactionsRefs(Expression<bool> Function($$TransactionsTableFilterComposer f) f) {
     final $$TransactionsTableFilterComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.transactions,
       getReferencedColumn: (t) => t.debtId,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$TransactionsTableFilterComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$TransactionsTableFilterComposer(
             $db: $db,
             $table: $db.transactions,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -11145,55 +9218,34 @@ class $$DebtsTableOrderingComposer extends Composer<_$AppDatabase, $DebtsTable> 
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnOrderings<String> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get personName => $composableBuilder(
-    column: $table.personName,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get personName =>
+      $composableBuilder(column: $table.personName, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get type => $composableBuilder(
-    column: $table.type,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get type =>
+      $composableBuilder(column: $table.type, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<int> get amount => $composableBuilder(
-    column: $table.amount,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<int> get amount =>
+      $composableBuilder(column: $table.amount, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<int> get remainingAmount => $composableBuilder(
-    column: $table.remainingAmount,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<int> get remainingAmount =>
+      $composableBuilder(column: $table.remainingAmount, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get status => $composableBuilder(
-    column: $table.status,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get status =>
+      $composableBuilder(column: $table.status, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get dueDate => $composableBuilder(
-    column: $table.dueDate,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<DateTime> get dueDate =>
+      $composableBuilder(column: $table.dueDate, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get note => $composableBuilder(
-    column: $table.note,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get note =>
+      $composableBuilder(column: $table.note, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
-    column: $table.createdAt,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
-    column: $table.updatedAt,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => ColumnOrderings(column));
 }
 
 class $$DebtsTableAnnotationComposer extends Composer<_$AppDatabase, $DebtsTable> {
@@ -11206,20 +9258,15 @@ class $$DebtsTableAnnotationComposer extends Composer<_$AppDatabase, $DebtsTable
   });
   GeneratedColumn<String> get id => $composableBuilder(column: $table.id, builder: (column) => column);
 
-  GeneratedColumn<String> get personName => $composableBuilder(
-    column: $table.personName,
-    builder: (column) => column,
-  );
+  GeneratedColumn<String> get personName => $composableBuilder(column: $table.personName, builder: (column) => column);
 
   GeneratedColumnWithTypeConverter<DebtType, String> get type =>
       $composableBuilder(column: $table.type, builder: (column) => column);
 
   GeneratedColumn<int> get amount => $composableBuilder(column: $table.amount, builder: (column) => column);
 
-  GeneratedColumn<int> get remainingAmount => $composableBuilder(
-    column: $table.remainingAmount,
-    builder: (column) => column,
-  );
+  GeneratedColumn<int> get remainingAmount =>
+      $composableBuilder(column: $table.remainingAmount, builder: (column) => column);
 
   GeneratedColumnWithTypeConverter<DebtStatus, String> get status =>
       $composableBuilder(column: $table.status, builder: (column) => column);
@@ -11232,20 +9279,14 @@ class $$DebtsTableAnnotationComposer extends Composer<_$AppDatabase, $DebtsTable
 
   GeneratedColumn<DateTime> get updatedAt => $composableBuilder(column: $table.updatedAt, builder: (column) => column);
 
-  Expression<T> transactionsRefs<T extends Object>(
-    Expression<T> Function($$TransactionsTableAnnotationComposer a) f,
-  ) {
+  Expression<T> transactionsRefs<T extends Object>(Expression<T> Function($$TransactionsTableAnnotationComposer a) f) {
     final $$TransactionsTableAnnotationComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.transactions,
       getReferencedColumn: (t) => t.debtId,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$TransactionsTableAnnotationComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$TransactionsTableAnnotationComposer(
             $db: $db,
             $table: $db.transactions,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -11332,11 +9373,8 @@ class $$DebtsTableTableManager
                 updatedAt: updatedAt,
                 rowid: rowid,
               ),
-          withReferenceMapper: (p0) => p0
-              .map(
-                (e) => (e.readTable(table), $$DebtsTableReferences(db, table, e)),
-              )
-              .toList(),
+          withReferenceMapper: (p0) =>
+              p0.map((e) => (e.readTable(table), $$DebtsTableReferences(db, table, e))).toList(),
           prefetchHooksCallback: ({transactionsRefs = false}) {
             return PrefetchHooks(
               db: db,
@@ -11348,11 +9386,7 @@ class $$DebtsTableTableManager
                     await $_getPrefetchedData<Debt, $DebtsTable, Transaction>(
                       currentTable: table,
                       referencedTable: $$DebtsTableReferences._transactionsRefsTable(db),
-                      managerFromTypedResult: (p0) => $$DebtsTableReferences(
-                        db,
-                        table,
-                        p0,
-                      ).transactionsRefs,
+                      managerFromTypedResult: (p0) => $$DebtsTableReferences(db, table, p0).transactionsRefs,
                       referencedItemsForCurrentItem: (item, referencedItems) =>
                           referencedItems.where((e) => e.debtId == item.id),
                       typedResults: items,
@@ -11417,15 +9451,10 @@ final class $$TransactionsTableReferences extends BaseReferences<_$AppDatabase, 
   $$AccountsTableProcessedTableManager get accountId {
     final $_column = $_itemColumn<String>('account_id')!;
 
-    final manager = $$AccountsTableTableManager(
-      $_db,
-      $_db.accounts,
-    ).filter((f) => f.id.sqlEquals($_column));
+    final manager = $$AccountsTableTableManager($_db, $_db.accounts).filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_accountIdTable($_db));
     if (item == null) return manager;
-    return ProcessedTableManager(
-      manager.$state.copyWith(prefetchedData: [item]),
-    );
+    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: [item]));
   }
 
   static $AccountsTable _destinationAccountIdTable(_$AppDatabase db) =>
@@ -11434,24 +9463,14 @@ final class $$TransactionsTableReferences extends BaseReferences<_$AppDatabase, 
   $$AccountsTableProcessedTableManager? get destinationAccountId {
     final $_column = $_itemColumn<String>('destination_account_id');
     if ($_column == null) return null;
-    final manager = $$AccountsTableTableManager(
-      $_db,
-      $_db.accounts,
-    ).filter((f) => f.id.sqlEquals($_column));
-    final item = $_typedResult.readTableOrNull(
-      _destinationAccountIdTable($_db),
-    );
+    final manager = $$AccountsTableTableManager($_db, $_db.accounts).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_destinationAccountIdTable($_db));
     if (item == null) return manager;
-    return ProcessedTableManager(
-      manager.$state.copyWith(prefetchedData: [item]),
-    );
+    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: [item]));
   }
 
-  static $RecurringTransactionsTable _recurringTransactionIdTable(
-    _$AppDatabase db,
-  ) => db.recurringTransactions.createAlias(
-    'transactions__recurring_transaction_id__recurring_transactions__id',
-  );
+  static $RecurringTransactionsTable _recurringTransactionIdTable(_$AppDatabase db) =>
+      db.recurringTransactions.createAlias('transactions__recurring_transaction_id__recurring_transactions__id');
 
   $$RecurringTransactionsTableProcessedTableManager? get recurringTransactionId {
     final $_column = $_itemColumn<String>('recurring_transaction_id');
@@ -11460,13 +9479,9 @@ final class $$TransactionsTableReferences extends BaseReferences<_$AppDatabase, 
       $_db,
       $_db.recurringTransactions,
     ).filter((f) => f.id.sqlEquals($_column));
-    final item = $_typedResult.readTableOrNull(
-      _recurringTransactionIdTable($_db),
-    );
+    final item = $_typedResult.readTableOrNull(_recurringTransactionIdTable($_db));
     if (item == null) return manager;
-    return ProcessedTableManager(
-      manager.$state.copyWith(prefetchedData: [item]),
-    );
+    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: [item]));
   }
 
   static $DebtsTable _debtIdTable(_$AppDatabase db) => db.debts.createAlias('transactions__debt_id__debts__id');
@@ -11474,15 +9489,10 @@ final class $$TransactionsTableReferences extends BaseReferences<_$AppDatabase, 
   $$DebtsTableProcessedTableManager? get debtId {
     final $_column = $_itemColumn<String>('debt_id');
     if ($_column == null) return null;
-    final manager = $$DebtsTableTableManager(
-      $_db,
-      $_db.debts,
-    ).filter((f) => f.id.sqlEquals($_column));
+    final manager = $$DebtsTableTableManager($_db, $_db.debts).filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_debtIdTable($_db));
     if (item == null) return manager;
-    return ProcessedTableManager(
-      manager.$state.copyWith(prefetchedData: [item]),
-    );
+    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: [item]));
   }
 
   static MultiTypedResultKey<$TransactionItemsTable, List<TransactionItem>> _transactionItemsRefsTable(
@@ -11498,12 +9508,8 @@ final class $$TransactionsTableReferences extends BaseReferences<_$AppDatabase, 
       $_db.transactionItems,
     ).filter((f) => f.transactionId.id.sqlEquals($_itemColumn<String>('id')!));
 
-    final cache = $_typedResult.readTableOrNull(
-      _transactionItemsRefsTable($_db),
-    );
-    return ProcessedTableManager(
-      manager.$state.copyWith(prefetchedData: cache),
-    );
+    final cache = $_typedResult.readTableOrNull(_transactionItemsRefsTable($_db));
+    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: cache));
   }
 }
 
@@ -11515,40 +9521,24 @@ class $$TransactionsTableFilterComposer extends Composer<_$AppDatabase, $Transac
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnFilters<String> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<String> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnFilters(column));
 
-  ColumnWithTypeConverterFilters<TransactionType, TransactionType, String> get type => $composableBuilder(
-    column: $table.type,
-    builder: (column) => ColumnWithTypeConverterFilters(column),
-  );
+  ColumnWithTypeConverterFilters<TransactionType, TransactionType, String> get type =>
+      $composableBuilder(column: $table.type, builder: (column) => ColumnWithTypeConverterFilters(column));
 
-  ColumnFilters<int> get amount => $composableBuilder(
-    column: $table.amount,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<int> get amount =>
+      $composableBuilder(column: $table.amount, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<DateTime> get transactionDate => $composableBuilder(
-    column: $table.transactionDate,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<DateTime> get transactionDate =>
+      $composableBuilder(column: $table.transactionDate, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get note => $composableBuilder(
-    column: $table.note,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<String> get note => $composableBuilder(column: $table.note, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<DateTime> get createdAt => $composableBuilder(
-    column: $table.createdAt,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
-    column: $table.updatedAt,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => ColumnFilters(column));
 
   $$AccountsTableFilterComposer get accountId {
     final $$AccountsTableFilterComposer composer = $composerBuilder(
@@ -11556,12 +9546,8 @@ class $$TransactionsTableFilterComposer extends Composer<_$AppDatabase, $Transac
       getCurrentColumn: (t) => t.accountId,
       referencedTable: $db.accounts,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$AccountsTableFilterComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$AccountsTableFilterComposer(
             $db: $db,
             $table: $db.accounts,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -11578,12 +9564,8 @@ class $$TransactionsTableFilterComposer extends Composer<_$AppDatabase, $Transac
       getCurrentColumn: (t) => t.destinationAccountId,
       referencedTable: $db.accounts,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$AccountsTableFilterComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$AccountsTableFilterComposer(
             $db: $db,
             $table: $db.accounts,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -11600,12 +9582,8 @@ class $$TransactionsTableFilterComposer extends Composer<_$AppDatabase, $Transac
       getCurrentColumn: (t) => t.recurringTransactionId,
       referencedTable: $db.recurringTransactions,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$RecurringTransactionsTableFilterComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$RecurringTransactionsTableFilterComposer(
             $db: $db,
             $table: $db.recurringTransactions,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -11622,12 +9600,8 @@ class $$TransactionsTableFilterComposer extends Composer<_$AppDatabase, $Transac
       getCurrentColumn: (t) => t.debtId,
       referencedTable: $db.debts,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$DebtsTableFilterComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$DebtsTableFilterComposer(
             $db: $db,
             $table: $db.debts,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -11638,20 +9612,14 @@ class $$TransactionsTableFilterComposer extends Composer<_$AppDatabase, $Transac
     return composer;
   }
 
-  Expression<bool> transactionItemsRefs(
-    Expression<bool> Function($$TransactionItemsTableFilterComposer f) f,
-  ) {
+  Expression<bool> transactionItemsRefs(Expression<bool> Function($$TransactionItemsTableFilterComposer f) f) {
     final $$TransactionItemsTableFilterComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.transactionItems,
       getReferencedColumn: (t) => t.transactionId,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$TransactionItemsTableFilterComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$TransactionItemsTableFilterComposer(
             $db: $db,
             $table: $db.transactionItems,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -11671,40 +9639,25 @@ class $$TransactionsTableOrderingComposer extends Composer<_$AppDatabase, $Trans
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnOrderings<String> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get type => $composableBuilder(
-    column: $table.type,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get type =>
+      $composableBuilder(column: $table.type, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<int> get amount => $composableBuilder(
-    column: $table.amount,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<int> get amount =>
+      $composableBuilder(column: $table.amount, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get transactionDate => $composableBuilder(
-    column: $table.transactionDate,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<DateTime> get transactionDate =>
+      $composableBuilder(column: $table.transactionDate, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get note => $composableBuilder(
-    column: $table.note,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get note =>
+      $composableBuilder(column: $table.note, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
-    column: $table.createdAt,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
-    column: $table.updatedAt,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => ColumnOrderings(column));
 
   $$AccountsTableOrderingComposer get accountId {
     final $$AccountsTableOrderingComposer composer = $composerBuilder(
@@ -11712,12 +9665,8 @@ class $$TransactionsTableOrderingComposer extends Composer<_$AppDatabase, $Trans
       getCurrentColumn: (t) => t.accountId,
       referencedTable: $db.accounts,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$AccountsTableOrderingComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$AccountsTableOrderingComposer(
             $db: $db,
             $table: $db.accounts,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -11734,12 +9683,8 @@ class $$TransactionsTableOrderingComposer extends Composer<_$AppDatabase, $Trans
       getCurrentColumn: (t) => t.destinationAccountId,
       referencedTable: $db.accounts,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$AccountsTableOrderingComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$AccountsTableOrderingComposer(
             $db: $db,
             $table: $db.accounts,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -11756,12 +9701,8 @@ class $$TransactionsTableOrderingComposer extends Composer<_$AppDatabase, $Trans
       getCurrentColumn: (t) => t.recurringTransactionId,
       referencedTable: $db.recurringTransactions,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$RecurringTransactionsTableOrderingComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$RecurringTransactionsTableOrderingComposer(
             $db: $db,
             $table: $db.recurringTransactions,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -11778,12 +9719,8 @@ class $$TransactionsTableOrderingComposer extends Composer<_$AppDatabase, $Trans
       getCurrentColumn: (t) => t.debtId,
       referencedTable: $db.debts,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$DebtsTableOrderingComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$DebtsTableOrderingComposer(
             $db: $db,
             $table: $db.debts,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -11810,10 +9747,8 @@ class $$TransactionsTableAnnotationComposer extends Composer<_$AppDatabase, $Tra
 
   GeneratedColumn<int> get amount => $composableBuilder(column: $table.amount, builder: (column) => column);
 
-  GeneratedColumn<DateTime> get transactionDate => $composableBuilder(
-    column: $table.transactionDate,
-    builder: (column) => column,
-  );
+  GeneratedColumn<DateTime> get transactionDate =>
+      $composableBuilder(column: $table.transactionDate, builder: (column) => column);
 
   GeneratedColumn<String> get note => $composableBuilder(column: $table.note, builder: (column) => column);
 
@@ -11827,12 +9762,8 @@ class $$TransactionsTableAnnotationComposer extends Composer<_$AppDatabase, $Tra
       getCurrentColumn: (t) => t.accountId,
       referencedTable: $db.accounts,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$AccountsTableAnnotationComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$AccountsTableAnnotationComposer(
             $db: $db,
             $table: $db.accounts,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -11849,12 +9780,8 @@ class $$TransactionsTableAnnotationComposer extends Composer<_$AppDatabase, $Tra
       getCurrentColumn: (t) => t.destinationAccountId,
       referencedTable: $db.accounts,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$AccountsTableAnnotationComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$AccountsTableAnnotationComposer(
             $db: $db,
             $table: $db.accounts,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -11871,12 +9798,8 @@ class $$TransactionsTableAnnotationComposer extends Composer<_$AppDatabase, $Tra
       getCurrentColumn: (t) => t.recurringTransactionId,
       referencedTable: $db.recurringTransactions,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$RecurringTransactionsTableAnnotationComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$RecurringTransactionsTableAnnotationComposer(
             $db: $db,
             $table: $db.recurringTransactions,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -11893,12 +9816,8 @@ class $$TransactionsTableAnnotationComposer extends Composer<_$AppDatabase, $Tra
       getCurrentColumn: (t) => t.debtId,
       referencedTable: $db.debts,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$DebtsTableAnnotationComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$DebtsTableAnnotationComposer(
             $db: $db,
             $table: $db.debts,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -11917,12 +9836,8 @@ class $$TransactionsTableAnnotationComposer extends Composer<_$AppDatabase, $Tra
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.transactionItems,
       getReferencedColumn: (t) => t.transactionId,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$TransactionItemsTableAnnotationComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$TransactionItemsTableAnnotationComposer(
             $db: $db,
             $table: $db.transactionItems,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -12019,14 +9934,8 @@ class $$TransactionsTableTableManager
                 updatedAt: updatedAt,
                 rowid: rowid,
               ),
-          withReferenceMapper: (p0) => p0
-              .map(
-                (e) => (
-                  e.readTable(table),
-                  $$TransactionsTableReferences(db, table, e),
-                ),
-              )
-              .toList(),
+          withReferenceMapper: (p0) =>
+              p0.map((e) => (e.readTable(table), $$TransactionsTableReferences(db, table, e))).toList(),
           prefetchHooksCallback:
               ({
                 accountId = false,
@@ -12037,9 +9946,7 @@ class $$TransactionsTableTableManager
               }) {
                 return PrefetchHooks(
                   db: db,
-                  explicitlyWatchedTables: [
-                    if (transactionItemsRefs) db.transactionItems,
-                  ],
+                  explicitlyWatchedTables: [if (transactionItemsRefs) db.transactionItems],
                   addJoins:
                       <
                         T extends TableManagerState<
@@ -12097,14 +10004,10 @@ class $$TransactionsTableTableManager
                         await $_getPrefetchedData<Transaction, $TransactionsTable, TransactionItem>(
                           currentTable: table,
                           referencedTable: $$TransactionsTableReferences._transactionItemsRefsTable(db),
-                          managerFromTypedResult: (p0) => $$TransactionsTableReferences(
-                            db,
-                            table,
-                            p0,
-                          ).transactionItemsRefs,
-                          referencedItemsForCurrentItem: (item, referencedItems) => referencedItems.where(
-                            (e) => e.transactionId == item.id,
-                          ),
+                          managerFromTypedResult: (p0) =>
+                              $$TransactionsTableReferences(db, table, p0).transactionItemsRefs,
+                          referencedItemsForCurrentItem: (item, referencedItems) =>
+                              referencedItems.where((e) => e.transactionId == item.id),
                           typedResults: items,
                         ),
                     ];
@@ -12160,11 +10063,7 @@ typedef $$TransactionItemsTableUpdateCompanionBuilder = TransactionItemsCompanio
 
 final class $$TransactionItemsTableReferences
     extends BaseReferences<_$AppDatabase, $TransactionItemsTable, TransactionItem> {
-  $$TransactionItemsTableReferences(
-    super.$_db,
-    super.$_table,
-    super.$_typedResult,
-  );
+  $$TransactionItemsTableReferences(super.$_db, super.$_table, super.$_typedResult);
 
   static $TransactionsTable _transactionIdTable(_$AppDatabase db) =>
       db.transactions.createAlias('transaction_items__transaction_id__transactions__id');
@@ -12172,15 +10071,10 @@ final class $$TransactionItemsTableReferences
   $$TransactionsTableProcessedTableManager get transactionId {
     final $_column = $_itemColumn<String>('transaction_id')!;
 
-    final manager = $$TransactionsTableTableManager(
-      $_db,
-      $_db.transactions,
-    ).filter((f) => f.id.sqlEquals($_column));
+    final manager = $$TransactionsTableTableManager($_db, $_db.transactions).filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_transactionIdTable($_db));
     if (item == null) return manager;
-    return ProcessedTableManager(
-      manager.$state.copyWith(prefetchedData: [item]),
-    );
+    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: [item]));
   }
 
   static $CategoriesTable _categoryIdTable(_$AppDatabase db) =>
@@ -12189,15 +10083,10 @@ final class $$TransactionItemsTableReferences
   $$CategoriesTableProcessedTableManager? get categoryId {
     final $_column = $_itemColumn<String>('category_id');
     if ($_column == null) return null;
-    final manager = $$CategoriesTableTableManager(
-      $_db,
-      $_db.categories,
-    ).filter((f) => f.id.sqlEquals($_column));
+    final manager = $$CategoriesTableTableManager($_db, $_db.categories).filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_categoryIdTable($_db));
     if (item == null) return manager;
-    return ProcessedTableManager(
-      manager.$state.copyWith(prefetchedData: [item]),
-    );
+    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: [item]));
   }
 }
 
@@ -12209,36 +10098,21 @@ class $$TransactionItemsTableFilterComposer extends Composer<_$AppDatabase, $Tra
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnFilters<String> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<String> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnFilters(column));
 
   ColumnWithTypeConverterFilters<TransactionAllocation?, TransactionAllocation, String> get allocation =>
-      $composableBuilder(
-        column: $table.allocation,
-        builder: (column) => ColumnWithTypeConverterFilters(column),
-      );
+      $composableBuilder(column: $table.allocation, builder: (column) => ColumnWithTypeConverterFilters(column));
 
-  ColumnFilters<int> get amount => $composableBuilder(
-    column: $table.amount,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<int> get amount =>
+      $composableBuilder(column: $table.amount, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get note => $composableBuilder(
-    column: $table.note,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<String> get note => $composableBuilder(column: $table.note, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<DateTime> get createdAt => $composableBuilder(
-    column: $table.createdAt,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
-    column: $table.updatedAt,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => ColumnFilters(column));
 
   $$TransactionsTableFilterComposer get transactionId {
     final $$TransactionsTableFilterComposer composer = $composerBuilder(
@@ -12246,12 +10120,8 @@ class $$TransactionItemsTableFilterComposer extends Composer<_$AppDatabase, $Tra
       getCurrentColumn: (t) => t.transactionId,
       referencedTable: $db.transactions,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$TransactionsTableFilterComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$TransactionsTableFilterComposer(
             $db: $db,
             $table: $db.transactions,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -12268,12 +10138,8 @@ class $$TransactionItemsTableFilterComposer extends Composer<_$AppDatabase, $Tra
       getCurrentColumn: (t) => t.categoryId,
       referencedTable: $db.categories,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$CategoriesTableFilterComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$CategoriesTableFilterComposer(
             $db: $db,
             $table: $db.categories,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -12293,35 +10159,22 @@ class $$TransactionItemsTableOrderingComposer extends Composer<_$AppDatabase, $T
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnOrderings<String> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get allocation => $composableBuilder(
-    column: $table.allocation,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get allocation =>
+      $composableBuilder(column: $table.allocation, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<int> get amount => $composableBuilder(
-    column: $table.amount,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<int> get amount =>
+      $composableBuilder(column: $table.amount, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get note => $composableBuilder(
-    column: $table.note,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get note =>
+      $composableBuilder(column: $table.note, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
-    column: $table.createdAt,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
-    column: $table.updatedAt,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => ColumnOrderings(column));
 
   $$TransactionsTableOrderingComposer get transactionId {
     final $$TransactionsTableOrderingComposer composer = $composerBuilder(
@@ -12329,12 +10182,8 @@ class $$TransactionItemsTableOrderingComposer extends Composer<_$AppDatabase, $T
       getCurrentColumn: (t) => t.transactionId,
       referencedTable: $db.transactions,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$TransactionsTableOrderingComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$TransactionsTableOrderingComposer(
             $db: $db,
             $table: $db.transactions,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -12351,12 +10200,8 @@ class $$TransactionItemsTableOrderingComposer extends Composer<_$AppDatabase, $T
       getCurrentColumn: (t) => t.categoryId,
       referencedTable: $db.categories,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$CategoriesTableOrderingComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$CategoriesTableOrderingComposer(
             $db: $db,
             $table: $db.categories,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -12378,10 +10223,8 @@ class $$TransactionItemsTableAnnotationComposer extends Composer<_$AppDatabase, 
   });
   GeneratedColumn<String> get id => $composableBuilder(column: $table.id, builder: (column) => column);
 
-  GeneratedColumnWithTypeConverter<TransactionAllocation?, String> get allocation => $composableBuilder(
-    column: $table.allocation,
-    builder: (column) => column,
-  );
+  GeneratedColumnWithTypeConverter<TransactionAllocation?, String> get allocation =>
+      $composableBuilder(column: $table.allocation, builder: (column) => column);
 
   GeneratedColumn<int> get amount => $composableBuilder(column: $table.amount, builder: (column) => column);
 
@@ -12397,12 +10240,8 @@ class $$TransactionItemsTableAnnotationComposer extends Composer<_$AppDatabase, 
       getCurrentColumn: (t) => t.transactionId,
       referencedTable: $db.transactions,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$TransactionsTableAnnotationComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$TransactionsTableAnnotationComposer(
             $db: $db,
             $table: $db.transactions,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -12419,12 +10258,8 @@ class $$TransactionItemsTableAnnotationComposer extends Composer<_$AppDatabase, 
       getCurrentColumn: (t) => t.categoryId,
       referencedTable: $db.categories,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$CategoriesTableAnnotationComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$CategoriesTableAnnotationComposer(
             $db: $db,
             $table: $db.categories,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -12451,10 +10286,8 @@ class $$TransactionItemsTableTableManager
           TransactionItem,
           PrefetchHooks Function({bool transactionId, bool categoryId})
         > {
-  $$TransactionItemsTableTableManager(
-    _$AppDatabase db,
-    $TransactionItemsTable table,
-  ) : super(
+  $$TransactionItemsTableTableManager(_$AppDatabase db, $TransactionItemsTable table)
+    : super(
         TableManagerState(
           db: db,
           table: table,
@@ -12505,14 +10338,8 @@ class $$TransactionItemsTableTableManager
                 updatedAt: updatedAt,
                 rowid: rowid,
               ),
-          withReferenceMapper: (p0) => p0
-              .map(
-                (e) => (
-                  e.readTable(table),
-                  $$TransactionItemsTableReferences(db, table, e),
-                ),
-              )
-              .toList(),
+          withReferenceMapper: (p0) =>
+              p0.map((e) => (e.readTable(table), $$TransactionItemsTableReferences(db, table, e))).toList(),
           prefetchHooksCallback: ({transactionId = false, categoryId = false}) {
             return PrefetchHooks(
               db: db,
@@ -12610,15 +10437,10 @@ final class $$GoalsTableReferences extends BaseReferences<_$AppDatabase, $GoalsT
   $$AccountsTableProcessedTableManager get accountId {
     final $_column = $_itemColumn<String>('account_id')!;
 
-    final manager = $$AccountsTableTableManager(
-      $_db,
-      $_db.accounts,
-    ).filter((f) => f.id.sqlEquals($_column));
+    final manager = $$AccountsTableTableManager($_db, $_db.accounts).filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_accountIdTable($_db));
     if (item == null) return manager;
-    return ProcessedTableManager(
-      manager.$state.copyWith(prefetchedData: [item]),
-    );
+    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: [item]));
   }
 }
 
@@ -12630,50 +10452,29 @@ class $$GoalsTableFilterComposer extends Composer<_$AppDatabase, $GoalsTable> {
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnFilters<String> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<String> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get name => $composableBuilder(
-    column: $table.name,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<String> get name => $composableBuilder(column: $table.name, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<int> get targetAmount => $composableBuilder(
-    column: $table.targetAmount,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<int> get targetAmount =>
+      $composableBuilder(column: $table.targetAmount, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<DateTime> get targetDate => $composableBuilder(
-    column: $table.targetDate,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<DateTime> get targetDate =>
+      $composableBuilder(column: $table.targetDate, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get icon => $composableBuilder(
-    column: $table.icon,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<String> get icon => $composableBuilder(column: $table.icon, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get color => $composableBuilder(
-    column: $table.color,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<String> get color =>
+      $composableBuilder(column: $table.color, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<DateTime> get createdAt => $composableBuilder(
-    column: $table.createdAt,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
-    column: $table.updatedAt,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => ColumnFilters(column));
 
-  ColumnWithTypeConverterFilters<GoalStatus, GoalStatus, String> get status => $composableBuilder(
-    column: $table.status,
-    builder: (column) => ColumnWithTypeConverterFilters(column),
-  );
+  ColumnWithTypeConverterFilters<GoalStatus, GoalStatus, String> get status =>
+      $composableBuilder(column: $table.status, builder: (column) => ColumnWithTypeConverterFilters(column));
 
   $$AccountsTableFilterComposer get accountId {
     final $$AccountsTableFilterComposer composer = $composerBuilder(
@@ -12681,12 +10482,8 @@ class $$GoalsTableFilterComposer extends Composer<_$AppDatabase, $GoalsTable> {
       getCurrentColumn: (t) => t.accountId,
       referencedTable: $db.accounts,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$AccountsTableFilterComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$AccountsTableFilterComposer(
             $db: $db,
             $table: $db.accounts,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -12706,50 +10503,31 @@ class $$GoalsTableOrderingComposer extends Composer<_$AppDatabase, $GoalsTable> 
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnOrderings<String> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get name => $composableBuilder(
-    column: $table.name,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get name =>
+      $composableBuilder(column: $table.name, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<int> get targetAmount => $composableBuilder(
-    column: $table.targetAmount,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<int> get targetAmount =>
+      $composableBuilder(column: $table.targetAmount, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get targetDate => $composableBuilder(
-    column: $table.targetDate,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<DateTime> get targetDate =>
+      $composableBuilder(column: $table.targetDate, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get icon => $composableBuilder(
-    column: $table.icon,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get icon =>
+      $composableBuilder(column: $table.icon, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get color => $composableBuilder(
-    column: $table.color,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get color =>
+      $composableBuilder(column: $table.color, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
-    column: $table.createdAt,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
-    column: $table.updatedAt,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get status => $composableBuilder(
-    column: $table.status,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get status =>
+      $composableBuilder(column: $table.status, builder: (column) => ColumnOrderings(column));
 
   $$AccountsTableOrderingComposer get accountId {
     final $$AccountsTableOrderingComposer composer = $composerBuilder(
@@ -12757,12 +10535,8 @@ class $$GoalsTableOrderingComposer extends Composer<_$AppDatabase, $GoalsTable> 
       getCurrentColumn: (t) => t.accountId,
       referencedTable: $db.accounts,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$AccountsTableOrderingComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$AccountsTableOrderingComposer(
             $db: $db,
             $table: $db.accounts,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -12786,15 +10560,10 @@ class $$GoalsTableAnnotationComposer extends Composer<_$AppDatabase, $GoalsTable
 
   GeneratedColumn<String> get name => $composableBuilder(column: $table.name, builder: (column) => column);
 
-  GeneratedColumn<int> get targetAmount => $composableBuilder(
-    column: $table.targetAmount,
-    builder: (column) => column,
-  );
+  GeneratedColumn<int> get targetAmount => $composableBuilder(column: $table.targetAmount, builder: (column) => column);
 
-  GeneratedColumn<DateTime> get targetDate => $composableBuilder(
-    column: $table.targetDate,
-    builder: (column) => column,
-  );
+  GeneratedColumn<DateTime> get targetDate =>
+      $composableBuilder(column: $table.targetDate, builder: (column) => column);
 
   GeneratedColumn<String> get icon => $composableBuilder(column: $table.icon, builder: (column) => column);
 
@@ -12813,12 +10582,8 @@ class $$GoalsTableAnnotationComposer extends Composer<_$AppDatabase, $GoalsTable
       getCurrentColumn: (t) => t.accountId,
       referencedTable: $db.accounts,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$AccountsTableAnnotationComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$AccountsTableAnnotationComposer(
             $db: $db,
             $table: $db.accounts,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -12905,11 +10670,8 @@ class $$GoalsTableTableManager
                 status: status,
                 rowid: rowid,
               ),
-          withReferenceMapper: (p0) => p0
-              .map(
-                (e) => (e.readTable(table), $$GoalsTableReferences(db, table, e)),
-              )
-              .toList(),
+          withReferenceMapper: (p0) =>
+              p0.map((e) => (e.readTable(table), $$GoalsTableReferences(db, table, e))).toList(),
           prefetchHooksCallback: ({accountId = false}) {
             return PrefetchHooks(
               db: db,
@@ -12934,9 +10696,7 @@ class $$GoalsTableTableManager
                       state = state.withJoin(
                         currentTable: table,
                         currentColumn: table.accountId,
-                        referencedTable: $$GoalsTableReferences._accountIdTable(
-                          db,
-                        ),
+                        referencedTable: $$GoalsTableReferences._accountIdTable(db),
                         referencedColumn: $$GoalsTableReferences._accountIdTable(db).id,
                       ) as T;
                     }

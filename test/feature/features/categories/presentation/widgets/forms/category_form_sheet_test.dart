@@ -11,21 +11,14 @@ void main() {
   Widget buildTestApp(Widget child) {
     return ProviderScope(
       child: MaterialApp(
-        builder: (context, child) => FTheme(
-          data: lightTheme,
-          child: child!,
-        ),
+        builder: (context, child) => FTheme(data: lightTheme, child: child!),
         home: Scaffold(body: child),
       ),
     );
   }
 
   testWidgets('CategoryFormSheet renders correctly for creation', (tester) async {
-    await tester.pumpWidget(
-      buildTestApp(
-        const CategoryFormSheet(),
-      ),
-    );
+    await tester.pumpWidget(buildTestApp(const CategoryFormSheet()));
 
     await tester.pumpAndSettle();
     expect(find.byType(CategoryFormSheet), findsOneWidget);
@@ -42,13 +35,7 @@ void main() {
       updatedAt: DateTime.now(),
     );
 
-    await tester.pumpWidget(
-      buildTestApp(
-        CategoryFormSheet(
-          initialCategory: category,
-        ),
-      ),
-    );
+    await tester.pumpWidget(buildTestApp(CategoryFormSheet(initialCategory: category)));
 
     await tester.pumpAndSettle();
     expect(find.byType(CategoryFormSheet), findsOneWidget);

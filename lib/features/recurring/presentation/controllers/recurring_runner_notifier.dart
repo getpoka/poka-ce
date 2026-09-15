@@ -12,23 +12,23 @@ import 'package:poka_ce/features/recurring/presentation/controllers/recurring_li
 
 /// Sealed result type for the runner's outcome.
 sealed class RecurringRunnerState {
-  const RecurringRunnerState();
+  const new();
 }
 
 /// Runner hasn't started yet or is in progress.
 class RecurringRunnerIdle extends RecurringRunnerState {
-  const RecurringRunnerIdle();
+  const new();
 }
 
 /// Runner completed successfully with [processed] transactions created.
 class RecurringRunnerDone extends RecurringRunnerState {
-  const RecurringRunnerDone(this.processed);
+  const new(this.processed);
   final int processed;
 }
 
 /// Runner encountered an error.
 class RecurringRunnerError extends RecurringRunnerState {
-  const RecurringRunnerError(this.message);
+  const new(this.message);
   final String message;
 }
 

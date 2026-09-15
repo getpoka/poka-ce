@@ -15,11 +15,7 @@ import 'package:poka_ce/shared/widgets/poka_slidable_action.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class GoalCard extends ConsumerWidget {
-  const GoalCard({
-    required this.state,
-    this.isInteractive = true,
-    super.key,
-  });
+  const new({required this.state, this.isInteractive = true, super.key});
 
   final GoalItemState state;
   final bool isInteractive;
@@ -79,9 +75,7 @@ class GoalCard extends ConsumerWidget {
                     ),
                     Text(
                       t.goals.saved,
-                      style: theme.typography.bodySecondary.copyWith(
-                        color: theme.colors.mutedForeground,
-                      ),
+                      style: theme.typography.bodySecondary.copyWith(color: theme.colors.mutedForeground),
                     ),
                   ],
                 ),
@@ -105,9 +99,7 @@ class GoalCard extends ConsumerWidget {
                       PokaAmountText(
                         amount: state.goal.targetAmount,
                         type: TransactionType.income,
-                        style: theme.typography.amountTile.copyWith(
-                          color: completedColor,
-                        ),
+                        style: theme.typography.amountTile.copyWith(color: completedColor),
                       ),
                     ],
                   )
@@ -121,9 +113,7 @@ class GoalCard extends ConsumerWidget {
                       PokaAmountText(
                         amount: state.remaining,
                         type: TransactionType.expense,
-                        style: theme.typography.amountTile.copyWith(
-                          color: theme.colors.mutedForeground,
-                        ),
+                        style: theme.typography.amountTile.copyWith(color: theme.colors.mutedForeground),
                       ),
                       Text(
                         t.goals.more,
@@ -189,7 +179,7 @@ class GoalCard extends ConsumerWidget {
 }
 
 class _ProgressBar extends StatelessWidget {
-  const _ProgressBar({required this.progress, required this.color});
+  const new({required this.progress, required this.color});
 
   final double progress;
   final Color color;
@@ -201,10 +191,7 @@ class _ProgressBar extends StatelessWidget {
       builder: (context, constraints) => Container(
         height: 6,
         width: constraints.maxWidth,
-        decoration: BoxDecoration(
-          color: theme.colors.muted,
-          borderRadius: BorderRadius.circular(3),
-        ),
+        decoration: BoxDecoration(color: theme.colors.muted, borderRadius: BorderRadius.circular(3)),
         child: Align(
           alignment: Alignment.centerLeft,
           child: TweenAnimationBuilder<double>(
@@ -214,10 +201,7 @@ class _ProgressBar extends StatelessWidget {
             builder: (_, value, _) => FractionallySizedBox(
               widthFactor: value,
               child: Container(
-                decoration: BoxDecoration(
-                  color: color,
-                  borderRadius: BorderRadius.circular(3),
-                ),
+                decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(3)),
               ),
             ),
           ),

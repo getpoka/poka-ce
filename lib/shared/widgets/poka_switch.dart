@@ -11,12 +11,7 @@ class PokaSwitch extends StatelessWidget {
   /// [value] — the current toggle state.
   /// [onChange] — callback fired when the user taps the switch.
   /// [scale] — uniform scale factor applied to [FSwitch]; defaults to `0.7`.
-  const PokaSwitch({
-    required this.value,
-    required this.onChange,
-    this.scale = 0.7,
-    super.key,
-  });
+  const new({required this.value, required this.onChange, this.scale = 0.7, super.key});
 
   /// Current boolean state of the switch.
   final bool value;
@@ -34,10 +29,7 @@ class PokaSwitch extends StatelessWidget {
       scale: scale,
       // Align to the right so the invisible tap area doesn't bleed left.
       alignment: Alignment.centerRight,
-      child: FSwitch(
-        value: value,
-        onChange: onChange,
-      ),
+      child: FSwitch(value: value, onChange: onChange),
     );
   }
 }

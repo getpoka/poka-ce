@@ -7,7 +7,7 @@ import 'package:poka_ce/shared/widgets/poka_hero_card.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class DebtSummaryCard extends StatelessWidget {
-  const DebtSummaryCard({required this.debts, required this.isPayable, super.key});
+  const new({required this.debts, required this.isPayable, super.key});
 
   final List<DebtModel> debts;
   final bool isPayable;

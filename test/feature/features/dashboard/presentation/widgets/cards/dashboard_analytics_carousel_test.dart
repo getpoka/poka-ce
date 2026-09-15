@@ -18,18 +18,11 @@ void main() {
 
   Widget createWidget(DashboardState state) {
     return ProviderScope(
-      overrides: [
-        dashboardProvider.overrideWith(() => _FakeDashboardNotifier(state)),
-      ],
+      overrides: [dashboardProvider.overrideWith(() => _FakeDashboardNotifier(state))],
       child: TranslationProvider(
         child: MaterialApp(
-          builder: (context, child) => FTheme(
-            data: lightTheme,
-            child: child!,
-          ),
-          home: const Scaffold(
-            body: SingleChildScrollView(child: DashboardAnalyticsCarousel()),
-          ),
+          builder: (context, child) => FTheme(data: lightTheme, child: child!),
+          home: const Scaffold(body: SingleChildScrollView(child: DashboardAnalyticsCarousel())),
         ),
       ),
     );
@@ -56,12 +49,8 @@ void main() {
           DashboardState(
             totalIncome: 12000000,
             totalExpense: 2970000,
-            categoryExpenses: [
-              CategoryExpenseItem('Food', '#FF0000', 1000),
-            ],
-            budgetAllocations: {
-              TransactionAllocation.need: 1000,
-            },
+            categoryExpenses: [CategoryExpenseItem('Food', '#FF0000', 1000)],
+            budgetAllocations: {TransactionAllocation.need: 1000},
           ),
         ),
       );
@@ -92,9 +81,7 @@ void main() {
               CategoryExpenseItem('Subscriptions', '#FF0000', 164000),
               CategoryExpenseItem('Coffee', '#00FF00', 45600),
             ],
-            budgetAllocations: {
-              TransactionAllocation.need: 1000,
-            },
+            budgetAllocations: {TransactionAllocation.need: 1000},
           ),
         ),
       );

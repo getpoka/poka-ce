@@ -9,7 +9,7 @@ import 'package:poka_ce/shared/widgets/poka_sparkline.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class AccountNetworthCard extends ConsumerWidget {
-  const AccountNetworthCard({
+  const new({
     required this.netWorth,
     required this.totalAssets,
     required this.totalLiabilities,
@@ -48,10 +48,7 @@ class AccountNetworthCard extends ConsumerWidget {
             )
           : null,
       pills: [
-        PokaHeroCardPill(
-          icon: FPhosphorIcons.wallet,
-          label: context.t.dashboard.netWorth,
-        ),
+        PokaHeroCardPill(icon: FPhosphorIcons.wallet, label: context.t.dashboard.netWorth),
         PokaHeroCardPill(
           icon: FPhosphorIcons.bank,
           label: context.t.dashboard.accountsCount(count: activeAccountCount),
@@ -73,9 +70,7 @@ class AccountNetworthCard extends ConsumerWidget {
           locale: localeFormat,
           isVisible: isBalanceVisible,
         ),
-        style: theme.typography.amountSection.copyWith(
-          color: theme.colors.primaryForeground,
-        ),
+        style: theme.typography.amountSection.copyWith(color: theme.colors.primaryForeground),
       ),
       // No progress bar
       leftSubAmount: PokaHeroCardSubAmount(
@@ -88,9 +83,7 @@ class AccountNetworthCard extends ConsumerWidget {
             locale: localeFormat,
             isVisible: isBalanceVisible,
           ),
-          style: theme.typography.amountCard.copyWith(
-            color: theme.colors.primaryForeground,
-          ),
+          style: theme.typography.amountCard.copyWith(color: theme.colors.primaryForeground),
         ),
       ),
       rightSubAmount: PokaHeroCardSubAmount(
@@ -103,9 +96,7 @@ class AccountNetworthCard extends ConsumerWidget {
             locale: localeFormat,
             isVisible: isBalanceVisible,
           ),
-          style: theme.typography.amountCard.copyWith(
-            color: theme.colors.primaryForeground,
-          ),
+          style: theme.typography.amountCard.copyWith(color: theme.colors.primaryForeground),
         ),
       ),
     );
