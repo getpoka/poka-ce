@@ -3,7 +3,7 @@ import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class BackupPasswordForm extends StatelessWidget {
-  const BackupPasswordForm({
+  const new({
     required this.isBackup,
     required this.passwordController,
     required this.confirmController,
@@ -33,9 +33,7 @@ class BackupPasswordForm extends StatelessWidget {
         if (!isBackup && filePath != null) ...[
           Text(
             filePath!,
-            style: context.theme.typography.bodyPrimary.copyWith(
-              color: context.theme.colors.mutedForeground,
-            ),
+            style: context.theme.typography.bodyPrimary.copyWith(color: context.theme.colors.mutedForeground),
             textAlign: TextAlign.center,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,

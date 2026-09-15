@@ -124,9 +124,7 @@ void main() {
       child: TranslationProvider(
         child: FTheme(
           data: lightTheme,
-          child: MaterialApp.router(
-            routerConfig: router,
-          ),
+          child: MaterialApp.router(routerConfig: router),
         ),
       ),
     );

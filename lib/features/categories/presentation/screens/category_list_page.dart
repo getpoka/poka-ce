@@ -14,7 +14,7 @@ import 'package:poka_ce/shared/widgets/poka_header.dart';
 /// Main screen for managing all categories.
 /// Contains tabs for displaying Expense and Income categories.
 class CategoryListPage extends HookConsumerWidget {
-  const CategoryListPage({super.key});
+  const new({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -48,10 +48,7 @@ class CategoryListPage extends HookConsumerWidget {
             physics: const AlwaysScrollableScrollPhysics(),
             padding: EdgeInsets.zero,
             child: FTabs(
-              control: FTabControl.lifted(
-                index: tabIndex.value,
-                onChange: (index) => tabIndex.value = index,
-              ),
+              control: FTabControl.lifted(index: tabIndex.value, onChange: (index) => tabIndex.value = index),
               children: [
                 FTabEntry(
                   label: Text(t.accounts.expense),

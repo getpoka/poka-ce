@@ -28,7 +28,7 @@ enum PinVerificationResult {
 /// Represents the current authentication, biometric, and lockout state of the app lock.
 @freezed
 abstract class AppLockState with _$AppLockState {
-  const factory AppLockState({
+  const factory({
     @Default(false) bool isEnabled,
     @Default(false) bool isAuthenticated,
     @Default(false) bool isBiometricEnabled,
@@ -116,11 +116,7 @@ class AppLockController extends _$AppLockController {
     await _clearLockout(prefs);
 
     await prefs.saveBool(_appLockKey, true);
-    state = state.copyWith(
-      isEnabled: true,
-      isAuthenticated: true,
-      lockoutUntil: null,
-    );
+    state = state.copyWith(isEnabled: true, isAuthenticated: true, lockoutUntil: null);
   }
 
   /// Disables the app lock completely (removes PIN and biometric).
@@ -133,12 +129,7 @@ class AppLockController extends _$AppLockController {
     await prefs.saveBool(_appLockKey, false);
     await prefs.saveBool(_biometricKey, false);
     await _clearLockout(prefs);
-    state = state.copyWith(
-      isEnabled: false,
-      isBiometricEnabled: false,
-      isAuthenticated: true,
-      lockoutUntil: null,
-    );
+    state = state.copyWith(isEnabled: false, isBiometricEnabled: false, isAuthenticated: true, lockoutUntil: null);
   }
 
   /// Toggles biometric authentication on or off.
@@ -206,7 +197,7 @@ class AppLockController extends _$AppLockController {
         return PinVerificationResult.wrongPin;
       }
       if (!_constantTimeEquals(utf8.encode(legacy), utf8.encode(pin))) {
-        return _onFailedAttempt(prefs);
+        return await _onFailedAttempt(prefs);
       }
       await _upgradeLegacyPin(secureStorage, pin);
       await _clearLockout(prefs);
@@ -222,7 +213,7 @@ class AppLockController extends _$AppLockController {
     final candidate = await _hashPin(pin, _hexDecode(saltHex));
     final storedHashBytes = _hexDecode(storedHash);
     if (!_constantTimeEquals(storedHashBytes, candidate)) {
-      return _onFailedAttempt(prefs);
+      return await _onFailedAttempt(prefs);
     }
 
     await _clearLockout(prefs);
@@ -273,11 +264,8 @@ class AppLockController extends _$AppLockController {
   // ── PIN hashing helpers ────────────────────────────────────────────────────
 
   Future<List<int>> _hashPin(String pin, List<int> salt) async {
-    final key = await _pinKdf.deriveKey(
-      secretKey: SecretKey(utf8.encode(pin)),
-      nonce: salt,
-    );
-    return key.extractBytes();
+    final key = await _pinKdf.deriveKey(secretKey: SecretKey(utf8.encode(pin)), nonce: salt);
+    return await key.extractBytes();
   }
 
   Future<void> _upgradeLegacyPin(SecureStorageService storage, String pin) async {

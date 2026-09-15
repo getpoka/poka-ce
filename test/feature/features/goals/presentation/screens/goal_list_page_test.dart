@@ -89,10 +89,7 @@ void main() {
       final g1 = _goal('g1', 'Emergency Fund', 100000, accountId: 'a1');
       final g2 = _goal('g2', 'New Laptop', 50000, accountId: 'a2');
       final goals = [g1, g2];
-      final dash = DashboardState(
-        isLoading: false,
-        accounts: [_acc('a1', 25000), _acc('a2', 10000)],
-      );
+      final dash = DashboardState(isLoading: false, accounts: [_acc('a1', 25000), _acc('a2', 10000)]);
 
       await tester.pumpWidget(wrapGoal(goals, dashboardState: dash));
       await tester.pumpAndSettle();
@@ -185,10 +182,7 @@ void main() {
       tester.view.devicePixelRatio = 1.0;
       addTearDown(() => tester.view.resetPhysicalSize());
       await tester.pumpWidget(
-        wrapGoal(
-          [_goal('g1', 'A', 1000)],
-          dashboardState: DashboardState(isLoading: false, accounts: [_acc('a1', 0)]),
-        ),
+        wrapGoal([_goal('g1', 'A', 1000)], dashboardState: DashboardState(isLoading: false, accounts: [_acc('a1', 0)])),
       );
       await tester.pumpAndSettle();
       expect(find.text('Add Goal'), findsOneWidget);
@@ -235,10 +229,7 @@ void main() {
 
       final active = _goal('g1', 'Active Trip', 10000, accountId: 'a1');
       final done = _goal('g2', 'Done Car', 50000, accountId: 'a2', status: GoalStatus.completed);
-      final dash = DashboardState(
-        isLoading: false,
-        accounts: [_acc('a1', 3000), _acc('a2', 50000)],
-      );
+      final dash = DashboardState(isLoading: false, accounts: [_acc('a1', 3000), _acc('a2', 50000)]);
 
       await tester.pumpWidget(wrapGoal([active, done], dashboardState: dash));
       await tester.pumpAndSettle();

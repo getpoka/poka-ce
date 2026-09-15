@@ -6,14 +6,11 @@ import 'package:poka_ce/shared/widgets/sheets/poka_sheet.dart';
 enum BackupAction { backup, restore }
 
 Future<BackupAction?> showBackupRestoreActionSheet(BuildContext context) async {
-  return showPokaSheet<BackupAction>(
-    context: context,
-    builder: (context) => const _BackupRestoreActionSheet(),
-  );
+  return await showPokaSheet<BackupAction>(context: context, builder: (context) => const _BackupRestoreActionSheet());
 }
 
 class _BackupRestoreActionSheet extends StatelessWidget {
-  const _BackupRestoreActionSheet();
+  const new();
 
   @override
   Widget build(BuildContext context) {

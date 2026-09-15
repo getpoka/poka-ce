@@ -6,9 +6,7 @@ part of 'recurring_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_RecurringTransactionModel _$RecurringTransactionModelFromJson(
-  Map<String, dynamic> json,
-) => _RecurringTransactionModel(
+_RecurringTransactionModel _$RecurringTransactionModelFromJson(Map<String, dynamic> json) => _RecurringTransactionModel(
   id: json['id'] as String,
   accountId: json['accountId'] as String,
   type: $enumDecode(_$TransactionTypeEnumMap, json['type']),
@@ -19,17 +17,12 @@ _RecurringTransactionModel _$RecurringTransactionModelFromJson(
   updatedAt: DateTime.parse(json['updatedAt'] as String),
   destinationAccountId: json['destinationAccountId'] as String?,
   categoryId: json['categoryId'] as String?,
-  allocation: $enumDecodeNullable(
-    _$TransactionAllocationEnumMap,
-    json['allocation'],
-  ),
+  allocation: $enumDecodeNullable(_$TransactionAllocationEnumMap, json['allocation']),
   note: json['note'] as String?,
   isActive: json['isActive'] as bool? ?? true,
 );
 
-Map<String, dynamic> _$RecurringTransactionModelToJson(
-  _RecurringTransactionModel instance,
-) => <String, dynamic>{
+Map<String, dynamic> _$RecurringTransactionModelToJson(_RecurringTransactionModel instance) => <String, dynamic>{
   'id': instance.id,
   'accountId': instance.accountId,
   'type': _$TransactionTypeEnumMap[instance.type]!,

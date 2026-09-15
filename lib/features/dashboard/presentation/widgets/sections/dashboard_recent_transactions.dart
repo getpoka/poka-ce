@@ -14,10 +14,7 @@ import 'package:poka_ce/shared/widgets/poka_section_label.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class DashboardRecentTransactions extends ConsumerWidget {
-  const DashboardRecentTransactions({
-    required this.transactions,
-    super.key,
-  });
+  const new({required this.transactions, super.key});
 
   final List<TransactionModel> transactions;
 
@@ -60,13 +57,7 @@ class DashboardRecentTransactions extends ConsumerWidget {
             subtitle: context.t.dashboard.recentTransactionsSubtitle,
           ).animate().fade(duration: 300.ms).slideY(begin: 0.05, end: 0)
         else
-          _buildFlatTransactions(
-            context,
-            theme,
-            categoriesById,
-            accountsById,
-            isBalanceVisible,
-          ),
+          _buildFlatTransactions(context, theme, categoriesById, accountsById, isBalanceVisible),
       ],
     );
   }
@@ -113,10 +104,7 @@ class DashboardRecentTransactions extends ConsumerWidget {
             .fade(duration: 280.ms, delay: (index * 50).ms)
             .slideY(begin: 0.06, end: 0, duration: 280.ms, delay: (index * 50).ms);
         if (tile == tiles.last) return animatedTile;
-        return Padding(
-          padding: const EdgeInsets.only(bottom: 8),
-          child: animatedTile,
-        );
+        return Padding(padding: const EdgeInsets.only(bottom: 8), child: animatedTile);
       }).toList(),
     );
   }

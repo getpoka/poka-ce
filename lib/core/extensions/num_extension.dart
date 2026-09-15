@@ -15,12 +15,7 @@ extension NumExtension on num {
   }
 
   /// Formats the number as currency with symbol, decimals, and optional obfuscation.
-  String toCurrencyFormat({
-    required String symbol,
-    required int precision,
-    String? locale,
-    bool isVisible = true,
-  }) {
+  String toCurrencyFormat({required String symbol, required int precision, String? locale, bool isVisible = true}) {
     // Trim the symbol to ensure no double-spaces, then add exactly one space.
     final cleanSymbol = symbol.trim();
     final effectiveSymbol = cleanSymbol.isEmpty ? '' : '$cleanSymbol ';

@@ -14,7 +14,7 @@ import 'package:poka_ce/shared/widgets/poka_header.dart';
 
 /// Home dashboard screen presenting net worth, cashflow carousel, daily spending velocity, quick actions, and recent activity.
 class DashboardPage extends HookConsumerWidget {
-  const DashboardPage({super.key});
+  const new({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -23,10 +23,7 @@ class DashboardPage extends HookConsumerWidget {
 
     final header = customHeaderBuilder != null
         ? customHeaderBuilder(context)
-        : PokaHeader(
-            subtitle: context.t.dashboard.overview,
-            title: context.t.dashboard.myFinances,
-          );
+        : PokaHeader(subtitle: context.t.dashboard.overview, title: context.t.dashboard.myFinances);
 
     return FScaffold(
       header: header,
@@ -63,9 +60,10 @@ class DashboardPage extends HookConsumerWidget {
                         .fade(duration: 400.ms, delay: 300.ms)
                         .slideY(begin: 0.05, end: 0),
                     const SizedBox(height: 20),
-                    DashboardRecentTransactions(
-                      transactions: state.recentTransactions,
-                    ).animate().fade(duration: 400.ms, delay: 400.ms).slideY(begin: 0.05, end: 0),
+                    DashboardRecentTransactions(transactions: state.recentTransactions)
+                        .animate()
+                        .fade(duration: 400.ms, delay: 400.ms)
+                        .slideY(begin: 0.05, end: 0),
                     const SizedBox(height: 20),
                   ],
                 ),

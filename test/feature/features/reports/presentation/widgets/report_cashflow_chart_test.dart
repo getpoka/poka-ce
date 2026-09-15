@@ -23,10 +23,7 @@ void main() {
         child: MaterialApp(
           builder: (context, child) => FTheme(data: lightTheme, child: child!),
           home: const Scaffold(
-            body: SingleChildScrollView(
-              padding: EdgeInsets.all(16),
-              child: ReportCashflowChart(),
-            ),
+            body: SingleChildScrollView(padding: EdgeInsets.all(16), child: ReportCashflowChart()),
           ),
         ),
       ),

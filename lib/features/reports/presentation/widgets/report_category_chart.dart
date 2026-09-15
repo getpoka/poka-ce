@@ -14,7 +14,7 @@ import 'package:poka_ce/theme/theme.dart';
 /// Uses fl_chart PieChart donut + ranked list.
 /// Section label lives OUTSIDE this card on the parent page.
 class ReportCategoryChart extends HookConsumerWidget {
-  const ReportCategoryChart({super.key});
+  const new({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -72,10 +72,7 @@ class ReportCategoryChart extends HookConsumerWidget {
                 return FadeTransition(
                   opacity: animation,
                   child: SlideTransition(
-                    position: Tween<Offset>(
-                      begin: const Offset(0.02, 0),
-                      end: Offset.zero,
-                    ).animate(animation),
+                    position: Tween<Offset>(begin: const Offset(0.02, 0), end: Offset.zero).animate(animation),
                     child: child,
                   ),
                 );
@@ -90,16 +87,11 @@ class ReportCategoryChart extends HookConsumerWidget {
                         child: Center(
                           child: Column(
                             children: [
-                              const PokaIcon(
-                                icon: FPhosphorIcons.chartPieSlice,
-                                shape: PokaIconShape.circle,
-                              ),
+                              const PokaIcon(icon: FPhosphorIcons.chartPieSlice, shape: PokaIconShape.circle),
                               const SizedBox(height: 12),
                               Text(
                                 t.noData,
-                                style: theme.typography.bodyPrimary.copyWith(
-                                  color: theme.colors.mutedForeground,
-                                ),
+                                style: theme.typography.bodyPrimary.copyWith(color: theme.colors.mutedForeground),
                               ),
                             ],
                           ),
@@ -133,7 +125,7 @@ class ReportCategoryChart extends HookConsumerWidget {
 // ─────────────────────────────────────────────────────────────────────────────
 
 class _TabToggle extends StatelessWidget {
-  const _TabToggle({
+  const new({
     required this.isExpense,
     required this.onExpenseTap,
     required this.onIncomeTap,
@@ -178,12 +170,7 @@ class _TabToggle extends StatelessWidget {
 }
 
 class _TabItem extends StatelessWidget {
-  const _TabItem({
-    required this.label,
-    required this.isSelected,
-    required this.onTap,
-    required this.activeColor,
-  });
+  const new({required this.label, required this.isSelected, required this.onTap, required this.activeColor});
 
   final String label;
   final bool isSelected;
@@ -221,7 +208,7 @@ class _TabItem extends StatelessWidget {
 // ─────────────────────────────────────────────────────────────────────────────
 
 class _CategoryPieChart extends StatelessWidget {
-  const _CategoryPieChart({required this.items, required this.theme});
+  const new({required this.items, required this.theme});
 
   final List<ReportCategoryItem> items;
   final FThemeData theme;
@@ -243,10 +230,7 @@ class _CategoryPieChart extends StatelessWidget {
         size: 156,
         thickness: 18,
         sections: items.map((item) {
-          return PokaDonutSection(
-            value: item.ratio,
-            color: _parseColor(context, item.color),
-          );
+          return PokaDonutSection(value: item.ratio, color: _parseColor(context, item.color));
         }).toList(),
       ),
     );

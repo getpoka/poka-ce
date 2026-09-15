@@ -6,7 +6,7 @@ import 'package:poka_ce/theme/theme.dart';
 /// Standardized hero summary card used across the app (Budgets, Goals, Debts, Accounts, Transactions).
 /// Ensures consistent height, padding, and layout structure.
 class PokaHeroCard extends StatelessWidget {
-  const PokaHeroCard({
+  const new({
     required this.pills,
     required this.title,
     required this.amount,
@@ -67,10 +67,7 @@ class PokaHeroCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         child: Stack(
           children: [
-            if (background != null)
-              Positioned.fill(
-                child: background!,
-              ),
+            if (background != null) Positioned.fill(child: background!),
             Container(
               padding: const EdgeInsets.all(16),
               child: Column(
@@ -78,13 +75,7 @@ class PokaHeroCard extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   // ── Top Row (Pills & Trailing) ───────────────────────────────
-                  Row(
-                    children: [
-                      ...pills,
-                      const Spacer(),
-                      ?trailing,
-                    ],
-                  ),
+                  Row(children: [...pills, const Spacer(), ?trailing]),
                   const SizedBox(height: 16),
 
                   // ── Middle Section (Label & Amount) ──────────────────────────
@@ -132,7 +123,7 @@ class PokaHeroCard extends StatelessWidget {
 
 /// A standard pill used in the top row of the hero card.
 class PokaHeroCardPill extends StatelessWidget {
-  const PokaHeroCardPill({required this.icon, required this.label, super.key});
+  const new({required this.icon, required this.label, super.key});
 
   final IconData icon;
   final String label;
@@ -152,12 +143,7 @@ class PokaHeroCardPill extends StatelessWidget {
         children: [
           Icon(icon, size: 13, color: theme.colors.primaryForeground),
           const SizedBox(width: 4),
-          Text(
-            label,
-            style: theme.typography.bodySecondary.copyWith(
-              color: theme.colors.primaryForeground,
-            ),
-          ),
+          Text(label, style: theme.typography.bodySecondary.copyWith(color: theme.colors.primaryForeground)),
         ],
       ),
     );
@@ -166,7 +152,7 @@ class PokaHeroCardPill extends StatelessWidget {
 
 /// A standard sub-amount used in the bottom row of the hero card.
 class PokaHeroCardSubAmount extends StatelessWidget {
-  const PokaHeroCardSubAmount({
+  const new({
     required this.label,
     required this.icon,
     this.amount,
@@ -213,9 +199,7 @@ class PokaHeroCardSubAmount extends StatelessWidget {
             amount: amount!,
             type: type ?? TransactionType.income,
             isObscured: isObscured,
-            style: theme.typography.amountCard.copyWith(
-              color: theme.colors.primaryForeground,
-            ),
+            style: theme.typography.amountCard.copyWith(color: theme.colors.primaryForeground),
           ),
       ],
     );
@@ -223,7 +207,7 @@ class PokaHeroCardSubAmount extends StatelessWidget {
 }
 
 class _HeroCardProgressBar extends StatelessWidget {
-  const _HeroCardProgressBar({required this.progress});
+  const new({required this.progress});
 
   final double progress;
 
@@ -243,10 +227,7 @@ class _HeroCardProgressBar extends StatelessWidget {
           child: FractionallySizedBox(
             widthFactor: progress,
             child: Container(
-              decoration: BoxDecoration(
-                color: theme.colors.primaryForeground,
-                borderRadius: BorderRadius.circular(3),
-              ),
+              decoration: BoxDecoration(color: theme.colors.primaryForeground, borderRadius: BorderRadius.circular(3)),
             ),
           ),
         ),

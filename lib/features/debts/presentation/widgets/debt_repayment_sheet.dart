@@ -16,10 +16,7 @@ import 'package:poka_ce/shared/widgets/sheets/poka_sheet.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class DebtRepaymentSheet extends HookConsumerWidget {
-  const DebtRepaymentSheet({
-    required this.debt,
-    super.key,
-  });
+  const new({required this.debt, super.key});
 
   final DebtModel debt;
 
@@ -247,7 +244,7 @@ class DebtRepaymentSheet extends HookConsumerWidget {
 
 /// Meta bar component rendering note trigger and quick "Pay in Full" action.
 class _DebtRepaymentMetaBar extends StatelessWidget {
-  const _DebtRepaymentMetaBar({
+  const new({
     required this.note,
     required this.isFullAmount,
     required this.typeColor,
@@ -306,16 +303,11 @@ class _DebtRepaymentMetaBar extends StatelessWidget {
                 onTap: onPayInFull,
                 child: AnimatedContainer(
                   duration: const Duration(milliseconds: 200),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 4,
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                   decoration: BoxDecoration(
                     color: isFullAmount ? typeColor.withValues(alpha: 0.15) : theme.colors.background,
                     borderRadius: theme.style.borderRadius.lg,
-                    border: Border.all(
-                      color: isFullAmount ? typeColor.withValues(alpha: 0.5) : theme.colors.border,
-                    ),
+                    border: Border.all(color: isFullAmount ? typeColor.withValues(alpha: 0.5) : theme.colors.border),
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,

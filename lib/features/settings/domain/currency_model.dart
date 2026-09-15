@@ -5,7 +5,7 @@ part 'currency_model.g.dart';
 
 @freezed
 abstract class CurrencyModel with _$CurrencyModel {
-  const factory CurrencyModel({
+  const factory({
     required String id,
     required String name,
     required String code,
@@ -13,5 +13,5 @@ abstract class CurrencyModel with _$CurrencyModel {
     required int precision,
   }) = _CurrencyModel;
 
-  factory CurrencyModel.fromJson(Map<String, dynamic> json) => _$CurrencyModelFromJson(json);
+  factory fromJson(Map<String, dynamic> json) => _$CurrencyModelFromJson(json);
 }

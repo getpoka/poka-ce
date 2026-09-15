@@ -15,7 +15,7 @@ final appLockServiceProvider = Provider<AppLockService>((ref) {
 class AppLockService {
   /// Creates the service with a [LocalAuthentication] instance and a [Talker]
   /// logger for debugging authentication failures.
-  const AppLockService(this._auth, this._talker);
+  const new(this._auth, this._talker);
 
   final LocalAuthentication _auth;
   final Talker _talker;

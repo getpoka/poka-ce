@@ -7,10 +7,7 @@ part 'goal_list_view_notifier.g.dart';
 /// Partitioned view model separating currently active goals from completed past goals.
 class GoalListViewState {
   /// Creates a [GoalListViewState].
-  const GoalListViewState({
-    required this.activeGoals,
-    required this.pastGoals,
-  });
+  const new({required this.activeGoals, required this.pastGoals});
 
   /// In-progress savings goals.
   final List<GoalItemState> activeGoals;
@@ -27,8 +24,5 @@ GoalListViewState goalListView(Ref ref) {
   final activeGoals = goalStates.where((g) => g.goal.status == GoalStatus.active).toList();
   final pastGoals = goalStates.where((g) => g.goal.status == GoalStatus.completed).toList();
 
-  return GoalListViewState(
-    activeGoals: activeGoals,
-    pastGoals: pastGoals,
-  );
+  return GoalListViewState(activeGoals: activeGoals, pastGoals: pastGoals);
 }

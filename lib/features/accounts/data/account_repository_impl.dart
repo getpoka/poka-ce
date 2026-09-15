@@ -12,7 +12,7 @@ import 'package:poka_ce/features/accounts/domain/i_account_repository.dart';
 /// Implementation of [IAccountRepository] mapping Drift DAO data rows to pure Freezed domain models.
 class AccountRepositoryImpl implements IAccountRepository {
   /// Creates an [AccountRepositoryImpl] backed by the provided [AccountsDao].
-  AccountRepositoryImpl(this._dao);
+  new(this._dao);
 
   final AccountsDao _dao;
 

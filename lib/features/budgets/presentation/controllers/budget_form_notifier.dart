@@ -15,7 +15,7 @@ part 'budget_form_notifier.g.dart';
 /// Form state capturing input values and validation for creating or editing a budget.
 @freezed
 abstract class BudgetFormState with _$BudgetFormState {
-  const factory BudgetFormState({
+  const factory({
     BudgetModel? initialBudget,
     @Default('') String name,
     @Default(0) int amount,
@@ -143,10 +143,7 @@ class BudgetFormNotifier extends _$BudgetFormNotifier {
         await ref.read(budgetListProvider.notifier).refresh();
         state = state.copyWith(isSaving: false, isSuccess: true);
       case ErrorResult(error: final failure):
-        state = state.copyWith(
-          error: failure.message,
-          isSaving: false,
-        );
+        state = state.copyWith(error: failure.message, isSaving: false);
     }
   }
 }

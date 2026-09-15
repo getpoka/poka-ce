@@ -8,12 +8,7 @@ import 'package:poka_ce/theme/theme.dart';
 /// Row widget rendering a category rank, dot, title, compact amount, and percentage.
 class CategoryItemTile extends ConsumerWidget {
   /// Creates a [CategoryItemTile].
-  const CategoryItemTile({
-    required this.item,
-    required this.rank,
-    this.isVisible,
-    super.key,
-  });
+  const new({required this.item, required this.rank, this.isVisible, super.key});
 
   /// The category item analytics data.
   final ReportCategoryItem item;

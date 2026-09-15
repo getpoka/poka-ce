@@ -7,12 +7,7 @@ import 'package:poka_ce/theme/theme.dart';
 
 /// A shelf widget displaying a horizontal list of selectable categories.
 class CategorySelectorShelf extends StatelessWidget {
-  const CategorySelectorShelf({
-    required this.categories,
-    required this.selectedCategoryId,
-    required this.onCategorySelected,
-    super.key,
-  });
+  const new({required this.categories, required this.selectedCategoryId, required this.onCategorySelected, super.key});
 
   final List<CategoryModel> categories;
   final String? selectedCategoryId;
@@ -25,12 +20,7 @@ class CategorySelectorShelf extends StatelessWidget {
     if (categories.isEmpty) {
       return SizedBox(
         height: 38,
-        child: Center(
-          child: Text(
-            t.categories.noCategoriesFound1,
-            style: theme.typography.bodyPrimary,
-          ),
-        ),
+        child: Center(child: Text(t.categories.noCategoriesFound1, style: theme.typography.bodyPrimary)),
       );
     }
 

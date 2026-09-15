@@ -3,10 +3,7 @@ import 'package:poka_ce/features/accounts/presentation/controllers/account_list_
 import 'package:poka_ce/features/accounts/presentation/widgets/cards/account_networth_card.dart';
 
 class AccountListHeader extends StatelessWidget {
-  const AccountListHeader({
-    required this.metrics,
-    super.key,
-  });
+  const new({required this.metrics, super.key});
 
   final AccountMetricsData metrics;
 

@@ -18,7 +18,7 @@ Future<bool?> showNotificationRationaleSheet(BuildContext context) {
 }
 
 class _NotificationRationaleSheet extends StatelessWidget {
-  const _NotificationRationaleSheet();
+  const new();
 
   @override
   Widget build(BuildContext context) {
@@ -46,10 +46,7 @@ class _NotificationRationaleSheet extends StatelessWidget {
           const SizedBox(height: 16),
           Text(
             t.permissionRationaleDesc,
-            style: typography.body.md.copyWith(
-              color: colors.mutedForeground,
-              height: 1.5,
-            ),
+            style: typography.body.md.copyWith(color: colors.mutedForeground, height: 1.5),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 24),
@@ -64,10 +61,7 @@ class _NotificationRationaleSheet extends StatelessWidget {
               ),
               const SizedBox(width: 12),
               Expanded(
-                child: FButton(
-                  onPress: () => Navigator.of(context).pop(true),
-                  child: Text(t.allowNotifications),
-                ),
+                child: FButton(onPress: () => Navigator.of(context).pop(true), child: Text(t.allowNotifications)),
               ),
             ],
           ),

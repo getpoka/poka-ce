@@ -22,11 +22,9 @@ import 'package:uuid/uuid.dart';
 /// Returns the number of transactions successfully created.
 class RecurringProcessorService {
   /// Creates a [RecurringProcessorService].
-  const RecurringProcessorService({
-    required IRecurringRepository recurringRepository,
-    required ITransactionRepository transactionRepository,
-  }) : _recurringRepo = recurringRepository,
-       _transactionRepo = transactionRepository;
+  const new({required IRecurringRepository recurringRepository, required ITransactionRepository transactionRepository})
+    : _recurringRepo = recurringRepository,
+      _transactionRepo = transactionRepository;
 
   final IRecurringRepository _recurringRepo;
   final ITransactionRepository _transactionRepo;
@@ -123,27 +121,13 @@ class RecurringProcessorService {
         }
         final daysInNextMonth = DateTime.utc(nextYear, nextMonth + 1, 0).day;
         final nextDay = current.day > daysInNextMonth ? daysInNextMonth : current.day;
-        return DateTime.utc(
-          nextYear,
-          nextMonth,
-          nextDay,
-          current.hour,
-          current.minute,
-          current.second,
-        );
+        return DateTime.utc(nextYear, nextMonth, nextDay, current.hour, current.minute, current.second);
       }(),
       RecurringPeriod.yearly => () {
         final nextYear = current.year + 1;
         final daysInTargetMonth = DateTime.utc(nextYear, current.month + 1, 0).day;
         final nextDay = current.day > daysInTargetMonth ? daysInTargetMonth : current.day;
-        return DateTime.utc(
-          nextYear,
-          current.month,
-          nextDay,
-          current.hour,
-          current.minute,
-          current.second,
-        );
+        return DateTime.utc(nextYear, current.month, nextDay, current.hour, current.minute, current.second);
       }(),
     };
   }

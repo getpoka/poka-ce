@@ -66,10 +66,7 @@ FToasterEntry showPokaToast({
 
 /// Internal lifecycle wrapper that ensures watchdog timer is cancelled when toast widget is disposed.
 class _WatchdogToastLifecycleWrapper extends StatefulWidget {
-  const _WatchdogToastLifecycleWrapper({
-    required this.child,
-    required this.onDispose,
-  });
+  const new({required this.child, required this.onDispose});
 
   final Widget child;
   final VoidCallback onDispose;
@@ -100,11 +97,7 @@ FToasterEntry showPokaActionToast({
   Widget? icon,
   Widget? description,
   FToastAlignment alignment = FToastAlignment.bottomCenter,
-  List<AxisDirection> swipeToDismiss = const [
-    AxisDirection.down,
-    AxisDirection.left,
-    AxisDirection.right,
-  ],
+  List<AxisDirection> swipeToDismiss = const [AxisDirection.down, AxisDirection.left, AxisDirection.right],
   Duration duration = const Duration(seconds: 5),
   VoidCallback? onDismiss,
 }) {

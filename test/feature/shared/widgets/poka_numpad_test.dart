@@ -15,13 +15,7 @@ void main() {
   group('PokaNumpad', () {
     testWidgets('renders all digits 0-9', (tester) async {
       await tester.pumpWidget(
-        wrap(
-          PokaNumpad(
-            onNumberPressed: (_) {},
-            onBackspacePressed: () {},
-            onConfirmPressed: () {},
-          ),
-        ),
+        wrap(PokaNumpad(onNumberPressed: (_) {}, onBackspacePressed: () {}, onConfirmPressed: () {})),
       );
 
       for (var i = 0; i <= 9; i++) {
@@ -32,13 +26,7 @@ void main() {
     testWidgets('number tap fires onNumberPressed', (tester) async {
       final pressed = <int>[];
       await tester.pumpWidget(
-        wrap(
-          PokaNumpad(
-            onNumberPressed: pressed.add,
-            onBackspacePressed: () {},
-            onConfirmPressed: () {},
-          ),
-        ),
+        wrap(PokaNumpad(onNumberPressed: pressed.add, onBackspacePressed: () {}, onConfirmPressed: () {})),
       );
 
       await tester.tap(find.text('5'));
@@ -52,13 +40,7 @@ void main() {
     testWidgets('zero tap fires with 0', (tester) async {
       final pressed = <int>[];
       await tester.pumpWidget(
-        wrap(
-          PokaNumpad(
-            onNumberPressed: pressed.add,
-            onBackspacePressed: () {},
-            onConfirmPressed: () {},
-          ),
-        ),
+        wrap(PokaNumpad(onNumberPressed: pressed.add, onBackspacePressed: () {}, onConfirmPressed: () {})),
       );
 
       await tester.tap(find.text('0'));

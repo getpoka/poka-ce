@@ -37,9 +37,7 @@ void main() {
         .insert(CategoriesCompanion.insert(id: const Value('cat'), name: 'Food', type: CategoryType.expense));
     await db
         .into(db.currencies)
-        .insert(
-          CurrenciesCompanion.insert(id: const Value('cur'), name: 'Rupiah', code: 'IDR', symbol: 'Rp'),
-        );
+        .insert(CurrenciesCompanion.insert(id: const Value('cur'), name: 'Rupiah', code: 'IDR', symbol: 'Rp'));
     await db.into(db.settings).insert(SettingsCompanion.insert(key: 'base_currency', value: 'IDR'));
   }
 
@@ -195,10 +193,7 @@ void main() {
     });
 
     expect((await db.select(db.accounts).get()).length, 2);
-    expect(
-      await (db.select(db.accounts)..where((a) => a.id.equals('acc2'))).getSingle().then((r) => r.balance),
-      2000,
-    );
+    expect(await (db.select(db.accounts)..where((a) => a.id.equals('acc2'))).getSingle().then((r) => r.balance), 2000);
     expect((await db.select(db.budgetRecords).get()).single.spentAmount, 50000);
     expect((await db.select(db.goals).get()).single.targetAmount, 5000000);
     expect(

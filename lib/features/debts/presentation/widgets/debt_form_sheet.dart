@@ -19,7 +19,7 @@ import 'package:poka_ce/shared/widgets/sheets/poka_sheet.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class DebtFormSheet extends HookConsumerWidget {
-  const DebtFormSheet({
+  const new({
     super.key,
     this.initialDebt,
     this.initialPersonName,
@@ -109,9 +109,7 @@ class DebtFormSheet extends HookConsumerWidget {
                 ? initialAmount.toString()
                 : (state.amount > 0 ? state.amount.toString() : '')),
     );
-    final noteController = useTextEditingController(
-      text: initialDebt?.note ?? initialNote ?? state.note ?? '',
-    );
+    final noteController = useTextEditingController(text: initialDebt?.note ?? initialNote ?? state.note ?? '');
 
     useEffect(() {
       void onPerson() {
@@ -142,11 +140,7 @@ class DebtFormSheet extends HookConsumerWidget {
         Navigator.of(context).pop();
       }
       if (next.error != null && next.error != prev?.error) {
-        showPokaToast(
-          context: context,
-          title: Text(next.error!),
-          variant: FToastVariant.destructive,
-        );
+        showPokaToast(context: context, title: Text(next.error!), variant: FToastVariant.destructive);
       }
     });
 
@@ -166,10 +160,7 @@ class DebtFormSheet extends HookConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            DebtTypeSelector(
-              selected: state.type,
-              onChanged: isEditing ? null : notifier.setType,
-            ),
+            DebtTypeSelector(selected: state.type, onChanged: isEditing ? null : notifier.setType),
             const SizedBox(height: 12),
             FTextFormField(
               control: FTextFieldControl.managed(controller: personController),

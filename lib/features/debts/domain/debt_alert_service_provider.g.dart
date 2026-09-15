@@ -43,10 +43,7 @@ final class DebtAlertServiceProvider extends $FunctionalProvider<DebtAlertServic
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(DebtAlertService value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<DebtAlertService>(value),
-    );
+    return $ProviderOverride(origin: this, providerOverride: $SyncValueProvider<DebtAlertService>(value));
   }
 }
 

@@ -141,9 +141,7 @@ void main() {
       // Apply search query
       container
           .read(transactionListNotifierProvider.notifier)
-          .applyFilter(
-            const TransactionFilter(searchQuery: 'groceries'),
-          );
+          .applyFilter(const TransactionFilter(searchQuery: 'groceries'));
       await wait();
 
       // Verify filtered results
@@ -153,11 +151,7 @@ void main() {
     });
 
     test('copyWith', () {
-      final s = TransactionListState(
-        transactions: const [],
-        isLoading: false,
-        focusedDate: DateTime.utc(2024, 1, 1),
-      );
+      final s = TransactionListState(transactions: const [], isLoading: false, focusedDate: DateTime.utc(2024, 1, 1));
       expect(s.copyWith(isLoading: true).isLoading, true);
       expect(s.copyWith(errorMessage: 'oops').errorMessage, 'oops');
       expect(s.copyWith(viewMode: TransactionViewMode.month).viewMode, TransactionViewMode.month);

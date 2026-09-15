@@ -164,13 +164,7 @@ void main() {
       expect(find.text('Need'), findsOneWidget);
 
       await tester.pumpWidget(
-        wrap(
-          catLabel: 'Sub',
-          catColor: Colors.blue,
-          amount: 1000,
-          type: TransactionType.expense,
-          isRecurring: true,
-        ),
+        wrap(catLabel: 'Sub', catColor: Colors.blue, amount: 1000, type: TransactionType.expense, isRecurring: true),
       );
       await tester.pump();
 

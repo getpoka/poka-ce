@@ -8,7 +8,7 @@ part 'category_model.g.dart';
 /// Used for budgeting and categorizing transactions (income/expense).
 @freezed
 abstract class CategoryModel with _$CategoryModel {
-  const factory CategoryModel({
+  const factory({
     required String id,
     required String name,
     required CategoryType type,
@@ -21,5 +21,5 @@ abstract class CategoryModel with _$CategoryModel {
     @Default(true) bool isActive,
   }) = _CategoryModel;
 
-  factory CategoryModel.fromJson(Map<String, dynamic> json) => _$CategoryModelFromJson(json);
+  factory fromJson(Map<String, dynamic> json) => _$CategoryModelFromJson(json);
 }

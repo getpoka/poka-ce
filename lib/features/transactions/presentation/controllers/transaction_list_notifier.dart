@@ -16,12 +16,7 @@ enum TransactionViewMode { day, week, month }
 /// Immutable filter applied on top of the active date window.
 class TransactionFilter {
   /// Creates a [TransactionFilter] with optional criteria.
-  const TransactionFilter({
-    this.types = const {},
-    this.accountIds = const {},
-    this.categoryIds = const {},
-    this.searchQuery = '',
-  });
+  const new({this.types = const {}, this.accountIds = const {}, this.categoryIds = const {}, this.searchQuery = ''});
 
   /// Transaction types to include.
   final Set<TransactionType> types;
@@ -55,7 +50,7 @@ class TransactionFilter {
 /// State for the transaction list screen, including date window and filter.
 class TransactionListState {
   /// Creates a [TransactionListState] instance.
-  const TransactionListState({
+  const new({
     required this.focusedDate,
     this.transactions = const [],
     this.viewMode = TransactionViewMode.day,
@@ -88,9 +83,7 @@ class TransactionListState {
 
   static int _weekNumber(DateTime date) {
     final startOfYear = DateTime(date.year);
-    final firstThursday = startOfYear.add(
-      Duration(days: (4 - startOfYear.weekday + 7) % 7),
-    );
+    final firstThursday = startOfYear.add(Duration(days: (4 - startOfYear.weekday + 7) % 7));
     final firstMonday = firstThursday.subtract(const Duration(days: 3));
     final diff = DateTime(date.year, date.month, date.day).difference(firstMonday);
     return (diff.inDays / 7).floor() + 1;
@@ -164,9 +157,7 @@ class TransactionListNotifier extends Notifier<TransactionListState> {
       _subscription?.cancel();
     });
 
-    final initialState = TransactionListState(
-      focusedDate: DateTime.now(),
-    );
+    final initialState = TransactionListState(focusedDate: DateTime.now());
 
     // Defer the subscription so it runs after build returns
     Future.microtask(() => _listenToTransactions(initialState));
@@ -208,26 +199,23 @@ class TransactionListNotifier extends Notifier<TransactionListState> {
           types: targetState.filter.types,
         )
         .listen((result) {
-          result.fold(
-            (transactions) {
-              var filtered = transactions;
-              final query = targetState.filter.searchQuery.trim().toLowerCase();
-              if (query.isNotEmpty) {
-                filtered = transactions.where((t) {
-                  final inHeader =
-                      (t.note?.toLowerCase().contains(query) ?? false) || t.amount.toString().contains(query);
-                  if (inHeader) return true;
+          result.fold((transactions) {
+            var filtered = transactions;
+            final query = targetState.filter.searchQuery.trim().toLowerCase();
+            if (query.isNotEmpty) {
+              filtered = transactions.where((t) {
+                final inHeader =
+                    (t.note?.toLowerCase().contains(query) ?? false) || t.amount.toString().contains(query);
+                if (inHeader) return true;
 
-                  return t.items.any(
-                    (item) =>
-                        (item.note?.toLowerCase().contains(query) ?? false) || item.amount.toString().contains(query),
-                  );
-                }).toList();
-              }
-              state = state.copyWith(transactions: filtered, isLoading: false);
-            },
-            (failure) => state = state.copyWith(isLoading: false, errorMessage: failure.message),
-          );
+                return t.items.any(
+                  (item) =>
+                      (item.note?.toLowerCase().contains(query) ?? false) || item.amount.toString().contains(query),
+                );
+              }).toList();
+            }
+            state = state.copyWith(transactions: filtered, isLoading: false);
+          }, (failure) => state = state.copyWith(isLoading: false, errorMessage: failure.message));
         });
   }
 

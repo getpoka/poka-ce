@@ -49,10 +49,7 @@ void main() {
 
       final containers = tester
           .widgetList<Container>(
-            find.descendant(
-              of: find.byKey(const Key('transaction-add-button')),
-              matching: find.byType(Container),
-            ),
+            find.descendant(of: find.byKey(const Key('transaction-add-button')), matching: find.byType(Container)),
           )
           .toList();
 

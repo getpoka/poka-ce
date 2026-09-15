@@ -9,7 +9,7 @@ import 'package:poka_ce/theme/theme.dart';
 // ─────────────────────────────────────────────────────────────────────────────
 
 class TransactionTileContent extends StatelessWidget {
-  const TransactionTileContent({
+  const new({
     required this.catLabel,
     required this.catColor,
     required this.hasMultipleItems,
@@ -88,9 +88,7 @@ class TransactionTileContent extends StatelessWidget {
                       child: Text(
                         '$itemCount',
                         key: ValueKey('item_count_${itemCount}_$catColor'),
-                        style: theme.typography.labelBadge.copyWith(
-                          color: catColor,
-                        ),
+                        style: theme.typography.labelBadge.copyWith(color: catColor),
                       ),
                     ),
                   ],
@@ -125,10 +123,7 @@ class TransactionTileContent extends StatelessWidget {
                               accLabel!,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: theme.typography.caption.copyWith(
-                                color: accColor,
-                                fontWeight: FontWeight.w600,
-                              ),
+                              style: theme.typography.caption.copyWith(color: accColor, fontWeight: FontWeight.w600),
                             ),
                           ),
                           if (isTransfer && destAccLabel != null) ...[
@@ -154,12 +149,7 @@ class TransactionTileContent extends StatelessWidget {
               ),
               if (timeStr != null) ...[
                 const SizedBox(width: 8),
-                Text(
-                  timeStr!,
-                  style: theme.typography.caption.copyWith(
-                    color: theme.colors.mutedForeground,
-                  ),
-                ),
+                Text(timeStr!, style: theme.typography.caption.copyWith(color: theme.colors.mutedForeground)),
               ],
             ],
           ),
@@ -176,9 +166,7 @@ class TransactionTileContent extends StatelessWidget {
                 (note != null && note!.isNotEmpty) ? note! : ' ', // Space preserves height
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: theme.typography.bodySecondary.copyWith(
-                  color: theme.colors.mutedForeground,
-                ),
+                style: theme.typography.bodySecondary.copyWith(color: theme.colors.mutedForeground),
               ),
             ),
             if (hasDebt || isRecurring) ...[
@@ -219,26 +207,18 @@ class TransactionTileContent extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: theme.colors.primary.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(4),
-                  border: Border.all(
-                    color: theme.colors.primary.withValues(alpha: 0.2),
-                    width: 0.5,
-                  ),
+                  border: Border.all(color: theme.colors.primary.withValues(alpha: 0.2), width: 0.5),
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Icon(FPhosphorIcons.chartPieSlice, size: 9, color: theme.colors.primary),
                     const SizedBox(width: 3),
-                    Text(
-                      switch (allocation!) {
-                        TransactionAllocation.need => t.transactions.need,
-                        TransactionAllocation.want => t.transactions.want,
-                        TransactionAllocation.saving => t.transactions.saving,
-                      },
-                      style: theme.typography.labelBadge.copyWith(
-                        color: theme.colors.primary,
-                      ),
-                    ),
+                    Text(switch (allocation!) {
+                      TransactionAllocation.need => t.transactions.need,
+                      TransactionAllocation.want => t.transactions.want,
+                      TransactionAllocation.saving => t.transactions.saving,
+                    }, style: theme.typography.labelBadge.copyWith(color: theme.colors.primary)),
                   ],
                 ),
               ),

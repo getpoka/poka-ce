@@ -69,12 +69,7 @@ FItemGroupStyle itemGroupStyle({
   dividerWidth: style.borderWidth,
   slideableItems: const .all(true),
   slidePressHapticFeedback: hapticFeedback.selectionClick,
-  itemStyles: _itemStyles(
-    colors: colors,
-    typography: typography,
-    style: style,
-    touch: touch,
-  ),
+  itemStyles: _itemStyles(colors: colors, typography: typography, style: style, touch: touch),
   spacing: 4,
 );
 
@@ -84,12 +79,7 @@ FItemStyles _itemStyles({
   required FStyle style,
   required bool touch,
 }) {
-  final primary = _itemStyle(
-    colors: colors,
-    typography: typography,
-    style: style,
-    touch: touch,
-  );
+  final primary = _itemStyle(colors: colors, typography: typography, style: style, touch: touch);
   return FItemStyles(
     FVariants.from(
       primary,
@@ -138,9 +128,7 @@ FItemStyle _itemStyle({
       [.hovered, .pressed]: .shapeDelta(color: colors.secondary),
       [.disabled]: const .shapeDelta(),
       [.selected]: .shapeDelta(color: colors.secondary),
-      [.selected.and(.disabled)]: .shapeDelta(
-        color: colors.disable(colors.secondary),
-      ),
+      [.selected.and(.disabled)]: .shapeDelta(color: colors.disable(colors.secondary)),
     },
   ),
   contentStyle: .inherit(
@@ -163,9 +151,7 @@ FItemStyle _itemStyle({
     pressedEnterDuration: .zero,
     pressedExitDuration: const Duration(milliseconds: 25),
   ),
-  focusedOutlineStyle: style.focusedOutlineStyle.copyWith(
-    spacing: -style.borderWidth,
-  ),
+  focusedOutlineStyle: style.focusedOutlineStyle.copyWith(spacing: -style.borderWidth),
   padding: const .symmetric(horizontal: 4),
 );
 

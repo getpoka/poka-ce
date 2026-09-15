@@ -3,14 +3,7 @@ import 'package:poka_ce/shared/widgets/poka_icon.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class SettingsMenuItem extends StatelessWidget with FItemMixin {
-  const SettingsMenuItem({
-    required this.title,
-    required this.icon,
-    this.subtitle,
-    this.trailing,
-    this.onTap,
-    super.key,
-  });
+  const new({required this.title, required this.icon, this.subtitle, this.trailing, this.onTap, super.key});
 
   final String title;
   final String? subtitle;
@@ -28,10 +21,7 @@ class SettingsMenuItem extends StatelessWidget with FItemMixin {
               style: context.theme.typography.bodySecondary.copyWith(color: context.theme.colors.mutedForeground),
             )
           : null,
-      prefix: PokaIcon(
-        icon: icon,
-        size: PokaIconSize.small,
-      ),
+      prefix: PokaIcon(icon: icon, size: PokaIconSize.small),
       suffix: trailing ?? Icon(FPhosphorIcons.caretRight, color: context.theme.colors.mutedForeground),
       onPress: onTap,
     );

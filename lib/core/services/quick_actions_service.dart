@@ -10,7 +10,7 @@ import 'package:quick_actions/quick_actions.dart';
 /// Service responsible for managing app shortcuts (Quick Actions).
 class QuickActionsService {
   /// Creates a [QuickActionsService] instance.
-  QuickActionsService({QuickActions? quickActions}) : _quickActions = quickActions ?? const QuickActions();
+  new({QuickActions? quickActions}) : _quickActions = quickActions ?? const QuickActions();
 
   /// Global singleton instance.
   static final QuickActionsService instance = QuickActionsService();
@@ -44,11 +44,7 @@ class QuickActionsService {
             localizedTitle: 'Add Category',
             icon: 'ic_shortcut_add_category',
           ),
-          const ShortcutItem(
-            type: 'action_add_goal',
-            localizedTitle: 'Add Goal',
-            icon: 'ic_shortcut_add_goal',
-          ),
+          const ShortcutItem(type: 'action_add_goal', localizedTitle: 'Add Goal', icon: 'ic_shortcut_add_goal'),
         ])
         .catchError((Object e, StackTrace st) {
           talker.error('Failed to set shortcut items', e, st);

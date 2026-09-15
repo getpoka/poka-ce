@@ -22,11 +22,7 @@ void main() {
 
   group('SettingsRepository coverage', () {
     test('settingsRepositoryProvider returns instance via ProviderContainer', () {
-      final container = ProviderContainer(
-        overrides: [
-          databaseProvider.overrideWithValue(db),
-        ],
-      );
+      final container = ProviderContainer(overrides: [databaseProvider.overrideWithValue(db)]);
       addTearDown(container.dispose);
       final instance = container.read(settingsRepositoryProvider);
       expect(instance, isA<SettingsRepository>());

@@ -11,7 +11,7 @@ import 'package:poka_ce/features/settings/presentation/widgets/settings_menu_sec
 import 'package:poka_ce/i18n/strings.g.dart';
 
 class PreferencesSection extends ConsumerWidget {
-  const PreferencesSection({super.key});
+  const new({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

@@ -7,7 +7,7 @@ import 'package:poka_ce/theme/theme.dart';
 /// Row widget rendering an allocation category (e.g. 50% Needs), ratio, and compact amount.
 class AllocationRowTile extends ConsumerWidget {
   /// Creates an [AllocationRowTile].
-  const AllocationRowTile({
+  const new({
     required this.label,
     required this.hint,
     required this.amount,
@@ -55,10 +55,7 @@ class AllocationRowTile extends ConsumerWidget {
             children: [
               Text(label, style: theme.typography.bodySecondary),
               const SizedBox(width: 4),
-              Text(
-                hint,
-                style: theme.typography.labelBadge.copyWith(color: theme.colors.mutedForeground),
-              ),
+              Text(hint, style: theme.typography.labelBadge.copyWith(color: theme.colors.mutedForeground)),
             ],
           ),
         ),

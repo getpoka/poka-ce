@@ -85,9 +85,7 @@ final class RegularAccountListProvider
 
   @$internal
   @override
-  $ProviderElement<AsyncValue<AccountListState>> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
+  $ProviderElement<AsyncValue<AccountListState>> $createElement($ProviderPointer pointer) => $ProviderElement(pointer);
 
   @override
   AsyncValue<AccountListState> create(Ref ref) {
@@ -96,10 +94,7 @@ final class RegularAccountListProvider
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(AsyncValue<AccountListState> value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<AsyncValue<AccountListState>>(value),
-    );
+    return $ProviderOverride(origin: this, providerOverride: $SyncValueProvider<AsyncValue<AccountListState>>(value));
   }
 }
 
@@ -133,9 +128,7 @@ final class GoalAccountListProvider
 
   @$internal
   @override
-  $ProviderElement<AsyncValue<AccountListState>> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
+  $ProviderElement<AsyncValue<AccountListState>> $createElement($ProviderPointer pointer) => $ProviderElement(pointer);
 
   @override
   AsyncValue<AccountListState> create(Ref ref) {
@@ -144,10 +137,7 @@ final class GoalAccountListProvider
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(AsyncValue<AccountListState> value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<AsyncValue<AccountListState>>(value),
-    );
+    return $ProviderOverride(origin: this, providerOverride: $SyncValueProvider<AsyncValue<AccountListState>>(value));
   }
 }
 
@@ -180,9 +170,7 @@ final class AccountMetricsProvider
 
   @$internal
   @override
-  $ProviderElement<AccountMetricsData> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
+  $ProviderElement<AccountMetricsData> $createElement($ProviderPointer pointer) => $ProviderElement(pointer);
 
   @override
   AccountMetricsData create(Ref ref) {
@@ -191,10 +179,7 @@ final class AccountMetricsProvider
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(AccountMetricsData value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<AccountMetricsData>(value),
-    );
+    return $ProviderOverride(origin: this, providerOverride: $SyncValueProvider<AccountMetricsData>(value));
   }
 }
 
@@ -211,16 +196,14 @@ final class AccountAggregateProvider
     extends $FunctionalProvider<AccountAggregate?, AccountAggregate?, AccountAggregate?>
     with $Provider<AccountAggregate?> {
   /// Retrieves the [AccountAggregate] (parent account + its nested pockets) for a given [accountId].
-  AccountAggregateProvider._({
-    required AccountAggregateFamily super.from,
-    required String super.argument,
-  }) : super(
-         retry: null,
-         name: r'accountAggregateProvider',
-         isAutoDispose: true,
-         dependencies: null,
-         $allTransitiveDependencies: null,
-       );
+  AccountAggregateProvider._({required AccountAggregateFamily super.from, required String super.argument})
+    : super(
+        retry: null,
+        name: r'accountAggregateProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
   @override
   String debugGetCreateSourceHash() => _$accountAggregateHash();
@@ -234,9 +217,7 @@ final class AccountAggregateProvider
 
   @$internal
   @override
-  $ProviderElement<AccountAggregate?> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
+  $ProviderElement<AccountAggregate?> $createElement($ProviderPointer pointer) => $ProviderElement(pointer);
 
   @override
   AccountAggregate? create(Ref ref) {
@@ -246,10 +227,7 @@ final class AccountAggregateProvider
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(AccountAggregate? value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<AccountAggregate?>(value),
-    );
+    return $ProviderOverride(origin: this, providerOverride: $SyncValueProvider<AccountAggregate?>(value));
   }
 
   @override
@@ -296,16 +274,14 @@ final class AccountTransactionsProvider
     extends $FunctionalProvider<List<TransactionModel>, List<TransactionModel>, List<TransactionModel>>
     with $Provider<List<TransactionModel>> {
   /// Provides a list of transactions involving any of the specified [accountIds] as source or destination.
-  AccountTransactionsProvider._({
-    required AccountTransactionsFamily super.from,
-    required Set<String> super.argument,
-  }) : super(
-         retry: null,
-         name: r'accountTransactionsProvider',
-         isAutoDispose: true,
-         dependencies: null,
-         $allTransitiveDependencies: null,
-       );
+  AccountTransactionsProvider._({required AccountTransactionsFamily super.from, required Set<String> super.argument})
+    : super(
+        retry: null,
+        name: r'accountTransactionsProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
   @override
   String debugGetCreateSourceHash() => _$accountTransactionsHash();
@@ -319,9 +295,7 @@ final class AccountTransactionsProvider
 
   @$internal
   @override
-  $ProviderElement<List<TransactionModel>> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
+  $ProviderElement<List<TransactionModel>> $createElement($ProviderPointer pointer) => $ProviderElement(pointer);
 
   @override
   List<TransactionModel> create(Ref ref) {
@@ -331,10 +305,7 @@ final class AccountTransactionsProvider
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(List<TransactionModel> value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<List<TransactionModel>>(value),
-    );
+    return $ProviderOverride(origin: this, providerOverride: $SyncValueProvider<List<TransactionModel>>(value));
   }
 
   @override
@@ -399,9 +370,7 @@ final class AccountMapProvider
 
   @$internal
   @override
-  $ProviderElement<Map<String, AccountModel>> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
+  $ProviderElement<Map<String, AccountModel>> $createElement($ProviderPointer pointer) => $ProviderElement(pointer);
 
   @override
   Map<String, AccountModel> create(Ref ref) {
@@ -410,10 +379,7 @@ final class AccountMapProvider
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(Map<String, AccountModel> value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<Map<String, AccountModel>>(value),
-    );
+    return $ProviderOverride(origin: this, providerOverride: $SyncValueProvider<Map<String, AccountModel>>(value));
   }
 }
 

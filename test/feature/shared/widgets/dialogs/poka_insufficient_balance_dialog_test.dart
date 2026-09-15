@@ -5,11 +5,7 @@ import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/dialogs/poka_insufficient_balance_dialog.dart';
 import 'package:poka_ce/theme/theme.dart';
 
-Widget wrapHost({
-  required void Function(bool?) onResult,
-  String? confirmText,
-  String? cancelText,
-}) {
+Widget wrapHost({required void Function(bool?) onResult, String? confirmText, String? cancelText}) {
   return TranslationProvider(
     child: MaterialApp(
       builder: (context, c) => FTheme(data: lightTheme, child: c!),
@@ -49,22 +45,10 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text('Insufficient Balance'), findsOneWidget);
-      expect(
-        find.textContaining('Main Wallet'),
-        findsOneWidget,
-      );
-      expect(
-        find.textContaining('Rp 50.000'),
-        findsOneWidget,
-      );
-      expect(
-        find.textContaining('Rp 10.000'),
-        findsOneWidget,
-      );
-      expect(
-        find.text('Your account balance will become negative if you proceed.'),
-        findsOneWidget,
-      );
+      expect(find.textContaining('Main Wallet'), findsOneWidget);
+      expect(find.textContaining('Rp 50.000'), findsOneWidget);
+      expect(find.textContaining('Rp 10.000'), findsOneWidget);
+      expect(find.text('Your account balance will become negative if you proceed.'), findsOneWidget);
       expect(find.text('Check Again'), findsOneWidget);
       expect(find.text('Continue Anyway'), findsOneWidget);
     });
@@ -94,13 +78,7 @@ void main() {
     });
 
     testWidgets('custom confirmText and cancelText override default labels', (tester) async {
-      await tester.pumpWidget(
-        wrapHost(
-          onResult: (_) {},
-          confirmText: 'Yes, proceed',
-          cancelText: 'Go back',
-        ),
-      );
+      await tester.pumpWidget(wrapHost(onResult: (_) {}, confirmText: 'Yes, proceed', cancelText: 'Go back'));
       await tester.tap(find.text('Open Dialog'));
       await tester.pumpAndSettle();
 

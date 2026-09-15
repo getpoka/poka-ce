@@ -10,7 +10,7 @@ import 'package:poka_ce/shared/widgets/poka_hero_card.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class BudgetSummaryCard extends ConsumerWidget {
-  const BudgetSummaryCard({required this.budgets, super.key});
+  const new({required this.budgets, super.key});
 
   final List<BudgetModel> budgets;
 
@@ -39,11 +39,7 @@ class BudgetSummaryCard extends ConsumerWidget {
           icon: FPhosphorIcons.chartPieSlice,
           label: '${budgets.length} budget${budgets.length > 1 ? 's' : ''}',
         ),
-        if (isOverLimit)
-          PokaHeroCardPill(
-            icon: FPhosphorIcons.warning,
-            label: t.budgets.overLimit,
-          ),
+        if (isOverLimit) PokaHeroCardPill(icon: FPhosphorIcons.warning, label: t.budgets.overLimit),
       ],
       trailing: GestureDetector(
         onTap: () => ref.read(balanceVisibilityProvider.notifier).toggle(),

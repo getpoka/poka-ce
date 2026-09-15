@@ -8,7 +8,7 @@ import 'package:poka_ce/features/transactions/presentation/widgets/calculator/tr
 import 'package:poka_ce/features/transactions/presentation/widgets/forms/components/transaction_create_meta_bar.dart';
 
 class TransactionCalculatorBody extends StatelessWidget {
-  const TransactionCalculatorBody({
+  const new({
     required this.amountExpression,
     required this.historyExpression,
     required this.note,

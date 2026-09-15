@@ -18,7 +18,7 @@ import 'package:poka_ce/shared/widgets/poka_toast.dart';
 
 /// Reports screen presenting cashflow trends, spending by category, budget utilization, and allocation splits.
 class ReportListPage extends ConsumerWidget {
-  const ReportListPage({super.key});
+  const new({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -45,10 +45,7 @@ class ReportListPage extends ConsumerWidget {
 
               final success = await ref.read(reportProvider.notifier).exportExcel(sharePositionOrigin: rect);
               if (context.mounted) {
-                showPokaToast(
-                  context: context,
-                  title: Text(success ? t.exportExcelSuccess : t.exportExcelError),
-                );
+                showPokaToast(context: context, title: Text(success ? t.exportExcelSuccess : t.exportExcelError));
               }
             },
           ),

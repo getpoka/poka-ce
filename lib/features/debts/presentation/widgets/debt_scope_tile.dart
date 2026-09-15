@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class DebtScopeTile extends StatelessWidget {
-  const DebtScopeTile({
+  const new({
     required this.icon,
     required this.label,
     required this.value,
@@ -30,23 +30,15 @@ class DebtScopeTile extends StatelessWidget {
             Container(
               width: 34,
               height: 34,
-              decoration: BoxDecoration(
-                color: theme.colors.muted,
-                borderRadius: theme.style.borderRadius.sm,
-              ),
-              child: Center(
-                child: Icon(icon, size: 16, color: theme.colors.mutedForeground),
-              ),
+              decoration: BoxDecoration(color: theme.colors.muted, borderRadius: theme.style.borderRadius.sm),
+              child: Center(child: Icon(icon, size: 16, color: theme.colors.mutedForeground)),
             ),
             const SizedBox(width: 12),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    label,
-                    style: theme.typography.bodySecondary.copyWith(color: theme.colors.mutedForeground),
-                  ),
+                  Text(label, style: theme.typography.bodySecondary.copyWith(color: theme.colors.mutedForeground)),
                   Text(
                     value,
                     style: theme.typography.bodyPrimary.copyWith(

@@ -27,18 +27,17 @@ void main() {
   const pathProviderChannel = MethodChannel('plugins.flutter.io/path_provider');
 
   setUpAll(() {
-    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(
-      pathProviderChannel,
-      (call) async {
-        final tempPath = Directory.systemTemp.path;
-        return switch (call.method) {
-          'getTemporaryDirectory' => tempPath,
-          'getApplicationDocumentsDirectory' => tempPath,
-          'getApplicationSupportDirectory' => tempPath,
-          _ => null,
-        };
-      },
-    );
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(pathProviderChannel, (
+      call,
+    ) async {
+      final tempPath = Directory.systemTemp.path;
+      return switch (call.method) {
+        'getTemporaryDirectory' => tempPath,
+        'getApplicationDocumentsDirectory' => tempPath,
+        'getApplicationSupportDirectory' => tempPath,
+        _ => null,
+      };
+    });
   });
 
   late MockTransactionRepository mockTxRepo;
@@ -75,13 +74,7 @@ void main() {
       ];
 
       final categories = [
-        CategoryModel(
-          id: 'cat1',
-          name: 'Food & Dining',
-          type: CategoryType.expense,
-          createdAt: now,
-          updatedAt: now,
-        ),
+        CategoryModel(id: 'cat1', name: 'Food & Dining', type: CategoryType.expense, createdAt: now, updatedAt: now),
       ];
 
       final transactions = [
@@ -120,15 +113,9 @@ void main() {
         ),
       ];
 
-      when(() => mockTxRepo.getTransactions()).thenAnswer(
-        (_) async => Success(transactions),
-      );
-      when(() => mockAccRepo.getAccounts()).thenAnswer(
-        (_) async => Success(accounts),
-      );
-      when(() => mockCatRepo.getCategories()).thenAnswer(
-        (_) async => Success(categories),
-      );
+      when(() => mockTxRepo.getTransactions()).thenAnswer((_) async => Success(transactions));
+      when(() => mockAccRepo.getAccounts()).thenAnswer((_) async => Success(accounts));
+      when(() => mockCatRepo.getCategories()).thenAnswer((_) async => Success(categories));
 
       final result = await service.exportToFile();
 
@@ -164,15 +151,9 @@ void main() {
     });
 
     test('returns ErrorResult when transaction repository fails', () async {
-      when(() => mockTxRepo.getTransactions()).thenAnswer(
-        (_) async => const ErrorResult(DatabaseFailure('DB error')),
-      );
-      when(() => mockAccRepo.getAccounts()).thenAnswer(
-        (_) async => const Success([]),
-      );
-      when(() => mockCatRepo.getCategories()).thenAnswer(
-        (_) async => const Success([]),
-      );
+      when(() => mockTxRepo.getTransactions()).thenAnswer((_) async => const ErrorResult(DatabaseFailure('DB error')));
+      when(() => mockAccRepo.getAccounts()).thenAnswer((_) async => const Success([]));
+      when(() => mockCatRepo.getCategories()).thenAnswer((_) async => const Success([]));
 
       final result = await service.exportToFile();
 
@@ -197,15 +178,9 @@ void main() {
     });
 
     test('exportToFile purges previous export files before creating a new one', () async {
-      when(() => mockTxRepo.getTransactions()).thenAnswer(
-        (_) async => const Success([]),
-      );
-      when(() => mockAccRepo.getAccounts()).thenAnswer(
-        (_) async => const Success([]),
-      );
-      when(() => mockCatRepo.getCategories()).thenAnswer(
-        (_) async => const Success([]),
-      );
+      when(() => mockTxRepo.getTransactions()).thenAnswer((_) async => const Success([]));
+      when(() => mockAccRepo.getAccounts()).thenAnswer((_) async => const Success([]));
+      when(() => mockCatRepo.getCategories()).thenAnswer((_) async => const Success([]));
 
       final tempDir = Directory.systemTemp;
       final exportDir = Directory('${tempDir.path}/exports');

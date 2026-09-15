@@ -5,11 +5,7 @@ import 'package:poka_ce/theme/theme.dart';
 /// A single slice data representation for [PokaDonutChart].
 class PokaDonutSection {
   /// Creates a donut chart section.
-  const PokaDonutSection({
-    required this.value,
-    required this.color,
-    this.title,
-  });
+  const new({required this.value, required this.color, this.title});
 
   /// Numeric value of this segment. Must be >= 0.
   final double value;
@@ -27,7 +23,7 @@ class PokaDonutSection {
 /// Can optionally host a centered widget (e.g. key metric or icon).
 class PokaDonutChart extends StatelessWidget {
   /// Creates a [PokaDonutChart].
-  const PokaDonutChart({
+  const new({
     required this.sections,
     super.key,
     this.size = 100,
@@ -82,14 +78,7 @@ class PokaDonutChart extends StatelessWidget {
               title: s.title,
             );
           }).toList()
-        : [
-            PieChartSectionData(
-              value: 1,
-              color: fallbackColor,
-              radius: thickness,
-              showTitle: false,
-            ),
-          ];
+        : [PieChartSectionData(value: 1, color: fallbackColor, radius: thickness, showTitle: false)];
 
     final chart = SizedBox(
       width: size,
@@ -110,13 +99,7 @@ class PokaDonutChart extends StatelessWidget {
       return SizedBox(
         width: size,
         height: size,
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            chart,
-            center!,
-          ],
-        ),
+        child: Stack(alignment: Alignment.center, children: [chart, center!]),
       );
     }
 

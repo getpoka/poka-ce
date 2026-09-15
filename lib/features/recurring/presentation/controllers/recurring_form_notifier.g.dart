@@ -33,10 +33,7 @@ final class RecurringFormNotifierProvider extends $NotifierProvider<RecurringFor
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(RecurringFormState value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<RecurringFormState>(value),
-    );
+    return $ProviderOverride(origin: this, providerOverride: $SyncValueProvider<RecurringFormState>(value));
   }
 }
 

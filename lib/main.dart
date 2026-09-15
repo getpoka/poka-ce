@@ -34,9 +34,7 @@ void main() async {
   runApp(
     ProviderScope(
       observers: [TalkerRiverpodObserver()],
-      overrides: [
-        sharedPreferencesProvider.overrideWithValue(sharedPrefs),
-      ],
+      overrides: [sharedPreferencesProvider.overrideWithValue(sharedPrefs)],
       child: const PokaApp(),
     ),
   );

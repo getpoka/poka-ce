@@ -22,15 +22,7 @@ class FakeSettingsNotifier extends SettingsNotifier {
 
   @override
   Future<List<CurrencyModel>> getAvailableCurrencies() async {
-    return [
-      const CurrencyModel(
-        id: 'usd',
-        code: 'USD',
-        symbol: '\$',
-        name: 'US Dollar',
-        precision: 2,
-      ),
-    ];
+    return [const CurrencyModel(id: 'usd', code: 'USD', symbol: '\$', name: 'US Dollar', precision: 2)];
   }
 }
 
@@ -45,10 +37,7 @@ void main() {
     final router = GoRouter(
       initialLocation: '/onboarding',
       routes: [
-        GoRoute(
-          path: '/onboarding',
-          builder: (context, state) => const OnboardingPage(),
-        ),
+        GoRoute(path: '/onboarding', builder: (context, state) => const OnboardingPage()),
         GoRoute(
           path: '/',
           builder: (context, state) => const Scaffold(body: Text('Dashboard Page')),
@@ -57,16 +46,11 @@ void main() {
     );
 
     return ProviderScope(
-      overrides: [
-        settingsProvider.overrideWith(() => fakeNotifier),
-      ],
+      overrides: [settingsProvider.overrideWith(() => fakeNotifier)],
       child: TranslationProvider(
         child: MaterialApp.router(
           routerConfig: router,
-          builder: (context, child) => FTheme(
-            data: lightTheme,
-            child: child!,
-          ),
+          builder: (context, child) => FTheme(data: lightTheme, child: child!),
         ),
       ),
     );

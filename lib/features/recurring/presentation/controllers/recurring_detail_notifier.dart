@@ -8,15 +8,10 @@ part 'recurring_detail_notifier.g.dart';
 
 @riverpod
 Stream<List<TransactionModel>> recurringTransactions(Ref ref, RecurringTransactionModel recurring) {
-  return ref
-      .read(transactionRepositoryProvider)
-      .watchTransactions(
-        recurringIds: {recurring.id},
-      )
-      .asyncMap((result) {
-        return switch (result) {
-          Success(value: final transactions) => transactions,
-          ErrorResult(error: final failure) => Future.error(failure, StackTrace.current),
-        };
-      });
+  return ref.read(transactionRepositoryProvider).watchTransactions(recurringIds: {recurring.id}).asyncMap((result) {
+    return switch (result) {
+      Success(value: final transactions) => transactions,
+      ErrorResult(error: final failure) => Future.error(failure, StackTrace.current),
+    };
+  });
 }

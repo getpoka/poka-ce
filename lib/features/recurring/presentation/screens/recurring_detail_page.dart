@@ -19,11 +19,7 @@ import 'package:poka_ce/shared/widgets/poka_section_label.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class RecurringDetailPage extends ConsumerWidget {
-  const RecurringDetailPage({
-    required this.id,
-    this.recurring,
-    super.key,
-  });
+  const new({required this.id, this.recurring, super.key});
 
   final String id;
   final RecurringTransactionModel? recurring;
@@ -45,10 +41,7 @@ class RecurringDetailPage extends ConsumerWidget {
             .watch(categoryListProvider)
             .asData
             ?.value
-            .fold<Map<String, CategoryModel>>(
-              <String, CategoryModel>{},
-              (map, c) => map..[c.id] = c,
-            ) ??
+            .fold<Map<String, CategoryModel>>(<String, CategoryModel>{}, (map, c) => map..[c.id] = c) ??
         <String, CategoryModel>{};
 
     final accountsById =
@@ -57,10 +50,7 @@ class RecurringDetailPage extends ConsumerWidget {
             .asData
             ?.value
             .accounts
-            .fold<Map<String, AccountModel>>(
-              <String, AccountModel>{},
-              (map, a) => map..[a.id] = a,
-            ) ??
+            .fold<Map<String, AccountModel>>(<String, AccountModel>{}, (map, a) => map..[a.id] = a) ??
         <String, AccountModel>{};
 
     final transactionsAsync = ref.watch(recurringTransactionsProvider(activeRecurring));
@@ -99,13 +89,9 @@ class RecurringDetailPage extends ConsumerWidget {
       child: CustomScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
         slivers: [
-          SliverToBoxAdapter(
-            child: RecurringCard(recurring: activeRecurring, isInteractive: false),
-          ),
+          SliverToBoxAdapter(child: RecurringCard(recurring: activeRecurring, isInteractive: false)),
           const SliverToBoxAdapter(child: SizedBox(height: 24)),
-          SliverToBoxAdapter(
-            child: PokaSectionLabel(title: t.recurring.triggerHistory),
-          ),
+          SliverToBoxAdapter(child: PokaSectionLabel(title: t.recurring.triggerHistory)),
           const SliverToBoxAdapter(child: SizedBox(height: 8)),
           transactionsAsync.when(
             data: (transactions) {
@@ -120,26 +106,23 @@ class RecurringDetailPage extends ConsumerWidget {
               }
 
               return SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (context, index) {
-                    final transaction = transactions[index];
-                    final firstCatId = transaction.items.isNotEmpty ? transaction.items.first.categoryId : null;
-                    final category = firstCatId != null ? categoriesById[firstCatId] : null;
-                    final account = accountsById[transaction.accountId];
+                delegate: SliverChildBuilderDelegate((context, index) {
+                  final transaction = transactions[index];
+                  final firstCatId = transaction.items.isNotEmpty ? transaction.items.first.categoryId : null;
+                  final category = firstCatId != null ? categoriesById[firstCatId] : null;
+                  final account = accountsById[transaction.accountId];
 
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 10),
-                      child: RecentTransactionTile(
-                        transaction: transaction,
-                        isBalanceVisible: true,
-                        categoriesById: categoriesById,
-                        category: category,
-                        account: account,
-                      ),
-                    );
-                  },
-                  childCount: transactions.length,
-                ),
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: RecentTransactionTile(
+                      transaction: transaction,
+                      isBalanceVisible: true,
+                      categoriesById: categoriesById,
+                      category: category,
+                      account: account,
+                    ),
+                  );
+                }, childCount: transactions.length),
               );
             },
             error: (err, _) => SliverToBoxAdapter(child: Text(err.toString())),

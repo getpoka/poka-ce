@@ -6,7 +6,7 @@ import 'package:poka_ce/shared/utils/math_evaluator.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class TransactionCalculatorNumpad extends StatelessWidget {
-  const TransactionCalculatorNumpad({
+  const new({
     required this.value,
     required this.onKeyPressed,
     required this.typeColor,

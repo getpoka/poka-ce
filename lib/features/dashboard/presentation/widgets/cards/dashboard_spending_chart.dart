@@ -12,7 +12,7 @@ import 'package:poka_ce/theme/theme.dart';
 /// Spending activity chart component displaying weekly velocity bars, totals, and daily budget.
 class DashboardSpendingChart extends HookConsumerWidget {
   /// Creates a [DashboardSpendingChart].
-  const DashboardSpendingChart({super.key});
+  const new({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -47,9 +47,7 @@ class DashboardSpendingChart extends HookConsumerWidget {
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(context.t.dashboard.spendingActivity, style: theme.typography.titleCard),
-                ],
+                children: [Text(context.t.dashboard.spendingActivity, style: theme.typography.titleCard)],
               ),
               const SizedBox(height: 12),
               Row(
@@ -77,11 +75,7 @@ class DashboardSpendingChart extends HookConsumerWidget {
                               ),
                             ),
                             const SizedBox(width: 4),
-                            Icon(
-                              FPhosphorIcons.pencilSimple,
-                              size: 12,
-                              color: theme.colors.mutedForeground,
-                            ),
+                            Icon(FPhosphorIcons.pencilSimple, size: 12, color: theme.colors.mutedForeground),
                           ],
                         ),
                       ),

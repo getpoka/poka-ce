@@ -15,8 +15,6 @@ class RecurringDaoManager {
   RecurringDaoManager(this._db);
   $$AccountsTableTableManager get accounts => $$AccountsTableTableManager(_db.attachedDatabase, _db.accounts);
   $$CategoriesTableTableManager get categories => $$CategoriesTableTableManager(_db.attachedDatabase, _db.categories);
-  $$RecurringTransactionsTableTableManager get recurringTransactions => $$RecurringTransactionsTableTableManager(
-    _db.attachedDatabase,
-    _db.recurringTransactions,
-  );
+  $$RecurringTransactionsTableTableManager get recurringTransactions =>
+      $$RecurringTransactionsTableTableManager(_db.attachedDatabase, _db.recurringTransactions);
 }

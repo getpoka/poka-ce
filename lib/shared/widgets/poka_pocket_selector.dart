@@ -15,11 +15,7 @@ import 'package:poka_ce/theme/theme.dart';
 /// while tapping the row selects the item and closes the sheet.
 class PokaPocketSelector extends HookWidget {
   /// Creates a PokaPocketSelector.
-  const PokaPocketSelector({
-    required this.accounts,
-    this.selectedId,
-    super.key,
-  });
+  const new({required this.accounts, this.selectedId, super.key});
 
   /// The list of accounts to choose from.
   final List<AccountModel> accounts;
@@ -47,10 +43,7 @@ class PokaPocketSelector extends HookWidget {
       return Padding(
         padding: const EdgeInsets.all(32),
         child: Center(
-          child: Text(
-            t.shared.noWalletsFoundPleaseCreateOneFirst,
-            style: context.theme.typography.body.lg,
-          ),
+          child: Text(t.shared.noWalletsFoundPleaseCreateOneFirst, style: context.theme.typography.body.lg),
         ),
       );
     }
@@ -67,9 +60,7 @@ class PokaPocketSelector extends HookWidget {
     final expandedStates = useState<Set<String>>({});
 
     return ConstrainedBox(
-      constraints: BoxConstraints(
-        maxHeight: MediaQuery.sizeOf(context).height * 0.6,
-      ),
+      constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(context).height * 0.6),
       child: ListView.builder(
         shrinkWrap: true,
         padding: const EdgeInsets.only(bottom: 16),
@@ -85,9 +76,7 @@ class PokaPocketSelector extends HookWidget {
               // Parent Row
               DecoratedBox(
                 decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(color: context.theme.colors.border),
-                  ),
+                  border: Border(bottom: BorderSide(color: context.theme.colors.border)),
                 ),
                 child: Row(
                   children: [
@@ -110,10 +99,7 @@ class PokaPocketSelector extends HookWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      parent.name,
-                                      style: context.theme.typography.titleItem,
-                                    ),
+                                    Text(parent.name, style: context.theme.typography.titleItem),
                                     Text(
                                       parent.type.name.toUpperCase(),
                                       style: context.theme.typography.caption.copyWith(
@@ -181,11 +167,7 @@ class PokaPocketSelector extends HookWidget {
                     child: Container(
                       padding: const EdgeInsets.only(left: 48, right: 16, top: 12, bottom: 12),
                       decoration: BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(
-                            color: context.theme.colors.border,
-                          ),
-                        ),
+                        border: Border(bottom: BorderSide(color: context.theme.colors.border)),
                       ),
                       child: Row(
                         children: [
@@ -200,10 +182,7 @@ class PokaPocketSelector extends HookWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  child.name,
-                                  style: context.theme.typography.titleItem,
-                                ),
+                                Text(child.name, style: context.theme.typography.titleItem),
                                 Text(
                                   child.type.name.toUpperCase(),
                                   style: context.theme.typography.caption.copyWith(

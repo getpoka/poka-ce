@@ -18,17 +18,12 @@ part 'debt_detail_notifier.g.dart';
 /// Watches transactions linked to the specified [debt] (disbursements and repayments).
 @riverpod
 Stream<List<TransactionModel>> debtTransactions(Ref ref, DebtModel debt) {
-  return ref
-      .read(transactionRepositoryProvider)
-      .watchTransactions(
-        debtIds: {debt.id},
-      )
-      .asyncMap((result) {
-        return switch (result) {
-          Success(value: final transactions) => transactions,
-          ErrorResult(error: final failure) => Future.error(failure, StackTrace.current),
-        };
-      });
+  return ref.read(transactionRepositoryProvider).watchTransactions(debtIds: {debt.id}).asyncMap((result) {
+    return switch (result) {
+      Success(value: final transactions) => transactions,
+      ErrorResult(error: final failure) => Future.error(failure, StackTrace.current),
+    };
+  });
 }
 
 /// Notifier handling detail-level actions on debts including deletion and forgiveness write-offs.
@@ -69,10 +64,7 @@ class DebtDetailNotifier extends _$DebtDetailNotifier {
 
     if (confirm == true) {
       // Forgive or write off remaining amount without affecting wallet balance or creating phantom cash flow
-      final updatedDebt = debt.copyWith(
-        remainingAmount: 0,
-        status: DebtStatus.paid,
-      );
+      final updatedDebt = debt.copyWith(remainingAmount: 0, status: DebtStatus.paid);
       await ref.read(debtRepositoryProvider).updateDebt(updatedDebt);
       return true;
     }

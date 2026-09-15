@@ -18,13 +18,8 @@ void main() {
     return ProviderScope(
       child: TranslationProvider(
         child: MaterialApp(
-          builder: (context, child) => FTheme(
-            data: lightTheme,
-            child: child!,
-          ),
-          home: const Scaffold(
-            body: DashboardQuickActions(),
-          ),
+          builder: (context, child) => FTheme(data: lightTheme, child: child!),
+          home: const Scaffold(body: DashboardQuickActions()),
         ),
       ),
     );
@@ -41,16 +36,10 @@ void main() {
       expect(find.text('Debts'), findsOneWidget);
       expect(find.text('Recurring'), findsOneWidget);
 
-      expect(
-        find.byWidgetPredicate((w) => w is Icon && w.icon == FPhosphorIcons.chartPieSlice),
-        findsOneWidget,
-      );
+      expect(find.byWidgetPredicate((w) => w is Icon && w.icon == FPhosphorIcons.chartPieSlice), findsOneWidget);
       expect(find.byWidgetPredicate((w) => w is Icon && w.icon == FPhosphorIcons.tag), findsOneWidget);
       expect(find.byWidgetPredicate((w) => w is Icon && w.icon == FPhosphorIcons.target), findsOneWidget);
-      expect(
-        find.byWidgetPredicate((w) => w is Icon && w.icon == FPhosphorIcons.handshake),
-        findsOneWidget,
-      );
+      expect(find.byWidgetPredicate((w) => w is Icon && w.icon == FPhosphorIcons.handshake), findsOneWidget);
       expect(find.byWidgetPredicate((w) => w is Icon && w.icon == FPhosphorIcons.calendarDots), findsOneWidget);
     });
 

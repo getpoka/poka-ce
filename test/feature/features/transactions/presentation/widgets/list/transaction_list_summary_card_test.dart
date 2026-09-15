@@ -32,9 +32,7 @@ void main() {
         child: Directionality(
           textDirection: TextDirection.ltr,
           child: Scaffold(
-            body: SingleChildScrollView(
-              child: TransactionListSummaryCard(state: state),
-            ),
+            body: SingleChildScrollView(child: TransactionListSummaryCard(state: state)),
           ),
         ),
       ),

@@ -9,7 +9,7 @@ part 'accounts_dao.g.dart';
 @DriftAccessor(tables: [Accounts, AccountCategories, Categories])
 class AccountsDao extends DatabaseAccessor<AppDatabase> with _$AccountsDaoMixin {
   /// Creates an [AccountsDao] attached to [attachedDatabase].
-  AccountsDao(super.attachedDatabase);
+  new(super.attachedDatabase);
 
   /// Retrieves all accounts regardless of active status.
   Future<List<Account>> getAllAccounts() => select(accounts).get();
@@ -40,28 +40,20 @@ class AccountsDao extends DatabaseAccessor<AppDatabase> with _$AccountsDaoMixin 
   Future<void> updateAccountsSort(List<Account> sortedAccounts) async {
     await batch((batch) {
       for (final account in sortedAccounts) {
-        batch.update(
-          accounts,
-          AccountsCompanion(sort: Value(account.sort)),
-          where: (t) => t.id.equals(account.id),
-        );
+        batch.update(accounts, AccountsCompanion(sort: Value(account.sort)), where: (t) => t.id.equals(account.id));
       }
     });
   }
 
   /// Atomically replaces the category whitelist for an account.
   Future<void> setAccountCategories(String accountId, List<String> categoryIds) async {
-    return transaction(() async {
+    return await transaction(() async {
       // Clear existing restrictions before re-inserting the new whitelist
       await (delete(accountCategories)..where((t) => t.accountId.equals(accountId))).go();
 
       for (final catId in categoryIds) {
-        await into(accountCategories).insert(
-          AccountCategoriesCompanion.insert(
-            accountId: accountId,
-            categoryId: catId,
-          ),
-        );
+        await into(accountCategories)
+            .insert(AccountCategoriesCompanion.insert(accountId: accountId, categoryId: catId));
       }
     });
   }

@@ -7,7 +7,7 @@ import 'package:poka_ce/theme/theme.dart';
 // ─────────────────────────────────────────────────────────────────────────────
 
 class TransactionTileIcon extends StatelessWidget {
-  const TransactionTileIcon({
+  const new({
     required this.catColor,
     required this.catIcon,
     this.subCatIcon,
@@ -38,11 +38,7 @@ class TransactionTileIcon extends StatelessWidget {
       child: Stack(
         clipBehavior: Clip.none,
         children: [
-          PokaIcon(
-            icon: catIcon,
-            color: catColor,
-            size: size,
-          ),
+          PokaIcon(icon: catIcon, color: catColor, size: size),
           if (isGroup || subCatIcon != null)
             Positioned(
               right: -5,
@@ -66,11 +62,7 @@ class TransactionTileIcon extends StatelessWidget {
                       ? AnimatedRotation(
                           turns: isExpanded ? 0.5 : 0,
                           duration: const Duration(milliseconds: 280),
-                          child: Icon(
-                            FPhosphorIcons.caretDown,
-                            size: 9,
-                            color: theme.colors.secondaryForeground,
-                          ),
+                          child: Icon(FPhosphorIcons.caretDown, size: 9, color: theme.colors.secondaryForeground),
                         )
                       : Icon(subCatIcon, size: 9, color: Colors.white),
                 ),

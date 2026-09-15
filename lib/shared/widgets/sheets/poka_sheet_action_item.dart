@@ -3,7 +3,7 @@ import 'package:poka_ce/shared/widgets/poka_icon.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class PokaSheetActionItem extends StatelessWidget with FItemMixin {
-  const PokaSheetActionItem({
+  const new({
     required this.title,
     required this.icon,
     this.subtitle,
@@ -33,17 +33,8 @@ class PokaSheetActionItem extends StatelessWidget with FItemMixin {
         title,
         style: titleColor != null ? context.theme.typography.titleItem.copyWith(color: titleColor) : null,
       ),
-      subtitle: subtitle != null
-          ? Text(
-              subtitle!,
-              style: context.theme.typography.bodySecondary,
-            )
-          : null,
-      prefix: PokaIcon(
-        icon: icon,
-        size: PokaIconSize.small,
-        color: iconColor,
-      ),
+      subtitle: subtitle != null ? Text(subtitle!, style: context.theme.typography.bodySecondary) : null,
+      prefix: PokaIcon(icon: icon, size: PokaIconSize.small, color: iconColor),
       suffix: trailing,
       onPress: onTap,
     );

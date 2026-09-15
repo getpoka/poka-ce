@@ -1,6 +1,6 @@
 /// A sealed class representing the outcome of an operation.
 sealed class Result<T, E> {
-  const Result();
+  const new();
 
   /// Executes [onSuccess] if this is a [Success], or [onError] if this is an [Error].
   R fold<R>(R Function(T value) onSuccess, R Function(E error) onError) {
@@ -13,12 +13,12 @@ sealed class Result<T, E> {
 
 /// Represents a successful outcome.
 class Success<T, E> extends Result<T, E> {
-  const Success(this.value);
+  const new(this.value);
   final T value;
 }
 
 /// Represents a failed outcome.
 class ErrorResult<T, E> extends Result<T, E> {
-  const ErrorResult(this.error);
+  const new(this.error);
   final E error;
 }

@@ -62,9 +62,8 @@ void main() {
     });
 
     test('load error', () async {
-      when(
-        () => mockRepo.getRecurringTransactions(),
-      ).thenAnswer((_) async => const ErrorResult(DatabaseFailure('fail')));
+      when(() => mockRepo.getRecurringTransactions())
+          .thenAnswer((_) async => const ErrorResult(DatabaseFailure('fail')));
       final container = createContainer();
       await wait();
       expect(container.read(recurringListProvider).error, 'fail');
@@ -184,9 +183,7 @@ void main() {
       final completer = Completer<Result<List<RecurringTransactionModel>, Failure>>();
       when(() => mockRepo.getRecurringTransactions()).thenAnswer((_) => completer.future);
 
-      final container = ProviderContainer(
-        overrides: [recurringRepositoryProvider.overrideWithValue(mockRepo)],
-      );
+      final container = ProviderContainer(overrides: [recurringRepositoryProvider.overrideWithValue(mockRepo)]);
       final future = container.read(recurringListProvider.notifier).refresh();
 
       // Dispose container while async query is in flight

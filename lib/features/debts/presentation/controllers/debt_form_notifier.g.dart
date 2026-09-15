@@ -36,10 +36,7 @@ final class DebtFormProvider extends $NotifierProvider<DebtForm, DebtFormState> 
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(DebtFormState value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<DebtFormState>(value),
-    );
+    return $ProviderOverride(origin: this, providerOverride: $SyncValueProvider<DebtFormState>(value));
   }
 }
 

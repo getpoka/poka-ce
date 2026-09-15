@@ -179,11 +179,7 @@ void main() {
 
     group('disableAppLock', () {
       test('clears all and disables', () async {
-        final sec = <String, String>{
-          'app_lock_pin_hash': 'abc',
-          'app_lock_pin_salt': 'def',
-          'app_lock_pin': 'legacy',
-        };
+        final sec = <String, String>{'app_lock_pin_hash': 'abc', 'app_lock_pin_salt': 'def', 'app_lock_pin': 'legacy'};
         final bools = <String, bool>{'app_lock_enabled': true, 'app_lock_biometric': true};
         final strings = <String, String>{'app_lock_failed_attempts': '3'};
         final c = makeContainer(bools: bools, strings: strings, secure: sec);
@@ -209,10 +205,7 @@ void main() {
 
       test('returns false when isBiometricActive concurrent', () async {
         final mock = MockAppLockService();
-        final c = makeContainer(
-          bools: {'app_lock_enabled': true},
-          appLockService: mock,
-        );
+        final c = makeContainer(bools: {'app_lock_enabled': true}, appLockService: mock);
         // force active
         c.read(appLockControllerProvider.notifier).state = c
             .read(appLockControllerProvider)
@@ -282,10 +275,7 @@ void main() {
     group('verifyPin', () {
       test('blocked when lockout active returns lockedOut', () async {
         final future = DateTime.now().add(const Duration(seconds: 30)).toIso8601String();
-        final c = makeContainer(
-          bools: {'app_lock_enabled': true},
-          strings: {'app_lock_locked_until': future},
-        );
+        final c = makeContainer(bools: {'app_lock_enabled': true}, strings: {'app_lock_locked_until': future});
         // container build will have lockoutUntil
         expect(c.read(appLockControllerProvider).lockoutUntil, isNotNull);
         final res = await c.read(appLockControllerProvider.notifier).verifyPin('1234');
@@ -389,10 +379,7 @@ void main() {
       test('success sets authenticated true', () async {
         final mock = MockAppLockService();
         when(() => mock.authenticate()).thenAnswer((_) async => true);
-        final c = makeContainer(
-          bools: {'app_lock_enabled': true, 'app_lock_biometric': true},
-          appLockService: mock,
-        );
+        final c = makeContainer(bools: {'app_lock_enabled': true, 'app_lock_biometric': true}, appLockService: mock);
         // start unauthenticated
         expect(c.read(appLockControllerProvider).isAuthenticated, false);
         final res = await c.read(appLockControllerProvider.notifier).authenticateBiometric();
@@ -404,10 +391,7 @@ void main() {
       test('user cancel returns false and not authenticated', () async {
         final mock = MockAppLockService();
         when(() => mock.authenticate()).thenAnswer((_) async => false);
-        final c = makeContainer(
-          bools: {'app_lock_enabled': true, 'app_lock_biometric': true},
-          appLockService: mock,
-        );
+        final c = makeContainer(bools: {'app_lock_enabled': true, 'app_lock_biometric': true}, appLockService: mock);
         c.read(appLockControllerProvider.notifier).lock();
         final res = await c.read(appLockControllerProvider.notifier).authenticateBiometric();
         expect(res, false);
@@ -418,10 +402,7 @@ void main() {
       test('exception returns false', () async {
         final mock = MockAppLockService();
         when(() => mock.authenticate()).thenThrow(Exception('boom'));
-        final c = makeContainer(
-          bools: {'app_lock_enabled': true, 'app_lock_biometric': true},
-          appLockService: mock,
-        );
+        final c = makeContainer(bools: {'app_lock_enabled': true, 'app_lock_biometric': true}, appLockService: mock);
         final res = await c.read(appLockControllerProvider.notifier).authenticateBiometric();
         expect(res, false);
         expect(c.read(appLockControllerProvider).isBiometricActive, false);
@@ -430,10 +411,7 @@ void main() {
       test('PlatformException also returns false', () async {
         final mock = MockAppLockService();
         when(() => mock.authenticate()).thenThrow(PlatformException(code: 'err'));
-        final c = makeContainer(
-          bools: {'app_lock_enabled': true, 'app_lock_biometric': true},
-          appLockService: mock,
-        );
+        final c = makeContainer(bools: {'app_lock_enabled': true, 'app_lock_biometric': true}, appLockService: mock);
         final res = await c.read(appLockControllerProvider.notifier).authenticateBiometric();
         expect(res, false);
       });

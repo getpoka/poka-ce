@@ -37,9 +37,7 @@ void main() {
 
   Widget buildWidget(AppLockState state) {
     return ProviderScope(
-      overrides: [
-        appLockControllerProvider.overrideWith(() => MockAppLockController(state)),
-      ],
+      overrides: [appLockControllerProvider.overrideWith(() => MockAppLockController(state))],
       child: TranslationProvider(
         child: MaterialApp.router(
           routerConfig: buildRouter(),

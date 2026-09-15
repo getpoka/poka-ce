@@ -6,19 +6,14 @@ abstract final class PokaGradients {
   /// It fades the base color slightly towards black at the bottom right.
   static LinearGradient hero(Color baseColor) {
     return LinearGradient(
-      colors: [
-        baseColor,
-        Color.lerp(baseColor, Colors.black, 0.35) ?? baseColor,
-      ],
+      colors: [baseColor, Color.lerp(baseColor, Colors.black, 0.35) ?? baseColor],
       begin: Alignment.topLeft,
       end: Alignment.bottomRight,
     );
   }
 
   /// White to transparent gradient for HSV saturation map.
-  static const LinearGradient hsvSaturation = LinearGradient(
-    colors: [Colors.white, Colors.transparent],
-  );
+  static const LinearGradient hsvSaturation = LinearGradient(colors: [Colors.white, Colors.transparent]);
 
   /// Transparent to black gradient for HSV value map.
   static const LinearGradient hsvValue = LinearGradient(
@@ -43,10 +38,7 @@ abstract final class PokaGradients {
   /// Vertical fade-out gradient for sparklines on hero cards and background charts.
   static LinearGradient sparklineFill(Color color) {
     return LinearGradient(
-      colors: [
-        color.withValues(alpha: 0.18),
-        color.withValues(alpha: 0),
-      ],
+      colors: [color.withValues(alpha: 0.18), color.withValues(alpha: 0)],
       begin: Alignment.topCenter,
       end: Alignment.bottomCenter,
     );

@@ -23,7 +23,7 @@ import 'package:poka_ce/shared/widgets/poka_toast.dart';
 import 'package:poka_ce/shared/widgets/sheets/poka_sheet.dart';
 
 class BudgetFormSheet extends HookConsumerWidget {
-  const BudgetFormSheet({
+  const new({
     super.key,
     this.initialBudget,
     this.initialName,
@@ -135,11 +135,7 @@ class BudgetFormSheet extends HookConsumerWidget {
         Navigator.of(context).pop();
       }
       if (next.error != null && next.error != prev?.error) {
-        showPokaToast(
-          context: context,
-          title: Text(next.error!),
-          variant: FToastVariant.destructive,
-        );
+        showPokaToast(context: context, title: Text(next.error!), variant: FToastVariant.destructive);
       }
     });
 
@@ -192,10 +188,7 @@ class BudgetFormSheet extends HookConsumerWidget {
             FLabel(
               layout: FLabelLayout.vertical,
               label: Text(t.budgets.period),
-              child: PeriodSelector(
-                selected: state.period,
-                onChanged: notifier.setPeriod,
-              ),
+              child: PeriodSelector(selected: state.period, onChanged: notifier.setPeriod),
             ),
             const SizedBox(height: 12),
             if (state.period == BudgetPeriod.monthly) ...[
@@ -208,10 +201,7 @@ class BudgetFormSheet extends HookConsumerWidget {
               const SizedBox(height: 12),
             ],
             if (state.period == BudgetPeriod.custom) ...[
-              DatePickerButton(
-                date: state.endDate,
-                onChanged: notifier.setEndDate,
-              ),
+              DatePickerButton(date: state.endDate, onChanged: notifier.setEndDate),
               const SizedBox(height: 12),
             ],
             FLabel(

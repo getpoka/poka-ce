@@ -19,14 +19,9 @@ void main() {
 
   Widget buildTestableWidget(Widget child) {
     return ProviderScope(
-      overrides: [
-        settingsProvider.overrideWith(FakeSettingsNotifier.new),
-      ],
+      overrides: [settingsProvider.overrideWith(FakeSettingsNotifier.new)],
       child: MaterialApp(
-        builder: (context, child) => FTheme(
-          data: lightTheme,
-          child: child!,
-        ),
+        builder: (context, child) => FTheme(data: lightTheme, child: child!),
         home: Scaffold(body: child),
       ),
     );

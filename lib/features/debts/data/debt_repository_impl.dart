@@ -13,7 +13,7 @@ import 'package:uuid/uuid.dart';
 /// Implementation of [IDebtRepository] handling persistence and cash flow bindings for debts and loans.
 class DebtRepositoryImpl implements IDebtRepository {
   /// Creates a [DebtRepositoryImpl] backed by the provided [DebtsDao].
-  DebtRepositoryImpl(this._dao);
+  new(this._dao);
 
   final DebtsDao _dao;
 

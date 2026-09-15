@@ -15,12 +15,7 @@ import 'package:poka_ce/shared/widgets/poka_empty_view.dart';
 /// A tab view displaying a list of categories (e.g., Expense or Income).
 /// Handles reordering functionality and navigation to category details.
 class CategoryListTab extends ConsumerWidget {
-  const CategoryListTab({
-    required this.categories,
-    required this.allCategories,
-    required this.type,
-    super.key,
-  });
+  const new({required this.categories, required this.allCategories, required this.type, super.key});
 
   final List<CategoryModel> categories;
   final List<CategoryModel> allCategories;
@@ -47,10 +42,7 @@ class CategoryListTab extends ConsumerWidget {
         HapticFeedback.mediumImpact();
       },
       proxyDecorator: (child, index, animation) {
-        return Material(
-          color: Colors.transparent,
-          child: child,
-        );
+        return Material(color: Colors.transparent, child: child);
       },
       onReorderItem: (oldIndex, newIndex) {
         ref.read(categoryListProvider.notifier).reorderCategories(oldIndex, newIndex, type);
@@ -69,19 +61,14 @@ class CategoryListTab extends ConsumerWidget {
                     isFirst: index == 0,
                     isLast: index == categories.length - 1,
                     onPress: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute<void>(
-                          builder: (_) => CategoryDetailPage(category: category),
-                        ),
-                      );
+                      Navigator.of(context)
+                          .push(MaterialPageRoute<void>(builder: (_) => CategoryDetailPage(category: category)));
                     },
                     onEdit: () {
                       CategoryFormSheet.show(context, category: category);
                     },
                   )
-                  .animate(
-                    delay: Duration(milliseconds: (index * 40).clamp(0, 200)),
-                  )
+                  .animate(delay: Duration(milliseconds: (index * 40).clamp(0, 200)))
                   .fade(duration: 260.ms)
                   .slideX(begin: 0.05, end: 0),
         );

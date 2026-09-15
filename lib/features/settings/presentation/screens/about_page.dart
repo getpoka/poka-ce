@@ -13,17 +13,14 @@ import 'package:url_launcher/url_launcher.dart';
 
 /// About screen displaying app version, credits, and links to source code and legal documents.
 class AboutPage extends StatelessWidget {
-  const AboutPage({super.key});
+  const new({super.key});
 
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;
 
     return FScaffold(
-      header: PokaHeader(
-        title: t.settings.about,
-        showBack: true,
-      ),
+      header: PokaHeader(title: t.settings.about, showBack: true),
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -47,10 +44,7 @@ class AboutPage extends StatelessWidget {
                   const SizedBox(height: 12),
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                    decoration: BoxDecoration(
-                      color: theme.colors.muted,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
+                    decoration: BoxDecoration(color: theme.colors.muted, borderRadius: BorderRadius.circular(12)),
                     child: Text(
                       const String.fromEnvironment('APP_VERSION', defaultValue: 'dev-main'),
                       style: theme.typography.caption.copyWith(color: theme.colors.mutedForeground),
@@ -65,10 +59,7 @@ class AboutPage extends StatelessWidget {
                 Text(
                   t.settings.aboutDescription,
                   textAlign: TextAlign.center,
-                  style: theme.typography.bodyPrimary.copyWith(
-                    color: theme.colors.mutedForeground,
-                    height: 1.6,
-                  ),
+                  style: theme.typography.bodyPrimary.copyWith(color: theme.colors.mutedForeground, height: 1.6),
                 ),
                 const SizedBox(height: 32),
                 SettingsMenuSection(
@@ -125,9 +116,8 @@ class AboutPage extends StatelessWidget {
                           await LogExporter.exportLogs();
                         } on Exception catch (_) {
                           if (context.mounted) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text(t.settings.failedToExportLogs)),
-                            );
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(SnackBar(content: Text(t.settings.failedToExportLogs)));
                           }
                         }
                       },
@@ -138,9 +128,7 @@ class AboutPage extends StatelessWidget {
                 Text(
                   t.settings.copyright,
                   textAlign: TextAlign.center,
-                  style: theme.typography.bodySecondary.copyWith(
-                    color: theme.colors.mutedForeground,
-                  ),
+                  style: theme.typography.bodySecondary.copyWith(color: theme.colors.mutedForeground),
                 ),
                 const SizedBox(height: 32),
               ],

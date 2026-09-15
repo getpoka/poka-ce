@@ -88,9 +88,7 @@ final class CategoryMapProvider
 
   @$internal
   @override
-  $ProviderElement<Map<String, CategoryModel>> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
+  $ProviderElement<Map<String, CategoryModel>> $createElement($ProviderPointer pointer) => $ProviderElement(pointer);
 
   @override
   Map<String, CategoryModel> create(Ref ref) {
@@ -99,10 +97,7 @@ final class CategoryMapProvider
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(Map<String, CategoryModel> value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<Map<String, CategoryModel>>(value),
-    );
+    return $ProviderOverride(origin: this, providerOverride: $SyncValueProvider<Map<String, CategoryModel>>(value));
   }
 }
 

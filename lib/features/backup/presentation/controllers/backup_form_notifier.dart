@@ -7,11 +7,7 @@ part 'backup_form_notifier.g.dart';
 /// State representing validation errors and submission status for the backup password form.
 @freezed
 abstract class BackupFormState with _$BackupFormState {
-  const factory BackupFormState({
-    String? passwordError,
-    String? confirmError,
-    @Default(false) bool isSubmitting,
-  }) = _BackupFormState;
+  const factory({String? passwordError, String? confirmError, @Default(false) bool isSubmitting}) = _BackupFormState;
 }
 
 /// Notifier handling validation and submission logic for backup password sheets.

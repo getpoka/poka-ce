@@ -11,7 +11,7 @@ import 'package:poka_ce/features/budgets/domain/i_budget_repository.dart';
 /// Implementation of [IBudgetRepository] mapping Drift DAO data rows to pure Freezed domain models.
 class BudgetRepositoryImpl implements IBudgetRepository {
   /// Creates a [BudgetRepositoryImpl] backed by the provided [BudgetsDao].
-  BudgetRepositoryImpl(this._dao);
+  new(this._dao);
 
   final BudgetsDao _dao;
 

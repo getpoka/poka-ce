@@ -40,10 +40,7 @@ void main() {
       container: container,
       child: TranslationProvider(
         child: MaterialApp(
-          builder: (context, child) => FTheme(
-            data: lightTheme,
-            child: child!,
-          ),
+          builder: (context, child) => FTheme(data: lightTheme, child: child!),
           home: Scaffold(body: child),
         ),
       ),
@@ -66,11 +63,7 @@ void main() {
 
     setUp(() {
       fakeGoalNotifier = _FakeGoalNotifier();
-      container = ProviderContainer(
-        overrides: [
-          goalProvider.overrideWith(() => fakeGoalNotifier),
-        ],
-      );
+      container = ProviderContainer(overrides: [goalProvider.overrideWith(() => fakeGoalNotifier)]);
     });
 
     tearDown(() {
@@ -133,11 +126,7 @@ void main() {
 
     test('goalTransactions provider success', () async {
       final fakeTxRepo = _FakeTransactionRepo();
-      final c = ProviderContainer(
-        overrides: [
-          transactionRepositoryProvider.overrideWith((ref) => fakeTxRepo),
-        ],
-      );
+      final c = ProviderContainer(overrides: [transactionRepositoryProvider.overrideWith((ref) => fakeTxRepo)]);
       addTearDown(c.dispose);
 
       final sub = c.listen(goalTransactionsProvider(dummyGoal), (_, __) {});

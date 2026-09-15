@@ -32,7 +32,4 @@ Map<String, dynamic> _$CategoryModelToJson(_CategoryModel instance) => <String, 
   'isActive': instance.isActive,
 };
 
-const _$CategoryTypeEnumMap = {
-  CategoryType.income: 'income',
-  CategoryType.expense: 'expense',
-};
+const _$CategoryTypeEnumMap = {CategoryType.income: 'income', CategoryType.expense: 'expense'};

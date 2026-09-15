@@ -54,10 +54,7 @@ import 'package:forui/forui.dart';
 /// ```
 ///
 /// See https://forui.dev/docs/guides/customizing-themes for more information.
-FScaffoldStyle scaffoldStyle({
-  required FColors colors,
-  required FStyle style,
-}) => FScaffoldStyle(
+FScaffoldStyle scaffoldStyle({required FColors colors, required FStyle style}) => FScaffoldStyle(
   systemOverlayStyle: colors.systemOverlayStyle,
   backgroundColor: colors.background,
   sidebarBackgroundColor: colors.background,

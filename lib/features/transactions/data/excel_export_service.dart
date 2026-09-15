@@ -25,18 +25,14 @@ final excelExportServiceProvider = Provider<ExcelExportService>((ref) {
   final txRepo = ref.watch(transactionRepositoryProvider);
   final accRepo = ref.watch(accountRepositoryProvider);
   final catRepo = ref.watch(categoryRepositoryProvider);
-  return ExcelExportService(
-    transactionRepository: txRepo,
-    accountRepository: accRepo,
-    categoryRepository: catRepo,
-  );
+  return ExcelExportService(transactionRepository: txRepo, accountRepository: accRepo, categoryRepository: catRepo);
 });
 
 /// Service responsible for exporting transactions, accounts, and categories
 /// to a formatted multi-sheet Excel (.xlsx) file and sharing it natively.
 class ExcelExportService {
   /// Creates an [ExcelExportService].
-  const ExcelExportService({
+  const new({
     required this._transactionRepository,
     required this._accountRepository,
     required this._categoryRepository,
@@ -67,13 +63,9 @@ class ExcelExportService {
       }
       final categories = (catResult as Success<List<CategoryModel>, Failure>).value;
 
-      final accountsMap = <String, AccountModel>{
-        for (final acc in accounts) acc.id: acc,
-      };
+      final accountsMap = <String, AccountModel>{for (final acc in accounts) acc.id: acc};
 
-      final categoriesMap = <String, CategoryModel>{
-        for (final cat in categories) cat.id: cat,
-      };
+      final categoriesMap = <String, CategoryModel>{for (final cat in categories) cat.id: cat};
 
       final excel = Excel.createExcel();
 

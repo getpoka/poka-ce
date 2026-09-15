@@ -15,7 +15,7 @@ part 'category_form_notifier.g.dart';
 /// State representing the category form data, validation errors, and submission status.
 @freezed
 abstract class CategoryFormState with _$CategoryFormState {
-  const factory CategoryFormState({
+  const factory({
     CategoryModel? initialCategory,
     @Default('') String name,
     @Default(CategoryType.expense) CategoryType type,
@@ -40,12 +40,7 @@ class CategoryFormNotifier extends _$CategoryFormNotifier {
 
   /// Initializes the form with either an existing category (for editing)
   /// or default values (for creation).
-  void init(
-    CategoryModel? category, {
-    String? parentId,
-    CategoryType? type,
-    String? initialName,
-  }) {
+  void init(CategoryModel? category, {String? parentId, CategoryType? type, String? initialName}) {
     if (category != null) {
       state = CategoryFormState(
         initialCategory: category,
@@ -56,11 +51,7 @@ class CategoryFormNotifier extends _$CategoryFormNotifier {
         parentId: category.parentId,
       );
     } else {
-      state = CategoryFormState(
-        name: initialName ?? '',
-        parentId: parentId,
-        type: type ?? CategoryType.expense,
-      );
+      state = CategoryFormState(name: initialName ?? '', parentId: parentId, type: type ?? CategoryType.expense);
     }
   }
 
@@ -117,10 +108,7 @@ class CategoryFormNotifier extends _$CategoryFormNotifier {
         await ref.read(categoryListProvider.notifier).refresh();
         state = state.copyWith(isSaving: false, isSuccess: true);
       case ErrorResult(error: final failure):
-        state = state.copyWith(
-          error: failure.message,
-          isSaving: false,
-        );
+        state = state.copyWith(error: failure.message, isSaving: false);
     }
   }
 }

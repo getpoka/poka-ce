@@ -11,7 +11,7 @@ final settingsRepositoryProvider = Provider<SettingsRepository>((ref) {
 /// Repository responsible for persisting and retrieving user preferences and master currency catalogs.
 class SettingsRepository {
   /// Creates a [SettingsRepository] backed by the database [AppDatabase].
-  SettingsRepository(this._db);
+  new(this._db);
 
   final AppDatabase _db;
 
@@ -19,15 +19,7 @@ class SettingsRepository {
   Future<List<CurrencyModel>> getCurrencies() async {
     final rows = await _db.select(_db.currencies).get();
     return rows
-        .map(
-          (r) => CurrencyModel(
-            id: r.id,
-            name: r.name,
-            code: r.code,
-            symbol: r.symbol,
-            precision: r.precision,
-          ),
-        )
+        .map((r) => CurrencyModel(id: r.id, name: r.name, code: r.code, symbol: r.symbol, precision: r.precision))
         .toList();
   }
 
@@ -68,37 +60,25 @@ class SettingsRepository {
 
   /// Persists the selected UI theme mode ('light', 'dark', or 'system').
   Future<void> setThemeMode(String themeMode) async {
-    await _db
-        .into(_db.settings)
-        .insertOnConflictUpdate(
-          SettingsCompanion.insert(key: 'themeMode', value: themeMode),
-        );
+    await _db.into(_db.settings).insertOnConflictUpdate(SettingsCompanion.insert(key: 'themeMode', value: themeMode));
   }
 
   /// Persists the selected application locale code.
   Future<void> setLanguage(String language) async {
-    await _db
-        .into(_db.settings)
-        .insertOnConflictUpdate(
-          SettingsCompanion.insert(key: 'language', value: language),
-        );
+    await _db.into(_db.settings).insertOnConflictUpdate(SettingsCompanion.insert(key: 'language', value: language));
   }
 
   /// Persists the selected numerical formatting convention.
   Future<void> setNumberFormat(String numberFormat) async {
     await _db
         .into(_db.settings)
-        .insertOnConflictUpdate(
-          SettingsCompanion.insert(key: 'numberFormat', value: numberFormat),
-        );
+        .insertOnConflictUpdate(SettingsCompanion.insert(key: 'numberFormat', value: numberFormat));
   }
 
   /// Persists the primary base currency ID.
   Future<void> setBaseCurrency(String currencyId) async {
     await _db
         .into(_db.settings)
-        .insertOnConflictUpdate(
-          SettingsCompanion.insert(key: 'baseCurrencyId', value: currencyId),
-        );
+        .insertOnConflictUpdate(SettingsCompanion.insert(key: 'baseCurrencyId', value: currencyId));
   }
 }

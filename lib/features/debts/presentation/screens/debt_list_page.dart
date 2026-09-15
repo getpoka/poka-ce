@@ -10,17 +10,14 @@ import 'package:poka_ce/shared/widgets/poka_header.dart';
 
 /// Overview page listing all active and settled debts (borrowed) and loans (lent).
 class DebtListPage extends ConsumerWidget {
-  const DebtListPage({super.key});
+  const new({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final debtsAsync = ref.watch(debtListProvider);
 
     return FScaffold(
-      header: PokaHeader(
-        title: t.debts.debtsLoans,
-        showBack: true,
-      ),
+      header: PokaHeader(title: t.debts.debtsLoans, showBack: true),
       child: debtsAsync.when(
         data: (allDebts) {
           final iOweList = allDebts.where((d) => d.type == DebtType.debt).toList()
@@ -61,9 +58,7 @@ class DebtListPage extends ConsumerWidget {
         error: (error, _) => Center(
           child: Text(
             t.debts.failedToLoadDebts(error: error.toString()),
-            style: context.theme.typography.body.md.copyWith(
-              color: context.theme.colors.destructive,
-            ),
+            style: context.theme.typography.body.md.copyWith(color: context.theme.colors.destructive),
           ),
         ),
       ),

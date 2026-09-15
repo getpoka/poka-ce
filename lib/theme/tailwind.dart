@@ -7,7 +7,7 @@ import 'package:flutter/widgets.dart';
 /// Always use `context.theme.colors` instead. This file is intended strictly
 /// as a reference palette for configuring the core theme in `colors.dart`.
 class TWind {
-  TWind._();
+  new _();
 
   // Base
   static const Color transparent = Color(0x00000000);

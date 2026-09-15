@@ -121,10 +121,7 @@ void main() {
         createdAt: DateTime.utc(2024, 1, 1),
         updatedAt: DateTime.utc(2024, 1, 1),
       );
-      await expectLater(
-        container.read(goalProvider.notifier).updateGoal(goal),
-        completes,
-      );
+      await expectLater(container.read(goalProvider.notifier).updateGoal(goal), completes);
     });
   });
 

@@ -4,7 +4,7 @@ import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class PeriodSelector extends StatelessWidget {
-  const PeriodSelector({required this.selected, required this.onChanged, super.key});
+  const new({required this.selected, required this.onChanged, super.key});
 
   final BudgetPeriod selected;
   final ValueChanged<BudgetPeriod> onChanged;
@@ -24,9 +24,7 @@ class PeriodSelector extends StatelessWidget {
               decoration: BoxDecoration(
                 color: isSelected ? theme.colors.primary : Colors.transparent,
                 borderRadius: theme.style.borderRadius.sm,
-                border: Border.all(
-                  color: isSelected ? theme.colors.primary : theme.colors.border,
-                ),
+                border: Border.all(color: isSelected ? theme.colors.primary : theme.colors.border),
               ),
               child: Text(
                 _periodLabel(period),

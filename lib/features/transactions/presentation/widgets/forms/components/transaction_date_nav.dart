@@ -7,7 +7,7 @@ import 'package:forui/forui.dart';
 import 'package:forui_phosphor/forui_phosphor.dart';
 
 class TransactionDateNav extends StatelessWidget {
-  const TransactionDateNav({
+  const new({
     required this.selectedDate,
     required this.onStepDate,
     required this.onDateChanged,
@@ -26,11 +26,7 @@ class TransactionDateNav extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        TransactionNavArrow(
-          icon: FPhosphorIcons.caretLeft,
-          theme: theme,
-          onTap: () => onStepDate(-1),
-        ),
+        TransactionNavArrow(icon: FPhosphorIcons.caretLeft, theme: theme, onTap: () => onStepDate(-1)),
         const SizedBox(width: 4),
         Expanded(
           child: FDateField.calendar(
@@ -38,15 +34,7 @@ class TransactionDateNav extends StatelessWidget {
               value: selectedDate,
               onChange: (date) {
                 if (date == null) return;
-                onDateChanged(
-                  DateTime(
-                    date.year,
-                    date.month,
-                    date.day,
-                    selectedDate.hour,
-                    selectedDate.minute,
-                  ),
-                );
+                onDateChanged(DateTime(date.year, date.month, date.day, selectedDate.hour, selectedDate.minute));
               },
               toggleable: false,
             ),
@@ -60,13 +48,7 @@ class TransactionDateNav extends StatelessWidget {
               onChange: (time) {
                 if (time != null) {
                   onTimeChanged(
-                    DateTime(
-                      selectedDate.year,
-                      selectedDate.month,
-                      selectedDate.day,
-                      time.hour,
-                      time.minute,
-                    ),
+                    DateTime(selectedDate.year, selectedDate.month, selectedDate.day, time.hour, time.minute),
                   );
                 }
               },
@@ -74,23 +56,14 @@ class TransactionDateNav extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 4),
-        TransactionNavArrow(
-          icon: FPhosphorIcons.caretRight,
-          theme: theme,
-          onTap: () => onStepDate(1),
-        ),
+        TransactionNavArrow(icon: FPhosphorIcons.caretRight, theme: theme, onTap: () => onStepDate(1)),
       ],
     );
   }
 }
 
 class TransactionNavArrow extends StatelessWidget {
-  const TransactionNavArrow({
-    required this.icon,
-    required this.theme,
-    required this.onTap,
-    super.key,
-  });
+  const new({required this.icon, required this.theme, required this.onTap, super.key});
 
   final IconData icon;
   final FThemeData theme;

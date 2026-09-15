@@ -35,9 +35,7 @@ final class DashboardQuickActionsProvider
 
   @$internal
   @override
-  $ProviderElement<List<DashboardQuickAction>> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
+  $ProviderElement<List<DashboardQuickAction>> $createElement($ProviderPointer pointer) => $ProviderElement(pointer);
 
   @override
   List<DashboardQuickAction> create(Ref ref) {
@@ -46,10 +44,7 @@ final class DashboardQuickActionsProvider
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(List<DashboardQuickAction> value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<List<DashboardQuickAction>>(value),
-    );
+    return $ProviderOverride(origin: this, providerOverride: $SyncValueProvider<List<DashboardQuickAction>>(value));
   }
 }
 

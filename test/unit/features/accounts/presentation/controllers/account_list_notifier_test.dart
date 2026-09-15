@@ -38,9 +38,7 @@ void main() {
     return container;
   }
 
-  Stream<Result<List<AccountModel>, Failure>> resultStream(
-    Result<List<AccountModel>, Failure> result,
-  ) async* {
+  Stream<Result<List<AccountModel>, Failure>> resultStream(Result<List<AccountModel>, Failure> result) async* {
     yield result;
   }
 
@@ -102,11 +100,8 @@ void main() {
     });
 
     test('loads accounts error returns empty list', () async {
-      when(() => mockRepo.watchAccounts()).thenAnswer(
-        (_) => resultStream(
-          const ErrorResult<List<AccountModel>, Failure>(DatabaseFailure('db fail')),
-        ),
-      );
+      when(() => mockRepo.watchAccounts())
+          .thenAnswer((_) => resultStream(const ErrorResult<List<AccountModel>, Failure>(DatabaseFailure('db fail'))));
       final container = createContainer();
       await wait();
       final state = container.read(accountListProvider).value;
@@ -156,9 +151,8 @@ void main() {
 
     test('deactivateAccount failure does not throw', () async {
       when(() => mockRepo.watchAccounts()).thenAnswer((_) => resultStream(const Success([])));
-      when(() => mockRepo.deactivateAccount(any())).thenAnswer(
-        (_) async => const ErrorResult<void, Failure>(DatabaseFailure('fail')),
-      );
+      when(() => mockRepo.deactivateAccount(any()))
+          .thenAnswer((_) async => const ErrorResult<void, Failure>(DatabaseFailure('fail')));
       final container = createContainer();
       await wait();
       await container.read(accountListProvider.notifier).deactivateAccount('1');
@@ -217,9 +211,8 @@ void main() {
       final b = acc('a2', sort: 1, name: 'B');
       final c = acc('a3', sort: 2, name: 'C');
       when(() => mockRepo.watchAccounts()).thenAnswer((_) => resultStream(Success([a, b, c])));
-      when(
-        () => mockRepo.reorderAccounts(any(), any(), parentId: any(named: 'parentId')),
-      ).thenAnswer((_) async => const Success(null));
+      when(() => mockRepo.reorderAccounts(any(), any(), parentId: any(named: 'parentId')))
+          .thenAnswer((_) async => const Success(null));
       final container = createContainer();
       await wait();
 
@@ -236,9 +229,8 @@ void main() {
       final pocketA = acc('pk1', parentId: 'p0', sort: 0);
       final pocketB = acc('pk2', parentId: 'p0', sort: 1);
       when(() => mockRepo.watchAccounts()).thenAnswer((_) => resultStream(Success([parent, pocketA, pocketB])));
-      when(
-        () => mockRepo.reorderAccounts(any(), any(), parentId: any(named: 'parentId')),
-      ).thenAnswer((_) async => const Success(null));
+      when(() => mockRepo.reorderAccounts(any(), any(), parentId: any(named: 'parentId')))
+          .thenAnswer((_) async => const Success(null));
       final container = createContainer();
       await wait();
 
@@ -255,9 +247,8 @@ void main() {
       final a = acc('a1', sort: 0);
       final b = acc('a2', sort: 1);
       when(() => mockRepo.watchAccounts()).thenAnswer((_) => resultStream(Success([a, b])));
-      when(
-        () => mockRepo.reorderAccounts(any(), any(), parentId: any(named: 'parentId')),
-      ).thenAnswer((_) async => const ErrorResult<void, Failure>(DatabaseFailure('fail')));
+      when(() => mockRepo.reorderAccounts(any(), any(), parentId: any(named: 'parentId')))
+          .thenAnswer((_) async => const ErrorResult<void, Failure>(DatabaseFailure('fail')));
       final container = createContainer();
       await wait();
 
@@ -343,9 +334,8 @@ void main() {
         updatedAt: DateTime.utc(2024, 1, 1),
       );
       final txs = [tx('t1', 'a1'), tx('t2', 'a2', destination: 'a1'), tx('t3', 'a2')];
-      when(() => mockTxRepo.watchTransactions()).thenAnswer(
-        (_) => Stream.value(Success<List<TransactionModel>, Failure>(txs)).asBroadcastStream(),
-      );
+      when(() => mockTxRepo.watchTransactions())
+          .thenAnswer((_) => Stream.value(Success<List<TransactionModel>, Failure>(txs)).asBroadcastStream());
       final container = createContainer();
       container.listen(recentTransactionsStreamProvider, (_, __) {});
       await wait();

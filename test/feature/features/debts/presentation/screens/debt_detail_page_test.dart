@@ -89,10 +89,7 @@ void main() {
     updatedAt: DateTime(2026, 1, 1),
   );
 
-  Widget wrap({
-    required DebtModel activeDebt,
-    List<TransactionModel> transactions = const [],
-  }) {
+  Widget wrap({required DebtModel activeDebt, List<TransactionModel> transactions = const []}) {
     when(
       () => mockTxRepo.watchTransactions(
         startDate: any(named: 'startDate'),
@@ -103,9 +100,7 @@ void main() {
         debtIds: any(named: 'debtIds'),
         recurringIds: any(named: 'recurringIds'),
       ),
-    ).thenAnswer(
-      (_) => Stream.value(Success<List<TransactionModel>, Failure>(transactions)),
-    );
+    ).thenAnswer((_) => Stream.value(Success<List<TransactionModel>, Failure>(transactions)));
 
     return ProviderScope(
       overrides: [
@@ -164,9 +159,7 @@ void main() {
     });
 
     testWidgets('lists repayment transactions', (tester) async {
-      await tester.pumpWidget(
-        wrap(activeDebt: debt(), transactions: [tx()]),
-      );
+      await tester.pumpWidget(wrap(activeDebt: debt(), transactions: [tx()]));
       await tester.pumpAndSettle();
 
       expect(find.text(t.debts.noHistoryFoundForThis(type: t.debts.payable)), findsNothing);
@@ -174,9 +167,7 @@ void main() {
     });
 
     testWidgets('repayment transaction tile supports swipe to reveal edit and delete actions', (tester) async {
-      await tester.pumpWidget(
-        wrap(activeDebt: debt(), transactions: [tx()]),
-      );
+      await tester.pumpWidget(wrap(activeDebt: debt(), transactions: [tx()]));
       await tester.pumpAndSettle();
 
       final repaymentTile = find.byType(RecentTransactionTile).first;
@@ -191,9 +182,7 @@ void main() {
     });
 
     testWidgets('deleting repayment transaction prompts confirmation and deletes transaction', (tester) async {
-      await tester.pumpWidget(
-        wrap(activeDebt: debt(), transactions: [tx()]),
-      );
+      await tester.pumpWidget(wrap(activeDebt: debt(), transactions: [tx()]));
       await tester.pumpAndSettle();
 
       final repaymentTile = find.byType(RecentTransactionTile).first;

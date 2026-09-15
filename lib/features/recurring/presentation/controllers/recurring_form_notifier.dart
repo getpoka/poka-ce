@@ -14,7 +14,7 @@ part 'recurring_form_notifier.g.dart';
 
 @freezed
 abstract class RecurringFormState with _$RecurringFormState {
-  const factory RecurringFormState({
+  const factory({
     RecurringTransactionModel? initialRecurring,
     @Default(TransactionType.expense) TransactionType type,
     @Default(0) int amount,
@@ -133,10 +133,7 @@ class RecurringFormNotifier extends _$RecurringFormNotifier {
         await ref.read(recurringListProvider.notifier).refresh();
         state = state.copyWith(isSaving: false, isSuccess: true);
       case ErrorResult(error: final failure):
-        state = state.copyWith(
-          error: failure.message,
-          isSaving: false,
-        );
+        state = state.copyWith(error: failure.message, isSaving: false);
     }
   }
 }

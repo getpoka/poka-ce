@@ -50,25 +50,15 @@ Future<bool?> showPokaInsufficientBalanceDialog(
               // Title
               Text(
                 t.insufficientBalance,
-                style: typography.display.sm.copyWith(
-                  fontWeight: FontWeight.w700,
-                  color: colors.foreground,
-                ),
+                style: typography.display.sm.copyWith(fontWeight: FontWeight.w700, color: colors.foreground),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 8),
 
               // Body explanation
               Text(
-                t.insufficientBalanceWarning(
-                  amount: formattedAmount,
-                  account: accountName,
-                  balance: formattedBalance,
-                ),
-                style: typography.body.md.copyWith(
-                  color: colors.mutedForeground,
-                  height: 1.5,
-                ),
+                t.insufficientBalanceWarning(amount: formattedAmount, account: accountName, balance: formattedBalance),
+                style: typography.body.md.copyWith(color: colors.mutedForeground, height: 1.5),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 16),
@@ -76,10 +66,7 @@ Future<bool?> showPokaInsufficientBalanceDialog(
               // Note about negative balance
               Text(
                 t.insufficientBalanceConsequence,
-                style: typography.bodyPrimary.copyWith(
-                  color: colors.app.warning,
-                  fontWeight: FontWeight.w600,
-                ),
+                style: typography.bodyPrimary.copyWith(color: colors.app.warning, fontWeight: FontWeight.w600),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 24),
@@ -95,10 +82,7 @@ Future<bool?> showPokaInsufficientBalanceDialog(
                       onPress: () => Navigator.of(ctx).pop(false),
                       variant: FButtonVariant.outline,
                       child: Flexible(
-                        child: FittedBox(
-                          fit: BoxFit.scaleDown,
-                          child: Text(cancelText ?? t.checkAgain),
-                        ),
+                        child: FittedBox(fit: BoxFit.scaleDown, child: Text(cancelText ?? t.checkAgain)),
                       ),
                     ),
                   ),
@@ -107,10 +91,7 @@ Future<bool?> showPokaInsufficientBalanceDialog(
                     child: FButton(
                       onPress: () => Navigator.of(ctx).pop(true),
                       child: Flexible(
-                        child: FittedBox(
-                          fit: BoxFit.scaleDown,
-                          child: Text(confirmText ?? t.continueAnyway),
-                        ),
+                        child: FittedBox(fit: BoxFit.scaleDown, child: Text(confirmText ?? t.continueAnyway)),
                       ),
                     ),
                   ),

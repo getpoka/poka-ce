@@ -8,7 +8,7 @@ import 'package:poka_ce/shared/widgets/poka_amount_text.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class BudgetItemTile extends ConsumerWidget {
-  const BudgetItemTile({required this.budget, super.key});
+  const new({required this.budget, super.key});
   final BudgetModel budget;
 
   @override
@@ -79,7 +79,7 @@ class BudgetItemTile extends ConsumerWidget {
 }
 
 class _StatusChip extends StatelessWidget {
-  const _StatusChip({required this.label, required this.color});
+  const new({required this.label, required this.color});
   final String label;
   final Color color;
 
@@ -92,16 +92,13 @@ class _StatusChip extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: color.withValues(alpha: 0.3)),
       ),
-      child: Text(
-        label,
-        style: context.theme.typography.labelBadge.copyWith(color: color),
-      ),
+      child: Text(label, style: context.theme.typography.labelBadge.copyWith(color: color)),
     );
   }
 }
 
 class _ProgressBar extends StatelessWidget {
-  const _ProgressBar({required this.progress, required this.color});
+  const new({required this.progress, required this.color});
   final double progress;
   final Color color;
 
@@ -112,10 +109,7 @@ class _ProgressBar extends StatelessWidget {
       builder: (context, constraints) => Container(
         height: 5,
         width: constraints.maxWidth,
-        decoration: BoxDecoration(
-          color: theme.colors.muted,
-          borderRadius: BorderRadius.circular(3),
-        ),
+        decoration: BoxDecoration(color: theme.colors.muted, borderRadius: BorderRadius.circular(3)),
         child: Align(
           alignment: Alignment.centerLeft,
           child: TweenAnimationBuilder<double>(
@@ -125,10 +119,7 @@ class _ProgressBar extends StatelessWidget {
             builder: (_, value, _) => FractionallySizedBox(
               widthFactor: value,
               child: Container(
-                decoration: BoxDecoration(
-                  color: color,
-                  borderRadius: BorderRadius.circular(3),
-                ),
+                decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(3)),
               ),
             ),
           ),

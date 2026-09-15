@@ -2,13 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class PokaSheetHeader extends StatelessWidget {
-  const PokaSheetHeader({
-    required this.title,
-    this.leading,
-    this.trailing,
-    this.showCloseButton = true,
-    super.key,
-  });
+  const new({required this.title, this.leading, this.trailing, this.showCloseButton = true, super.key});
 
   final String title;
   final Widget? leading;
@@ -34,11 +28,7 @@ class PokaSheetHeader extends StatelessWidget {
       child: Stack(
         alignment: Alignment.center,
         children: [
-          Text(
-            title,
-            style: theme.typography.titleCard,
-            textAlign: TextAlign.center,
-          ),
+          Text(title, style: theme.typography.titleCard, textAlign: TextAlign.center),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

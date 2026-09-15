@@ -7,12 +7,7 @@ import 'package:intl/intl.dart';
 /// to fulfill Rule 1.
 class PokaDateTimeDisplay extends StatelessWidget {
   /// Creates a PokaDateTimeDisplay.
-  const PokaDateTimeDisplay({
-    required this.utcDateTime,
-    this.format = 'dd MMM yyyy, HH:mm',
-    this.style,
-    super.key,
-  });
+  const new({required this.utcDateTime, this.format = 'dd MMM yyyy, HH:mm', this.style, super.key});
 
   /// The UTC DateTime from the domain layer.
   final DateTime utcDateTime;
@@ -29,9 +24,6 @@ class PokaDateTimeDisplay extends StatelessWidget {
     final localDateTime = utcDateTime.toLocal();
     final formatter = DateFormat(format);
 
-    return Text(
-      formatter.format(localDateTime),
-      style: style ?? context.theme.typography.body.md,
-    );
+    return Text(formatter.format(localDateTime), style: style ?? context.theme.typography.body.md);
   }
 }

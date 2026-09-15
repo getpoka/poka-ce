@@ -19,7 +19,7 @@ import 'package:poka_ce/theme/theme.dart';
 /// )
 /// ```
 class PokaEmptyView extends StatelessWidget {
-  const PokaEmptyView({
+  const new({
     required this.icon,
     required this.title,
     this.subtitle,
@@ -77,11 +77,7 @@ class PokaEmptyView extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             // -- Icon well -------------------------------------------------------
-            PokaIcon(
-                  icon: icon,
-                  size: PokaIconSize.hero,
-                  shape: PokaIconShape.circle,
-                )
+            PokaIcon(icon: icon, size: PokaIconSize.hero, shape: PokaIconShape.circle)
                 .animate()
                 .fade(duration: 400.ms)
                 .scale(
@@ -119,11 +115,7 @@ class PokaEmptyView extends StatelessWidget {
                   onPress: onAction,
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const Icon(FPhosphorIcons.plus, size: 15),
-                      const SizedBox(width: 6),
-                      Text(actionLabel!),
-                    ],
+                    children: [const Icon(FPhosphorIcons.plus, size: 15), const SizedBox(width: 6), Text(actionLabel!)],
                   ),
                 ),
               ).animate().fade(duration: 300.ms, delay: 220.ms).slideY(begin: 0.06, end: 0),
@@ -141,7 +133,7 @@ class PokaEmptyView extends StatelessWidget {
 /// It uses a [GlobalKey] to measure its exact Y-coordinate and dynamically sets
 /// its height so that the [Center] widget places the content exactly at `screenHeight / 2`.
 class PokaEmptyViewCentered extends StatefulWidget {
-  const PokaEmptyViewCentered({
+  const new({
     required this.icon,
     required this.title,
     this.subtitle,
@@ -250,9 +242,7 @@ class _PokaEmptyViewCenteredState extends State<PokaEmptyViewCentered> {
       child: SizedBox(
         key: _key,
         height: height,
-        child: Center(
-          child: child,
-        ),
+        child: Center(child: child),
       ),
     );
   }

@@ -17,7 +17,7 @@ import 'package:poka_ce/theme/theme.dart';
 /// A list tile representing a category in a list view.
 /// Shows the icon, name, and an optional toggle switch or sub-categories.
 class CategoryTile extends ConsumerWidget with FTileMixin {
-  const CategoryTile({
+  const new({
     required this.category,
     this.childCount = 0,
     this.onEdit,
@@ -50,10 +50,7 @@ class CategoryTile extends ConsumerWidget with FTileMixin {
       categoryColor = theme.colors.primary;
     }
 
-    final cardContent = FCard(
-      clipBehavior: Clip.antiAlias,
-      child: _buildTileContent(context, theme, categoryColor),
-    );
+    final cardContent = FCard(clipBehavior: Clip.antiAlias, child: _buildTileContent(context, theme, categoryColor));
     return Slidable(
       key: ValueKey(category.id),
       startActionPane: ActionPane(
@@ -109,37 +106,21 @@ class CategoryTile extends ConsumerWidget with FTileMixin {
         behavior: HitTestBehavior.opaque,
         onTap: onPress,
         child: FTile(
-          prefix: PokaIcon(
-            icon: IconUtil.getIcon(category.icon),
-            color: categoryColor,
-          ),
-          title: Text(
-            category.name,
-            style: theme.typography.titleItem,
-          ),
+          prefix: PokaIcon(icon: IconUtil.getIcon(category.icon), color: categoryColor),
+          title: Text(category.name, style: theme.typography.titleItem),
           subtitle: childCount > 0
               ? Text(
                   t.categories.subcategoriesCount(count: childCount),
-                  style: theme.typography.bodySecondary.copyWith(
-                    color: theme.colors.mutedForeground,
-                  ),
+                  style: theme.typography.bodySecondary.copyWith(color: theme.colors.mutedForeground),
                 )
               : null,
           suffix: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              if (onToggleActive != null)
-                PokaSwitch(
-                  value: category.isActive,
-                  onChange: onToggleActive!,
-                ),
+              if (onToggleActive != null) PokaSwitch(value: category.isActive, onChange: onToggleActive!),
               if (onPress != null) ...[
                 if (onToggleActive != null) const SizedBox(width: 8),
-                Icon(
-                  FPhosphorIcons.caretRight,
-                  color: theme.colors.mutedForeground,
-                  size: 16,
-                ),
+                Icon(FPhosphorIcons.caretRight, color: theme.colors.mutedForeground, size: 16),
               ],
             ],
           ),

@@ -11,7 +11,7 @@ part 'goal_form_notifier.g.dart';
 /// Form state tracking inputs, target goals, validation status, and execution progress.
 class GoalFormState {
   /// Creates a [GoalFormState].
-  const GoalFormState({
+  const new({
     this.initialGoal,
     this.name = '',
     this.targetAmount = 0,
@@ -73,12 +73,7 @@ class GoalFormNotifier extends _$GoalFormNotifier {
   }
 
   /// Initializes the form with an existing [goal] or preset parameters.
-  void init(
-    GoalModel? goal, {
-    String? initialName,
-    int? initialTargetAmount,
-    DateTime? initialTargetDate,
-  }) {
+  void init(GoalModel? goal, {String? initialName, int? initialTargetAmount, DateTime? initialTargetDate}) {
     if (goal != null) {
       state = GoalFormState(
         initialGoal: goal,
@@ -155,10 +150,7 @@ class GoalFormNotifier extends _$GoalFormNotifier {
       case Success():
         state = state.copyWith(isSaving: false, isSuccess: true);
       case ErrorResult(error: final failure):
-        state = state.copyWith(
-          error: failure.message,
-          isSaving: false,
-        );
+        state = state.copyWith(error: failure.message, isSaving: false);
     }
   }
 }

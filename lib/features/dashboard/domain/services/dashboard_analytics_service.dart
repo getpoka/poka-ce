@@ -6,7 +6,7 @@ import 'package:poka_ce/features/transactions/domain/transaction_model.dart';
 /// Immutable data holder for categorized expense breakdowns on the dashboard.
 class CategoryExpenseItem {
   /// Creates a [CategoryExpenseItem].
-  CategoryExpenseItem(this.name, this.color, this.amount);
+  new(this.name, this.color, this.amount);
 
   /// Category name label.
   final String name;
@@ -20,18 +20,13 @@ class CategoryExpenseItem {
 
 /// Pure computation service calculating net worth, cash flows, and daily spending velocity for the dashboard.
 class DashboardAnalyticsService {
-  DashboardAnalyticsService._();
+  new _();
 
   /// Calculates global net worth, total positive assets, and liabilities across all active accounts.
   ///
   /// Note that `activeAccountCount` only counts top-level primary accounts (excluding pockets
   /// and virtual goal accounts), while monetary totals include all active accounts and sub-accounts.
-  static ({
-    double netWorth,
-    double totalAssets,
-    double totalLiabilities,
-    int activeAccountCount,
-  })
+  static ({double netWorth, double totalAssets, double totalLiabilities, int activeAccountCount})
   calculateAccountMetrics(List<AccountModel> accounts) {
     double netWorth = 0;
     double totalAssets = 0;
@@ -72,10 +67,7 @@ class DashboardAnalyticsService {
     double expenseDelta,
     double incomeDelta,
   })
-  calculateTransactionMetrics(
-    List<TransactionModel> transactions,
-    List<CategoryModel> categories,
-  ) {
+  calculateTransactionMetrics(List<TransactionModel> transactions, List<CategoryModel> categories) {
     double totalIncome = 0;
     double totalExpense = 0;
     final categorySums = <String, double>{};
@@ -124,11 +116,7 @@ class DashboardAnalyticsService {
 
     final categoryExpenses = categorySums.entries.map((e) {
       final cat = categoryMap[e.key];
-      return CategoryExpenseItem(
-        cat?.name ?? 'Unknown',
-        cat?.color ?? '#CCCCCC',
-        e.value,
-      );
+      return CategoryExpenseItem(cat?.name ?? 'Unknown', cat?.color ?? '#CCCCCC', e.value);
     }).toList()..sort((a, b) => b.amount.compareTo(a.amount));
 
     final spending = List<double>.filled(7, 0);

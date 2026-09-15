@@ -34,10 +34,7 @@ void main() {
       ],
       child: TranslationProvider(
         child: MaterialApp(
-          builder: (context, child) => FTheme(
-            data: lightTheme,
-            child: child!,
-          ),
+          builder: (context, child) => FTheme(data: lightTheme, child: child!),
           home: FScaffold(child: child),
         ),
       ),
@@ -47,13 +44,7 @@ void main() {
   group('TransactionSplitItemList', () {
     testWidgets('renders category name, amount, and note', (tester) async {
       final splits = [
-        const SplitItem(
-          id: '1',
-          amount: 50000,
-          categoryId: 'c1',
-          categoryName: 'Food',
-          note: 'Lunch with team',
-        ),
+        const SplitItem(id: '1', amount: 50000, categoryId: 'c1', categoryName: 'Food', note: 'Lunch with team'),
       ];
 
       await tester.pumpWidget(

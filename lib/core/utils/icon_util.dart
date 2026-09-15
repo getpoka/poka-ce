@@ -4,7 +4,7 @@ import 'package:forui_phosphor/forui_phosphor.dart';
 /// Represents a grouped collection of icons for selection in UI forms.
 class IconCategory {
   /// Creates an [IconCategory] with a display [name] and icon map [icons].
-  const IconCategory({required this.name, required this.icons});
+  const new({required this.name, required this.icons});
 
   final String name;
   final Map<String, IconData> icons;

@@ -46,10 +46,7 @@ final class TransactionFormNotifierProvider extends $NotifierProvider<Transactio
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(TransactionFormState value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<TransactionFormState>(value),
-    );
+    return $ProviderOverride(origin: this, providerOverride: $SyncValueProvider<TransactionFormState>(value));
   }
 
   @override

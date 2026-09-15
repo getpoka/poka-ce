@@ -41,7 +41,7 @@ extension TransactionAllocationExt on TransactionAllocation {
 }
 
 class TransactionCreateMetaBar extends StatelessWidget {
-  const TransactionCreateMetaBar({
+  const new({
     required this.note,
     required this.type,
     required this.typeColor,
@@ -102,10 +102,7 @@ class TransactionCreateMetaBar extends StatelessWidget {
             if (showAllocation && type == TransactionType.expense) ...[
               const SizedBox(width: 8),
               Flexible(
-                child: TransactionAllocationSelector(
-                  allocation: allocation,
-                  onChanged: onAllocationChanged,
-                ),
+                child: TransactionAllocationSelector(allocation: allocation, onChanged: onAllocationChanged),
               ),
             ] else ...[
               const SizedBox.shrink(),
@@ -118,11 +115,7 @@ class TransactionCreateMetaBar extends StatelessWidget {
 }
 
 class TransactionAllocationSelector extends StatelessWidget {
-  const TransactionAllocationSelector({
-    super.key,
-    this.allocation,
-    this.onChanged,
-  });
+  const new({super.key, this.allocation, this.onChanged});
 
   final TransactionAllocation? allocation;
   final ValueChanged<TransactionAllocation?>? onChanged;
@@ -148,25 +141,16 @@ class TransactionAllocationSelector extends StatelessWidget {
               },
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 200),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 4,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                 decoration: BoxDecoration(
                   color: isSel ? color.withValues(alpha: 0.15) : theme.colors.background,
                   borderRadius: theme.style.borderRadius.lg,
-                  border: Border.all(
-                    color: isSel ? color.withValues(alpha: 0.5) : theme.colors.border,
-                  ),
+                  border: Border.all(color: isSel ? color.withValues(alpha: 0.5) : theme.colors.border),
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(
-                      alloc.icon(),
-                      size: 16,
-                      color: isSel ? color : theme.colors.mutedForeground,
-                    ),
+                    Icon(alloc.icon(), size: 16, color: isSel ? color : theme.colors.mutedForeground),
                     const SizedBox(width: 4),
                     Text(
                       alloc.label(),

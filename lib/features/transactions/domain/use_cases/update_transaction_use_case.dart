@@ -13,7 +13,7 @@ import 'package:uuid/uuid.dart';
 /// Use case for updating an existing transaction and its child items.
 class UpdateTransactionUseCase {
   /// Creates an [UpdateTransactionUseCase] with the given [ITransactionRepository].
-  const UpdateTransactionUseCase(this._repository);
+  const new(this._repository);
 
   final ITransactionRepository _repository;
 

@@ -20,12 +20,7 @@ void main() {
           .into(db.accounts)
           .insert(AccountsCompanion.insert(id: const Value('acc1'), name: 'Goal Pocket', type: AccountType.goal));
       await db.goalsDao.insertGoal(
-        GoalsCompanion.insert(
-          id: const Value('g1'),
-          accountId: 'acc1',
-          name: 'Trip',
-          targetAmount: 1000000,
-        ),
+        GoalsCompanion.insert(id: const Value('g1'), accountId: 'acc1', name: 'Trip', targetAmount: 1000000),
       );
       final g = await db.goalsDao.getGoal('g1');
       expect(g, isNotNull);

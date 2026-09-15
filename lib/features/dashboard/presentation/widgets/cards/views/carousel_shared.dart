@@ -2,11 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class DonutChartPainter extends CustomPainter {
-  DonutChartPainter({
-    required this.proportions,
-    required this.colors,
-    this.strokeWidth = 12,
-  });
+  new({required this.proportions, required this.colors, this.strokeWidth = 12});
   final List<double> proportions;
   final List<Color> colors;
   final double strokeWidth;

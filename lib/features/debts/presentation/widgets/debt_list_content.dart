@@ -9,11 +9,7 @@ import 'package:poka_ce/shared/widgets/poka_section_label.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class DebtListContent extends StatelessWidget {
-  const DebtListContent({
-    required this.debts,
-    required this.isPayable,
-    super.key,
-  });
+  const new({required this.debts, required this.isPayable, super.key});
 
   final List<DebtModel> debts;
   final bool isPayable;
@@ -43,9 +39,7 @@ class DebtListContent extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            PokaSectionLabel(
-              title: isPayable ? t.debts.payable : t.debts.receivable,
-            ),
+            PokaSectionLabel(title: isPayable ? t.debts.payable : t.debts.receivable),
             Builder(
               builder: (context) => GestureDetector(
                 key: const Key('debt-add-button'),

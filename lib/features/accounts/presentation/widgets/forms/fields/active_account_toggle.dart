@@ -4,11 +4,7 @@ import 'package:poka_ce/shared/widgets/poka_switch.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class ActiveAccountToggle extends StatelessWidget {
-  const ActiveAccountToggle({
-    required this.isActive,
-    required this.onChanged,
-    super.key,
-  });
+  const new({required this.isActive, required this.onChanged, super.key});
 
   final bool isActive;
   final ValueChanged<bool> onChanged;
@@ -45,25 +41,17 @@ class ActiveAccountToggle extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  t.accounts.activeAccount,
-                  style: context.theme.typography.titleCard,
-                ),
+                Text(t.accounts.activeAccount, style: context.theme.typography.titleCard),
                 const SizedBox(height: 1),
                 Text(
                   t.accounts.inactiveAccountsWillBeHidden,
-                  style: context.theme.typography.bodySecondary.copyWith(
-                    color: context.theme.colors.mutedForeground,
-                  ),
+                  style: context.theme.typography.bodySecondary.copyWith(color: context.theme.colors.mutedForeground),
                 ),
               ],
             ),
           ),
           const SizedBox(width: 16),
-          PokaSwitch(
-            value: isActive,
-            onChange: onChanged,
-          ),
+          PokaSwitch(value: isActive, onChange: onChanged),
         ],
       ),
     );

@@ -109,9 +109,7 @@ void main() {
 
       await db
           .into(db.accountCategories)
-          .insert(
-            AccountCategoriesCompanion.insert(accountId: 'acc', categoryId: 'cat'),
-          );
+          .insert(AccountCategoriesCompanion.insert(accountId: 'acc', categoryId: 'cat'));
       final row = await db.select(db.accountCategories).getSingle();
 
       expect(row.accountId, 'acc');

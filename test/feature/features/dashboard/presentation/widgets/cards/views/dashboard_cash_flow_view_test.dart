@@ -26,9 +26,7 @@ void main() {
       child: TranslationProvider(
         child: MaterialApp(
           builder: (context, child) => FTheme(data: lightTheme, child: child!),
-          home: const Scaffold(
-            body: SingleChildScrollView(child: DashboardCashFlowView()),
-          ),
+          home: const Scaffold(body: SingleChildScrollView(child: DashboardCashFlowView())),
         ),
       ),
     );
@@ -87,14 +85,8 @@ void main() {
       // compact formats
       expect(find.textContaining('12.0M'), findsOneWidget);
       expect(find.textContaining('3.0M'), findsOneWidget);
-      expect(
-        find.byWidgetPredicate((w) => w is Icon && w.icon == FPhosphorIcons.arrowDownLeft),
-        findsOneWidget,
-      );
-      expect(
-        find.byWidgetPredicate((w) => w is Icon && w.icon == FPhosphorIcons.arrowUpRight),
-        findsOneWidget,
-      );
+      expect(find.byWidgetPredicate((w) => w is Icon && w.icon == FPhosphorIcons.arrowDownLeft), findsOneWidget);
+      expect(find.byWidgetPredicate((w) => w is Icon && w.icon == FPhosphorIcons.arrowUpRight), findsOneWidget);
     });
 
     testWidgets('saved 20% exactly shows On track', (tester) async {

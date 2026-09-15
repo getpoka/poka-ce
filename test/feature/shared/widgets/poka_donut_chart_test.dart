@@ -7,9 +7,7 @@ import 'package:poka_ce/theme/theme.dart';
 
 Widget wrap(Widget child) => MaterialApp(
   builder: (context, c) => FTheme(data: lightTheme, child: c!),
-  home: Scaffold(
-    body: Center(child: child),
-  ),
+  home: Scaffold(body: Center(child: child)),
 );
 
 void main() {
@@ -17,11 +15,7 @@ void main() {
 
   group('PokaDonutChart', () {
     testWidgets('renders fallback empty ring when sections is empty', (tester) async {
-      await tester.pumpWidget(
-        wrap(
-          const PokaDonutChart(sections: []),
-        ),
-      );
+      await tester.pumpWidget(wrap(const PokaDonutChart(sections: [])));
       await tester.pumpAndSettle();
 
       expect(find.byType(PieChart), findsOneWidget);
@@ -50,13 +44,7 @@ void main() {
 
     testWidgets('renders single section with sectionsSpace 0', (tester) async {
       await tester.pumpWidget(
-        wrap(
-          const PokaDonutChart(
-            sections: [
-              PokaDonutSection(value: 100, color: Colors.green),
-            ],
-          ),
-        ),
+        wrap(const PokaDonutChart(sections: [PokaDonutSection(value: 100, color: Colors.green)])),
       );
       await tester.pumpAndSettle();
 

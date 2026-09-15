@@ -17,11 +17,7 @@ void main() {
   });
 
   ProviderContainer makeContainer() {
-    final container = ProviderContainer(
-      overrides: [
-        settingsRepositoryProvider.overrideWithValue(mockRepo),
-      ],
-    );
+    final container = ProviderContainer(overrides: [settingsRepositoryProvider.overrideWithValue(mockRepo)]);
     container.listen(settingsProvider, (_, __) {});
     addTearDown(container.dispose);
     return container;
@@ -29,9 +25,7 @@ void main() {
 
   group('SettingsNotifier', () {
     test('initial state is loading then loads settings', () async {
-      when(() => mockRepo.getSettings()).thenAnswer(
-        (_) async => const SettingsModel(themeMode: 'dark'),
-      );
+      when(() => mockRepo.getSettings()).thenAnswer((_) async => const SettingsModel(themeMode: 'dark'));
       final container = makeContainer();
       // initial build is loading
       expect(container.read(settingsProvider).isLoading, true);
@@ -56,16 +50,12 @@ void main() {
     });
 
     test('setThemeMode success reloads', () async {
-      when(() => mockRepo.getSettings()).thenAnswer(
-        (_) async => const SettingsModel(themeMode: 'system'),
-      );
+      when(() => mockRepo.getSettings()).thenAnswer((_) async => const SettingsModel(themeMode: 'system'));
       when(() => mockRepo.setThemeMode(any())).thenAnswer((_) async {});
       final container = makeContainer();
       await Future.delayed(const Duration(milliseconds: 30));
       // second load after setThemeMode
-      when(() => mockRepo.getSettings()).thenAnswer(
-        (_) async => const SettingsModel(themeMode: 'dark'),
-      );
+      when(() => mockRepo.getSettings()).thenAnswer((_) async => const SettingsModel(themeMode: 'dark'));
       await container.read(settingsProvider.notifier).setThemeMode('dark');
       await Future.delayed(const Duration(milliseconds: 30));
       expect(container.read(settingsProvider).settings!.themeMode, 'dark');
@@ -134,14 +124,8 @@ void main() {
     });
 
     test('settingsProvider keeps state alive when watchers drop (keepAlive: true)', () async {
-      when(() => mockRepo.getSettings()).thenAnswer(
-        (_) async => const SettingsModel(themeMode: 'dark'),
-      );
-      final container = ProviderContainer(
-        overrides: [
-          settingsRepositoryProvider.overrideWithValue(mockRepo),
-        ],
-      );
+      when(() => mockRepo.getSettings()).thenAnswer((_) async => const SettingsModel(themeMode: 'dark'));
+      final container = ProviderContainer(overrides: [settingsRepositoryProvider.overrideWithValue(mockRepo)]);
       addTearDown(container.dispose);
 
       // Start listening

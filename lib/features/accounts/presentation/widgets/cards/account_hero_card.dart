@@ -11,7 +11,7 @@ import 'package:poka_ce/theme/theme.dart';
 // ─────────────────────────────────────────────────────────────────────────────
 
 class AccountHeroCard extends ConsumerWidget {
-  const AccountHeroCard({
+  const new({
     required this.account,
     required this.balance,
     required this.accentColor,
@@ -41,10 +41,7 @@ class AccountHeroCard extends ConsumerWidget {
         // Icon pill
         Container(
           padding: const EdgeInsets.all(6),
-          decoration: BoxDecoration(
-            color: Colors.white.withValues(alpha: 0.2),
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.2), shape: BoxShape.circle),
           child: Icon(accountIcon, color: Colors.white, size: 14),
         ),
         const SizedBox(width: 8),
@@ -57,9 +54,7 @@ class AccountHeroCard extends ConsumerWidget {
           ),
           child: Text(
             account.type.name.toUpperCase(),
-            style: theme.typography.labelBadge.copyWith(
-              color: Colors.white.withValues(alpha: 0.9),
-            ),
+            style: theme.typography.labelBadge.copyWith(color: Colors.white.withValues(alpha: 0.9)),
           ),
         ),
       ],
@@ -76,9 +71,7 @@ class AccountHeroCard extends ConsumerWidget {
         amount: balance,
         type: balance >= 0 ? TransactionType.income : TransactionType.expense,
         isObscured: !isVisible,
-        style: theme.typography.amountSection.copyWith(
-          color: Colors.white,
-        ),
+        style: theme.typography.amountSection.copyWith(color: Colors.white),
       ),
       leftSubAmount: PokaHeroCardSubAmount(
         label: t.accounts.pockets,

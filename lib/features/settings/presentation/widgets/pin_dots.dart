@@ -3,11 +3,7 @@ import 'package:forui/forui.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class PinDots extends StatelessWidget {
-  const PinDots({
-    required this.pinLength,
-    super.key,
-    this.maxLength = 6,
-  });
+  const new({required this.pinLength, super.key, this.maxLength = 6});
 
   final int pinLength;
   final int maxLength;

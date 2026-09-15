@@ -6,7 +6,7 @@ part 'debt_model.g.dart';
 
 @freezed
 abstract class DebtModel with _$DebtModel {
-  const factory DebtModel({
+  const factory({
     required String id,
     required String personName,
     required DebtType type,
@@ -19,5 +19,5 @@ abstract class DebtModel with _$DebtModel {
     String? note,
   }) = _DebtModel;
 
-  factory DebtModel.fromJson(Map<String, dynamic> json) => _$DebtModelFromJson(json);
+  factory fromJson(Map<String, dynamic> json) => _$DebtModelFromJson(json);
 }

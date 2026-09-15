@@ -48,13 +48,8 @@ void main() {
       ],
       child: TranslationProvider(
         child: MaterialApp(
-          builder: (context, child) => FTheme(
-            data: lightTheme,
-            child: child!,
-          ),
-          home: const Scaffold(
-            body: SingleChildScrollView(child: DashboardSpendingChart()),
-          ),
+          builder: (context, child) => FTheme(data: lightTheme, child: child!),
+          home: const Scaffold(body: SingleChildScrollView(child: DashboardSpendingChart())),
         ),
       ),
     );
@@ -137,12 +132,7 @@ void main() {
       addTearDown(() => tester.view.resetPhysicalSize());
 
       double? savedAmount;
-      await tester.pumpWidget(
-        createWidget(
-          dailyBudget: 0,
-          onSetBudget: (v) async => savedAmount = v,
-        ),
-      );
+      await tester.pumpWidget(createWidget(dailyBudget: 0, onSetBudget: (v) async => savedAmount = v));
       await tester.pump();
 
       // Tap on Not set to open modal
@@ -173,12 +163,7 @@ void main() {
       addTearDown(() => tester.view.resetPhysicalSize());
 
       bool called = false;
-      await tester.pumpWidget(
-        createWidget(
-          dailyBudget: 0,
-          onSetBudget: (v) async => called = true,
-        ),
-      );
+      await tester.pumpWidget(createWidget(dailyBudget: 0, onSetBudget: (v) async => called = true));
       await tester.pump();
 
       await tester.tap(find.text('Not set'));
@@ -199,12 +184,7 @@ void main() {
       addTearDown(() => tester.view.resetPhysicalSize());
 
       bool called = false;
-      await tester.pumpWidget(
-        createWidget(
-          dailyBudget: 2000,
-          onSetBudget: (v) async => called = true,
-        ),
-      );
+      await tester.pumpWidget(createWidget(dailyBudget: 2000, onSetBudget: (v) async => called = true));
       await tester.pump();
 
       // Find the budget text (formatted 2.0K)

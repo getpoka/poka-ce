@@ -48,10 +48,7 @@ final class AppLockSuppressionProvider extends $NotifierProvider<AppLockSuppress
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(bool value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<bool>(value),
-    );
+    return $ProviderOverride(origin: this, providerOverride: $SyncValueProvider<bool>(value));
   }
 }
 
@@ -114,10 +111,7 @@ final class AppLockControllerProvider extends $NotifierProvider<AppLockControlle
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(AppLockState value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<AppLockState>(value),
-    );
+    return $ProviderOverride(origin: this, providerOverride: $SyncValueProvider<AppLockState>(value));
   }
 }
 

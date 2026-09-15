@@ -4,7 +4,7 @@ import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class RecurringPeriodChip extends StatelessWidget {
-  const RecurringPeriodChip({required this.period, super.key});
+  const new({required this.period, super.key});
 
   final RecurringPeriod period;
 
@@ -20,10 +20,7 @@ class RecurringPeriodChip extends StatelessWidget {
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-      decoration: BoxDecoration(
-        color: theme.colors.muted,
-        borderRadius: theme.style.borderRadius.sm,
-      ),
+      decoration: BoxDecoration(color: theme.colors.muted, borderRadius: theme.style.borderRadius.sm),
       child: Text(
         label.toUpperCase(),
         style: theme.typography.labelBadge.copyWith(color: theme.colors.mutedForeground),

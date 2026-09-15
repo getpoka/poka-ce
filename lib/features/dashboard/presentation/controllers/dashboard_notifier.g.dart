@@ -33,10 +33,7 @@ final class DashboardNotifierProvider extends $NotifierProvider<DashboardNotifie
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(DashboardState value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<DashboardState>(value),
-    );
+    return $ProviderOverride(origin: this, providerOverride: $SyncValueProvider<DashboardState>(value));
   }
 }
 

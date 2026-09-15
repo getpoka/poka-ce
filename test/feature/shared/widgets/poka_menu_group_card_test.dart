@@ -51,9 +51,7 @@ void main() {
       // Container folds width/height into its constraints field, so match the
       // accent bar by its primary-colored BoxDecoration.
       final bars = tester.widgetList<Container>(
-        find.byWidgetPredicate(
-          (w) => w is Container && w.constraints?.minWidth == 3 && w.decoration is BoxDecoration,
-        ),
+        find.byWidgetPredicate((w) => w is Container && w.constraints?.minWidth == 3 && w.decoration is BoxDecoration),
       );
       expect(bars, isNotEmpty);
     });

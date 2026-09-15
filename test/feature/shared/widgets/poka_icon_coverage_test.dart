@@ -42,9 +42,7 @@ void main() {
     });
 
     testWidgets('circle shape uses BoxShape.circle and no borderRadius', (tester) async {
-      await tester.pumpWidget(
-        wrapIcon(const PokaIcon(icon: Icons.home, shape: PokaIconShape.circle)),
-      );
+      await tester.pumpWidget(wrapIcon(const PokaIcon(icon: Icons.home, shape: PokaIconShape.circle)));
       final container = tester.widget<Container>(find.byType(Container));
       final dec = container.decoration as BoxDecoration;
       expect(dec.shape, BoxShape.circle);
@@ -52,9 +50,7 @@ void main() {
     });
 
     testWidgets('square shape uses rectangle and borderRadius 10', (tester) async {
-      await tester.pumpWidget(
-        wrapIcon(const PokaIcon(icon: Icons.home, shape: PokaIconShape.square)),
-      );
+      await tester.pumpWidget(wrapIcon(const PokaIcon(icon: Icons.home, shape: PokaIconShape.square)));
       final container = tester.widget<Container>(find.byType(Container));
       final dec = container.decoration as BoxDecoration;
       expect(dec.shape, BoxShape.rectangle);
@@ -74,9 +70,7 @@ void main() {
 
     testWidgets('custom color is used for icon and background', (tester) async {
       const custom = Colors.red;
-      await tester.pumpWidget(
-        wrapIcon(const PokaIcon(icon: Icons.home, color: custom)),
-      );
+      await tester.pumpWidget(wrapIcon(const PokaIcon(icon: Icons.home, color: custom)));
       final phosphor = tester.widget<Icon>(find.byType(Icon));
       expect(phosphor.color, custom);
       final dec = tester.widget<Container>(find.byType(Container)).decoration as BoxDecoration;
@@ -84,18 +78,14 @@ void main() {
     });
 
     testWidgets('default hasBorder is false and gives no border', (tester) async {
-      await tester.pumpWidget(
-        wrapIcon(const PokaIcon(icon: Icons.home)),
-      );
+      await tester.pumpWidget(wrapIcon(const PokaIcon(icon: Icons.home)));
       final dec = tester.widget<Container>(find.byType(Container)).decoration as BoxDecoration;
       expect(dec.border, isNull);
     });
 
     testWidgets('hasBorder true gives border with effectiveColor alpha 0.25', (tester) async {
       const custom = Colors.blue;
-      await tester.pumpWidget(
-        wrapIcon(const PokaIcon(icon: Icons.home, color: custom, hasBorder: true)),
-      );
+      await tester.pumpWidget(wrapIcon(const PokaIcon(icon: Icons.home, color: custom, hasBorder: true)));
       final dec = tester.widget<Container>(find.byType(Container)).decoration as BoxDecoration;
       expect(dec.border, isNotNull);
       final border = dec.border as Border;
@@ -103,9 +93,7 @@ void main() {
     });
 
     testWidgets('useThemeBorderColor true uses theme border color', (tester) async {
-      await tester.pumpWidget(
-        wrapIcon(const PokaIcon(icon: Icons.home, useThemeBorderColor: true, hasBorder: true)),
-      );
+      await tester.pumpWidget(wrapIcon(const PokaIcon(icon: Icons.home, useThemeBorderColor: true, hasBorder: true)));
       final dec = tester.widget<Container>(find.byType(Container)).decoration as BoxDecoration;
       expect(dec.border, isNotNull);
       final border = dec.border as Border;
@@ -123,11 +111,7 @@ void main() {
     });
 
     testWidgets('useThemeBorderColor true with hasBorder false still no border', (tester) async {
-      await tester.pumpWidget(
-        wrapIcon(
-          const PokaIcon(icon: Icons.home, useThemeBorderColor: true, hasBorder: false),
-        ),
-      );
+      await tester.pumpWidget(wrapIcon(const PokaIcon(icon: Icons.home, useThemeBorderColor: true, hasBorder: false)));
       final dec = tester.widget<Container>(find.byType(Container)).decoration as BoxDecoration;
       expect(dec.border, isNull);
     });
@@ -135,9 +119,7 @@ void main() {
     testWidgets('all shape and size combos render without error', (tester) async {
       for (final shape in PokaIconShape.values) {
         for (final size in PokaIconSize.values) {
-          await tester.pumpWidget(
-            wrapIcon(PokaIcon(icon: Icons.star, shape: shape, size: size)),
-          );
+          await tester.pumpWidget(wrapIcon(PokaIcon(icon: Icons.star, shape: shape, size: size)));
           expect(find.byType(Icon), findsOneWidget);
           expect(find.byType(Container), findsOneWidget);
         }

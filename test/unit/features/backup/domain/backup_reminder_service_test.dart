@@ -28,10 +28,7 @@ void main() {
       ),
     ).thenAnswer((_) async {});
 
-    reminderService = BackupReminderService(
-      prefs: prefsService,
-      notificationService: mockNotificationService,
-    );
+    reminderService = BackupReminderService(prefs: prefsService, notificationService: mockNotificationService);
   });
 
   group('BackupReminderService', () {

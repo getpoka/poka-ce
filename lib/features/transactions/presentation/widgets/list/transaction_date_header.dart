@@ -6,7 +6,7 @@ import 'package:poka_ce/theme/theme.dart';
 
 /// Compact section header showing the date and daily income/expense totals.
 class TransactionDateHeader extends StatelessWidget {
-  const TransactionDateHeader({
+  const new({
     required this.dateStr,
     required this.income,
     required this.expense,
@@ -39,10 +39,7 @@ class TransactionDateHeader extends StatelessWidget {
             margin: const EdgeInsets.only(top: 2),
             width: 4,
             height: 16,
-            decoration: BoxDecoration(
-              color: theme.colors.primary,
-              borderRadius: theme.style.borderRadius.xs,
-            ),
+            decoration: BoxDecoration(color: theme.colors.primary, borderRadius: theme.style.borderRadius.xs),
           ),
           const SizedBox(width: 8),
           Expanded(
@@ -51,28 +48,19 @@ class TransactionDateHeader extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Text(
-                      dateStr,
-                      style: theme.typography.titleItem,
-                    ),
+                    Text(dateStr, style: theme.typography.titleItem),
                     const SizedBox(width: 4),
                     AnimatedRotation(
                       turns: isExpanded ? 0 : -0.25,
                       duration: const Duration(milliseconds: 200),
                       curve: Curves.easeInOut,
-                      child: Icon(
-                        FPhosphorIcons.caretDown,
-                        size: 13,
-                        color: theme.colors.mutedForeground,
-                      ),
+                      child: Icon(FPhosphorIcons.caretDown, size: 13, color: theme.colors.mutedForeground),
                     ),
                     if (!isExpanded && itemCount > 0) ...[
                       const SizedBox(width: 6),
                       Text(
                         '•  ${t.transactions.itemsCount(count: itemCount)}',
-                        style: theme.typography.caption.copyWith(
-                          color: theme.colors.mutedForeground,
-                        ),
+                        style: theme.typography.caption.copyWith(color: theme.colors.mutedForeground),
                       ),
                     ],
                   ],
@@ -84,9 +72,7 @@ class TransactionDateHeader extends StatelessWidget {
                       if (income > 0) ...[
                         Text(
                           t.transactions.incoming,
-                          style: theme.typography.labelBadge.copyWith(
-                            color: theme.colors.app.income,
-                          ),
+                          style: theme.typography.labelBadge.copyWith(color: theme.colors.app.income),
                         ),
                         PokaAmountText(
                           amount: income,
@@ -98,9 +84,7 @@ class TransactionDateHeader extends StatelessWidget {
                       if (expense > 0) ...[
                         Text(
                           t.transactions.out,
-                          style: theme.typography.labelBadge.copyWith(
-                            color: theme.colors.app.expense,
-                          ),
+                          style: theme.typography.labelBadge.copyWith(color: theme.colors.app.expense),
                         ),
                         PokaAmountText(
                           amount: expense,
@@ -110,17 +94,9 @@ class TransactionDateHeader extends StatelessWidget {
                       ],
                       const Spacer(),
                       if (total != 0) ...[
-                        Icon(
-                          FPhosphorIcons.sigma,
-                          size: 12,
-                          color: theme.colors.mutedForeground,
-                        ),
+                        Icon(FPhosphorIcons.sigma, size: 12, color: theme.colors.mutedForeground),
                         const SizedBox(width: 4),
-                        PokaAmountText(
-                          amount: total.abs(),
-                          type: totalType,
-                          style: theme.typography.amountTile,
-                        ),
+                        PokaAmountText(amount: total.abs(), type: totalType, style: theme.typography.amountTile),
                       ],
                     ],
                   ),

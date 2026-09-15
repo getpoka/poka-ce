@@ -16,11 +16,7 @@ class MockRecurringListNotifier extends RecurringListNotifier {
 
   @override
   RecurringListState build() {
-    return RecurringListState(
-      recurrings: _initialRecurrings,
-      isLoading: _loading,
-      error: null,
-    );
+    return RecurringListState(recurrings: _initialRecurrings, isLoading: _loading, error: null);
   }
 }
 
@@ -30,18 +26,14 @@ void main() {
       container: container,
       child: FTheme(
         data: lightTheme,
-        child: const MaterialApp(
-          home: Scaffold(body: RecurringListPage()),
-        ),
+        child: const MaterialApp(home: Scaffold(body: RecurringListPage())),
       ),
     );
   }
 
   testWidgets('RecurringListPage shows loading indicator when loading', (tester) async {
     final container = ProviderContainer(
-      overrides: [
-        recurringListProvider.overrideWith(() => MockRecurringListNotifier([], true)),
-      ],
+      overrides: [recurringListProvider.overrideWith(() => MockRecurringListNotifier([], true))],
     );
     await tester.pumpWidget(buildTestApp(container));
     await tester.pump();
@@ -50,9 +42,7 @@ void main() {
 
   testWidgets('RecurringListPage shows empty state', (tester) async {
     final container = ProviderContainer(
-      overrides: [
-        recurringListProvider.overrideWith(() => MockRecurringListNotifier([], false)),
-      ],
+      overrides: [recurringListProvider.overrideWith(() => MockRecurringListNotifier([], false))],
     );
     await tester.pumpWidget(buildTestApp(container));
     await tester.pumpAndSettle();

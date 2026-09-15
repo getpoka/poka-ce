@@ -6,13 +6,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:poka_ce/shared/widgets/poka_icon.dart';
 
 class PokaSlidableAction extends StatelessWidget {
-  const PokaSlidableAction({
-    required this.icon,
-    required this.color,
-    required this.onPressed,
-    this.isDestructive = false,
-    super.key,
-  });
+  const new({required this.icon, required this.color, required this.onPressed, this.isDestructive = false, super.key});
 
   final IconData icon;
   final Color color;
@@ -23,18 +17,12 @@ class PokaSlidableAction extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomSlidableAction(
       onPressed: (ctx) {
-        unawaited(
-          isDestructive ? HapticFeedback.mediumImpact() : HapticFeedback.lightImpact(),
-        );
+        unawaited(isDestructive ? HapticFeedback.mediumImpact() : HapticFeedback.lightImpact());
         onPressed();
       },
       backgroundColor: Colors.transparent,
       foregroundColor: color,
-      child: PokaIcon(
-        icon: icon,
-        color: color,
-        size: PokaIconSize.small,
-      ),
+      child: PokaIcon(icon: icon, color: color, size: PokaIconSize.small),
     );
   }
 }

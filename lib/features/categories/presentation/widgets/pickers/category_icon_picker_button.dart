@@ -9,12 +9,7 @@ import 'package:poka_ce/shared/widgets/sheets/poka_sheet.dart';
 
 /// A button widget for opening an icon picker to select an icon for a category.
 class CategoryIconPickerButton extends StatelessWidget {
-  const CategoryIconPickerButton({
-    required this.selectedIcon,
-    required this.selectedColor,
-    required this.onIconSelected,
-    super.key,
-  });
+  const new({required this.selectedIcon, required this.selectedColor, required this.onIconSelected, super.key});
 
   final String? selectedIcon;
   final String? selectedColor;
@@ -51,13 +46,7 @@ class CategoryIconPickerButton extends StatelessWidget {
         child: Stack(
           clipBehavior: Clip.none,
           children: [
-            Center(
-              child: Icon(
-                IconUtil.getIcon(selectedIcon),
-                size: 40,
-                color: color,
-              ),
-            ),
+            Center(child: Icon(IconUtil.getIcon(selectedIcon), size: 40, color: color)),
             Positioned(
               bottom: -4,
               right: -4,
@@ -68,11 +57,7 @@ class CategoryIconPickerButton extends StatelessWidget {
                   shape: BoxShape.circle,
                   border: Border.all(color: context.theme.colors.border),
                 ),
-                child: Icon(
-                  FPhosphorIcons.pencilSimple,
-                  size: 16,
-                  color: context.theme.colors.foreground,
-                ),
+                child: Icon(FPhosphorIcons.pencilSimple, size: 16, color: context.theme.colors.foreground),
               ),
             ),
           ],

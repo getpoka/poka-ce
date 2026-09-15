@@ -17,7 +17,7 @@ import 'package:poka_ce/theme/theme.dart';
 
 /// Detail page presenting the balance overview, child pockets, and transaction activity for a single account.
 class AccountDetailPage extends HookConsumerWidget {
-  const AccountDetailPage({required this.accountId, super.key});
+  const new({required this.accountId, super.key});
 
   final String accountId;
 
@@ -58,11 +58,10 @@ class AccountDetailPage extends HookConsumerWidget {
           if (account.type == AccountType.goal && linkedGoal != null)
             FHeaderAction(
               icon: const Icon(FPhosphorIcons.target, size: 20),
-              onPress: () => Navigator.of(context, rootNavigator: true).push(
-                MaterialPageRoute<void>(
-                  builder: (_) => GoalDetailPage(id: linkedGoal.id),
-                ),
-              ),
+              onPress: () => Navigator.of(
+                context,
+                rootNavigator: true,
+              ).push(MaterialPageRoute<void>(builder: (_) => GoalDetailPage(id: linkedGoal.id))),
             ),
         ],
       ),
@@ -84,11 +83,7 @@ class AccountDetailPage extends HookConsumerWidget {
             const SizedBox(height: 20),
 
             if (account.type != AccountType.goal) ...[
-              AccountPocketsSection(
-                accountId: accountId,
-                pockets: pockets,
-                totalBalance: totalBalance,
-              ),
+              AccountPocketsSection(accountId: accountId, pockets: pockets, totalBalance: totalBalance),
               const SizedBox(height: 20),
             ],
 

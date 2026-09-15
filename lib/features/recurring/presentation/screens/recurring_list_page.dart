@@ -21,17 +21,14 @@ import 'package:poka_ce/theme/theme.dart';
 
 /// Main page that lists all recurring transactions.
 class RecurringListPage extends ConsumerWidget {
-  const RecurringListPage({super.key});
+  const new({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(recurringListProvider);
 
     return FScaffold(
-      header: PokaHeader(
-        title: t.recurring.recurring,
-        showBack: true,
-      ),
+      header: PokaHeader(title: t.recurring.recurring, showBack: true),
       child: state.isLoading && state.recurrings.isEmpty
           ? const Center(child: FCircularProgress())
           : state.recurrings.isEmpty
@@ -58,10 +55,7 @@ class RecurringListPage extends ConsumerWidget {
 // ─────────────────────────────────────────────────────────────────────────────
 
 class _RecurringContent extends StatelessWidget {
-  const _RecurringContent({
-    required this.recurrings,
-    required this.onRefresh,
-  });
+  const new({required this.recurrings, required this.onRefresh});
 
   final List<RecurringTransactionModel> recurrings;
   final Future<void> Function() onRefresh;
@@ -91,11 +85,7 @@ class _RecurringContent extends StatelessWidget {
                     onTap: () => RecurringFormSheet.show(context),
                     child: Row(
                       children: [
-                        Icon(
-                          FPhosphorIcons.plus,
-                          size: 14,
-                          color: context.theme.colors.primary,
-                        ),
+                        Icon(FPhosphorIcons.plus, size: 14, color: context.theme.colors.primary),
                         const SizedBox(width: 4),
                         Text(
                           t.recurring.addSchedule,

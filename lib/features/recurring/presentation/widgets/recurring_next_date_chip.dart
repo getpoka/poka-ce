@@ -4,7 +4,7 @@ import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class RecurringNextDateChip extends StatelessWidget {
-  const RecurringNextDateChip({required this.nextDate, super.key});
+  const new({required this.nextDate, super.key});
 
   final DateTime nextDate;
 
@@ -42,10 +42,7 @@ class RecurringNextDateChip extends StatelessWidget {
         children: [
           Icon(FPhosphorIcons.calendarBlank, size: 9, color: color),
           const SizedBox(width: 3),
-          Text(
-            label.toUpperCase(),
-            style: theme.typography.labelBadge.copyWith(color: color),
-          ),
+          Text(label.toUpperCase(), style: theme.typography.labelBadge.copyWith(color: color)),
         ],
       ),
     );

@@ -7,11 +7,7 @@ import 'package:poka_ce/shared/widgets/poka_icon.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class AccountTile extends StatelessWidget with FTileMixin {
-  const AccountTile({
-    required this.account,
-    this.pocketCount = 0,
-    super.key,
-  });
+  const new({required this.account, this.pocketCount = 0, super.key});
 
   final AccountModel account;
   final int pocketCount;
@@ -32,29 +28,15 @@ class AccountTile extends StatelessWidget with FTileMixin {
       child: DecoratedBox(
         position: DecorationPosition.foreground,
         decoration: BoxDecoration(
-          border: Border(
-            bottom: BorderSide(
-              color: theme.colors.border,
-            ),
-          ),
+          border: Border(bottom: BorderSide(color: theme.colors.border)),
         ),
         child: FTile(
-          prefix: PokaIcon(
-            icon: IconUtil.getIcon(account.icon),
-            color: accountColor,
-          ),
-          title: Text(
-            account.name,
-            style: theme.typography.body.lg.copyWith(
-              fontWeight: FontWeight.w600,
-            ),
-          ),
+          prefix: PokaIcon(icon: IconUtil.getIcon(account.icon), color: accountColor),
+          title: Text(account.name, style: theme.typography.body.lg.copyWith(fontWeight: FontWeight.w600)),
           subtitle: pocketCount > 0
               ? Text(
                   t.accounts.pocketsCount(count: pocketCount),
-                  style: theme.typography.bodyPrimary.copyWith(
-                    color: theme.colors.mutedForeground,
-                  ),
+                  style: theme.typography.bodyPrimary.copyWith(color: theme.colors.mutedForeground),
                 )
               : null,
         ),

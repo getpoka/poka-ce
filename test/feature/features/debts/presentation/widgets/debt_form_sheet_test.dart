@@ -96,9 +96,7 @@ void main() {
         dashboardProvider.overrideWith(
           () => _FakeDashboardNotifier(DashboardState(accounts: sampleAccounts(), isLoading: false)),
         ),
-        categoryListProvider.overrideWith(
-          () => _FakeCategoryNotifier(sampleCategories()),
-        ),
+        categoryListProvider.overrideWith(() => _FakeCategoryNotifier(sampleCategories())),
       ],
       child: TranslationProvider(
         child: MaterialApp(
@@ -121,9 +119,7 @@ void main() {
         dashboardProvider.overrideWith(
           () => _FakeDashboardNotifier(DashboardState(accounts: sampleAccounts(), isLoading: false)),
         ),
-        categoryListProvider.overrideWith(
-          () => _FakeCategoryNotifier(sampleCategories()),
-        ),
+        categoryListProvider.overrideWith(() => _FakeCategoryNotifier(sampleCategories())),
         debtFormProvider.overrideWith(() => _FakeDebtFormNotifier(state)),
       ],
       child: TranslationProvider(
@@ -227,9 +223,7 @@ void main() {
     });
 
     test('save create success calls repository with account and category', () async {
-      final container = ProviderContainer(
-        overrides: [debtRepositoryProvider.overrideWithValue(mockDebtRepo)],
-      );
+      final container = ProviderContainer(overrides: [debtRepositoryProvider.overrideWithValue(mockDebtRepo)]);
       addTearDown(container.dispose);
       final notifier = container.read(debtFormProvider.notifier);
       notifier.setPersonName('Charlie');
@@ -243,9 +237,7 @@ void main() {
 
     test('save update success calls updateDebt', () async {
       final debt = sampleDebt();
-      final container = ProviderContainer(
-        overrides: [debtRepositoryProvider.overrideWithValue(mockDebtRepo)],
-      );
+      final container = ProviderContainer(overrides: [debtRepositoryProvider.overrideWithValue(mockDebtRepo)]);
       addTearDown(container.dispose);
       final notifier = container.read(debtFormProvider.notifier);
       notifier.init(debt);
@@ -325,19 +317,14 @@ void main() {
             dashboardProvider.overrideWith(
               () => _FakeDashboardNotifier(DashboardState(accounts: sampleAccounts(), isLoading: false)),
             ),
-            categoryListProvider.overrideWith(
-              () => _FakeCategoryNotifier(sampleCategories()),
-            ),
+            categoryListProvider.overrideWith(() => _FakeCategoryNotifier(sampleCategories())),
           ],
           child: TranslationProvider(
             child: MaterialApp(
               builder: (context, child) => FTheme(data: lightTheme, child: child!),
               home: Builder(
                 builder: (context) => Scaffold(
-                  body: ElevatedButton(
-                    onPressed: () => DebtFormSheet.show(context),
-                    child: const Text('OpenDebt'),
-                  ),
+                  body: ElevatedButton(onPressed: () => DebtFormSheet.show(context), child: const Text('OpenDebt')),
                 ),
               ),
             ),
@@ -358,9 +345,7 @@ void main() {
             dashboardProvider.overrideWith(
               () => _FakeDashboardNotifier(DashboardState(accounts: sampleAccounts(), isLoading: false)),
             ),
-            categoryListProvider.overrideWith(
-              () => _FakeCategoryNotifier(sampleCategories()),
-            ),
+            categoryListProvider.overrideWith(() => _FakeCategoryNotifier(sampleCategories())),
           ],
           child: TranslationProvider(
             child: MaterialApp(

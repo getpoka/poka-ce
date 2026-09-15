@@ -61,16 +61,12 @@ void main() {
       addTearDown(container.dispose);
       expect(
         () => container.read(sharedPreferencesProvider),
-        throwsA(
-          predicate((e) => e.toString().contains('UnimplementedError')),
-        ),
+        throwsA(predicate((e) => e.toString().contains('UnimplementedError'))),
       );
     });
 
     test('preferencesServiceProvider builds from overridden prefs', () {
-      final container = ProviderContainer(
-        overrides: [sharedPreferencesProvider.overrideWithValue(mockPrefs)],
-      );
+      final container = ProviderContainer(overrides: [sharedPreferencesProvider.overrideWithValue(mockPrefs)]);
       addTearDown(container.dispose);
       final resolved = container.read(preferencesServiceProvider);
       expect(resolved, isA<PreferencesService>());

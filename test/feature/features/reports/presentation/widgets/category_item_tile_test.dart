@@ -12,15 +12,9 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   setUpAll(() => LocaleSettings.setLocaleSync(AppLocale.en));
 
-  Widget wrap(
-    ReportCategoryItem item, {
-    bool? isVisible,
-    bool isBalanceVisible = true,
-  }) {
+  Widget wrap(ReportCategoryItem item, {bool? isVisible, bool isBalanceVisible = true}) {
     return ProviderScope(
-      overrides: [
-        balanceVisibilityProvider.overrideWithValue(isBalanceVisible),
-      ],
+      overrides: [balanceVisibilityProvider.overrideWithValue(isBalanceVisible)],
       child: TranslationProvider(
         child: MaterialApp(
           builder: (context, child) => FTheme(data: lightTheme, child: child!),
@@ -37,13 +31,7 @@ void main() {
 
   group('CategoryItemTile', () {
     testWidgets('renders rank, name, amount and ratio', (tester) async {
-      final item = ReportCategoryItem(
-        name: 'Food',
-        color: '#FF0000',
-        amount: 1500,
-        ratio: 0.5,
-        txCount: 3,
-      );
+      final item = ReportCategoryItem(name: 'Food', color: '#FF0000', amount: 1500, ratio: 0.5, txCount: 3);
       await tester.pumpWidget(wrap(item));
 
       expect(find.text('1'), findsOneWidget);
@@ -53,13 +41,7 @@ void main() {
     });
 
     testWidgets('obscures amount when balance visibility is false', (tester) async {
-      final item = ReportCategoryItem(
-        name: 'Food',
-        color: '#FF0000',
-        amount: 1500,
-        ratio: 0.5,
-        txCount: 3,
-      );
+      final item = ReportCategoryItem(name: 'Food', color: '#FF0000', amount: 1500, ratio: 0.5, txCount: 3);
       await tester.pumpWidget(wrap(item, isBalanceVisible: false));
 
       expect(find.text('••••••'), findsOneWidget);
@@ -67,13 +49,7 @@ void main() {
     });
 
     testWidgets('respects explicit isVisible override parameter', (tester) async {
-      final item = ReportCategoryItem(
-        name: 'Food',
-        color: '#FF0000',
-        amount: 1500,
-        ratio: 0.5,
-        txCount: 3,
-      );
+      final item = ReportCategoryItem(name: 'Food', color: '#FF0000', amount: 1500, ratio: 0.5, txCount: 3);
       await tester.pumpWidget(wrap(item, isVisible: false));
 
       expect(find.text('••••••'), findsOneWidget);
@@ -81,13 +57,7 @@ void main() {
     });
 
     testWidgets('falls back to theme color for invalid hex', (tester) async {
-      final item = ReportCategoryItem(
-        name: 'Broken',
-        color: 'oops',
-        amount: 100,
-        ratio: 1.0,
-        txCount: 1,
-      );
+      final item = ReportCategoryItem(name: 'Broken', color: 'oops', amount: 100, ratio: 1.0, txCount: 1);
       await tester.pumpWidget(wrap(item));
 
       expect(find.text('Broken'), findsOneWidget);

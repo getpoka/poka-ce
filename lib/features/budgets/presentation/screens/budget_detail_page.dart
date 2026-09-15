@@ -74,11 +74,7 @@ final budgetTransactionsProvider = StreamProvider.autoDispose.family<List<Transa
 
 /// Detail screen displaying budget progress, remaining quota, threshold status, and matched expense line items.
 class BudgetDetailPage extends ConsumerWidget {
-  const BudgetDetailPage({
-    required this.id,
-    this.budget,
-    super.key,
-  });
+  const new({required this.id, this.budget, super.key});
 
   final String id;
   final BudgetModel? budget;
@@ -101,10 +97,7 @@ class BudgetDetailPage extends ConsumerWidget {
             .watch(categoryListProvider)
             .asData
             ?.value
-            .fold<Map<String, CategoryModel>>(
-              <String, CategoryModel>{},
-              (map, c) => map..[c.id] = c,
-            ) ??
+            .fold<Map<String, CategoryModel>>(<String, CategoryModel>{}, (map, c) => map..[c.id] = c) ??
         <String, CategoryModel>{};
 
     final accountsById =
@@ -113,10 +106,7 @@ class BudgetDetailPage extends ConsumerWidget {
             .asData
             ?.value
             .accounts
-            .fold<Map<String, AccountModel>>(
-              <String, AccountModel>{},
-              (map, a) => map..[a.id] = a,
-            ) ??
+            .fold<Map<String, AccountModel>>(<String, AccountModel>{}, (map, a) => map..[a.id] = a) ??
         <String, AccountModel>{};
 
     final transactionsAsync = ref.watch(budgetTransactionsProvider(activeBudget));
@@ -152,13 +142,9 @@ class BudgetDetailPage extends ConsumerWidget {
       child: CustomScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
         slivers: [
-          SliverToBoxAdapter(
-            child: BudgetCard(budget: activeBudget, isInteractive: false),
-          ),
+          SliverToBoxAdapter(child: BudgetCard(budget: activeBudget, isInteractive: false)),
           const SliverToBoxAdapter(child: SizedBox(height: 24)),
-          SliverToBoxAdapter(
-            child: PokaSectionLabel(title: t.budgets.transactions),
-          ),
+          SliverToBoxAdapter(child: PokaSectionLabel(title: t.budgets.transactions)),
           const SliverToBoxAdapter(child: SizedBox(height: 8)),
           transactionsAsync.when(
             data: (transactions) {
@@ -173,26 +159,23 @@ class BudgetDetailPage extends ConsumerWidget {
               }
 
               return SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (context, index) {
-                    final transaction = transactions[index];
-                    final firstCatId = transaction.items.isNotEmpty ? transaction.items.first.categoryId : null;
-                    final category = firstCatId != null ? categoriesById[firstCatId] : null;
-                    final account = accountsById[transaction.accountId];
+                delegate: SliverChildBuilderDelegate((context, index) {
+                  final transaction = transactions[index];
+                  final firstCatId = transaction.items.isNotEmpty ? transaction.items.first.categoryId : null;
+                  final category = firstCatId != null ? categoriesById[firstCatId] : null;
+                  final account = accountsById[transaction.accountId];
 
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 10),
-                      child: RecentTransactionTile(
-                        transaction: transaction,
-                        isBalanceVisible: true,
-                        categoriesById: categoriesById,
-                        category: category,
-                        account: account,
-                      ),
-                    );
-                  },
-                  childCount: transactions.length,
-                ),
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: RecentTransactionTile(
+                      transaction: transaction,
+                      isBalanceVisible: true,
+                      categoriesById: categoriesById,
+                      category: category,
+                      account: account,
+                    ),
+                  );
+                }, childCount: transactions.length),
               );
             },
             error: (err, _) => SliverToBoxAdapter(child: Text(err.toString())),

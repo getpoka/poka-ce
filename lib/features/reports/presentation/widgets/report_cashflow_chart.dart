@@ -11,7 +11,7 @@ import 'package:poka_ce/theme/theme.dart';
 /// Income vs Expense grouped bar chart using fl_chart.
 /// Section label lives OUTSIDE this card on the parent page.
 class ReportCashflowChart extends ConsumerWidget {
-  const ReportCashflowChart({super.key});
+  const new({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -81,7 +81,7 @@ class ReportCashflowChart extends ConsumerWidget {
 // ─────────────────────────────────────────────────────────────────────────────
 
 class _CashflowBarChart extends StatelessWidget {
-  const _CashflowBarChart({
+  const new({
     required this.points,
     required this.incomeColor,
     required this.expenseColor,
@@ -117,9 +117,7 @@ class _CashflowBarChart extends StatelessWidget {
                 isIncome
                     ? point.income.toCompactFormat(isVisible: isBalanceVisible)
                     : point.expense.toCompactFormat(isVisible: isBalanceVisible),
-                theme.typography.labelBadge.copyWith(
-                  color: isIncome ? incomeColor : expenseColor,
-                ),
+                theme.typography.labelBadge.copyWith(color: isIncome ? incomeColor : expenseColor),
               );
             },
           ),
@@ -139,9 +137,7 @@ class _CashflowBarChart extends StatelessWidget {
                   padding: const EdgeInsets.only(right: 4),
                   child: Text(
                     value.toCompactFormat(isVisible: isBalanceVisible),
-                    style: theme.typography.caption.copyWith(
-                      color: theme.colors.mutedForeground,
-                    ),
+                    style: theme.typography.caption.copyWith(color: theme.colors.mutedForeground),
                     textAlign: TextAlign.right,
                   ),
                 );
@@ -159,9 +155,7 @@ class _CashflowBarChart extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 6),
                   child: Text(
                     points[idx].label,
-                    style: theme.typography.caption.copyWith(
-                      color: theme.colors.mutedForeground,
-                    ),
+                    style: theme.typography.caption.copyWith(color: theme.colors.mutedForeground),
                   ),
                 );
               },
@@ -171,11 +165,8 @@ class _CashflowBarChart extends StatelessWidget {
         gridData: FlGridData(
           drawVerticalLine: false,
           horizontalInterval: yMax / 4,
-          getDrawingHorizontalLine: (_) => FlLine(
-            color: theme.colors.border.withValues(alpha: 0.25),
-            strokeWidth: 1,
-            dashArray: [4, 4],
-          ),
+          getDrawingHorizontalLine: (_) =>
+              FlLine(color: theme.colors.border.withValues(alpha: 0.25), strokeWidth: 1, dashArray: [4, 4]),
         ),
         borderData: FlBorderData(show: false),
         barGroups: List.generate(points.length, (i) {
@@ -210,7 +201,7 @@ class _CashflowBarChart extends StatelessWidget {
 // ─────────────────────────────────────────────────────────────────────────────
 
 class _LegendDot extends StatelessWidget {
-  const _LegendDot({required this.color, required this.label});
+  const new({required this.color, required this.label});
 
   final Color color;
   final String label;
@@ -227,10 +218,7 @@ class _LegendDot extends StatelessWidget {
           decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         ),
         const SizedBox(width: 4),
-        Text(
-          label,
-          style: theme.typography.bodyPrimary.copyWith(color: theme.colors.mutedForeground),
-        ),
+        Text(label, style: theme.typography.bodyPrimary.copyWith(color: theme.colors.mutedForeground)),
       ],
     );
   }
@@ -239,11 +227,7 @@ class _LegendDot extends StatelessWidget {
 // ─────────────────────────────────────────────────────────────────────────────
 
 class _QuickStat extends StatelessWidget {
-  const _QuickStat({
-    required this.label,
-    required this.value,
-    required this.color,
-  });
+  const new({required this.label, required this.value, required this.color});
 
   final String label;
   final String value;
@@ -255,10 +239,7 @@ class _QuickStat extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        Text(
-          label,
-          style: theme.typography.caption.copyWith(color: theme.colors.mutedForeground),
-        ),
+        Text(label, style: theme.typography.caption.copyWith(color: theme.colors.mutedForeground)),
         Text(
           value,
           style: theme.typography.bodySecondary.copyWith(fontWeight: FontWeight.bold, color: color),

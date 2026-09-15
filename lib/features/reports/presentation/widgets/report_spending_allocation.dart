@@ -11,7 +11,7 @@ import 'package:poka_ce/theme/theme.dart';
 /// 50/30/20 rule spending allocation (Need / Want / Save).
 /// Section label lives OUTSIDE this card on the parent page.
 class ReportSpendingAllocation extends ConsumerWidget {
-  const ReportSpendingAllocation({super.key});
+  const new({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -27,11 +27,7 @@ class ReportSpendingAllocation extends ConsumerWidget {
     final savingColor = theme.colors.app.success;
 
     if (!hasData) {
-      return PokaEmptyView(
-        icon: FPhosphorIcons.chartPieSlice,
-        title: t.noData,
-        subtitle: t.noExpenseDataDesc,
-      );
+      return PokaEmptyView(icon: FPhosphorIcons.chartPieSlice, title: t.noData, subtitle: t.noExpenseDataDesc);
     }
 
     return FCard(
@@ -46,9 +42,7 @@ class ReportSpendingAllocation extends ConsumerWidget {
               children: [
                 Text(
                   '${t.total}: ${alloc.total.toCompactFormat(isVisible: isBalanceVisible)}',
-                  style: theme.typography.bodySecondary.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: theme.typography.bodySecondary.copyWith(fontWeight: FontWeight.bold),
                 ),
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),

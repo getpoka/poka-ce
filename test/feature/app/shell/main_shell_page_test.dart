@@ -103,10 +103,7 @@ void main() {
       child: TranslationProvider(
         child: MaterialApp.router(
           routerConfig: router,
-          builder: (context, child) => FTheme(
-            data: lightTheme,
-            child: child!,
-          ),
+          builder: (context, child) => FTheme(data: lightTheme, child: child!),
         ),
       ),
     );
@@ -169,10 +166,7 @@ void main() {
 
       await tester.pumpAndSettle();
       // FAB is animated out: its AnimatedOpacity reaches opacity 0.
-      final opacityFinder = find.ancestor(
-        of: find.byIcon(FPhosphorIcons.plus),
-        matching: find.byType(AnimatedOpacity),
-      );
+      final opacityFinder = find.ancestor(of: find.byIcon(FPhosphorIcons.plus), matching: find.byType(AnimatedOpacity));
       expect(opacityFinder, findsOneWidget);
       final fade = tester.widget<AnimatedOpacity>(opacityFinder.first);
       expect(fade.opacity, 0.0);

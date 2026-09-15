@@ -14,10 +14,7 @@ import 'package:uuid/uuid.dart';
 /// Use case for transferring funds between two distinct accounts.
 class TransferFundsUseCase {
   /// Creates a [TransferFundsUseCase] with the required [IUnitOfWork] and [ITransactionRepository].
-  const TransferFundsUseCase(
-    this._unitOfWork,
-    this._transactionRepository,
-  );
+  const new(this._unitOfWork, this._transactionRepository);
 
   final IUnitOfWork _unitOfWork;
   final ITransactionRepository _transactionRepository;

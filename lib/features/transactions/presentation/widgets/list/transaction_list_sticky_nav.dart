@@ -8,7 +8,7 @@ import 'package:poka_ce/theme/theme.dart';
 /// Pins itself below the header so the user can always navigate dates
 /// while scrolling through the transaction list.
 class TransactionListStickyNav extends SliverPersistentHeaderDelegate {
-  TransactionListStickyNav({
+  new({
     required this.state,
     required this.onModeChanged,
     required this.onPrev,
@@ -40,11 +40,7 @@ class TransactionListStickyNav extends SliverPersistentHeaderDelegate {
       old.state.isCurrentPeriod != state.isCurrentPeriod;
 
   @override
-  Widget build(
-    BuildContext context,
-    double shrinkOffset,
-    bool overlapsContent,
-  ) {
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     final theme = context.theme;
 
     return DecoratedBox(
@@ -53,10 +49,7 @@ class TransactionListStickyNav extends SliverPersistentHeaderDelegate {
         // Show a subtle border when content scrolls beneath this header.
         border: overlapsContent
             ? Border(
-                bottom: BorderSide(
-                  color: theme.colors.border,
-                  width: theme.style.borderWidth,
-                ),
+                bottom: BorderSide(color: theme.colors.border, width: theme.style.borderWidth),
               )
             : null,
       ),
@@ -109,15 +102,8 @@ class TransactionListStickyNav extends SliverPersistentHeaderDelegate {
                   onTap: onPrev,
                   behavior: HitTestBehavior.opaque,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 4,
-                    ),
-                    child: Icon(
-                      FPhosphorIcons.caretLeft,
-                      size: 18,
-                      color: theme.colors.foreground,
-                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                    child: Icon(FPhosphorIcons.caretLeft, size: 18, color: theme.colors.foreground),
                   ),
                 ),
 
@@ -174,10 +160,7 @@ class TransactionListStickyNav extends SliverPersistentHeaderDelegate {
                   onTap: state.isCurrentPeriod ? null : onNext,
                   behavior: HitTestBehavior.opaque,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 4,
-                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                     child: Icon(
                       FPhosphorIcons.caretRight,
                       size: 18,

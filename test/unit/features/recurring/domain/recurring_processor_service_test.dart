@@ -30,10 +30,7 @@ void main() {
   setUp(() {
     recurringRepo = MockRecurringRepository();
     transactionRepo = MockTransactionRepository();
-    service = RecurringProcessorService(
-      recurringRepository: recurringRepo,
-      transactionRepository: transactionRepo,
-    );
+    service = RecurringProcessorService(recurringRepository: recurringRepo, transactionRepository: transactionRepo);
   });
 
   final testDate = DateTime.utc(2023, 10, 10);
@@ -155,10 +152,7 @@ void main() {
 
       test('Monthly advancement clamps days when target month has fewer days', () async {
         final jan31 = DateTime.utc(2023, 1, 31);
-        final recurring = testRecurring.copyWith(
-          period: RecurringPeriod.monthly,
-          nextDate: jan31,
-        );
+        final recurring = testRecurring.copyWith(period: RecurringPeriod.monthly, nextDate: jan31);
         when(() => recurringRepo.getDueRecurringTransactions(any())).thenAnswer((_) async => Success([recurring]));
         when(() => transactionRepo.createTransaction(any())).thenAnswer((_) async => const Success(null));
         when(() => recurringRepo.updateRecurring(any())).thenAnswer((_) async => const Success(null));
@@ -172,10 +166,7 @@ void main() {
 
       test('Yearly advancement clamps leap day (Feb 29) to Feb 28 in non-leap year', () async {
         final leapDay = DateTime.utc(2024, 2, 29);
-        final recurring = testRecurring.copyWith(
-          period: RecurringPeriod.yearly,
-          nextDate: leapDay,
-        );
+        final recurring = testRecurring.copyWith(period: RecurringPeriod.yearly, nextDate: leapDay);
         when(() => recurringRepo.getDueRecurringTransactions(any())).thenAnswer((_) async => Success([recurring]));
         when(() => transactionRepo.createTransaction(any())).thenAnswer((_) async => const Success(null));
         when(() => recurringRepo.updateRecurring(any())).thenAnswer((_) async => const Success(null));

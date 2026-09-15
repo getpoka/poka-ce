@@ -3,7 +3,7 @@ import 'package:poka_ce/core/enums.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class DebtStatusChip extends StatelessWidget {
-  const DebtStatusChip({required this.status, super.key});
+  const new({required this.status, super.key});
 
   final DebtStatus status;
 
@@ -18,16 +18,8 @@ class DebtStatusChip extends StatelessWidget {
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-      decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.12),
-        borderRadius: theme.style.borderRadius.sm,
-      ),
-      child: Text(
-        status.name.toUpperCase(),
-        style: theme.typography.labelBadge.copyWith(
-          color: color,
-        ),
-      ),
+      decoration: BoxDecoration(color: color.withValues(alpha: 0.12), borderRadius: theme.style.borderRadius.sm),
+      child: Text(status.name.toUpperCase(), style: theme.typography.labelBadge.copyWith(color: color)),
     );
   }
 }

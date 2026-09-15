@@ -16,26 +16,15 @@ import 'package:poka_ce/shared/widgets/sheets/poka_sheet.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class AccountFormSheet extends HookConsumerWidget {
-  const AccountFormSheet({
-    super.key,
-    this.initialAccount,
-    this.parentAccountId,
-  });
+  const new({super.key, this.initialAccount, this.parentAccountId});
 
   final AccountModel? initialAccount;
   final String? parentAccountId;
 
-  static Future<void> show(
-    BuildContext context, {
-    AccountModel? initialAccount,
-    String? parentAccountId,
-  }) {
+  static Future<void> show(BuildContext context, {AccountModel? initialAccount, String? parentAccountId}) {
     return showPokaSheet(
       context: context,
-      builder: (context) => AccountFormSheet(
-        initialAccount: initialAccount,
-        parentAccountId: parentAccountId,
-      ),
+      builder: (context) => AccountFormSheet(initialAccount: initialAccount, parentAccountId: parentAccountId),
     );
   }
 
@@ -80,21 +69,14 @@ class AccountFormSheet extends HookConsumerWidget {
       };
     }, [nameController, balanceController]);
 
-    ref.listen(
-      accountFormProvider,
-      (prev, next) {
-        if (next.isSuccess && (prev?.isSuccess != true)) {
-          Navigator.of(context).pop();
-        }
-        if (next.error != null && next.error != prev?.error) {
-          showPokaToast(
-            context: context,
-            title: Text(next.error!),
-            variant: FToastVariant.destructive,
-          );
-        }
-      },
-    );
+    ref.listen(accountFormProvider, (prev, next) {
+      if (next.isSuccess && (prev?.isSuccess != true)) {
+        Navigator.of(context).pop();
+      }
+      if (next.error != null && next.error != prev?.error) {
+        showPokaToast(context: context, title: Text(next.error!), variant: FToastVariant.destructive);
+      }
+    });
 
     final formKey = useMemoized(GlobalKey<FormState>.new);
 
@@ -170,11 +152,7 @@ class AccountFormSheet extends HookConsumerWidget {
                               shape: BoxShape.circle,
                               border: Border.all(color: context.theme.colors.border),
                             ),
-                            child: Icon(
-                              FPhosphorIcons.pencilSimple,
-                              size: 16,
-                              color: context.theme.colors.foreground,
-                            ),
+                            child: Icon(FPhosphorIcons.pencilSimple, size: 16, color: context.theme.colors.foreground),
                           ),
                         ),
                       ],
@@ -187,10 +165,7 @@ class AccountFormSheet extends HookConsumerWidget {
                 child: FLabel(
                   layout: FLabelLayout.vertical,
                   label: Text(t.accounts.color),
-                  child: PokaColorPicker(
-                    selectedColor: state.color,
-                    onColorSelected: notifier.setColor,
-                  ),
+                  child: PokaColorPicker(selectedColor: state.color, onColorSelected: notifier.setColor),
                 ),
               ),
             ],
@@ -202,10 +177,7 @@ class AccountFormSheet extends HookConsumerWidget {
           ),
           const SizedBox(height: 12),
           if (state.parentAccountId == null) ...[
-            CategorySelectionField(
-              notifier: notifier,
-              restrictedCategoryIds: state.restrictedCategoryIds.toSet(),
-            ),
+            CategorySelectionField(notifier: notifier, restrictedCategoryIds: state.restrictedCategoryIds.toSet()),
             const SizedBox(height: 20),
           ],
           FButton(
@@ -234,14 +206,8 @@ class AccountFormSheet extends HookConsumerWidget {
           },
         ),
         children: [
-          FTabEntry(
-            label: Text(t.accounts.assets),
-            child: formContent,
-          ),
-          FTabEntry(
-            label: Text(t.accounts.liability),
-            child: formContent,
-          ),
+          FTabEntry(label: Text(t.accounts.assets), child: formContent),
+          FTabEntry(label: Text(t.accounts.liability), child: formContent),
         ],
       ),
     );

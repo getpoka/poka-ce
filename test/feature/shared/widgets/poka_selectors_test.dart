@@ -17,10 +17,7 @@ void main() {
   Widget buildTestableWidget(Widget child) {
     return ProviderScope(
       child: MaterialApp(
-        builder: (context, child) => FTheme(
-          data: lightTheme,
-          child: child!,
-        ),
+        builder: (context, child) => FTheme(data: lightTheme, child: child!),
         home: Scaffold(body: child),
       ),
     );
@@ -30,12 +27,7 @@ void main() {
     testWidgets('renders categories and icons, and triggers onIconSelected', (tester) async {
       String? selectedIcon;
       await tester.pumpWidget(
-        buildTestableWidget(
-          PokaIconPicker(
-            selectedIcon: 'ph_wallet',
-            onIconSelected: (icon) => selectedIcon = icon,
-          ),
-        ),
+        buildTestableWidget(PokaIconPicker(selectedIcon: 'ph_wallet', onIconSelected: (icon) => selectedIcon = icon)),
       );
 
       // Should render the first category "General" by default (or similar)
@@ -53,21 +45,11 @@ void main() {
     });
 
     testWidgets('can switch categories', (tester) async {
-      await tester.pumpWidget(
-        buildTestableWidget(
-          PokaIconPicker(
-            selectedIcon: null,
-            onIconSelected: (_) {},
-          ),
-        ),
-      );
+      await tester.pumpWidget(buildTestableWidget(PokaIconPicker(selectedIcon: null, onIconSelected: (_) {})));
 
       // Find another category, e.g., 'Food' or 'Transport'
       // By tapping the text 'Food' if it exists.
-      final categoryTexts = find.descendant(
-        of: find.byType(SingleChildScrollView),
-        matching: find.byType(Text),
-      );
+      final categoryTexts = find.descendant(of: find.byType(SingleChildScrollView), matching: find.byType(Text));
 
       if (tester.widgetList(categoryTexts).length > 1) {
         await tester.tap(categoryTexts.last);
@@ -80,24 +62,14 @@ void main() {
 
   group('PokaCategorySelector', () {
     testWidgets('shows empty state', (tester) async {
-      await tester.pumpWidget(
-        buildTestableWidget(
-          PokaCategorySelector(categories: const []),
-        ),
-      );
+      await tester.pumpWidget(buildTestableWidget(PokaCategorySelector(categories: const [])));
 
       expect(find.text('No categories available.'), findsOneWidget);
     });
 
     testWidgets('shows categories and pops on select', (tester) async {
       final now = DateTimeUtils.nowUtc();
-      final cat = CategoryModel(
-        id: '1',
-        name: 'Food',
-        type: CategoryType.expense,
-        createdAt: now,
-        updatedAt: now,
-      );
+      final cat = CategoryModel(id: '1', name: 'Food', type: CategoryType.expense, createdAt: now, updatedAt: now);
 
       CategoryModel? result;
 
@@ -130,11 +102,7 @@ void main() {
 
   group('PokaPocketSelector', () {
     testWidgets('shows empty state', (tester) async {
-      await tester.pumpWidget(
-        buildTestableWidget(
-          PokaPocketSelector(accounts: const []),
-        ),
-      );
+      await tester.pumpWidget(buildTestableWidget(PokaPocketSelector(accounts: const [])));
 
       expect(find.textContaining('No wallets found'), findsOneWidget);
     });

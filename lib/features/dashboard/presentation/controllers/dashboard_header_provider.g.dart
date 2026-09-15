@@ -44,9 +44,7 @@ final class DashboardHeaderBuilderProvider
 
   @$internal
   @override
-  $ProviderElement<DashboardHeaderBuilder?> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
+  $ProviderElement<DashboardHeaderBuilder?> $createElement($ProviderPointer pointer) => $ProviderElement(pointer);
 
   @override
   DashboardHeaderBuilder? create(Ref ref) {
@@ -55,10 +53,7 @@ final class DashboardHeaderBuilderProvider
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(DashboardHeaderBuilder? value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<DashboardHeaderBuilder?>(value),
-    );
+    return $ProviderOverride(origin: this, providerOverride: $SyncValueProvider<DashboardHeaderBuilder?>(value));
   }
 }
 

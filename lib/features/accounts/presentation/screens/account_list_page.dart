@@ -14,7 +14,7 @@ import 'package:poka_ce/theme/theme.dart';
 
 /// Top-level screen displaying all accounts categorized into regular accounts and goal pockets.
 class AccountListPage extends HookConsumerWidget {
-  const AccountListPage({super.key});
+  const new({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -31,9 +31,7 @@ class AccountListPage extends HookConsumerWidget {
       header: PokaHeader(title: t.accounts.accounts),
       child: CustomScrollView(
         slivers: [
-          SliverToBoxAdapter(
-            child: AccountListHeader(metrics: metrics).animateEntrance(),
-          ),
+          SliverToBoxAdapter(child: AccountListHeader(metrics: metrics).animateEntrance()),
 
           if (!hasRegularAccounts && !hasGoalAccounts)
             SliverFillRemaining(
@@ -89,9 +87,7 @@ class AccountListPage extends HookConsumerWidget {
               SliverToBoxAdapter(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 24),
-                  child: Center(
-                    child: Text(t.accounts.noMainAccountsYet),
-                  ),
+                  child: Center(child: Text(t.accounts.noMainAccountsYet)),
                 ),
               ),
 

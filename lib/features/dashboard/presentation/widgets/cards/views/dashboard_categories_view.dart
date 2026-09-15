@@ -12,7 +12,7 @@ import 'package:poka_ce/theme/theme.dart';
 /// Category spending carousel slide displaying top category expenses and donut breakdown.
 class DashboardCategoriesView extends ConsumerWidget {
   /// Creates a [DashboardCategoriesView].
-  const DashboardCategoriesView({super.key});
+  const new({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

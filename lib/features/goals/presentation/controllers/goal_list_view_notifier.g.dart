@@ -34,9 +34,7 @@ final class GoalListViewProvider extends $FunctionalProvider<GoalListViewState, 
 
   @$internal
   @override
-  $ProviderElement<GoalListViewState> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
+  $ProviderElement<GoalListViewState> $createElement($ProviderPointer pointer) => $ProviderElement(pointer);
 
   @override
   GoalListViewState create(Ref ref) {
@@ -45,10 +43,7 @@ final class GoalListViewProvider extends $FunctionalProvider<GoalListViewState, 
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(GoalListViewState value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<GoalListViewState>(value),
-    );
+    return $ProviderOverride(origin: this, providerOverride: $SyncValueProvider<GoalListViewState>(value));
   }
 }
 

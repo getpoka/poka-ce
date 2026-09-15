@@ -23,10 +23,7 @@ void main() {
         child: MaterialApp(
           builder: (context, child) => FTheme(data: lightTheme, child: child!),
           home: const Scaffold(
-            body: SingleChildScrollView(
-              padding: EdgeInsets.all(16),
-              child: ReportCategoryChart(),
-            ),
+            body: SingleChildScrollView(padding: EdgeInsets.all(16), child: ReportCategoryChart()),
           ),
         ),
       ),
@@ -48,10 +45,7 @@ void main() {
 
     testWidgets('renders ranked expense items with legend percentages', (tester) async {
       final data = ReportData(
-        expenseCategoryItems: [
-          item('Food', '#FF0000', 500, 0.5),
-          item('Transport', '#00FF00', 300, 0.3),
-        ],
+        expenseCategoryItems: [item('Food', '#FF0000', 500, 0.5), item('Transport', '#00FF00', 300, 0.3)],
       );
       await tester.pumpWidget(wrap(data));
       await tester.pumpAndSettle();
@@ -66,10 +60,7 @@ void main() {
 
     testWidgets('obscures category amounts when balance visibility is false', (tester) async {
       final data = ReportData(
-        expenseCategoryItems: [
-          item('Food', '#FF0000', 500, 0.5),
-          item('Transport', '#00FF00', 300, 0.3),
-        ],
+        expenseCategoryItems: [item('Food', '#FF0000', 500, 0.5), item('Transport', '#00FF00', 300, 0.3)],
       );
       await tester.pumpWidget(wrap(data, isBalanceVisible: false));
       await tester.pumpAndSettle();
@@ -115,9 +106,7 @@ void main() {
     });
 
     testWidgets('handles invalid hex color without crashing', (tester) async {
-      final data = ReportData(
-        expenseCategoryItems: [item('Broken', 'not-a-color', 250, 1.0)],
-      );
+      final data = ReportData(expenseCategoryItems: [item('Broken', 'not-a-color', 250, 1.0)]);
       await tester.pumpWidget(wrap(data));
       await tester.pumpAndSettle();
 

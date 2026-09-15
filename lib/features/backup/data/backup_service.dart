@@ -21,11 +21,7 @@ class BackupService {
   /// The default SQLite database file name.
   final String dbName = 'poka.sqlite';
   final _cipher = AesGcm.with256bits();
-  final _kdf = Pbkdf2(
-    macAlgorithm: Hmac.sha256(),
-    iterations: 100000,
-    bits: 256,
-  );
+  final _kdf = Pbkdf2(macAlgorithm: Hmac.sha256(), iterations: 100000, bits: 256);
 
   /// Generates a backup filename: poka-YYYYMMDD-HHmmss.sqlite
   String _generateBackupFilename() {
@@ -37,10 +33,7 @@ class BackupService {
   /// Derives a SecretKey from the given password and salt
   Future<SecretKey> _deriveKey(String password, List<int> salt) async {
     final secretKey = SecretKey(utf8.encode(password));
-    return _kdf.deriveKey(
-      secretKey: secretKey,
-      nonce: salt,
-    );
+    return await _kdf.deriveKey(secretKey: secretKey, nonce: salt);
   }
 
   /// Encrypts the active database and returns the temporary encrypted [File].
@@ -48,20 +41,14 @@ class BackupService {
   /// Uses PBKDF2 with HMAC-SHA256 for key derivation and AES-GCM 256-bit for authenticated encryption.
   /// The resulting file packages the salt (12 bytes), GCM nonce (12 bytes), authentication tag MAC (16 bytes),
   /// and ciphertext in order.
-  Future<Result<File>> createEncryptedBackup(
-    String password, {
-    Future<void> Function()? onBeforeRead,
-  }) async {
+  Future<Result<File>> createEncryptedBackup(String password, {Future<void> Function()? onBeforeRead}) async {
     try {
       await onBeforeRead?.call();
       final docsFolder = await getApplicationDocumentsDirectory();
       final supportFolder = await getApplicationSupportDirectory();
 
       File? dbFile;
-      final possiblePaths = [
-        p.join(supportFolder.path, dbName),
-        p.join(docsFolder.path, dbName),
-      ];
+      final possiblePaths = [p.join(supportFolder.path, dbName), p.join(docsFolder.path, dbName)];
 
       for (final path in possiblePaths) {
         final f = File(path);
@@ -85,11 +72,7 @@ class BackupService {
       final key = await _deriveKey(password, salt);
 
       // Perform authenticated encryption with AES-GCM
-      final secretBox = await _cipher.encrypt(
-        dbBytes,
-        secretKey: key,
-        nonce: nonce,
-      );
+      final secretBox = await _cipher.encrypt(dbBytes, secretKey: key, nonce: nonce);
 
       // Pack the salt, nonce, mac, and cipherText into a single binary file.
       // Binary envelope: [salt(12)] [nonce(12)] [mac(16)] [cipherText(N)]
@@ -147,18 +130,11 @@ class BackupService {
       // Derive key
       final key = await _deriveKey(password, salt);
 
-      final secretBox = SecretBox(
-        cipherText,
-        nonce: nonce,
-        mac: Mac(macBytes),
-      );
+      final secretBox = SecretBox(cipherText, nonce: nonce, mac: Mac(macBytes));
 
       // Decrypt
       // This will throw if password/mac is wrong
-      final clearText = await _cipher.decrypt(
-        secretBox,
-        secretKey: key,
-      );
+      final clearText = await _cipher.decrypt(secretBox, secretKey: key);
 
       // Verify SQLite 3 magic header: "SQLite format 3\000"
       const sqliteMagic = [
@@ -196,10 +172,7 @@ class BackupService {
       final supportFolder = await getApplicationSupportDirectory();
 
       File? dbFile;
-      final possiblePaths = [
-        p.join(supportFolder.path, dbName),
-        p.join(docsFolder.path, dbName),
-      ];
+      final possiblePaths = [p.join(supportFolder.path, dbName), p.join(docsFolder.path, dbName)];
 
       for (final path in possiblePaths) {
         final f = File(path);

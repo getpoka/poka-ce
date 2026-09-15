@@ -180,10 +180,7 @@ void main() {
       await (db.delete(db.accounts)..where((a) => a.id.equals('acc1'))).go();
 
       // Deleting transaction should handle missing account safely without StateError
-      await expectLater(
-        db.transactionsDao.deleteTransaction('txn1'),
-        completes,
-      );
+      await expectLater(db.transactionsDao.deleteTransaction('txn1'), completes);
       expect(await db.transactionsDao.getTransaction('txn1'), isNull);
     });
 
@@ -216,10 +213,7 @@ void main() {
       await (db.delete(db.debts)..where((d) => d.id.equals('debt1'))).go();
 
       // Deleting transaction should handle missing debt safely
-      await expectLater(
-        db.transactionsDao.deleteTransaction('txn1'),
-        completes,
-      );
+      await expectLater(db.transactionsDao.deleteTransaction('txn1'), completes);
       expect(await db.transactionsDao.getTransaction('txn1'), isNull);
     });
   });

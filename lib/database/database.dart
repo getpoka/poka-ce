@@ -45,7 +45,7 @@ part 'database.g.dart';
 class AppDatabase extends _$AppDatabase {
   /// Initializes the database with an optional [connection].
   /// If no connection is provided, it opens the default 'poka' database file.
-  AppDatabase({QueryExecutor? connection}) : super(connection ?? openConnection('poka'));
+  new({QueryExecutor? connection}) : super(connection ?? openConnection('poka'));
 
   /// Data Access Object for settings.
   late final SettingsDao settingsDao = SettingsDao(this);
@@ -89,21 +89,13 @@ class AppDatabase extends _$AppDatabase {
         await customStatement('PRAGMA cache_size = -64000;');
 
         // Ensure key performance indexes exist for schema 1
-        await customStatement(
-          'CREATE INDEX IF NOT EXISTS idx_transactions_date ON transactions (transaction_date);',
-        );
-        await customStatement(
-          'CREATE INDEX IF NOT EXISTS idx_transactions_account ON transactions (account_id);',
-        );
-        await customStatement(
-          'CREATE INDEX IF NOT EXISTS idx_tx_items_tx_id ON transaction_items (transaction_id);',
-        );
+        await customStatement('CREATE INDEX IF NOT EXISTS idx_transactions_date ON transactions (transaction_date);');
+        await customStatement('CREATE INDEX IF NOT EXISTS idx_transactions_account ON transactions (account_id);');
+        await customStatement('CREATE INDEX IF NOT EXISTS idx_tx_items_tx_id ON transaction_items (transaction_id);');
         await customStatement(
           'CREATE INDEX IF NOT EXISTS idx_tx_items_category_id ON transaction_items (category_id);',
         );
-        await customStatement(
-          'CREATE INDEX IF NOT EXISTS idx_accounts_parent_id ON accounts (parent_id);',
-        );
+        await customStatement('CREATE INDEX IF NOT EXISTS idx_accounts_parent_id ON accounts (parent_id);');
       },
     );
   }
@@ -112,7 +104,7 @@ class AppDatabase extends _$AppDatabase {
   ///
   /// This is an irreversible operation used for factory reset functionality.
   Future<void> resetAllData() async {
-    return transaction(() async {
+    return await transaction(() async {
       await delete(transactionItems).go();
       await delete(budgetRecords).go();
       await delete(transactions).go();

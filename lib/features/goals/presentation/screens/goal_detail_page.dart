@@ -20,11 +20,7 @@ import 'package:poka_ce/theme/theme.dart';
 
 /// Detail page presenting the progress, linked pocket balance, and deposit/withdrawal activity of a savings goal.
 class GoalDetailPage extends ConsumerWidget {
-  const GoalDetailPage({
-    required this.id,
-    this.goal,
-    super.key,
-  });
+  const new({required this.id, this.goal, super.key});
 
   final String id;
   final GoalModel? goal;
@@ -48,10 +44,7 @@ class GoalDetailPage extends ConsumerWidget {
             .watch(categoryListProvider)
             .asData
             ?.value
-            .fold<Map<String, CategoryModel>>(
-              <String, CategoryModel>{},
-              (map, c) => map..[c.id] = c,
-            ) ??
+            .fold<Map<String, CategoryModel>>(<String, CategoryModel>{}, (map, c) => map..[c.id] = c) ??
         <String, CategoryModel>{};
 
     final accountsById =
@@ -60,10 +53,7 @@ class GoalDetailPage extends ConsumerWidget {
             .asData
             ?.value
             .accounts
-            .fold<Map<String, AccountModel>>(
-              <String, AccountModel>{},
-              (map, a) => map..[a.id] = a,
-            ) ??
+            .fold<Map<String, AccountModel>>(<String, AccountModel>{}, (map, a) => map..[a.id] = a) ??
         <String, AccountModel>{};
 
     final transactionsAsync = ref.watch(goalTransactionsProvider(activeGoal));
@@ -93,9 +83,7 @@ class GoalDetailPage extends ConsumerWidget {
       child: CustomScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
         slivers: [
-          SliverToBoxAdapter(
-            child: GoalCard(state: activeGoalState, isInteractive: false),
-          ),
+          SliverToBoxAdapter(child: GoalCard(state: activeGoalState, isInteractive: false)),
           if (activeGoalState.isTargetReached && activeGoal.status == GoalStatus.active)
             SliverToBoxAdapter(
               child: Padding(
@@ -107,9 +95,7 @@ class GoalDetailPage extends ConsumerWidget {
               ),
             ),
           const SliverToBoxAdapter(child: SizedBox(height: 24)),
-          SliverToBoxAdapter(
-            child: PokaSectionLabel(title: t.goals.transactions),
-          ),
+          SliverToBoxAdapter(child: PokaSectionLabel(title: t.goals.transactions)),
           const SliverToBoxAdapter(child: SizedBox(height: 8)),
           transactionsAsync.when(
             data: (transactions) {
@@ -124,26 +110,23 @@ class GoalDetailPage extends ConsumerWidget {
               }
 
               return SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (context, index) {
-                    final transaction = transactions[index];
-                    final firstCatId = transaction.items.isNotEmpty ? transaction.items.first.categoryId : null;
-                    final category = firstCatId != null ? categoriesById[firstCatId] : null;
-                    final account = accountsById[transaction.accountId];
+                delegate: SliverChildBuilderDelegate((context, index) {
+                  final transaction = transactions[index];
+                  final firstCatId = transaction.items.isNotEmpty ? transaction.items.first.categoryId : null;
+                  final category = firstCatId != null ? categoriesById[firstCatId] : null;
+                  final account = accountsById[transaction.accountId];
 
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 10),
-                      child: RecentTransactionTile(
-                        transaction: transaction,
-                        isBalanceVisible: true,
-                        categoriesById: categoriesById,
-                        category: category,
-                        account: account,
-                      ),
-                    );
-                  },
-                  childCount: transactions.length,
-                ),
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: RecentTransactionTile(
+                      transaction: transaction,
+                      isBalanceVisible: true,
+                      categoriesById: categoriesById,
+                      category: category,
+                      account: account,
+                    ),
+                  );
+                }, childCount: transactions.length),
               );
             },
             error: (err, _) => SliverToBoxAdapter(child: Text(err.toString())),

@@ -15,17 +15,12 @@ part 'goal_detail_notifier.g.dart';
 /// Watches transactions associated with the goal's linked pocket account (deposits and withdrawals).
 @riverpod
 Stream<List<TransactionModel>> goalTransactions(Ref ref, GoalModel goal) {
-  return ref
-      .read(transactionRepositoryProvider)
-      .watchTransactions(
-        accountIds: {goal.accountId},
-      )
-      .asyncMap((result) {
-        return switch (result) {
-          Success(value: final transactions) => transactions,
-          ErrorResult(error: final failure) => Future.error(failure, StackTrace.current),
-        };
-      });
+  return ref.read(transactionRepositoryProvider).watchTransactions(accountIds: {goal.accountId}).asyncMap((result) {
+    return switch (result) {
+      Success(value: final transactions) => transactions,
+      ErrorResult(error: final failure) => Future.error(failure, StackTrace.current),
+    };
+  });
 }
 
 /// Notifier coordinating goal detail actions such as deletion and goal fulfillment.

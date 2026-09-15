@@ -10,7 +10,7 @@ final secureStorageProvider = Provider<SecureStorageService>((ref) {
 /// (PIN / biometrics). Values never leave the device.
 class SecureStorageService {
   /// Creates a [SecureStorageService] wrapping [_storage].
-  SecureStorageService(this._storage);
+  new(this._storage);
   final FlutterSecureStorage _storage;
 
   /// Writes an encrypted key-value pair to hardware-backed storage.
@@ -20,7 +20,7 @@ class SecureStorageService {
 
   /// Reads a decrypted value for [key] from storage, or returns null.
   Future<String?> read(String key) async {
-    return _storage.read(key: key);
+    return await _storage.read(key: key);
   }
 
   /// Deletes a key-value entry from secure storage.

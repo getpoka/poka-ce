@@ -20,16 +20,14 @@ final class DebtTransactionsProvider
         $FunctionalProvider<AsyncValue<List<TransactionModel>>, List<TransactionModel>, Stream<List<TransactionModel>>>
     with $FutureModifier<List<TransactionModel>>, $StreamProvider<List<TransactionModel>> {
   /// Watches transactions linked to the specified [debt] (disbursements and repayments).
-  DebtTransactionsProvider._({
-    required DebtTransactionsFamily super.from,
-    required DebtModel super.argument,
-  }) : super(
-         retry: null,
-         name: r'debtTransactionsProvider',
-         isAutoDispose: true,
-         dependencies: null,
-         $allTransitiveDependencies: null,
-       );
+  DebtTransactionsProvider._({required DebtTransactionsFamily super.from, required DebtModel super.argument})
+    : super(
+        retry: null,
+        name: r'debtTransactionsProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
   @override
   String debugGetCreateSourceHash() => _$debtTransactionsHash();
@@ -43,9 +41,8 @@ final class DebtTransactionsProvider
 
   @$internal
   @override
-  $StreamProviderElement<List<TransactionModel>> $createElement(
-    $ProviderPointer pointer,
-  ) => $StreamProviderElement(pointer);
+  $StreamProviderElement<List<TransactionModel>> $createElement($ProviderPointer pointer) =>
+      $StreamProviderElement(pointer);
 
   @override
   Stream<List<TransactionModel>> create(Ref ref) {
@@ -115,10 +112,7 @@ final class DebtDetailNotifierProvider extends $NotifierProvider<DebtDetailNotif
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(void value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<void>(value),
-    );
+    return $ProviderOverride(origin: this, providerOverride: $SyncValueProvider<void>(value));
   }
 }
 

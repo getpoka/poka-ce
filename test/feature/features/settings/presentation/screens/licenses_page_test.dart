@@ -32,10 +32,7 @@ void main() {
     testWidgets('lists grouped licenses and expands on tap', (tester) async {
       LicenseRegistry.addLicense(
         () => Stream<LicenseEntry>.value(
-          LicenseEntryWithLineBreaks(
-            ['mit'],
-            'MIT License\nPermission is hereby granted...',
-          ),
+          LicenseEntryWithLineBreaks(['mit'], 'MIT License\nPermission is hereby granted...'),
         ),
       );
 

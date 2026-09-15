@@ -26,12 +26,7 @@ void main() {
   });
 
   test('returns ValidationFailure if amount <= 0', () async {
-    final result = await useCase.execute(
-      amount: 0,
-      type: TransactionType.expense,
-      accountId: 'a1',
-      categoryId: 'c1',
-    );
+    final result = await useCase.execute(amount: 0, type: TransactionType.expense, accountId: 'a1', categoryId: 'c1');
 
     expect(result, isA<ErrorResult>());
     expect((result as ErrorResult).error, isA<ValidationFailure>());
@@ -75,9 +70,8 @@ void main() {
 
   test('propagates repository error as ErrorResult', () async {
     const failure = DatabaseFailure('insert failed');
-    when(
-      () => mockTransactionRepo.createTransaction(any()),
-    ).thenAnswer((_) async => const ErrorResult<void, Failure>(failure));
+    when(() => mockTransactionRepo.createTransaction(any()))
+        .thenAnswer((_) async => const ErrorResult<void, Failure>(failure));
 
     final result = await useCase.execute(
       amount: 10000,
@@ -87,10 +81,7 @@ void main() {
     );
 
     expect(result, isA<ErrorResult<TransactionModel, Failure>>());
-    result.fold(
-      (_) => fail('Should not succeed'),
-      (error) => expect(error, same(failure)),
-    );
+    result.fold((_) => fail('Should not succeed'), (error) => expect(error, same(failure)));
   });
 
   group('CreateTransactionUseCase mutation hardening', () {
@@ -112,12 +103,7 @@ void main() {
     test('amount mutation: succeeds if amount is exactly 1 (mutation <= 0 -> < 0 on totalAmount)', () async {
       when(() => mockTransactionRepo.createTransaction(any())).thenAnswer((_) async => const Success(null));
 
-      final result = await useCase.execute(
-        amount: 1,
-        type: TransactionType.expense,
-        accountId: 'a1',
-        categoryId: 'c1',
-      );
+      final result = await useCase.execute(amount: 1, type: TransactionType.expense, accountId: 'a1', categoryId: 'c1');
 
       expect(result, isA<Success>());
       verify(() => mockTransactionRepo.createTransaction(any())).called(1);

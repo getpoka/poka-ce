@@ -97,9 +97,7 @@ void main() {
       overrides: [
         createTransactionUseCaseProvider.overrideWithValue(mockCreate),
         dashboardProvider.overrideWith(
-          () => _FakeDashboardNotifier(
-            DashboardState(accounts: sampleAccounts(), isLoading: false),
-          ),
+          () => _FakeDashboardNotifier(DashboardState(accounts: sampleAccounts(), isLoading: false)),
         ),
       ],
       child: TranslationProvider(
@@ -118,9 +116,7 @@ void main() {
       overrides: [
         createTransactionUseCaseProvider.overrideWithValue(mockCreate),
         dashboardProvider.overrideWith(
-          () => _FakeDashboardNotifier(
-            DashboardState(accounts: sampleAccounts(), isLoading: false),
-          ),
+          () => _FakeDashboardNotifier(DashboardState(accounts: sampleAccounts(), isLoading: false)),
         ),
       ],
       child: TranslationProvider(

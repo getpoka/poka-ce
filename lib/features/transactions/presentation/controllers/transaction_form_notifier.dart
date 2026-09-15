@@ -15,7 +15,7 @@ part 'transaction_form_notifier.g.dart';
 @immutable
 class TransactionFormArgs {
   /// Creates a [TransactionFormArgs] parameter bundle.
-  const TransactionFormArgs({
+  const new({
     this.initialType,
     this.initialTransaction,
     this.initialAmount,
@@ -65,7 +65,7 @@ class TransactionFormArgs {
 @immutable
 class TransactionFormState {
   /// Creates a [TransactionFormState] with current input values.
-  const TransactionFormState({
+  const new({
     required this.type,
     required this.amountExpression,
     required this.note,
@@ -139,14 +139,7 @@ class TransactionFormNotifier extends _$TransactionFormNotifier {
     final isInitialSplit = initialTransaction != null && initialTransaction.items.length > 1;
     final initialSplits = isInitialSplit
         ? initialTransaction.items
-              .map(
-                (i) => SplitItem(
-                  categoryId: i.categoryId,
-                  amount: i.amount,
-                  note: i.note,
-                  allocation: i.allocation,
-                ),
-              )
+              .map((i) => SplitItem(categoryId: i.categoryId, amount: i.amount, note: i.note, allocation: i.allocation))
               .toList()
         : null;
 
@@ -175,10 +168,7 @@ class TransactionFormNotifier extends _$TransactionFormNotifier {
 
   /// Updates the transaction type (income, expense, or transfer).
   void setType(TransactionType type) {
-    state = state.copyWith(
-      type: type,
-      splitItems: type != TransactionType.expense ? () => null : null,
-    );
+    state = state.copyWith(type: type, splitItems: type != TransactionType.expense ? () => null : null);
   }
 
   /// Sets the primary/source account ID.
@@ -202,29 +192,18 @@ class TransactionFormNotifier extends _$TransactionFormNotifier {
   /// Sets the list of split items, updating total amount expression accordingly.
   void setSplitItems(List<SplitItem>? items) {
     if (items == null) {
-      state = state.copyWith(
-        splitItems: () => null,
-        amountExpression: '',
-        historyExpression: () => null,
-      );
+      state = state.copyWith(splitItems: () => null, amountExpression: '', historyExpression: () => null);
       return;
     }
 
     final total = items.fold<int>(0, (sum, item) => sum + item.amount);
-    state = state.copyWith(
-      splitItems: () => items,
-      amountExpression: total.toString(),
-      historyExpression: () => null,
-    );
+    state = state.copyWith(splitItems: () => items, amountExpression: total.toString(), historyExpression: () => null);
   }
 
   /// Swaps source and destination accounts (convenience for transfer transactions).
   void swapAccounts() {
     final temp = state.accountId;
-    state = state.copyWith(
-      accountId: () => state.destinationAccountId,
-      destinationAccountId: () => temp,
-    );
+    state = state.copyWith(accountId: () => state.destinationAccountId, destinationAccountId: () => temp);
   }
 
   // ─── Numpad Logic ──────────────────────────────────────────────────────────
@@ -237,10 +216,7 @@ class TransactionFormNotifier extends _$TransactionFormNotifier {
       final snapshot = state.amountExpression;
       final result = MathEvaluator.evaluate(snapshot);
       if (result != null && result != snapshot) {
-        state = state.copyWith(
-          amountExpression: result,
-          historyExpression: () => null,
-        );
+        state = state.copyWith(amountExpression: result, historyExpression: () => null);
       }
       return;
     }
@@ -252,10 +228,7 @@ class TransactionFormNotifier extends _$TransactionFormNotifier {
       history = MathEvaluator.evaluate(newExpression);
     }
 
-    state = state.copyWith(
-      amountExpression: newExpression,
-      historyExpression: () => history,
-    );
+    state = state.copyWith(amountExpression: newExpression, historyExpression: () => history);
   }
 
   // ─── Save ──────────────────────────────────────────────────────────────────

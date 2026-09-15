@@ -34,7 +34,4 @@ Map<String, dynamic> _$DebtModelToJson(_DebtModel instance) => <String, dynamic>
 
 const _$DebtTypeEnumMap = {DebtType.debt: 'debt', DebtType.loan: 'loan'};
 
-const _$DebtStatusEnumMap = {
-  DebtStatus.active: 'active',
-  DebtStatus.paid: 'paid',
-};
+const _$DebtStatusEnumMap = {DebtStatus.active: 'active', DebtStatus.paid: 'paid'};

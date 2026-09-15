@@ -6,25 +6,18 @@ part of 'transaction_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_TransactionItemModel _$TransactionItemModelFromJson(
-  Map<String, dynamic> json,
-) => _TransactionItemModel(
+_TransactionItemModel _$TransactionItemModelFromJson(Map<String, dynamic> json) => _TransactionItemModel(
   id: json['id'] as String,
   transactionId: json['transactionId'] as String,
   amount: (json['amount'] as num).toInt(),
   createdAt: DateTime.parse(json['createdAt'] as String),
   updatedAt: DateTime.parse(json['updatedAt'] as String),
   categoryId: json['categoryId'] as String?,
-  allocation: $enumDecodeNullable(
-    _$TransactionAllocationEnumMap,
-    json['allocation'],
-  ),
+  allocation: $enumDecodeNullable(_$TransactionAllocationEnumMap, json['allocation']),
   note: json['note'] as String?,
 );
 
-Map<String, dynamic> _$TransactionItemModelToJson(
-  _TransactionItemModel instance,
-) => <String, dynamic>{
+Map<String, dynamic> _$TransactionItemModelToJson(_TransactionItemModel instance) => <String, dynamic>{
   'id': instance.id,
   'transactionId': instance.transactionId,
   'amount': instance.amount,
@@ -55,9 +48,7 @@ _TransactionModel _$TransactionModelFromJson(Map<String, dynamic> json) => _Tran
   debtId: json['debtId'] as String?,
   items:
       (json['items'] as List<dynamic>?)
-          ?.map(
-            (e) => TransactionItemModel.fromJson(e as Map<String, dynamic>),
-          )
+          ?.map((e) => TransactionItemModel.fromJson(e as Map<String, dynamic>))
           .toList() ??
       const [],
 );

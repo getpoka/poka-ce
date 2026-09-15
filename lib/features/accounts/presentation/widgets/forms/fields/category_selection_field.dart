@@ -6,11 +6,7 @@ import 'package:poka_ce/shared/widgets/sheets/poka_sheet.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class CategorySelectionField extends StatelessWidget {
-  const CategorySelectionField({
-    required this.notifier,
-    required this.restrictedCategoryIds,
-    super.key,
-  });
+  const new({required this.notifier, required this.restrictedCategoryIds, super.key});
 
   final AccountFormNotifier notifier;
   final Set<String> restrictedCategoryIds;
@@ -21,9 +17,7 @@ class CategorySelectionField extends StatelessWidget {
       onTap: () {
         showPokaSheet<void>(
           context: context,
-          builder: (context) => CategorySelectionSheet(
-            notifier: notifier,
-          ),
+          builder: (context) => CategorySelectionSheet(notifier: notifier),
         );
       },
       child: Container(
@@ -86,11 +80,7 @@ class CategorySelectionField extends StatelessWidget {
                 ],
               ),
             ),
-            Icon(
-              FPhosphorIcons.caretRight,
-              size: 16,
-              color: context.theme.colors.mutedForeground,
-            ),
+            Icon(FPhosphorIcons.caretRight, size: 16, color: context.theme.colors.mutedForeground),
           ],
         ),
       ),

@@ -10,7 +10,7 @@ part 'dashboard_notifier.g.dart';
 
 /// State for the dashboard containing accounts and recent transactions.
 class DashboardState {
-  const DashboardState({
+  const new({
     this.accounts = const [],
     this.recentTransactions = const [],
     this.isLoading = true,

@@ -6,13 +6,7 @@ import 'package:poka_ce/theme/theme.dart';
 /// It ensures consistent header usage across Poka CE screens.
 class PokaHeader extends StatelessWidget {
   /// Creates a PokaHeader.
-  const PokaHeader({
-    required this.title,
-    this.subtitle,
-    this.suffixes = const [],
-    this.showBack = false,
-    super.key,
-  });
+  const new({required this.title, this.subtitle, this.suffixes = const [], this.showBack = false, super.key});
 
   /// The text title of the header.
   final String title;
@@ -28,10 +22,7 @@ class PokaHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget titleWidget = Text(
-      title,
-      style: context.theme.typography.titleScreen,
-    );
+    Widget titleWidget = Text(title, style: context.theme.typography.titleScreen);
 
     if (subtitle != null) {
       titleWidget = Column(
@@ -39,9 +30,7 @@ class PokaHeader extends StatelessWidget {
         children: [
           Text(
             subtitle!,
-            style: context.theme.typography.bodyPrimary.copyWith(
-              color: context.theme.colors.mutedForeground,
-            ),
+            style: context.theme.typography.bodyPrimary.copyWith(color: context.theme.colors.mutedForeground),
           ),
           titleWidget,
         ],
@@ -69,9 +58,6 @@ class PokaHeader extends StatelessWidget {
       );
     }
 
-    return FHeader(
-      title: titleWidget,
-      suffixes: suffixes,
-    );
+    return FHeader(title: titleWidget, suffixes: suffixes);
   }
 }

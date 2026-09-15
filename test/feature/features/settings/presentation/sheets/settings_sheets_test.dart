@@ -17,10 +17,7 @@ void main() {
   Widget buildTestableWidget(Widget child) {
     return TranslationProvider(
       child: MaterialApp(
-        builder: (context, child) => FTheme(
-          data: lightTheme,
-          child: child!,
-        ),
+        builder: (context, child) => FTheme(data: lightTheme, child: child!),
         home: Scaffold(body: child),
       ),
     );
@@ -136,13 +133,7 @@ void main() {
     });
 
     testWidgets('CurrencyPickerSheet renders and pops value', (tester) async {
-      final currency = CurrencyModel(
-        id: 'USD',
-        code: 'USD',
-        name: 'US Dollar',
-        symbol: '\$',
-        precision: 2,
-      );
+      final currency = CurrencyModel(id: 'USD', code: 'USD', name: 'US Dollar', symbol: '\$', precision: 2);
       CurrencyModel? result;
       await tester.pumpWidget(
         buildTestableWidget(
@@ -181,11 +172,7 @@ void main() {
 
       await tester.pumpWidget(
         buildTestableWidget(
-          CurrencySearchList(
-            currencies: currencies,
-            selectedCurrency: currencies[0],
-            onSelect: (c) => selected = c,
-          ),
+          CurrencySearchList(currencies: currencies, selectedCurrency: currencies[0], onSelect: (c) => selected = c),
         ),
       );
       await tester.pumpAndSettle();

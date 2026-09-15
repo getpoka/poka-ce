@@ -36,10 +36,7 @@ final class DailyBudgetProvider extends $NotifierProvider<DailyBudget, double> {
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(double value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<double>(value),
-    );
+    return $ProviderOverride(origin: this, providerOverride: $SyncValueProvider<double>(value));
   }
 }
 

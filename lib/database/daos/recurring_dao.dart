@@ -8,7 +8,7 @@ part 'recurring_dao.g.dart';
 @DriftAccessor(tables: [RecurringTransactions])
 class RecurringDao extends DatabaseAccessor<AppDatabase> with _$RecurringDaoMixin {
   /// Creates a [RecurringDao] attached to [attachedDatabase].
-  RecurringDao(super.attachedDatabase);
+  new(super.attachedDatabase);
 
   /// Retrieves all recurring transaction blueprints.
   Future<List<RecurringTransaction>> getAllRecurring() => select(recurringTransactions).get();

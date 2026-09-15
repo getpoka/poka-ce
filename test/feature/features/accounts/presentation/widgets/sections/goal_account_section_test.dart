@@ -45,18 +45,14 @@ void main() {
   );
 
   Widget buildApp(List<AccountAggregate> aggregates, {List<GoalModel> goals = const []}) {
-    final container = ProviderContainer(
-      overrides: [goalProvider.overrideWith(() => _FakeGoalNotifier(goals))],
-    );
+    final container = ProviderContainer(overrides: [goalProvider.overrideWith(() => _FakeGoalNotifier(goals))]);
     return UncontrolledProviderScope(
       container: container,
       child: TranslationProvider(
         child: MaterialApp(
           builder: (context, child) => FTheme(data: lightTheme, child: child!),
           home: Scaffold(
-            body: SingleChildScrollView(
-              child: GoalAccountSection(aggregates: aggregates, totalAssets: 2000),
-            ),
+            body: SingleChildScrollView(child: GoalAccountSection(aggregates: aggregates, totalAssets: 2000)),
           ),
         ),
       ),

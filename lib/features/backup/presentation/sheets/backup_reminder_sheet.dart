@@ -11,7 +11,7 @@ Future<BackupReminderInterval?> showBackupReminderSheet(
   BuildContext context, {
   required BackupReminderInterval currentInterval,
 }) async {
-  return showPokaSheet<BackupReminderInterval>(
+  return await showPokaSheet<BackupReminderInterval>(
     context: context,
     persistent: false,
     fitContent: true,
@@ -20,15 +20,11 @@ Future<BackupReminderInterval?> showBackupReminderSheet(
 }
 
 class _BackupReminderSheet extends ConsumerWidget {
-  const _BackupReminderSheet({required this.currentInterval});
+  const new({required this.currentInterval});
 
   final BackupReminderInterval currentInterval;
 
-  Future<void> _selectInterval(
-    BuildContext context,
-    WidgetRef ref,
-    BackupReminderInterval interval,
-  ) async {
+  Future<void> _selectInterval(BuildContext context, WidgetRef ref, BackupReminderInterval interval) async {
     if (interval == BackupReminderInterval.off) {
       Navigator.of(context).pop(interval);
       return;
@@ -49,11 +45,7 @@ class _BackupReminderSheet extends ConsumerWidget {
     if (hasPermission) {
       Navigator.of(context).pop(interval);
     } else {
-      showFToast(
-        context: context,
-        title: Text(context.t.backup.permissionDenied),
-        variant: FToastVariant.destructive,
-      );
+      showFToast(context: context, title: Text(context.t.backup.permissionDenied), variant: FToastVariant.destructive);
     }
   }
 
@@ -74,17 +66,10 @@ class _BackupReminderSheet extends ConsumerWidget {
       await reminderService.triggerTestReminder();
       if (context.mounted) {
         Navigator.of(context).pop();
-        showFToast(
-          context: context,
-          title: Text(context.t.backup.testNotificationSent),
-        );
+        showFToast(context: context, title: Text(context.t.backup.testNotificationSent));
       }
     } else {
-      showFToast(
-        context: context,
-        title: Text(context.t.backup.permissionDenied),
-        variant: FToastVariant.destructive,
-      );
+      showFToast(context: context, title: Text(context.t.backup.permissionDenied), variant: FToastVariant.destructive);
     }
   }
 

@@ -9,7 +9,7 @@ import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class DashboardAnalyticsCarousel extends HookConsumerWidget {
-  const DashboardAnalyticsCarousel({super.key});
+  const new({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -43,10 +43,7 @@ class DashboardAnalyticsCarousel extends HookConsumerWidget {
                 return FadeTransition(
                   opacity: animation,
                   child: SlideTransition(
-                    position: Tween<Offset>(
-                      begin: const Offset(0, 0.04),
-                      end: Offset.zero,
-                    ).animate(animation),
+                    position: Tween<Offset>(begin: const Offset(0, 0.04), end: Offset.zero).animate(animation),
                     child: child,
                   ),
                 );

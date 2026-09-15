@@ -7,11 +7,8 @@ part 'account_aggregate.freezed.dart';
 /// An aggregate root that encapsulates a main account and all of its pockets.
 @freezed
 abstract class AccountAggregate with _$AccountAggregate {
-  const factory AccountAggregate({
-    required AccountModel account,
-    @Default([]) List<AccountModel> pockets,
-  }) = _AccountAggregate;
-  const AccountAggregate._();
+  const factory({required AccountModel account, @Default([]) List<AccountModel> pockets}) = _AccountAggregate;
+  const new _();
 
   /// Total balance = main account balance + sum of all pockets balance.
   int get totalBalance {

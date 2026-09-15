@@ -35,10 +35,7 @@ void main() {
     final result = await repository.getDebts();
 
     expect(result, isA<ErrorResult<List<DebtModel>, Failure>>());
-    result.fold(
-      (_) => fail('Should not succeed'),
-      (error) => expect(error, isA<DatabaseFailure>()),
-    );
+    result.fold((_) => fail('Should not succeed'), (error) => expect(error, isA<DatabaseFailure>()));
   });
 
   test('getActiveDebts returns DatabaseFailure when DAO throws', () async {
@@ -47,10 +44,7 @@ void main() {
     final result = await repository.getActiveDebts();
 
     expect(result, isA<ErrorResult<List<DebtModel>, Failure>>());
-    result.fold(
-      (_) => fail('Should not succeed'),
-      (error) => expect(error, isA<DatabaseFailure>()),
-    );
+    result.fold((_) => fail('Should not succeed'), (error) => expect(error, isA<DatabaseFailure>()));
   });
 
   test('getDebtById returns DatabaseFailure when DAO throws', () async {
@@ -59,10 +53,7 @@ void main() {
     final result = await repository.getDebtById('debt-1');
 
     expect(result, isA<ErrorResult<DebtModel, Failure>>());
-    result.fold(
-      (_) => fail('Should not succeed'),
-      (error) => expect(error, isA<DatabaseFailure>()),
-    );
+    result.fold((_) => fail('Should not succeed'), (error) => expect(error, isA<DatabaseFailure>()));
   });
 
   test('createDebt returns DatabaseFailure when DAO throws', () async {
@@ -71,10 +62,7 @@ void main() {
     final result = await repository.createDebt(_buildDebt(), 'acc1', 'cat1');
 
     expect(result, isA<ErrorResult<void, Failure>>());
-    result.fold(
-      (_) => fail('Should not succeed'),
-      (error) => expect(error, isA<DatabaseFailure>()),
-    );
+    result.fold((_) => fail('Should not succeed'), (error) => expect(error, isA<DatabaseFailure>()));
   });
 
   test('updateDebt returns DatabaseFailure when DAO throws', () async {
@@ -83,10 +71,7 @@ void main() {
     final result = await repository.updateDebt(_buildDebt());
 
     expect(result, isA<ErrorResult<void, Failure>>());
-    result.fold(
-      (_) => fail('Should not succeed'),
-      (error) => expect(error, isA<DatabaseFailure>()),
-    );
+    result.fold((_) => fail('Should not succeed'), (error) => expect(error, isA<DatabaseFailure>()));
   });
 
   test('deleteDebt returns DatabaseFailure when DAO throws', () async {
@@ -95,10 +80,7 @@ void main() {
     final result = await repository.deleteDebt('debt-1');
 
     expect(result, isA<ErrorResult<void, Failure>>());
-    result.fold(
-      (_) => fail('Should not succeed'),
-      (error) => expect(error, isA<DatabaseFailure>()),
-    );
+    result.fold((_) => fail('Should not succeed'), (error) => expect(error, isA<DatabaseFailure>()));
   });
 }
 

@@ -14,12 +14,7 @@ import 'package:poka_ce/shared/widgets/poka_section_label.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class AccountPocketsSection extends HookConsumerWidget {
-  const AccountPocketsSection({
-    required this.accountId,
-    required this.pockets,
-    required this.totalBalance,
-    super.key,
-  });
+  const new({required this.accountId, required this.pockets, required this.totalBalance, super.key});
 
   final String accountId;
   final List<AccountModel> pockets;
@@ -107,13 +102,10 @@ class AccountPocketsSection extends HookConsumerWidget {
                     await ref.read(accountListProvider.notifier).deleteAccount(pocket.id);
                   }
                 },
-                onTap: () => Navigator.of(context, rootNavigator: true).push(
-                  MaterialPageRoute<void>(
-                    builder: (_) => PocketDetailPage(
-                      pocket: pocket,
-                    ),
-                  ),
-                ),
+                onTap: () => Navigator.of(
+                  context,
+                  rootNavigator: true,
+                ).push(MaterialPageRoute<void>(builder: (_) => PocketDetailPage(pocket: pocket))),
               );
             }).toList(),
           ),

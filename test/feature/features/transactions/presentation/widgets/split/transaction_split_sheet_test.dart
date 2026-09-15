@@ -76,11 +76,7 @@ SettingsModel sampleSettings() => const SettingsModel(
   baseCurrency: CurrencyModel(id: 'idr', name: 'Rupiah', code: 'IDR', symbol: 'Rp', precision: 2),
 );
 
-Widget wrapWithRiverpod({
-  required Widget child,
-  List<CategoryModel>? categories,
-  SettingsModel? settings,
-}) {
+Widget wrapWithRiverpod({required Widget child, List<CategoryModel>? categories, SettingsModel? settings}) {
   final cats = categories ?? sampleCategories();
   final set = settings ?? sampleSettings();
   return ProviderScope(
@@ -96,22 +92,14 @@ Widget wrapWithRiverpod({
 }
 
 // Helper to pump split sheet directly
-Widget wrapSplitSheet({
-  required TransactionType type,
-  List<SplitItem>? initial,
-  List<CategoryModel>? categories,
-}) {
+Widget wrapSplitSheet({required TransactionType type, List<SplitItem>? initial, List<CategoryModel>? categories}) {
   return wrapWithRiverpod(
     categories: categories,
     child: TransactionSplitSheet(transactionType: type, initialSplits: initial),
   );
 }
 
-Widget wrapSplitItemForm({
-  required TransactionType type,
-  SplitItem? initialItem,
-  List<CategoryModel>? categories,
-}) {
+Widget wrapSplitItemForm({required TransactionType type, SplitItem? initialItem, List<CategoryModel>? categories}) {
   return wrapWithRiverpod(
     categories: categories,
     child: TransactionSplitItemFormSheet(transactionType: type, initialItem: initialItem),

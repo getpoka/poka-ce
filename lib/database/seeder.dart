@@ -745,14 +745,7 @@ class DatabaseSeeder {
     final existing = await db.select(db.settings).get();
     if (existing.isNotEmpty) return;
 
-    await db
-        .into(db.settings)
-        .insertOnConflictUpdate(
-          SettingsCompanion.insert(
-            key: 'themeMode',
-            value: 'system',
-          ),
-        );
+    await db.into(db.settings).insertOnConflictUpdate(SettingsCompanion.insert(key: 'themeMode', value: 'system'));
     // Note: baseCurrencyId will be set during onboarding
   }
 

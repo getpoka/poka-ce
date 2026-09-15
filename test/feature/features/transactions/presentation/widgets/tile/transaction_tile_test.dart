@@ -22,10 +22,7 @@ void main() {
     return UncontrolledProviderScope(
       container: container,
       child: MaterialApp(
-        builder: (context, child) => FTheme(
-          data: lightTheme,
-          child: child!,
-        ),
+        builder: (context, child) => FTheme(data: lightTheme, child: child!),
         home: Scaffold(body: child),
       ),
     );
@@ -54,19 +51,11 @@ void main() {
     );
 
     final container = ProviderContainer(
-      overrides: [
-        categoryListProvider.overrideWith(() => MockCategoryListNotifier()),
-      ],
+      overrides: [categoryListProvider.overrideWith(() => MockCategoryListNotifier())],
     );
 
     await tester.pumpWidget(
-      buildTestApp(
-        RecentTransactionTile(
-          transaction: transaction,
-          isBalanceVisible: true,
-        ),
-        container,
-      ),
+      buildTestApp(RecentTransactionTile(transaction: transaction, isBalanceVisible: true), container),
     );
     await tester.pumpAndSettle();
 
@@ -97,10 +86,7 @@ void main() {
       updatedAt: DateTime.now(),
     );
 
-    final categoriesMap = {
-      foodCat.id: foodCat,
-      transportCat.id: transportCat,
-    };
+    final categoriesMap = {foodCat.id: foodCat, transportCat.id: transportCat};
 
     final splitTransaction = TransactionModel(
       id: 'tx_split',
@@ -133,18 +119,12 @@ void main() {
     );
 
     final container = ProviderContainer(
-      overrides: [
-        categoryListProvider.overrideWith(() => MockCategoryListNotifier()),
-      ],
+      overrides: [categoryListProvider.overrideWith(() => MockCategoryListNotifier())],
     );
 
     await tester.pumpWidget(
       buildTestApp(
-        RecentTransactionTile(
-          transaction: splitTransaction,
-          isBalanceVisible: true,
-          categoriesById: categoriesMap,
-        ),
+        RecentTransactionTile(transaction: splitTransaction, isBalanceVisible: true, categoriesById: categoriesMap),
         container,
       ),
     );
@@ -189,19 +169,11 @@ void main() {
     );
 
     final container = ProviderContainer(
-      overrides: [
-        categoryListProvider.overrideWith(() => MockCategoryListNotifier()),
-      ],
+      overrides: [categoryListProvider.overrideWith(() => MockCategoryListNotifier())],
     );
 
     await tester.pumpWidget(
-      buildTestApp(
-        RecentTransactionTile(
-          transaction: debtTransaction,
-          isBalanceVisible: true,
-        ),
-        container,
-      ),
+      buildTestApp(RecentTransactionTile(transaction: debtTransaction, isBalanceVisible: true), container),
     );
     await tester.pumpAndSettle();
 
@@ -235,19 +207,11 @@ void main() {
     );
 
     final container = ProviderContainer(
-      overrides: [
-        categoryListProvider.overrideWith(() => MockCategoryListNotifier()),
-      ],
+      overrides: [categoryListProvider.overrideWith(() => MockCategoryListNotifier())],
     );
 
     await tester.pumpWidget(
-      buildTestApp(
-        RecentTransactionTile(
-          transaction: loanTransaction,
-          isBalanceVisible: true,
-        ),
-        container,
-      ),
+      buildTestApp(RecentTransactionTile(transaction: loanTransaction, isBalanceVisible: true), container),
     );
     await tester.pumpAndSettle();
 

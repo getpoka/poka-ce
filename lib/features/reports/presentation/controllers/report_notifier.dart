@@ -20,7 +20,7 @@ part 'report_notifier.freezed.dart';
 /// UI state holding the active period selection, loaded budgets, and computed financial report data.
 @freezed
 abstract class ReportState with _$ReportState {
-  const factory ReportState({
+  const factory({
     @Default(ReportPeriod.thisMonth) ReportPeriod period,
     DateTime? customDateStart,
     DateTime? customDateEnd,
@@ -29,7 +29,7 @@ abstract class ReportState with _$ReportState {
     @Default(true) bool isLoading,
   }) = _ReportState;
 
-  const ReportState._();
+  const new _();
 
   /// Human-readable label for the previous period (used by comparison banner).
   String get previousPeriodLabel => switch (period) {
@@ -112,11 +112,7 @@ class ReportNotifier extends _$ReportNotifier {
   ///
   /// Returns `true` if the export and share succeeded, or `false` on failure.
   Future<bool> exportExcel({Rect? sharePositionOrigin}) async {
-    final result = await ref
-        .read(excelExportServiceProvider)
-        .exportAndShare(
-          sharePositionOrigin: sharePositionOrigin,
-        );
+    final result = await ref.read(excelExportServiceProvider).exportAndShare(sharePositionOrigin: sharePositionOrigin);
     return switch (result) {
       Success() => true,
       ErrorResult() => false,

@@ -13,19 +13,13 @@ import 'package:poka_ce/theme/theme.dart';
 /// while tapping the row selects the item and closes the sheet.
 class PokaCategorySelector extends HookWidget {
   /// Creates a PokaCategorySelector.
-  const PokaCategorySelector({
-    required this.categories,
-    super.key,
-  });
+  const new({required this.categories, super.key});
 
   /// The list of categories to choose from.
   final List<CategoryModel> categories;
 
   /// Utility to show this selector as a sheet.
-  static Future<CategoryModel?> show(
-    BuildContext context, {
-    required List<CategoryModel> categories,
-  }) {
+  static Future<CategoryModel?> show(BuildContext context, {required List<CategoryModel> categories}) {
     return showPokaSheet<CategoryModel>(
       context: context,
       builder: (context) => PokaSheet(
@@ -40,12 +34,7 @@ class PokaCategorySelector extends HookWidget {
     if (categories.isEmpty) {
       return Padding(
         padding: const EdgeInsets.all(32),
-        child: Center(
-          child: Text(
-            t.shared.noCategoriesAvailable,
-            style: context.theme.typography.body.lg,
-          ),
-        ),
+        child: Center(child: Text(t.shared.noCategoriesAvailable, style: context.theme.typography.body.lg)),
       );
     }
 
@@ -61,9 +50,7 @@ class PokaCategorySelector extends HookWidget {
     final expandedStates = useState<Set<String>>({});
 
     return ConstrainedBox(
-      constraints: BoxConstraints(
-        maxHeight: MediaQuery.sizeOf(context).height * 0.6,
-      ),
+      constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(context).height * 0.6),
       child: ListView.builder(
         shrinkWrap: true,
         padding: const EdgeInsets.only(bottom: 16),
@@ -79,9 +66,7 @@ class PokaCategorySelector extends HookWidget {
               // Parent Row
               DecoratedBox(
                 decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(color: context.theme.colors.border),
-                  ),
+                  border: Border(bottom: BorderSide(color: context.theme.colors.border)),
                 ),
                 child: Row(
                   children: [
@@ -100,12 +85,7 @@ class PokaCategorySelector extends HookWidget {
                                 useThemeBorderColor: true,
                               ),
                               const SizedBox(width: 16),
-                              Expanded(
-                                child: Text(
-                                  parent.name,
-                                  style: context.theme.typography.titleItem,
-                                ),
-                              ),
+                              Expanded(child: Text(parent.name, style: context.theme.typography.titleItem)),
                             ],
                           ),
                         ),
@@ -143,11 +123,7 @@ class PokaCategorySelector extends HookWidget {
                     child: Container(
                       padding: const EdgeInsets.only(left: 48, right: 16, top: 12, bottom: 12),
                       decoration: BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(
-                            color: context.theme.colors.border,
-                          ),
-                        ),
+                        border: Border(bottom: BorderSide(color: context.theme.colors.border)),
                       ),
                       child: Row(
                         children: [
@@ -158,12 +134,7 @@ class PokaCategorySelector extends HookWidget {
                             useThemeBorderColor: true,
                           ),
                           const SizedBox(width: 16),
-                          Expanded(
-                            child: Text(
-                              child.name,
-                              style: context.theme.typography.titleItem,
-                            ),
-                          ),
+                          Expanded(child: Text(child.name, style: context.theme.typography.titleItem)),
                         ],
                       ),
                     ),

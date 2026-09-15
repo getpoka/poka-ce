@@ -33,12 +33,7 @@ void main() {
       var selected = TransactionType.expense;
 
       await tester.pumpWidget(
-        _wrap(
-          TransactionTypeSwitcher(
-            selectedType: selected,
-            onChanged: (type) => selected = type,
-          ),
-        ),
+        _wrap(TransactionTypeSwitcher(selectedType: selected, onChanged: (type) => selected = type)),
       );
       await tester.pumpAndSettle();
 
@@ -52,12 +47,7 @@ void main() {
       var selected = TransactionType.income;
 
       await tester.pumpWidget(
-        _wrap(
-          TransactionTypeSwitcher(
-            selectedType: selected,
-            onChanged: (type) => selected = type,
-          ),
-        ),
+        _wrap(TransactionTypeSwitcher(selectedType: selected, onChanged: (type) => selected = type)),
       );
       await tester.pumpAndSettle();
 
@@ -71,12 +61,7 @@ void main() {
       TransactionType? changedType;
 
       await tester.pumpWidget(
-        _wrap(
-          TransactionTypeSwitcher(
-            selectedType: TransactionType.expense,
-            onChanged: (type) => changedType = type,
-          ),
-        ),
+        _wrap(TransactionTypeSwitcher(selectedType: TransactionType.expense, onChanged: (type) => changedType = type)),
       );
       await tester.pumpAndSettle();
 
@@ -88,13 +73,7 @@ void main() {
 
     testWidgets('disables interaction and sets opacity when disabled is true', (tester) async {
       await tester.pumpWidget(
-        _wrap(
-          TransactionTypeSwitcher(
-            selectedType: TransactionType.expense,
-            onChanged: (_) {},
-            disabled: true,
-          ),
-        ),
+        _wrap(TransactionTypeSwitcher(selectedType: TransactionType.expense, onChanged: (_) {}, disabled: true)),
       );
       await tester.pumpAndSettle();
 

@@ -7,7 +7,7 @@ import 'package:poka_ce/features/accounts/domain/i_account_repository.dart';
 /// Use case responsible for validating and persisting modifications to an existing [AccountModel].
 class UpdateAccountUseCase {
   /// Creates an [UpdateAccountUseCase] with the required [IAccountRepository].
-  const UpdateAccountUseCase(this._repository);
+  const new(this._repository);
 
   final IAccountRepository _repository;
 

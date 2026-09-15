@@ -121,9 +121,8 @@ void main() {
     });
 
     test('propagates repository failure', () async {
-      when(() => repository.createTransaction(any())).thenAnswer(
-        (_) async => const ErrorResult<void, Failure>(DatabaseFailure('insert failed')),
-      );
+      when(() => repository.createTransaction(any()))
+          .thenAnswer((_) async => const ErrorResult<void, Failure>(DatabaseFailure('insert failed')));
 
       final result = await useCase.execute(amount: 100, sourceAccountId: 'a', destinationAccountId: 'b');
       expect(result, isA<ErrorResult<TransactionModel, Failure>>());

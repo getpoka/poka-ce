@@ -10,20 +10,14 @@ Future<CurrencyModel?> showCurrencyPickerSheet(
   List<CurrencyModel> currencies,
   CurrencyModel? currentCurrency,
 ) async {
-  return showPokaSheet<CurrencyModel>(
+  return await showPokaSheet<CurrencyModel>(
     context: context,
-    builder: (context) => _CurrencyPickerSheet(
-      currencies: currencies,
-      currentCurrency: currentCurrency,
-    ),
+    builder: (context) => _CurrencyPickerSheet(currencies: currencies, currentCurrency: currentCurrency),
   );
 }
 
 class _CurrencyPickerSheet extends HookWidget {
-  const _CurrencyPickerSheet({
-    required this.currencies,
-    this.currentCurrency,
-  });
+  const new({required this.currencies, this.currentCurrency});
 
   final List<CurrencyModel> currencies;
   final CurrencyModel? currentCurrency;

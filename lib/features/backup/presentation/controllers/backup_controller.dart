@@ -60,10 +60,7 @@ class BackupController extends _$BackupController {
         state = const AsyncData(null);
         return true;
       } else {
-        state = AsyncError(
-          result.exceptionOrNull() ?? Exception('Unknown error'),
-          StackTrace.current,
-        );
+        state = AsyncError(result.exceptionOrNull() ?? Exception('Unknown error'), StackTrace.current);
         return false;
       }
     } on Object catch (e, st) {
@@ -93,10 +90,7 @@ class BackupController extends _$BackupController {
         state = const AsyncData(null);
         return true;
       } else {
-        state = AsyncError(
-          result.exceptionOrNull() ?? Exception('Unknown error'),
-          StackTrace.current,
-        );
+        state = AsyncError(result.exceptionOrNull() ?? Exception('Unknown error'), StackTrace.current);
         return false;
       }
     } on Object catch (e, st) {

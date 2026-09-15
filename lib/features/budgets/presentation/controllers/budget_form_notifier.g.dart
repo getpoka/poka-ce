@@ -36,10 +36,7 @@ final class BudgetFormNotifierProvider extends $NotifierProvider<BudgetFormNotif
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(BudgetFormState value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<BudgetFormState>(value),
-    );
+    return $ProviderOverride(origin: this, providerOverride: $SyncValueProvider<BudgetFormState>(value));
   }
 }
 

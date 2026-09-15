@@ -9,11 +9,7 @@ import 'package:poka_ce/features/transactions/presentation/widgets/tile/transact
 // ─────────────────────────────────────────────────────────────────────────────
 
 class AccountTransactionList extends HookConsumerWidget {
-  const AccountTransactionList({
-    required this.accountId,
-    required this.transactions,
-    super.key,
-  });
+  const new({required this.accountId, required this.transactions, super.key});
 
   final String accountId;
   final List<TransactionModel> transactions;
@@ -49,10 +45,7 @@ class AccountTransactionList extends HookConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: tiles.map((tile) {
         if (tile == tiles.last) return tile;
-        return Padding(
-          padding: const EdgeInsets.only(bottom: 8),
-          child: tile,
-        );
+        return Padding(padding: const EdgeInsets.only(bottom: 8), child: tile);
       }).toList(),
     );
   }

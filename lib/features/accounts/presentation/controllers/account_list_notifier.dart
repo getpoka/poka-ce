@@ -14,10 +14,7 @@ part 'account_list_notifier.g.dart';
 @immutable
 class AccountListState {
   /// Creates an [AccountListState].
-  const AccountListState({
-    this.accounts = const [],
-    this.aggregates = const [],
-  });
+  const new({this.accounts = const [], this.aggregates = const []});
 
   /// All accounts flatly represented.
   final List<AccountModel> accounts;
@@ -29,14 +26,8 @@ class AccountListState {
   List<AccountAggregate> get activeAggregates => aggregates.where((a) => a.account.isActive).toList();
 
   /// Creates a copy of this state with optional updated parameters.
-  AccountListState copyWith({
-    List<AccountModel>? accounts,
-    List<AccountAggregate>? aggregates,
-  }) {
-    return AccountListState(
-      accounts: accounts ?? this.accounts,
-      aggregates: aggregates ?? this.aggregates,
-    );
+  AccountListState copyWith({List<AccountModel>? accounts, List<AccountAggregate>? aggregates}) {
+    return AccountListState(accounts: accounts ?? this.accounts, aggregates: aggregates ?? this.aggregates);
   }
 
   @override
@@ -135,10 +126,7 @@ AsyncValue<AccountListState> regularAccountList(Ref ref) {
     final regularAccounts = state.accounts.where((a) => a.type != AccountType.goal).toList();
     final regularAggregates = state.aggregates.where((agg) => agg.account.type != AccountType.goal).toList();
 
-    return AccountListState(
-      accounts: regularAccounts,
-      aggregates: regularAggregates,
-    );
+    return AccountListState(accounts: regularAccounts, aggregates: regularAggregates);
   });
 }
 
@@ -150,10 +138,7 @@ AsyncValue<AccountListState> goalAccountList(Ref ref) {
     final goalAccounts = state.accounts.where((a) => a.type == AccountType.goal).toList();
     final goalAggregates = state.aggregates.where((agg) => agg.account.type == AccountType.goal).toList();
 
-    return AccountListState(
-      accounts: goalAccounts,
-      aggregates: goalAggregates,
-    );
+    return AccountListState(accounts: goalAccounts, aggregates: goalAggregates);
   });
 }
 

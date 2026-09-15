@@ -35,9 +35,7 @@ final class BudgetAlertServiceProvider
 
   @$internal
   @override
-  $ProviderElement<BudgetAlertService> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
+  $ProviderElement<BudgetAlertService> $createElement($ProviderPointer pointer) => $ProviderElement(pointer);
 
   @override
   BudgetAlertService create(Ref ref) {
@@ -46,10 +44,7 @@ final class BudgetAlertServiceProvider
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(BudgetAlertService value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<BudgetAlertService>(value),
-    );
+    return $ProviderOverride(origin: this, providerOverride: $SyncValueProvider<BudgetAlertService>(value));
   }
 }
 

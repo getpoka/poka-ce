@@ -8,15 +8,12 @@ import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/sheets/poka_sheet.dart';
 
 class CategoryPickerSheet extends ConsumerWidget {
-  const CategoryPickerSheet({super.key});
+  const new({super.key});
 
   static Future<CategoryModel?> show(BuildContext context) {
     return showPokaSheet<CategoryModel>(
       context: context,
-      builder: (context) => PokaSheet(
-        title: t.transactions.selectCategory,
-        child: const CategoryPickerSheet(),
-      ),
+      builder: (context) => PokaSheet(title: t.transactions.selectCategory, child: const CategoryPickerSheet()),
     );
   }
 
@@ -63,21 +60,14 @@ class CategoryPickerSheet extends ConsumerWidget {
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             decoration: BoxDecoration(
-              border: Border(
-                bottom: BorderSide(
-                  color: context.theme.colors.border,
-                ),
-              ),
+              border: Border(bottom: BorderSide(color: context.theme.colors.border)),
             ),
             child: Row(
               children: [
                 Icon(FPhosphorIcons.tag, size: 24, color: context.theme.colors.primary),
                 const SizedBox(width: 16),
                 Expanded(
-                  child: Text(
-                    cat.name,
-                    style: context.theme.typography.body.lg.copyWith(fontWeight: FontWeight.w600),
-                  ),
+                  child: Text(cat.name, style: context.theme.typography.body.lg.copyWith(fontWeight: FontWeight.w600)),
                 ),
               ],
             ),

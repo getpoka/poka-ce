@@ -20,17 +20,13 @@ class TransactionsDaoManager {
   TransactionsDaoManager(this._db);
   $$AccountsTableTableManager get accounts => $$AccountsTableTableManager(_db.attachedDatabase, _db.accounts);
   $$CategoriesTableTableManager get categories => $$CategoriesTableTableManager(_db.attachedDatabase, _db.categories);
-  $$RecurringTransactionsTableTableManager get recurringTransactions => $$RecurringTransactionsTableTableManager(
-    _db.attachedDatabase,
-    _db.recurringTransactions,
-  );
+  $$RecurringTransactionsTableTableManager get recurringTransactions =>
+      $$RecurringTransactionsTableTableManager(_db.attachedDatabase, _db.recurringTransactions);
   $$DebtsTableTableManager get debts => $$DebtsTableTableManager(_db.attachedDatabase, _db.debts);
   $$TransactionsTableTableManager get transactions =>
       $$TransactionsTableTableManager(_db.attachedDatabase, _db.transactions);
-  $$TransactionItemsTableTableManager get transactionItems => $$TransactionItemsTableTableManager(
-    _db.attachedDatabase,
-    _db.transactionItems,
-  );
+  $$TransactionItemsTableTableManager get transactionItems =>
+      $$TransactionItemsTableTableManager(_db.attachedDatabase, _db.transactionItems);
   $$BudgetsTableTableManager get budgets => $$BudgetsTableTableManager(_db.attachedDatabase, _db.budgets);
   $$BudgetRecordsTableTableManager get budgetRecords =>
       $$BudgetRecordsTableTableManager(_db.attachedDatabase, _db.budgetRecords);

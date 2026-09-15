@@ -32,16 +32,13 @@ import 'package:poka_ce/shared/widgets/dialogs/poka_confirm_dialog.dart';
 import 'package:poka_ce/shared/widgets/poka_toast.dart';
 
 class DataManagementSection extends ConsumerWidget {
-  const DataManagementSection({super.key});
+  const new({super.key});
 
   Future<bool> _verifySecurity(BuildContext context, WidgetRef ref) async {
     final appLockState = ref.read(appLockControllerProvider);
     if (!appLockState.isEnabled) {
       // Force setup if not active
-      showPokaToast(
-        context: context,
-        title: Text(context.t.lock.setupPinBody),
-      );
+      showPokaToast(context: context, title: Text(context.t.lock.setupPinBody));
       final pin = await showPinSetupSheet(context);
       if (pin != null) {
         await ref.read(appLockControllerProvider.notifier).enableAppLock(pin);
@@ -83,15 +80,9 @@ class DataManagementSection extends ConsumerWidget {
                 context,
                 isBackup: true,
                 onValidateRestore: (pass) async {
-                  final success = await backupNotifier.backup(
-                    pass,
-                    sharePositionOrigin: rect,
-                  );
+                  final success = await backupNotifier.backup(pass, sharePositionOrigin: rect);
                   if (!success && context.mounted) {
-                    showPokaToast(
-                      context: context,
-                      title: Text(context.t.common.error),
-                    );
+                    showPokaToast(context: context, title: Text(context.t.common.error));
                     Navigator.of(context).pop(); // Force close on error
                   }
                   return success;
@@ -100,10 +91,7 @@ class DataManagementSection extends ConsumerWidget {
               if (password == null) return;
 
               if (!context.mounted) return;
-              showPokaToast(
-                context: context,
-                title: Text(context.t.backup.backupSuccess),
-              );
+              showPokaToast(context: context, title: Text(context.t.backup.backupSuccess));
             } else if (action == BackupAction.restore) {
               final confirmed = await showPokaConfirmDialog(
                 context,
@@ -134,15 +122,10 @@ class DataManagementSection extends ConsumerWidget {
                 isBackup: false,
                 filePath: fileName,
                 onValidateRestore: (pass) async {
-                  final success = await container
-                      .read(backupControllerProvider.notifier)
-                      .restore(
-                        pass,
-                        filePath,
-                      );
+                  final success = await container.read(backupControllerProvider.notifier).restore(pass, filePath);
                   if (!success) {
                     final err = container.read(backupControllerProvider).error;
-                    if (err != null) return Future.error(err);
+                    if (err != null) return await Future.error(err);
                   }
                   return success;
                 },
@@ -164,10 +147,7 @@ class DataManagementSection extends ConsumerWidget {
                 ..invalidate(recurringListProvider)
                 ..invalidate(reportProvider);
 
-              showPokaToast(
-                context: context,
-                title: Text(context.t.backup.restoreSuccess),
-              );
+              showPokaToast(context: context, title: Text(context.t.backup.restoreSuccess));
 
               // Redirect to home
               const DashboardRoute().go(context);
@@ -183,17 +163,11 @@ class DataManagementSection extends ConsumerWidget {
           },
           icon: FPhosphorIcons.clockCounterClockwise,
           onTap: () async {
-            final selected = await showBackupReminderSheet(
-              context,
-              currentInterval: reminderInterval,
-            );
+            final selected = await showBackupReminderSheet(context, currentInterval: reminderInterval);
             if (selected != null) {
               await ref.read(backupReminderNotifierProvider.notifier).setInterval(selected);
               if (context.mounted) {
-                showPokaToast(
-                  context: context,
-                  title: Text(context.t.backup.reminderSaved),
-                );
+                showPokaToast(context: context, title: Text(context.t.backup.reminderSaved));
               }
             }
           },
@@ -218,10 +192,7 @@ class DataManagementSection extends ConsumerWidget {
             await ref.read(databaseProvider).transactionsDao.clearOldTransactions(oneYearAgo);
 
             if (!context.mounted) return;
-            showPokaToast(
-              context: context,
-              title: Text(t.settings.oldTransactionsCleared),
-            );
+            showPokaToast(context: context, title: Text(t.settings.oldTransactionsCleared));
           },
         ),
         SettingsMenuItem(
@@ -263,10 +234,7 @@ class DataManagementSection extends ConsumerWidget {
               ..invalidate(reportProvider);
 
             if (!context.mounted) return;
-            showPokaToast(
-              context: context,
-              title: Text(t.settings.appDataReset),
-            );
+            showPokaToast(context: context, title: Text(t.settings.appDataReset));
 
             // 4. Navigate directly to Onboarding
             const OnboardingRoute().go(context);

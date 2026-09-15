@@ -36,10 +36,7 @@ final class AccountFormNotifierProvider extends $NotifierProvider<AccountFormNot
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(AccountFormState value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<AccountFormState>(value),
-    );
+    return $ProviderOverride(origin: this, providerOverride: $SyncValueProvider<AccountFormState>(value));
   }
 }
 

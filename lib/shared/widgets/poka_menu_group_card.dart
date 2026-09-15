@@ -7,7 +7,7 @@ import 'package:poka_ce/theme/theme.dart';
 /// clipping its children to prevent border radius overflow.
 class PokaMenuGroupCard extends StatelessWidget {
   /// Creates a [PokaMenuGroupCard].
-  const PokaMenuGroupCard({required this.child, super.key});
+  const new({required this.child, super.key});
 
   /// The child widget — usually a group of menu rows or tiles.
   final Widget child;
@@ -23,9 +23,7 @@ class PokaMenuGroupCard extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       child: FTheme(
         data: FThemeData(
-          colors: context.theme.colors.copyWith(
-            background: Colors.transparent,
-          ),
+          colors: context.theme.colors.copyWith(background: Colors.transparent),
           typography: context.theme.typography,
           style: context.theme.style,
           touch: true,
@@ -38,7 +36,7 @@ class PokaMenuGroupCard extends StatelessWidget {
 
 class PokaMenuItem {
   /// Creates a [PokaMenuItem].
-  const PokaMenuItem({
+  const new({
     required this.icon,
     required this.title,
     required this.onPress,
@@ -68,7 +66,7 @@ class PokaMenuItem {
 
 class PokaMenuGroupLabel extends StatelessWidget {
   /// Creates a [PokaMenuGroupLabel].
-  const PokaMenuGroupLabel(this.text, {super.key});
+  const new(this.text, {super.key});
 
   /// The section label text (e.g., "Account", "Preferences").
   final String text;
@@ -83,16 +81,10 @@ class PokaMenuGroupLabel extends StatelessWidget {
           Container(
             width: 3,
             height: 14,
-            decoration: BoxDecoration(
-              color: theme.colors.primary,
-              borderRadius: theme.style.borderRadius.xs,
-            ),
+            decoration: BoxDecoration(color: theme.colors.primary, borderRadius: theme.style.borderRadius.xs),
           ),
           const SizedBox(width: 8),
-          Text(
-            text.toUpperCase(),
-            style: theme.typography.bodySecondary.copyWith(color: theme.colors.mutedForeground),
-          ),
+          Text(text.toUpperCase(), style: theme.typography.bodySecondary.copyWith(color: theme.colors.mutedForeground)),
         ],
       ),
     );

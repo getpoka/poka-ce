@@ -28,9 +28,7 @@ void main() {
   });
 
   ProviderContainer createContainer() {
-    final container = ProviderContainer(
-      overrides: [categoryRepositoryProvider.overrideWithValue(mockRepo)],
-    );
+    final container = ProviderContainer(overrides: [categoryRepositoryProvider.overrideWithValue(mockRepo)]);
     container.listen(categoryFormProvider, (_, __) {});
     addTearDown(container.dispose);
     return container;

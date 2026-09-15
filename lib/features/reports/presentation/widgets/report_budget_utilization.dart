@@ -28,7 +28,7 @@ Future<int> reportBudgetTotalSpent(Ref ref) async {
 /// Budget utilization section — shows each budget's progress and overall utilization.
 /// Section label lives OUTSIDE this card on the parent page.
 class ReportBudgetUtilization extends ConsumerWidget {
-  const ReportBudgetUtilization({super.key});
+  const new({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -58,11 +58,7 @@ class ReportBudgetUtilization extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // ── Overall utilization bar ──────────────────────────────────
-            _OverallBar(
-              totalSpent: totalSpent,
-              totalLimit: totalLimit,
-              overallProgress: overallProgress,
-            ),
+            _OverallBar(totalSpent: totalSpent, totalLimit: totalLimit, overallProgress: overallProgress),
             const SizedBox(height: 16),
 
             // ── Individual budgets ──────────────────────────────────────
@@ -83,11 +79,7 @@ class ReportBudgetUtilization extends ConsumerWidget {
 // ─────────────────────────────────────────────────────────────────────────────
 
 class _OverallBar extends StatelessWidget {
-  const _OverallBar({
-    required this.totalSpent,
-    required this.totalLimit,
-    required this.overallProgress,
-  });
+  const new({required this.totalSpent, required this.totalLimit, required this.overallProgress});
 
   final int totalSpent;
   final int totalLimit;
@@ -119,17 +111,13 @@ class _OverallBar extends StatelessWidget {
             children: [
               Text(
                 '${(overallProgress * 100).toStringAsFixed(1)}% ${t.spent}',
-                style: theme.typography.bodySecondary.copyWith(
-                  color: theme.colors.mutedForeground,
-                ),
+                style: theme.typography.bodySecondary.copyWith(color: theme.colors.mutedForeground),
               ),
               Row(
                 children: [
                   Text(
                     t.remaining,
-                    style: theme.typography.bodySecondary.copyWith(
-                      color: theme.colors.mutedForeground,
-                    ),
+                    style: theme.typography.bodySecondary.copyWith(color: theme.colors.mutedForeground),
                   ),
                   const SizedBox(width: 4),
                   PokaAmountText(
@@ -152,7 +140,7 @@ class _OverallBar extends StatelessWidget {
 // ─────────────────────────────────────────────────────────────────────────────
 
 class _ProgressBar extends StatelessWidget {
-  const _ProgressBar({required this.progress, required this.color});
+  const new({required this.progress, required this.color});
   final double progress;
   final Color color;
 
@@ -163,19 +151,13 @@ class _ProgressBar extends StatelessWidget {
       builder: (context, constraints) => Container(
         height: 5,
         width: constraints.maxWidth,
-        decoration: BoxDecoration(
-          color: theme.colors.muted,
-          borderRadius: BorderRadius.circular(3),
-        ),
+        decoration: BoxDecoration(color: theme.colors.muted, borderRadius: BorderRadius.circular(3)),
         child: Align(
           alignment: Alignment.centerLeft,
           child: FractionallySizedBox(
             widthFactor: progress,
             child: Container(
-              decoration: BoxDecoration(
-                color: color,
-                borderRadius: BorderRadius.circular(3),
-              ),
+              decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(3)),
             ),
           ),
         ),

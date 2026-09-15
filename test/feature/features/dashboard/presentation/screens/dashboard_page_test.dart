@@ -19,9 +19,7 @@ void main() {
     SharedPreferences.setMockInitialValues({});
     prefs = await SharedPreferences.getInstance();
   });
-  Widget createWidgetUnderTest({
-    DashboardState dashboardState = const DashboardState(),
-  }) {
+  Widget createWidgetUnderTest({DashboardState dashboardState = const DashboardState()}) {
     return TranslationProvider(
       child: ProviderScope(
         overrides: [
@@ -31,10 +29,7 @@ void main() {
         ],
         child: MaterialApp(
           theme: ThemeData(),
-          builder: (context, child) => FTheme(
-            data: lightTheme,
-            child: child!,
-          ),
+          builder: (context, child) => FTheme(data: lightTheme, child: child!),
           home: const DashboardPage(),
         ),
       ),
@@ -44,9 +39,7 @@ void main() {
   group('DashboardPage', () {
     testWidgets('shows CircularProgressIndicator when loading and no accounts', (tester) async {
       await tester.pumpWidget(
-        createWidgetUnderTest(
-          dashboardState: const DashboardState(isLoading: true, accounts: []),
-        ),
+        createWidgetUnderTest(dashboardState: const DashboardState(isLoading: true, accounts: [])),
       );
 
       expect(find.byType(FCircularProgress), findsOneWidget);
@@ -64,11 +57,7 @@ void main() {
       addTearDown(() => FlutterError.onError = originalOnError);
       await tester.pumpWidget(
         createWidgetUnderTest(
-          dashboardState: const DashboardState(
-            isLoading: false,
-            accounts: [],
-            recentTransactions: [],
-          ),
+          dashboardState: const DashboardState(isLoading: false, accounts: [], recentTransactions: []),
         ),
       );
       await tester.pump(const Duration(milliseconds: 800));

@@ -88,9 +88,6 @@ void main() {
     );
 
     expect(result, isA<ErrorResult<AccountModel, Failure>>());
-    result.fold(
-      (_) => fail('Should not succeed'),
-      (error) => expect(error, same(failure)),
-    );
+    result.fold((_) => fail('Should not succeed'), (error) => expect(error, same(failure)));
   });
 }

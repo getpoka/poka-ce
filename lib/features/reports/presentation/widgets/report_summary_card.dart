@@ -12,7 +12,7 @@ import 'package:poka_ce/theme/theme.dart';
 /// Cashflow summary hero card — donut chart + income/expense/net rows.
 /// Section label lives OUTSIDE this card on the parent page.
 class ReportSummaryCard extends ConsumerWidget {
-  const ReportSummaryCard({super.key});
+  const new({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -75,10 +75,7 @@ class ReportSummaryCard extends ConsumerWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  t.cashflow,
-                  style: theme.typography.titleCard,
-                ),
+                Text(t.cashflow, style: theme.typography.titleCard),
                 _StatusBadge(isOnTrack: isOnTrack),
               ],
             ),
@@ -105,9 +102,7 @@ class ReportSummaryCard extends ConsumerWidget {
                       ),
                       Text(
                         t.savingsRate,
-                        style: theme.typography.labelBadge.copyWith(
-                          color: theme.colors.mutedForeground,
-                        ),
+                        style: theme.typography.labelBadge.copyWith(color: theme.colors.mutedForeground),
                         textAlign: TextAlign.center,
                       ),
                     ],
@@ -163,7 +158,7 @@ class ReportSummaryCard extends ConsumerWidget {
 // ─────────────────────────────────────────────────────────────────────────────
 
 class _StatusBadge extends StatelessWidget {
-  const _StatusBadge({required this.isOnTrack});
+  const new({required this.isOnTrack});
 
   final bool isOnTrack;
 
@@ -188,10 +183,7 @@ class _StatusBadge extends StatelessWidget {
             decoration: BoxDecoration(color: color, shape: BoxShape.circle),
           ),
           const SizedBox(width: 4),
-          Text(
-            label,
-            style: theme.typography.labelBadge.copyWith(color: color),
-          ),
+          Text(label, style: theme.typography.labelBadge.copyWith(color: color)),
         ],
       ),
     );

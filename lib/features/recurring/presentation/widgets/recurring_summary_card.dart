@@ -7,7 +7,7 @@ import 'package:poka_ce/shared/widgets/poka_hero_card.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class RecurringSummaryCard extends StatelessWidget {
-  const RecurringSummaryCard({required this.recurrings, super.key});
+  const new({required this.recurrings, super.key});
 
   final List<RecurringTransactionModel> recurrings;
 

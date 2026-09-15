@@ -50,9 +50,9 @@ void main() {
         ),
       );
       // update via write on the table directly to simulate repository logic for partial update
-      await (db.update(db.budgets)..where((b) => b.id.equals('b1'))).write(
-        const BudgetsCompanion(name: Value('New'), amount: Value(999)),
-      );
+      await (db.update(
+        db.budgets,
+      )..where((b) => b.id.equals('b1'))).write(const BudgetsCompanion(name: Value('New'), amount: Value(999)));
       final b = await db.budgetsDao.getBudget('b1');
       expect(b!.name, 'New');
       expect(b.amount, 999);
@@ -200,14 +200,10 @@ void main() {
       // Setup account and category
       await db
           .into(db.accounts)
-          .insert(
-            AccountsCompanion.insert(id: const Value('acc1'), name: 'Wallet', type: AccountType.assets),
-          );
+          .insert(AccountsCompanion.insert(id: const Value('acc1'), name: 'Wallet', type: AccountType.assets));
       await db
           .into(db.categories)
-          .insert(
-            CategoriesCompanion.insert(id: const Value('cat1'), name: 'Food', type: CategoryType.expense),
-          );
+          .insert(CategoriesCompanion.insert(id: const Value('cat1'), name: 'Food', type: CategoryType.expense));
       // Insert expense transaction
       await db
           .into(db.transactions)
@@ -222,13 +218,7 @@ void main() {
           );
       await db
           .into(db.transactionItems)
-          .insert(
-            TransactionItemsCompanion.insert(
-              transactionId: 'tx1',
-              categoryId: const Value('cat1'),
-              amount: 300,
-            ),
-          );
+          .insert(TransactionItemsCompanion.insert(transactionId: 'tx1', categoryId: const Value('cat1'), amount: 300));
       // Income transaction should not count
       await db
           .into(db.transactions)
@@ -241,11 +231,7 @@ void main() {
               transactionDate: now,
             ),
           );
-      await db
-          .into(db.transactionItems)
-          .insert(
-            TransactionItemsCompanion.insert(transactionId: 'tx2', amount: 1000),
-          );
+      await db.into(db.transactionItems).insert(TransactionItemsCompanion.insert(transactionId: 'tx2', amount: 1000));
 
       final spent = await db.budgetsDao.getSpentAmountForBudget(
         startDate: now.subtract(const Duration(days: 1)),
@@ -258,19 +244,13 @@ void main() {
       final now = DateTime.now().toUtc();
       await db
           .into(db.accounts)
-          .insert(
-            AccountsCompanion.insert(id: const Value('acc1'), name: 'Wallet', type: AccountType.assets),
-          );
+          .insert(AccountsCompanion.insert(id: const Value('acc1'), name: 'Wallet', type: AccountType.assets));
       await db
           .into(db.categories)
-          .insert(
-            CategoriesCompanion.insert(id: const Value('cat1'), name: 'Food', type: CategoryType.expense),
-          );
+          .insert(CategoriesCompanion.insert(id: const Value('cat1'), name: 'Food', type: CategoryType.expense));
       await db
           .into(db.categories)
-          .insert(
-            CategoriesCompanion.insert(id: const Value('cat2'), name: 'Transport', type: CategoryType.expense),
-          );
+          .insert(CategoriesCompanion.insert(id: const Value('cat2'), name: 'Transport', type: CategoryType.expense));
       await db
           .into(db.transactions)
           .insert(
@@ -284,14 +264,10 @@ void main() {
           );
       await db
           .into(db.transactionItems)
-          .insert(
-            TransactionItemsCompanion.insert(transactionId: 'tx1', categoryId: const Value('cat1'), amount: 200),
-          );
+          .insert(TransactionItemsCompanion.insert(transactionId: 'tx1', categoryId: const Value('cat1'), amount: 200));
       await db
           .into(db.transactionItems)
-          .insert(
-            TransactionItemsCompanion.insert(transactionId: 'tx1', categoryId: const Value('cat2'), amount: 300),
-          );
+          .insert(TransactionItemsCompanion.insert(transactionId: 'tx1', categoryId: const Value('cat2'), amount: 300));
 
       final spent = await db.budgetsDao.getSpentAmountForBudget(
         startDate: now.subtract(const Duration(days: 1)),
@@ -305,14 +281,10 @@ void main() {
       final now = DateTime.now().toUtc();
       await db
           .into(db.accounts)
-          .insert(
-            AccountsCompanion.insert(id: const Value('acc1'), name: 'Wallet', type: AccountType.assets),
-          );
+          .insert(AccountsCompanion.insert(id: const Value('acc1'), name: 'Wallet', type: AccountType.assets));
       await db
           .into(db.accounts)
-          .insert(
-            AccountsCompanion.insert(id: const Value('acc2'), name: 'Bank', type: AccountType.assets),
-          );
+          .insert(AccountsCompanion.insert(id: const Value('acc2'), name: 'Bank', type: AccountType.assets));
       await db
           .into(db.transactions)
           .insert(
@@ -324,11 +296,7 @@ void main() {
               transactionDate: now,
             ),
           );
-      await db
-          .into(db.transactionItems)
-          .insert(
-            TransactionItemsCompanion.insert(transactionId: 'tx1', amount: 100),
-          );
+      await db.into(db.transactionItems).insert(TransactionItemsCompanion.insert(transactionId: 'tx1', amount: 100));
       await db
           .into(db.transactions)
           .insert(
@@ -340,11 +308,7 @@ void main() {
               transactionDate: now,
             ),
           );
-      await db
-          .into(db.transactionItems)
-          .insert(
-            TransactionItemsCompanion.insert(transactionId: 'tx2', amount: 400),
-          );
+      await db.into(db.transactionItems).insert(TransactionItemsCompanion.insert(transactionId: 'tx2', amount: 400));
 
       final spent = await db.budgetsDao.getSpentAmountForBudget(
         startDate: now.subtract(const Duration(days: 1)),

@@ -10,7 +10,7 @@ import 'package:poka_ce/theme/theme.dart';
 /// Income is green (or primary/positive), Expense is red (destructive), Transfer is default.
 class PokaAmountText extends ConsumerWidget {
   /// Creates a PokaAmountText.
-  const PokaAmountText({
+  const new({
     required this.amount,
     required this.type,
     this.style,

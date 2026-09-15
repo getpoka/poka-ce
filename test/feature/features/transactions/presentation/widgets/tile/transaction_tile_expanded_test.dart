@@ -228,24 +228,10 @@ void main() {
       transactionDate: now,
       createdAt: now,
       updatedAt: now,
-      items: [
-        TransactionItemModel(
-          id: 'i1',
-          transactionId: 't2',
-          amount: 250,
-          createdAt: now,
-          updatedAt: now,
-        ),
-      ],
+      items: [TransactionItemModel(id: 'i1', transactionId: 't2', amount: 250, createdAt: now, updatedAt: now)],
     );
     await tester.pumpWidget(
-      buildApp([
-        RecentTransactionTile(
-          transaction: tx,
-          isBalanceVisible: true,
-          account: accounts().first,
-        ),
-      ]),
+      buildApp([RecentTransactionTile(transaction: tx, isBalanceVisible: true, account: accounts().first)]),
     );
     await tester.pumpAndSettle();
 
@@ -313,11 +299,7 @@ void main() {
             home: Scaffold(
               body: Column(
                 children: [
-                  RecentTransactionTile(
-                    transaction: tx,
-                    isBalanceVisible: true,
-                    category: categoriesWithChild[1],
-                  ),
+                  RecentTransactionTile(transaction: tx, isBalanceVisible: true, category: categoriesWithChild[1]),
                 ],
               ),
             ),
@@ -340,15 +322,7 @@ void main() {
       transactionDate: now,
       createdAt: now,
       updatedAt: now,
-      items: [
-        TransactionItemModel(
-          id: 'i1',
-          transactionId: 't4',
-          amount: 100,
-          createdAt: now,
-          updatedAt: now,
-        ),
-      ],
+      items: [TransactionItemModel(id: 'i1', transactionId: 't4', amount: 100, createdAt: now, updatedAt: now)],
     );
     await tester.pumpWidget(buildApp([RecentTransactionTile(transaction: tx, isBalanceVisible: true)]));
     await tester.pumpAndSettle();

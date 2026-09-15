@@ -11,10 +11,7 @@ void main() {
   Widget buildTestApp(Widget child) {
     return ProviderScope(
       child: MaterialApp(
-        builder: (context, child) => FTheme(
-          data: lightTheme,
-          child: child!,
-        ),
+        builder: (context, child) => FTheme(data: lightTheme, child: child!),
         home: Scaffold(body: child),
       ),
     );
@@ -31,13 +28,7 @@ void main() {
       updatedAt: DateTime.now(),
     );
 
-    await tester.pumpWidget(
-      buildTestApp(
-        CategoryTile(
-          category: cat,
-        ),
-      ),
-    );
+    await tester.pumpWidget(buildTestApp(CategoryTile(category: cat)));
 
     expect(find.text('Food'), findsOneWidget);
   });

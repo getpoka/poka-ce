@@ -8,11 +8,7 @@ import 'package:poka_ce/theme/theme.dart';
 
 /// A prominent card widget displaying a category's icon, name, and background color.
 class CategoryHeroCard extends StatelessWidget {
-  const CategoryHeroCard({
-    required this.category,
-    this.onToggleActive,
-    super.key,
-  });
+  const new({required this.category, this.onToggleActive, super.key});
 
   final CategoryModel category;
   final ValueChanged<bool>? onToggleActive;
@@ -27,10 +23,7 @@ class CategoryHeroCard extends StatelessWidget {
     final parentIcon = IconUtil.getIcon(category.icon);
 
     return Container(
-      decoration: BoxDecoration(
-        gradient: PokaGradients.hero(parentColor),
-        borderRadius: theme.style.borderRadius.lg,
-      ),
+      decoration: BoxDecoration(gradient: PokaGradients.hero(parentColor), borderRadius: theme.style.borderRadius.lg),
       padding: const EdgeInsets.all(24),
       child: Row(
         children: [
@@ -64,19 +57,13 @@ class CategoryHeroCard extends StatelessWidget {
                   ),
                   child: Text(
                     category.type.name.toUpperCase(),
-                    style: theme.typography.labelBadge.copyWith(
-                      color: Colors.white.withValues(alpha: 0.9),
-                    ),
+                    style: theme.typography.labelBadge.copyWith(color: Colors.white.withValues(alpha: 0.9)),
                   ),
                 ),
               ],
             ),
           ),
-          if (onToggleActive != null)
-            PokaSwitch(
-              value: category.isActive,
-              onChange: onToggleActive!,
-            ),
+          if (onToggleActive != null) PokaSwitch(value: category.isActive, onChange: onToggleActive!),
         ],
       ),
     );

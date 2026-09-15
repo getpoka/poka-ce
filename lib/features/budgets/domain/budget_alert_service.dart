@@ -10,9 +10,7 @@ import 'package:poka_ce/i18n/strings.g.dart';
 /// Domain service that monitors budget utilization and dispatches threshold alert notifications.
 class BudgetAlertService {
   /// Creates a [BudgetAlertService] with the provided [IBudgetRepository].
-  const BudgetAlertService({
-    required IBudgetRepository budgetRepository,
-  }) : _budgetRepo = budgetRepository;
+  const new({required IBudgetRepository budgetRepository}) : _budgetRepo = budgetRepository;
 
   final IBudgetRepository _budgetRepo;
 
@@ -68,10 +66,7 @@ class BudgetAlertService {
             await notificationService.showNotification(
               id: budget.id.hashCode,
               title: t.budgets.budgetAlert(name: budget.name),
-              body: t.budgets.budgetExceededAlert(
-                percentage: percentage.toStringAsFixed(1),
-                name: budget.name,
-              ),
+              body: t.budgets.budgetExceededAlert(percentage: percentage.toStringAsFixed(1), name: budget.name),
             );
           }
         }

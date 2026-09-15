@@ -21,11 +21,7 @@ import 'package:poka_ce/shared/widgets/poka_slidable_action.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class BudgetCard extends ConsumerWidget {
-  const BudgetCard({
-    required this.budget,
-    this.isInteractive = true,
-    super.key,
-  });
+  const new({required this.budget, this.isInteractive = true, super.key});
 
   final BudgetModel budget;
   final bool isInteractive;
@@ -87,10 +83,7 @@ class BudgetCard extends ConsumerWidget {
                             const SizedBox(width: 8),
                             Expanded(
                               child: Text(
-                                [
-                                  if (category != null) category.name,
-                                  if (account != null) account.name,
-                                ].join(' • '),
+                                [if (category != null) category.name, if (account != null) account.name].join(' • '),
                                 style: theme.typography.bodySecondary.copyWith(color: theme.colors.mutedForeground),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
@@ -218,7 +211,7 @@ class BudgetCard extends ConsumerWidget {
 }
 
 class _PeriodBadge extends StatelessWidget {
-  const _PeriodBadge({required this.period});
+  const new({required this.period});
 
   final BudgetPeriod period;
 
@@ -234,10 +227,7 @@ class _PeriodBadge extends StatelessWidget {
     final theme = context.theme;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-      decoration: BoxDecoration(
-        color: theme.colors.muted,
-        borderRadius: theme.style.borderRadius.sm,
-      ),
+      decoration: BoxDecoration(color: theme.colors.muted, borderRadius: theme.style.borderRadius.sm),
       child: Text(
         _label.toUpperCase(),
         style: theme.typography.labelBadge.copyWith(color: theme.colors.mutedForeground),
@@ -247,7 +237,7 @@ class _PeriodBadge extends StatelessWidget {
 }
 
 class _ProgressBar extends StatelessWidget {
-  const _ProgressBar({required this.progress, required this.color});
+  const new({required this.progress, required this.color});
 
   final double progress;
   final Color color;
@@ -259,10 +249,7 @@ class _ProgressBar extends StatelessWidget {
       builder: (context, constraints) => Container(
         height: 6,
         width: constraints.maxWidth,
-        decoration: BoxDecoration(
-          color: theme.colors.muted,
-          borderRadius: BorderRadius.circular(3),
-        ),
+        decoration: BoxDecoration(color: theme.colors.muted, borderRadius: BorderRadius.circular(3)),
         child: Align(
           alignment: Alignment.centerLeft,
           child: TweenAnimationBuilder<double>(
@@ -272,10 +259,7 @@ class _ProgressBar extends StatelessWidget {
             builder: (_, value, _) => FractionallySizedBox(
               widthFactor: value,
               child: Container(
-                decoration: BoxDecoration(
-                  color: color,
-                  borderRadius: BorderRadius.circular(3),
-                ),
+                decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(3)),
               ),
             ),
           ),

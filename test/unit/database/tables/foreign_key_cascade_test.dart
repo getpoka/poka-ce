@@ -60,13 +60,7 @@ void main() {
 
     await db
         .into(db.categories)
-        .insert(
-          CategoriesCompanion.insert(
-            id: const Value(parentId),
-            name: 'Food',
-            type: CategoryType.expense,
-          ),
-        );
+        .insert(CategoriesCompanion.insert(id: const Value(parentId), name: 'Food', type: CategoryType.expense));
 
     await db
         .into(db.categories)
@@ -120,13 +114,7 @@ void main() {
 
     await db
         .into(db.transactionItems)
-        .insert(
-          TransactionItemsCompanion.insert(
-            id: const Value(itemId),
-            transactionId: transactionId,
-            amount: 10000,
-          ),
-        );
+        .insert(TransactionItemsCompanion.insert(id: const Value(itemId), transactionId: transactionId, amount: 10000));
 
     var itemsCount = await db.select(db.transactionItems).get();
     expect(itemsCount.length, 1);
@@ -156,22 +144,11 @@ void main() {
 
     await db
         .into(db.categories)
-        .insert(
-          CategoriesCompanion.insert(
-            id: const Value(categoryId),
-            name: 'Food',
-            type: CategoryType.expense,
-          ),
-        );
+        .insert(CategoriesCompanion.insert(id: const Value(categoryId), name: 'Food', type: CategoryType.expense));
 
     await db
         .into(db.accountCategories)
-        .insert(
-          AccountCategoriesCompanion.insert(
-            accountId: accountId,
-            categoryId: categoryId,
-          ),
-        );
+        .insert(AccountCategoriesCompanion.insert(accountId: accountId, categoryId: categoryId));
 
     var acCount = await db.select(db.accountCategories).get();
     expect(acCount.length, 1);

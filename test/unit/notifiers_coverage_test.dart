@@ -36,10 +36,7 @@ class MockAccountRepo extends Mock implements IAccountRepository {}
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  void stubTxWatch(
-    MockTransactionRepo mock,
-    Result<List<TransactionModel>, Failure> result,
-  ) {
+  void stubTxWatch(MockTransactionRepo mock, Result<List<TransactionModel>, Failure> result) {
     when(
       () => mock.watchTransactions(
         startDate: any(named: 'startDate'),
@@ -133,11 +130,7 @@ void main() {
       expect(r.copyWith(isLoading: true).isLoading, true);
       expect(r.copyWith(isLoading: true).error, 'e');
 
-      final t = TransactionListState(
-        isLoading: false,
-        transactions: const [],
-        focusedDate: DateTime.utc(2024, 1, 1),
-      );
+      final t = TransactionListState(isLoading: false, transactions: const [], focusedDate: DateTime.utc(2024, 1, 1));
       expect(t.copyWith(isLoading: true).isLoading, true);
       expect(t.copyWith(transactions: const []).transactions, isEmpty);
     });

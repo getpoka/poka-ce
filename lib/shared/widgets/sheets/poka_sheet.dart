@@ -24,9 +24,7 @@ Future<T?> showPokaSheet<T>({
   // background while its content already switched to the new theme.
   BoxDecoration decoration(BuildContext ctx) => BoxDecoration(
     color: ctx.theme.colors.background,
-    borderRadius: BorderRadius.vertical(
-      top: ctx.theme.style.borderRadius.xl.topLeft,
-    ),
+    borderRadius: BorderRadius.vertical(top: ctx.theme.style.borderRadius.xl.topLeft),
   );
 
   if (fitContent) {
@@ -38,10 +36,7 @@ Future<T?> showPokaSheet<T>({
       mainAxisMaxRatio: null,
       barrierDismissible: !persistent,
       draggable: !persistent,
-      builder: (ctx) => DecoratedBox(
-        decoration: decoration(ctx),
-        child: builder(ctx),
-      ),
+      builder: (ctx) => DecoratedBox(decoration: decoration(ctx), child: builder(ctx)),
     );
   }
 
@@ -53,10 +48,7 @@ Future<T?> showPokaSheet<T>({
     mainAxisMaxRatio: null,
     barrierDismissible: !persistent,
     draggable: !persistent,
-    builder: (ctx) => DecoratedBox(
-      decoration: decoration(ctx),
-      child: builder(ctx),
-    ),
+    builder: (ctx) => DecoratedBox(decoration: decoration(ctx), child: builder(ctx)),
   );
 }
 
@@ -67,7 +59,7 @@ EdgeInsets pokaSheetBottomInset(BuildContext context) {
 }
 
 class PokaSheetHandle extends StatelessWidget {
-  const PokaSheetHandle({super.key});
+  const new({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +81,7 @@ class PokaSheetHandle extends StatelessWidget {
 /// A reusable bottom sheet layout that automatically includes the drag handle,
 /// centered title, optional close button, and handles scrolling & keyboard insets.
 class PokaSheet extends StatelessWidget {
-  const PokaSheet({
+  const new({
     required this.title,
     required this.child,
     this.leading,
@@ -112,17 +104,10 @@ class PokaSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     final effectivePadding = padding.add(pokaSheetBottomInset(context));
 
-    Widget content = Padding(
-      padding: effectivePadding,
-      child: child,
-    );
+    Widget content = Padding(padding: effectivePadding, child: child);
 
     if (isScrollable) {
-      content = Flexible(
-        child: SingleChildScrollView(
-          child: content,
-        ),
-      );
+      content = Flexible(child: SingleChildScrollView(child: content));
     }
 
     return SafeArea(
@@ -133,12 +118,7 @@ class PokaSheet extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           const PokaSheetHandle(),
-          PokaSheetHeader(
-            title: title,
-            leading: leading,
-            trailing: trailing,
-            showCloseButton: showCloseButton,
-          ),
+          PokaSheetHeader(title: title, leading: leading, trailing: trailing, showCloseButton: showCloseButton),
           content,
         ],
       ),

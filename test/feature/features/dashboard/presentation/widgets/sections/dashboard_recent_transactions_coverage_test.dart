@@ -140,9 +140,7 @@ void main() {
         child: MaterialApp(
           builder: (context, child) => FTheme(data: lightTheme, child: child!),
           home: Scaffold(
-            body: SingleChildScrollView(
-              child: DashboardRecentTransactions(transactions: transactions),
-            ),
+            body: SingleChildScrollView(child: DashboardRecentTransactions(transactions: transactions)),
           ),
         ),
       ),

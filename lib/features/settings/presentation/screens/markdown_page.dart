@@ -8,11 +8,7 @@ import 'package:poka_ce/shared/widgets/poka_header.dart';
 /// Generic Markdown viewer screen that loads content from a Flutter asset file.
 class MarkdownPage extends StatelessWidget {
   /// Creates a [MarkdownPage] loading markdown from [assetPath] with header [title].
-  const MarkdownPage({
-    required this.title,
-    required this.assetPath,
-    super.key,
-  });
+  const new({required this.title, required this.assetPath, super.key});
 
   final String title;
   final String assetPath;
@@ -22,27 +18,17 @@ class MarkdownPage extends StatelessWidget {
     final theme = context.theme;
 
     return FScaffold(
-      header: PokaHeader(
-        title: title,
-        showBack: true,
-      ),
+      header: PokaHeader(title: title, showBack: true),
       child: FutureBuilder<String>(
         future: rootBundle
             .loadString(assetPath)
-            .catchError(
-              (_) => rootBundle.loadString('packages/poka_ce/$assetPath'),
-            ),
+            .catchError((_) => rootBundle.loadString('packages/poka_ce/$assetPath')),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: FCircularProgress());
           }
           if (snapshot.hasError) {
-            return Center(
-              child: Text(
-                t.settings.errorLoadingContent,
-                style: theme.typography.body.lg,
-              ),
-            );
+            return Center(child: Text(t.settings.errorLoadingContent, style: theme.typography.body.lg));
           }
           final content = snapshot.data ?? '';
           return Markdown(

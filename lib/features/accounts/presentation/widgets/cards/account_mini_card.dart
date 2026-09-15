@@ -13,7 +13,7 @@ import 'package:poka_ce/theme/theme.dart';
 // ─────────────────────────────────────────────────────────────────────────────
 
 class AccountMiniCard extends StatelessWidget {
-  const AccountMiniCard({
+  const new({
     required this.account,
     required this.balance,
     required this.onTap,
@@ -54,18 +54,11 @@ class AccountMiniCard extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      PokaIcon(
-                        icon: accountIcon,
-                        color: accentColor,
-                        size: PokaIconSize.small,
-                      ),
+                      PokaIcon(icon: accountIcon, color: accentColor, size: PokaIconSize.small),
                       const SizedBox(width: 8),
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                        decoration: BoxDecoration(
-                          color: theme.colors.muted,
-                          borderRadius: theme.style.borderRadius.sm,
-                        ),
+                        decoration: BoxDecoration(color: theme.colors.muted, borderRadius: theme.style.borderRadius.sm),
                         child: Text(
                           account.type.name.toUpperCase(),
                           style: theme.typography.labelBadge.copyWith(color: theme.colors.mutedForeground),
@@ -128,11 +121,7 @@ class AccountMiniCard extends StatelessWidget {
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(2),
-                        child: Icon(
-                          FPhosphorIcons.dotsThreeVertical,
-                          size: 16,
-                          color: theme.colors.mutedForeground,
-                        ),
+                        child: Icon(FPhosphorIcons.dotsThreeVertical, size: 16, color: theme.colors.mutedForeground),
                       ),
                     ),
                 ],
@@ -156,31 +145,20 @@ class AccountMiniCard extends StatelessWidget {
                   builder: (context, constraints) => Container(
                     height: 4,
                     width: constraints.maxWidth,
-                    decoration: BoxDecoration(
-                      color: theme.colors.muted,
-                      borderRadius: BorderRadius.circular(2),
-                    ),
+                    decoration: BoxDecoration(color: theme.colors.muted, borderRadius: BorderRadius.circular(2)),
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: FractionallySizedBox(
                         widthFactor: ratio,
                         child: Container(
-                          decoration: BoxDecoration(
-                            color: accentColor,
-                            borderRadius: BorderRadius.circular(2),
-                          ),
+                          decoration: BoxDecoration(color: accentColor, borderRadius: BorderRadius.circular(2)),
                         ),
                       ),
                     ),
                   ),
                 ),
                 const SizedBox(height: 4),
-                Text(
-                  ratioLabel!,
-                  style: theme.typography.caption.copyWith(
-                    color: theme.colors.mutedForeground,
-                  ),
-                ),
+                Text(ratioLabel!, style: theme.typography.caption.copyWith(color: theme.colors.mutedForeground)),
               ] else ...[
                 const SizedBox(height: 4),
               ],

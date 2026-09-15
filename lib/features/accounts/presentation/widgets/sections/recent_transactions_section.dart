@@ -11,12 +11,7 @@ import 'package:poka_ce/shared/widgets/poka_section_label.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class RecentTransactionsSection extends HookConsumerWidget {
-  const RecentTransactionsSection({
-    required this.accountId,
-    required this.accountIds,
-    required this.accountTransactions,
-    super.key,
-  });
+  const new({required this.accountId, required this.accountIds, required this.accountTransactions, super.key});
 
   final String accountId;
   final Set<String> accountIds;
