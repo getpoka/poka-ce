@@ -15,6 +15,7 @@ import 'package:poka_ce/features/categories/domain/category_model.dart';
 import 'package:poka_ce/features/categories/presentation/controllers/category_list_notifier.dart';
 import 'package:poka_ce/features/transactions/domain/split_item.dart';
 import 'package:poka_ce/features/transactions/domain/transaction_model.dart';
+import 'package:poka_ce/features/transactions/presentation/controllers/transaction_item_extra_builder_provider.dart';
 import 'package:poka_ce/features/transactions/presentation/widgets/split/transaction_split_item_form_sheet.dart';
 import 'package:poka_ce/features/transactions/presentation/widgets/tile/transaction_tile_content.dart';
 import 'package:poka_ce/features/transactions/presentation/widgets/tile/transaction_tile_icon.dart';
@@ -200,8 +201,13 @@ class RecentTransactionTile extends HookConsumerWidget with FTileMixin {
     final destAccLabel = destAccount?.name;
     final destAccColor = destAccount?.color?.toColor() ?? theme.colors.primary;
 
-    // ── Time string ────────────────────────────────────────────────────────
+    // ── Time / Meta slot ───────────────────────────────────────────────────
     final timeStr = isSubItem ? null : transaction.transactionDate.toFormattedTime();
+    final timeBuilder = ref.watch(transactionTimeBuilderProvider);
+    final timeWidget = isSubItem || timeStr == null
+        ? null
+        : (timeBuilder?.call(context, transaction, timeStr) ??
+              Text(timeStr, style: theme.typography.caption.copyWith(color: theme.colors.mutedForeground)));
 
     final Widget baseTile = GestureDetector(
       behavior: HitTestBehavior.opaque,
@@ -231,7 +237,7 @@ class RecentTransactionTile extends HookConsumerWidget with FTileMixin {
           destAccLabel: destAccLabel,
           destAccColor: destAccColor,
           isTransfer: transaction.type == TransactionType.transfer,
-          timeStr: timeStr,
+          timeWidget: timeWidget,
           note: !hasMultipleItems ? (transaction.items.firstOrNull?.note ?? transaction.note) : transaction.note,
           allocation: !hasMultipleItems ? transaction.items.firstOrNull?.allocation : null,
           hasDebt: transaction.debtId != null,

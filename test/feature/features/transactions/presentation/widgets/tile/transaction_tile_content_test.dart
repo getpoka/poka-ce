@@ -59,7 +59,7 @@ void main() {
                 accColor: accColor,
                 destAccLabel: destAccLabel,
                 destAccColor: destAccColor,
-                timeStr: timeStr,
+                timeWidget: timeStr != null ? Text(timeStr) : null,
                 note: note,
                 allocation: allocation,
                 hasDebt: hasDebt,
