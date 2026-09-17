@@ -2,8 +2,6 @@
 library;
 
 import 'package:flutter/widgets.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart' show ProviderScope;
-import 'package:hooks_riverpod/hooks_riverpod.dart' show ProviderScope;
 import 'package:poka_ce/features/goals/domain/goal_model.dart';
 import 'package:poka_ce/features/goals/presentation/widgets/goal_form_sheet.dart' show GoalFormSheet;
 import 'package:riverpod_annotation/riverpod_annotation.dart';

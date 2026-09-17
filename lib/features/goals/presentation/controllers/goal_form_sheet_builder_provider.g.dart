@@ -10,9 +10,9 @@ part of 'goal_form_sheet_builder_provider.dart';
 // ignore_for_file: type=lint, type=warning
 /// Provides an optional [GoalFormSheetBuilder] override for the goal form.
 ///
-/// In CE, returns `null` — callers fall back to the default [GoalFormSheet.show].
-/// Poka PE overrides this in the root [ProviderScope] to inject
-/// [PeGoalFormSheet.show], which adds a [CurrencySelectField] for the
+/// In CE, returns `null` — callers fall back to the default GoalFormSheet.show.
+/// Poka PE overrides this in the root ProviderScope to inject
+/// PeGoalFormSheet.show, which adds a currency selector for the
 /// automatically-generated goal pocket account.
 
 @ProviderFor(goalFormSheetBuilder)
@@ -20,9 +20,9 @@ final goalFormSheetBuilderProvider = GoalFormSheetBuilderProvider._();
 
 /// Provides an optional [GoalFormSheetBuilder] override for the goal form.
 ///
-/// In CE, returns `null` — callers fall back to the default [GoalFormSheet.show].
-/// Poka PE overrides this in the root [ProviderScope] to inject
-/// [PeGoalFormSheet.show], which adds a [CurrencySelectField] for the
+/// In CE, returns `null` — callers fall back to the default GoalFormSheet.show.
+/// Poka PE overrides this in the root ProviderScope to inject
+/// PeGoalFormSheet.show, which adds a currency selector for the
 /// automatically-generated goal pocket account.
 
 final class GoalFormSheetBuilderProvider
@@ -30,9 +30,9 @@ final class GoalFormSheetBuilderProvider
     with $Provider<GoalFormSheetBuilder?> {
   /// Provides an optional [GoalFormSheetBuilder] override for the goal form.
   ///
-  /// In CE, returns `null` — callers fall back to the default [GoalFormSheet.show].
-  /// Poka PE overrides this in the root [ProviderScope] to inject
-  /// [PeGoalFormSheet.show], which adds a [CurrencySelectField] for the
+  /// In CE, returns `null` — callers fall back to the default GoalFormSheet.show.
+  /// Poka PE overrides this in the root ProviderScope to inject
+  /// PeGoalFormSheet.show, which adds a currency selector for the
   /// automatically-generated goal pocket account.
   GoalFormSheetBuilderProvider._()
     : super(
@@ -63,4 +63,4 @@ final class GoalFormSheetBuilderProvider
   }
 }
 
-String _$goalFormSheetBuilderHash() => r'd67ebc52825048465ab42b4e88f3c1ff1c6b5d3c';
+String _$goalFormSheetBuilderHash() => r'f52439a77ebc1e7ca156053b238959edde13db54';

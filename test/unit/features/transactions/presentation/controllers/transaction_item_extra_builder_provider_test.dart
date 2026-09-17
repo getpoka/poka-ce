@@ -7,7 +7,7 @@ import 'package:poka_ce/features/transactions/presentation/controllers/transacti
 
 void main() {
   group('transactionTimeBuilderProvider', () {
-    test('defaults to null in CE', () {
+    test('defaults to null', () {
       final container = ProviderContainer();
       addTearDown(container.dispose);
 
@@ -43,6 +43,46 @@ void main() {
       expect(widget, isA<Text>());
       expect((widget as Text).key, equals(const ValueKey('test_time_slot')));
       expect(widget.data, equals('10:30 (custom)'));
+    });
+  });
+
+  group('transactionAmountBuilderProvider', () {
+    test('defaults to null', () {
+      final container = ProviderContainer();
+      addTearDown(container.dispose);
+
+      final builder = container.read(transactionAmountBuilderProvider);
+      expect(builder, isNull);
+    });
+
+    test('can be overridden with a custom builder receiving transaction and visibility', () {
+      final container = ProviderContainer(
+        overrides: [
+          transactionAmountBuilderProvider.overrideWithValue(
+            (context, transaction, {required isBalanceVisible}) =>
+                Text('\$ ${transaction.amount}', key: const ValueKey('test_amount_slot')),
+          ),
+        ],
+      );
+      addTearDown(container.dispose);
+
+      final builder = container.read(transactionAmountBuilderProvider);
+      expect(builder, isNotNull);
+
+      final dummyTx = TransactionModel(
+        id: 'tx_1',
+        accountId: 'acc_1',
+        type: TransactionType.expense,
+        amount: 1000,
+        transactionDate: DateTime(2026, 1, 1),
+        createdAt: DateTime(2026, 1, 1),
+        updatedAt: DateTime(2026, 1, 1),
+      );
+
+      final widget = builder!(_FakeBuildContext(), dummyTx, isBalanceVisible: true);
+      expect(widget, isA<Text>());
+      expect((widget as Text).key, equals(const ValueKey('test_amount_slot')));
+      expect(widget.data, equals('\$ 1000'));
     });
   });
 }

@@ -40,7 +40,7 @@ final class SettingsNotifierProvider extends $NotifierProvider<SettingsNotifier,
   }
 }
 
-String _$settingsNotifierHash() => r'f0774daf1253be2132b5a62e898739a52cf6eb2c';
+String _$settingsNotifierHash() => r'e6ab24517bd6e4cb9278f733ae381a0fa6659391';
 
 /// Notifier coordinating user preferences (theme, language, number format, base currency).
 

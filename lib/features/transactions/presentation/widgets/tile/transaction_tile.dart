@@ -209,6 +209,12 @@ class RecentTransactionTile extends HookConsumerWidget with FTileMixin {
         : (timeBuilder?.call(context, transaction, timeStr) ??
               Text(timeStr, style: theme.typography.caption.copyWith(color: theme.colors.mutedForeground)));
 
+    // ── Amount slot ────────────────────────────────────────────────────────
+    final amountBuilder = ref.watch(transactionAmountBuilderProvider);
+    final customAmountWidget = isSubItem
+        ? null
+        : amountBuilder?.call(context, transaction, isBalanceVisible: isBalanceVisible);
+
     final Widget baseTile = GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: handleTap,
@@ -238,6 +244,7 @@ class RecentTransactionTile extends HookConsumerWidget with FTileMixin {
           destAccColor: destAccColor,
           isTransfer: transaction.type == TransactionType.transfer,
           timeWidget: timeWidget,
+          customAmountWidget: customAmountWidget,
           note: !hasMultipleItems ? (transaction.items.firstOrNull?.note ?? transaction.note) : transaction.note,
           allocation: !hasMultipleItems ? transaction.items.firstOrNull?.allocation : null,
           hasDebt: transaction.debtId != null,

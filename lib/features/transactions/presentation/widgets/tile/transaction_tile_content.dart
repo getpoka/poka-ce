@@ -24,6 +24,7 @@ class TransactionTileContent extends StatelessWidget {
     this.destAccLabel,
     this.destAccColor,
     this.timeWidget,
+    this.customAmountWidget,
     this.note,
     this.allocation,
     this.hasDebt = false,
@@ -45,6 +46,7 @@ class TransactionTileContent extends StatelessWidget {
   final Color? destAccColor;
   final bool isTransfer;
   final Widget? timeWidget;
+  final Widget? customAmountWidget;
   final String? note;
   final TransactionAllocation? allocation;
   final bool hasDebt;
@@ -96,12 +98,13 @@ class TransactionTileContent extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 8),
-            PokaAmountText(
-              amount: amount,
-              type: type,
-              isObscured: !isBalanceVisible,
-              style: theme.typography.amountTile,
-            ),
+            customAmountWidget ??
+                PokaAmountText(
+                  amount: amount,
+                  type: type,
+                  isObscured: !isBalanceVisible,
+                  style: theme.typography.amountTile,
+                ),
           ],
         ),
 
