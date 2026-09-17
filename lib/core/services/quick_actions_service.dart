@@ -1,8 +1,10 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:poka_ce/app/router/router.dart';
 import 'package:poka_ce/core/logger/poka_logger.dart';
 import 'package:poka_ce/features/accounts/presentation/widgets/forms/account_form_sheet.dart';
 import 'package:poka_ce/features/categories/presentation/widgets/forms/category_form_sheet.dart';
+import 'package:poka_ce/features/goals/presentation/controllers/goal_form_sheet_builder_provider.dart';
 import 'package:poka_ce/features/goals/presentation/widgets/goal_form_sheet.dart';
 import 'package:poka_ce/features/transactions/presentation/widgets/forms/transaction_form_sheet.dart';
 import 'package:quick_actions/quick_actions.dart';
@@ -69,7 +71,13 @@ class QuickActionsService {
         case 'action_add_category':
           CategoryFormSheet.show(context);
         case 'action_add_goal':
-          GoalFormSheet.show(context);
+          final container = ProviderScope.containerOf(context, listen: false);
+          final goalBuilder = container.read(goalFormSheetBuilderProvider);
+          if (goalBuilder != null) {
+            goalBuilder(context);
+          } else {
+            GoalFormSheet.show(context);
+          }
         default:
           talker.warning('Unknown QuickAction type: $type');
       }

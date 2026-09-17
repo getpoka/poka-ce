@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:poka_ce/features/goals/domain/goal_model.dart';
+import 'package:poka_ce/features/goals/presentation/controllers/goal_form_sheet_builder_provider.dart';
 import 'package:poka_ce/features/goals/presentation/controllers/goal_list_view_notifier.dart';
 import 'package:poka_ce/features/goals/presentation/controllers/goal_notifier.dart';
 import 'package:poka_ce/features/goals/presentation/widgets/goal_card.dart';
@@ -17,6 +19,15 @@ import 'package:poka_ce/theme/theme.dart';
 /// the amount saved so far (per PLANS.md §5).
 class GoalListPage extends ConsumerWidget {
   const new({super.key});
+
+  /// Opens the goal form sheet, delegating to the injected builder when available.
+  Future<void> _showGoalForm(BuildContext context, WidgetRef ref, {GoalModel? initialGoal}) {
+    final builder = ref.read(goalFormSheetBuilderProvider);
+    if (builder != null) {
+      return builder(context, initialGoal: initialGoal);
+    }
+    return GoalFormSheet.show(context, initialGoal: initialGoal);
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -35,7 +46,7 @@ class GoalListPage extends ConsumerWidget {
                 subtitle: t.goals.setSavingsTargetsADedicatedPocketIsCreatedAutomaticallyForEachGoal,
                 actionLabel: t.goals.createGoal,
                 actionKey: const Key('goal-add-button'),
-                onAction: () => GoalFormSheet.show(context),
+                onAction: () => _showGoalForm(context, ref),
               ),
             );
           }
@@ -79,7 +90,14 @@ class _GoalContent extends ConsumerWidget {
               Builder(
                 builder: (context) => GestureDetector(
                   key: const Key('goal-add-button'),
-                  onTap: () => GoalFormSheet.show(context),
+                  onTap: () {
+                    final builder = ref.read(goalFormSheetBuilderProvider);
+                    if (builder != null) {
+                      builder(context);
+                    } else {
+                      GoalFormSheet.show(context);
+                    }
+                  },
                   behavior: HitTestBehavior.opaque,
                   child: Row(
                     children: [
@@ -108,7 +126,14 @@ class _GoalContent extends ConsumerWidget {
                 subtitle: t.goals.noActiveGoalsSubtitle,
                 actionLabel: t.goals.createGoal,
                 actionKey: const Key('goal-add-button'),
-                onAction: () => GoalFormSheet.show(context),
+                onAction: () {
+                  final builder = ref.read(goalFormSheetBuilderProvider);
+                  if (builder != null) {
+                    builder(context);
+                  } else {
+                    GoalFormSheet.show(context);
+                  }
+                },
                 hasBorder: hasPastGoals,
               ),
             ).animate().fade(duration: 300.ms, delay: 120.ms)

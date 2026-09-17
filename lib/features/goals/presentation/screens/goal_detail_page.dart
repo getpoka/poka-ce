@@ -8,6 +8,7 @@ import 'package:poka_ce/features/categories/domain/category_model.dart';
 import 'package:poka_ce/features/categories/presentation/controllers/category_list_notifier.dart';
 import 'package:poka_ce/features/goals/domain/goal_model.dart';
 import 'package:poka_ce/features/goals/presentation/controllers/goal_detail_notifier.dart';
+import 'package:poka_ce/features/goals/presentation/controllers/goal_form_sheet_builder_provider.dart';
 import 'package:poka_ce/features/goals/presentation/controllers/goal_notifier.dart';
 import 'package:poka_ce/features/goals/presentation/widgets/goal_card.dart';
 import 'package:poka_ce/features/goals/presentation/widgets/goal_form_sheet.dart';
@@ -65,7 +66,14 @@ class GoalDetailPage extends ConsumerWidget {
         suffixes: [
           FHeaderAction(
             icon: const Icon(FPhosphorIcons.pencilSimple, size: 20),
-            onPress: () => GoalFormSheet.show(context, initialGoal: activeGoal),
+            onPress: () {
+              final builder = ref.read(goalFormSheetBuilderProvider);
+              if (builder != null) {
+                builder(context, initialGoal: activeGoal);
+              } else {
+                GoalFormSheet.show(context, initialGoal: activeGoal);
+              }
+            },
           ),
           FHeaderAction(
             icon: Icon(FPhosphorIcons.trash, size: 20, color: context.theme.colors.destructive),

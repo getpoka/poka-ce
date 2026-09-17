@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poka_ce/app/router/router.dart';
 import 'package:poka_ce/core/enums.dart';
 import 'package:poka_ce/features/goals/presentation/controllers/goal_detail_notifier.dart';
+import 'package:poka_ce/features/goals/presentation/controllers/goal_form_sheet_builder_provider.dart';
 import 'package:poka_ce/features/goals/presentation/controllers/goal_notifier.dart';
 import 'package:poka_ce/features/goals/presentation/widgets/goal_form_sheet.dart';
 import 'package:poka_ce/features/goals/presentation/widgets/goal_status_badge.dart';
@@ -154,8 +155,13 @@ class GoalCard extends ConsumerWidget {
           PokaSlidableAction(
             icon: FPhosphorIcons.pencilSimple,
             color: theme.colors.primary,
-            onPressed: () {
-              GoalFormSheet.show(context, initialGoal: state.goal);
+            onPressed: () async {
+              final builder = ref.read(goalFormSheetBuilderProvider);
+              if (builder != null) {
+                await builder(context, initialGoal: state.goal);
+              } else {
+                await GoalFormSheet.show(context, initialGoal: state.goal);
+              }
             },
           ),
         ],
