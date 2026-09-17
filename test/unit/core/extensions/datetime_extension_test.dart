@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 import 'package:poka_ce/core/extensions/datetime_extension.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 
@@ -22,9 +23,23 @@ void main() {
       expect(dt2.toFormattedTime(), '15:45');
     });
 
+    test('toFormattedTime converts UTC to device local time', () {
+      final utc = DateTime.utc(2026, 1, 1, 12, 0);
+      final local = utc.toLocal();
+      final expected = '${local.hour.toString().padLeft(2, '0')}:${local.minute.toString().padLeft(2, '0')}';
+      expect(utc.toFormattedTime(), expected);
+    });
+
     test('toFormattedDate formats correctly', () {
       final dt = DateTime(2026, 3, 15);
       expect(dt.toFormattedDate(), '15 Mar 2026');
+    });
+
+    test('toFormattedDate converts UTC to device local time', () {
+      final utc = DateTime.utc(2026, 3, 15, 23, 30);
+      final local = utc.toLocal();
+      final expected = DateFormat('dd MMM yyyy', LocaleSettings.currentLocale.languageCode).format(local);
+      expect(utc.toFormattedDate(), expected);
     });
 
     test('toFormattedDate respects Indonesian locale', () {

@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Customizable transaction timestamp slot builder for injecting extensible metadata or status indicators into transaction tiles.
 
+### Fixed
+- Fixed transaction timestamps and dates formatting in UTC instead of the user's local device time.
+
 ## [v1.0.1] - 2026-09-12
 
 Post-GA stabilization, security hardening, and database query optimization release.
