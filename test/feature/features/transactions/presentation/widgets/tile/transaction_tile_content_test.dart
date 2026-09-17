@@ -29,6 +29,7 @@ void main() {
     String? destAccLabel,
     Color? destAccColor,
     String? timeStr,
+    Widget? customAmountWidget,
     String? note,
     TransactionAllocation? allocation,
     bool hasDebt = false,
@@ -60,6 +61,7 @@ void main() {
                 destAccLabel: destAccLabel,
                 destAccColor: destAccColor,
                 timeWidget: timeStr != null ? Text(timeStr) : null,
+                customAmountWidget: customAmountWidget,
                 note: note,
                 allocation: allocation,
                 hasDebt: hasDebt,
@@ -184,6 +186,22 @@ void main() {
       await tester.pump();
 
       expect(find.textContaining('••••••'), findsWidgets);
+    });
+
+    testWidgets('renders customAmountWidget when provided', (tester) async {
+      await tester.pumpWidget(
+        wrap(
+          catLabel: 'Coffee',
+          catColor: Colors.brown,
+          amount: 5000,
+          type: TransactionType.expense,
+          customAmountWidget: const Text('Custom 5,000', key: ValueKey('custom_amount')),
+        ),
+      );
+      await tester.pump();
+
+      expect(find.byKey(const ValueKey('custom_amount')), findsOneWidget);
+      expect(find.text('Custom 5,000'), findsOneWidget);
     });
   });
 }

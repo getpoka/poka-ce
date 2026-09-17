@@ -115,7 +115,7 @@ final class AppLockControllerProvider extends $NotifierProvider<AppLockControlle
   }
 }
 
-String _$appLockControllerHash() => r'91d6614d584fc27ff2d02738a249b3116c4c8377';
+String _$appLockControllerHash() => r'9f94e351838646ae0b25f42458329ee3cdfbdc09';
 
 /// Manages the app-lock state, including PIN verification and biometric unlock.
 ///

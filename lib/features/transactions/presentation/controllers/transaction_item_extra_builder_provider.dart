@@ -15,9 +15,27 @@ typedef TransactionTimeBuilder = Widget Function(
 
 /// Provides a custom builder for customizing the transaction tile's time slot.
 ///
-/// By default (in CE), this returns null, falling back to standard formatted time text.
-/// Poka PE overrides this to inject custom layouts (e.g., sync indicators) without coupling CE to sync logic.
+/// By default, this returns null, falling back to standard formatted time text.
+/// Downstream consumers can override this to inject custom time or metadata presentation.
 @riverpod
 TransactionTimeBuilder? transactionTimeBuilder(Ref ref) {
+  return null;
+}
+
+/// Defines a custom builder for rendering the amount slot in a transaction tile.
+///
+/// Receives [context], the current [transaction], and named [isBalanceVisible].
+typedef TransactionAmountBuilder = Widget Function(
+  BuildContext context,
+  TransactionModel transaction, {
+  required bool isBalanceVisible,
+});
+
+/// Provides a custom builder for customizing the transaction tile's amount presentation.
+///
+/// By default, this returns null, falling back to standard PokaAmountText.
+/// Downstream consumers can override this to inject custom amount presentation.
+@riverpod
+TransactionAmountBuilder? transactionAmountBuilder(Ref ref) {
   return null;
 }

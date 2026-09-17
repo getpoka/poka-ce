@@ -35,7 +35,7 @@ final class BudgetListNotifierProvider extends $AsyncNotifierProvider<BudgetList
   BudgetListNotifier create() => BudgetListNotifier();
 }
 
-String _$budgetListNotifierHash() => r'b367f8af97e0d2c614793f16369585253e7ffbda';
+String _$budgetListNotifierHash() => r'7e348294586c556b51f38d8e2d1691e8ae8c2a9b';
 
 /// Notifier managing the asynchronous collection of user budgets and associated CRUD lifecycles.
 

@@ -5920,7 +5920,14 @@ class $$CurrenciesTableTableManager
                 updatedAt: updatedAt,
                 rowid: rowid,
               ),
-          withReferenceMapper: (p0) => p0.map((e) => (e.readTable(table), BaseReferences(db, table, e))).toList(),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$CurrenciesTable, Currency>(table),
+                  BaseReferences<_$AppDatabase, $CurrenciesTable, Currency>(db, table, e),
+                ),
+              )
+              .toList(),
           prefetchHooksCallback: null,
         ),
       );
@@ -6038,7 +6045,14 @@ class $$SettingsTableTableManager
             Value<DateTime> updatedAt = const Value.absent(),
             Value<int> rowid = const Value.absent(),
           }) => SettingsCompanion.insert(key: key, value: value, updatedAt: updatedAt, rowid: rowid),
-          withReferenceMapper: (p0) => p0.map((e) => (e.readTable(table), BaseReferences(db, table, e))).toList(),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$SettingsTable, Setting>(table),
+                  BaseReferences<_$AppDatabase, $SettingsTable, Setting>(db, table, e),
+                ),
+              )
+              .toList(),
           prefetchHooksCallback: null,
         ),
       );
@@ -6542,8 +6556,9 @@ class $$CategoriesTableTableManager
                 updatedAt: updatedAt,
                 rowid: rowid,
               ),
-          withReferenceMapper: (p0) =>
-              p0.map((e) => (e.readTable(table), $$CategoriesTableReferences(db, table, e))).toList(),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable<$CategoriesTable, Category>(table), $$CategoriesTableReferences(db, table, e)))
+              .toList(),
           prefetchHooksCallback:
               ({
                 parentId = false,
@@ -7321,8 +7336,9 @@ class $$AccountsTableTableManager
                 updatedAt: updatedAt,
                 rowid: rowid,
               ),
-          withReferenceMapper: (p0) =>
-              p0.map((e) => (e.readTable(table), $$AccountsTableReferences(db, table, e))).toList(),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable<$AccountsTable, Account>(table), $$AccountsTableReferences(db, table, e)))
+              .toList(),
           prefetchHooksCallback:
               ({
                 parentId = false,
@@ -7716,8 +7732,14 @@ class $$AccountCategoriesTableTableManager
                 updatedAt: updatedAt,
                 rowid: rowid,
               ),
-          withReferenceMapper: (p0) =>
-              p0.map((e) => (e.readTable(table), $$AccountCategoriesTableReferences(db, table, e))).toList(),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$AccountCategoriesTable, AccountCategory>(table),
+                  $$AccountCategoriesTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
           prefetchHooksCallback: ({accountId = false, categoryId = false}) {
             return PrefetchHooks(
               db: db,
@@ -8187,8 +8209,9 @@ class $$BudgetsTableTableManager
                 updatedAt: updatedAt,
                 rowid: rowid,
               ),
-          withReferenceMapper: (p0) =>
-              p0.map((e) => (e.readTable(table), $$BudgetsTableReferences(db, table, e))).toList(),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable<$BudgetsTable, Budget>(table), $$BudgetsTableReferences(db, table, e)))
+              .toList(),
           prefetchHooksCallback: ({categoryId = false, accountId = false, budgetRecordsRefs = false}) {
             return PrefetchHooks(
               db: db,
@@ -8489,8 +8512,14 @@ class $$BudgetRecordsTableTableManager
                 updatedAt: updatedAt,
                 rowid: rowid,
               ),
-          withReferenceMapper: (p0) =>
-              p0.map((e) => (e.readTable(table), $$BudgetRecordsTableReferences(db, table, e))).toList(),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$BudgetRecordsTable, BudgetRecord>(table),
+                  $$BudgetRecordsTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
           prefetchHooksCallback: ({budgetId = false}) {
             return PrefetchHooks(
               db: db,
@@ -9027,8 +9056,14 @@ class $$RecurringTransactionsTableTableManager
                 updatedAt: updatedAt,
                 rowid: rowid,
               ),
-          withReferenceMapper: (p0) =>
-              p0.map((e) => (e.readTable(table), $$RecurringTransactionsTableReferences(db, table, e))).toList(),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$RecurringTransactionsTable, RecurringTransaction>(table),
+                  $$RecurringTransactionsTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
           prefetchHooksCallback:
               ({accountId = false, destinationAccountId = false, categoryId = false, transactionsRefs = false}) {
                 return PrefetchHooks(
@@ -9374,7 +9409,7 @@ class $$DebtsTableTableManager
                 rowid: rowid,
               ),
           withReferenceMapper: (p0) =>
-              p0.map((e) => (e.readTable(table), $$DebtsTableReferences(db, table, e))).toList(),
+              p0.map((e) => (e.readTable<$DebtsTable, Debt>(table), $$DebtsTableReferences(db, table, e))).toList(),
           prefetchHooksCallback: ({transactionsRefs = false}) {
             return PrefetchHooks(
               db: db,
@@ -9934,8 +9969,12 @@ class $$TransactionsTableTableManager
                 updatedAt: updatedAt,
                 rowid: rowid,
               ),
-          withReferenceMapper: (p0) =>
-              p0.map((e) => (e.readTable(table), $$TransactionsTableReferences(db, table, e))).toList(),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) =>
+                    (e.readTable<$TransactionsTable, Transaction>(table), $$TransactionsTableReferences(db, table, e)),
+              )
+              .toList(),
           prefetchHooksCallback:
               ({
                 accountId = false,
@@ -10338,8 +10377,14 @@ class $$TransactionItemsTableTableManager
                 updatedAt: updatedAt,
                 rowid: rowid,
               ),
-          withReferenceMapper: (p0) =>
-              p0.map((e) => (e.readTable(table), $$TransactionItemsTableReferences(db, table, e))).toList(),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$TransactionItemsTable, TransactionItem>(table),
+                  $$TransactionItemsTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
           prefetchHooksCallback: ({transactionId = false, categoryId = false}) {
             return PrefetchHooks(
               db: db,
@@ -10671,7 +10716,7 @@ class $$GoalsTableTableManager
                 rowid: rowid,
               ),
           withReferenceMapper: (p0) =>
-              p0.map((e) => (e.readTable(table), $$GoalsTableReferences(db, table, e))).toList(),
+              p0.map((e) => (e.readTable<$GoalsTable, Goal>(table), $$GoalsTableReferences(db, table, e))).toList(),
           prefetchHooksCallback: ({accountId = false}) {
             return PrefetchHooks(
               db: db,
