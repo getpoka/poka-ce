@@ -3,16 +3,17 @@ import 'package:poka_ce/i18n/strings.g.dart';
 
 /// Convenience formatting helpers on [DateTime].
 extension DateTimeExtension on DateTime {
-  /// Formats the time component as HH:mm with leading zeros.
+  /// Formats the time component as HH:mm with leading zeros based on device local time.
   String toFormattedTime() {
-    final h = hour.toString().padLeft(2, '0');
-    final m = minute.toString().padLeft(2, '0');
+    final local = toLocal();
+    final h = local.hour.toString().padLeft(2, '0');
+    final m = local.minute.toString().padLeft(2, '0');
     return '$h:$m';
   }
 
-  /// Formats the date as 'dd MMM yyyy' (e.g. "12 Jan 2026").
+  /// Formats the date as 'dd MMM yyyy' (e.g. "12 Jan 2026") based on device local time.
   String toFormattedDate([String? locale]) {
-    return DateFormat('dd MMM yyyy', locale ?? LocaleSettings.currentLocale.languageCode).format(this);
+    return DateFormat('dd MMM yyyy', locale ?? LocaleSettings.currentLocale.languageCode).format(toLocal());
   }
 
   /// Formats the date to a relative string like 'Today', 'Yesterday', or 'Mon, 12 Jan'
