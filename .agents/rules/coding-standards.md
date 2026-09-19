@@ -122,3 +122,16 @@ Every file in `lib/` must have a corresponding test file in `test/` mirroring th
 lib/features/accounts/data/account_repository.dart
 → test/features/accounts/data/account_repository_test.dart
 ```
+
+## 14. Versioning & Release Conventions
+
+- **GitHub Ecosystem (With `beta`):**
+  - Git tag: `v<major>.<minor>.<patch>-beta.<build>` (e.g. `v0.1.0-beta.5`).
+  - GitHub Release title: `v0.1.0-beta.5`.
+  - `CHANGELOG.md` version header: `## [v0.1.0-beta.5] - YYYY-MM-DD`.
+  - Release commit message: strictly single-line `chore(release): bump version to v0.1.0-beta.5` without multiline noise or garbage comments.
+- **Application & Google Play (Without `beta`):**
+  - `pubspec.yaml`: strictly `version: <major>.<minor>.<patch>+<build>` (e.g. `version: 0.1.0+5`).
+  - Google Play `versionName`: `<major>.<minor>.<patch>` (e.g. `0.1.0`).
+  - Google Play `versionCode`: `<build>` integer (e.g. `5`).
+  - Never insert `-beta` into `pubspec.yaml` or Android packaging.
