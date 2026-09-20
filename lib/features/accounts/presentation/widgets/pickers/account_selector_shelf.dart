@@ -27,7 +27,7 @@ class AccountSelectorShelf extends StatelessWidget {
     final selectedAcc = accounts.where((a) => a.id == selectedAccountId).firstOrNull;
     final activeParentId = selectedAcc?.isPocket == true ? selectedAcc!.parentId : selectedAcc?.id;
     final pockets = activeParentId != null
-        ? accounts.where((a) => a.parentId == activeParentId).toList()
+        ? accounts.where((a) => a.parentId == activeParentId && a.type != AccountType.goal).toList()
         : <AccountModel>[];
 
     return Column(
@@ -44,7 +44,9 @@ class AccountSelectorShelf extends StatelessWidget {
               color: accColor,
               isSelected: isSel,
               onTap: () {
-                final parentPockets = accounts.where((a) => a.parentId == acc.id).toList();
+                final parentPockets = accounts
+                    .where((a) => a.parentId == acc.id && a.type != AccountType.goal)
+                    .toList();
                 if (parentPockets.isNotEmpty) {
                   final defaultPocket = parentPockets.firstWhere((p) => p.isDefault, orElse: () => parentPockets.first);
                   onAccountSelected(defaultPocket);

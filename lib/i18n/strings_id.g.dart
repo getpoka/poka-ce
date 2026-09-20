@@ -446,6 +446,7 @@ class _Translations$goals$id extends Translations$goals$en {
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
+	@override String get goals => 'Target Tabungan';
 	@override String get fulfillGoal => 'Capai Target (Gunakan)';
 	@override String get goalName => 'Nama target';
 	@override String get targetAmount => 'Jumlah target';
@@ -1220,6 +1221,7 @@ extension on TranslationsId {
 			'error.generic' => 'Terjadi kesalahan yang tidak terduga',
 			'error.network' => 'Periksa koneksi Anda dan coba lagi',
 			'error.database' => 'Gagal mengakses data lokal',
+			'goals.goals' => 'Target Tabungan',
 			'goals.fulfillGoal' => 'Capai Target (Gunakan)',
 			'goals.goalName' => 'Nama target',
 			'goals.targetAmount' => 'Jumlah target',
@@ -1410,9 +1412,9 @@ extension on TranslationsId {
 			'settings.baseCurrency' => 'Mata Uang Utama',
 			'settings.theme' => 'Tema',
 			'settings.language' => 'Bahasa',
-			'settings.numberFormat' => 'Format Angka',
 			_ => null,
 		} ?? switch (path) {
+			'settings.numberFormat' => 'Format Angka',
 			'settings.selectNumberFormat' => 'Pilih Format Angka',
 			'settings.formatSystem' => 'Default Aplikasi',
 			'settings.formatId' => '1.000.000,00',

@@ -146,8 +146,50 @@ void main() {
       expect(find.text('BCA Main'), findsWidgets);
       expect(find.text('Pockets'), findsWidgets);
       expect(find.text('Snacks'), findsOneWidget);
+      expect(find.text('GOALS'), findsOneWidget);
       expect(find.byIcon(FPhosphorIcons.scales), findsOneWidget);
       expect(find.byIcon(FPhosphorIcons.pencilSimple), findsOneWidget);
+    });
+
+    testWidgets('renders root account with both operational pocket and goal cards', (tester) async {
+      tester.view.physicalSize = const Size(800, 1400);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(() => tester.view.resetPhysicalSize());
+
+      final parent = _acc('parent_1', 'BCA Main', balance: 500000, color: '#10B981');
+      final pocket = _acc('pocket_1', 'Snacks', balance: 100000, parentId: 'parent_1');
+      final goalPocket = _acc(
+        'goal_acc_1',
+        'Dream Trip',
+        balance: 250000,
+        parentId: 'parent_1',
+        type: AccountType.goal,
+      );
+      final goal = GoalModel(
+        id: 'g1',
+        accountId: 'goal_acc_1',
+        name: 'Dream Trip',
+        targetAmount: 1000000,
+        parentAccountId: 'parent_1',
+        createdAt: DateTime.utc(2024, 1, 1),
+        updatedAt: DateTime.utc(2024, 1, 1),
+      );
+
+      final state = AccountListState(
+        accounts: [parent, pocket, goalPocket],
+        aggregates: [
+          AccountAggregate(account: parent, pockets: [pocket, goalPocket]),
+        ],
+      );
+
+      await tester.pumpWidget(wrapWithState('parent_1', state, goals: [goal]));
+      await tester.pumpAndSettle();
+
+      expect(find.text('BCA Main'), findsWidgets);
+      expect(find.text('Pockets'), findsWidgets);
+      expect(find.text('Snacks'), findsOneWidget);
+      expect(find.text('GOALS (1)'), findsOneWidget);
+      expect(find.text('Dream Trip'), findsOneWidget);
     });
 
     testWidgets('renders pocket account and hides pockets section', (tester) async {

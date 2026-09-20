@@ -9,6 +9,7 @@ import 'package:poka_ce/features/accounts/presentation/controllers/account_list_
 import 'package:poka_ce/features/accounts/presentation/widgets/cards/account_hero_card.dart';
 import 'package:poka_ce/features/accounts/presentation/widgets/forms/account_form_sheet.dart';
 import 'package:poka_ce/features/accounts/presentation/widgets/forms/account_reconcile_sheet.dart';
+import 'package:poka_ce/features/accounts/presentation/widgets/sections/account_goals_section.dart';
 import 'package:poka_ce/features/accounts/presentation/widgets/sections/account_pockets_section.dart';
 import 'package:poka_ce/features/accounts/presentation/widgets/sections/recent_transactions_section.dart';
 import 'package:poka_ce/features/goals/presentation/controllers/goal_notifier.dart';
@@ -46,6 +47,8 @@ class AccountDetailPage extends HookConsumerWidget {
     final linkedGoal = account.type == AccountType.goal
         ? ref.watch(goalProvider.select((g) => g.value?.where((item) => item.accountId == accountId).firstOrNull))
         : null;
+
+    final operationalPockets = pockets.where((p) => p.type != AccountType.goal).toList();
 
     return FScaffold(
       header: PokaHeader(
@@ -87,7 +90,9 @@ class AccountDetailPage extends HookConsumerWidget {
             const SizedBox(height: 20),
 
             if (account.type != AccountType.goal && !account.isPocket) ...[
-              AccountPocketsSection(accountId: accountId, pockets: pockets, totalBalance: totalBalance),
+              AccountPocketsSection(accountId: accountId, pockets: operationalPockets, totalBalance: totalBalance),
+              const SizedBox(height: 20),
+              AccountGoalsSection(accountId: accountId),
               const SizedBox(height: 20),
             ],
 

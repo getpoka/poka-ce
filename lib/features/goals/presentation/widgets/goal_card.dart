@@ -18,10 +18,11 @@ import 'package:poka_ce/shared/widgets/poka_slidable_action.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class GoalCard extends ConsumerWidget {
-  const new({required this.state, this.isInteractive = true, super.key});
+  const new({required this.state, this.isInteractive = true, this.showParentBadge = true, super.key});
 
   final GoalItemState state;
   final bool isInteractive;
+  final bool showParentBadge;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -66,7 +67,7 @@ class GoalCard extends ConsumerWidget {
                         runSpacing: 4,
                         crossAxisAlignment: WrapCrossAlignment.center,
                         children: [
-                          if (parentAccount != null)
+                          if (showParentBadge && parentAccount != null)
                             Container(
                               padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                               decoration: BoxDecoration(

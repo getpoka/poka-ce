@@ -3,23 +3,18 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_reorderable_grid_view/widgets/reorderable_builder.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poka_ce/app/router/router.dart';
-import 'package:poka_ce/core/enums.dart';
 import 'package:poka_ce/features/accounts/domain/account_model.dart';
 import 'package:poka_ce/features/accounts/presentation/controllers/account_list_notifier.dart';
 import 'package:poka_ce/features/accounts/presentation/widgets/cards/account_mini_card.dart';
 import 'package:poka_ce/features/accounts/presentation/widgets/forms/account_form_sheet.dart';
 import 'package:poka_ce/features/accounts/presentation/widgets/forms/account_reconcile_sheet.dart';
-import 'package:poka_ce/features/goals/presentation/controllers/goal_detail_notifier.dart';
-import 'package:poka_ce/features/goals/presentation/controllers/goal_notifier.dart';
-import 'package:poka_ce/features/goals/presentation/widgets/goal_form_sheet.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/dialogs/poka_confirm_dialog.dart';
 import 'package:poka_ce/shared/widgets/poka_empty_view.dart';
-import 'package:poka_ce/shared/widgets/poka_icon.dart';
 import 'package:poka_ce/shared/widgets/poka_section_label.dart';
-import 'package:poka_ce/shared/widgets/sheets/poka_sheet.dart';
 import 'package:poka_ce/theme/theme.dart';
 
+/// Section in AccountDetailPage presenting operational pockets (spending, bills, etc.).
 class AccountPocketsSection extends HookConsumerWidget {
   const new({required this.accountId, required this.pockets, required this.totalBalance, super.key});
 
@@ -27,105 +22,9 @@ class AccountPocketsSection extends HookConsumerWidget {
   final List<AccountModel> pockets;
   final int totalBalance;
 
-  void _showAddOptions(BuildContext context) {
-    showPokaSheet<void>(
-      context: context,
-      builder: (sheetContext) => PokaSheet(
-        title: t.accounts.addPocket,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            GestureDetector(
-              behavior: HitTestBehavior.opaque,
-              onTap: () {
-                Navigator.of(sheetContext).pop();
-                AccountFormSheet.show(context, parentAccountId: accountId);
-              },
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-                decoration: BoxDecoration(
-                  color: context.theme.colors.card,
-                  borderRadius: context.theme.style.borderRadius.md,
-                  border: Border.all(color: context.theme.colors.border),
-                ),
-                child: Row(
-                  children: [
-                    PokaIcon(
-                      icon: FPhosphorIcons.wallet,
-                      color: context.theme.colors.primary,
-                      size: PokaIconSize.small,
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(t.accounts.addPocket, style: context.theme.typography.titleCard),
-                          Text(
-                            t.accounts.pocketsHelpYouSplitYourWalletIntoCategories,
-                            style: context.theme.typography.caption.copyWith(
-                              color: context.theme.colors.mutedForeground,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Icon(FPhosphorIcons.caretRight, size: 16, color: context.theme.colors.mutedForeground),
-                  ],
-                ),
-              ),
-            ),
-            const SizedBox(height: 10),
-            GestureDetector(
-              behavior: HitTestBehavior.opaque,
-              onTap: () {
-                Navigator.of(sheetContext).pop();
-                GoalFormSheet.show(context, initialParentAccountId: accountId);
-              },
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-                decoration: BoxDecoration(
-                  color: context.theme.colors.card,
-                  borderRadius: context.theme.style.borderRadius.md,
-                  border: Border.all(color: context.theme.colors.border),
-                ),
-                child: Row(
-                  children: [
-                    PokaIcon(
-                      icon: FPhosphorIcons.target,
-                      color: context.theme.colors.primary,
-                      size: PokaIconSize.small,
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(t.goals.addGoal, style: context.theme.typography.titleCard),
-                          Text(
-                            t.goals.aDedicatedPocketAccountWillBeCreatedAutomaticallyToTrackThisGoal,
-                            style: context.theme.typography.caption.copyWith(
-                              color: context.theme.colors.mutedForeground,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Icon(FPhosphorIcons.caretRight, size: 16, color: context.theme.colors.mutedForeground),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = context.theme;
-    final goals = ref.watch(goalProvider).value ?? [];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -135,7 +34,7 @@ class AccountPocketsSection extends HookConsumerWidget {
           children: [
             PokaSectionLabel(title: t.accounts.pockets),
             GestureDetector(
-              onTap: () => _showAddOptions(context),
+              onTap: () => AccountFormSheet.show(context, parentAccountId: accountId),
               child: Row(
                 children: [
                   Icon(FPhosphorIcons.plus, size: 14, color: theme.colors.primary),
@@ -193,28 +92,10 @@ class AccountPocketsSection extends HookConsumerWidget {
                 ratio: ratio,
                 ratioLabel: ratioLabel,
                 pocketCount: 0,
-                onEdit: () {
-                  if (pocket.type == AccountType.goal) {
-                    final goal = goals.where((g) => g.accountId == pocket.id).firstOrNull;
-                    if (goal != null) {
-                      GoalFormSheet.show(context, initialGoal: goal);
-                      return;
-                    }
-                  }
-                  AccountFormSheet.show(context, initialAccount: pocket);
-                },
+                onEdit: () => AccountFormSheet.show(context, initialAccount: pocket),
                 onReconcile: () => AccountReconcileSheet.show(context, account: pocket, currentBalance: pocket.balance),
                 onDelete: pocket.canDelete
                     ? () async {
-                        if (pocket.type == AccountType.goal) {
-                          final goal = goals.where((g) => g.accountId == pocket.id).firstOrNull;
-                          if (goal != null) {
-                            await ref
-                                .read(goalDetailProvider.notifier)
-                                .deleteGoal(context, goal, currentBalance: pocket.balance);
-                            return;
-                          }
-                        }
                         final confirm = await showPokaConfirmDialog(
                           context,
                           title: t.accounts.deletePocket,
@@ -226,16 +107,7 @@ class AccountPocketsSection extends HookConsumerWidget {
                         }
                       }
                     : null,
-                onTap: () {
-                  if (pocket.type == AccountType.goal) {
-                    final goal = goals.where((g) => g.accountId == pocket.id).firstOrNull;
-                    if (goal != null) {
-                      GoalDetailRoute(goal.id).push<void>(context);
-                      return;
-                    }
-                  }
-                  AccountDetailRoute(pocket.id).push<void>(context);
-                },
+                onTap: () => AccountDetailRoute(pocket.id).push<void>(context),
               );
             }).toList(),
           ),

@@ -1,4 +1,5 @@
 {
+  "goals": "Goals",
   "fulfillGoal": "Fulfill Goal (Spend)",
   "goalName": "Goal name",
   "targetAmount": "Target amount",

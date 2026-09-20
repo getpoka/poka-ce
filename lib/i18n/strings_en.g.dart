@@ -1052,6 +1052,9 @@ class Translations$goals$en {
 
 	// Translations
 
+	/// en: 'Goals'
+	String get goals => 'Goals';
+
 	/// en: 'Fulfill Goal (Spend)'
 	String get fulfillGoal => 'Fulfill Goal (Spend)';
 
@@ -2531,6 +2534,7 @@ extension on Translations {
 			'error.generic' => 'An unexpected error occurred',
 			'error.network' => 'Please check your connection and try again',
 			'error.database' => 'Failed to access local data',
+			'goals.goals' => 'Goals',
 			'goals.fulfillGoal' => 'Fulfill Goal (Spend)',
 			'goals.goalName' => 'Goal name',
 			'goals.targetAmount' => 'Target amount',
@@ -2721,9 +2725,9 @@ extension on Translations {
 			'settings.baseCurrency' => 'Base Currency',
 			'settings.theme' => 'Theme',
 			'settings.language' => 'Language',
-			'settings.numberFormat' => 'Number Format',
 			_ => null,
 		} ?? switch (path) {
+			'settings.numberFormat' => 'Number Format',
 			'settings.selectNumberFormat' => 'Select Number Format',
 			'settings.formatSystem' => 'App Default',
 			'settings.formatId' => '1.000.000,00',
