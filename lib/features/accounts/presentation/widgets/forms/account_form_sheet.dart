@@ -41,6 +41,10 @@ class AccountFormSheet extends HookConsumerWidget {
       return null;
     }, [initialAccount, parentAccountId]);
 
+    final isPocket =
+        (state.parentAccountId != null && state.parentAccountId!.isNotEmpty) ||
+        (initialAccount != null && initialAccount!.isPocket);
+
     final accounts = ref.watch(accountListProvider).value?.accounts ?? [];
     final mainPocket = initialAccount != null && !initialAccount!.isPocket
         ? accounts.where((a) => a.parentId == initialAccount!.id && a.isDefault).firstOrNull
@@ -94,19 +98,21 @@ class AccountFormSheet extends HookConsumerWidget {
         children: [
           FTextFormField(
             control: FTextFieldControl.managed(controller: nameController),
-            label: Text(t.accounts.accountName),
-            hint: t.accounts.egMainWallet,
+            label: Text(isPocket ? t.accounts.pocketName : t.accounts.accountName),
+            hint: isPocket ? t.accounts.egPocket : t.accounts.egMainWallet,
             autovalidateMode: AutovalidateMode.onUserInteraction,
             validator: (value) => value == null || value.trim().isEmpty ? t.accounts.nameCannotBeEmpty : null,
           ),
           const SizedBox(height: 12),
-          FTextFormField(
-            control: FTextFieldControl.managed(controller: balanceController),
-            label: Text(t.accounts.initialBalance),
-            hint: '0',
-            keyboardType: TextInputType.number,
-          ),
-          const SizedBox(height: 12),
+          if (!isPocket) ...[
+            FTextFormField(
+              control: FTextFieldControl.managed(controller: balanceController),
+              label: Text(t.accounts.initialBalance),
+              hint: '0',
+              keyboardType: TextInputType.number,
+            ),
+            const SizedBox(height: 12),
+          ],
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -203,8 +209,16 @@ class AccountFormSheet extends HookConsumerWidget {
       ),
     );
 
+    final sheetTitle = initialAccount == null
+        ? (isPocket ? t.accounts.addPocket : t.accounts.addAccount)
+        : (isPocket ? t.accounts.editPocket : t.accounts.editAccount);
+
+    if (isPocket) {
+      return PokaSheet(title: sheetTitle, child: formContent);
+    }
+
     return PokaSheet(
-      title: initialAccount == null ? t.accounts.addAccount : t.accounts.editAccount,
+      title: sheetTitle,
       child: FTabs(
         control: FTabControl.lifted(
           index: state.type == AccountType.liability ? 1 : 0,

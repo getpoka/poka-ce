@@ -62,7 +62,15 @@ class AccountFormNotifier extends _$AccountFormNotifier {
         restrictedCategoryIds: account.restrictedCategoryIds,
       );
     } else {
-      state = AccountFormState(parentAccountId: parentAccountId);
+      var initialType = AccountType.assets;
+      if (parentAccountId != null) {
+        final accounts = ref.read(accountListProvider).value?.accounts ?? [];
+        final parent = accounts.where((a) => a.id == parentAccountId).firstOrNull;
+        if (parent != null) {
+          initialType = parent.type;
+        }
+      }
+      state = AccountFormState(parentAccountId: parentAccountId, type: initialType);
     }
   }
 
@@ -151,13 +159,14 @@ class AccountFormNotifier extends _$AccountFormNotifier {
       return;
     }
     state = state.copyWith(isSaving: true, error: null, nameError: null);
+    final isPocket = state.parentAccountId != null || (state.initialAccount != null && state.initialAccount!.isPocket);
     final result = state.initialAccount == null
         ? await ref
               .read(createAccountUseCaseProvider)
               .execute(
                 name: state.name,
                 type: state.type,
-                balance: state.balance,
+                balance: isPocket ? 0 : state.balance,
                 icon: state.icon,
                 color: state.color,
                 parentId: state.parentAccountId,
@@ -173,7 +182,7 @@ class AccountFormNotifier extends _$AccountFormNotifier {
                 color: state.color,
                 isActive: state.isActive,
                 restrictedCategoryIds: state.restrictedCategoryIds,
-                initialBalance: state.balance,
+                initialBalance: isPocket ? state.initialAccount!.initialBalance : state.balance,
               );
 
     switch (result) {

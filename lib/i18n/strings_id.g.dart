@@ -70,6 +70,7 @@ class _Translations$accounts$id extends Translations$accounts$en {
 
 	// Translations
 	@override String get accountName => 'Nama Akun';
+	@override String get pocketName => 'Nama Kantong';
 	@override String get initialBalance => 'Saldo Awal';
 	@override String get icon => 'Ikon';
 	@override String get color => 'Warna';
@@ -93,10 +94,12 @@ class _Translations$accounts$id extends Translations$accounts$en {
 	@override String get areYouSureYouWantToDeleteThisPocketItWillBeHiddenFromTheApp => 'Apakah Anda yakin ingin menghapus kantong ini? Kantong akan disembunyikan dari aplikasi.';
 	@override String get nameCannotBeEmpty => 'Nama tidak boleh kosong';
 	@override String get egMainWallet => 'misal, Dompet Utama';
+	@override String get egPocket => 'misal, Belanja, Liburan';
 	@override String get selectIcon => 'Pilih Ikon';
 	@override String get allowedCategories => 'Kategori yang Diizinkan';
 	@override String get transactions => 'Transaksi';
 	@override String get editAccount => 'Edit Akun';
+	@override String get editPocket => 'Edit Kantong';
 	@override String get updateNameIconOrColor => 'Perbarui nama, ikon, atau warna';
 	@override String get permanentlyRemoveThisAccount => 'Hapus permanen akun ini';
 	@override String get seeAll => 'Lihat Semua';
@@ -900,6 +903,7 @@ extension on TranslationsId {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
 			'accounts.accountName' => 'Nama Akun',
+			'accounts.pocketName' => 'Nama Kantong',
 			'accounts.initialBalance' => 'Saldo Awal',
 			'accounts.icon' => 'Ikon',
 			'accounts.color' => 'Warna',
@@ -923,10 +927,12 @@ extension on TranslationsId {
 			'accounts.areYouSureYouWantToDeleteThisPocketItWillBeHiddenFromTheApp' => 'Apakah Anda yakin ingin menghapus kantong ini? Kantong akan disembunyikan dari aplikasi.',
 			'accounts.nameCannotBeEmpty' => 'Nama tidak boleh kosong',
 			'accounts.egMainWallet' => 'misal, Dompet Utama',
+			'accounts.egPocket' => 'misal, Belanja, Liburan',
 			'accounts.selectIcon' => 'Pilih Ikon',
 			'accounts.allowedCategories' => 'Kategori yang Diizinkan',
 			'accounts.transactions' => 'Transaksi',
 			'accounts.editAccount' => 'Edit Akun',
+			'accounts.editPocket' => 'Edit Kantong',
 			'accounts.updateNameIconOrColor' => 'Perbarui nama, ikon, atau warna',
 			'accounts.permanentlyRemoveThisAccount' => 'Hapus permanen akun ini',
 			'accounts.seeAll' => 'Lihat Semua',
@@ -1408,11 +1414,11 @@ extension on TranslationsId {
 			'settings.title' => 'Pengaturan',
 			'settings.preferences' => 'Preferensi',
 			'settings.baseCurrency' => 'Mata Uang Utama',
+			_ => null,
+		} ?? switch (path) {
 			'settings.theme' => 'Tema',
 			'settings.language' => 'Bahasa',
 			'settings.numberFormat' => 'Format Angka',
-			_ => null,
-		} ?? switch (path) {
 			'settings.selectNumberFormat' => 'Pilih Format Angka',
 			'settings.formatSystem' => 'Default Aplikasi',
 			'settings.formatId' => '1.000.000,00',

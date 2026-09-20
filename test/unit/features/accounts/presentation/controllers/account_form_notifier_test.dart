@@ -212,6 +212,76 @@ void main() {
       expect(container.read(accountFormProvider).error, 'invalid');
     });
 
+    test('save create pocket forces balance to 0', () async {
+      final created = sampleAccount().copyWith(parentId: 'parent-1', balance: 0, initialBalance: 0);
+      when(
+        () => mockCreate.execute(
+          name: any(named: 'name'),
+          type: any(named: 'type'),
+          balance: any(named: 'balance'),
+          icon: any(named: 'icon'),
+          color: any(named: 'color'),
+          parentId: any(named: 'parentId'),
+          isActive: any(named: 'isActive'),
+          restrictedCategoryIds: any(named: 'restrictedCategoryIds'),
+        ),
+      ).thenAnswer((_) async => Success(created));
+      final container = createContainer();
+      final notifier = container.read(accountFormProvider.notifier);
+      notifier.init(null, parentAccountId: 'parent-1');
+      notifier.setName('Pocket A');
+      notifier.setBalance(50000);
+      await notifier.save();
+      final s = container.read(accountFormProvider);
+      expect(s.isSuccess, true);
+      verify(
+        () => mockCreate.execute(
+          name: 'Pocket A',
+          type: AccountType.assets,
+          balance: 0,
+          icon: null,
+          color: null,
+          parentId: 'parent-1',
+          isActive: true,
+          restrictedCategoryIds: [],
+        ),
+      ).called(1);
+    });
+
+    test('save update pocket preserves original initialBalance', () async {
+      final existingPocket = sampleAccount().copyWith(parentId: 'parent-1', balance: 5000, initialBalance: 0);
+      final updated = existingPocket.copyWith(name: 'Updated Pocket');
+      when(
+        () => mockUpdate.execute(
+          account: any(named: 'account'),
+          name: any(named: 'name'),
+          icon: any(named: 'icon'),
+          color: any(named: 'color'),
+          isActive: any(named: 'isActive'),
+          restrictedCategoryIds: any(named: 'restrictedCategoryIds'),
+          initialBalance: any(named: 'initialBalance'),
+        ),
+      ).thenAnswer((_) async => Success(updated));
+      final container = createContainer();
+      final notifier = container.read(accountFormProvider.notifier);
+      notifier.init(existingPocket);
+      notifier.setName('Updated Pocket');
+      notifier.setBalance(99999);
+      await notifier.save();
+      expect(container.read(accountFormProvider).isSuccess, true);
+      verify(
+        () => mockUpdate.execute(
+          account: existingPocket,
+          name: 'Updated Pocket',
+          icon: null,
+          color: null,
+          isActive: true,
+          restrictedCategoryIds: [],
+          initialBalance: 0,
+        ),
+      ).called(1);
+    });
+
     test('copyWith', () {
       const s = AccountFormState(name: 'a', isSaving: false, nameError: 'err');
       final c = s.copyWith(name: 'b', isSaving: true);

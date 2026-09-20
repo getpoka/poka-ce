@@ -75,6 +75,9 @@ class Translations$accounts$en {
 	/// en: 'Account Name'
 	String get accountName => 'Account Name';
 
+	/// en: 'Pocket Name'
+	String get pocketName => 'Pocket Name';
+
 	/// en: 'Initial Balance'
 	String get initialBalance => 'Initial Balance';
 
@@ -144,6 +147,9 @@ class Translations$accounts$en {
 	/// en: 'e.g., Main Wallet'
 	String get egMainWallet => 'e.g., Main Wallet';
 
+	/// en: 'e.g., Groceries, Holiday'
+	String get egPocket => 'e.g., Groceries, Holiday';
+
 	/// en: 'Select Icon'
 	String get selectIcon => 'Select Icon';
 
@@ -155,6 +161,9 @@ class Translations$accounts$en {
 
 	/// en: 'Edit Account'
 	String get editAccount => 'Edit Account';
+
+	/// en: 'Edit Pocket'
+	String get editPocket => 'Edit Pocket';
 
 	/// en: 'Update name, icon, or color'
 	String get updateNameIconOrColor => 'Update name, icon, or color';
@@ -2211,6 +2220,7 @@ extension on Translations {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
 			'accounts.accountName' => 'Account Name',
+			'accounts.pocketName' => 'Pocket Name',
 			'accounts.initialBalance' => 'Initial Balance',
 			'accounts.icon' => 'Icon',
 			'accounts.color' => 'Color',
@@ -2234,10 +2244,12 @@ extension on Translations {
 			'accounts.areYouSureYouWantToDeleteThisPocketItWillBeHiddenFromTheApp' => 'Are you sure you want to delete this pocket? It will be hidden from the app.',
 			'accounts.nameCannotBeEmpty' => 'Name cannot be empty',
 			'accounts.egMainWallet' => 'e.g., Main Wallet',
+			'accounts.egPocket' => 'e.g., Groceries, Holiday',
 			'accounts.selectIcon' => 'Select Icon',
 			'accounts.allowedCategories' => 'Allowed Categories',
 			'accounts.transactions' => 'Transactions',
 			'accounts.editAccount' => 'Edit Account',
+			'accounts.editPocket' => 'Edit Pocket',
 			'accounts.updateNameIconOrColor' => 'Update name, icon, or color',
 			'accounts.permanentlyRemoveThisAccount' => 'Permanently remove this account',
 			'accounts.seeAll' => 'See All',
@@ -2719,11 +2731,11 @@ extension on Translations {
 			'settings.title' => 'Settings',
 			'settings.preferences' => 'Preferences',
 			'settings.baseCurrency' => 'Base Currency',
+			_ => null,
+		} ?? switch (path) {
 			'settings.theme' => 'Theme',
 			'settings.language' => 'Language',
 			'settings.numberFormat' => 'Number Format',
-			_ => null,
-		} ?? switch (path) {
 			'settings.selectNumberFormat' => 'Select Number Format',
 			'settings.formatSystem' => 'App Default',
 			'settings.formatId' => '1.000.000,00',
