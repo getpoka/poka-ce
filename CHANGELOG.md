@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Modularized goal form sheet by extracting parent account selector and automatic pocket notice into standalone components.
+- [internal] Modularized transaction list screen by extracting reusable empty period component and eliminating duplicated private widgets.
+- [internal] Modularized reports module into 1-class-1-file architecture with dedicated tabs, charts, period selectors, budget bars, and status badges.
+
 ## [v1.1.0] - 2026-09-20
 
 Purpose-driven account hierarchy, balance reconciliation, and streamlined pocket management.

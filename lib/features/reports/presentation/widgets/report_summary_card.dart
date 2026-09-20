@@ -4,6 +4,7 @@ import 'package:poka_ce/core/extensions/num_extension.dart';
 import 'package:poka_ce/features/dashboard/presentation/controllers/balance_visibility_provider.dart';
 import 'package:poka_ce/features/reports/presentation/controllers/report_notifier.dart';
 import 'package:poka_ce/features/reports/presentation/widgets/stat_row_tile.dart';
+import 'package:poka_ce/features/reports/presentation/widgets/summary/report_cashflow_status_badge.dart';
 import 'package:poka_ce/features/settings/presentation/controllers/settings_notifier.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/poka_donut_chart.dart';
@@ -12,6 +13,7 @@ import 'package:poka_ce/theme/theme.dart';
 /// Cashflow summary hero card — donut chart + income/expense/net rows.
 /// Section label lives OUTSIDE this card on the parent page.
 class ReportSummaryCard extends ConsumerWidget {
+  /// Creates a [ReportSummaryCard].
   const new({super.key});
 
   @override
@@ -76,7 +78,7 @@ class ReportSummaryCard extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(t.cashflow, style: theme.typography.titleCard),
-                _StatusBadge(isOnTrack: isOnTrack),
+                ReportCashflowStatusBadge(isOnTrack: isOnTrack),
               ],
             ),
             const SizedBox(height: 12),
@@ -150,41 +152,6 @@ class ReportSummaryCard extends ConsumerWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-
-class _StatusBadge extends StatelessWidget {
-  const new({required this.isOnTrack});
-
-  final bool isOnTrack;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = context.theme;
-    final color = isOnTrack ? theme.colors.app.success : theme.colors.app.warning;
-    final label = isOnTrack ? (context.t.reports.onTrack) : (context.t.reports.needsAttention);
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-      decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.12),
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: color.withValues(alpha: 0.3)),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            width: 5,
-            height: 5,
-            decoration: BoxDecoration(color: color, shape: BoxShape.circle),
-          ),
-          const SizedBox(width: 4),
-          Text(label, style: theme.typography.labelBadge.copyWith(color: color)),
-        ],
       ),
     );
   }

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:poka_ce/features/reports/presentation/widgets/summary/report_delta_badge.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/theme/theme.dart';
 
+/// Row widget displaying a metric icon, label, value, and comparison percentage delta.
 class StatRowTile extends StatelessWidget {
+  /// Creates a [StatRowTile].
   const new({
     required this.icon,
     required this.iconColor,
@@ -14,12 +17,25 @@ class StatRowTile extends StatelessWidget {
     super.key,
   });
 
+  /// The icon representing this stat.
   final IconData icon;
+
+  /// The accent color of the icon and icon container background.
   final Color iconColor;
+
+  /// The label for the metric (e.g. Income, Expense).
   final String label;
+
+  /// The formatted string value.
   final String value;
+
+  /// The percentage delta compared to the previous period.
   final double delta;
+
+  /// The text label for the previous period (e.g. "Last month").
   final String prevLabel;
+
+  /// Whether a positive delta should be considered good/favorable.
   final bool positiveIsGood;
 
   @override
@@ -58,7 +74,7 @@ class StatRowTile extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 2),
                   child: Row(
                     children: [
-                      _DeltaBadge(delta: delta, positiveIsGood: positiveIsGood),
+                      ReportDeltaBadge(delta: delta, positiveIsGood: positiveIsGood),
                       const SizedBox(width: 4),
                       Text(
                         context.t.reports.comparedTo(period: prevLabel),
@@ -71,30 +87,6 @@ class StatRowTile extends StatelessWidget {
             ],
           ),
         ),
-      ],
-    );
-  }
-}
-
-class _DeltaBadge extends StatelessWidget {
-  const new({required this.delta, required this.positiveIsGood});
-
-  final double delta;
-  final bool positiveIsGood;
-
-  @override
-  Widget build(BuildContext context) {
-    final isUp = delta > 0;
-    final isGood = positiveIsGood ? isUp : !isUp;
-    final theme = context.theme;
-    final color = isGood ? theme.colors.app.success : theme.colors.destructive;
-    final icon = isUp ? FPhosphorIcons.arrowUp : FPhosphorIcons.arrowDown;
-    final pctStr = '${delta.abs().toStringAsFixed(1)}%';
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(icon, size: 9, color: color),
-        Text(pctStr, style: theme.typography.labelBadge.copyWith(color: color)),
       ],
     );
   }

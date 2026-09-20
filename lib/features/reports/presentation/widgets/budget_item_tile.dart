@@ -3,12 +3,18 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poka_ce/core/enums.dart';
 import 'package:poka_ce/features/budgets/domain/budget_model.dart';
 import 'package:poka_ce/features/budgets/presentation/controllers/budget_progress_provider.dart';
+import 'package:poka_ce/features/reports/presentation/widgets/budgets/report_budget_status_chip.dart';
+import 'package:poka_ce/features/reports/presentation/widgets/budgets/report_progress_bar.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/poka_amount_text.dart';
 import 'package:poka_ce/theme/theme.dart';
 
+/// Single budget utilization item row showing name, progress bar, spent and limit amounts.
 class BudgetItemTile extends ConsumerWidget {
+  /// Creates a [BudgetItemTile].
   const new({required this.budget, super.key});
+
+  /// The budget model being tracked.
   final BudgetModel budget;
 
   @override
@@ -44,7 +50,7 @@ class BudgetItemTile extends ConsumerWidget {
             ),
             const SizedBox(width: 8),
             if (isDanger)
-              _StatusChip(label: t.overBudget, color: theme.colors.destructive)
+              ReportBudgetStatusChip(label: t.overBudget, color: theme.colors.destructive)
             else
               Text(
                 '${(progress * 100).toStringAsFixed(0)}%',
@@ -56,7 +62,7 @@ class BudgetItemTile extends ConsumerWidget {
           ],
         ),
         const SizedBox(height: 6),
-        _ProgressBar(progress: progress, color: progressColor),
+        ReportProgressBar(progress: progress, color: progressColor),
         const SizedBox(height: 3),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -74,57 +80,6 @@ class BudgetItemTile extends ConsumerWidget {
           ],
         ),
       ],
-    );
-  }
-}
-
-class _StatusChip extends StatelessWidget {
-  const new({required this.label, required this.color});
-  final String label;
-  final Color color;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-      decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: color.withValues(alpha: 0.3)),
-      ),
-      child: Text(label, style: context.theme.typography.labelBadge.copyWith(color: color)),
-    );
-  }
-}
-
-class _ProgressBar extends StatelessWidget {
-  const new({required this.progress, required this.color});
-  final double progress;
-  final Color color;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = context.theme;
-    return LayoutBuilder(
-      builder: (context, constraints) => Container(
-        height: 5,
-        width: constraints.maxWidth,
-        decoration: BoxDecoration(color: theme.colors.muted, borderRadius: BorderRadius.circular(3)),
-        child: Align(
-          alignment: Alignment.centerLeft,
-          child: TweenAnimationBuilder<double>(
-            tween: Tween<double>(begin: 0, end: progress),
-            duration: const Duration(milliseconds: 700),
-            curve: Curves.easeOutCubic,
-            builder: (_, value, _) => FractionallySizedBox(
-              widthFactor: value,
-              child: Container(
-                decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(3)),
-              ),
-            ),
-          ),
-        ),
-      ),
     );
   }
 }
