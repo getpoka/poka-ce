@@ -81,7 +81,6 @@ class _Translations$accounts$id extends Translations$accounts$en {
 	@override String get walletsPockets => 'Dompet & Kantong';
 	@override String get accounts => 'Akun';
 	@override String get mainAccounts => 'Akun Utama';
-	@override String get goalsAndSavings => 'Target & Tabungan';
 	@override String get deleteAccount => 'Hapus Akun';
 	@override String get areYouSureYouWantToDeleteThisAccountItWillBeHiddenFromTheApp => 'Apakah Anda yakin ingin menghapus akun ini? Akun akan disembunyikan dari aplikasi.';
 	@override String get delete => 'Hapus';
@@ -912,7 +911,6 @@ extension on TranslationsId {
 			'accounts.walletsPockets' => 'Dompet & Kantong',
 			'accounts.accounts' => 'Akun',
 			'accounts.mainAccounts' => 'Akun Utama',
-			'accounts.goalsAndSavings' => 'Target & Tabungan',
 			'accounts.deleteAccount' => 'Hapus Akun',
 			'accounts.areYouSureYouWantToDeleteThisAccountItWillBeHiddenFromTheApp' => 'Apakah Anda yakin ingin menghapus akun ini? Akun akan disembunyikan dari aplikasi.',
 			'accounts.delete' => 'Hapus',
@@ -1412,9 +1410,9 @@ extension on TranslationsId {
 			'settings.baseCurrency' => 'Mata Uang Utama',
 			'settings.theme' => 'Tema',
 			'settings.language' => 'Bahasa',
+			'settings.numberFormat' => 'Format Angka',
 			_ => null,
 		} ?? switch (path) {
-			'settings.numberFormat' => 'Format Angka',
 			'settings.selectNumberFormat' => 'Pilih Format Angka',
 			'settings.formatSystem' => 'Default Aplikasi',
 			'settings.formatId' => '1.000.000,00',

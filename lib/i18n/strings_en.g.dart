@@ -108,9 +108,6 @@ class Translations$accounts$en {
 	/// en: 'Main Accounts'
 	String get mainAccounts => 'Main Accounts';
 
-	/// en: 'Goals & Savings'
-	String get goalsAndSavings => 'Goals & Savings';
-
 	/// en: 'Delete Account'
 	String get deleteAccount => 'Delete Account';
 
@@ -2225,7 +2222,6 @@ extension on Translations {
 			'accounts.walletsPockets' => 'Wallets & Pockets',
 			'accounts.accounts' => 'Accounts',
 			'accounts.mainAccounts' => 'Main Accounts',
-			'accounts.goalsAndSavings' => 'Goals & Savings',
 			'accounts.deleteAccount' => 'Delete Account',
 			'accounts.areYouSureYouWantToDeleteThisAccountItWillBeHiddenFromTheApp' => 'Are you sure you want to delete this account? It will be hidden from the app.',
 			'accounts.delete' => 'Delete',
@@ -2725,9 +2721,9 @@ extension on Translations {
 			'settings.baseCurrency' => 'Base Currency',
 			'settings.theme' => 'Theme',
 			'settings.language' => 'Language',
+			'settings.numberFormat' => 'Number Format',
 			_ => null,
 		} ?? switch (path) {
-			'settings.numberFormat' => 'Number Format',
 			'settings.selectNumberFormat' => 'Select Number Format',
 			'settings.formatSystem' => 'App Default',
 			'settings.formatId' => '1.000.000,00',
