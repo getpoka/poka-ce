@@ -5,27 +5,23 @@ import 'package:poka_ce/features/accounts/presentation/controllers/account_list_
 import 'package:poka_ce/features/accounts/presentation/widgets/forms/account_form_sheet.dart';
 import 'package:poka_ce/features/accounts/presentation/widgets/lists/account_grid.dart';
 import 'package:poka_ce/features/accounts/presentation/widgets/lists/account_list_header.dart';
-import 'package:poka_ce/features/accounts/presentation/widgets/sections/goal_account_section.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/poka_empty_view.dart';
 import 'package:poka_ce/shared/widgets/poka_header.dart';
 import 'package:poka_ce/shared/widgets/poka_section_label.dart';
 import 'package:poka_ce/theme/theme.dart';
 
-/// Top-level screen displaying all accounts categorized into regular accounts and goal pockets.
+/// Top-level screen displaying all primary accounts.
 class AccountListPage extends HookConsumerWidget {
   const new({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final regularListState = ref.watch(regularAccountListProvider);
-    final goalListState = ref.watch(goalAccountListProvider);
     final metrics = ref.watch(accountMetricsProvider);
 
     final regularAggregates = regularListState.value?.aggregates ?? [];
-    final goalAggregates = goalListState.value?.aggregates ?? [];
     final hasRegularAccounts = regularAggregates.isNotEmpty;
-    final hasGoalAccounts = goalAggregates.isNotEmpty;
 
     return FScaffold(
       header: PokaHeader(title: t.accounts.accounts),
@@ -33,7 +29,7 @@ class AccountListPage extends HookConsumerWidget {
         slivers: [
           SliverToBoxAdapter(child: AccountListHeader(metrics: metrics).animateEntrance()),
 
-          if (!hasRegularAccounts && !hasGoalAccounts)
+          if (!hasRegularAccounts)
             SliverFillRemaining(
               hasScrollBody: false,
               child: PokaEmptyViewCentered(
@@ -76,28 +72,12 @@ class AccountListPage extends HookConsumerWidget {
               ),
             ),
 
-            if (hasRegularAccounts)
-              SliverToBoxAdapter(
-                child: AccountGrid(
-                  aggregates: regularAggregates,
-                  totalAssets: metrics.totalAssets,
-                ).animateEntrance(delay: 120.ms),
-              )
-            else
-              SliverToBoxAdapter(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 24),
-                  child: Center(child: Text(t.accounts.noMainAccountsYet)),
-                ),
-              ),
-
-            if (hasGoalAccounts)
-              SliverToBoxAdapter(
-                child: GoalAccountSection(
-                  aggregates: goalAggregates,
-                  totalAssets: metrics.totalAssets,
-                ).animateEntrance(delay: 160.ms),
-              ),
+            SliverToBoxAdapter(
+              child: AccountGrid(
+                aggregates: regularAggregates,
+                totalAssets: metrics.totalAssets,
+              ).animateEntrance(delay: 120.ms),
+            ),
           ],
         ],
       ),

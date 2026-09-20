@@ -23,6 +23,7 @@ void main() {
 
   setUp(() {
     mockAccountRepo = MockAccountRepository();
+    when(() => mockAccountRepo.getAccounts()).thenAnswer((_) async => const Success([]));
     useCase = UpdateAccountUseCase(mockAccountRepo);
   });
 

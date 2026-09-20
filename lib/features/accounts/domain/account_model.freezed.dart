@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$AccountModel {
 
- String get id; String get name; AccountType get type; int get balance; DateTime get createdAt; DateTime get updatedAt; int get initialBalance; String? get icon; String? get color; String? get parentId; bool get isActive; int get sort; List<String> get restrictedCategoryIds;
+ String get id; String get name; AccountType get type; int get balance; DateTime get createdAt; DateTime get updatedAt; int get initialBalance; String? get icon; String? get color; String? get parentId; bool get isActive; bool get isDefault; int get sort; List<String> get restrictedCategoryIds;
 /// Create a copy of AccountModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -30,20 +30,20 @@ $AccountModelCopyWith<AccountModel> get copyWith => _$AccountModelCopyWithImpl<A
 @override
 bool operator ==(Object other) {
   final _this = this as AccountModel;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AccountModel&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.type, _this.type) || other.type == _this.type)&&(identical(other.balance, _this.balance) || other.balance == _this.balance)&&(identical(other.createdAt, _this.createdAt) || other.createdAt == _this.createdAt)&&(identical(other.updatedAt, _this.updatedAt) || other.updatedAt == _this.updatedAt)&&(identical(other.initialBalance, _this.initialBalance) || other.initialBalance == _this.initialBalance)&&(identical(other.icon, _this.icon) || other.icon == _this.icon)&&(identical(other.color, _this.color) || other.color == _this.color)&&(identical(other.parentId, _this.parentId) || other.parentId == _this.parentId)&&(identical(other.isActive, _this.isActive) || other.isActive == _this.isActive)&&(identical(other.sort, _this.sort) || other.sort == _this.sort)&&const DeepCollectionEquality().equals(other.restrictedCategoryIds, _this.restrictedCategoryIds));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AccountModel&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.type, _this.type) || other.type == _this.type)&&(identical(other.balance, _this.balance) || other.balance == _this.balance)&&(identical(other.createdAt, _this.createdAt) || other.createdAt == _this.createdAt)&&(identical(other.updatedAt, _this.updatedAt) || other.updatedAt == _this.updatedAt)&&(identical(other.initialBalance, _this.initialBalance) || other.initialBalance == _this.initialBalance)&&(identical(other.icon, _this.icon) || other.icon == _this.icon)&&(identical(other.color, _this.color) || other.color == _this.color)&&(identical(other.parentId, _this.parentId) || other.parentId == _this.parentId)&&(identical(other.isActive, _this.isActive) || other.isActive == _this.isActive)&&(identical(other.isDefault, _this.isDefault) || other.isDefault == _this.isDefault)&&(identical(other.sort, _this.sort) || other.sort == _this.sort)&&const DeepCollectionEquality().equals(other.restrictedCategoryIds, _this.restrictedCategoryIds));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as AccountModel;
-  return Object.hash(runtimeType,_this.id,_this.name,_this.type,_this.balance,_this.createdAt,_this.updatedAt,_this.initialBalance,_this.icon,_this.color,_this.parentId,_this.isActive,_this.sort,const DeepCollectionEquality().hash(_this.restrictedCategoryIds));
+  return Object.hash(runtimeType,_this.id,_this.name,_this.type,_this.balance,_this.createdAt,_this.updatedAt,_this.initialBalance,_this.icon,_this.color,_this.parentId,_this.isActive,_this.isDefault,_this.sort,const DeepCollectionEquality().hash(_this.restrictedCategoryIds));
 }
 
 @override
 String toString() {
   final _this = this as AccountModel;
-  return 'AccountModel(id: ${_this.id}, name: ${_this.name}, type: ${_this.type}, balance: ${_this.balance}, createdAt: ${_this.createdAt}, updatedAt: ${_this.updatedAt}, initialBalance: ${_this.initialBalance}, icon: ${_this.icon}, color: ${_this.color}, parentId: ${_this.parentId}, isActive: ${_this.isActive}, sort: ${_this.sort}, restrictedCategoryIds: ${_this.restrictedCategoryIds})';
+  return 'AccountModel(id: ${_this.id}, name: ${_this.name}, type: ${_this.type}, balance: ${_this.balance}, createdAt: ${_this.createdAt}, updatedAt: ${_this.updatedAt}, initialBalance: ${_this.initialBalance}, icon: ${_this.icon}, color: ${_this.color}, parentId: ${_this.parentId}, isActive: ${_this.isActive}, isDefault: ${_this.isDefault}, sort: ${_this.sort}, restrictedCategoryIds: ${_this.restrictedCategoryIds})';
 }
 
 
@@ -54,7 +54,7 @@ abstract mixin class $AccountModelCopyWith<$Res>  {
   factory $AccountModelCopyWith(AccountModel value, $Res Function(AccountModel) _then) = _$AccountModelCopyWithImpl;
 @useResult
 $Res call({
- String id, String name, AccountType type, int balance, DateTime createdAt, DateTime updatedAt, int initialBalance, String? icon, String? color, String? parentId, bool isActive, int sort, List<String> restrictedCategoryIds
+ String id, String name, AccountType type, int balance, DateTime createdAt, DateTime updatedAt, int initialBalance, String? icon, String? color, String? parentId, bool isActive, bool isDefault, int sort, List<String> restrictedCategoryIds
 });
 
 
@@ -71,7 +71,7 @@ class _$AccountModelCopyWithImpl<$Res>
 
 /// Create a copy of AccountModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? type = null,Object? balance = null,Object? createdAt = null,Object? updatedAt = null,Object? initialBalance = null,Object? icon = freezed,Object? color = freezed,Object? parentId = freezed,Object? isActive = null,Object? sort = null,Object? restrictedCategoryIds = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? type = null,Object? balance = null,Object? createdAt = null,Object? updatedAt = null,Object? initialBalance = null,Object? icon = freezed,Object? color = freezed,Object? parentId = freezed,Object? isActive = null,Object? isDefault = null,Object? sort = null,Object? restrictedCategoryIds = null,}) {
   return _then(AccountModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -84,6 +84,7 @@ as int,icon: freezed == icon ? _self.icon : icon // ignore: cast_nullable_to_non
 as String?,color: freezed == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
 as String?,parentId: freezed == parentId ? _self.parentId : parentId // ignore: cast_nullable_to_non_nullable
 as String?,isActive: null == isActive ? _self.isActive : isActive // ignore: cast_nullable_to_non_nullable
+as bool,isDefault: null == isDefault ? _self.isDefault : isDefault // ignore: cast_nullable_to_non_nullable
 as bool,sort: null == sort ? _self.sort : sort // ignore: cast_nullable_to_non_nullable
 as int,restrictedCategoryIds: null == restrictedCategoryIds ? _self.restrictedCategoryIds : restrictedCategoryIds // ignore: cast_nullable_to_non_nullable
 as List<String>,
@@ -171,10 +172,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name,  AccountType type,  int balance,  DateTime createdAt,  DateTime updatedAt,  int initialBalance,  String? icon,  String? color,  String? parentId,  bool isActive,  int sort,  List<String> restrictedCategoryIds)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name,  AccountType type,  int balance,  DateTime createdAt,  DateTime updatedAt,  int initialBalance,  String? icon,  String? color,  String? parentId,  bool isActive,  bool isDefault,  int sort,  List<String> restrictedCategoryIds)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AccountModel() when $default != null:
-return $default(_that.id,_that.name,_that.type,_that.balance,_that.createdAt,_that.updatedAt,_that.initialBalance,_that.icon,_that.color,_that.parentId,_that.isActive,_that.sort,_that.restrictedCategoryIds);case _:
+return $default(_that.id,_that.name,_that.type,_that.balance,_that.createdAt,_that.updatedAt,_that.initialBalance,_that.icon,_that.color,_that.parentId,_that.isActive,_that.isDefault,_that.sort,_that.restrictedCategoryIds);case _:
   return orElse();
 
 }
@@ -192,10 +193,10 @@ return $default(_that.id,_that.name,_that.type,_that.balance,_that.createdAt,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name,  AccountType type,  int balance,  DateTime createdAt,  DateTime updatedAt,  int initialBalance,  String? icon,  String? color,  String? parentId,  bool isActive,  int sort,  List<String> restrictedCategoryIds)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name,  AccountType type,  int balance,  DateTime createdAt,  DateTime updatedAt,  int initialBalance,  String? icon,  String? color,  String? parentId,  bool isActive,  bool isDefault,  int sort,  List<String> restrictedCategoryIds)  $default,) {final _that = this;
 switch (_that) {
 case _AccountModel():
-return $default(_that.id,_that.name,_that.type,_that.balance,_that.createdAt,_that.updatedAt,_that.initialBalance,_that.icon,_that.color,_that.parentId,_that.isActive,_that.sort,_that.restrictedCategoryIds);case _:
+return $default(_that.id,_that.name,_that.type,_that.balance,_that.createdAt,_that.updatedAt,_that.initialBalance,_that.icon,_that.color,_that.parentId,_that.isActive,_that.isDefault,_that.sort,_that.restrictedCategoryIds);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -212,10 +213,10 @@ return $default(_that.id,_that.name,_that.type,_that.balance,_that.createdAt,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name,  AccountType type,  int balance,  DateTime createdAt,  DateTime updatedAt,  int initialBalance,  String? icon,  String? color,  String? parentId,  bool isActive,  int sort,  List<String> restrictedCategoryIds)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name,  AccountType type,  int balance,  DateTime createdAt,  DateTime updatedAt,  int initialBalance,  String? icon,  String? color,  String? parentId,  bool isActive,  bool isDefault,  int sort,  List<String> restrictedCategoryIds)?  $default,) {final _that = this;
 switch (_that) {
 case _AccountModel() when $default != null:
-return $default(_that.id,_that.name,_that.type,_that.balance,_that.createdAt,_that.updatedAt,_that.initialBalance,_that.icon,_that.color,_that.parentId,_that.isActive,_that.sort,_that.restrictedCategoryIds);case _:
+return $default(_that.id,_that.name,_that.type,_that.balance,_that.createdAt,_that.updatedAt,_that.initialBalance,_that.icon,_that.color,_that.parentId,_that.isActive,_that.isDefault,_that.sort,_that.restrictedCategoryIds);case _:
   return null;
 
 }
@@ -227,7 +228,7 @@ return $default(_that.id,_that.name,_that.type,_that.balance,_that.createdAt,_th
 @JsonSerializable()
 
 class _AccountModel extends AccountModel {
-  const _AccountModel({required this.id, required this.name, required this.type, required this.balance, required this.createdAt, required this.updatedAt, this.initialBalance = 0, this.icon, this.color, this.parentId, this.isActive = true, this.sort = 0,  List<String> restrictedCategoryIds = const []}): _restrictedCategoryIds = restrictedCategoryIds,super._();
+  const _AccountModel({required this.id, required this.name, required this.type, required this.balance, required this.createdAt, required this.updatedAt, this.initialBalance = 0, this.icon, this.color, this.parentId, this.isActive = true, this.isDefault = false, this.sort = 0,  List<String> restrictedCategoryIds = const []}): _restrictedCategoryIds = restrictedCategoryIds,super._();
   factory _AccountModel.fromJson(Map<String, dynamic> json) => _$AccountModelFromJson(json);
 
 @override final  String id;
@@ -241,6 +242,7 @@ class _AccountModel extends AccountModel {
 @override final  String? color;
 @override final  String? parentId;
 @override@JsonKey() final  bool isActive;
+@override@JsonKey() final  bool isDefault;
 @override@JsonKey() final  int sort;
  final  List<String> _restrictedCategoryIds;
 @override@JsonKey() List<String> get restrictedCategoryIds {
@@ -263,18 +265,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _AccountModel&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.type, type) || other.type == type)&&(identical(other.balance, balance) || other.balance == balance)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.initialBalance, initialBalance) || other.initialBalance == initialBalance)&&(identical(other.icon, icon) || other.icon == icon)&&(identical(other.color, color) || other.color == color)&&(identical(other.parentId, parentId) || other.parentId == parentId)&&(identical(other.isActive, isActive) || other.isActive == isActive)&&(identical(other.sort, sort) || other.sort == sort)&&const DeepCollectionEquality().equals(other.restrictedCategoryIds, _restrictedCategoryIds));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _AccountModel&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.type, type) || other.type == type)&&(identical(other.balance, balance) || other.balance == balance)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.initialBalance, initialBalance) || other.initialBalance == initialBalance)&&(identical(other.icon, icon) || other.icon == icon)&&(identical(other.color, color) || other.color == color)&&(identical(other.parentId, parentId) || other.parentId == parentId)&&(identical(other.isActive, isActive) || other.isActive == isActive)&&(identical(other.isDefault, isDefault) || other.isDefault == isDefault)&&(identical(other.sort, sort) || other.sort == sort)&&const DeepCollectionEquality().equals(other.restrictedCategoryIds, _restrictedCategoryIds));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,id,name,type,balance,createdAt,updatedAt,initialBalance,icon,color,parentId,isActive,sort,const DeepCollectionEquality().hash(_restrictedCategoryIds));
+    return Object.hash(runtimeType,id,name,type,balance,createdAt,updatedAt,initialBalance,icon,color,parentId,isActive,isDefault,sort,const DeepCollectionEquality().hash(_restrictedCategoryIds));
 }
 
 @override
 String toString() {
-    return 'AccountModel(id: $id, name: $name, type: $type, balance: $balance, createdAt: $createdAt, updatedAt: $updatedAt, initialBalance: $initialBalance, icon: $icon, color: $color, parentId: $parentId, isActive: $isActive, sort: $sort, restrictedCategoryIds: $restrictedCategoryIds)';
+    return 'AccountModel(id: $id, name: $name, type: $type, balance: $balance, createdAt: $createdAt, updatedAt: $updatedAt, initialBalance: $initialBalance, icon: $icon, color: $color, parentId: $parentId, isActive: $isActive, isDefault: $isDefault, sort: $sort, restrictedCategoryIds: $restrictedCategoryIds)';
 }
 
 
@@ -285,7 +287,7 @@ abstract mixin class _$AccountModelCopyWith<$Res> implements $AccountModelCopyWi
   factory _$AccountModelCopyWith(_AccountModel value, $Res Function(_AccountModel) _then) = __$AccountModelCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String name, AccountType type, int balance, DateTime createdAt, DateTime updatedAt, int initialBalance, String? icon, String? color, String? parentId, bool isActive, int sort, List<String> restrictedCategoryIds
+ String id, String name, AccountType type, int balance, DateTime createdAt, DateTime updatedAt, int initialBalance, String? icon, String? color, String? parentId, bool isActive, bool isDefault, int sort, List<String> restrictedCategoryIds
 });
 
 
@@ -302,7 +304,7 @@ class __$AccountModelCopyWithImpl<$Res>
 
 /// Create a copy of AccountModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? type = null,Object? balance = null,Object? createdAt = null,Object? updatedAt = null,Object? initialBalance = null,Object? icon = freezed,Object? color = freezed,Object? parentId = freezed,Object? isActive = null,Object? sort = null,Object? restrictedCategoryIds = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? type = null,Object? balance = null,Object? createdAt = null,Object? updatedAt = null,Object? initialBalance = null,Object? icon = freezed,Object? color = freezed,Object? parentId = freezed,Object? isActive = null,Object? isDefault = null,Object? sort = null,Object? restrictedCategoryIds = null,}) {
   return _then(_AccountModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -315,6 +317,7 @@ as int,icon: freezed == icon ? _self.icon : icon // ignore: cast_nullable_to_non
 as String?,color: freezed == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
 as String?,parentId: freezed == parentId ? _self.parentId : parentId // ignore: cast_nullable_to_non_nullable
 as String?,isActive: null == isActive ? _self.isActive : isActive // ignore: cast_nullable_to_non_nullable
+as bool,isDefault: null == isDefault ? _self.isDefault : isDefault // ignore: cast_nullable_to_non_nullable
 as bool,sort: null == sort ? _self.sort : sort // ignore: cast_nullable_to_non_nullable
 as int,restrictedCategoryIds: null == restrictedCategoryIds ? _self._restrictedCategoryIds : restrictedCategoryIds // ignore: cast_nullable_to_non_nullable
 as List<String>,

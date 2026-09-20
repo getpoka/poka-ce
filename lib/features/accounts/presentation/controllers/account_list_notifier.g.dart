@@ -57,18 +57,18 @@ abstract class _$AccountListNotifier extends $StreamNotifier<AccountListState> {
   }
 }
 
-/// Filters the active account list to exclude goal-linked pocket accounts.
+/// Filters the active account list to exclude goal accounts and goal-linked pocket accounts from top-level root list.
 
 @ProviderFor(regularAccountList)
 final regularAccountListProvider = RegularAccountListProvider._();
 
-/// Filters the active account list to exclude goal-linked pocket accounts.
+/// Filters the active account list to exclude goal accounts and goal-linked pocket accounts from top-level root list.
 
 final class RegularAccountListProvider
     extends
         $FunctionalProvider<AsyncValue<AccountListState>, AsyncValue<AccountListState>, AsyncValue<AccountListState>>
     with $Provider<AsyncValue<AccountListState>> {
-  /// Filters the active account list to exclude goal-linked pocket accounts.
+  /// Filters the active account list to exclude goal accounts and goal-linked pocket accounts from top-level root list.
   RegularAccountListProvider._()
     : super(
         from: null,
@@ -141,7 +141,7 @@ final class GoalAccountListProvider
   }
 }
 
-String _$goalAccountListHash() => r'a318c0b1226ac8a03293de388b06e5d6e06c358c';
+String _$goalAccountListHash() => r'0ed7a3cc61351b226fe3071531b4d2ee58fc6cc9';
 
 /// Computes global asset, liability, and net worth metrics across all active accounts.
 

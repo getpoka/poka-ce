@@ -74,11 +74,13 @@ class _FakeCategoryListNotifier extends CategoryListNotifier {
 
 class _FakeGoalDetailNotifier extends GoalDetailNotifier {
   bool deleted = false;
+  int? lastPassedBalance;
   bool fulfilled = false;
 
   @override
   Future<bool> deleteGoal(BuildContext context, GoalModel goal, {required int currentBalance}) async {
     deleted = true;
+    lastPassedBalance = currentBalance;
     return false; // Prevent actual navigation pop in test
   }
 
@@ -184,6 +186,23 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(mockGoalDetailNotifier.deleted, isTrue);
+      expect(mockGoalDetailNotifier.lastPassedBalance, 500);
+    });
+
+    testWidgets('tapping delete icon on completed goal passes real pocket balance 0, not saved target', (tester) async {
+      final g = _goal('g1', 'Completed Goal', 1000, accountId: 'a1', status: GoalStatus.completed);
+      final dash = DashboardState(isLoading: false, accounts: [_acc('a1', 0)]);
+
+      final mockGoalDetailNotifier = _FakeGoalDetailNotifier();
+      await tester.pumpWidget(wrapGoalDetail('g1', [g], dash, mockNotifier: mockGoalDetailNotifier));
+      await tester.pumpAndSettle();
+
+      final trashFinder = find.byType(FHeaderAction).last;
+      await tester.tap(trashFinder);
+      await tester.pumpAndSettle();
+
+      expect(mockGoalDetailNotifier.deleted, isTrue);
+      expect(mockGoalDetailNotifier.lastPassedBalance, 0);
     });
 
     testWidgets('tapping fulfill calls fulfillGoal on notifier', (tester) async {

@@ -28,7 +28,7 @@ void main() {
   });
 
   test('getGoals returns DatabaseFailure when DAO throws', () async {
-    when(() => dao.getAllGoals()).thenThrow(Exception('boom'));
+    when(() => dao.getAllGoalsWithAccounts()).thenThrow(Exception('boom'));
 
     final result = await repository.getGoals();
 
@@ -37,7 +37,7 @@ void main() {
   });
 
   test('getGoalById returns DatabaseFailure when DAO throws', () async {
-    when(() => dao.getGoal(any())).thenThrow(Exception('boom'));
+    when(() => dao.getGoalWithAccount(any())).thenThrow(Exception('boom'));
 
     final result = await repository.getGoalById('goal-1');
 
@@ -46,7 +46,8 @@ void main() {
   });
 
   test('createGoal returns DatabaseFailure when DAO throws', () async {
-    when(() => dao.insertGoalWithAccount(any(), any())).thenThrow(Exception('boom'));
+    when(() => dao.insertGoalWithAccount(any(), any(), parentAccount: any(named: 'parentAccount')))
+        .thenThrow(Exception('boom'));
 
     final result = await repository.createGoal(_buildGoal());
 
@@ -55,7 +56,7 @@ void main() {
   });
 
   test('updateGoal returns DatabaseFailure when DAO throws', () async {
-    when(() => dao.updateGoal(any())).thenThrow(Exception('boom'));
+    when(() => dao.updateGoalWithAccount(any())).thenThrow(Exception('boom'));
 
     final result = await repository.updateGoal(_buildGoal());
 

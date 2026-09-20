@@ -1,4 +1,5 @@
 {
+  "goals": "Target Tabungan",
   "fulfillGoal": "Capai Target (Gunakan)",
   "goalName": "Nama target",
   "targetAmount": "Jumlah target",
@@ -45,5 +46,9 @@
   "activeGoals": "Target Aktif",
   "completedGoals": "Target Selesai",
   "noActiveGoalsYet": "Belum ada target aktif",
-  "noActiveGoalsSubtitle": "Buat target baru untuk mulai menabung impian Anda berikutnya."
+  "noActiveGoalsSubtitle": "Buat target baru untuk mulai menabung impian Anda berikutnya.",
+  "saveInAccount": "Simpan di Akun",
+  "selectAccount": "Pilih Akun",
+  "accountRequired": "Pilih akun penyimpanan",
+  "storedIn": "Disimpan di {{account}}"
 }

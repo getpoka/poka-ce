@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:poka_ce/app/providers/repository_providers.dart';
 import 'package:poka_ce/features/accounts/domain/use_cases/create_account_use_case.dart';
+import 'package:poka_ce/features/accounts/domain/use_cases/reconcile_account_balance_use_case.dart';
 import 'package:poka_ce/features/accounts/domain/use_cases/update_account_use_case.dart';
 import 'package:poka_ce/features/transactions/domain/use_cases/create_transaction_use_case.dart';
 import 'package:poka_ce/features/transactions/domain/use_cases/transfer_funds_use_case.dart';
@@ -13,7 +14,15 @@ final createAccountUseCaseProvider = Provider<CreateAccountUseCase>((ref) {
 
 /// Provides an instance of [UpdateAccountUseCase].
 final updateAccountUseCaseProvider = Provider<UpdateAccountUseCase>((ref) {
-  return UpdateAccountUseCase(ref.watch(accountRepositoryProvider));
+  return UpdateAccountUseCase(ref.watch(accountRepositoryProvider), ref.watch(unitOfWorkProvider));
+});
+
+/// Provides an instance of [ReconcileAccountBalanceUseCase].
+final reconcileAccountBalanceUseCaseProvider = Provider<ReconcileAccountBalanceUseCase>((ref) {
+  return ReconcileAccountBalanceUseCase(
+    ref.watch(accountRepositoryProvider),
+    ref.watch(createTransactionUseCaseProvider),
+  );
 });
 
 /// Provides an instance of [CreateTransactionUseCase].

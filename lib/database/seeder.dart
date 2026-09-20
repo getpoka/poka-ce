@@ -11,7 +11,8 @@ import 'package:uuid/uuid.dart';
 /// Utility responsible for seeding default currencies, settings, categories,
 /// and optional development dummy data into [AppDatabase].
 class DatabaseSeeder {
-  static const _defaultCashAccountId = '01a031e6-4383-70cc-9328-111111111111';
+  static const defaultCashAccountId = '01a031e6-4383-70cc-9328-111111111111';
+  static const String _defaultCashAccountId = defaultCashAccountId;
 
   /// Optional global overrides for seeding behavior.
   static bool? globalOverrideSeedEssentials;
@@ -37,25 +38,25 @@ class DatabaseSeeder {
 
   static Future<void> _seedEssentialAccounts(AppDatabase db) async {
     final existing = await db.select(db.accounts).get();
-    if (existing.any((a) => a.id == _defaultCashAccountId)) return;
-
-    await db
-        .into(db.accounts)
-        .insertOnConflictUpdate(
-          AccountsCompanion.insert(
-            id: const Value(_defaultCashAccountId),
-            name: 'Cash',
-            type: AccountType.assets,
-            icon: const Value('payments'),
-            color: const Value('#4CAF50'),
-            balance: const Value(0),
-          ),
-        );
+    if (!existing.any((a) => a.id == defaultCashAccountId)) {
+      await db
+          .into(db.accounts)
+          .insertOnConflictUpdate(
+            AccountsCompanion.insert(
+              id: const Value(defaultCashAccountId),
+              name: 'Cash',
+              type: AccountType.assets,
+              icon: const Value('payments'),
+              color: const Value('#4CAF50'),
+              balance: const Value(0),
+            ),
+          );
+    }
   }
 
   static Future<void> _seedDummyData(AppDatabase db) async {
     final existing = await db.select(db.accounts).get();
-    if (existing.length > 1) return;
+    if (existing.any((a) => a.name == 'Bank BCA')) return;
 
     const uuid = Uuid();
     final now = DateTime.now();
@@ -164,6 +165,7 @@ class DatabaseSeeder {
           // Account for Goal
           AccountsCompanion.insert(
             id: Value(goalAccountId),
+            parentId: Value(bcaId),
             name: 'Vacation Fund Account',
             type: AccountType.goal,
             icon: const Value('flight'),
@@ -172,6 +174,7 @@ class DatabaseSeeder {
           ),
           AccountsCompanion.insert(
             id: Value(goalAccount2Id),
+            parentId: Value(bcaId),
             name: 'Geekom A7 Max Fund',
             type: AccountType.goal,
             icon: const Value('computer'),
@@ -180,6 +183,7 @@ class DatabaseSeeder {
           ),
           AccountsCompanion.insert(
             id: Value(goalAccount3Id),
+            parentId: Value(ewalletId),
             name: 'Emergency Fund',
             type: AccountType.goal,
             icon: const Value('health_and_safety'),

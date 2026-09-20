@@ -6,6 +6,7 @@ import 'package:poka_ce/core/extensions/string_extension.dart';
 import 'package:poka_ce/core/utils/icon_util.dart';
 import 'package:poka_ce/features/accounts/domain/account_model.dart';
 import 'package:poka_ce/features/accounts/presentation/controllers/account_form_notifier.dart';
+import 'package:poka_ce/features/accounts/presentation/controllers/account_list_notifier.dart';
 import 'package:poka_ce/features/accounts/presentation/widgets/forms/fields/active_account_toggle.dart';
 import 'package:poka_ce/features/accounts/presentation/widgets/forms/fields/category_selection_field.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
@@ -40,11 +41,21 @@ class AccountFormSheet extends HookConsumerWidget {
       return null;
     }, [initialAccount, parentAccountId]);
 
+    final isPocket =
+        (state.parentAccountId != null && state.parentAccountId!.isNotEmpty) ||
+        (initialAccount != null && initialAccount!.isPocket);
+
+    final accounts = ref.watch(accountListProvider).value?.accounts ?? [];
+    final mainPocket = initialAccount != null && !initialAccount!.isPocket
+        ? accounts.where((a) => a.parentId == initialAccount!.id && a.isDefault).firstOrNull
+        : null;
+    final initialBalanceVal = initialAccount != null
+        ? (mainPocket?.initialBalance ?? initialAccount!.initialBalance)
+        : state.balance;
+
     final nameController = useTextEditingController(text: initialAccount?.name ?? state.name);
     final balanceController = useTextEditingController(
-      text: initialAccount != null && initialAccount!.balance != 0
-          ? initialAccount!.balance.toString()
-          : (state.balance != 0 ? state.balance.toString() : ''),
+      text: initialBalanceVal != 0 ? initialBalanceVal.toString() : '',
     );
 
     useEffect(() {
@@ -87,19 +98,21 @@ class AccountFormSheet extends HookConsumerWidget {
         children: [
           FTextFormField(
             control: FTextFieldControl.managed(controller: nameController),
-            label: Text(t.accounts.accountName),
-            hint: t.accounts.egMainWallet,
+            label: Text(isPocket ? t.accounts.pocketName : t.accounts.accountName),
+            hint: isPocket ? t.accounts.egPocket : t.accounts.egMainWallet,
             autovalidateMode: AutovalidateMode.onUserInteraction,
             validator: (value) => value == null || value.trim().isEmpty ? t.accounts.nameCannotBeEmpty : null,
           ),
           const SizedBox(height: 12),
-          FTextFormField(
-            control: FTextFieldControl.managed(controller: balanceController),
-            label: Text(t.accounts.initialBalance),
-            hint: '0',
-            keyboardType: TextInputType.number,
-          ),
-          const SizedBox(height: 12),
+          if (!isPocket) ...[
+            FTextFormField(
+              control: FTextFieldControl.managed(controller: balanceController),
+              label: Text(t.accounts.initialBalance),
+              hint: '0',
+              keyboardType: TextInputType.number,
+            ),
+            const SizedBox(height: 12),
+          ],
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -196,8 +209,16 @@ class AccountFormSheet extends HookConsumerWidget {
       ),
     );
 
+    final sheetTitle = initialAccount == null
+        ? (isPocket ? t.accounts.addPocket : t.accounts.addAccount)
+        : (isPocket ? t.accounts.editPocket : t.accounts.editAccount);
+
+    if (isPocket) {
+      return PokaSheet(title: sheetTitle, child: formContent);
+    }
+
     return PokaSheet(
-      title: initialAccount == null ? t.accounts.addAccount : t.accounts.editAccount,
+      title: sheetTitle,
       child: FTabs(
         control: FTabControl.lifted(
           index: state.type == AccountType.liability ? 1 : 0,

@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$GoalModel {
 
- String get id; String get accountId; String get name; int get targetAmount; DateTime get createdAt; DateTime get updatedAt; GoalStatus get status; DateTime? get targetDate; String? get icon; String? get color;
+ String get id; String get accountId; String get name; int get targetAmount; DateTime get createdAt; DateTime get updatedAt; GoalStatus get status; String? get parentAccountId; DateTime? get targetDate; String? get icon; String? get color;
 /// Create a copy of GoalModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -30,20 +30,20 @@ $GoalModelCopyWith<GoalModel> get copyWith => _$GoalModelCopyWithImpl<GoalModel>
 @override
 bool operator ==(Object other) {
   final _this = this as GoalModel;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is GoalModel&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.accountId, _this.accountId) || other.accountId == _this.accountId)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.targetAmount, _this.targetAmount) || other.targetAmount == _this.targetAmount)&&(identical(other.createdAt, _this.createdAt) || other.createdAt == _this.createdAt)&&(identical(other.updatedAt, _this.updatedAt) || other.updatedAt == _this.updatedAt)&&(identical(other.status, _this.status) || other.status == _this.status)&&(identical(other.targetDate, _this.targetDate) || other.targetDate == _this.targetDate)&&(identical(other.icon, _this.icon) || other.icon == _this.icon)&&(identical(other.color, _this.color) || other.color == _this.color));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is GoalModel&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.accountId, _this.accountId) || other.accountId == _this.accountId)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.targetAmount, _this.targetAmount) || other.targetAmount == _this.targetAmount)&&(identical(other.createdAt, _this.createdAt) || other.createdAt == _this.createdAt)&&(identical(other.updatedAt, _this.updatedAt) || other.updatedAt == _this.updatedAt)&&(identical(other.status, _this.status) || other.status == _this.status)&&(identical(other.parentAccountId, _this.parentAccountId) || other.parentAccountId == _this.parentAccountId)&&(identical(other.targetDate, _this.targetDate) || other.targetDate == _this.targetDate)&&(identical(other.icon, _this.icon) || other.icon == _this.icon)&&(identical(other.color, _this.color) || other.color == _this.color));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as GoalModel;
-  return Object.hash(runtimeType,_this.id,_this.accountId,_this.name,_this.targetAmount,_this.createdAt,_this.updatedAt,_this.status,_this.targetDate,_this.icon,_this.color);
+  return Object.hash(runtimeType,_this.id,_this.accountId,_this.name,_this.targetAmount,_this.createdAt,_this.updatedAt,_this.status,_this.parentAccountId,_this.targetDate,_this.icon,_this.color);
 }
 
 @override
 String toString() {
   final _this = this as GoalModel;
-  return 'GoalModel(id: ${_this.id}, accountId: ${_this.accountId}, name: ${_this.name}, targetAmount: ${_this.targetAmount}, createdAt: ${_this.createdAt}, updatedAt: ${_this.updatedAt}, status: ${_this.status}, targetDate: ${_this.targetDate}, icon: ${_this.icon}, color: ${_this.color})';
+  return 'GoalModel(id: ${_this.id}, accountId: ${_this.accountId}, name: ${_this.name}, targetAmount: ${_this.targetAmount}, createdAt: ${_this.createdAt}, updatedAt: ${_this.updatedAt}, status: ${_this.status}, parentAccountId: ${_this.parentAccountId}, targetDate: ${_this.targetDate}, icon: ${_this.icon}, color: ${_this.color})';
 }
 
 
@@ -54,7 +54,7 @@ abstract mixin class $GoalModelCopyWith<$Res>  {
   factory $GoalModelCopyWith(GoalModel value, $Res Function(GoalModel) _then) = _$GoalModelCopyWithImpl;
 @useResult
 $Res call({
- String id, String accountId, String name, int targetAmount, DateTime createdAt, DateTime updatedAt, GoalStatus status, DateTime? targetDate, String? icon, String? color
+ String id, String accountId, String name, int targetAmount, DateTime createdAt, DateTime updatedAt, GoalStatus status, String? parentAccountId, DateTime? targetDate, String? icon, String? color
 });
 
 
@@ -71,7 +71,7 @@ class _$GoalModelCopyWithImpl<$Res>
 
 /// Create a copy of GoalModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? accountId = null,Object? name = null,Object? targetAmount = null,Object? createdAt = null,Object? updatedAt = null,Object? status = null,Object? targetDate = freezed,Object? icon = freezed,Object? color = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? accountId = null,Object? name = null,Object? targetAmount = null,Object? createdAt = null,Object? updatedAt = null,Object? status = null,Object? parentAccountId = freezed,Object? targetDate = freezed,Object? icon = freezed,Object? color = freezed,}) {
   return _then(GoalModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,accountId: null == accountId ? _self.accountId : accountId // ignore: cast_nullable_to_non_nullable
@@ -80,7 +80,8 @@ as String,targetAmount: null == targetAmount ? _self.targetAmount : targetAmount
 as int,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as DateTime,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
-as GoalStatus,targetDate: freezed == targetDate ? _self.targetDate : targetDate // ignore: cast_nullable_to_non_nullable
+as GoalStatus,parentAccountId: freezed == parentAccountId ? _self.parentAccountId : parentAccountId // ignore: cast_nullable_to_non_nullable
+as String?,targetDate: freezed == targetDate ? _self.targetDate : targetDate // ignore: cast_nullable_to_non_nullable
 as DateTime?,icon: freezed == icon ? _self.icon : icon // ignore: cast_nullable_to_non_nullable
 as String?,color: freezed == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
 as String?,
@@ -168,10 +169,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String accountId,  String name,  int targetAmount,  DateTime createdAt,  DateTime updatedAt,  GoalStatus status,  DateTime? targetDate,  String? icon,  String? color)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String accountId,  String name,  int targetAmount,  DateTime createdAt,  DateTime updatedAt,  GoalStatus status,  String? parentAccountId,  DateTime? targetDate,  String? icon,  String? color)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _GoalModel() when $default != null:
-return $default(_that.id,_that.accountId,_that.name,_that.targetAmount,_that.createdAt,_that.updatedAt,_that.status,_that.targetDate,_that.icon,_that.color);case _:
+return $default(_that.id,_that.accountId,_that.name,_that.targetAmount,_that.createdAt,_that.updatedAt,_that.status,_that.parentAccountId,_that.targetDate,_that.icon,_that.color);case _:
   return orElse();
 
 }
@@ -189,10 +190,10 @@ return $default(_that.id,_that.accountId,_that.name,_that.targetAmount,_that.cre
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String accountId,  String name,  int targetAmount,  DateTime createdAt,  DateTime updatedAt,  GoalStatus status,  DateTime? targetDate,  String? icon,  String? color)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String accountId,  String name,  int targetAmount,  DateTime createdAt,  DateTime updatedAt,  GoalStatus status,  String? parentAccountId,  DateTime? targetDate,  String? icon,  String? color)  $default,) {final _that = this;
 switch (_that) {
 case _GoalModel():
-return $default(_that.id,_that.accountId,_that.name,_that.targetAmount,_that.createdAt,_that.updatedAt,_that.status,_that.targetDate,_that.icon,_that.color);case _:
+return $default(_that.id,_that.accountId,_that.name,_that.targetAmount,_that.createdAt,_that.updatedAt,_that.status,_that.parentAccountId,_that.targetDate,_that.icon,_that.color);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -209,10 +210,10 @@ return $default(_that.id,_that.accountId,_that.name,_that.targetAmount,_that.cre
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String accountId,  String name,  int targetAmount,  DateTime createdAt,  DateTime updatedAt,  GoalStatus status,  DateTime? targetDate,  String? icon,  String? color)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String accountId,  String name,  int targetAmount,  DateTime createdAt,  DateTime updatedAt,  GoalStatus status,  String? parentAccountId,  DateTime? targetDate,  String? icon,  String? color)?  $default,) {final _that = this;
 switch (_that) {
 case _GoalModel() when $default != null:
-return $default(_that.id,_that.accountId,_that.name,_that.targetAmount,_that.createdAt,_that.updatedAt,_that.status,_that.targetDate,_that.icon,_that.color);case _:
+return $default(_that.id,_that.accountId,_that.name,_that.targetAmount,_that.createdAt,_that.updatedAt,_that.status,_that.parentAccountId,_that.targetDate,_that.icon,_that.color);case _:
   return null;
 
 }
@@ -224,7 +225,7 @@ return $default(_that.id,_that.accountId,_that.name,_that.targetAmount,_that.cre
 @JsonSerializable()
 
 class _GoalModel implements GoalModel {
-  const _GoalModel({required this.id, required this.accountId, required this.name, required this.targetAmount, required this.createdAt, required this.updatedAt, this.status = GoalStatus.active, this.targetDate, this.icon, this.color});
+  const _GoalModel({required this.id, required this.accountId, required this.name, required this.targetAmount, required this.createdAt, required this.updatedAt, this.status = GoalStatus.active, this.parentAccountId, this.targetDate, this.icon, this.color});
   factory _GoalModel.fromJson(Map<String, dynamic> json) => _$GoalModelFromJson(json);
 
 @override final  String id;
@@ -234,6 +235,7 @@ class _GoalModel implements GoalModel {
 @override final  DateTime createdAt;
 @override final  DateTime updatedAt;
 @override@JsonKey() final  GoalStatus status;
+@override final  String? parentAccountId;
 @override final  DateTime? targetDate;
 @override final  String? icon;
 @override final  String? color;
@@ -251,18 +253,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _GoalModel&&(identical(other.id, id) || other.id == id)&&(identical(other.accountId, accountId) || other.accountId == accountId)&&(identical(other.name, name) || other.name == name)&&(identical(other.targetAmount, targetAmount) || other.targetAmount == targetAmount)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.status, status) || other.status == status)&&(identical(other.targetDate, targetDate) || other.targetDate == targetDate)&&(identical(other.icon, icon) || other.icon == icon)&&(identical(other.color, color) || other.color == color));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _GoalModel&&(identical(other.id, id) || other.id == id)&&(identical(other.accountId, accountId) || other.accountId == accountId)&&(identical(other.name, name) || other.name == name)&&(identical(other.targetAmount, targetAmount) || other.targetAmount == targetAmount)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.status, status) || other.status == status)&&(identical(other.parentAccountId, parentAccountId) || other.parentAccountId == parentAccountId)&&(identical(other.targetDate, targetDate) || other.targetDate == targetDate)&&(identical(other.icon, icon) || other.icon == icon)&&(identical(other.color, color) || other.color == color));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,id,accountId,name,targetAmount,createdAt,updatedAt,status,targetDate,icon,color);
+    return Object.hash(runtimeType,id,accountId,name,targetAmount,createdAt,updatedAt,status,parentAccountId,targetDate,icon,color);
 }
 
 @override
 String toString() {
-    return 'GoalModel(id: $id, accountId: $accountId, name: $name, targetAmount: $targetAmount, createdAt: $createdAt, updatedAt: $updatedAt, status: $status, targetDate: $targetDate, icon: $icon, color: $color)';
+    return 'GoalModel(id: $id, accountId: $accountId, name: $name, targetAmount: $targetAmount, createdAt: $createdAt, updatedAt: $updatedAt, status: $status, parentAccountId: $parentAccountId, targetDate: $targetDate, icon: $icon, color: $color)';
 }
 
 
@@ -273,7 +275,7 @@ abstract mixin class _$GoalModelCopyWith<$Res> implements $GoalModelCopyWith<$Re
   factory _$GoalModelCopyWith(_GoalModel value, $Res Function(_GoalModel) _then) = __$GoalModelCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String accountId, String name, int targetAmount, DateTime createdAt, DateTime updatedAt, GoalStatus status, DateTime? targetDate, String? icon, String? color
+ String id, String accountId, String name, int targetAmount, DateTime createdAt, DateTime updatedAt, GoalStatus status, String? parentAccountId, DateTime? targetDate, String? icon, String? color
 });
 
 
@@ -290,7 +292,7 @@ class __$GoalModelCopyWithImpl<$Res>
 
 /// Create a copy of GoalModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? accountId = null,Object? name = null,Object? targetAmount = null,Object? createdAt = null,Object? updatedAt = null,Object? status = null,Object? targetDate = freezed,Object? icon = freezed,Object? color = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? accountId = null,Object? name = null,Object? targetAmount = null,Object? createdAt = null,Object? updatedAt = null,Object? status = null,Object? parentAccountId = freezed,Object? targetDate = freezed,Object? icon = freezed,Object? color = freezed,}) {
   return _then(_GoalModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,accountId: null == accountId ? _self.accountId : accountId // ignore: cast_nullable_to_non_nullable
@@ -299,7 +301,8 @@ as String,targetAmount: null == targetAmount ? _self.targetAmount : targetAmount
 as int,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as DateTime,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
-as GoalStatus,targetDate: freezed == targetDate ? _self.targetDate : targetDate // ignore: cast_nullable_to_non_nullable
+as GoalStatus,parentAccountId: freezed == parentAccountId ? _self.parentAccountId : parentAccountId // ignore: cast_nullable_to_non_nullable
+as String?,targetDate: freezed == targetDate ? _self.targetDate : targetDate // ignore: cast_nullable_to_non_nullable
 as DateTime?,icon: freezed == icon ? _self.icon : icon // ignore: cast_nullable_to_non_nullable
 as String?,color: freezed == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
 as String?,

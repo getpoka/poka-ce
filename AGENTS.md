@@ -30,6 +30,19 @@ Activate relevant skills before working on a task:
 - Codegen: `rune generate`
 - Test: `rune test` (all) or `flutter test test/<dir>/<file>_test.dart` (single)
 
+## 🏷️ Versioning & Release Rules (Mandatory for AI)
+
+- **GitHub (Git Tag, GitHub Release, CHANGELOG, & Commit Message):**
+  - **MUST use `beta`:** `v<major>.<minor>.<patch>-beta.<build>` (e.g. `v0.1.0-beta.5`).
+  - Git tag format: `v0.1.0-beta.5`
+  - GitHub Release title: `v0.1.0-beta.5`
+  - `CHANGELOG.md` version heading: `## [v0.1.0-beta.5] - YYYY-MM-DD`
+  - Release commit message: strictly single-line `chore(release): bump version to v0.1.0-beta.5` without multiline body or clutter.
+- **pubspec.yaml & Google Play Store:**
+  - **STRICTLY WITHOUT `beta`:** `version: <major>.<minor>.<patch>+<build>` (e.g. `version: 0.1.0+5`).
+  - `pubspec.yaml` must only contain standard semver + build number (e.g. `0.1.0+5`).
+  - Google Play Console `versionName` is `0.1.0` and `versionCode` is `5` — never include `-beta` in `pubspec.yaml` or Play Store metadata.
+
 ## ⛔ Violations that Trigger Mandatory Rollbacks
 
 If you generate code that violates any of the following, **the entire session's work MUST be rolled back and

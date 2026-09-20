@@ -45,7 +45,7 @@ void main() {
     when(() => mockAccountRepo.getAccounts()).thenAnswer((_) async => const Success([]));
   });
 
-  Widget createWidgetUnderTest() {
+  Widget createWidgetUnderTest({AccountModel? initialAccount, String? parentAccountId}) {
     return ProviderScope(
       overrides: [
         accountRepositoryProvider.overrideWithValue(mockAccountRepo),
@@ -55,7 +55,9 @@ void main() {
       child: TranslationProvider(
         child: MaterialApp(
           builder: (context, child) => FTheme(data: lightTheme, child: child!),
-          home: const Scaffold(body: AccountFormSheet()),
+          home: Scaffold(
+            body: AccountFormSheet(initialAccount: initialAccount, parentAccountId: parentAccountId),
+          ),
         ),
       ),
     );
@@ -165,6 +167,59 @@ void main() {
           icon: null,
           color: null,
           parentId: null,
+          isActive: true,
+        ),
+      ).called(1);
+    });
+
+    testWidgets('renders pocket form without Initial Balance and without Tabs when parentAccountId is provided', (
+      tester,
+    ) async {
+      await tester.pumpWidget(createWidgetUnderTest(parentAccountId: 'parent-123'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Add Pocket'), findsOneWidget);
+      expect(find.text('Add Account'), findsNothing);
+      expect(find.text('Assets'), findsNothing);
+      expect(find.text('Liability'), findsNothing);
+      expect(find.text('Pocket Name'), findsOneWidget);
+      expect(find.text('Initial Balance'), findsNothing);
+      expect(find.text('Save'), findsOneWidget);
+    });
+
+    testWidgets('creates pocket with balance 0 when saved', (tester) async {
+      when(
+        () => mockCreate.execute(
+          name: any(named: 'name'),
+          type: any(named: 'type'),
+          balance: any(named: 'balance'),
+          icon: any(named: 'icon'),
+          color: any(named: 'color'),
+          parentId: any(named: 'parentId'),
+          isActive: any(named: 'isActive'),
+        ),
+      ).thenAnswer((_) async => Success(FakeAccountModel()));
+
+      await tester.pumpWidget(createWidgetUnderTest(parentAccountId: 'parent-123'));
+      await tester.pumpAndSettle();
+
+      // Enter pocket name (only 1 EditableText in pocket form)
+      await tester.enterText(find.byType(EditableText).first, 'Groceries');
+      await tester.pumpAndSettle();
+
+      // Tap Save
+      await tester.ensureVisible(find.text('Save'));
+      await tester.tap(find.text('Save'));
+      await tester.pumpAndSettle();
+
+      verify(
+        () => mockCreate.execute(
+          name: 'Groceries',
+          type: AccountType.assets,
+          balance: 0,
+          icon: null,
+          color: null,
+          parentId: 'parent-123',
           isActive: true,
         ),
       ).called(1);

@@ -19,6 +19,7 @@ abstract class AccountModel with _$AccountModel {
     String? color,
     String? parentId,
     @Default(true) bool isActive,
+    @Default(false) bool isDefault,
     @Default(0) int sort,
     @Default([]) List<String> restrictedCategoryIds,
   }) = _AccountModel;
@@ -27,6 +28,14 @@ abstract class AccountModel with _$AccountModel {
   factory fromJson(Map<String, dynamic> json) => _$AccountModelFromJson(json);
 
   bool get isPocket => parentId != null;
+
+  /// Whether this pocket is the immutable default main pocket of its parent account.
+  bool get isMainPocket => isPocket && isDefault;
+
+  /// Whether this account or pocket can be deleted by the user.
+  ///
+  /// The primary main pocket is non-deletable to guarantee a permanent default destination.
+  bool get canDelete => !isDefault;
 
   List<String> effectiveRestrictedCategoryIds(AccountModel? parent) {
     if (!isPocket) return restrictedCategoryIds;

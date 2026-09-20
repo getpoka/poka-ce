@@ -2,17 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_reorderable_grid_view/widgets/reorderable_builder.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:poka_ce/app/router/router.dart';
 import 'package:poka_ce/features/accounts/domain/account_model.dart';
 import 'package:poka_ce/features/accounts/presentation/controllers/account_list_notifier.dart';
-import 'package:poka_ce/features/accounts/presentation/screens/pocket_detail_page.dart';
 import 'package:poka_ce/features/accounts/presentation/widgets/cards/account_mini_card.dart';
 import 'package:poka_ce/features/accounts/presentation/widgets/forms/account_form_sheet.dart';
+import 'package:poka_ce/features/accounts/presentation/widgets/forms/account_reconcile_sheet.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/dialogs/poka_confirm_dialog.dart';
 import 'package:poka_ce/shared/widgets/poka_empty_view.dart';
 import 'package:poka_ce/shared/widgets/poka_section_label.dart';
 import 'package:poka_ce/theme/theme.dart';
 
+/// Section in AccountDetailPage presenting operational pockets (spending, bills, etc.).
 class AccountPocketsSection extends HookConsumerWidget {
   const new({required this.accountId, required this.pockets, required this.totalBalance, super.key});
 
@@ -91,21 +93,21 @@ class AccountPocketsSection extends HookConsumerWidget {
                 ratioLabel: ratioLabel,
                 pocketCount: 0,
                 onEdit: () => AccountFormSheet.show(context, initialAccount: pocket),
-                onDelete: () async {
-                  final confirm = await showPokaConfirmDialog(
-                    context,
-                    title: t.accounts.deletePocket,
-                    body: t.accounts.areYouSureYouWantToDeleteThisPocketItWillBeHiddenFromTheApp,
-                    confirmText: t.accounts.delete,
-                  );
-                  if (confirm == true) {
-                    await ref.read(accountListProvider.notifier).deleteAccount(pocket.id);
-                  }
-                },
-                onTap: () => Navigator.of(
-                  context,
-                  rootNavigator: true,
-                ).push(MaterialPageRoute<void>(builder: (_) => PocketDetailPage(pocket: pocket))),
+                onReconcile: () => AccountReconcileSheet.show(context, account: pocket, currentBalance: pocket.balance),
+                onDelete: pocket.canDelete
+                    ? () async {
+                        final confirm = await showPokaConfirmDialog(
+                          context,
+                          title: t.accounts.deletePocket,
+                          body: t.accounts.areYouSureYouWantToDeleteThisPocketItWillBeHiddenFromTheApp,
+                          confirmText: t.accounts.delete,
+                        );
+                        if (confirm == true) {
+                          await ref.read(accountListProvider.notifier).deleteAccount(pocket.id);
+                        }
+                      }
+                    : null,
+                onTap: () => AccountDetailRoute(pocket.id).push<void>(context),
               );
             }).toList(),
           ),

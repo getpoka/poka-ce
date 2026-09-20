@@ -1,4 +1,5 @@
 {
+  "goals": "Goals",
   "fulfillGoal": "Fulfill Goal (Spend)",
   "goalName": "Goal name",
   "targetAmount": "Target amount",
@@ -45,5 +46,9 @@
   "activeGoals": "Active Goals",
   "completedGoals": "Completed Goals",
   "noActiveGoalsYet": "No active goals",
-  "noActiveGoalsSubtitle": "Create a new goal to start saving for your next milestone."
+  "noActiveGoalsSubtitle": "Create a new goal to start saving for your next milestone.",
+  "saveInAccount": "Save in Account",
+  "selectAccount": "Select Account",
+  "accountRequired": "Please select an account",
+  "storedIn": "Stored in {{account}}"
 }

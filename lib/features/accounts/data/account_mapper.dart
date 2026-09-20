@@ -17,6 +17,7 @@ class AccountMapper {
       color: account.color,
       parentId: account.parentId,
       isActive: account.isActive,
+      isDefault: account.isDefault,
       sort: account.sort,
       restrictedCategoryIds: restrictedCategoryIds,
       createdAt: account.createdAt,

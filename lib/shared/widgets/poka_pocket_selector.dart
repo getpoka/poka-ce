@@ -49,13 +49,14 @@ class PokaPocketSelector extends HookWidget {
     }
 
     // Group accounts into parents and children (pockets)
-    final parents = accounts.where((a) => !a.isPocket).toList();
     final childrenMap = <String, List<AccountModel>>{};
     for (final a in accounts) {
       if (a.isPocket && a.parentId != null) {
         childrenMap.putIfAbsent(a.parentId!, () => []).add(a);
       }
     }
+
+    final parents = accounts.where((a) => !a.isPocket && a.type != AccountType.goal).toList();
 
     final expandedStates = useState<Set<String>>({});
 
@@ -83,7 +84,12 @@ class PokaPocketSelector extends HookWidget {
                     Expanded(
                       child: GestureDetector(
                         behavior: HitTestBehavior.opaque,
-                        onTap: () => Navigator.of(context).pop(parent),
+                        onTap: () {
+                          final target = children.isNotEmpty
+                              ? children.firstWhere((c) => c.isDefault, orElse: () => children.first)
+                              : parent;
+                          Navigator.of(context).pop(target);
+                        },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                           child: Row(
@@ -135,7 +141,7 @@ class PokaPocketSelector extends HookWidget {
                         ),
                       ),
                     ),
-                    if (children.isNotEmpty)
+                    if (children.length > 1 || children.any((c) => !c.isDefault))
                       GestureDetector(
                         behavior: HitTestBehavior.opaque,
                         onTap: () {

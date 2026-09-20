@@ -18,6 +18,7 @@ _AccountModel _$AccountModelFromJson(Map<String, dynamic> json) => _AccountModel
   color: json['color'] as String?,
   parentId: json['parentId'] as String?,
   isActive: json['isActive'] as bool? ?? true,
+  isDefault: json['isDefault'] as bool? ?? false,
   sort: (json['sort'] as num?)?.toInt() ?? 0,
   restrictedCategoryIds:
       (json['restrictedCategoryIds'] as List<dynamic>?)?.map((e) => e as String).toList() ?? const [],
@@ -35,6 +36,7 @@ Map<String, dynamic> _$AccountModelToJson(_AccountModel instance) => <String, dy
   'color': instance.color,
   'parentId': instance.parentId,
   'isActive': instance.isActive,
+  'isDefault': instance.isDefault,
   'sort': instance.sort,
   'restrictedCategoryIds': instance.restrictedCategoryIds,
 };

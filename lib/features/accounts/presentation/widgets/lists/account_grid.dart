@@ -6,6 +6,7 @@ import 'package:poka_ce/features/accounts/domain/account_aggregate.dart';
 import 'package:poka_ce/features/accounts/presentation/controllers/account_list_notifier.dart';
 import 'package:poka_ce/features/accounts/presentation/widgets/cards/account_mini_card.dart';
 import 'package:poka_ce/features/accounts/presentation/widgets/forms/account_form_sheet.dart';
+import 'package:poka_ce/features/accounts/presentation/widgets/forms/account_reconcile_sheet.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/dialogs/poka_confirm_dialog.dart';
 
@@ -49,6 +50,8 @@ class AccountGrid extends ConsumerWidget {
             ratioLabel: aggregate.formatRatioLabel(totalAssets),
             pocketCount: aggregate.pockets.length,
             onEdit: () => AccountFormSheet.show(context, initialAccount: aggregate.account),
+            onReconcile: () =>
+                AccountReconcileSheet.show(context, account: aggregate.account, currentBalance: aggregate.totalBalance),
             onDelete: () async {
               final confirm = await showPokaConfirmDialog(
                 context,

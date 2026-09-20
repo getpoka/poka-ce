@@ -59,10 +59,10 @@ class GoalItemState {
 List<GoalItemState> goalListStates(Ref ref) {
   final goals = ref.watch(goalProvider).value ?? [];
   final accounts = ref.watch(dashboardProvider).accounts;
+  final accountMap = {for (final a in accounts) a.id: a};
 
   return goals.map((goal) {
-    final account = accounts.where((a) => a.id == goal.accountId).firstOrNull;
-    final balance = account?.balance ?? 0;
+    final balance = accountMap[goal.accountId]?.balance ?? 0;
     return GoalItemState(goal: goal, currentBalance: balance);
   }).toList();
 }
@@ -99,6 +99,7 @@ class GoalSummaryState {
 GoalSummaryState goalSummary(Ref ref) {
   final goals = ref.watch(goalProvider).value ?? [];
   final accounts = ref.watch(dashboardProvider).accounts;
+  final accountMap = {for (final a in accounts) a.id: a};
 
   var totalTarget = 0;
   var totalSaved = 0;
@@ -108,7 +109,7 @@ GoalSummaryState goalSummary(Ref ref) {
     if (goal.status != GoalStatus.active) continue;
 
     totalTarget += goal.targetAmount;
-    final saved = accounts.where((a) => a.id == goal.accountId).firstOrNull?.balance ?? 0;
+    final saved = accountMap[goal.accountId]?.balance ?? 0;
     totalSaved += saved;
     if (saved >= goal.targetAmount && goal.targetAmount > 0) targetReachedCount++;
   }

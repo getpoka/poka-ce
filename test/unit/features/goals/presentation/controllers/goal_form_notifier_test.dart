@@ -63,10 +63,12 @@ void main() {
       n.setName('Car');
       n.setTargetAmount(10000);
       n.setTargetDate(DateTime.utc(2025, 12, 31));
+      n.setParentAccountId('acc1');
       final s = container.read(goalFormProvider);
       expect(s.name, 'Car');
       expect(s.targetAmount, 10000);
       expect(s.targetDate, DateTime.utc(2025, 12, 31));
+      expect(s.parentAccountId, 'acc1');
     });
 
     test('validation empty name', () async {
@@ -74,6 +76,7 @@ void main() {
       final n = container.read(goalFormProvider.notifier);
       n.setName('   ');
       n.setTargetAmount(1000);
+      n.setParentAccountId('acc1');
       await n.save();
       expect(container.read(goalFormProvider).error, 'Name cannot be empty');
     });
@@ -83,8 +86,18 @@ void main() {
       final n = container.read(goalFormProvider.notifier);
       n.setName('Test');
       n.setTargetAmount(0);
+      n.setParentAccountId('acc1');
       await n.save();
       expect(container.read(goalFormProvider).error, 'Target amount must be greater than 0');
+    });
+
+    test('validation parentAccountId empty on new goal', () async {
+      final container = createContainer();
+      final n = container.read(goalFormProvider.notifier);
+      n.setName('Test');
+      n.setTargetAmount(1000);
+      await n.save();
+      expect(container.read(goalFormProvider).error, 'Please select an account');
     });
 
     test('save create success', () async {
@@ -93,6 +106,7 @@ void main() {
       final n = container.read(goalFormProvider.notifier);
       n.setName('New');
       n.setTargetAmount(5000);
+      n.setParentAccountId('acc1');
       await n.save();
       await Future.delayed(const Duration(milliseconds: 50));
       expect(container.read(goalFormProvider).isSuccess, true);
@@ -105,6 +119,7 @@ void main() {
       final n = container.read(goalFormProvider.notifier);
       n.setName('New');
       n.setTargetAmount(5000);
+      n.setParentAccountId('acc1');
       await n.save();
       expect(container.read(goalFormProvider).error, 'fail');
     });
