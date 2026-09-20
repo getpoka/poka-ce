@@ -16,6 +16,7 @@ class Accounts extends Table {
   IntColumn get initialBalance => integer().withDefault(const Constant(0))();
   TextColumn get parentId => text().nullable().references(Accounts, #id, onDelete: KeyAction.cascade)();
   BoolColumn get isActive => boolean().withDefault(const Constant(true))();
+  BoolColumn get isDefault => boolean().withDefault(const Constant(false))();
   IntColumn get sort => integer().withDefault(const Constant(0))();
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
   DateTimeColumn get updatedAt => dateTime().withDefault(currentDateAndTime)();

@@ -14,6 +14,7 @@ abstract class GoalModel with _$GoalModel {
     required DateTime createdAt,
     required DateTime updatedAt,
     @Default(GoalStatus.active) GoalStatus status,
+    String? parentAccountId,
     DateTime? targetDate,
     String? icon,
     String? color,

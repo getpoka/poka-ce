@@ -89,6 +89,8 @@ class _Translations$accounts$id extends Translations$accounts$en {
 	@override String get totalBalance => 'Total Saldo';
 	@override String get pockets => 'Kantong';
 	@override String get deletePocket => 'Hapus Kantong';
+	@override String get cannotDeleteMainPocket => 'Kantong utama tidak dapat dihapus';
+	@override String get mainPocket => 'Utama';
 	@override String get areYouSureYouWantToDeleteThisPocketItWillBeHiddenFromTheApp => 'Apakah Anda yakin ingin menghapus kantong ini? Kantong akan disembunyikan dari aplikasi.';
 	@override String get nameCannotBeEmpty => 'Nama tidak boleh kosong';
 	@override String get egMainWallet => 'misal, Dompet Utama';
@@ -125,6 +127,18 @@ class _Translations$accounts$id extends Translations$accounts$en {
 	@override String percentOfAssets({required Object percent}) => '${percent}% dari aset';
 	@override String get recentTransactions => 'Transaksi Terakhir';
 	@override String recentTransactionsCount({required Object count}) => 'Transaksi Terakhir (${count})';
+	@override String get reconcileBalance => 'Sesuaikan Saldo';
+	@override String get reconcileBalanceSubtitle => 'Sesuaikan saldo aplikasi dengan saldo nyata';
+	@override String get currentBalanceInPoka => 'Saldo di Poka';
+	@override String get actualBalance => 'Saldo Sebenarnya';
+	@override String get difference => 'Selisih';
+	@override String get adjustmentExpense => 'Penyesuaian (Pengeluaran)';
+	@override String get adjustmentIncome => 'Penyesuaian (Pemasukan)';
+	@override String get balanceAdjustment => 'Penyesuaian Saldo';
+	@override String get saveAdjustment => 'Simpan Penyesuaian';
+	@override String get balancesMatch => 'Saldo sudah sesuai, tidak ada penyesuaian yang diperlukan';
+	@override String get noteOptional => 'Catatan (Opsional)';
+	@override String get reconcileAccount => 'Sesuaikan Saldo Akun';
 }
 
 // Path: app
@@ -479,6 +493,10 @@ class _Translations$goals$id extends Translations$goals$en {
 	@override String get completedGoals => 'Target Selesai';
 	@override String get noActiveGoalsYet => 'Belum ada target aktif';
 	@override String get noActiveGoalsSubtitle => 'Buat target baru untuk mulai menabung impian Anda berikutnya.';
+	@override String get saveInAccount => 'Simpan di Akun';
+	@override String get selectAccount => 'Pilih Akun';
+	@override String get accountRequired => 'Pilih akun penyimpanan';
+	@override String storedIn({required Object account}) => 'Disimpan di ${account}';
 }
 
 // Path: lock
@@ -901,6 +919,8 @@ extension on TranslationsId {
 			'accounts.totalBalance' => 'Total Saldo',
 			'accounts.pockets' => 'Kantong',
 			'accounts.deletePocket' => 'Hapus Kantong',
+			'accounts.cannotDeleteMainPocket' => 'Kantong utama tidak dapat dihapus',
+			'accounts.mainPocket' => 'Utama',
 			'accounts.areYouSureYouWantToDeleteThisPocketItWillBeHiddenFromTheApp' => 'Apakah Anda yakin ingin menghapus kantong ini? Kantong akan disembunyikan dari aplikasi.',
 			'accounts.nameCannotBeEmpty' => 'Nama tidak boleh kosong',
 			'accounts.egMainWallet' => 'misal, Dompet Utama',
@@ -935,6 +955,18 @@ extension on TranslationsId {
 			'accounts.percentOfAssets' => ({required Object percent}) => '${percent}% dari aset',
 			'accounts.recentTransactions' => 'Transaksi Terakhir',
 			'accounts.recentTransactionsCount' => ({required Object count}) => 'Transaksi Terakhir (${count})',
+			'accounts.reconcileBalance' => 'Sesuaikan Saldo',
+			'accounts.reconcileBalanceSubtitle' => 'Sesuaikan saldo aplikasi dengan saldo nyata',
+			'accounts.currentBalanceInPoka' => 'Saldo di Poka',
+			'accounts.actualBalance' => 'Saldo Sebenarnya',
+			'accounts.difference' => 'Selisih',
+			'accounts.adjustmentExpense' => 'Penyesuaian (Pengeluaran)',
+			'accounts.adjustmentIncome' => 'Penyesuaian (Pemasukan)',
+			'accounts.balanceAdjustment' => 'Penyesuaian Saldo',
+			'accounts.saveAdjustment' => 'Simpan Penyesuaian',
+			'accounts.balancesMatch' => 'Saldo sudah sesuai, tidak ada penyesuaian yang diperlukan',
+			'accounts.noteOptional' => 'Catatan (Opsional)',
+			'accounts.reconcileAccount' => 'Sesuaikan Saldo Akun',
 			'app.name' => 'Poka',
 			'app.tagline' => 'Teman keuangan pribadi Anda',
 			'app.nav.home' => 'Beranda',
@@ -1235,6 +1267,10 @@ extension on TranslationsId {
 			'goals.completedGoals' => 'Target Selesai',
 			'goals.noActiveGoalsYet' => 'Belum ada target aktif',
 			'goals.noActiveGoalsSubtitle' => 'Buat target baru untuk mulai menabung impian Anda berikutnya.',
+			'goals.saveInAccount' => 'Simpan di Akun',
+			'goals.selectAccount' => 'Pilih Akun',
+			'goals.accountRequired' => 'Pilih akun penyimpanan',
+			'goals.storedIn' => ({required Object account}) => 'Disimpan di ${account}',
 			'lock.confirmPin' => 'Konfirmasi PIN',
 			'lock.createPin' => 'Buat PIN',
 			'lock.pinsDoNotMatch' => 'PIN tidak cocok',
@@ -1375,6 +1411,8 @@ extension on TranslationsId {
 			'settings.theme' => 'Tema',
 			'settings.language' => 'Bahasa',
 			'settings.numberFormat' => 'Format Angka',
+			_ => null,
+		} ?? switch (path) {
 			'settings.selectNumberFormat' => 'Pilih Format Angka',
 			'settings.formatSystem' => 'Default Aplikasi',
 			'settings.formatId' => '1.000.000,00',
@@ -1393,8 +1431,6 @@ extension on TranslationsId {
 			'settings.backupRestoreDesc' => 'Simpan atau pulihkan data Anda',
 			'settings.clearOld' => 'Hapus Transaksi Lama',
 			'settings.clearOldDesc' => 'Hapus transaksi lebih dari 1 tahun',
-			_ => null,
-		} ?? switch (path) {
 			'settings.resetData' => 'Reset Data',
 			'settings.resetDataDesc' => 'Hapus semua data aplikasi lokal',
 			'settings.support' => 'Bantuan',

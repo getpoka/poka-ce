@@ -19,6 +19,8 @@
   "totalBalance": "Total Saldo",
   "pockets": "Kantong",
   "deletePocket": "Hapus Kantong",
+  "cannotDeleteMainPocket": "Kantong utama tidak dapat dihapus",
+  "mainPocket": "Utama",
   "areYouSureYouWantToDeleteThisPocketItWillBeHiddenFromTheApp": "Apakah Anda yakin ingin menghapus kantong ini? Kantong akan disembunyikan dari aplikasi.",
   "nameCannotBeEmpty": "Nama tidak boleh kosong",
   "egMainWallet": "misal, Dompet Utama",
@@ -54,5 +56,17 @@
   "noMainAccountsYet": "Belum ada akun utama.",
   "percentOfAssets": "{{percent}}% dari aset",
   "recentTransactions": "Transaksi Terakhir",
-  "recentTransactionsCount": "Transaksi Terakhir ({{count}})"
+  "recentTransactionsCount": "Transaksi Terakhir ({{count}})",
+  "reconcileBalance": "Sesuaikan Saldo",
+  "reconcileBalanceSubtitle": "Sesuaikan saldo aplikasi dengan saldo nyata",
+  "currentBalanceInPoka": "Saldo di Poka",
+  "actualBalance": "Saldo Sebenarnya",
+  "difference": "Selisih",
+  "adjustmentExpense": "Penyesuaian (Pengeluaran)",
+  "adjustmentIncome": "Penyesuaian (Pemasukan)",
+  "balanceAdjustment": "Penyesuaian Saldo",
+  "saveAdjustment": "Simpan Penyesuaian",
+  "balancesMatch": "Saldo sudah sesuai, tidak ada penyesuaian yang diperlukan",
+  "noteOptional": "Catatan (Opsional)",
+  "reconcileAccount": "Sesuaikan Saldo Akun"
 }

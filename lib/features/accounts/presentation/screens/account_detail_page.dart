@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:poka_ce/app/router/router.dart';
 import 'package:poka_ce/core/enums.dart';
 import 'package:poka_ce/core/extensions/string_extension.dart';
 import 'package:poka_ce/core/utils/icon_util.dart';
 import 'package:poka_ce/features/accounts/presentation/controllers/account_list_notifier.dart';
 import 'package:poka_ce/features/accounts/presentation/widgets/cards/account_hero_card.dart';
 import 'package:poka_ce/features/accounts/presentation/widgets/forms/account_form_sheet.dart';
+import 'package:poka_ce/features/accounts/presentation/widgets/forms/account_reconcile_sheet.dart';
 import 'package:poka_ce/features/accounts/presentation/widgets/sections/account_pockets_section.dart';
 import 'package:poka_ce/features/accounts/presentation/widgets/sections/recent_transactions_section.dart';
 import 'package:poka_ce/features/goals/presentation/controllers/goal_notifier.dart';
-import 'package:poka_ce/features/goals/presentation/screens/goal_detail_page.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/poka_header.dart';
 import 'package:poka_ce/theme/theme.dart';
@@ -42,26 +43,29 @@ class AccountDetailPage extends HookConsumerWidget {
     final accountIds = {accountId, ...pockets.map((p) => p.id)};
     final accountTransactions = ref.watch(accountTransactionsProvider(accountIds));
 
-    final goals = ref.watch(goalProvider).value ?? [];
-    final linkedGoal = goals.where((g) => g.accountId == accountId).firstOrNull;
+    final linkedGoal = account.type == AccountType.goal
+        ? ref.watch(goalProvider.select((g) => g.value?.where((item) => item.accountId == accountId).firstOrNull))
+        : null;
 
     return FScaffold(
       header: PokaHeader(
         title: account.name,
         showBack: true,
         suffixes: [
-          if (account.type != AccountType.goal)
+          if (account.type != AccountType.goal) ...[
+            FHeaderAction(
+              icon: const Icon(FPhosphorIcons.scales, size: 20),
+              onPress: () => AccountReconcileSheet.show(context, account: account, currentBalance: totalBalance),
+            ),
             FHeaderAction(
               icon: const Icon(FPhosphorIcons.pencilSimple, size: 20),
               onPress: () => AccountFormSheet.show(context, initialAccount: account),
             ),
+          ],
           if (account.type == AccountType.goal && linkedGoal != null)
             FHeaderAction(
               icon: const Icon(FPhosphorIcons.target, size: 20),
-              onPress: () => Navigator.of(
-                context,
-                rootNavigator: true,
-              ).push(MaterialPageRoute<void>(builder: (_) => GoalDetailPage(id: linkedGoal.id))),
+              onPress: () => GoalDetailRoute(linkedGoal.id).push<void>(context),
             ),
         ],
       ),
@@ -75,14 +79,14 @@ class AccountDetailPage extends HookConsumerWidget {
               balance: totalBalance,
               accentColor: accentColor,
               accountIcon: accountIcon,
-              label: t.accounts.totalBalance,
-              pocketCount: pockets.length,
+              label: account.isPocket ? t.accounts.balance : t.accounts.totalBalance,
+              pocketCount: account.isPocket ? null : pockets.length,
               transactionCount: accountTransactions.length,
             ).animate().fade(duration: 300.ms).slideY(begin: 0.05, end: 0),
 
             const SizedBox(height: 20),
 
-            if (account.type != AccountType.goal) ...[
+            if (account.type != AccountType.goal && !account.isPocket) ...[
               AccountPocketsSection(accountId: accountId, pockets: pockets, totalBalance: totalBalance),
               const SizedBox(height: 20),
             ],

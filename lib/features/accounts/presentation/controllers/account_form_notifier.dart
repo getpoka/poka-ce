@@ -3,6 +3,7 @@ import 'package:poka_ce/app/providers/use_case_providers.dart';
 import 'package:poka_ce/core/enums.dart';
 import 'package:poka_ce/core/error/result.dart';
 import 'package:poka_ce/features/accounts/domain/account_model.dart';
+import 'package:poka_ce/features/accounts/presentation/controllers/account_list_notifier.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -40,11 +41,20 @@ class AccountFormNotifier extends _$AccountFormNotifier {
   /// Initializes the form with an existing [account] for editing, or prepares a new account under optional [parentAccountId].
   void init(AccountModel? account, {String? parentAccountId}) {
     if (account != null) {
+      var effectiveInitialBalance = account.initialBalance;
+      if (!account.isPocket) {
+        final accounts = ref.read(accountListProvider).value?.accounts ?? [];
+        final mainPocket = accounts.where((a) => a.parentId == account.id && a.isDefault).firstOrNull;
+        if (mainPocket != null) {
+          effectiveInitialBalance = mainPocket.initialBalance;
+        }
+      }
+
       state = AccountFormState(
         initialAccount: account,
         name: account.name,
         type: account.type,
-        balance: account.balance,
+        balance: effectiveInitialBalance,
         icon: account.icon,
         color: account.color,
         parentAccountId: account.parentId,
@@ -163,6 +173,7 @@ class AccountFormNotifier extends _$AccountFormNotifier {
                 color: state.color,
                 isActive: state.isActive,
                 restrictedCategoryIds: state.restrictedCategoryIds,
+                initialBalance: state.balance,
               );
 
     switch (result) {

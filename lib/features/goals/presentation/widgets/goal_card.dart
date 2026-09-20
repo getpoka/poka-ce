@@ -4,6 +4,8 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poka_ce/app/router/router.dart';
 import 'package:poka_ce/core/enums.dart';
+import 'package:poka_ce/core/utils/icon_util.dart';
+import 'package:poka_ce/features/accounts/presentation/controllers/account_list_notifier.dart';
 import 'package:poka_ce/features/goals/presentation/controllers/goal_detail_notifier.dart';
 import 'package:poka_ce/features/goals/presentation/controllers/goal_form_sheet_builder_provider.dart';
 import 'package:poka_ce/features/goals/presentation/controllers/goal_notifier.dart';
@@ -27,6 +29,11 @@ class GoalCard extends ConsumerWidget {
 
     final completedColor = theme.colors.app.success;
     final progressColor = (state.isCompleted || state.isTargetReached) ? completedColor : theme.colors.primary;
+
+    final parentAccountId = state.goal.parentAccountId;
+    final parentAccount = parentAccountId != null
+        ? ref.watch(accountMapProvider.select((m) => m[parentAccountId]))
+        : null;
 
     final cardContent = FCard(
       child: Padding(
@@ -53,15 +60,48 @@ class GoalCard extends ConsumerWidget {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      const SizedBox(height: 3),
-                      if (state.isCompleted)
-                        GoalStatusBadge(label: t.goals.completed, color: completedColor)
-                      else if (state.isTargetReached)
-                        GoalStatusBadge(label: t.goals.fullyFunded, color: completedColor)
-                      else if (state.goal.targetDate != null)
-                        GoalDeadlineBadge(targetDate: state.goal.targetDate!)
-                      else
-                        GoalStatusBadge(label: t.goals.inProgress, color: theme.colors.mutedForeground),
+                      const SizedBox(height: 4),
+                      Wrap(
+                        spacing: 6,
+                        runSpacing: 4,
+                        crossAxisAlignment: WrapCrossAlignment.center,
+                        children: [
+                          if (parentAccount != null)
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                              decoration: BoxDecoration(
+                                color: theme.colors.muted,
+                                borderRadius: theme.style.borderRadius.xs,
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(
+                                    IconUtil.getIcon(parentAccount.icon),
+                                    size: 11,
+                                    color: theme.colors.mutedForeground,
+                                  ),
+                                  const SizedBox(width: 4),
+                                  Text(
+                                    parentAccount.name,
+                                    style: theme.typography.caption.copyWith(
+                                      color: theme.colors.mutedForeground,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          if (state.isCompleted)
+                            GoalStatusBadge(label: t.goals.completed, color: completedColor)
+                          else if (state.isTargetReached)
+                            GoalStatusBadge(label: t.goals.fullyFunded, color: completedColor)
+                          else if (state.goal.targetDate != null)
+                            GoalDeadlineBadge(targetDate: state.goal.targetDate!)
+                          else
+                            GoalStatusBadge(label: t.goals.inProgress, color: theme.colors.mutedForeground),
+                        ],
+                      ),
                     ],
                   ),
                 ),
@@ -143,8 +183,9 @@ class GoalCard extends ConsumerWidget {
             icon: FPhosphorIcons.trash,
             color: theme.colors.destructive,
             isDestructive: true,
-            onPressed: () =>
-                ref.read(goalDetailProvider.notifier).deleteGoal(context, state.goal, currentBalance: state.saved),
+            onPressed: () => ref
+                .read(goalDetailProvider.notifier)
+                .deleteGoal(context, state.goal, currentBalance: state.currentBalance),
           ),
         ],
       ),

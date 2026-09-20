@@ -411,6 +411,20 @@
             "dsl_features": []
           },
           {
+            "name": "is_default",
+            "getter_name": "isDefault",
+            "moor_type": "bool",
+            "nullable": false,
+            "customConstraints": null,
+            "defaultConstraints": "CHECK (\"is_default\" IN (0, 1))",
+            "dialectAwareDefaultConstraints": {
+              "sqlite": "CHECK (\"is_default\" IN (0, 1))"
+            },
+            "default_dart": "const CustomExpression('0')",
+            "default_client_dart": null,
+            "dsl_features": []
+          },
+          {
             "name": "sort",
             "getter_name": "sort",
             "moor_type": "int",
@@ -1636,6 +1650,101 @@
           "id"
         ]
       }
+    },
+    {
+      "id": 12,
+      "references": [
+        3
+      ],
+      "type": "index",
+      "data": {
+        "on": 3,
+        "name": "idx_accounts_parent_id",
+        "sql": null,
+        "unique": false,
+        "columns": [
+          {
+            "column": "parent_id",
+            "order_by": null
+          }
+        ]
+      }
+    },
+    {
+      "id": 13,
+      "references": [
+        9
+      ],
+      "type": "index",
+      "data": {
+        "on": 9,
+        "name": "idx_transactions_date",
+        "sql": null,
+        "unique": false,
+        "columns": [
+          {
+            "column": "transaction_date",
+            "order_by": null
+          }
+        ]
+      }
+    },
+    {
+      "id": 14,
+      "references": [
+        9
+      ],
+      "type": "index",
+      "data": {
+        "on": 9,
+        "name": "idx_transactions_account",
+        "sql": null,
+        "unique": false,
+        "columns": [
+          {
+            "column": "account_id",
+            "order_by": null
+          }
+        ]
+      }
+    },
+    {
+      "id": 15,
+      "references": [
+        10
+      ],
+      "type": "index",
+      "data": {
+        "on": 10,
+        "name": "idx_tx_items_tx_id",
+        "sql": null,
+        "unique": false,
+        "columns": [
+          {
+            "column": "transaction_id",
+            "order_by": null
+          }
+        ]
+      }
+    },
+    {
+      "id": 16,
+      "references": [
+        10
+      ],
+      "type": "index",
+      "data": {
+        "on": 10,
+        "name": "idx_tx_items_category_id",
+        "sql": null,
+        "unique": false,
+        "columns": [
+          {
+            "column": "category_id",
+            "order_by": null
+          }
+        ]
+      }
     }
   ],
   "fixed_sql": [
@@ -1671,7 +1780,7 @@
       "sql": [
         {
           "dialect": "sqlite",
-          "sql": "CREATE TABLE IF NOT EXISTS \"accounts\" (\"id\" TEXT NOT NULL, \"name\" TEXT NOT NULL, \"icon\" TEXT NULL, \"color\" TEXT NULL, \"type\" TEXT NOT NULL, \"balance\" INTEGER NOT NULL DEFAULT 0, \"initial_balance\" INTEGER NOT NULL DEFAULT 0, \"parent_id\" TEXT NULL REFERENCES accounts (id) ON DELETE CASCADE, \"is_active\" INTEGER NOT NULL DEFAULT 1 CHECK (\"is_active\" IN (0, 1)), \"sort\" INTEGER NOT NULL DEFAULT 0, \"created_at\" INTEGER NOT NULL DEFAULT (CAST(strftime('%s', CURRENT_TIMESTAMP) AS INTEGER)), \"updated_at\" INTEGER NOT NULL DEFAULT (CAST(strftime('%s', CURRENT_TIMESTAMP) AS INTEGER)), PRIMARY KEY (\"id\"));"
+          "sql": "CREATE TABLE IF NOT EXISTS \"accounts\" (\"id\" TEXT NOT NULL, \"name\" TEXT NOT NULL, \"icon\" TEXT NULL, \"color\" TEXT NULL, \"type\" TEXT NOT NULL, \"balance\" INTEGER NOT NULL DEFAULT 0, \"initial_balance\" INTEGER NOT NULL DEFAULT 0, \"parent_id\" TEXT NULL REFERENCES accounts (id) ON DELETE CASCADE, \"is_active\" INTEGER NOT NULL DEFAULT 1 CHECK (\"is_active\" IN (0, 1)), \"is_default\" INTEGER NOT NULL DEFAULT 0 CHECK (\"is_default\" IN (0, 1)), \"sort\" INTEGER NOT NULL DEFAULT 0, \"created_at\" INTEGER NOT NULL DEFAULT (CAST(strftime('%s', CURRENT_TIMESTAMP) AS INTEGER)), \"updated_at\" INTEGER NOT NULL DEFAULT (CAST(strftime('%s', CURRENT_TIMESTAMP) AS INTEGER)), PRIMARY KEY (\"id\"));"
         }
       ]
     },
@@ -1744,6 +1853,51 @@
         {
           "dialect": "sqlite",
           "sql": "CREATE TABLE IF NOT EXISTS \"goals\" (\"id\" TEXT NOT NULL, \"account_id\" TEXT NOT NULL UNIQUE REFERENCES accounts (id) ON DELETE CASCADE, \"name\" TEXT NOT NULL, \"target_amount\" INTEGER NOT NULL, \"target_date\" INTEGER NULL, \"icon\" TEXT NULL, \"color\" TEXT NULL, \"created_at\" INTEGER NOT NULL DEFAULT (CAST(strftime('%s', CURRENT_TIMESTAMP) AS INTEGER)), \"updated_at\" INTEGER NOT NULL DEFAULT (CAST(strftime('%s', CURRENT_TIMESTAMP) AS INTEGER)), \"status\" TEXT NOT NULL DEFAULT 'active', PRIMARY KEY (\"id\"));"
+        }
+      ]
+    },
+    {
+      "name": "idx_accounts_parent_id",
+      "sql": [
+        {
+          "dialect": "sqlite",
+          "sql": "CREATE INDEX idx_accounts_parent_id ON accounts (parent_id)"
+        }
+      ]
+    },
+    {
+      "name": "idx_transactions_date",
+      "sql": [
+        {
+          "dialect": "sqlite",
+          "sql": "CREATE INDEX idx_transactions_date ON transactions (transaction_date)"
+        }
+      ]
+    },
+    {
+      "name": "idx_transactions_account",
+      "sql": [
+        {
+          "dialect": "sqlite",
+          "sql": "CREATE INDEX idx_transactions_account ON transactions (account_id)"
+        }
+      ]
+    },
+    {
+      "name": "idx_tx_items_tx_id",
+      "sql": [
+        {
+          "dialect": "sqlite",
+          "sql": "CREATE INDEX idx_tx_items_tx_id ON transaction_items (transaction_id)"
+        }
+      ]
+    },
+    {
+      "name": "idx_tx_items_category_id",
+      "sql": [
+        {
+          "dialect": "sqlite",
+          "sql": "CREATE INDEX idx_tx_items_category_id ON transaction_items (category_id)"
         }
       ]
     }

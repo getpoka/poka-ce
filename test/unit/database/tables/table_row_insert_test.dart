@@ -54,6 +54,7 @@ void main() {
       parentId: 'acc',
       sort: 0,
       isActive: true,
+      isDefault: false,
       createdAt: now,
       updatedAt: now,
     );

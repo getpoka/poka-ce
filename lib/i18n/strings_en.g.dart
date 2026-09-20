@@ -132,6 +132,12 @@ class Translations$accounts$en {
 	/// en: 'Delete Pocket'
 	String get deletePocket => 'Delete Pocket';
 
+	/// en: 'Main pocket cannot be deleted'
+	String get cannotDeleteMainPocket => 'Main pocket cannot be deleted';
+
+	/// en: 'Main'
+	String get mainPocket => 'Main';
+
 	/// en: 'Are you sure you want to delete this pocket? It will be hidden from the app.'
 	String get areYouSureYouWantToDeleteThisPocketItWillBeHiddenFromTheApp => 'Are you sure you want to delete this pocket? It will be hidden from the app.';
 
@@ -236,6 +242,42 @@ class Translations$accounts$en {
 
 	/// en: 'Recent Transactions ({{count}})'
 	String recentTransactionsCount({required Object count}) => 'Recent Transactions (${count})';
+
+	/// en: 'Reconcile Balance'
+	String get reconcileBalance => 'Reconcile Balance';
+
+	/// en: 'Align app balance with real account balance'
+	String get reconcileBalanceSubtitle => 'Align app balance with real account balance';
+
+	/// en: 'Balance in Poka'
+	String get currentBalanceInPoka => 'Balance in Poka';
+
+	/// en: 'Actual Balance'
+	String get actualBalance => 'Actual Balance';
+
+	/// en: 'Difference'
+	String get difference => 'Difference';
+
+	/// en: 'Adjustment (Expense)'
+	String get adjustmentExpense => 'Adjustment (Expense)';
+
+	/// en: 'Adjustment (Income)'
+	String get adjustmentIncome => 'Adjustment (Income)';
+
+	/// en: 'Balance Adjustment'
+	String get balanceAdjustment => 'Balance Adjustment';
+
+	/// en: 'Save Adjustment'
+	String get saveAdjustment => 'Save Adjustment';
+
+	/// en: 'Balances match, no adjustment needed'
+	String get balancesMatch => 'Balances match, no adjustment needed';
+
+	/// en: 'Note (Optional)'
+	String get noteOptional => 'Note (Optional)';
+
+	/// en: 'Reconcile Account Balance'
+	String get reconcileAccount => 'Reconcile Account Balance';
 }
 
 // Path: app
@@ -1150,6 +1192,18 @@ class Translations$goals$en {
 
 	/// en: 'Create a new goal to start saving for your next milestone.'
 	String get noActiveGoalsSubtitle => 'Create a new goal to start saving for your next milestone.';
+
+	/// en: 'Save in Account'
+	String get saveInAccount => 'Save in Account';
+
+	/// en: 'Select Account'
+	String get selectAccount => 'Select Account';
+
+	/// en: 'Please select an account'
+	String get accountRequired => 'Please select an account';
+
+	/// en: 'Stored in {{account}}'
+	String storedIn({required Object account}) => 'Stored in ${account}';
 }
 
 // Path: lock
@@ -2176,6 +2230,8 @@ extension on Translations {
 			'accounts.totalBalance' => 'Total Balance',
 			'accounts.pockets' => 'Pockets',
 			'accounts.deletePocket' => 'Delete Pocket',
+			'accounts.cannotDeleteMainPocket' => 'Main pocket cannot be deleted',
+			'accounts.mainPocket' => 'Main',
 			'accounts.areYouSureYouWantToDeleteThisPocketItWillBeHiddenFromTheApp' => 'Are you sure you want to delete this pocket? It will be hidden from the app.',
 			'accounts.nameCannotBeEmpty' => 'Name cannot be empty',
 			'accounts.egMainWallet' => 'e.g., Main Wallet',
@@ -2210,6 +2266,18 @@ extension on Translations {
 			'accounts.percentOfAssets' => ({required Object percent}) => '${percent}% of assets',
 			'accounts.recentTransactions' => 'Recent Transactions',
 			'accounts.recentTransactionsCount' => ({required Object count}) => 'Recent Transactions (${count})',
+			'accounts.reconcileBalance' => 'Reconcile Balance',
+			'accounts.reconcileBalanceSubtitle' => 'Align app balance with real account balance',
+			'accounts.currentBalanceInPoka' => 'Balance in Poka',
+			'accounts.actualBalance' => 'Actual Balance',
+			'accounts.difference' => 'Difference',
+			'accounts.adjustmentExpense' => 'Adjustment (Expense)',
+			'accounts.adjustmentIncome' => 'Adjustment (Income)',
+			'accounts.balanceAdjustment' => 'Balance Adjustment',
+			'accounts.saveAdjustment' => 'Save Adjustment',
+			'accounts.balancesMatch' => 'Balances match, no adjustment needed',
+			'accounts.noteOptional' => 'Note (Optional)',
+			'accounts.reconcileAccount' => 'Reconcile Account Balance',
 			'app.name' => 'Poka',
 			'app.tagline' => 'Your personal finance companion',
 			'app.nav.home' => 'Home',
@@ -2510,6 +2578,10 @@ extension on Translations {
 			'goals.completedGoals' => 'Completed Goals',
 			'goals.noActiveGoalsYet' => 'No active goals',
 			'goals.noActiveGoalsSubtitle' => 'Create a new goal to start saving for your next milestone.',
+			'goals.saveInAccount' => 'Save in Account',
+			'goals.selectAccount' => 'Select Account',
+			'goals.accountRequired' => 'Please select an account',
+			'goals.storedIn' => ({required Object account}) => 'Stored in ${account}',
 			'lock.confirmPin' => 'Confirm PIN',
 			'lock.createPin' => 'Create PIN',
 			'lock.pinsDoNotMatch' => 'PINs do not match',
@@ -2650,6 +2722,8 @@ extension on Translations {
 			'settings.theme' => 'Theme',
 			'settings.language' => 'Language',
 			'settings.numberFormat' => 'Number Format',
+			_ => null,
+		} ?? switch (path) {
 			'settings.selectNumberFormat' => 'Select Number Format',
 			'settings.formatSystem' => 'App Default',
 			'settings.formatId' => '1.000.000,00',
@@ -2668,8 +2742,6 @@ extension on Translations {
 			'settings.backupRestoreDesc' => 'Save or restore your data',
 			'settings.clearOld' => 'Clear Old Transactions',
 			'settings.clearOldDesc' => 'Remove transactions older than 1 year',
-			_ => null,
-		} ?? switch (path) {
 			'settings.resetData' => 'Reset Data',
 			'settings.resetDataDesc' => 'Erase all app data locally',
 			'settings.support' => 'Support',

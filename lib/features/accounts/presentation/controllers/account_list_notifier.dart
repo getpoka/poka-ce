@@ -118,7 +118,7 @@ class AccountListNotifier extends _$AccountListNotifier {
   }
 }
 
-/// Filters the active account list to exclude goal-linked pocket accounts.
+/// Filters the active account list to exclude goal accounts and goal-linked pocket accounts from top-level root list.
 @riverpod
 AsyncValue<AccountListState> regularAccountList(Ref ref) {
   final asyncState = ref.watch(accountListProvider);
@@ -136,7 +136,7 @@ AsyncValue<AccountListState> goalAccountList(Ref ref) {
   final asyncState = ref.watch(accountListProvider);
   return asyncState.whenData((state) {
     final goalAccounts = state.accounts.where((a) => a.type == AccountType.goal).toList();
-    final goalAggregates = state.aggregates.where((agg) => agg.account.type == AccountType.goal).toList();
+    final goalAggregates = goalAccounts.map((pocket) => AccountAggregate(account: pocket, pockets: [])).toList();
 
     return AccountListState(accounts: goalAccounts, aggregates: goalAggregates);
   });
@@ -181,6 +181,6 @@ List<TransactionModel> accountTransactions(Ref ref, Set<String> accountIds) {
 /// Provides an indexed lookup map of accounts by their unique ID string.
 @riverpod
 Map<String, AccountModel> accountMap(Ref ref) {
-  final accounts = ref.watch(accountsStreamProvider).value ?? [];
+  final accounts = ref.watch(accountListProvider).value?.accounts ?? [];
   return {for (final a in accounts) a.id: a};
 }

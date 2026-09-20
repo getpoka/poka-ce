@@ -82,6 +82,7 @@ class AccountRepositoryImpl implements IAccountRepository {
           color: Value(model.color),
           parentId: Value(model.parentId),
           isActive: Value(model.isActive),
+          isDefault: Value(model.isDefault),
           sort: Value(model.sort),
           createdAt: Value(model.createdAt.toUtc()),
           updatedAt: Value(model.updatedAt.toUtc()),
@@ -116,6 +117,7 @@ class AccountRepositoryImpl implements IAccountRepository {
           color: Value(model.color),
           parentId: Value(model.parentId),
           isActive: Value(model.isActive),
+          isDefault: Value(model.isDefault),
           sort: Value(model.sort),
           updatedAt: Value(DateTimeUtils.nowUtc()),
         ),
@@ -134,6 +136,10 @@ class AccountRepositoryImpl implements IAccountRepository {
   @override
   Future<Result<void, Failure>> deactivateAccount(String id) async {
     try {
+      final account = await _dao.getAccount(id);
+      if (account != null && account.isDefault) {
+        return const ErrorResult(ValidationFailure('Cannot deactivate default main pocket'));
+      }
       await _dao.deactivateAccount(id);
       return const Success(null);
     } on Exception catch (e, st) {
@@ -146,6 +152,10 @@ class AccountRepositoryImpl implements IAccountRepository {
   @override
   Future<Result<void, Failure>> deleteAccount(String id) async {
     try {
+      final account = await _dao.getAccount(id);
+      if (account != null && account.isDefault) {
+        return const ErrorResult(ValidationFailure('Cannot delete default main pocket'));
+      }
       await _dao.deleteAccount(id);
       return const Success(null);
     } on Exception catch (e, st) {

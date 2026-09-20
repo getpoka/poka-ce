@@ -186,17 +186,10 @@ class RecentTransactionTile extends HookConsumerWidget with FTileMixin {
     final accIcon = isSubItem ? null : IconUtil.getIcon(account?.icon);
     final accColor = isSubItem ? null : (account?.color?.toColor() ?? theme.colors.primary);
 
-    AccountModel? destAccount;
-    if (transaction.type == TransactionType.transfer && transaction.destinationAccountId != null) {
-      final effectiveAccountsById =
-          ref
-              .watch(accountListProvider)
-              .value
-              ?.accounts
-              .fold<Map<String, AccountModel>>(<String, AccountModel>{}, (map, a) => map..[a.id] = a) ??
-          <String, AccountModel>{};
-      destAccount = effectiveAccountsById[transaction.destinationAccountId!];
-    }
+    final destId = transaction.destinationAccountId;
+    final destAccount = transaction.type == TransactionType.transfer && destId != null
+        ? ref.watch(accountMapProvider.select((m) => m[destId]))
+        : null;
 
     final destAccLabel = destAccount?.name;
     final destAccColor = destAccount?.color?.toColor() ?? theme.colors.primary;

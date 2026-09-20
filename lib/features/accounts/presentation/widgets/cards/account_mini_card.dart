@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:poka_ce/core/enums.dart';
@@ -12,12 +14,61 @@ import 'package:poka_ce/theme/theme.dart';
 
 // ─────────────────────────────────────────────────────────────────────────────
 
+enum AccountCardAction { edit, reconcile, delete }
+
+Future<AccountCardAction?> showAccountCardActionSheet(
+  BuildContext context, {
+  required AccountModel account,
+  bool canDelete = true,
+}) async {
+  return await showPokaSheet<AccountCardAction>(
+    context: context,
+    fitContent: true,
+    persistent: false,
+    builder: (ctx) {
+      final t = ctx.t;
+      final theme = ctx.theme;
+      return PokaSheet(
+        title: account.name,
+        isScrollable: false,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            PokaSheetActionItem(
+              icon: FPhosphorIcons.pencilSimple,
+              title: t.accounts.editAccount,
+              subtitle: t.accounts.updateNameIconOrColor,
+              onTap: () => Navigator.of(ctx).pop(AccountCardAction.edit),
+            ),
+            PokaSheetActionItem(
+              icon: FPhosphorIcons.scales,
+              title: t.accounts.reconcileBalance,
+              subtitle: t.accounts.reconcileBalanceSubtitle,
+              onTap: () => Navigator.of(ctx).pop(AccountCardAction.reconcile),
+            ),
+            if (canDelete)
+              PokaSheetActionItem(
+                icon: FPhosphorIcons.trash,
+                title: account.isPocket ? t.accounts.deletePocket : t.accounts.deleteAccount,
+                subtitle: t.accounts.permanentlyRemoveThisAccount,
+                iconColor: theme.colors.destructive,
+                titleColor: theme.colors.destructive,
+                onTap: () => Navigator.of(ctx).pop(AccountCardAction.delete),
+              ),
+          ],
+        ),
+      );
+    },
+  );
+}
+
 class AccountMiniCard extends StatelessWidget {
   const new({
     required this.account,
     required this.balance,
     required this.onTap,
     this.onEdit,
+    this.onReconcile,
     this.onDelete,
     super.key,
     this.ratio,
@@ -29,6 +80,7 @@ class AccountMiniCard extends StatelessWidget {
   final int balance;
   final VoidCallback onTap;
   final VoidCallback? onEdit;
+  final VoidCallback? onReconcile;
   final VoidCallback? onDelete;
   final double? ratio;
   final String? ratioLabel;
@@ -80,44 +132,23 @@ class AccountMiniCard extends StatelessWidget {
                       ],
                     ],
                   ),
-                  if (onEdit != null)
+                  if (onEdit != null || onReconcile != null)
                     GestureDetector(
                       behavior: HitTestBehavior.opaque,
-                      onTap: () {
-                        HapticFeedback.lightImpact();
-                        showPokaSheet<void>(
-                          context: context,
-                          fitContent: true,
-                          builder: (ctx) => PokaSheet(
-                            title: account.name,
-                            isScrollable: false,
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                PokaSheetActionItem(
-                                  icon: FPhosphorIcons.pencilSimple,
-                                  title: t.accounts.editAccount,
-                                  subtitle: t.accounts.updateNameIconOrColor,
-                                  onTap: () {
-                                    Navigator.of(ctx).pop();
-                                    onEdit!();
-                                  },
-                                ),
-                                PokaSheetActionItem(
-                                  icon: FPhosphorIcons.trash,
-                                  title: t.accounts.deleteAccount,
-                                  subtitle: t.accounts.permanentlyRemoveThisAccount,
-                                  iconColor: theme.colors.destructive,
-                                  titleColor: theme.colors.destructive,
-                                  onTap: () {
-                                    Navigator.of(ctx).pop();
-                                    onDelete?.call();
-                                  },
-                                ),
-                              ],
-                            ),
-                          ),
+                      onTap: () async {
+                        unawaited(HapticFeedback.lightImpact());
+                        final action = await showAccountCardActionSheet(
+                          context,
+                          account: account,
+                          canDelete: onDelete != null && account.canDelete,
                         );
+                        if (action == AccountCardAction.edit) {
+                          onEdit?.call();
+                        } else if (action == AccountCardAction.reconcile) {
+                          onReconcile?.call();
+                        } else if (action == AccountCardAction.delete) {
+                          onDelete?.call();
+                        }
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(2),

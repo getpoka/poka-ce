@@ -65,9 +65,20 @@ void main() {
   });
 
   test('deactivateAccount returns DatabaseFailure when DAO throws', () async {
+    when(() => dao.getAccount(any())).thenAnswer((_) async => null);
     when(() => dao.deactivateAccount(any())).thenThrow(Exception('boom'));
 
     final result = await repository.deactivateAccount('acc-1');
+
+    expect(result, isA<ErrorResult<void, Failure>>());
+    result.fold((_) => fail('Should not succeed'), (error) => expect(error, isA<DatabaseFailure>()));
+  });
+
+  test('deleteAccount returns DatabaseFailure when DAO throws', () async {
+    when(() => dao.getAccount(any())).thenAnswer((_) async => null);
+    when(() => dao.deleteAccount(any())).thenThrow(Exception('boom'));
+
+    final result = await repository.deleteAccount('acc-1');
 
     expect(result, isA<ErrorResult<void, Failure>>());
     result.fold((_) => fail('Should not succeed'), (error) => expect(error, isA<DatabaseFailure>()));

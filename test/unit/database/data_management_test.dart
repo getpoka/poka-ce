@@ -54,8 +54,8 @@ void main() {
 
       // Verify user data is cleared
       accounts = await db.select(db.accounts).get();
-      expect(accounts.length, 1); // Should only have the default Cash account
-      expect(accounts.first.name, 'Cash');
+      expect(accounts.length, 1); // Should have only the default Cash account
+      expect(accounts.any((a) => a.name == 'Cash'), isTrue);
 
       transactions = await db.select(db.transactions).get();
       expect(transactions.isEmpty, isTrue);

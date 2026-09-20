@@ -13,6 +13,7 @@ void main() {
         targetAmount: 5000,
         createdAt: now,
         updatedAt: now,
+        parentAccountId: 'p1',
         targetDate: now,
         icon: 'i',
         color: 'c',
@@ -20,6 +21,7 @@ void main() {
       final json = m.toJson();
       final restored = GoalModel.fromJson(json);
       expect(restored, equals(m));
+      expect(restored.parentAccountId, 'p1');
     });
 
     test('copyWith', () {

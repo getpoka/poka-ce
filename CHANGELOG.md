@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Purpose-driven account architecture anchoring all pockets and savings goals directly under physical root accounts (Bank BCA, Mandiri, Cash, etc.).
+- Savings goal pocket nesting: goals now store funds inside a dedicated pocket of the user's chosen root bank account, with parent bank badges displayed on goal cards.
+- Quick creation action in Account Detail page allowing users to add regular spending pockets or savings goals directly under that account.
+- Balance reconciliation use case and bottom sheet (`AccountReconcileSheet`) allowing instant balance adjustments via automatic reconciliation transactions when real m-banking balances differ.
+- Automatic main pocket initialization on new accounts to guarantee a default balance destination.
+
+### Changed
+
+- Eradicated phantom "Goals" container account; total account balance now aggregates Main Pocket, Spending Pockets, and Goal Pockets, matching 100% with real-world bank statements.
+
 ## [v1.0.2] - 2026-09-17
 
 UI builder slot extensibility, datetime localization, and dependency upgrades.

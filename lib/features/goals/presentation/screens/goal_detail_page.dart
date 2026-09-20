@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poka_ce/core/enums.dart';
-import 'package:poka_ce/features/accounts/domain/account_model.dart';
 import 'package:poka_ce/features/accounts/presentation/controllers/account_list_notifier.dart';
-import 'package:poka_ce/features/categories/domain/category_model.dart';
 import 'package:poka_ce/features/categories/presentation/controllers/category_list_notifier.dart';
 import 'package:poka_ce/features/goals/domain/goal_model.dart';
 import 'package:poka_ce/features/goals/presentation/controllers/goal_detail_notifier.dart';
@@ -40,22 +38,10 @@ class GoalDetailPage extends ConsumerWidget {
 
     final activeGoal = activeGoalState.goal;
 
-    final categoriesById =
-        ref
-            .watch(categoryListProvider)
-            .asData
-            ?.value
-            .fold<Map<String, CategoryModel>>(<String, CategoryModel>{}, (map, c) => map..[c.id] = c) ??
-        <String, CategoryModel>{};
+    final categories = ref.watch(categoryListProvider).value ?? [];
+    final categoriesById = {for (final c in categories) c.id: c};
 
-    final accountsById =
-        ref
-            .watch(accountListProvider)
-            .asData
-            ?.value
-            .accounts
-            .fold<Map<String, AccountModel>>(<String, AccountModel>{}, (map, a) => map..[a.id] = a) ??
-        <String, AccountModel>{};
+    final accountsById = ref.watch(accountMapProvider);
 
     final transactionsAsync = ref.watch(goalTransactionsProvider(activeGoal));
 
@@ -80,7 +66,7 @@ class GoalDetailPage extends ConsumerWidget {
             onPress: () async {
               final deleted = await ref
                   .read(goalDetailProvider.notifier)
-                  .deleteGoal(context, activeGoal, currentBalance: activeGoalState.saved);
+                  .deleteGoal(context, activeGoal, currentBalance: activeGoalState.currentBalance);
               if (deleted && context.mounted) {
                 context.pop();
               }

@@ -16,6 +16,7 @@ class GoalFormState {
     this.name = '',
     this.targetAmount = 0,
     this.targetDate,
+    this.parentAccountId,
     this.isSaving = false,
     this.isSuccess = false,
     this.error,
@@ -33,6 +34,9 @@ class GoalFormState {
   /// Optional completion deadline date.
   final DateTime? targetDate;
 
+  /// Root account ID where this goal's funds are stored.
+  final String? parentAccountId;
+
   /// Whether the goal is currently being persisted.
   final bool isSaving;
 
@@ -48,6 +52,7 @@ class GoalFormState {
     String? name,
     int? targetAmount,
     DateTime? targetDate,
+    String? parentAccountId,
     bool? isSaving,
     bool? isSuccess,
     String? error,
@@ -57,6 +62,7 @@ class GoalFormState {
       name: name ?? this.name,
       targetAmount: targetAmount ?? this.targetAmount,
       targetDate: targetDate ?? this.targetDate,
+      parentAccountId: parentAccountId ?? this.parentAccountId,
       isSaving: isSaving ?? this.isSaving,
       isSuccess: isSuccess ?? this.isSuccess,
       error: error ?? this.error,
@@ -73,19 +79,27 @@ class GoalFormNotifier extends _$GoalFormNotifier {
   }
 
   /// Initializes the form with an existing [goal] or preset parameters.
-  void init(GoalModel? goal, {String? initialName, int? initialTargetAmount, DateTime? initialTargetDate}) {
+  void init(
+    GoalModel? goal, {
+    String? initialName,
+    int? initialTargetAmount,
+    DateTime? initialTargetDate,
+    String? initialParentAccountId,
+  }) {
     if (goal != null) {
       state = GoalFormState(
         initialGoal: goal,
         name: goal.name,
         targetAmount: goal.targetAmount,
         targetDate: goal.targetDate,
+        parentAccountId: goal.parentAccountId,
       );
     } else {
       state = GoalFormState(
         name: initialName ?? '',
         targetAmount: initialTargetAmount ?? 0,
         targetDate: initialTargetDate,
+        parentAccountId: initialParentAccountId,
       );
     }
   }
@@ -96,6 +110,9 @@ class GoalFormNotifier extends _$GoalFormNotifier {
   /// Sets the target savings goal amount.
   void setTargetAmount(int amount) => state = state.copyWith(targetAmount: amount);
 
+  /// Sets the chosen root parent account ID.
+  void setParentAccountId(String? parentAccountId) => state = state.copyWith(parentAccountId: parentAccountId);
+
   /// Sets or clears the target deadline date.
   void setTargetDate(DateTime? targetDate) {
     if (targetDate == null) {
@@ -104,6 +121,7 @@ class GoalFormNotifier extends _$GoalFormNotifier {
         initialGoal: state.initialGoal,
         name: state.name,
         targetAmount: state.targetAmount,
+        parentAccountId: state.parentAccountId,
         isSaving: state.isSaving,
         isSuccess: state.isSuccess,
         error: state.error,
@@ -123,6 +141,10 @@ class GoalFormNotifier extends _$GoalFormNotifier {
       state = state.copyWith(error: t.goals.targetAmountGreaterThanZero, isSaving: false);
       return;
     }
+    if (state.initialGoal == null && (state.parentAccountId == null || state.parentAccountId!.isEmpty)) {
+      state = state.copyWith(error: t.goals.accountRequired, isSaving: false);
+      return;
+    }
     state = state.copyWith(isSaving: true);
     final repo = ref.read(goalRepositoryProvider);
 
@@ -132,6 +154,7 @@ class GoalFormNotifier extends _$GoalFormNotifier {
           name: state.name.trim(),
           targetAmount: state.targetAmount,
           targetDate: state.targetDate,
+          parentAccountId: state.parentAccountId,
           updatedAt: now,
         ) ??
         GoalModel(
@@ -139,6 +162,7 @@ class GoalFormNotifier extends _$GoalFormNotifier {
           name: state.name.trim(),
           targetAmount: state.targetAmount,
           accountId: const Uuid().v7(),
+          parentAccountId: state.parentAccountId,
           targetDate: state.targetDate,
           createdAt: now,
           updatedAt: now,

@@ -20,8 +20,12 @@ class GoalRepositoryImpl implements IGoalRepository {
   @override
   Future<Result<List<GoalModel>, Failure>> getGoals() async {
     try {
-      final goals = await _dao.getAllGoals();
-      final models = goals.map(_mapToModel).toList();
+      final rows = await _dao.getAllGoalsWithAccounts();
+      final models = rows.map((row) {
+        final goal = row.readTable(_dao.goals);
+        final account = row.readTable(_dao.accounts);
+        return _mapToModel(goal, parentAccountId: account.parentId);
+      }).toList();
       return Success(models);
     } on Exception catch (e, st) {
       talker.handle(e, st, 'GoalRepositoryImpl.getGoals');
@@ -32,34 +36,43 @@ class GoalRepositoryImpl implements IGoalRepository {
   /// Watches all savings goals in real-time as a reactive stream.
   @override
   Stream<List<GoalModel>> watchGoals() {
-    return _dao.watchAllGoals().map((goals) => goals.map(_mapToModel).toList());
+    return _dao.watchAllGoalsWithAccounts().map((rows) {
+      return rows.map((row) {
+        final goal = row.readTable(_dao.goals);
+        final account = row.readTable(_dao.accounts);
+        return _mapToModel(goal, parentAccountId: account.parentId);
+      }).toList();
+    });
   }
 
   /// Fetches a specific goal by its unique identifier [id].
   @override
   Future<Result<GoalModel, Failure>> getGoalById(String id) async {
     try {
-      final goal = await _dao.getGoal(id);
-      if (goal == null) {
+      final row = await _dao.getGoalWithAccount(id);
+      if (row == null) {
         return const ErrorResult(DatabaseFailure('Goal not found'));
       }
-      return Success(_mapToModel(goal));
+      final goal = row.readTable(_dao.goals);
+      final account = row.readTable(_dao.accounts);
+      return Success(_mapToModel(goal, parentAccountId: account.parentId));
     } on Exception catch (e, st) {
       talker.handle(e, st, 'GoalRepositoryImpl.getGoalById');
       return ErrorResult(DatabaseFailure(e.toString()));
     }
   }
 
-  /// Creates a new savings goal and automatically generates a paired pocket account to store funds.
+  /// Creates a new savings goal and automatically generates a paired pocket account under the parent account.
   @override
   Future<Result<void, Failure>> createGoal(GoalModel model) async {
     try {
       final now = DateTimeUtils.nowUtc();
 
-      // Auto-generate pocket: creating a savings goal silently instantiates a dedicated goal pocket account to isolate savings funds
+      // Auto-generate pocket: creating a savings goal instantiates a dedicated goal pocket account under the chosen parent account
       final accountCompanion = db.AccountsCompanion.insert(
         id: Value(model.accountId),
-        name: 'Goal: ${model.name}',
+        parentId: Value(model.parentAccountId),
+        name: model.name,
         type: AccountType.goal,
         createdAt: Value(now),
         updatedAt: Value(now),
@@ -88,11 +101,12 @@ class GoalRepositoryImpl implements IGoalRepository {
     }
   }
 
-  /// Updates goal metadata such as target amount, target date, or name.
+  /// Updates goal metadata and synchronizes the paired pocket account.
   @override
   Future<Result<void, Failure>> updateGoal(GoalModel model) async {
     try {
-      await _dao.updateGoal(
+      final now = DateTimeUtils.nowUtc();
+      await _dao.updateGoalWithAccount(
         db.GoalsCompanion(
           id: Value(model.id),
           accountId: Value(model.accountId),
@@ -102,7 +116,7 @@ class GoalRepositoryImpl implements IGoalRepository {
           status: Value(model.status),
           icon: Value(model.icon),
           color: Value(model.color),
-          updatedAt: Value(DateTimeUtils.nowUtc()),
+          updatedAt: Value(now),
         ),
       );
       return const Success(null);
@@ -125,7 +139,7 @@ class GoalRepositoryImpl implements IGoalRepository {
     }
   }
 
-  GoalModel _mapToModel(db.Goal goal) {
+  GoalModel _mapToModel(db.Goal goal, {String? parentAccountId}) {
     return GoalModel(
       id: goal.id,
       accountId: goal.accountId,
@@ -133,6 +147,7 @@ class GoalRepositoryImpl implements IGoalRepository {
       targetAmount: goal.targetAmount,
       targetDate: goal.targetDate,
       status: goal.status,
+      parentAccountId: parentAccountId,
       icon: goal.icon,
       color: goal.color,
       createdAt: goal.createdAt,

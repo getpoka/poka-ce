@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:poka_ce/core/enums.dart';
 import 'package:poka_ce/core/utils/icon_util.dart';
 import 'package:poka_ce/features/accounts/domain/account_model.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
@@ -15,7 +16,6 @@ class AccountSelectorShelf extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;
-
     if (accounts.isEmpty) {
       return SizedBox(
         height: 38,
@@ -23,7 +23,7 @@ class AccountSelectorShelf extends StatelessWidget {
       );
     }
 
-    final parents = accounts.where((a) => !a.isPocket).toList();
+    final parents = accounts.where((a) => !a.isPocket && a.type != AccountType.goal).toList();
     final selectedAcc = accounts.where((a) => a.id == selectedAccountId).firstOrNull;
     final activeParentId = selectedAcc?.isPocket == true ? selectedAcc!.parentId : selectedAcc?.id;
     final pockets = activeParentId != null
@@ -43,11 +43,19 @@ class AccountSelectorShelf extends StatelessWidget {
               label: acc.name,
               color: accColor,
               isSelected: isSel,
-              onTap: () => onAccountSelected(acc),
+              onTap: () {
+                final parentPockets = accounts.where((a) => a.parentId == acc.id).toList();
+                if (parentPockets.isNotEmpty) {
+                  final defaultPocket = parentPockets.firstWhere((p) => p.isDefault, orElse: () => parentPockets.first);
+                  onAccountSelected(defaultPocket);
+                } else {
+                  onAccountSelected(acc);
+                }
+              },
             );
           }).toList(),
         ),
-        if (pockets.isNotEmpty) ...[
+        if (pockets.length > 1 || pockets.any((p) => !p.isDefault)) ...[
           const SizedBox(height: 6),
           PokaPillScrollRow(
             children: pockets.map((pocket) {

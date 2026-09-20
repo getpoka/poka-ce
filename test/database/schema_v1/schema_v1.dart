@@ -371,6 +371,15 @@ class Accounts extends Table with TableInfo {
     $customConstraints: 'NOT NULL DEFAULT 1 CHECK (is_active IN (0, 1))',
     defaultValue: const CustomExpression('1'),
   );
+  late final GeneratedColumn<int> isDefault = GeneratedColumn<int>(
+    'is_default',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    $customConstraints: 'NOT NULL DEFAULT 0 CHECK (is_default IN (0, 1))',
+    defaultValue: const CustomExpression('0'),
+  );
   late final GeneratedColumn<int> sort = GeneratedColumn<int>(
     'sort',
     aliasedName,
@@ -413,6 +422,7 @@ class Accounts extends Table with TableInfo {
     initialBalance,
     parentId,
     isActive,
+    isDefault,
     sort,
     createdAt,
     updatedAt,
@@ -1436,6 +1446,26 @@ class DatabaseAtV1 extends GeneratedDatabase {
   late final Transactions transactions = Transactions(this);
   late final TransactionItems transactionItems = TransactionItems(this);
   late final Goals goals = Goals(this);
+  late final Index idxAccountsParentId = Index(
+    'idx_accounts_parent_id',
+    'CREATE INDEX idx_accounts_parent_id ON accounts (parent_id)',
+  );
+  late final Index idxTransactionsDate = Index(
+    'idx_transactions_date',
+    'CREATE INDEX idx_transactions_date ON transactions (transaction_date)',
+  );
+  late final Index idxTransactionsAccount = Index(
+    'idx_transactions_account',
+    'CREATE INDEX idx_transactions_account ON transactions (account_id)',
+  );
+  late final Index idxTxItemsTxId = Index(
+    'idx_tx_items_tx_id',
+    'CREATE INDEX idx_tx_items_tx_id ON transaction_items (transaction_id)',
+  );
+  late final Index idxTxItemsCategoryId = Index(
+    'idx_tx_items_category_id',
+    'CREATE INDEX idx_tx_items_category_id ON transaction_items (category_id)',
+  );
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -1453,6 +1483,11 @@ class DatabaseAtV1 extends GeneratedDatabase {
     transactions,
     transactionItems,
     goals,
+    idxAccountsParentId,
+    idxTransactionsDate,
+    idxTransactionsAccount,
+    idxTxItemsTxId,
+    idxTxItemsCategoryId,
   ];
   @override
   StreamQueryUpdateRules get streamUpdateRules => const StreamQueryUpdateRules([

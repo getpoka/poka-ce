@@ -57,6 +57,7 @@ void main() {
     name: 'Cash',
     type: AccountType.assets,
     balance: 1000,
+    initialBalance: 1000,
     isActive: true,
     createdAt: DateTime.utc(2024, 1, 1),
     updatedAt: DateTime.utc(2024, 1, 1),
@@ -179,6 +180,7 @@ void main() {
           color: any(named: 'color'),
           isActive: any(named: 'isActive'),
           restrictedCategoryIds: any(named: 'restrictedCategoryIds'),
+          initialBalance: any(named: 'initialBalance'),
         ),
       ).thenAnswer((_) async => Success(updated));
       final container = createContainer();
@@ -199,6 +201,7 @@ void main() {
           color: any(named: 'color'),
           isActive: any(named: 'isActive'),
           restrictedCategoryIds: any(named: 'restrictedCategoryIds'),
+          initialBalance: any(named: 'initialBalance'),
         ),
       ).thenAnswer((_) async => const ErrorResult<AccountModel, Failure>(ValidationFailure('invalid')));
       final container = createContainer();

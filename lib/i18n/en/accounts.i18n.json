@@ -19,6 +19,8 @@
   "totalBalance": "Total Balance",
   "pockets": "Pockets",
   "deletePocket": "Delete Pocket",
+  "cannotDeleteMainPocket": "Main pocket cannot be deleted",
+  "mainPocket": "Main",
   "areYouSureYouWantToDeleteThisPocketItWillBeHiddenFromTheApp": "Are you sure you want to delete this pocket? It will be hidden from the app.",
   "nameCannotBeEmpty": "Name cannot be empty",
   "egMainWallet": "e.g., Main Wallet",
@@ -55,5 +57,17 @@
   "noMainAccountsYet": "No main accounts yet.",
   "percentOfAssets": "{{percent}}% of assets",
   "recentTransactions": "Recent Transactions",
-  "recentTransactionsCount": "Recent Transactions ({{count}})"
+  "recentTransactionsCount": "Recent Transactions ({{count}})",
+  "reconcileBalance": "Reconcile Balance",
+  "reconcileBalanceSubtitle": "Align app balance with real account balance",
+  "currentBalanceInPoka": "Balance in Poka",
+  "actualBalance": "Actual Balance",
+  "difference": "Difference",
+  "adjustmentExpense": "Adjustment (Expense)",
+  "adjustmentIncome": "Adjustment (Income)",
+  "balanceAdjustment": "Balance Adjustment",
+  "saveAdjustment": "Save Adjustment",
+  "balancesMatch": "Balances match, no adjustment needed",
+  "noteOptional": "Note (Optional)",
+  "reconcileAccount": "Reconcile Account Balance"
 }

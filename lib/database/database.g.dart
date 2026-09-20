@@ -1188,6 +1188,17 @@ class $AccountsTable extends Accounts with TableInfo<$AccountsTable, Account> {
     defaultConstraints: GeneratedColumn.constraintIsAlways('CHECK ("is_active" IN (0, 1))'),
     defaultValue: const Constant(true),
   );
+  static const VerificationMeta _isDefaultMeta = const VerificationMeta('isDefault');
+  @override
+  late final GeneratedColumn<bool> isDefault = GeneratedColumn<bool>(
+    'is_default',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways('CHECK ("is_default" IN (0, 1))'),
+    defaultValue: const Constant(false),
+  );
   static const VerificationMeta _sortMeta = const VerificationMeta('sort');
   @override
   late final GeneratedColumn<int> sort = GeneratedColumn<int>(
@@ -1229,6 +1240,7 @@ class $AccountsTable extends Accounts with TableInfo<$AccountsTable, Account> {
     initialBalance,
     parentId,
     isActive,
+    isDefault,
     sort,
     createdAt,
     updatedAt,
@@ -1271,6 +1283,9 @@ class $AccountsTable extends Accounts with TableInfo<$AccountsTable, Account> {
     if (data.containsKey('is_active')) {
       context.handle(_isActiveMeta, isActive.isAcceptableOrUnknown(data['is_active']!, _isActiveMeta));
     }
+    if (data.containsKey('is_default')) {
+      context.handle(_isDefaultMeta, isDefault.isAcceptableOrUnknown(data['is_default']!, _isDefaultMeta));
+    }
     if (data.containsKey('sort')) {
       context.handle(_sortMeta, sort.isAcceptableOrUnknown(data['sort']!, _sortMeta));
     }
@@ -1300,6 +1315,7 @@ class $AccountsTable extends Accounts with TableInfo<$AccountsTable, Account> {
       initialBalance: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}initial_balance'])!,
       parentId: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}parent_id']),
       isActive: attachedDatabase.typeMapping.read(DriftSqlType.bool, data['${effectivePrefix}is_active'])!,
+      isDefault: attachedDatabase.typeMapping.read(DriftSqlType.bool, data['${effectivePrefix}is_default'])!,
       sort: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}sort'])!,
       createdAt: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
       updatedAt: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}updated_at'])!,
@@ -1324,6 +1340,7 @@ class Account extends DataClass implements Insertable<Account> {
   final int initialBalance;
   final String? parentId;
   final bool isActive;
+  final bool isDefault;
   final int sort;
   final DateTime createdAt;
   final DateTime updatedAt;
@@ -1337,6 +1354,7 @@ class Account extends DataClass implements Insertable<Account> {
     required this.initialBalance,
     this.parentId,
     required this.isActive,
+    required this.isDefault,
     required this.sort,
     required this.createdAt,
     required this.updatedAt,
@@ -1361,6 +1379,7 @@ class Account extends DataClass implements Insertable<Account> {
       map['parent_id'] = Variable<String>(parentId);
     }
     map['is_active'] = Variable<bool>(isActive);
+    map['is_default'] = Variable<bool>(isDefault);
     map['sort'] = Variable<int>(sort);
     map['created_at'] = Variable<DateTime>(createdAt);
     map['updated_at'] = Variable<DateTime>(updatedAt);
@@ -1378,6 +1397,7 @@ class Account extends DataClass implements Insertable<Account> {
       initialBalance: Value(initialBalance),
       parentId: parentId == null && nullToAbsent ? const Value.absent() : Value(parentId),
       isActive: Value(isActive),
+      isDefault: Value(isDefault),
       sort: Value(sort),
       createdAt: Value(createdAt),
       updatedAt: Value(updatedAt),
@@ -1396,6 +1416,7 @@ class Account extends DataClass implements Insertable<Account> {
       initialBalance: serializer.fromJson<int>(json['initialBalance']),
       parentId: serializer.fromJson<String?>(json['parentId']),
       isActive: serializer.fromJson<bool>(json['isActive']),
+      isDefault: serializer.fromJson<bool>(json['isDefault']),
       sort: serializer.fromJson<int>(json['sort']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
       updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
@@ -1414,6 +1435,7 @@ class Account extends DataClass implements Insertable<Account> {
       'initialBalance': serializer.toJson<int>(initialBalance),
       'parentId': serializer.toJson<String?>(parentId),
       'isActive': serializer.toJson<bool>(isActive),
+      'isDefault': serializer.toJson<bool>(isDefault),
       'sort': serializer.toJson<int>(sort),
       'createdAt': serializer.toJson<DateTime>(createdAt),
       'updatedAt': serializer.toJson<DateTime>(updatedAt),
@@ -1430,6 +1452,7 @@ class Account extends DataClass implements Insertable<Account> {
     int? initialBalance,
     Value<String?> parentId = const Value.absent(),
     bool? isActive,
+    bool? isDefault,
     int? sort,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -1443,6 +1466,7 @@ class Account extends DataClass implements Insertable<Account> {
     initialBalance: initialBalance ?? this.initialBalance,
     parentId: parentId.present ? parentId.value : this.parentId,
     isActive: isActive ?? this.isActive,
+    isDefault: isDefault ?? this.isDefault,
     sort: sort ?? this.sort,
     createdAt: createdAt ?? this.createdAt,
     updatedAt: updatedAt ?? this.updatedAt,
@@ -1458,6 +1482,7 @@ class Account extends DataClass implements Insertable<Account> {
       initialBalance: data.initialBalance.present ? data.initialBalance.value : this.initialBalance,
       parentId: data.parentId.present ? data.parentId.value : this.parentId,
       isActive: data.isActive.present ? data.isActive.value : this.isActive,
+      isDefault: data.isDefault.present ? data.isDefault.value : this.isDefault,
       sort: data.sort.present ? data.sort.value : this.sort,
       createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
       updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
@@ -1476,6 +1501,7 @@ class Account extends DataClass implements Insertable<Account> {
           ..write('initialBalance: $initialBalance, ')
           ..write('parentId: $parentId, ')
           ..write('isActive: $isActive, ')
+          ..write('isDefault: $isDefault, ')
           ..write('sort: $sort, ')
           ..write('createdAt: $createdAt, ')
           ..write('updatedAt: $updatedAt')
@@ -1484,8 +1510,21 @@ class Account extends DataClass implements Insertable<Account> {
   }
 
   @override
-  int get hashCode =>
-      Object.hash(id, name, icon, color, type, balance, initialBalance, parentId, isActive, sort, createdAt, updatedAt);
+  int get hashCode => Object.hash(
+    id,
+    name,
+    icon,
+    color,
+    type,
+    balance,
+    initialBalance,
+    parentId,
+    isActive,
+    isDefault,
+    sort,
+    createdAt,
+    updatedAt,
+  );
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -1499,6 +1538,7 @@ class Account extends DataClass implements Insertable<Account> {
           other.initialBalance == this.initialBalance &&
           other.parentId == this.parentId &&
           other.isActive == this.isActive &&
+          other.isDefault == this.isDefault &&
           other.sort == this.sort &&
           other.createdAt == this.createdAt &&
           other.updatedAt == this.updatedAt);
@@ -1514,6 +1554,7 @@ class AccountsCompanion extends UpdateCompanion<Account> {
   final Value<int> initialBalance;
   final Value<String?> parentId;
   final Value<bool> isActive;
+  final Value<bool> isDefault;
   final Value<int> sort;
   final Value<DateTime> createdAt;
   final Value<DateTime> updatedAt;
@@ -1528,6 +1569,7 @@ class AccountsCompanion extends UpdateCompanion<Account> {
     this.initialBalance = const Value.absent(),
     this.parentId = const Value.absent(),
     this.isActive = const Value.absent(),
+    this.isDefault = const Value.absent(),
     this.sort = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.updatedAt = const Value.absent(),
@@ -1543,6 +1585,7 @@ class AccountsCompanion extends UpdateCompanion<Account> {
     this.initialBalance = const Value.absent(),
     this.parentId = const Value.absent(),
     this.isActive = const Value.absent(),
+    this.isDefault = const Value.absent(),
     this.sort = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.updatedAt = const Value.absent(),
@@ -1559,6 +1602,7 @@ class AccountsCompanion extends UpdateCompanion<Account> {
     Expression<int>? initialBalance,
     Expression<String>? parentId,
     Expression<bool>? isActive,
+    Expression<bool>? isDefault,
     Expression<int>? sort,
     Expression<DateTime>? createdAt,
     Expression<DateTime>? updatedAt,
@@ -1574,6 +1618,7 @@ class AccountsCompanion extends UpdateCompanion<Account> {
       if (initialBalance != null) 'initial_balance': initialBalance,
       if (parentId != null) 'parent_id': parentId,
       if (isActive != null) 'is_active': isActive,
+      if (isDefault != null) 'is_default': isDefault,
       if (sort != null) 'sort': sort,
       if (createdAt != null) 'created_at': createdAt,
       if (updatedAt != null) 'updated_at': updatedAt,
@@ -1591,6 +1636,7 @@ class AccountsCompanion extends UpdateCompanion<Account> {
     Value<int>? initialBalance,
     Value<String?>? parentId,
     Value<bool>? isActive,
+    Value<bool>? isDefault,
     Value<int>? sort,
     Value<DateTime>? createdAt,
     Value<DateTime>? updatedAt,
@@ -1606,6 +1652,7 @@ class AccountsCompanion extends UpdateCompanion<Account> {
       initialBalance: initialBalance ?? this.initialBalance,
       parentId: parentId ?? this.parentId,
       isActive: isActive ?? this.isActive,
+      isDefault: isDefault ?? this.isDefault,
       sort: sort ?? this.sort,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
@@ -1643,6 +1690,9 @@ class AccountsCompanion extends UpdateCompanion<Account> {
     if (isActive.present) {
       map['is_active'] = Variable<bool>(isActive.value);
     }
+    if (isDefault.present) {
+      map['is_default'] = Variable<bool>(isDefault.value);
+    }
     if (sort.present) {
       map['sort'] = Variable<int>(sort.value);
     }
@@ -1670,6 +1720,7 @@ class AccountsCompanion extends UpdateCompanion<Account> {
           ..write('initialBalance: $initialBalance, ')
           ..write('parentId: $parentId, ')
           ..write('isActive: $isActive, ')
+          ..write('isDefault: $isDefault, ')
           ..write('sort: $sort, ')
           ..write('createdAt: $createdAt, ')
           ..write('updatedAt: $updatedAt, ')
@@ -6681,6 +6732,7 @@ typedef $$AccountsTableCreateCompanionBuilder = AccountsCompanion Function({
   Value<int> initialBalance,
   Value<String?> parentId,
   Value<bool> isActive,
+  Value<bool> isDefault,
   Value<int> sort,
   Value<DateTime> createdAt,
   Value<DateTime> updatedAt,
@@ -6696,6 +6748,7 @@ typedef $$AccountsTableUpdateCompanionBuilder = AccountsCompanion Function({
   Value<int> initialBalance,
   Value<String?> parentId,
   Value<bool> isActive,
+  Value<bool> isDefault,
   Value<int> sort,
   Value<DateTime> createdAt,
   Value<DateTime> updatedAt,
@@ -6846,6 +6899,9 @@ class $$AccountsTableFilterComposer extends Composer<_$AppDatabase, $AccountsTab
 
   ColumnFilters<bool> get isActive =>
       $composableBuilder(column: $table.isActive, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get isDefault =>
+      $composableBuilder(column: $table.isDefault, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<int> get sort => $composableBuilder(column: $table.sort, builder: (column) => ColumnFilters(column));
 
@@ -7031,6 +7087,9 @@ class $$AccountsTableOrderingComposer extends Composer<_$AppDatabase, $AccountsT
   ColumnOrderings<bool> get isActive =>
       $composableBuilder(column: $table.isActive, builder: (column) => ColumnOrderings(column));
 
+  ColumnOrderings<bool> get isDefault =>
+      $composableBuilder(column: $table.isDefault, builder: (column) => ColumnOrderings(column));
+
   ColumnOrderings<int> get sort =>
       $composableBuilder(column: $table.sort, builder: (column) => ColumnOrderings(column));
 
@@ -7084,6 +7143,8 @@ class $$AccountsTableAnnotationComposer extends Composer<_$AppDatabase, $Account
       $composableBuilder(column: $table.initialBalance, builder: (column) => column);
 
   GeneratedColumn<bool> get isActive => $composableBuilder(column: $table.isActive, builder: (column) => column);
+
+  GeneratedColumn<bool> get isDefault => $composableBuilder(column: $table.isDefault, builder: (column) => column);
 
   GeneratedColumn<int> get sort => $composableBuilder(column: $table.sort, builder: (column) => column);
 
@@ -7287,6 +7348,7 @@ class $$AccountsTableTableManager
                 Value<int> initialBalance = const Value.absent(),
                 Value<String?> parentId = const Value.absent(),
                 Value<bool> isActive = const Value.absent(),
+                Value<bool> isDefault = const Value.absent(),
                 Value<int> sort = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<DateTime> updatedAt = const Value.absent(),
@@ -7301,6 +7363,7 @@ class $$AccountsTableTableManager
                 initialBalance: initialBalance,
                 parentId: parentId,
                 isActive: isActive,
+                isDefault: isDefault,
                 sort: sort,
                 createdAt: createdAt,
                 updatedAt: updatedAt,
@@ -7317,6 +7380,7 @@ class $$AccountsTableTableManager
                 Value<int> initialBalance = const Value.absent(),
                 Value<String?> parentId = const Value.absent(),
                 Value<bool> isActive = const Value.absent(),
+                Value<bool> isDefault = const Value.absent(),
                 Value<int> sort = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<DateTime> updatedAt = const Value.absent(),
@@ -7331,6 +7395,7 @@ class $$AccountsTableTableManager
                 initialBalance: initialBalance,
                 parentId: parentId,
                 isActive: isActive,
+                isDefault: isDefault,
                 sort: sort,
                 createdAt: createdAt,
                 updatedAt: updatedAt,

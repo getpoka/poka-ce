@@ -59,27 +59,68 @@ void main() {
     expect((result as ErrorResult).error, isA<ValidationFailure>());
   });
 
-  test('creates account only if balance is 0', () async {
+  test('creates root account and auto-creates main pocket', () async {
     when(() => mockAccountRepo.createAccount(any())).thenAnswer((_) async => const Success(null));
 
     final result = await useCase.execute(name: 'Dompet', type: AccountType.assets, balance: 0);
 
     expect(result, isA<Success>());
-    verify(() => mockAccountRepo.createAccount(any())).called(1);
+    final captured = verify(() => mockAccountRepo.createAccount(captureAny())).captured;
+    expect(captured.length, 2);
+    final root = captured[0] as AccountModel;
+    final pocket = captured[1] as AccountModel;
+
+    expect(root.name, 'Dompet');
+    expect(root.balance, 0);
+    expect(root.isDefault, isFalse);
+
+    expect(pocket.parentId, root.id);
+    expect(pocket.isDefault, isTrue);
+    expect(pocket.balance, 0);
     verifyNever(() => mockTransactionRepo.createTransaction(any()));
   });
 
-  test('creates account and sets initial balance correctly', () async {
+  test('creates root account with initial balance in main pocket', () async {
     when(() => mockAccountRepo.createAccount(any())).thenAnswer((_) async => const Success(null));
 
     final result = await useCase.execute(name: 'Dompet', type: AccountType.assets, balance: 100000);
 
     expect(result, isA<Success>());
 
-    final capturedAccount = verify(() => mockAccountRepo.createAccount(captureAny())).captured.first as AccountModel;
-    expect(capturedAccount.name, 'Dompet');
-    expect(capturedAccount.balance, 100000);
-    expect(capturedAccount.initialBalance, 100000);
+    final captured = verify(() => mockAccountRepo.createAccount(captureAny())).captured;
+    expect(captured.length, 2);
+    final root = captured[0] as AccountModel;
+    final pocket = captured[1] as AccountModel;
+
+    expect(root.name, 'Dompet');
+    expect(root.balance, 0);
+    expect(root.initialBalance, 0);
+
+    expect(pocket.parentId, root.id);
+    expect(pocket.balance, 100000);
+    expect(pocket.initialBalance, 100000);
+    expect(pocket.isDefault, isTrue);
+  });
+
+  test('creates sub-pocket directly when parentId is provided', () async {
+    when(() => mockAccountRepo.createAccount(any())).thenAnswer((_) async => const Success(null));
+
+    final result = await useCase.execute(
+      name: 'Dana Darurat',
+      type: AccountType.assets,
+      balance: 50000,
+      parentId: 'parent-123',
+    );
+
+    expect(result, isA<Success>());
+
+    final captured = verify(() => mockAccountRepo.createAccount(captureAny())).captured;
+    expect(captured.length, 1);
+    final pocket = captured.first as AccountModel;
+    expect(pocket.name, 'Dana Darurat');
+    expect(pocket.balance, 50000);
+    expect(pocket.parentId, 'parent-123');
+    expect(pocket.isDefault, isFalse);
   });
 
   test('propagates account creation failure', () async {
@@ -109,7 +150,7 @@ void main() {
       final result = await useCase.execute(name: 'Dompet', type: AccountType.assets, balance: 1);
 
       expect(result, isA<Success>());
-      verify(() => mockAccountRepo.createAccount(any())).called(1);
+      verify(() => mockAccountRepo.createAccount(any())).called(2);
     });
 
     test(

@@ -49,7 +49,12 @@ void main() {
       GoalModel(id: 'g1', accountId: 'acc1', name: 'New', targetAmount: 999, createdAt: now, updatedAt: now),
     );
     final res = await repo.getGoalById('g1');
-    res.fold((v) => expect(v.targetAmount, 999), (e) => fail('fail'));
+    res.fold((v) {
+      expect(v.targetAmount, 999);
+      expect(v.name, 'New');
+    }, (e) => fail('fail'));
+    final acc = await db.select(db.accounts).get();
+    expect(acc.firstWhere((a) => a.id == 'acc1').name, 'New');
   });
 
   test('deleteGoal removes', () async {
