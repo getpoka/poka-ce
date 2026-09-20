@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Modularized goal form sheet by extracting parent account selector and automatic pocket notice into standalone components.
+
 ## [v1.1.0] - 2026-09-20
 
 Purpose-driven account hierarchy, balance reconciliation, and streamlined pocket management.
