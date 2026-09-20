@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poka_ce/features/reports/domain/services/report_analytics_service.dart';
 import 'package:poka_ce/features/reports/presentation/controllers/report_notifier.dart';
 import 'package:poka_ce/features/reports/presentation/widgets/category_item_tile.dart';
+import 'package:poka_ce/features/reports/presentation/widgets/charts/report_category_pie_chart.dart';
+import 'package:poka_ce/features/reports/presentation/widgets/charts/report_category_tab_toggle.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_donut_chart.dart';
 import 'package:poka_ce/shared/widgets/poka_icon.dart';
 import 'package:poka_ce/theme/theme.dart';
 
-/// Category breakdown with Expense / Income tab toggle.
-/// Uses fl_chart PieChart donut + ranked list.
-/// Section label lives OUTSIDE this card on the parent page.
+/// Category breakdown card with Expense / Income tab toggle, donut chart, and ranked list.
 class ReportCategoryChart extends HookConsumerWidget {
+  /// Creates a [ReportCategoryChart].
   const new({super.key});
 
   @override
@@ -50,12 +49,12 @@ class ReportCategoryChart extends HookConsumerWidget {
 
     return FCard(
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // ── Tab toggle ──────────────────────────────────────────────
-            _TabToggle(
+            ReportCategoryTabToggle(
               isExpense: isExpenseTab.value,
               onExpenseTap: () => isExpenseTab.value = true,
               onIncomeTap: () => isExpenseTab.value = false,
@@ -99,7 +98,7 @@ class ReportCategoryChart extends HookConsumerWidget {
                       ),
                     ] else ...[
                       // ── Pie chart ─────────────────────────────────────────────
-                      _CategoryPieChart(items: displayItems, theme: theme),
+                      ReportCategoryPieChart(items: displayItems, theme: theme),
                       const SizedBox(height: 16),
 
                       // ── Ranked list ───────────────────────────────────────────
@@ -117,121 +116,6 @@ class ReportCategoryChart extends HookConsumerWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-
-class _TabToggle extends StatelessWidget {
-  const new({
-    required this.isExpense,
-    required this.onExpenseTap,
-    required this.onIncomeTap,
-    required this.expenseLabel,
-    required this.incomeLabel,
-  });
-
-  final bool isExpense;
-  final VoidCallback onExpenseTap;
-  final VoidCallback onIncomeTap;
-  final String expenseLabel;
-  final String incomeLabel;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = context.theme;
-    return Container(
-      height: 32,
-      decoration: BoxDecoration(
-        color: theme.colors.muted,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: theme.colors.border.withValues(alpha: 0.5)),
-      ),
-      child: Row(
-        children: [
-          _TabItem(
-            label: expenseLabel,
-            isSelected: isExpense,
-            onTap: onExpenseTap,
-            activeColor: theme.colors.app.expense,
-          ),
-          _TabItem(
-            label: incomeLabel,
-            isSelected: !isExpense,
-            onTap: onIncomeTap,
-            activeColor: theme.colors.app.income,
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _TabItem extends StatelessWidget {
-  const new({required this.label, required this.isSelected, required this.onTap, required this.activeColor});
-
-  final String label;
-  final bool isSelected;
-  final VoidCallback onTap;
-  final Color activeColor;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = context.theme;
-    return Expanded(
-      child: GestureDetector(
-        onTap: onTap,
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 200),
-          margin: const EdgeInsets.all(3),
-          decoration: BoxDecoration(
-            color: isSelected ? activeColor : Colors.transparent,
-            borderRadius: BorderRadius.circular(6),
-          ),
-          child: Center(
-            child: Text(
-              label,
-              style: theme.typography.bodySecondary.copyWith(
-                color: isSelected ? Colors.white : theme.colors.mutedForeground,
-                fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-
-class _CategoryPieChart extends StatelessWidget {
-  const new({required this.items, required this.theme});
-
-  final List<ReportCategoryItem> items;
-  final FThemeData theme;
-
-  Color _parseColor(BuildContext context, String hex) {
-    try {
-      final cleaned = hex.replaceAll('#', '');
-      return Color(int.parse('FF$cleaned', radix: 16));
-    } on FormatException {
-      return context.theme.colors.mutedForeground;
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // The ranked list below already serves as the full legend (dot + name + amount + %).
-    return Center(
-      child: PokaDonutChart(
-        size: 156,
-        thickness: 18,
-        sections: items.map((item) {
-          return PokaDonutSection(value: item.ratio, color: _parseColor(context, item.color));
-        }).toList(),
       ),
     );
   }
