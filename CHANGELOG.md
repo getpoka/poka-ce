@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.1.0] - 2026-09-20
+
+Purpose-driven account hierarchy, balance reconciliation, and streamlined pocket management.
+
 ### Added
 
 - Purpose-driven account architecture anchoring all pockets and savings goals directly under physical root accounts (Bank BCA, Mandiri, Cash, etc.).
@@ -283,7 +287,8 @@ All core features are feature-complete and ready to be explored:
 
 > **⚠️ Important Note:** This version is still under testing. Deep edge cases (such as editing or deleting complex interconnected data) have not been fully verified. Unexpected bugs may occur — we recommend trying it with dummy data first, or regularly backing up your data from the Settings menu. Help us reach v1.0 by reporting bugs via the [Issues](https://github.com/getpoka/poka-ce/issues) tab.
 
-[Unreleased]: https://github.com/getpoka/poka-ce/compare/v1.0.2...main
+[Unreleased]: https://github.com/getpoka/poka-ce/compare/v1.1.0...main
+[v1.1.0]: https://github.com/getpoka/poka-ce/compare/v1.0.2...v1.1.0
 [v1.0.2]: https://github.com/getpoka/poka-ce/compare/v1.0.1...v1.0.2
 [v1.0.1]: https://github.com/getpoka/poka-ce/compare/v1.0.0...v1.0.1
 [v1.0.0]: https://github.com/getpoka/poka-ce/compare/v1.0.0-rc.2...v1.0.0
