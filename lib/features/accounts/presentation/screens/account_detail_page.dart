@@ -91,7 +91,6 @@ class AccountDetailPage extends HookConsumerWidget {
 
             if (account.type != AccountType.goal && !account.isPocket) ...[
               AccountPocketsSection(accountId: accountId, pockets: operationalPockets, totalBalance: totalBalance),
-              const SizedBox(height: 20),
               AccountGoalsSection(accountId: accountId),
               const SizedBox(height: 20),
             ],

@@ -7,7 +7,6 @@ import 'package:poka_ce/features/goals/domain/goal_model.dart';
 import 'package:poka_ce/features/goals/presentation/controllers/goal_notifier.dart';
 import 'package:poka_ce/features/goals/presentation/widgets/goal_card.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_empty_view.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 void main() {
@@ -34,14 +33,13 @@ void main() {
   }
 
   group('AccountGoalsSection', () {
-    testWidgets('shows empty state when no goals are linked to account', (tester) async {
+    testWidgets('hides section when no goals are linked to account', (tester) async {
       await tester.pumpWidget(createWidget(accountId: 'parent_1', goalStates: []));
       await tester.pumpAndSettle();
 
-      expect(find.text('GOALS'), findsOneWidget);
-      expect(find.text('Add Goal'), findsOneWidget);
-      expect(find.byType(PokaEmptyView), findsOneWidget);
-      expect(find.text('No goals yet'), findsOneWidget);
+      expect(find.text('GOALS'), findsNothing);
+      expect(find.text('Add Goal'), findsNothing);
+      expect(find.byType(GoalCard), findsNothing);
     });
 
     testWidgets('renders GoalCard list when goals belong to account', (tester) async {
@@ -83,6 +81,7 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text('GOALS (2)'), findsOneWidget);
+      expect(find.text('Add Goal'), findsNothing);
       expect(find.text('New Car'), findsOneWidget);
       expect(find.text('Emergency Fund'), findsOneWidget);
       expect(find.text('Other Bank Goal'), findsNothing);

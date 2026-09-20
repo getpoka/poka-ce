@@ -146,7 +146,7 @@ void main() {
       expect(find.text('BCA Main'), findsWidgets);
       expect(find.text('Pockets'), findsWidgets);
       expect(find.text('Snacks'), findsOneWidget);
-      expect(find.text('GOALS'), findsOneWidget);
+      expect(find.text('GOALS'), findsNothing);
       expect(find.byIcon(FPhosphorIcons.scales), findsOneWidget);
       expect(find.byIcon(FPhosphorIcons.pencilSimple), findsOneWidget);
     });
@@ -190,6 +190,7 @@ void main() {
       expect(find.text('Snacks'), findsOneWidget);
       expect(find.text('GOALS (1)'), findsOneWidget);
       expect(find.text('Dream Trip'), findsOneWidget);
+      expect(find.text('Add Goal'), findsNothing);
     });
 
     testWidgets('renders pocket account and hides pockets section', (tester) async {
