@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Modularized goal form sheet by extracting parent account selector and automatic pocket notice into standalone components.
+- [internal] Modularized transaction list screen by extracting reusable empty period component and eliminating duplicated private widgets.
 
 ## [v1.1.0] - 2026-09-20
 
