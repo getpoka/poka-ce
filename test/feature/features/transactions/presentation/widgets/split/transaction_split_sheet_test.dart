@@ -210,6 +210,25 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.text(t.transactions.itemsCount(count: 0)), findsOneWidget);
     });
+
+    testWidgets('renders scrollable content without overflow even with many items', (tester) async {
+      final manyItems = List.generate(
+        15,
+        (i) => SplitItem(amount: 100 * (i + 1), categoryId: 'c_exp_1', categoryName: 'Item $i'),
+      );
+      tester.view.physicalSize = const Size(400, 600);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(() {
+        tester.view.resetPhysicalSize();
+        tester.view.resetDevicePixelRatio();
+      });
+
+      await tester.pumpWidget(wrapSplitSheet(type: TransactionType.expense, initial: manyItems));
+      await tester.pumpAndSettle();
+
+      expect(tester.takeException(), isNull);
+      expect(find.text(t.transactions.itemsCount(count: 15)), findsOneWidget);
+    });
   });
 
   group('TransactionSplitItemFormSheet', () {

@@ -10,13 +10,15 @@ Future<T?> showPokaSheet<T>({
   required BuildContext context,
   required WidgetBuilder builder,
   bool isScrollControlled = false,
-  // When true, the sheet height fits its content by using forui's default ratio.
-  // When false (default), the sheet fills the full screen height.
+  // When true, the sheet height fits its content up to a bounded maximum ratio (default 0.85).
+  // When false (default), the sheet fills the full screen height unless [maxRatio] is set.
   bool fitContent = false,
   // When true, the sheet can only be closed via its close button, a save
   // action, or the system back gesture. When false, tapping outside dismisses it.
   bool persistent = true,
   bool useRootNavigator = true,
+  // Maximum height ratio of the screen (e.g. 0.85 for 85% screen height).
+  double? maxRatio,
 }) {
   // The decoration is built from the builder's context so the background color
   // tracks live theme changes (e.g. system dark mode toggled at runtime). A
@@ -28,24 +30,24 @@ Future<T?> showPokaSheet<T>({
   );
 
   if (fitContent) {
-    // Allows the sheet to shrink to its content up to the full screen height (dynamic).
+    // Allows the sheet to shrink to its content up to the given max ratio (default 0.85).
     return showFSheet<T>(
       context: context,
       useRootNavigator: useRootNavigator,
       side: FLayout.btt,
-      mainAxisMaxRatio: null,
+      mainAxisMaxRatio: maxRatio ?? 0.85,
       barrierDismissible: !persistent,
       draggable: !persistent,
       builder: (ctx) => DecoratedBox(decoration: decoration(ctx), child: builder(ctx)),
     );
   }
 
-  // Full-screen: mainAxisMaxRatio: null removes the max constraint.
+  // Full-screen: mainAxisMaxRatio: null removes the max constraint unless maxRatio is provided.
   return showFSheet<T>(
     context: context,
     useRootNavigator: useRootNavigator,
     side: FLayout.btt,
-    mainAxisMaxRatio: null,
+    mainAxisMaxRatio: maxRatio,
     barrierDismissible: !persistent,
     draggable: !persistent,
     builder: (ctx) => DecoratedBox(decoration: decoration(ctx), child: builder(ctx)),

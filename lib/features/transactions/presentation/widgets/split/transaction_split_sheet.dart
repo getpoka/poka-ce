@@ -30,6 +30,8 @@ class TransactionSplitSheet extends ConsumerStatefulWidget {
       context: context,
       persistent: false,
       isScrollControlled: true,
+      fitContent: true,
+      maxRatio: 0.85,
       builder: (_) => TransactionSplitSheet(transactionType: transactionType, initialSplits: initialSplits),
     );
   }
@@ -83,7 +85,6 @@ class _TransactionSplitSheetState extends ConsumerState<TransactionSplitSheet> {
 
     return PokaSheet(
       title: t.transactions.splitTransaction,
-      isScrollable: false,
       showCloseButton: false,
       trailing: _splits.isNotEmpty
           ? Container(
@@ -101,7 +102,6 @@ class _TransactionSplitSheetState extends ConsumerState<TransactionSplitSheet> {
             )
           : null,
       child: Column(
-        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           // ── Subtitle (number of items) ──────────────────────────────
@@ -117,77 +117,62 @@ class _TransactionSplitSheetState extends ConsumerState<TransactionSplitSheet> {
           const FDivider(),
 
           // ── Body: empty state or item list ───────────────────────────
-          Flexible(
-            child: CustomScrollView(
-              shrinkWrap: true,
-              slivers: [
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding: EdgeInsets.only(top: theme.style.pagePadding.top),
-                    child: _splits.isEmpty
-                        ? Center(
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(vertical: theme.style.app.xl),
-                              child: Column(
-                                children: [
-                                  Icon(FPhosphorIcons.arrowsSplit, size: 32, color: colors.mutedForeground),
-                                  const SizedBox(height: 12),
-                                  Text(
-                                    t.transactions.noItemsYet,
-                                    style: typography.bodyPrimary.copyWith(
-                                      fontWeight: FontWeight.w600,
-                                      color: colors.foreground,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 4),
-                                  Text(
-                                    t.transactions.tapAddItemToBeginSplittingntheTransaction,
-                                    textAlign: TextAlign.center,
-                                    style: typography.bodyPrimary.copyWith(color: colors.mutedForeground),
-                                  ),
-                                ],
-                              ),
+          Padding(
+            padding: EdgeInsets.only(top: theme.style.pagePadding.top),
+            child: _splits.isEmpty
+                ? Center(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: theme.style.app.xl),
+                      child: Column(
+                        children: [
+                          Icon(FPhosphorIcons.arrowsSplit, size: 32, color: colors.mutedForeground),
+                          const SizedBox(height: 12),
+                          Text(
+                            t.transactions.noItemsYet,
+                            style: typography.bodyPrimary.copyWith(
+                              fontWeight: FontWeight.w600,
+                              color: colors.foreground,
                             ),
-                          )
-                        : TransactionSplitItemList(
-                            splits: _splits,
-                            transactionType: widget.transactionType,
-                            onRemove: _removeItem,
-                            onEdit: _editItem,
                           ),
-                  ),
-                ),
-
-                // ── Action buttons ────────────────────────────────────
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding: EdgeInsets.only(top: theme.style.app.md),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        FButton(
-                          onPress: _addItem,
-                          variant: FButtonVariant.outline,
-                          child: Text(t.transactions.addItem),
-                        ),
-                        if (_splits.isNotEmpty) ...[
-                          const SizedBox(height: 10),
-                          // Minimum 2 items hint
-                          if (_splits.length == 1)
-                            Padding(
-                              padding: EdgeInsets.only(bottom: theme.style.app.sm),
-                              child: Text(
-                                t.transactions.addAtLeastOneMoreItemToSave,
-                                textAlign: TextAlign.center,
-                                style: typography.bodySecondary.copyWith(color: colors.mutedForeground),
-                              ),
-                            ),
-                          FButton(onPress: canSave ? _saveAndClose : null, child: Text(t.transactions.done)),
+                          const SizedBox(height: 4),
+                          Text(
+                            t.transactions.tapAddItemToBeginSplittingntheTransaction,
+                            textAlign: TextAlign.center,
+                            style: typography.bodyPrimary.copyWith(color: colors.mutedForeground),
+                          ),
                         ],
-                      ],
+                      ),
                     ),
+                  )
+                : TransactionSplitItemList(
+                    splits: _splits,
+                    transactionType: widget.transactionType,
+                    onRemove: _removeItem,
+                    onEdit: _editItem,
                   ),
-                ),
+          ),
+
+          // ── Action buttons ────────────────────────────────────
+          Padding(
+            padding: EdgeInsets.only(top: theme.style.app.md),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                FButton(onPress: _addItem, variant: FButtonVariant.outline, child: Text(t.transactions.addItem)),
+                if (_splits.isNotEmpty) ...[
+                  const SizedBox(height: 10),
+                  // Minimum 2 items hint
+                  if (_splits.length == 1)
+                    Padding(
+                      padding: EdgeInsets.only(bottom: theme.style.app.sm),
+                      child: Text(
+                        t.transactions.addAtLeastOneMoreItemToSave,
+                        textAlign: TextAlign.center,
+                        style: typography.bodySecondary.copyWith(color: colors.mutedForeground),
+                      ),
+                    ),
+                  FButton(onPress: canSave ? _saveAndClose : null, child: Text(t.transactions.done)),
+                ],
               ],
             ),
           ),
