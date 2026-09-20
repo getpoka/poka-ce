@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.1.2] - 2026-09-21
+
+Scrolling support and bounded height constraints for multi-item split transaction sheets and fit-content sheet optimizations.
+
+### Fixed
+
+- Fixed layout overflow in transaction split sheet with high item counts by enabling nested scrolling.
+- Bounded transaction split sheet maximum height to 85% of screen height to preserve the backdrop scrim.
+- Updated fit-content sheet handler in `showPokaSheet` to respect `maxRatio` constraints.
+
 ## [v1.1.1] - 2026-09-20
 
 Component modularization and 1-class-1-file architecture refactor across goals, transactions, and reports modules.
@@ -297,7 +307,8 @@ All core features are feature-complete and ready to be explored:
 
 > **⚠️ Important Note:** This version is still under testing. Deep edge cases (such as editing or deleting complex interconnected data) have not been fully verified. Unexpected bugs may occur — we recommend trying it with dummy data first, or regularly backing up your data from the Settings menu. Help us reach v1.0 by reporting bugs via the [Issues](https://github.com/getpoka/poka-ce/issues) tab.
 
-[Unreleased]: https://github.com/getpoka/poka-ce/compare/v1.1.1...main
+[Unreleased]: https://github.com/getpoka/poka-ce/compare/v1.1.2...main
+[v1.1.2]: https://github.com/getpoka/poka-ce/compare/v1.1.1...v1.1.2
 [v1.1.1]: https://github.com/getpoka/poka-ce/compare/v1.1.0...v1.1.1
 [v1.1.0]: https://github.com/getpoka/poka-ce/compare/v1.0.2...v1.1.0
 [v1.0.2]: https://github.com/getpoka/poka-ce/compare/v1.0.1...v1.0.2
