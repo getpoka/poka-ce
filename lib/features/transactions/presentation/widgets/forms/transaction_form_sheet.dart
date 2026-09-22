@@ -19,6 +19,7 @@ import 'package:poka_ce/features/transactions/presentation/widgets/calculator/tr
 import 'package:poka_ce/features/transactions/presentation/widgets/forms/components/transaction_date_nav.dart';
 import 'package:poka_ce/features/transactions/presentation/widgets/forms/components/transaction_transfer_selector.dart';
 import 'package:poka_ce/features/transactions/presentation/widgets/forms/components/transaction_type_switcher.dart';
+import 'package:poka_ce/features/transactions/presentation/widgets/forms/transaction_account_resolver.dart';
 import 'package:poka_ce/features/transactions/presentation/widgets/split/transaction_split_sheet.dart';
 import 'package:poka_ce/features/transactions/presentation/widgets/split/transaction_split_summary_card.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
@@ -109,13 +110,18 @@ class TransactionFormSheet extends HookConsumerWidget {
       if (accounts.isNotEmpty) {
         if (state.accountId == null) {
           if (initialTransaction != null) {
+            // Editing an existing transaction — honour its stored account directly.
             final acc = accounts.where((a) => a.id == initialTransaction!.accountId).firstOrNull;
             if (acc != null) Future.microtask(() => notifier.setAccount(acc.id));
           } else if (initialAccountId != null) {
-            final acc = accounts.where((a) => a.id == initialAccountId).firstOrNull ?? accounts.first;
-            Future.microtask(() => notifier.setAccount(acc.id));
+            // A specific account was requested; resolve its Main Pocket when it is a root.
+            final candidate = accounts.where((a) => a.id == initialAccountId).firstOrNull ?? accounts.first;
+            final resolved = resolveToTransactableAccount(candidate, accounts);
+            Future.microtask(() => notifier.setAccount(resolved.id));
           } else {
-            Future.microtask(() => notifier.setAccount(accounts.first.id));
+            // Default: first account in list; redirect to Main Pocket if it is a root.
+            final resolved = resolveToTransactableAccount(accounts.first, accounts);
+            Future.microtask(() => notifier.setAccount(resolved.id));
           }
         }
         if (state.destinationAccountId == null) {
@@ -123,7 +129,10 @@ class TransactionFormSheet extends HookConsumerWidget {
             final acc = accounts.where((a) => a.id == initialTransaction!.destinationAccountId).firstOrNull;
             if (acc != null) Future.microtask(() => notifier.setDestinationAccount(acc.id));
           } else if (accounts.length > 1) {
-            Future.microtask(() => notifier.setDestinationAccount(accounts[1].id));
+            // Resolve destination to a pocket as well so transfers default correctly.
+            final candidate = accounts[1];
+            final resolved = resolveToTransactableAccount(candidate, accounts);
+            Future.microtask(() => notifier.setDestinationAccount(resolved.id));
           }
         }
       }
