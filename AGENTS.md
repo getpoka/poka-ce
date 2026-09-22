@@ -33,15 +33,14 @@ Activate relevant skills before working on a task:
 ## 🏷️ Versioning & Release Rules (Mandatory for AI)
 
 - **GitHub (Git Tag, GitHub Release, CHANGELOG, & Commit Message):**
-  - **MUST use `beta`:** `v<major>.<minor>.<patch>-beta.<build>` (e.g. `v0.1.0-beta.5`).
-  - Git tag format: `v0.1.0-beta.5`
-  - GitHub Release title: `v0.1.0-beta.5`
-  - `CHANGELOG.md` version heading: `## [v0.1.0-beta.5] - YYYY-MM-DD`
-  - Release commit message: strictly single-line `chore(release): bump version to v0.1.0-beta.5` without multiline body or clutter.
+  - Git tag format: `v<major>.<minor>.<patch>` (e.g. `v1.1.3`). **No `-beta` suffix.**
+  - GitHub Release title: `v1.1.3`
+  - `CHANGELOG.md` version heading: `## [v1.1.3] - YYYY-MM-DD`
+  - Release commit message: strictly single-line `chore(release): bump version to v1.1.3` without multiline body or clutter.
 - **pubspec.yaml & Google Play Store:**
-  - **STRICTLY WITHOUT `beta`:** `version: <major>.<minor>.<patch>+<build>` (e.g. `version: 0.1.0+5`).
-  - `pubspec.yaml` must only contain standard semver + build number (e.g. `0.1.0+5`).
-  - Google Play Console `versionName` is `0.1.0` and `versionCode` is `5` — never include `-beta` in `pubspec.yaml` or Play Store metadata.
+  - `version: <major>.<minor>.<patch>+<build>` (e.g. `version: 1.1.3+7`). **No `-beta` anywhere.**
+  - `pubspec.yaml` must only contain standard semver + build number.
+  - Google Play Console `versionName` is `1.1.3` and `versionCode` is the build integer.
 
 ## ⛔ Violations that Trigger Mandatory Rollbacks
 
