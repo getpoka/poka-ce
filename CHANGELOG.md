@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.1.3] - 2026-09-23
+
+### Fixed
+
+- Fixed an issue where opening the transaction form defaulted to the root wallet instead of its Main Pocket, causing balance mismatches after reconciliation.
+
+
 ## [v1.1.2] - 2026-09-21
 
 Scrolling support and bounded height constraints for multi-item split transaction sheets and fit-content sheet optimizations.
