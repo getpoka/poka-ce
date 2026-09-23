@@ -234,7 +234,7 @@ packages:
     source: hosted
     version: "1.0.2"
   cupertino_ui:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: cupertino_ui
       sha256: c6747018d37d32feeeb858a1d7043831cb541460ebe1a890a995cdb8df8ea5a5
@@ -585,34 +585,34 @@ packages:
     dependency: "direct main"
     description:
       name: forui
-      sha256: a00251e8db89430f388990049ea30ec62f7d1c9270f1fe6ab0d316b1a9415a72
+      sha256: ab4bbf472bee5d972ac1a3f3ae707362b83ca563fa9d334a15470a367902318a
       url: "https://pub.dev"
     source: hosted
-    version: "0.26.0"
+    version: "0.27.0"
   forui_cli:
     dependency: "direct dev"
     description:
       name: forui_cli
-      sha256: "9e411731559adaf6fc96c36baafe5bb0f4f29bcb0736e7b8f8ceea74a6e6c774"
+      sha256: c745a53fc9833bd66bad9ae20a36e4383b7a75e9addb6fe783a3002fa6072c18
       url: "https://pub.dev"
     source: hosted
-    version: "0.26.1"
+    version: "0.27.0"
   forui_lucide:
     dependency: transitive
     description:
       name: forui_lucide
-      sha256: "5c797b7455b4c491504fc0f76c3d2d6eebe7cb49aeac1d5c02026f06ae1d2607"
+      sha256: "63c660e4213309d9558cfc1c10ec52c13dab88cc2794dc41b8be769a7c86206c"
       url: "https://pub.dev"
     source: hosted
-    version: "0.26.1"
+    version: "0.27.0"
   forui_phosphor:
     dependency: "direct main"
     description:
       name: forui_phosphor
-      sha256: d5a455b35de722fd4c86a48f91d2c5d571effd37a1c7b1ce33a318bb58bad1b7
+      sha256: e068b623b09ba232077084326a01c6bf7be9f9398edc2c5103e8ad0c70cd7950
       url: "https://pub.dev"
     source: hosted
-    version: "0.26.1"
+    version: "0.27.0"
   freezed:
     dependency: "direct dev"
     description:

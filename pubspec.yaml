@@ -14,8 +14,8 @@ dependencies:
     sdk: flutter
 
   # UI
-  forui: ^0.26.0
-  forui_phosphor: ^0.26.0
+  forui: ^0.27.0
+  forui_phosphor: ^0.27.0
   flutter_animate: ^4.5.2
   fl_chart: ^1.2.0
   flutter_markdown_plus: ^1.0.12
@@ -66,6 +66,7 @@ dependencies:
   quick_actions: ^1.1.0
   excel: ^4.0.6
 
+  cupertino_ui: any
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -80,7 +81,7 @@ dev_dependencies:
   json_serializable: ^6.9.5
   drift_dev: ^2.34.0
   slang_build_runner: any
-  forui_cli: ^0.26.0
+  forui_cli: ^0.27.0
   go_router_builder: ^4.4.0
   riverpod_generator: ^4.0.8
 
