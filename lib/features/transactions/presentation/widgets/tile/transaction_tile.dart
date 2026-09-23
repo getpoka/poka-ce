@@ -207,8 +207,7 @@ class RecentTransactionTile extends HookConsumerWidget with FTileMixin {
     // can render the native account currency instead of the base-currency
     // display that PokaAmountText defaults to.
     final amountBuilder = ref.watch(transactionAmountBuilderProvider);
-    final customAmountWidget =
-        amountBuilder?.call(context, transaction, isBalanceVisible: isBalanceVisible);
+    final customAmountWidget = amountBuilder?.call(context, transaction, isBalanceVisible: isBalanceVisible);
 
     final Widget baseTile = GestureDetector(
       behavior: HitTestBehavior.opaque,
