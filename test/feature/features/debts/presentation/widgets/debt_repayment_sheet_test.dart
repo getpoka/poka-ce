@@ -222,6 +222,13 @@ void main() {
     });
 
     testWidgets('OK with valid amount saves repayment and closes sheet', (tester) async {
+      tester.view.physicalSize = const Size(800, 1000);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(() {
+        tester.view.resetPhysicalSize();
+        tester.view.resetDevicePixelRatio();
+      });
+
       await tester.pumpWidget(buildShowWidget(sampleDebt()));
       await tester.pumpAndSettle();
 
@@ -255,6 +262,13 @@ void main() {
     });
 
     testWidgets('OK with custom note saves repayment with that note', (tester) async {
+      tester.view.physicalSize = const Size(800, 1000);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(() {
+        tester.view.resetPhysicalSize();
+        tester.view.resetDevicePixelRatio();
+      });
+
       await tester.pumpWidget(buildShowWidget(sampleDebt()));
       await tester.pumpAndSettle();
 
@@ -290,6 +304,13 @@ void main() {
     });
 
     testWidgets('loan repayment saves as income', (tester) async {
+      tester.view.physicalSize = const Size(800, 1000);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(() {
+        tester.view.resetPhysicalSize();
+        tester.view.resetDevicePixelRatio();
+      });
+
       await tester.pumpWidget(buildShowWidget(sampleDebt(type: DebtType.loan)));
       await tester.pumpAndSettle();
 
@@ -318,6 +339,13 @@ void main() {
     });
 
     testWidgets('selecting another account uses it as source', (tester) async {
+      tester.view.physicalSize = const Size(800, 1000);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(() {
+        tester.view.resetPhysicalSize();
+        tester.view.resetDevicePixelRatio();
+      });
+
       await tester.pumpWidget(buildShowWidget(sampleDebt()));
       await tester.pumpAndSettle();
 
