@@ -34,9 +34,9 @@ class ReportCategoryTabToggle extends StatelessWidget {
     return Container(
       height: 32,
       decoration: BoxDecoration(
-        color: theme.colors.muted,
+        color: Colors.transparent,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: theme.colors.border.withValues(alpha: 0.5)),
+        border: Border.all(color: theme.colors.border),
       ),
       child: Row(
         children: [

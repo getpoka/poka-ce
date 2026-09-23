@@ -14,7 +14,6 @@ class DashboardBudgetSheet extends HookConsumerWidget {
   static void show(BuildContext context, {required double currentBudget}) {
     showPokaSheet<void>(
       context: context,
-      fitContent: true,
       builder: (context) => DashboardBudgetSheet(currentBudget: currentBudget),
     );
   }

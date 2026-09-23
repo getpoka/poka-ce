@@ -12,7 +12,6 @@ Future<bool?> showNotificationRationaleSheet(BuildContext context) {
   return showPokaSheet<bool>(
     context: context,
     persistent: false,
-    fitContent: true,
     builder: (context) => const _NotificationRationaleSheet(),
   );
 }

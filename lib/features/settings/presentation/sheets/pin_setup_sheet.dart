@@ -5,7 +5,7 @@ import 'package:poka_ce/shared/widgets/sheets/poka_sheet.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 Future<String?> showPinSetupSheet(BuildContext context) async {
-  return await showPokaSheet<String>(context: context, fitContent: true, builder: (context) => const PinSetupSheet());
+  return await showPokaSheet<String>(context: context, builder: (context) => const PinSetupSheet());
 }
 
 class PinSetupSheet extends StatefulWidget {

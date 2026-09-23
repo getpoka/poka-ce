@@ -14,7 +14,6 @@ Future<BackupReminderInterval?> showBackupReminderSheet(
   return await showPokaSheet<BackupReminderInterval>(
     context: context,
     persistent: false,
-    fitContent: true,
     builder: (context) => _BackupReminderSheet(currentInterval: currentInterval),
   );
 }

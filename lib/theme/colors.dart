@@ -63,7 +63,7 @@ final FColors lightColors = FColors(
   errorForeground: TWind.white,
   // White card — floats above bg via border, no shadow needed.
   card: const Color(0xFFFFFFFF),
-  // brand50-adjacent border — brand-aligned but unobtrusive.
+  // Slate-300 border — provides crisp contrast for flat UI components.
   border: const Color(0xFFDDE0F5),
   extensions: const [
     AppColors(

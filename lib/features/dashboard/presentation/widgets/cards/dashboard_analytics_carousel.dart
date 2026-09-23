@@ -62,7 +62,7 @@ class DashboardAnalyticsCarousel extends HookConsumerWidget {
   Widget _buildContent(BuildContext context, int index, WidgetRef ref) {
     switch (index) {
       case 0:
-        return const DashboardCashFlowView();
+        return const SizedBox(height: 140, child: DashboardCashFlowView());
       case 1:
         return const SizedBox(height: 140, child: DashboardCategoriesView());
       case 2:
@@ -76,19 +76,22 @@ class DashboardAnalyticsCarousel extends HookConsumerWidget {
     final theme = context.theme;
     return GestureDetector(
       onTap: onTap,
-      child: Padding(
-        padding: const EdgeInsets.all(4),
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-          decoration: BoxDecoration(
-            color: isActive ? theme.colors.primary : theme.colors.secondary,
-            borderRadius: BorderRadius.circular(16),
-          ),
-          child: Text(
-            label,
-            style: theme.typography.bodySecondary.copyWith(
-              color: isActive ? theme.colors.primaryForeground : theme.colors.foreground,
-            ),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+        decoration: BoxDecoration(
+          color: isActive
+              ? theme.colors.primary
+              : (theme.colors.brightness == Brightness.light
+                    ? theme.colors.secondary
+                    : theme.colors.muted.withValues(alpha: 0.4)),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Text(
+          label,
+          style: theme.typography.bodySecondary.copyWith(
+            color: isActive ? theme.colors.primaryForeground : theme.colors.foreground,
+            fontWeight: isActive ? FontWeight.w600 : FontWeight.w400,
           ),
         ),
       ),

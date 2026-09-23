@@ -10,9 +10,9 @@ Future<T?> showPokaSheet<T>({
   required BuildContext context,
   required WidgetBuilder builder,
   bool isScrollControlled = false,
-  // When true, the sheet height fits its content up to a bounded maximum ratio (default 0.85).
-  // When false (default), the sheet fills the full screen height unless [maxRatio] is set.
-  bool fitContent = false,
+  // When true (default), the sheet height fits its content up to a bounded maximum ratio (default 0.85).
+  // When false, the sheet fills the full screen height unless [maxRatio] is set.
+  bool fitContent = true,
   // When true, the sheet can only be closed via its close button, a save
   // action, or the system back gesture. When false, tapping outside dismisses it.
   bool persistent = true,

@@ -30,7 +30,6 @@ class TransactionSplitSheet extends ConsumerStatefulWidget {
       context: context,
       persistent: false,
       isScrollControlled: true,
-      fitContent: true,
       maxRatio: 0.85,
       builder: (_) => TransactionSplitSheet(transactionType: transactionType, initialSplits: initialSplits),
     );
