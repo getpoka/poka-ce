@@ -66,5 +66,6 @@
   "continueAnyway": "Continue Anyway",
   "checkAgain": "Check Again",
   "transactionDeleted": "Transaction deleted",
-  "transactionRestored": "Transaction restored"
+  "transactionRestored": "Transaction restored",
+  "allocation": "Allocation"
 }

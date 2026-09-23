@@ -16,7 +16,13 @@ enum TransactionViewMode { day, week, month }
 /// Immutable filter applied on top of the active date window.
 class TransactionFilter {
   /// Creates a [TransactionFilter] with optional criteria.
-  const new({this.types = const {}, this.accountIds = const {}, this.categoryIds = const {}, this.searchQuery = ''});
+  const new({
+    this.types = const {},
+    this.accountIds = const {},
+    this.categoryIds = const {},
+    this.allocations = const {},
+    this.searchQuery = '',
+  });
 
   /// Transaction types to include.
   final Set<TransactionType> types;
@@ -27,22 +33,32 @@ class TransactionFilter {
   /// Category IDs to filter by.
   final Set<String> categoryIds;
 
+  /// 50/30/20 allocation tags to filter by (matched against transaction items).
+  final Set<TransactionAllocation> allocations;
+
   /// Text query matched against note or amount.
   final String searchQuery;
 
   /// Returns `true` if any filtering criteria is currently active.
-  bool get isActive => types.isNotEmpty || accountIds.isNotEmpty || categoryIds.isNotEmpty || searchQuery.isNotEmpty;
+  bool get isActive =>
+      types.isNotEmpty ||
+      accountIds.isNotEmpty ||
+      categoryIds.isNotEmpty ||
+      allocations.isNotEmpty ||
+      searchQuery.isNotEmpty;
 
   /// Creates a copy of this filter with updated criteria.
   TransactionFilter copyWith({
     Set<TransactionType>? types,
     Set<String>? accountIds,
     Set<String>? categoryIds,
+    Set<TransactionAllocation>? allocations,
     String? searchQuery,
   }) => TransactionFilter(
     types: types ?? this.types,
     accountIds: accountIds ?? this.accountIds,
     categoryIds: categoryIds ?? this.categoryIds,
+    allocations: allocations ?? this.allocations,
     searchQuery: searchQuery ?? this.searchQuery,
   );
 }
@@ -202,16 +218,27 @@ class TransactionListNotifier extends Notifier<TransactionListState> {
           result.fold((transactions) {
             var filtered = transactions;
             final query = targetState.filter.searchQuery.trim().toLowerCase();
-            if (query.isNotEmpty) {
-              filtered = transactions.where((t) {
-                final inHeader =
-                    (t.note?.toLowerCase().contains(query) ?? false) || t.amount.toString().contains(query);
-                if (inHeader) return true;
-
-                return t.items.any(
-                  (item) =>
-                      (item.note?.toLowerCase().contains(query) ?? false) || item.amount.toString().contains(query),
-                );
+            final activeAllocations = targetState.filter.allocations;
+            if (query.isNotEmpty || activeAllocations.isNotEmpty) {
+              filtered = transactions.where((tx) {
+                // Search query filter
+                if (query.isNotEmpty) {
+                  final inHeader =
+                      (tx.note?.toLowerCase().contains(query) ?? false) || tx.amount.toString().contains(query);
+                  final inItems = tx.items.any(
+                    (item) =>
+                        (item.note?.toLowerCase().contains(query) ?? false) || item.amount.toString().contains(query),
+                  );
+                  if (!inHeader && !inItems) return false;
+                }
+                // Allocation filter (item-level)
+                if (activeAllocations.isNotEmpty) {
+                  final hasMatch = tx.items.any(
+                    (item) => item.allocation != null && activeAllocations.contains(item.allocation),
+                  );
+                  if (!hasMatch) return false;
+                }
+                return true;
               }).toList();
             }
             state = state.copyWith(transactions: filtered, isLoading: false);

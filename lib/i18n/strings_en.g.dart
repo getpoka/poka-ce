@@ -2128,6 +2128,9 @@ class Translations$transactions$en {
 
 	/// en: 'Transaction restored'
 	String get transactionRestored => 'Transaction restored';
+
+	/// en: 'Allocation'
+	String get allocation => 'Allocation';
 }
 
 // Path: app.nav
@@ -2880,6 +2883,7 @@ extension on Translations {
 			'transactions.checkAgain' => 'Check Again',
 			'transactions.transactionDeleted' => 'Transaction deleted',
 			'transactions.transactionRestored' => 'Transaction restored',
+			'transactions.allocation' => 'Allocation',
 			_ => null,
 		};
 	}
