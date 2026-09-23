@@ -100,7 +100,23 @@ class PokaApp extends HookConsumerWidget {
         darkTheme: darkTheme.toApproximateMaterialTheme(),
         builder: (context, child) => FTheme(
           data: Theme.brightnessOf(context) == Brightness.light ? lightTheme : darkTheme,
-          child: FToaster(child: FTooltipGroup(child: child!)),
+          child: Builder(
+            builder: (context) {
+              return MediaQuery.withClampedTextScaling(
+                minScaleFactor: 0.8,
+                maxScaleFactor: 1.1,
+                child: ColoredBox(
+                  color: context.theme.colors.background,
+                  child: Center(
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(maxWidth: context.theme.breakpoints.sm),
+                      child: FToaster(child: FTooltipGroup(child: child!)),
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
         ),
         routerConfig: router,
       ),
