@@ -5,6 +5,7 @@ import 'package:poka_ce/app/providers/repository_providers.dart';
 import 'package:poka_ce/core/enums.dart';
 import 'package:poka_ce/features/transactions/presentation/controllers/transaction_list_notifier.dart';
 import 'package:poka_ce/features/transactions/presentation/widgets/filter/transaction_filter_account_group.dart';
+import 'package:poka_ce/features/transactions/presentation/widgets/filter/transaction_filter_allocation_group.dart';
 import 'package:poka_ce/features/transactions/presentation/widgets/filter/transaction_filter_category_group.dart';
 import 'package:poka_ce/features/transactions/presentation/widgets/filter/transaction_type_chip.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
@@ -13,9 +14,9 @@ import 'package:poka_ce/theme/theme.dart';
 
 /// Bottom sheet for advanced transaction filtering.
 ///
-/// Supports multi-select for transaction types, accounts, and categories.
-/// Account and category use the same scrollable pill row as in the transaction
-/// form sheet to save vertical space.
+/// Supports multi-select for transaction types, accounts, categories, and
+/// 50/30/20 allocation tags. Category pills are grouped by Income / Expense
+/// and dynamically filtered based on the active type selection.
 /// Returns the chosen [TransactionFilter] via [Navigator.pop].
 class TransactionFilterSheet extends HookConsumerWidget {
   /// Creates a [TransactionFilterSheet].
@@ -30,7 +31,6 @@ class TransactionFilterSheet extends HookConsumerWidget {
   static Future<TransactionFilter?> show(BuildContext context, {required TransactionFilter current}) =>
       showPokaSheet<TransactionFilter>(
         context: context,
-        fitContent: true,
         persistent: false,
         builder: (ctx) => TransactionFilterSheet(current: current),
       );
@@ -43,12 +43,16 @@ class TransactionFilterSheet extends HookConsumerWidget {
     final selectedTypes = useState<Set<TransactionType>>(Set.from(current.types));
     final selectedAccountIds = useState<Set<String>>(Set.from(current.accountIds));
     final selectedCategoryIds = useState<Set<String>>(Set.from(current.categoryIds));
+    final selectedAllocations = useState<Set<TransactionAllocation>>(Set.from(current.allocations));
 
     final accounts = ref.watch(accountsStreamProvider).value ?? [];
     final categories = ref.watch(categoriesStreamProvider).value ?? [];
 
     final hasAnySelection =
-        selectedTypes.value.isNotEmpty || selectedAccountIds.value.isNotEmpty || selectedCategoryIds.value.isNotEmpty;
+        selectedTypes.value.isNotEmpty ||
+        selectedAccountIds.value.isNotEmpty ||
+        selectedCategoryIds.value.isNotEmpty ||
+        selectedAllocations.value.isNotEmpty;
 
     return PokaSheet(
       title: t.transactions.filter,
@@ -59,6 +63,7 @@ class TransactionFilterSheet extends HookConsumerWidget {
                 selectedTypes.value = {};
                 selectedAccountIds.value = {};
                 selectedCategoryIds.value = {};
+                selectedAllocations.value = {};
               },
               child: Text(
                 t.transactions.reset,
@@ -94,6 +99,13 @@ class TransactionFilterSheet extends HookConsumerWidget {
             }).toList(),
           ),
 
+          // ── Allocation ────────────────────────────────────────────────────
+          const SizedBox(height: 20),
+          TransactionFilterAllocationGroup(
+            selectedAllocations: selectedAllocations.value,
+            onChanged: (allocs) => selectedAllocations.value = allocs,
+          ),
+
           // ── Account ───────────────────────────────────────────────────────
           if (accounts.isNotEmpty) ...[
             const SizedBox(height: 20),
@@ -110,6 +122,7 @@ class TransactionFilterSheet extends HookConsumerWidget {
             TransactionFilterCategoryGroup(
               categories: categories,
               selectedIds: selectedCategoryIds.value,
+              selectedTypes: selectedTypes.value,
               onChanged: (ids) => selectedCategoryIds.value = ids,
             ),
           ],
@@ -122,6 +135,7 @@ class TransactionFilterSheet extends HookConsumerWidget {
                 types: Set.from(selectedTypes.value),
                 accountIds: Set.from(selectedAccountIds.value),
                 categoryIds: Set.from(selectedCategoryIds.value),
+                allocations: Set.from(selectedAllocations.value),
               ),
             ),
             child: Text(t.transactions.applyFilter),

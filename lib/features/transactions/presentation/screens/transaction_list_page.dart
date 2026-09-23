@@ -167,6 +167,7 @@ class TransactionListPage extends HookConsumerWidget {
                       pinned: true,
                       delegate: TransactionListStickyNav(
                         state: state,
+                        theme: context.theme,
                         onModeChanged: notifier.setViewMode,
                         onPrev: notifier.navigatePrev,
                         onNext: notifier.navigateNext,

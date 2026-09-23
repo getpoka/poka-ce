@@ -38,7 +38,7 @@ class TransactionTypeChip extends StatelessWidget {
         duration: const Duration(milliseconds: 180),
         padding: const EdgeInsets.symmetric(vertical: 10),
         decoration: BoxDecoration(
-          color: isSelected ? color.withValues(alpha: 0.12) : theme.colors.muted,
+          color: isSelected ? color.withValues(alpha: 0.12) : Colors.transparent,
           borderRadius: theme.style.borderRadius.sm,
           border: Border.all(color: isSelected ? color : theme.colors.border, width: theme.style.borderWidth),
         ),

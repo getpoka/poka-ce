@@ -66,5 +66,6 @@
   "continueAnyway": "Tetap Simpan",
   "checkAgain": "Periksa Kembali",
   "transactionDeleted": "Transaksi dihapus",
-  "transactionRestored": "Transaksi dipulihkan"
+  "transactionRestored": "Transaksi dipulihkan",
+  "allocation": "Alokasi"
 }

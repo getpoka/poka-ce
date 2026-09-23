@@ -10,30 +10,19 @@ import 'package:poka_ce/features/transactions/presentation/widgets/forms/transac
 void main() {
   final now = DateTime(2024);
 
-  AccountModel _root({String id = 'root-1', String name = 'Wallet'}) => AccountModel(
-        id: id,
-        name: name,
-        type: AccountType.assets,
-        balance: 0,
-        createdAt: now,
-        updatedAt: now,
-      );
+  AccountModel _root({String id = 'root-1', String name = 'Wallet'}) =>
+      AccountModel(id: id, name: name, type: AccountType.assets, balance: 0, createdAt: now, updatedAt: now);
 
-  AccountModel _pocket({
-    required String id,
-    required String parentId,
-    bool isDefault = false,
-  }) =>
-      AccountModel(
-        id: id,
-        name: isDefault ? 'Main' : 'Pocket',
-        type: AccountType.assets,
-        balance: 0,
-        parentId: parentId,
-        isDefault: isDefault,
-        createdAt: now,
-        updatedAt: now,
-      );
+  AccountModel _pocket({required String id, required String parentId, bool isDefault = false}) => AccountModel(
+    id: id,
+    name: isDefault ? 'Main' : 'Pocket',
+    type: AccountType.assets,
+    balance: 0,
+    parentId: parentId,
+    isDefault: isDefault,
+    createdAt: now,
+    updatedAt: now,
+  );
 
   group('resolveToTransactableAccount', () {
     test('returns pocket unchanged when candidate is already a pocket', () {

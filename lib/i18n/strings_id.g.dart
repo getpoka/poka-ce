@@ -847,6 +847,7 @@ class _Translations$transactions$id extends Translations$transactions$en {
 	@override String get checkAgain => 'Periksa Kembali';
 	@override String get transactionDeleted => 'Transaksi dihapus';
 	@override String get transactionRestored => 'Transaksi dipulihkan';
+	@override String get allocation => 'Alokasi';
 }
 
 // Path: app.nav
@@ -1563,6 +1564,7 @@ extension on TranslationsId {
 			'transactions.checkAgain' => 'Periksa Kembali',
 			'transactions.transactionDeleted' => 'Transaksi dihapus',
 			'transactions.transactionRestored' => 'Transaksi dipulihkan',
+			'transactions.allocation' => 'Alokasi',
 			_ => null,
 		};
 	}
