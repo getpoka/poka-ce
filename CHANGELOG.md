@@ -7,8 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Changed
+## [v1.1.5] - 2026-09-24
 
+### Fixed
+
+- Fixed split transaction sub-items incorrectly displaying amounts in the display currency instead of the account's native currency.
 - Enhanced bottom sheet interaction to allow closing quick selection menus and filters by tapping outside, while safeguarding data entry forms from accidental closure and input loss.
 - [internal] Updated `showPokaSheet` default to non-persistent (`persistent: false`), added `showHandle` toggle, and marked all core data entry forms with `persistent: true`.
 

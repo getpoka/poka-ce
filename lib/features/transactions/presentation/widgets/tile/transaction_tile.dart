@@ -203,10 +203,12 @@ class RecentTransactionTile extends HookConsumerWidget with FTileMixin {
               Text(timeStr, style: theme.typography.caption.copyWith(color: theme.colors.mutedForeground)));
 
     // ── Amount slot ────────────────────────────────────────────────────────
+    // amountBuilder is used for both parent tiles and sub-items so that PE
+    // can render the native account currency instead of the base-currency
+    // display that PokaAmountText defaults to.
     final amountBuilder = ref.watch(transactionAmountBuilderProvider);
-    final customAmountWidget = isSubItem
-        ? null
-        : amountBuilder?.call(context, transaction, isBalanceVisible: isBalanceVisible);
+    final customAmountWidget =
+        amountBuilder?.call(context, transaction, isBalanceVisible: isBalanceVisible);
 
     final Widget baseTile = GestureDetector(
       behavior: HitTestBehavior.opaque,
