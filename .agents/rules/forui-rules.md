@@ -75,3 +75,26 @@ Due to its complexity, the Transaction Sheet uses tighter gaps:
 - Internal parent-to-child gap on Category Shelf and Pocket Selector: **`6`**.
 - Meta Bar (Note & Allocation) Padding: `top: 2`, `bottom: 6`.
 - Gap before the Split save button: **`18`**.
+
+## Segmented Controls & Pill Tabs
+
+Custom segmented controls and pill tabs must match `FTabs` visual behaviour:
+
+- **Container (track) background**: Always `Colors.transparent` + `Border.all(color: theme.colors.border)`. Never use `theme.colors.muted` solid color.
+- **Inactive option**: No background (transparent). Text in `theme.colors.mutedForeground`.
+- **Active option**: `theme.colors.primary` fill, `theme.colors.primaryForeground` text.
+
+For pill rows *inside* a card (e.g., dashboard analytics tab pills, report period chips, icon picker tabs):
+
+| Mode       | Inactive pill background                        |
+|------------|-------------------------------------------------|
+| Light mode | `theme.colors.secondary`                        |
+| Dark mode  | `theme.colors.muted.withValues(alpha: 0.4)`     |
+
+## Donut Chart Center Space
+
+`PokaDonutChart` **must** set `centerSpaceColor: Colors.transparent` explicitly in `PieChartData`. Never rely on the library default — it introduces a 3-way color discrepancy between empty-state, data-state, and the `FCard` background.
+
+## Dashboard Analytics Carousel
+
+All three tab views (Cash Flow, Categories, Budgets) **must** be wrapped in a `SizedBox(height: 140)` to maintain consistent carousel height across tab switches.
