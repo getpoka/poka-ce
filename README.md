@@ -75,7 +75,7 @@ without being stripped of the features that matter.
 - **Goals** — Define savings targets linked to dedicated pockets and track progress automatically.
 - **Debt & Loan Tracking** — Log borrowed or lent funds with paired wallet cashflow entries and installment tracking.
 - **Smart Input Parsing** — Type arithmetic expressions directly into the amount field (e.g., `150000+50000*2`) with real-time evaluation.
-- **Bilingual Support** — Fully localized interface in English and Bahasa Indonesia with seamless in-app language switching.
+- **Bilingual Support**: Fully localized interface in English and Bahasa Indonesia with seamless in-app language switching.
 - **Multi-Sheet Data Export** — Export comprehensive financial records to Excel (`.xlsx`) or export/import JSON backups.
 - **Android App Shortcuts** — Quick-action shortcuts from your home screen for rapid transaction entry.
 - **Offline First & Private** — 100% local SQLite storage via Drift. No internet required, no analytics, no trackers.

@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.1.4] - 2026-09-23
+
+Responsive layout constraints, UI component style refinements, and antislop updates.
+
+### Added
+
+- Constrained app maximum layout width on tablets and wide screens to maintain unified UI proportions.
+- Dynamic text scaling clamps preventing layout distortions at extreme accessibility font scaling levels.
+
+### Changed
+
+- Refined flat segmented controls, tab tracks, and pill chips across dashboard and report screens matching ForUI design tokens.
+- Updated donut chart center spacing to transparent for cohesive theme contrast.
+- Polished transaction filter sheet layout and bottom sheet padding.
+
+### Fixed
+
+- Fixed widget test viewport overflow in debt repayment sheet tests.
+
 ## [v1.1.3] - 2026-09-23
 
 ### Fixed
@@ -181,7 +200,7 @@ Comprehensive bilingual localization (English & Indonesian), visual Net Worth sp
 - Comprehensive bilingual localization support for English and Indonesian across all screens, navigation bars, bottom sheets, form dialogs, and local notifications.
 - Visual net worth trend sparkline on the dashboard hero balance card.
 - Support for pre-filling initial values (accounts, transaction types, dates) when opening creation form sheets.
-- Intelligent pluralization formatting for account pocket counters (`1 pocket` / `N pockets`).
+- Automated pluralization formatting for account pocket counters (`1 pocket` / `N pockets`).
 
 ### Changed
 
