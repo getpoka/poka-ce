@@ -13,11 +13,7 @@ import 'package:poka_ce/theme/theme.dart';
 /// Shows a sheet asking the user to verify their PIN or biometric.
 /// Returns true if verified, false if cancelled.
 Future<bool> showPinVerificationSheet(BuildContext context) async {
-  final result = await showPokaSheet<bool>(
-    context: context,
-    fitContent: true,
-    builder: (context) => const PinVerificationSheet(),
-  );
+  final result = await showPokaSheet<bool>(context: context, builder: (context) => const PinVerificationSheet());
   return result ?? false;
 }
 

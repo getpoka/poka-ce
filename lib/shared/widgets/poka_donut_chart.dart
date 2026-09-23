@@ -65,7 +65,11 @@ class PokaDonutChart extends StatelessWidget {
     final validSections = sections.where((s) => s.value > 0).toList();
     final hasData = validSections.isNotEmpty;
 
-    final fallbackColor = emptyColor ?? theme.colors.border;
+    final fallbackColor =
+        emptyColor ??
+        (theme.colors.brightness == Brightness.light
+            ? theme.colors.secondary
+            : theme.colors.muted.withValues(alpha: 0.4));
     final centerRadius = ((size / 2) - thickness).clamp(0.0, double.infinity);
 
     final pieSections = hasData
@@ -87,6 +91,7 @@ class PokaDonutChart extends StatelessWidget {
         PieChartData(
           sectionsSpace: validSections.length > 1 ? sectionsSpace : 0,
           centerSpaceRadius: centerRadius,
+          centerSpaceColor: Colors.transparent,
           startDegreeOffset: startDegreeOffset,
           sections: pieSections,
         ),

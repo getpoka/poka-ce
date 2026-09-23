@@ -25,14 +25,17 @@ class ReportPeriodChip extends StatelessWidget {
         alignment: Alignment.center,
         padding: const EdgeInsets.symmetric(horizontal: 10),
         decoration: BoxDecoration(
-          color: isSelected ? theme.colors.primary : theme.colors.muted,
+          color: isSelected
+              ? theme.colors.primary
+              : (theme.colors.brightness == Brightness.light
+                    ? theme.colors.secondary
+                    : theme.colors.muted.withValues(alpha: 0.4)),
           borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: isSelected ? theme.colors.primary : theme.colors.border.withValues(alpha: 0.6)),
         ),
         child: Text(
           label,
           style: theme.typography.caption.copyWith(
-            color: isSelected ? theme.colors.primaryForeground : theme.colors.mutedForeground,
+            color: isSelected ? theme.colors.primaryForeground : theme.colors.foreground,
             fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
           ),
         ),

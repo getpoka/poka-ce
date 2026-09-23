@@ -5,6 +5,7 @@ import 'package:forui_phosphor/forui_phosphor.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:poka_ce/theme/styles/card_style.dart';
 import 'package:poka_ce/theme/styles/item_group_style.dart';
+import 'package:poka_ce/theme/styles/tabs_style.dart';
 import 'package:poka_ce/theme/styles/tile_group_style.dart';
 import 'package:poka_ce/theme/tailwind.dart';
 
@@ -65,6 +66,7 @@ FThemeData get lightTheme {
       hapticFeedback: const FHapticFeedback(),
       touch: touch,
     ),
+    tabsStyle: tabsStyle(colors: colors, typography: typography, style: style),
     touch: touch,
   );
 }
@@ -101,6 +103,7 @@ FThemeData get darkTheme {
       hapticFeedback: const FHapticFeedback(),
       touch: touch,
     ),
+    tabsStyle: tabsStyle(colors: colors, typography: typography, style: style),
     touch: touch,
   );
 }

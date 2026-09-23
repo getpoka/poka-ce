@@ -10,6 +10,7 @@ import 'package:poka_ce/theme/theme.dart';
 class TransactionListStickyNav extends SliverPersistentHeaderDelegate {
   new({
     required this.state,
+    required this.theme,
     required this.onModeChanged,
     required this.onPrev,
     required this.onNext,
@@ -18,6 +19,7 @@ class TransactionListStickyNav extends SliverPersistentHeaderDelegate {
   });
 
   final TransactionListState state;
+  final FThemeData theme;
   final ValueChanged<TransactionViewMode> onModeChanged;
   final VoidCallback onPrev;
   final VoidCallback onNext;
@@ -25,7 +27,7 @@ class TransactionListStickyNav extends SliverPersistentHeaderDelegate {
   final VoidCallback onToday;
 
   /// Fixed height for the sticky area (chip row + date navigator + padding).
-  static const double _height = 96;
+  static const double _height = 108;
 
   @override
   double get minExtent => _height;
@@ -37,12 +39,11 @@ class TransactionListStickyNav extends SliverPersistentHeaderDelegate {
   bool shouldRebuild(TransactionListStickyNav old) =>
       old.state.viewMode != state.viewMode ||
       old.state.focusedDate != state.focusedDate ||
-      old.state.isCurrentPeriod != state.isCurrentPeriod;
+      old.state.isCurrentPeriod != state.isCurrentPeriod ||
+      old.theme != theme;
 
   @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
-    final theme = context.theme;
-
     return DecoratedBox(
       decoration: BoxDecoration(
         color: theme.colors.background,
@@ -59,38 +60,48 @@ class TransactionListStickyNav extends SliverPersistentHeaderDelegate {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             // ── View mode chips (Day / Week / Month) ─────────────────
-            Row(
-              children: TransactionViewMode.values.map((mode) {
-                final isSelected = state.viewMode == mode;
-                final label = switch (mode) {
-                  TransactionViewMode.day => t.transactions.viewModeDay,
-                  TransactionViewMode.week => t.transactions.viewModeWeek,
-                  TransactionViewMode.month => t.transactions.viewModeMonth,
-                };
-                return Expanded(
-                  child: GestureDetector(
-                    onTap: () => onModeChanged(mode),
-                    child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 200),
-                      margin: const EdgeInsets.symmetric(horizontal: 3),
-                      padding: const EdgeInsets.symmetric(vertical: 7),
-                      decoration: BoxDecoration(
-                        color: isSelected ? theme.colors.primary : theme.colors.muted,
-                        borderRadius: theme.style.borderRadius.sm,
-                      ),
-                      child: Center(
-                        child: Text(
-                          label,
-                          style: theme.typography.bodyPrimary.copyWith(
-                            color: isSelected ? theme.colors.primaryForeground : theme.colors.mutedForeground,
-                            fontWeight: FontWeight.w600,
+            Container(
+              padding: const EdgeInsets.all(4),
+              decoration: BoxDecoration(
+                color: Colors.transparent,
+                borderRadius: theme.style.borderRadius.md,
+                border: Border.all(color: theme.colors.border),
+              ),
+              child: Row(
+                children: TransactionViewMode.values.map((mode) {
+                  final isSelected = state.viewMode == mode;
+                  final label = switch (mode) {
+                    TransactionViewMode.day => t.transactions.viewModeDay,
+                    TransactionViewMode.week => t.transactions.viewModeWeek,
+                    TransactionViewMode.month => t.transactions.viewModeMonth,
+                  };
+                  return Expanded(
+                    child: GestureDetector(
+                      onTap: () => onModeChanged(mode),
+                      child: AnimatedContainer(
+                        duration: const Duration(milliseconds: 200),
+                        padding: const EdgeInsets.symmetric(vertical: 7),
+                        decoration: BoxDecoration(
+                          color: isSelected ? theme.colors.primary.withValues(alpha: 0.08) : Colors.transparent,
+                          borderRadius: theme.style.borderRadius.sm,
+                          border: isSelected
+                              ? Border.all(color: theme.colors.primary.withValues(alpha: 0.5))
+                              : Border.all(color: Colors.transparent),
+                        ),
+                        child: Center(
+                          child: Text(
+                            label,
+                            style: theme.typography.bodyPrimary.copyWith(
+                              color: isSelected ? theme.colors.primary : theme.colors.mutedForeground,
+                              fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                );
-              }).toList(),
+                  );
+                }).toList(),
+              ),
             ),
             const SizedBox(height: 10),
 

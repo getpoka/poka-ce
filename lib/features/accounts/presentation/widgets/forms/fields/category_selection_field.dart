@@ -31,7 +31,7 @@ class CategorySelectionField extends StatelessWidget {
           ),
           color: restrictedCategoryIds.isNotEmpty
               ? context.theme.colors.primary.withValues(alpha: 0.04)
-              : context.theme.colors.muted.withValues(alpha: 0.4),
+              : Colors.transparent,
         ),
         child: Row(
           children: [

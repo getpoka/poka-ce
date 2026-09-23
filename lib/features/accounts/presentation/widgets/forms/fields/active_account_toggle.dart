@@ -14,7 +14,7 @@ class ActiveAccountToggle extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
       decoration: BoxDecoration(
-        color: context.theme.colors.muted.withValues(alpha: 0.4),
+        color: Colors.transparent,
         borderRadius: context.theme.style.borderRadius.md,
         border: Border.all(color: context.theme.colors.border),
       ),
