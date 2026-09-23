@@ -31,7 +31,6 @@ class TransactionFilterSheet extends HookConsumerWidget {
   static Future<TransactionFilter?> show(BuildContext context, {required TransactionFilter current}) =>
       showPokaSheet<TransactionFilter>(
         context: context,
-        persistent: false,
         builder: (ctx) => TransactionFilterSheet(current: current),
       );
 

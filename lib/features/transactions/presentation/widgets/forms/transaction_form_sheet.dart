@@ -64,6 +64,7 @@ class TransactionFormSheet extends HookConsumerWidget {
   }) {
     return showPokaSheet<bool>(
       context: context,
+      persistent: true,
       isScrollControlled: true,
       builder: (context) => PokaSheet(
         title: initialTransaction != null ? t.transactions.editTransaction : t.transactions.newTransaction,

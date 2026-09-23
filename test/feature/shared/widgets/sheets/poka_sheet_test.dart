@@ -25,6 +25,7 @@ Widget wrapSheet({
   Widget? leading,
   Widget? trailing,
   bool showCloseButton = true,
+  bool showHandle = true,
   bool isScrollable = true,
   EdgeInsetsGeometry padding = const EdgeInsets.fromLTRB(20, 8, 20, 0),
   EdgeInsets viewPadding = EdgeInsets.zero,
@@ -40,6 +41,7 @@ Widget wrapSheet({
             leading: leading,
             trailing: trailing,
             showCloseButton: showCloseButton,
+            showHandle: showHandle,
             isScrollable: isScrollable,
             padding: padding,
             child: child,
@@ -257,6 +259,11 @@ void main() {
       expect(find.byIcon(FPhosphorIcons.x), findsNothing);
     });
 
+    testWidgets('showHandle false does not show PokaSheetHandle', (tester) async {
+      await tester.pumpWidget(wrapSheet(showHandle: false));
+      expect(find.byType(PokaSheetHandle), findsNothing);
+    });
+
     testWidgets('custom padding is applied plus bottom inset', (tester) async {
       const customPadding = EdgeInsets.fromLTRB(10, 10, 10, 10);
       await tester.pumpWidget(wrapSheet(padding: customPadding, viewPadding: const EdgeInsets.only(bottom: 34)));
@@ -471,6 +478,34 @@ void main() {
       await tester.pumpAndSettle();
       // Should have dismissed if barrierDismissible true
       expect(find.text('Inside Sheet'), findsNothing);
+    });
+
+    testWidgets('barrier tap dismisses by default when persistent is omitted', (tester) async {
+      await tester.pumpWidget(
+        TranslationProvider(
+          child: MaterialApp(
+            builder: (context, c) => FTheme(data: lightTheme, child: c!),
+            home: Scaffold(
+              body: Builder(
+                builder: (context) => ElevatedButton(
+                  onPressed: () => showPokaSheet<void>(
+                    context: context,
+                    builder: (ctx) => const PokaSheet(title: 'Default Persistent', child: Text('Default Content')),
+                  ),
+                  child: const Text('Open Default'),
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+      await tester.tap(find.text('Open Default'));
+      await tester.pumpAndSettle();
+      expect(find.text('Default Content'), findsOneWidget);
+
+      await tester.tapAt(const Offset(10, 10));
+      await tester.pumpAndSettle();
+      expect(find.text('Default Content'), findsNothing);
     });
 
     testWidgets('shows sheet with both fitContent and persistent combos via direct call', (tester) async {

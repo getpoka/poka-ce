@@ -25,6 +25,7 @@ class AccountFormSheet extends HookConsumerWidget {
   static Future<void> show(BuildContext context, {AccountModel? initialAccount, String? parentAccountId}) {
     return showPokaSheet(
       context: context,
+      persistent: true,
       builder: (context) => AccountFormSheet(initialAccount: initialAccount, parentAccountId: parentAccountId),
     );
   }

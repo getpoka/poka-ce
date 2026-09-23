@@ -28,7 +28,6 @@ class TransactionSplitSheet extends ConsumerStatefulWidget {
   }) {
     return showPokaSheet<List<SplitItem>>(
       context: context,
-      persistent: false,
       isScrollControlled: true,
       maxRatio: 0.85,
       builder: (_) => TransactionSplitSheet(transactionType: transactionType, initialSplits: initialSplits),

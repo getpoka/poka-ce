@@ -51,6 +51,7 @@ class GoalFormSheet extends HookConsumerWidget {
   }) {
     return showPokaSheet(
       context: context,
+      persistent: true,
       builder: (context) => GoalFormSheet(
         initialGoal: initialGoal,
         initialName: initialName,

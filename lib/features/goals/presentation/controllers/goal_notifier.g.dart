@@ -97,7 +97,7 @@ final class GoalListStatesProvider
   }
 }
 
-String _$goalListStatesHash() => r'eea5a1f6624e353431c3d3f480a2fc8dab1b8863';
+String _$goalListStatesHash() => r'2cb3af1444405f28db25ac447f3ff369b0fa1dcd';
 
 /// Computes cumulative progress and target aggregates across all active goals.
 
@@ -138,4 +138,4 @@ final class GoalSummaryProvider extends $FunctionalProvider<GoalSummaryState, Go
   }
 }
 
-String _$goalSummaryHash() => r'0c1ac9fd2a25660c40d515e41ef31c262eaba542';
+String _$goalSummaryHash() => r'0c256ced735389a715503f7fb82691e9ca2fbce4';

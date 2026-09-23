@@ -51,6 +51,7 @@ class BudgetFormSheet extends HookConsumerWidget {
   }) {
     return showPokaSheet(
       context: context,
+      persistent: true,
       builder: (context) => BudgetFormSheet(
         initialBudget: initialBudget,
         initialName: initialName,

@@ -14,6 +14,7 @@ Future<String?> showBackupPasswordSheet(
 }) async {
   return await showPokaSheet<String>(
     context: context,
+    persistent: true,
     builder: (context) =>
         _BackupPasswordSheet(isBackup: isBackup, onValidateRestore: onValidateRestore, filePath: filePath),
   );

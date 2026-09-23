@@ -53,6 +53,7 @@ class DebtFormSheet extends HookConsumerWidget {
   }) {
     return showPokaSheet(
       context: context,
+      persistent: true,
       builder: (context) => DebtFormSheet(
         initialDebt: initialDebt,
         initialPersonName: initialPersonName,

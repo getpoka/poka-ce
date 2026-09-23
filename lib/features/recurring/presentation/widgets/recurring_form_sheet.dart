@@ -39,6 +39,7 @@ class RecurringFormSheet extends HookConsumerWidget {
   static Future<void> show(BuildContext context, {RecurringTransactionModel? initialRecurring}) {
     return showPokaSheet(
       context: context,
+      persistent: true,
       builder: (context) => RecurringFormSheet(initialRecurring: initialRecurring),
     );
   }

@@ -29,6 +29,7 @@ class CategoryFormSheet extends HookConsumerWidget {
   }) {
     return showPokaSheet(
       context: context,
+      persistent: true,
       builder: (context) => CategoryFormSheet(
         initialCategory: category,
         parentId: parentId,

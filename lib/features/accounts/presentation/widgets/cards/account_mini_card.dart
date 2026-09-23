@@ -23,7 +23,6 @@ Future<AccountCardAction?> showAccountCardActionSheet(
 }) async {
   return await showPokaSheet<AccountCardAction>(
     context: context,
-    persistent: false,
     builder: (ctx) {
       final t = ctx.t;
       final theme = ctx.theme;

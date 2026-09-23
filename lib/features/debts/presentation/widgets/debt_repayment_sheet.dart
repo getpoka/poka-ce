@@ -23,6 +23,7 @@ class DebtRepaymentSheet extends HookConsumerWidget {
   static Future<bool?> show(BuildContext context, DebtModel debt) {
     return showPokaSheet<bool>(
       context: context,
+      persistent: true,
       isScrollControlled: true,
       builder: (context) => PokaSheet(
         title: t.debts.addRepayment,

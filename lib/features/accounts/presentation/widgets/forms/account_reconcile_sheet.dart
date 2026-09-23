@@ -29,6 +29,7 @@ class AccountReconcileSheet extends HookConsumerWidget {
   static Future<void> show(BuildContext context, {required AccountModel account, required int currentBalance}) {
     return showPokaSheet(
       context: context,
+      persistent: true,
       builder: (context) => AccountReconcileSheet(account: account, currentBalance: currentBalance),
     );
   }

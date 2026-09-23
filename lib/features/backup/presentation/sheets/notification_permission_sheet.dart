@@ -9,11 +9,7 @@ import 'package:poka_ce/theme/theme.dart';
 ///
 /// Returns `true` if the user opts to allow notifications, or `false`/`null` if cancelled.
 Future<bool?> showNotificationRationaleSheet(BuildContext context) {
-  return showPokaSheet<bool>(
-    context: context,
-    persistent: false,
-    builder: (context) => const _NotificationRationaleSheet(),
-  );
+  return showPokaSheet<bool>(context: context, builder: (context) => const _NotificationRationaleSheet());
 }
 
 class _NotificationRationaleSheet extends StatelessWidget {

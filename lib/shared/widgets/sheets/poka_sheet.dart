@@ -14,8 +14,9 @@ Future<T?> showPokaSheet<T>({
   // When false, the sheet fills the full screen height unless [maxRatio] is set.
   bool fitContent = true,
   // When true, the sheet can only be closed via its close button, a save
-  // action, or the system back gesture. When false, tapping outside dismisses it.
-  bool persistent = true,
+  // action, or the system back gesture. When false (default), tapping outside
+  // (barrier) or dragging down dismisses it.
+  bool persistent = false,
   bool useRootNavigator = true,
   // Maximum height ratio of the screen (e.g. 0.85 for 85% screen height).
   double? maxRatio,
@@ -89,6 +90,7 @@ class PokaSheet extends StatelessWidget {
     this.leading,
     this.trailing,
     this.showCloseButton = true,
+    this.showHandle = true,
     this.isScrollable = true,
     this.padding = const EdgeInsets.fromLTRB(12, 0, 12, 0),
     super.key,
@@ -99,6 +101,7 @@ class PokaSheet extends StatelessWidget {
   final Widget? leading;
   final Widget? trailing;
   final bool showCloseButton;
+  final bool showHandle;
   final bool isScrollable;
   final EdgeInsetsGeometry padding;
 
@@ -119,7 +122,7 @@ class PokaSheet extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
         children: [
-          const PokaSheetHandle(),
+          if (showHandle) const PokaSheetHandle(),
           PokaSheetHeader(title: title, leading: leading, trailing: trailing, showCloseButton: showCloseButton),
           content,
         ],
