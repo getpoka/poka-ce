@@ -707,7 +707,7 @@ class DatabaseSeeder {
       'EUR': ('€', 'Euro', 2),
       'GBP': ('£', 'British Pound', 2),
       'HKD': (r'HK$', 'Hong Kong Dollar', 2),
-      'IDR': ('Rp', 'Indonesian Rupiah', 0),
+      'IDR': ('Rp', 'Indonesian Rupiah', 2),
       'JPY': ('¥', 'Japanese Yen', 0),
       'KRW': ('₩', 'South Korean Won', 0),
       'KWD': ('د.ك', 'Kuwaiti Dinar', 3),

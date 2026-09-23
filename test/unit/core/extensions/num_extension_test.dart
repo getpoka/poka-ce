@@ -82,24 +82,24 @@ void main() {
 
     test('formats visible currency with IDR', () {
       expect(0.toCurrencyFormat(symbol: 'IDR', precision: 2), 'IDR 0.00');
-      expect(1234.5.toCurrencyFormat(symbol: 'IDR', precision: 2), 'IDR 1,234.50');
-      expect(1000000.toCurrencyFormat(symbol: 'IDR', precision: 2), 'IDR 1,000,000.00');
+      expect(123450.toCurrencyFormat(symbol: 'IDR', precision: 2), 'IDR 1,234.50');
+      expect(100000000.toCurrencyFormat(symbol: 'IDR', precision: 2), 'IDR 1,000,000.00');
     });
 
     test('formats visible currency with USD', () {
-      final result = 1234.56.toCurrencyFormat(symbol: 'USD', precision: 2);
+      final result = 123456.toCurrencyFormat(symbol: 'USD', precision: 2);
       expect(result, 'USD 1,234.56');
     });
 
     test('formats negative amount when visible', () {
-      final result = (-500).toCurrencyFormat(symbol: 'IDR', precision: 2);
+      final result = (-50000).toCurrencyFormat(symbol: 'IDR', precision: 2);
       expect(result.contains('IDR'), isTrue);
       expect(result.contains('500.00'), isTrue);
     });
 
     test('formats double fractional amount', () {
-      expect(0.5.toCurrencyFormat(symbol: 'IDR', precision: 2), 'IDR 0.50');
-      expect(99.9.toCurrencyFormat(symbol: 'USD', precision: 2), 'USD 99.90');
+      expect(50.toCurrencyFormat(symbol: 'IDR', precision: 2), 'IDR 0.50');
+      expect(9990.toCurrencyFormat(symbol: 'USD', precision: 2), 'USD 99.90');
     });
   });
 }

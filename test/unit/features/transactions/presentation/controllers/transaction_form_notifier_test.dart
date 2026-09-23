@@ -435,13 +435,53 @@ void main() {
     });
 
     test('TransactionFormArgs equality and hashCode', () {
-      const a = TransactionFormArgs(initialAccountId: 'a1', initialAmount: '100');
-      const b = TransactionFormArgs(initialAccountId: 'a1', initialAmount: '100');
+      const a = TransactionFormArgs(initialAccountId: 'a1', initialAmount: '100', precision: 2);
+      const b = TransactionFormArgs(initialAccountId: 'a1', initialAmount: '100', precision: 2);
       const c = TransactionFormArgs(initialAccountId: 'a2');
+      const d = TransactionFormArgs(initialAccountId: 'a1', initialAmount: '100', precision: 0);
       expect(a, b);
       expect(a.hashCode, b.hashCode);
       expect(a == c, isFalse);
+      expect(a == d, isFalse);
       expect(a == 'not-args', isFalse);
+    });
+
+    test('save with precision converts major expression to minor units correctly', () async {
+      when(
+        () => mockCreate.execute(
+          amount: any(named: 'amount'),
+          type: any(named: 'type'),
+          accountId: any(named: 'accountId'),
+          categoryId: any(named: 'categoryId'),
+          note: any(named: 'note'),
+          transactionDate: any(named: 'transactionDate'),
+          allocation: any(named: 'allocation'),
+        ),
+      ).thenAnswer((_) async => Success(sampleTx()));
+
+      final container = createContainer();
+      const precisionArgs = TransactionFormArgs(precision: 2);
+      final n = container.read(transactionFormProvider(precisionArgs).notifier);
+      n.setAccount('a1');
+      n.setCategory('c1');
+      // "6.25" with precision 2 should be converted to 625 minor units
+      n.onKeyPressed('6');
+      n.onKeyPressed('.');
+      n.onKeyPressed('2');
+      n.onKeyPressed('5');
+      await n.save();
+
+      verify(
+        () => mockCreate.execute(
+          amount: 625,
+          type: TransactionType.expense,
+          accountId: 'a1',
+          categoryId: 'c1',
+          note: null,
+          transactionDate: any(named: 'transactionDate'),
+          allocation: null,
+        ),
+      ).called(1);
     });
   });
 

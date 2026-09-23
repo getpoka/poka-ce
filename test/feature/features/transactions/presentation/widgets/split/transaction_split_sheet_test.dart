@@ -146,7 +146,7 @@ void main() {
     });
 
     testWidgets('shows total amount and hint when 1 item', (tester) async {
-      final items = [const SplitItem(amount: 500, categoryId: 'c_exp_1', categoryName: 'Food')];
+      final items = [const SplitItem(amount: 50000, categoryId: 'c_exp_1', categoryName: 'Food')];
       await tester.pumpWidget(wrapSplitSheet(type: TransactionType.expense, initial: items));
       await tester.pumpAndSettle();
       // total badge should show (PokaAmountText inside trailing)
@@ -174,9 +174,9 @@ void main() {
 
     testWidgets('total is sum of items (fold)', (tester) async {
       final items = [
-        const SplitItem(amount: 100, categoryId: 'c_exp_1'),
-        const SplitItem(amount: 250, categoryId: 'c_exp_1'),
-        const SplitItem(amount: 50, categoryId: 'c_exp_1'),
+        const SplitItem(amount: 10000, categoryId: 'c_exp_1'),
+        const SplitItem(amount: 25000, categoryId: 'c_exp_1'),
+        const SplitItem(amount: 5000, categoryId: 'c_exp_1'),
       ];
       await tester.pumpWidget(wrapSplitSheet(type: TransactionType.income, initial: items));
       await tester.pumpAndSettle();
@@ -262,7 +262,7 @@ void main() {
     });
 
     testWidgets('initialItem with sub-category resolves parent/sub', (tester) async {
-      const item = SplitItem(amount: 500, categoryId: 'c_exp_sub', id: 'x');
+      const item = SplitItem(amount: 50000, categoryId: 'c_exp_sub', id: 'x');
       await tester.pumpWidget(wrapSplitItemForm(type: TransactionType.expense, initialItem: item));
       await tester.pumpAndSettle();
       expect(find.text('Edit Item'), findsOneWidget);
@@ -363,7 +363,7 @@ void main() {
       // amount now 100, tap Done
       await tester.tap(find.byIcon(FPhosphorIcons.check).first);
       await tester.pumpAndSettle();
-      expect(popped, '100');
+      expect(popped, '10000');
     });
 
     testWidgets('confirm with valid amount and category pops correctly', (tester) async {
@@ -408,13 +408,13 @@ void main() {
       await tester.tap(find.byIcon(FPhosphorIcons.check).first);
       await tester.pumpAndSettle();
       expect(result, isNotNull);
-      expect(result!.amount, 250);
+      expect(result!.amount, 25000);
       expect(result!.categoryId, 'c_exp_1');
       expect(result!.categoryName, 'Food');
     });
 
     testWidgets('static show method works with initialItem', (tester) async {
-      const initial = SplitItem(id: 'abc', amount: 999, categoryId: 'c_exp_1', note: 'hello');
+      const initial = SplitItem(id: 'abc', amount: 99900, categoryId: 'c_exp_1', note: 'hello');
       SplitItem? result;
       final host = ProviderScope(
         overrides: [
@@ -451,7 +451,7 @@ void main() {
       await tester.tap(find.byIcon(FPhosphorIcons.check).first);
       await tester.pumpAndSettle();
       expect(result?.id, 'abc');
-      expect(result?.amount, 999);
+      expect(result?.amount, 99900);
     });
 
     testWidgets('onAmountEvaluated updates history cleared', (tester) async {

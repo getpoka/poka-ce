@@ -15,9 +15,9 @@ extension NumExtension on num {
   String toCompactFormat({int precision = 0, bool isVisible = true}) {
     if (!isVisible) return kPrivacyMask;
     final major = this / pow(10, precision);
-    if (major >= 1000000000) return '${(major / 1000000000).toStringAsFixed(1)}B';
-    if (major >= 1000000) return '${(major / 1000000).toStringAsFixed(1)}M';
-    if (major >= 1000) return '${(major / 1000).toStringAsFixed(1)}K';
+    if (major >= 1_000_000_000) return '${(major / 1_000_000_000).toStringAsFixed(1)}B';
+    if (major >= 1_000_000) return '${(major / 1_000_000).toStringAsFixed(1)}M';
+    if (major >= 1_000) return '${(major / 1_000).toStringAsFixed(1)}K';
     return major.toStringAsFixed(0);
   }
 
@@ -43,5 +43,17 @@ extension NumExtension on num {
     );
 
     return format.format(majorValue);
+  }
+
+  /// Converts stored minor units into a human-readable major unit expression string
+  /// suitable for display in calculators or text edit fields (e.g. 800000 -> "8000", 625 -> "6.25").
+  String toMajorExpression({int precision = 0}) {
+    if (precision <= 0) return toInt().toString();
+    final factor = pow(10, precision);
+    final major = this / factor;
+    if (this % factor == 0) {
+      return major.toInt().toString();
+    }
+    return major.toString();
   }
 }
