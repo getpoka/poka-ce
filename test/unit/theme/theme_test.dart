@@ -19,23 +19,59 @@ void main() {
     });
 
     test('AppColors copyWith, lerp, equality', () {
-      const a = AppColors(
-        income: TWind.emerald600,
-        expense: TWind.red600,
-        transfer: TWind.blue500,
-        success: TWind.emerald500,
-        warning: TWind.amber500,
-      );
-      final b = a.copyWith(income: TWind.emerald500);
+      const a = AppColors(finance: _finance, surfaces: _surfaces);
+      final b = a.copyWith(finance: _finance.copyWith(income: TWind.emerald500));
       expect(b.income, TWind.emerald500);
       expect(b.expense, TWind.red600);
+      expect(b.surfaces, _surfaces);
       final c = a.copyWith();
       expect(c, a);
       expect(a.hashCode, isNotNull);
+      expect(a.lerp(null, 0.5), a);
       final lerped = a.lerp(b, 0.5);
       expect(lerped, isA<AppColors>());
       expect(a == b, isFalse);
       expect(a == a, isTrue);
+    });
+
+    test('PokaFinanceColors copyWith, lerp, equality', () {
+      final b = _finance.copyWith(expense: TWind.red400);
+      expect(b.expense, TWind.red400);
+      expect(b.income, TWind.emerald700);
+      expect(_finance.copyWith(), _finance);
+      expect(_finance.lerp(b, 0), _finance);
+      expect(_finance == b, isFalse);
+      expect(_finance.hashCode, isNotNull);
+    });
+
+    test('PokaSurfaceColors copyWith, lerp, equality', () {
+      final b = _surfaces.copyWith(raised: TWind.slate100);
+      expect(b.raised, TWind.slate100);
+      expect(b.canvas, TWind.white);
+      expect(_surfaces.copyWith(), _surfaces);
+      expect(_surfaces.lerp(b, 0), _surfaces);
+      expect(_surfaces == b, isFalse);
+      expect(_surfaces.hashCode, isNotNull);
+    });
+
+    test('surface ladder steps monotonically in both modes', () {
+      // Light: each step down the ladder is no darker than the one above it.
+      expect(_luminance(lightColors.app.surfaces.sunken), lessThan(_luminance(lightColors.app.surfaces.canvas)));
+      // Dark: sunken < canvas < raised < overlay < input.
+      final dark = darkColors.app.surfaces;
+      expect(_luminance(dark.sunken), lessThan(_luminance(dark.canvas)));
+      expect(_luminance(dark.canvas), lessThan(_luminance(dark.raised)));
+      expect(_luminance(dark.raised), lessThan(_luminance(dark.overlay)));
+      expect(_luminance(dark.overlay), lessThan(_luminance(dark.input)));
+    });
+
+    test('dark base tones match the specified Better Stack palette', () {
+      expect(darkColors.background, const Color(0xFF0B0C14));
+      expect(darkColors.card, const Color(0xFF12131C));
+    });
+
+    test('light primary is unchanged', () {
+      expect(lightColors.primary, PokaColors.brand500);
     });
 
     test('AppStyle copyWith, lerp, equality', () {
@@ -54,9 +90,11 @@ void main() {
     });
 
     test('FColors extensions', () {
-      expect(lightColors.app.income, TWind.emerald600);
+      expect(lightColors.app.income, TWind.emerald700);
+      expect(lightColors.app.finance.incomeFill, TWind.emerald600);
       expect(darkColors.app.income, TWind.emerald400);
       expect(lightColors.app.transfer, TWind.indigo600);
+      expect(darkColors.app.transfer, PokaColors.brand300);
     });
 
     test('AppStyle spacing scale getters', () {
