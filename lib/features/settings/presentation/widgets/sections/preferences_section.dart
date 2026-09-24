@@ -42,9 +42,13 @@ class PreferencesSection extends ConsumerWidget {
         ),
         SettingsMenuItem(
           title: context.t.settings.language,
-          subtitle: currentLanguage == 'system'
-              ? context.t.settings.system
-              : (currentLanguage == 'id' ? context.t.settings.indonesia : context.t.settings.english),
+          subtitle: switch (currentLanguage) {
+            'id' => context.t.settings.indonesia,
+            'ms' => context.t.settings.malay,
+            'vi' => context.t.settings.vietnam,
+            'en' => context.t.settings.english,
+            _ => context.t.settings.system,
+          },
           icon: FPhosphorIcons.translate,
           onTap: () async {
             final selected = await showLanguagePickerSheet(context, currentLanguage);

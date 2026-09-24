@@ -1,0 +1,19 @@
+{
+  "confirmPin": "Sahkan PIN",
+  "createPin": "Buat PIN",
+  "pinsDoNotMatch": "PIN tidak sepadan",
+  "reenterPin": "Masukkan semula PIN",
+  "enterPinAppLock": "Masukkan PIN untuk Kunci Aplikasi",
+  "incorrectPin": "PIN salah",
+  "verifyIdentity": "Sahkan Identiti",
+  "retryInSeconds": "Cuba lagi dalam {{seconds}} saat",
+  "setupPinTitle": "Tetapkan PIN",
+  "setupPinBody": "Sila cipta PIN terlebih dahulu sebelum mendayakan Kunci Aplikasi atau Biometrik.",
+  "unlocked": "Dibuka",
+  "enter6DigitPin": "Masukkan PIN 6-digit",
+  "enterPin": "Masukkan PIN",
+  "invalidPin": "PIN tidak sah",
+  "tooManyAttempts": "Terlalu banyak cubaan",
+  "temporarilyLocked": "Disekat sementara",
+  "authenticateReason": "Sahkan untuk mengakses Poka"
+}

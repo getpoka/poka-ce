@@ -3,10 +3,10 @@
 /// Source: lib/i18n
 /// To regenerate, run: `dart run slang`
 ///
-/// Locales: 2
-/// Strings: 1323 (661 per locale)
+/// Locales: 4
+/// Strings: 2655 (663 per locale)
 ///
-/// Built on 2026-09-24 at 06:22 UTC
+/// Built on 2026-09-24 at 06:27 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
@@ -19,6 +19,8 @@ import 'package:slang_flutter/slang_flutter.dart';
 export 'package:slang_flutter/slang_flutter.dart';
 
 import 'strings_id.g.dart' deferred as l_id;
+import 'strings_ms.g.dart' deferred as l_ms;
+import 'strings_vi.g.dart' deferred as l_vi;
 part 'strings_en.g.dart';
 
 /// Supported locales.
@@ -29,7 +31,9 @@ part 'strings_en.g.dart';
 /// - if (LocaleSettings.currentLocale == AppLocale.en) // locale check
 enum AppLocale with BaseAppLocale<AppLocale, Translations> {
 	en(languageCode: 'en'),
-	id(languageCode: 'id');
+	id(languageCode: 'id'),
+	ms(languageCode: 'ms'),
+	vi(languageCode: 'vi');
 
 	const AppLocale({
 		required this.languageCode,
@@ -61,6 +65,20 @@ enum AppLocale with BaseAppLocale<AppLocale, Translations> {
 					cardinalResolver: cardinalResolver,
 					ordinalResolver: ordinalResolver,
 				);
+			case AppLocale.ms:
+				await l_ms.loadLibrary();
+				return l_ms.TranslationsMs(
+					overrides: overrides,
+					cardinalResolver: cardinalResolver,
+					ordinalResolver: ordinalResolver,
+				);
+			case AppLocale.vi:
+				await l_vi.loadLibrary();
+				return l_vi.TranslationsVi(
+					overrides: overrides,
+					cardinalResolver: cardinalResolver,
+					ordinalResolver: ordinalResolver,
+				);
 		}
 	}
 
@@ -79,6 +97,18 @@ enum AppLocale with BaseAppLocale<AppLocale, Translations> {
 				);
 			case AppLocale.id:
 				return l_id.TranslationsId(
+					overrides: overrides,
+					cardinalResolver: cardinalResolver,
+					ordinalResolver: ordinalResolver,
+				);
+			case AppLocale.ms:
+				return l_ms.TranslationsMs(
+					overrides: overrides,
+					cardinalResolver: cardinalResolver,
+					ordinalResolver: ordinalResolver,
+				);
+			case AppLocale.vi:
+				return l_vi.TranslationsVi(
 					overrides: overrides,
 					cardinalResolver: cardinalResolver,
 					ordinalResolver: ordinalResolver,

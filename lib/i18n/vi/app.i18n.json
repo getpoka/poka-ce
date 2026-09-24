@@ -1,0 +1,13 @@
+{
+  "name": "Poka",
+  "tagline": "Người bạn đồng hành tài chính của bạn",
+  "nav": {
+    "home": "Trang chủ",
+    "transactions": "Giao dịch",
+    "reports": "Báo cáo",
+    "accounts": "Tài khoản",
+    "settings": "Cài đặt"
+  },
+  "termsOfService": "Điều khoản sử dụng",
+  "privacyPolicy": "Chính sách riêng tư"
+}

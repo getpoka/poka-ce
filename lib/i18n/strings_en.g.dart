@@ -1703,6 +1703,12 @@ class Translations$settings$en {
 	/// en: 'Indonesia'
 	String get indonesia => 'Indonesia';
 
+	/// en: 'Bahasa Melayu'
+	String get malay => 'Bahasa Melayu';
+
+	/// en: 'Tiếng Việt'
+	String get vietnam => 'Tiếng Việt';
+
 	/// en: 'Security'
 	String get security => 'Security';
 
@@ -2750,6 +2756,8 @@ extension on Translations {
 			'settings.system' => 'System',
 			'settings.english' => 'English',
 			'settings.indonesia' => 'Indonesia',
+			'settings.malay' => 'Bahasa Melayu',
+			'settings.vietnam' => 'Tiếng Việt',
 			'settings.security' => 'Security',
 			'settings.appLock' => 'App Lock',
 			'settings.appLockDesc' => 'Protect app with PIN',

@@ -1,0 +1,22 @@
+{
+  "save": "Simpan",
+  "cancel": "Batal",
+  "delete": "Padam",
+  "edit": "Edit",
+  "confirm": "Sahkan",
+  "back": "Kembali",
+  "loading": "Memuatkan...",
+  "error": "Berlaku ralat",
+  "retry": "Cuba lagi",
+  "empty": "Belum ada data",
+  "cannotBeUndone": "Tindakan ini tidak boleh diundurkan.",
+  "pleaseWait": "Sila tunggu",
+  "today": "Hari ini",
+  "yesterday": "Semalam",
+  "dueToday": "Perlu hari ini",
+  "overdue": "Tertunggak",
+  "uncategorized": "Tanpa Kategori",
+  "unknown": "Tidak diketahui",
+  "notSet": "Belum Ditetapkan",
+  "undo": "Buat Asal"
+}
