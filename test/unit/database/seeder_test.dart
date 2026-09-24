@@ -64,7 +64,7 @@ void main() {
 
     test('seed also creates currencies, budgets, goals, debts, transactions', () async {
       await DatabaseSeeder.seed(db, overrideSeedDummyData: true);
-      expect((await db.select(db.currencies).get()).length, greaterThanOrEqualTo(26));
+      expect((await db.select(db.currencies).get()).length, greaterThanOrEqualTo(32));
       expect((await db.select(db.budgets).get()).length, 4);
       expect((await db.select(db.goals).get()).length, 3);
       expect((await db.select(db.debts).get()).length, 4);
@@ -82,7 +82,7 @@ void main() {
         expect(await cleanDb.select(cleanDb.categories).get(), isEmpty);
         expect(await cleanDb.select(cleanDb.transactions).get(), isEmpty);
         expect(await cleanDb.select(cleanDb.budgets).get(), isEmpty);
-        expect((await cleanDb.select(cleanDb.currencies).get()).length, greaterThanOrEqualTo(26));
+        expect((await cleanDb.select(cleanDb.currencies).get()).length, greaterThanOrEqualTo(32));
         expect(await cleanDb.select(cleanDb.settings).get(), isNotEmpty);
       } finally {
         await cleanDb.close();
