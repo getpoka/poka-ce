@@ -32,7 +32,7 @@ uninstall:
 # Code Generation
 # ==========================================
 
-#[Run build_runner and slang to generate code (Riverpod, Freezed, Drift, Slang)]
+#[Run build_runner and slang to generate code]
 generate:
     rm -f lib/i18n/*.g.dart lib/_slang_temp.json
     dart run build_runner build

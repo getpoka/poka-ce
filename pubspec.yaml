@@ -87,7 +87,7 @@ dev_dependencies:
 
   # Build Utilities
   flutter_launcher_icons: ^0.14.4
-  flutter_native_splash: ^2.4.1
+  flutter_native_splash: ^2.4.4
 
   # Testing
   mocktail: ^1.0.5
@@ -98,7 +98,9 @@ flutter:
 
   assets:
     - lib/i18n/
-    - assets/images/
+    - assets/images/logo.png
+    - assets/images/splash.png
+    - assets/images/hasbullah.gif
     - assets/data/
     - assets/fonts/
 
@@ -109,3 +111,23 @@ flutter:
     - family: PlusJakartaSans
       fonts:
         - asset: assets/fonts/PlusJakartaSans-Regular.ttf
+
+flutter_launcher_icons:
+  android: true
+  ios: false
+  image_path: "assets/images/launcher.png"
+  min_sdk_android: 21
+
+flutter_native_splash:
+  color: "#ffffff"
+  color_dark: "#0f172a"
+  image: assets/images/splash.png
+  image_dark: assets/images/splash.png
+  android: true
+  ios: false
+
+  android_12:
+    image: assets/images/splash.png
+    image_dark: assets/images/splash.png
+    color: "#ffffff"
+    color_dark: "#0f172a"
