@@ -82,9 +82,7 @@ class DashboardAnalyticsCarousel extends HookConsumerWidget {
         decoration: BoxDecoration(
           color: isActive
               ? theme.colors.primary
-              : (theme.colors.brightness == Brightness.light
-                    ? theme.colors.secondary
-                    : theme.colors.muted.withValues(alpha: 0.4)),
+              : (theme.colors.brightness == Brightness.light ? theme.colors.secondary : theme.colors.muted),
           borderRadius: BorderRadius.circular(20),
         ),
         child: Text(

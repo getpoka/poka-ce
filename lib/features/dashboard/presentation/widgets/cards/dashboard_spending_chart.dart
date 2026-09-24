@@ -200,9 +200,7 @@ class DashboardSpendingChart extends HookConsumerWidget {
           width: 28,
           height: 60,
           decoration: BoxDecoration(
-            color: theme.colors.brightness == Brightness.light
-                ? theme.colors.secondary
-                : theme.colors.muted.withValues(alpha: 0.4),
+            color: theme.colors.brightness == Brightness.light ? theme.colors.secondary : theme.colors.muted,
             borderRadius: BorderRadius.circular(6),
           ),
           alignment: Alignment.bottomCenter,

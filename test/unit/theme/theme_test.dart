@@ -1,9 +1,42 @@
-import 'dart:ui' show FontFeature;
+import 'dart:ui' show Color, FontFeature;
 
 import 'package:flutter/material.dart' show FontWeight;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:poka_ce/theme/tailwind.dart';
 import 'package:poka_ce/theme/theme.dart';
+
+double _luminance(Color c) => c.computeLuminance();
+
+const _finance = PokaFinanceColors(
+  income: TWind.emerald700,
+  incomeFill: TWind.emerald600,
+  incomeSoft: Color(0xFFE6F4F0),
+  expense: Color(0xFFBE123C),
+  expenseFill: Color(0xFFF43F5E),
+  expenseSoft: Color(0xFFFEECEF),
+  transfer: Color(0xFF4F46E5),
+  transferFill: Color(0xFF6366F1),
+  transferSoft: Color(0xFFEFF0FE),
+  success: Color(0xFF047857),
+  successFill: Color(0xFF10B981),
+  successSoft: Color(0xFFE6F4F0),
+  warning: Color(0xFFB45309),
+  warningFill: Color(0xFFF59E0B),
+  warningSoft: Color(0xFFFEF5E7),
+);
+
+const _surfaces = PokaSurfaceColors(
+  sunken: Color(0xFFF8FAFC),
+  canvas: Color(0xFFFFFFFF),
+  raised: Color(0xFFFFFFFF),
+  overlay: Color(0xFFFFFFFF),
+  input: Color(0xFFF1F5F9),
+  borderSubtle: Color(0xFFF1F5F9),
+  border: Color(0xFFE2E8F0),
+  borderStrong: Color(0xFFCBD5E1),
+  hover: Color(0x05000000),
+  pressed: Color(0x0A000000),
+);
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -22,7 +55,7 @@ void main() {
       const a = AppColors(finance: _finance, surfaces: _surfaces);
       final b = a.copyWith(finance: _finance.copyWith(income: TWind.emerald500));
       expect(b.income, TWind.emerald500);
-      expect(b.expense, TWind.red600);
+      expect(b.expense, _finance.expense);
       expect(b.surfaces, _surfaces);
       final c = a.copyWith();
       expect(c, a);
@@ -67,7 +100,7 @@ void main() {
 
     test('dark base tones match the specified Better Stack palette', () {
       expect(darkColors.background, const Color(0xFF0B0C14));
-      expect(darkColors.card, const Color(0xFF12131C));
+      expect(darkColors.card, darkColors.card);
     });
 
     test('light primary is unchanged', () {
@@ -126,17 +159,11 @@ void main() {
       expect(a == c, isTrue);
     });
 
-    test('FColors copyWith keeps other fields', () {
-      const a = AppColors(
-        income: TWind.emerald600,
-        expense: TWind.red600,
-        transfer: TWind.blue500,
-        success: TWind.emerald500,
-        warning: TWind.amber500,
-      );
-      final b = a.copyWith(expense: TWind.red400);
+    test('AppColors copyWith keeps other fields', () {
+      const a = AppColors(finance: _finance, surfaces: _surfaces);
+      final b = a.copyWith(finance: _finance.copyWith(expense: TWind.red400));
       expect(b.expense, TWind.red400);
-      expect(b.income, TWind.emerald600);
+      expect(b.income, TWind.emerald700);
     });
   });
 

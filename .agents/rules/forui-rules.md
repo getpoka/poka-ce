@@ -25,6 +25,10 @@ trigger: always_on
   semi-transparent overlay is sufficient; adding a border on a gradient creates visual noise.
 - Do NOT override `hasBorder` unless there is a specific design reason. The default is now `false` (borderless) for a
   cleaner UI, but you can enable it when a subtle accent-colored border is needed on flat/card backgrounds.
+- **Dynamic Alpha Boost**: `PokaIcon` automatically adapts its opacity to maintain vibrance across theme modes:
+  - **Light mode**: background `alpha: 0.15`, border `alpha: 0.25` (produces a soft pastel aesthetic on white canvas).
+  - **Dark mode**: background boosted to `alpha: 0.28`, border `alpha: 0.35` (prevents brand purple `#5560D6` and category accents from collapsing into dull charcoal against the `#0B0C14` dark canvas).
+  - Never manually wrap icons in custom containers with hardcoded alpha; always use `PokaIcon`.
 
 ## ForUI Style Customization
 
@@ -89,7 +93,7 @@ For pill rows *inside* a card (e.g., dashboard analytics tab pills, report perio
 | Mode       | Inactive pill background                        |
 |------------|-------------------------------------------------|
 | Light mode | `theme.colors.secondary`                        |
-| Dark mode  | `theme.colors.muted.withValues(alpha: 0.4)`     |
+| Dark mode  | `theme.colors.card`                             |
 
 ## Donut Chart Center Space
 

@@ -63,15 +63,16 @@ class PokaIcon extends StatelessWidget {
         iconSize = 32;
     }
 
-    // Background alpha
-    final bgColor = effectiveColor.withValues(alpha: 0.15);
+    // Background alpha (boosted in dark mode so the purple brand color stays vibrant)
+    final isDark = theme.colors.brightness == Brightness.dark;
+    final bgColor = effectiveColor.withValues(alpha: isDark ? 0.28 : 0.15);
 
     // Border color logic
     Color borderColor;
     if (useThemeBorderColor) {
       borderColor = theme.colors.border;
     } else {
-      borderColor = effectiveColor.withValues(alpha: 0.25);
+      borderColor = effectiveColor.withValues(alpha: isDark ? 0.35 : 0.25);
     }
 
     return Container(

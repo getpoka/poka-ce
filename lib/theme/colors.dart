@@ -503,11 +503,10 @@ final FColors darkColors = FColors(
   background: _darkSurfaces.canvas,
   // Cool off-white — 15.94:1 on the base. Pure white would bloom on this tone.
   foreground: const Color(0xFFE6E8F0),
-  // Desaturated lift of the brand (S 61%→51%, L 59%→67%): 6.02:1 on the base without the glare
-  // #5560D6 produces here — that value only reached 3.74:1 and failed AA as text.
-  primary: PokaColors.brand300,
-  // Near-black on the lifted primary — 6.02:1. White would only reach 3.24:1.
-  primaryForeground: const Color(0xFF0B0C14),
+  // Set to match light mode primary (#5560D6).
+  primary: PokaColors.brand500,
+  // White on #5560D6 — 5.21:1, WCAG AA.
+  primaryForeground: const Color(0xFFFFFFFF),
   secondary: _darkSurfaces.input,
   // 11.75:1 on the secondary surface.
   secondaryForeground: const Color(0xFFD5D8E4),
@@ -521,7 +520,7 @@ final FColors darkColors = FColors(
   // #F87171 is 7.05:1 on the base where red-600 would be 4.04:1.
   error: const Color(0xFFF87171),
   errorForeground: const Color(0xFF0B0C14),
-  card: _darkSurfaces.raised,
+  card: _darkSurfaces.canvas,
   border: _darkSurfaces.border,
   extensions: const [AppColors(finance: _darkFinance, surfaces: _darkSurfaces)],
 );
@@ -581,10 +580,7 @@ class AppColors extends ThemeExtension<AppColors> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is AppColors &&
-          runtimeType == other.runtimeType &&
-          finance == other.finance &&
-          surfaces == other.surfaces;
+      other is AppColors && runtimeType == other.runtimeType && finance == other.finance && surfaces == other.surfaces;
 
   @override
   int get hashCode => Object.hash(runtimeType, finance, surfaces);

@@ -69,27 +69,33 @@ extension FStyleExtensions on FStyle {
 /// ```
 extension PokaDecorations on FThemeData {
   /// Level 1 — standard card: transaction row, balance widget, summary report block.
-  ShapeDecoration get cardDecoration => _surface(colors.app.surfaces.raised, colors.app.surfaces.border, _borderRadius.lg);
+  ShapeDecoration get cardDecoration =>
+      _surface(colors.app.surfaces.raised, colors.app.surfaces.border, _borderRadius.lg);
 
   /// Level 1 emphasised — selected or focused card.
   ShapeDecoration get selectedCardDecoration =>
       _surface(colors.app.surfaces.raised, colors.app.surfaces.borderStrong, _borderRadius.lg);
 
   /// Level 0 — recessed well: grouped-list backdrop, chart plot area, empty state.
-  ShapeDecoration get sunkenDecoration => _surface(colors.app.surfaces.sunken, colors.app.surfaces.borderSubtle, _borderRadius.lg);
+  ShapeDecoration get sunkenDecoration =>
+      _surface(colors.app.surfaces.sunken, colors.app.surfaces.borderSubtle, _borderRadius.lg);
 
   /// Level 2 — modal plane: dialogs and popovers.
-  ShapeDecoration get overlayDecoration => _surface(colors.app.surfaces.overlay, colors.app.surfaces.borderStrong, _borderRadius.xl);
+  ShapeDecoration get overlayDecoration =>
+      _surface(colors.app.surfaces.overlay, colors.app.surfaces.borderStrong, _borderRadius.xl);
 
   /// Level 2 — bottom sheet, rounded on the top edge only.
   BoxDecoration get sheetDecoration => BoxDecoration(
     color: colors.app.surfaces.overlay,
-    border: Border(top: BorderSide(color: colors.app.surfaces.borderStrong, width: style.borderWidth)),
+    border: Border(
+      top: BorderSide(color: colors.app.surfaces.borderStrong, width: style.borderWidth),
+    ),
     borderRadius: const .vertical(top: .circular(24)),
   );
 
   /// Filled form control — text field, select, keypad key.
-  ShapeDecoration get fieldDecoration => _surface(colors.app.surfaces.input, colors.app.surfaces.border, _borderRadius.md);
+  ShapeDecoration get fieldDecoration =>
+      _surface(colors.app.surfaces.input, colors.app.surfaces.border, _borderRadius.md);
 
   /// Tinted chip for a semantic value, e.g. `theme.chipDecoration(theme.colors.app.finance.incomeSoft)`.
   ShapeDecoration chipDecoration(Color tint) => ShapeDecoration(
