@@ -1,0 +1,15 @@
+{
+  "authRequired": "Pengesahan Diperlukan",
+  "hexColorCode": "Kod Warna Hex",
+  "apply": "Guna",
+  "enterAmount": "Masukkan Jumlah",
+  "selectCategory": "Pilih Kategori",
+  "egFf5733": "cth., FF5733",
+  "amount": "Jumlah",
+  "noCategoriesAvailable": "Tiada kategori tersedia.",
+  "noWalletsFoundPleaseCreateOneFirst": "Tiada dompet ditemui. Sila cipta satu dahulu.",
+  "balance": "Baki: ",
+  "optional": "Pilihan",
+  "customColor": "Warna Tersuai",
+  "selectWallet": "Pilih Dompet"
+}

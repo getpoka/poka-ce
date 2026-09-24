@@ -1,0 +1,22 @@
+{
+  "save": "Lưu",
+  "cancel": "Hủy",
+  "delete": "Xóa",
+  "edit": "Sửa",
+  "confirm": "Xác nhận",
+  "back": "Quay lại",
+  "loading": "Đang tải...",
+  "error": "Đã xảy ra lỗi",
+  "retry": "Thử lại",
+  "empty": "Chưa có dữ liệu",
+  "cannotBeUndone": "Hành động này không thể hoàn tác.",
+  "pleaseWait": "Vui lòng chờ",
+  "today": "Hôm nay",
+  "yesterday": "Hôm qua",
+  "dueToday": "Đến hạn hôm nay",
+  "overdue": "Quá hạn",
+  "uncategorized": "Chưa phân loại",
+  "unknown": "Không rõ",
+  "notSet": "Chưa đặt",
+  "undo": "Hoàn tác"
+}

@@ -1,0 +1,15 @@
+{
+  "authRequired": "Yêu cầu xác thực",
+  "hexColorCode": "Mã màu Hex",
+  "apply": "Áp dụng",
+  "enterAmount": "Nhập số tiền",
+  "selectCategory": "Chọn danh mục",
+  "egFf5733": "ví dụ: FF5733",
+  "amount": "Số tiền",
+  "noCategoriesAvailable": "Không có danh mục nào.",
+  "noWalletsFoundPleaseCreateOneFirst": "Không tìm thấy ví nào. Vui lòng tạo ví trước.",
+  "balance": "Số dư: ",
+  "optional": "Tùy chọn",
+  "customColor": "Màu tùy chỉnh",
+  "selectWallet": "Chọn ví"
+}
