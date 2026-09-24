@@ -38,10 +38,13 @@ void main() {
     required List<TransactionModel> transactions,
     bool isMultiCurrency = false,
     required ITransactionRepository txRepo,
+    LockedCurrencyTapHandler? lockedCurrencyTapHandler,
   }) {
     return ProviderScope(
       overrides: [
         isMultiCurrencyProvider.overrideWithValue(isMultiCurrency),
+        if (lockedCurrencyTapHandler != null)
+          lockedCurrencyTapHandlerProvider.overrideWithValue(lockedCurrencyTapHandler),
         recentTransactionsStreamProvider.overrideWith((ref) => Stream.value(transactions)),
         transactionRepositoryProvider.overrideWithValue(txRepo),
         settingsProvider.overrideWith(
@@ -110,5 +113,49 @@ void main() {
     );
 
     await tester.pump(const Duration(seconds: 5));
+  });
+
+  testWidgets('PreferencesSection invokes lockedCurrencyTapHandler when locked and tapped', (tester) async {
+    final mockRepo = MockTransactionRepository();
+    final sampleTx = TransactionModel(
+      id: 'tx-1',
+      accountId: 'acc-1',
+      type: TransactionType.expense,
+      amount: 1000,
+      transactionDate: DateTime.now(),
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+    );
+    when(() => mockRepo.getTransactions()).thenAnswer((_) async => Success([sampleTx]));
+
+    bool customHandlerCalled = false;
+    await tester.pumpWidget(
+      createWidget(
+        transactions: [sampleTx],
+        txRepo: mockRepo,
+        lockedCurrencyTapHandler: (context) {
+          customHandlerCalled = true;
+        },
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    // Verify lock icon is rendered
+    expect(find.byIcon(FPhosphorIcons.lock), findsOneWidget);
+
+    // Tap on currency setting
+    await tester.tap(find.text('Base Currency'));
+    await tester.pump();
+
+    // Verify custom handler is called instead of toast
+    expect(customHandlerCalled, isTrue);
+    expect(
+      find.text(
+        'Currency cannot be changed after transactions are recorded. Please reset data if you wish to change it.',
+      ),
+      findsNothing,
+    );
+
+    await tester.pump(const Duration(milliseconds: 100));
   });
 }

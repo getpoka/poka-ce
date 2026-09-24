@@ -79,6 +79,11 @@ class PreferencesSection extends ConsumerWidget {
 
             if (locked) {
               if (!context.mounted) return;
+              final onLockedTap = ref.read(lockedCurrencyTapHandlerProvider);
+              if (onLockedTap != null) {
+                await onLockedTap(context);
+                return;
+              }
               showPokaToast(
                 context: context,
                 title: Text(context.t.settings.currencyLockedToast),

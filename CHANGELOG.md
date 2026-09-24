@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- [internal] Added `lockedCurrencyTapHandlerProvider` to allow downstream packages to handle locked currency taps with custom action or upgrade prompt.
+
 ## [v1.1.7] - 2026-09-24
 
 ### Added
