@@ -23,8 +23,7 @@ typedef BudgetFormSheetBuilder = Future<void> Function(
 
 /// Provides an optional [BudgetFormSheetBuilder] override for the budget form.
 ///
-/// In CE, returns `null` — callers fall back to the default BudgetFormSheet.show.
-/// Poka PE overrides this in the root ProviderScope to inject
-/// PeBudgetFormSheet.show, which adds a currency selector.
+/// Returns `null` by default — callers fall back to the default [BudgetFormSheet.show].
+/// Can be overridden in the root ProviderScope to inject a custom form sheet.
 @riverpod
 BudgetFormSheetBuilder? budgetFormSheetBuilder(Ref ref) => null;

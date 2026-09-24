@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poka_ce/app/providers/multi_currency_provider.dart';
 import 'package:poka_ce/app/providers/repository_providers.dart';
@@ -14,7 +13,7 @@ import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/poka_toast.dart';
 import 'package:poka_ce/theme/theme.dart';
 
-class PreferencesSection extends HookConsumerWidget {
+class PreferencesSection extends ConsumerWidget {
   const new({super.key});
 
   @override
@@ -26,17 +25,8 @@ class PreferencesSection extends HookConsumerWidget {
     final currentLanguage = settingsState.settings?.language ?? 'system';
     final currentNumberFormat = settingsState.settings?.numberFormat ?? 'system';
 
-    final hasTransactionsAsync = useFuture(
-      useMemoized(() async {
-        final txResult = await ref.read(transactionRepositoryProvider).getTransactions();
-        var has = false;
-        txResult.fold((txs) {
-          if (txs.isNotEmpty) has = true;
-        }, (f) {});
-        return has;
-      }),
-    );
-    final hasTransactions = hasTransactionsAsync.data ?? false;
+    final transactionsAsync = ref.watch(recentTransactionsStreamProvider);
+    final hasTransactions = transactionsAsync.value?.isNotEmpty ?? false;
     final isCurrencyLocked = !isMultiCurrency && hasTransactions;
 
     return SettingsMenuSection(
@@ -76,9 +66,19 @@ class PreferencesSection extends HookConsumerWidget {
           title: context.t.settings.baseCurrency,
           subtitle: currentCurrency,
           icon: FPhosphorIcons.currencyDollar,
+          enabled: !isCurrencyLocked,
           trailing: isCurrencyLocked ? Icon(FPhosphorIcons.lock, color: context.theme.colors.mutedForeground) : null,
           onTap: () async {
-            if (isCurrencyLocked) {
+            var locked = isCurrencyLocked;
+            if (!locked && !isMultiCurrency) {
+              final txResult = await ref.read(transactionRepositoryProvider).getTransactions();
+              txResult.fold((txs) {
+                if (txs.isNotEmpty) locked = true;
+              }, (_) {});
+            }
+
+            if (locked) {
+              if (!context.mounted) return;
               showPokaToast(
                 context: context,
                 title: Text(context.t.settings.currencyLockedToast),

@@ -19,8 +19,7 @@ typedef RecurringFormSheetBuilder = Future<void> Function(
 
 /// Provides an optional [RecurringFormSheetBuilder] override for the recurring form.
 ///
-/// In CE, returns `null` — callers fall back to the default RecurringFormSheet.show.
-/// Poka PE overrides this in the root ProviderScope to inject
-/// PeRecurringFormSheet.show, which adds a currency selector.
+/// Returns `null` by default — callers fall back to the default [RecurringFormSheet.show].
+/// Can be overridden in the root ProviderScope to inject a custom form sheet.
 @riverpod
 RecurringFormSheetBuilder? recurringFormSheetBuilder(Ref ref) => null;
