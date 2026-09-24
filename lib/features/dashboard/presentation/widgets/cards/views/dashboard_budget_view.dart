@@ -5,7 +5,6 @@ import 'package:poka_ce/core/extensions/num_extension.dart';
 import 'package:poka_ce/features/dashboard/presentation/controllers/balance_visibility_provider.dart';
 import 'package:poka_ce/features/dashboard/presentation/controllers/dashboard_notifier.dart';
 import 'package:poka_ce/features/dashboard/presentation/widgets/cards/views/carousel_shared.dart';
-import 'package:poka_ce/features/settings/presentation/controllers/settings_notifier.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/poka_donut_chart.dart';
 import 'package:poka_ce/theme/theme.dart';
@@ -20,7 +19,6 @@ class DashboardBudgetView extends ConsumerWidget {
     final theme = context.theme;
     final state = ref.watch(dashboardProvider);
     final isBalanceVisible = ref.watch(balanceVisibilityProvider);
-    final precision = ref.watch(settingsProvider).settings?.baseCurrency?.precision ?? 0;
     final allocs = state.budgetAllocations;
 
     final needAmt = allocs[TransactionAllocation.need] ?? 0;
@@ -46,7 +44,7 @@ class DashboardBudgetView extends ConsumerWidget {
                 buildCategoryStatRow(
                   context,
                   context.t.dashboard.needs,
-                  needAmt.toCompactFormat(precision: precision, isVisible: isBalanceVisible),
+                  needAmt.toCompactFormat(isVisible: isBalanceVisible),
                   theme.colors.primary,
                   needAmt / total,
                 ),
@@ -54,7 +52,7 @@ class DashboardBudgetView extends ConsumerWidget {
                 buildCategoryStatRow(
                   context,
                   context.t.dashboard.wants,
-                  wantAmt.toCompactFormat(precision: precision, isVisible: isBalanceVisible),
+                  wantAmt.toCompactFormat(isVisible: isBalanceVisible),
                   theme.colors.app.warning,
                   wantAmt / total,
                 ),
@@ -62,7 +60,7 @@ class DashboardBudgetView extends ConsumerWidget {
                 buildCategoryStatRow(
                   context,
                   context.t.dashboard.savings,
-                  saveAmt.toCompactFormat(precision: precision, isVisible: isBalanceVisible),
+                  saveAmt.toCompactFormat(isVisible: isBalanceVisible),
                   theme.colors.border,
                   saveAmt / total,
                 ),

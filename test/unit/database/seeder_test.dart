@@ -30,7 +30,7 @@ void main() {
       );
       expect(accounts.where((a) => a.type == AccountType.assets).length, 5);
       expect(accounts.where((a) => a.type == AccountType.goal).length, 3);
-      expect(accounts.firstWhere((a) => a.name == 'Cash').balance, 75_000_000); // Rp 750.000,00 in IDR minor units (precision 2)
+      expect(accounts.firstWhere((a) => a.name == 'Cash').balance, 750_000); // Rp 750.000 (IDR precision=0)
 
       final categories = await db.select(db.categories).get();
       expect(categories.length, 62);

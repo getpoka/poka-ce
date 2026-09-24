@@ -3,7 +3,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poka_ce/core/extensions/num_extension.dart';
 import 'package:poka_ce/features/dashboard/presentation/controllers/balance_visibility_provider.dart';
 import 'package:poka_ce/features/dashboard/presentation/controllers/dashboard_notifier.dart';
-import 'package:poka_ce/features/settings/presentation/controllers/settings_notifier.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/theme/theme.dart';
 
@@ -17,7 +16,6 @@ class DashboardCashFlowView extends ConsumerWidget {
     final theme = context.theme;
     final state = ref.watch(dashboardProvider);
     final isVisible = ref.watch(balanceVisibilityProvider);
-    final precision = ref.watch(settingsProvider).settings?.baseCurrency?.precision ?? 0;
 
     final income = state.totalIncome;
     final expense = state.totalExpense;
@@ -66,7 +64,7 @@ class DashboardCashFlowView extends ConsumerWidget {
               _buildStatRow(
                 context,
                 context.t.dashboard.income,
-                income.toCompactFormat(precision: precision, isVisible: isVisible),
+                income.toCompactFormat(isVisible: isVisible),
                 theme.colors.app.income,
                 FPhosphorIcons.arrowDownLeft,
               ),
@@ -74,7 +72,7 @@ class DashboardCashFlowView extends ConsumerWidget {
               _buildStatRow(
                 context,
                 context.t.dashboard.expense,
-                expense.toCompactFormat(precision: precision, isVisible: isVisible),
+                expense.toCompactFormat(isVisible: isVisible),
                 theme.colors.app.expense,
                 FPhosphorIcons.arrowUpRight,
               ),

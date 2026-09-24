@@ -5,7 +5,6 @@ import 'package:poka_ce/core/extensions/string_extension.dart';
 import 'package:poka_ce/features/dashboard/presentation/controllers/balance_visibility_provider.dart';
 import 'package:poka_ce/features/dashboard/presentation/controllers/dashboard_notifier.dart';
 import 'package:poka_ce/features/dashboard/presentation/widgets/cards/views/carousel_shared.dart';
-import 'package:poka_ce/features/settings/presentation/controllers/settings_notifier.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/poka_donut_chart.dart';
 import 'package:poka_ce/theme/theme.dart';
@@ -20,7 +19,6 @@ class DashboardCategoriesView extends ConsumerWidget {
     final theme = context.theme;
     final state = ref.watch(dashboardProvider);
     final isBalanceVisible = ref.watch(balanceVisibilityProvider);
-    final precision = ref.watch(settingsProvider).settings?.baseCurrency?.precision ?? 0;
     final totalExpense = state.totalExpense > 0 ? state.totalExpense : 1.0;
 
     final sortedExpenses = List.of(state.categoryExpenses)..sort((a, b) => b.amount.compareTo(a.amount));
@@ -40,7 +38,7 @@ class DashboardCategoriesView extends ConsumerWidget {
             child: buildCategoryStatRow(
               context,
               cat.name,
-              cat.amount.toCompactFormat(precision: precision, isVisible: isBalanceVisible),
+              cat.amount.toCompactFormat(isVisible: isBalanceVisible),
               cat.color.toColor(),
               ratio,
             ),
@@ -61,7 +59,7 @@ class DashboardCategoriesView extends ConsumerWidget {
           child: buildCategoryStatRow(
             context,
             context.t.dashboard.other,
-            otherAmount.toCompactFormat(precision: precision, isVisible: isBalanceVisible),
+            otherAmount.toCompactFormat(isVisible: isBalanceVisible),
             theme.colors.border,
             ratio,
           ),

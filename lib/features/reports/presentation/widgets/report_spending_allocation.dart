@@ -4,7 +4,6 @@ import 'package:poka_ce/core/extensions/num_extension.dart';
 import 'package:poka_ce/features/dashboard/presentation/controllers/balance_visibility_provider.dart';
 import 'package:poka_ce/features/reports/presentation/controllers/report_notifier.dart';
 import 'package:poka_ce/features/reports/presentation/widgets/allocation_row_tile.dart';
-import 'package:poka_ce/features/settings/presentation/controllers/settings_notifier.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/poka_empty_view.dart';
 import 'package:poka_ce/theme/theme.dart';
@@ -19,7 +18,6 @@ class ReportSpendingAllocation extends ConsumerWidget {
     final theme = context.theme;
     final state = ref.watch(reportProvider);
     final isBalanceVisible = ref.watch(balanceVisibilityProvider);
-    final precision = ref.watch(settingsProvider).settings?.baseCurrency?.precision ?? 0;
     final alloc = state.data.budgetAllocation;
     final t = context.t.reports;
 
@@ -43,7 +41,7 @@ class ReportSpendingAllocation extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  '${t.total}: ${alloc.total.toCompactFormat(precision: precision, isVisible: isBalanceVisible)}',
+                  '${t.total}: ${alloc.total.toCompactFormat(isVisible: isBalanceVisible)}',
                   style: theme.typography.bodySecondary.copyWith(fontWeight: FontWeight.bold),
                 ),
                 Container(

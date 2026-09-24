@@ -13,7 +13,6 @@ class ReportCashflowBarChart extends StatelessWidget {
     required this.expenseColor,
     required this.theme,
     required this.isBalanceVisible,
-    required this.precision,
     super.key,
   });
 
@@ -31,9 +30,6 @@ class ReportCashflowBarChart extends StatelessWidget {
 
   /// Whether numeric values are revealed or obscured.
   final bool isBalanceVisible;
-
-  /// ISO 4217 minor-unit exponent for the active base currency (e.g. 2 for IDR/USD).
-  final int precision;
 
   @override
   Widget build(BuildContext context) {
@@ -55,8 +51,8 @@ class ReportCashflowBarChart extends StatelessWidget {
               final isIncome = rodIndex == 0;
               return BarTooltipItem(
                 isIncome
-                    ? point.income.toCompactFormat(precision: precision, isVisible: isBalanceVisible)
-                    : point.expense.toCompactFormat(precision: precision, isVisible: isBalanceVisible),
+                    ? point.income.toCompactFormat(isVisible: isBalanceVisible)
+                    : point.expense.toCompactFormat(isVisible: isBalanceVisible),
                 theme.typography.labelBadge.copyWith(color: isIncome ? incomeColor : expenseColor),
               );
             },
@@ -76,7 +72,7 @@ class ReportCashflowBarChart extends StatelessWidget {
                 return Padding(
                   padding: const EdgeInsets.only(right: 4),
                   child: Text(
-                    value.toCompactFormat(precision: precision, isVisible: isBalanceVisible),
+                    value.toCompactFormat(isVisible: isBalanceVisible),
                     style: theme.typography.caption.copyWith(color: theme.colors.mutedForeground),
                     textAlign: TextAlign.right,
                   ),
