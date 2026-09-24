@@ -125,11 +125,61 @@ void main() {
 
       expect(find.text('English'), findsOneWidget);
       expect(find.text('Indonesia'), findsOneWidget);
+      expect(find.text('Bahasa Melayu'), findsOneWidget);
+      expect(find.text('Tiếng Việt'), findsOneWidget);
 
       await tester.tap(find.text('Indonesia'));
       await tester.pumpAndSettle();
 
       expect(result, 'id');
+    });
+
+    testWidgets('LanguagePickerSheet pops Malay and Vietnamese values', (tester) async {
+      String? result;
+      await tester.pumpWidget(
+        buildTestableWidget(
+          Builder(
+            builder: (context) => FButton(
+              onPress: () async {
+                result = await showLanguagePickerSheet(context, 'en');
+              },
+              child: const Text('Show'),
+            ),
+          ),
+        ),
+      );
+
+      await tester.tap(find.text('Show'));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('Bahasa Melayu'));
+      await tester.pumpAndSettle();
+
+      expect(result, 'ms');
+    });
+
+    testWidgets('LanguagePickerSheet pops Vietnamese value', (tester) async {
+      String? result;
+      await tester.pumpWidget(
+        buildTestableWidget(
+          Builder(
+            builder: (context) => FButton(
+              onPress: () async {
+                result = await showLanguagePickerSheet(context, 'en');
+              },
+              child: const Text('Show'),
+            ),
+          ),
+        ),
+      );
+
+      await tester.tap(find.text('Show'));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('Tiếng Việt'));
+      await tester.pumpAndSettle();
+
+      expect(result, 'vi');
     });
 
     testWidgets('CurrencyPickerSheet renders and pops value', (tester) async {

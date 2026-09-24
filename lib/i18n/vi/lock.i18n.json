@@ -1,0 +1,19 @@
+{
+  "confirmPin": "Xác nhận PIN",
+  "createPin": "Tạo PIN",
+  "pinsDoNotMatch": "PIN không khớp",
+  "reenterPin": "Nhập lại PIN",
+  "enterPinAppLock": "Nhập PIN để mở khóa ứng dụng",
+  "incorrectPin": "Sai PIN",
+  "verifyIdentity": "Xác minh danh tính",
+  "retryInSeconds": "Thử lại sau {{seconds}} giây",
+  "setupPinTitle": "Thiết lập PIN",
+  "setupPinBody": "Vui lòng tạo PIN trước khi bật Khóa ứng dụng hoặc Sinh trắc học.",
+  "unlocked": "Đã mở khóa",
+  "enter6DigitPin": "Nhập PIN 6 chữ số",
+  "enterPin": "Nhập PIN",
+  "invalidPin": "PIN không hợp lệ",
+  "tooManyAttempts": "Quá nhiều lần thử",
+  "temporarilyLocked": "Tạm thời bị khóa",
+  "authenticateReason": "Xác thực để truy cập Poka"
+}

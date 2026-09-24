@@ -693,6 +693,8 @@ class _Translations$settings$id extends Translations$settings$en {
 	@override String get system => 'Sistem';
 	@override String get english => 'English';
 	@override String get indonesia => 'Indonesia';
+	@override String get malay => 'Bahasa Melayu';
+	@override String get vietnam => 'Tiếng Việt';
 	@override String get security => 'Keamanan';
 	@override String get appLock => 'Kunci Aplikasi';
 	@override String get appLockDesc => 'Lindungi aplikasi dengan PIN';
@@ -1428,6 +1430,8 @@ extension on TranslationsId {
 			'settings.system' => 'Sistem',
 			'settings.english' => 'English',
 			'settings.indonesia' => 'Indonesia',
+			'settings.malay' => 'Bahasa Melayu',
+			'settings.vietnam' => 'Tiếng Việt',
 			'settings.security' => 'Keamanan',
 			'settings.appLock' => 'Kunci Aplikasi',
 			'settings.appLockDesc' => 'Lindungi aplikasi dengan PIN',
