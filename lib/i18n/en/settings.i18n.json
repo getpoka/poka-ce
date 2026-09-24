@@ -67,5 +67,6 @@
   "exportExcel": "Export to Excel",
   "exportExcelDesc": "Export transactions, accounts, and categories to .xlsx",
   "exportExcelSuccess": "Excel exported successfully",
-  "exportExcelError": "Failed to export Excel file"
+  "exportExcelError": "Failed to export Excel file",
+  "currencyLockedToast": "Poka CE is single-currency. Currency is locked because you have existing transactions. Please reset app data to change it."
 }

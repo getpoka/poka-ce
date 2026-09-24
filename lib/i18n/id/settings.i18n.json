@@ -67,5 +67,6 @@
   "exportExcel": "Ekspor ke Excel",
   "exportExcelDesc": "Ekspor transaksi, akun, dan kategori ke file .xlsx",
   "exportExcelSuccess": "Berhasil mengekspor ke Excel",
-  "exportExcelError": "Gagal mengekspor file Excel"
+  "exportExcelError": "Gagal mengekspor file Excel",
+  "currencyLockedToast": "Poka CE adalah aplikasi single-currency. Pengaturan mata uang dikunci karena Anda sudah memiliki transaksi. Silakan reset data jika ingin mengubahnya."
 }

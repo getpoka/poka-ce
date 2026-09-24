@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:forui/forui.dart';
 import 'package:forui_phosphor/forui_phosphor.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:poka_ce/app/providers/repository_providers.dart';
 import 'package:poka_ce/features/settings/presentation/controllers/settings_notifier.dart';
 import 'package:poka_ce/features/settings/presentation/sheets/currency_picker_sheet.dart';
 import 'package:poka_ce/features/settings/presentation/sheets/language_picker_sheet.dart';
@@ -9,6 +11,7 @@ import 'package:poka_ce/features/settings/presentation/sheets/theme_picker_sheet
 import 'package:poka_ce/features/settings/presentation/widgets/settings_menu_item.dart';
 import 'package:poka_ce/features/settings/presentation/widgets/settings_menu_section.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
+import 'package:poka_ce/shared/widgets/poka_toast.dart';
 
 class PreferencesSection extends ConsumerWidget {
   const new({super.key});
@@ -55,6 +58,23 @@ class PreferencesSection extends ConsumerWidget {
           subtitle: currentCurrency,
           icon: FPhosphorIcons.currencyDollar,
           onTap: () async {
+            final repo = ref.read(transactionRepositoryProvider);
+            final txResult = await repo.getTransactions();
+            var hasTransactions = false;
+            txResult.fold((txs) {
+              if (txs.isNotEmpty) hasTransactions = true;
+            }, (f) {});
+
+            if (!context.mounted) return;
+            if (hasTransactions) {
+              showPokaToast(
+                context: context,
+                title: Text(context.t.settings.currencyLockedToast),
+                variant: FToastVariant.destructive,
+              );
+              return;
+            }
+
             final currencies = await ref.read(settingsProvider.notifier).getAvailableCurrencies();
             if (!context.mounted) return;
             final selected = await showCurrencyPickerSheet(context, currencies, settingsState.settings?.baseCurrency);
