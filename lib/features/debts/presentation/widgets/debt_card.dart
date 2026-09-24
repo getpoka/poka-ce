@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poka_ce/app/router/router.dart';
 import 'package:poka_ce/core/enums.dart';
 import 'package:poka_ce/features/debts/domain/debt_model.dart';
+import 'package:poka_ce/features/debts/presentation/controllers/debt_form_sheet_builder_provider.dart';
 import 'package:poka_ce/features/debts/presentation/controllers/debt_list_notifier.dart';
 import 'package:poka_ce/features/debts/presentation/widgets/debt_due_date_chip.dart';
 import 'package:poka_ce/features/debts/presentation/widgets/debt_form_sheet.dart';
@@ -183,7 +184,9 @@ class DebtCard extends ConsumerWidget {
             icon: FPhosphorIcons.pencilSimple,
             color: theme.colors.primary,
             onPressed: () {
-              DebtFormSheet.show(context, initialDebt: debt);
+              ref.read(debtFormSheetBuilderProvider) != null
+                  ? ref.read(debtFormSheetBuilderProvider)!(context, initialDebt: debt)
+                  : DebtFormSheet.show(context, initialDebt: debt);
             },
           ),
         ],

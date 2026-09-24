@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poka_ce/features/debts/domain/debt_model.dart';
+import 'package:poka_ce/features/debts/presentation/controllers/debt_form_sheet_builder_provider.dart';
 import 'package:poka_ce/features/debts/presentation/widgets/debt_card.dart';
 import 'package:poka_ce/features/debts/presentation/widgets/debt_form_sheet.dart';
 import 'package:poka_ce/features/debts/presentation/widgets/debt_summary_card.dart';
@@ -8,14 +10,14 @@ import 'package:poka_ce/shared/widgets/poka_empty_view.dart';
 import 'package:poka_ce/shared/widgets/poka_section_label.dart';
 import 'package:poka_ce/theme/theme.dart';
 
-class DebtListContent extends StatelessWidget {
+class DebtListContent extends ConsumerWidget {
   const new({required this.debts, required this.isPayable, super.key});
 
   final List<DebtModel> debts;
   final bool isPayable;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     if (debts.isEmpty) {
       return Builder(
         builder: (context) => PokaEmptyViewCentered(
@@ -26,7 +28,9 @@ class DebtListContent extends StatelessWidget {
               : t.debts.trackMoneyOthersOweYouAndLogCollections,
           actionLabel: t.debts.addRecord,
           actionKey: const Key('debt-add-button'),
-          onAction: () => DebtFormSheet.show(context),
+          onAction: () => ref.read(debtFormSheetBuilderProvider) != null
+              ? ref.read(debtFormSheetBuilderProvider)!(context)
+              : DebtFormSheet.show(context),
         ),
       );
     }
@@ -43,7 +47,9 @@ class DebtListContent extends StatelessWidget {
             Builder(
               builder: (context) => GestureDetector(
                 key: const Key('debt-add-button'),
-                onTap: () => DebtFormSheet.show(context),
+                onTap: () => ref.read(debtFormSheetBuilderProvider) != null
+                    ? ref.read(debtFormSheetBuilderProvider)!(context)
+                    : DebtFormSheet.show(context),
                 child: Row(
                   children: [
                     Icon(FPhosphorIcons.plus, size: 14, color: context.theme.colors.primary),

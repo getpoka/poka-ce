@@ -70,5 +70,5 @@
   "exportExcelDesc": "Xuất giao dịch, tài khoản và danh mục ra tệp .xlsx",
   "exportExcelSuccess": "Xuất Excel thành công",
   "exportExcelError": "Xuất tệp Excel thất bại",
-  "currencyLockedToast": "Poka CE là ứng dụng đơn tiền tệ. Tiền tệ đã bị khóa vì bạn có giao dịch hiện tại. Vui lòng đặt lại dữ liệu ứng dụng để thay đổi."
+  "currencyLockedToast": "Không thể thay đổi tiền tệ sau khi có giao dịch. Vui lòng thiết lập lại dữ liệu nếu bạn muốn thay đổi."
 }

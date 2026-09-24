@@ -751,7 +751,7 @@ class _Translations$settings$vi extends Translations$settings$en {
 	@override String get exportExcelDesc => 'Xuất giao dịch, tài khoản và danh mục ra tệp .xlsx';
 	@override String get exportExcelSuccess => 'Xuất Excel thành công';
 	@override String get exportExcelError => 'Xuất tệp Excel thất bại';
-	@override String get currencyLockedToast => 'Poka CE là ứng dụng đơn tiền tệ. Tiền tệ đã bị khóa vì bạn có giao dịch hiện tại. Vui lòng đặt lại dữ liệu ứng dụng để thay đổi.';
+	@override String get currencyLockedToast => 'Không thể thay đổi tiền tệ sau khi có giao dịch. Vui lòng thiết lập lại dữ liệu nếu bạn muốn thay đổi.';
 }
 
 // Path: shared
@@ -1489,7 +1489,7 @@ extension on TranslationsVi {
 			'settings.exportExcelDesc' => 'Xuất giao dịch, tài khoản và danh mục ra tệp .xlsx',
 			'settings.exportExcelSuccess' => 'Xuất Excel thành công',
 			'settings.exportExcelError' => 'Xuất tệp Excel thất bại',
-			'settings.currencyLockedToast' => 'Poka CE là ứng dụng đơn tiền tệ. Tiền tệ đã bị khóa vì bạn có giao dịch hiện tại. Vui lòng đặt lại dữ liệu ứng dụng để thay đổi.',
+			'settings.currencyLockedToast' => 'Không thể thay đổi tiền tệ sau khi có giao dịch. Vui lòng thiết lập lại dữ liệu nếu bạn muốn thay đổi.',
 			'shared.authRequired' => 'Yêu cầu xác thực',
 			'shared.hexColorCode' => 'Mã màu Hex',
 			'shared.apply' => 'Áp dụng',

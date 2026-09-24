@@ -7,6 +7,7 @@ import 'package:poka_ce/features/categories/domain/category_model.dart';
 import 'package:poka_ce/features/categories/presentation/controllers/category_list_notifier.dart';
 import 'package:poka_ce/features/recurring/domain/recurring_model.dart';
 import 'package:poka_ce/features/recurring/presentation/controllers/recurring_detail_notifier.dart';
+import 'package:poka_ce/features/recurring/presentation/controllers/recurring_form_sheet_builder_provider.dart';
 import 'package:poka_ce/features/recurring/presentation/controllers/recurring_list_notifier.dart';
 import 'package:poka_ce/features/recurring/presentation/widgets/recurring_card.dart';
 import 'package:poka_ce/features/recurring/presentation/widgets/recurring_form_sheet.dart';
@@ -62,7 +63,9 @@ class RecurringDetailPage extends ConsumerWidget {
         suffixes: [
           FHeaderAction(
             icon: const Icon(FPhosphorIcons.pencilSimple, size: 20),
-            onPress: () => RecurringFormSheet.show(context, initialRecurring: activeRecurring),
+            onPress: () => ref.read(recurringFormSheetBuilderProvider) != null
+                ? ref.read(recurringFormSheetBuilderProvider)!(context, initialRecurring: activeRecurring)
+                : RecurringFormSheet.show(context, initialRecurring: activeRecurring),
           ),
           FHeaderAction(
             icon: Icon(FPhosphorIcons.trash, size: 20, color: context.theme.colors.destructive),

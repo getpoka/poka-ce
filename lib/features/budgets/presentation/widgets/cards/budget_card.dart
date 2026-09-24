@@ -9,6 +9,7 @@ import 'package:poka_ce/core/extensions/string_extension.dart';
 import 'package:poka_ce/core/utils/icon_util.dart';
 import 'package:poka_ce/features/accounts/presentation/controllers/account_list_notifier.dart';
 import 'package:poka_ce/features/budgets/domain/budget_model.dart';
+import 'package:poka_ce/features/budgets/presentation/controllers/budget_form_sheet_builder_provider.dart';
 import 'package:poka_ce/features/budgets/presentation/controllers/budget_list_notifier.dart';
 import 'package:poka_ce/features/budgets/presentation/controllers/budget_progress_provider.dart';
 import 'package:poka_ce/features/budgets/presentation/widgets/forms/budget_form_sheet.dart';
@@ -197,7 +198,9 @@ class BudgetCard extends ConsumerWidget {
             icon: FPhosphorIcons.pencilSimple,
             color: theme.colors.primary,
             onPressed: () {
-              BudgetFormSheet.show(context, initialBudget: budget);
+              ref.read(budgetFormSheetBuilderProvider) != null
+                  ? ref.read(budgetFormSheetBuilderProvider)!(context, initialBudget: budget)
+                  : BudgetFormSheet.show(context, initialBudget: budget);
             },
           ),
         ],

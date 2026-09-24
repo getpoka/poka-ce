@@ -9,6 +9,7 @@ import 'package:poka_ce/features/categories/domain/category_model.dart';
 import 'package:poka_ce/features/categories/presentation/controllers/category_list_notifier.dart';
 import 'package:poka_ce/features/debts/domain/debt_model.dart';
 import 'package:poka_ce/features/debts/presentation/controllers/debt_detail_notifier.dart';
+import 'package:poka_ce/features/debts/presentation/controllers/debt_form_sheet_builder_provider.dart';
 import 'package:poka_ce/features/debts/presentation/controllers/debt_list_notifier.dart';
 import 'package:poka_ce/features/debts/presentation/widgets/debt_card.dart';
 import 'package:poka_ce/features/debts/presentation/widgets/debt_form_sheet.dart';
@@ -68,7 +69,11 @@ class DebtDetailPage extends ConsumerWidget {
         suffixes: [
           FHeaderAction(
             icon: const Icon(FPhosphorIcons.pencilSimple, size: 20),
-            onPress: () => DebtFormSheet.show(context, initialDebt: activeDebt),
+            onPress: () {
+              ref.read(debtFormSheetBuilderProvider) != null
+                  ? ref.read(debtFormSheetBuilderProvider)!(context, initialDebt: activeDebt)
+                  : DebtFormSheet.show(context, initialDebt: activeDebt);
+            },
           ),
           if (activeDebt.status == DebtStatus.active)
             FHeaderAction(

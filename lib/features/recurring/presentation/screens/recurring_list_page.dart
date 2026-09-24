@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poka_ce/features/recurring/domain/recurring_model.dart';
+import 'package:poka_ce/features/recurring/presentation/controllers/recurring_form_sheet_builder_provider.dart';
 import 'package:poka_ce/features/recurring/presentation/controllers/recurring_list_notifier.dart';
 import 'package:poka_ce/features/recurring/presentation/widgets/recurring_card.dart';
 import 'package:poka_ce/features/recurring/presentation/widgets/recurring_form_sheet.dart';
@@ -39,7 +40,9 @@ class RecurringListPage extends ConsumerWidget {
                 subtitle: t.recurring.automateBillsLikeSubscriptionsOrSalary,
                 actionLabel: t.recurring.addSchedule,
                 actionKey: const Key('recurring-add-button'),
-                onAction: () => RecurringFormSheet.show(context),
+                onAction: () => ref.read(recurringFormSheetBuilderProvider) != null
+                    ? ref.read(recurringFormSheetBuilderProvider)!(context)
+                    : RecurringFormSheet.show(context),
               ),
             )
           : _RecurringContent(
@@ -54,14 +57,14 @@ class RecurringListPage extends ConsumerWidget {
 // Content area — summary card + list
 // ─────────────────────────────────────────────────────────────────────────────
 
-class _RecurringContent extends StatelessWidget {
+class _RecurringContent extends ConsumerWidget {
   const new({required this.recurrings, required this.onRefresh});
 
   final List<RecurringTransactionModel> recurrings;
   final Future<void> Function() onRefresh;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return RefreshIndicator(
       onRefresh: onRefresh,
       child: CustomScrollView(
@@ -82,7 +85,9 @@ class _RecurringContent extends StatelessWidget {
                 Builder(
                   builder: (context) => GestureDetector(
                     key: const Key('recurring-add-button'),
-                    onTap: () => RecurringFormSheet.show(context),
+                    onTap: () => ref.read(recurringFormSheetBuilderProvider) != null
+                        ? ref.read(recurringFormSheetBuilderProvider)!(context)
+                        : RecurringFormSheet.show(context),
                     child: Row(
                       children: [
                         Icon(FPhosphorIcons.plus, size: 14, color: context.theme.colors.primary),
