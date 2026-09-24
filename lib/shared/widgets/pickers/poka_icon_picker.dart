@@ -32,9 +32,7 @@ class PokaIconPicker extends HookWidget {
                     decoration: BoxDecoration(
                       color: isSelected
                           ? theme.colors.primary
-                          : (theme.colors.brightness == Brightness.light
-                                ? theme.colors.secondary
-                                : theme.colors.muted.withValues(alpha: 0.4)),
+                          : (theme.colors.brightness == Brightness.light ? theme.colors.secondary : theme.colors.muted),
                       borderRadius: BorderRadius.circular(100), // Pill shape
                     ),
                     child: Text(

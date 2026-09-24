@@ -66,10 +66,7 @@ class PokaDonutChart extends StatelessWidget {
     final hasData = validSections.isNotEmpty;
 
     final fallbackColor =
-        emptyColor ??
-        (theme.colors.brightness == Brightness.light
-            ? theme.colors.secondary
-            : theme.colors.muted.withValues(alpha: 0.4));
+        emptyColor ?? (theme.colors.brightness == Brightness.light ? theme.colors.secondary : theme.colors.muted);
     final centerRadius = ((size / 2) - thickness).clamp(0.0, double.infinity);
 
     final pieSections = hasData
