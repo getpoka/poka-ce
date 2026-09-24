@@ -6,6 +6,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poka_ce/core/enums.dart';
 import 'package:poka_ce/core/extensions/num_extension.dart';
+import 'package:poka_ce/core/extensions/string_extension.dart';
 import 'package:poka_ce/features/accounts/presentation/widgets/pickers/account_selector_shelf.dart';
 import 'package:poka_ce/features/categories/domain/category_model.dart';
 import 'package:poka_ce/features/categories/presentation/controllers/category_list_notifier.dart';
@@ -23,6 +24,7 @@ import 'package:poka_ce/features/transactions/presentation/widgets/forms/transac
 import 'package:poka_ce/features/transactions/presentation/widgets/split/transaction_split_sheet.dart';
 import 'package:poka_ce/features/transactions/presentation/widgets/split/transaction_split_summary_card.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
+import 'package:poka_ce/shared/utils/math_evaluator.dart';
 import 'package:poka_ce/shared/widgets/dialogs/poka_insufficient_balance_dialog.dart';
 import 'package:poka_ce/shared/widgets/poka_toast.dart';
 import 'package:poka_ce/shared/widgets/sheets/poka_sheet.dart';
@@ -86,6 +88,9 @@ class TransactionFormSheet extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = context.theme;
+    final settings = ref.watch(settingsProvider).settings;
+    final currencyCode = settings?.baseCurrency?.symbol;
+    final precision = settings?.baseCurrency?.precision ?? 0;
 
     final args = TransactionFormArgs(
       initialType: initialType,
@@ -96,6 +101,7 @@ class TransactionFormSheet extends HookConsumerWidget {
       initialDestinationAccountId: initialDestinationAccountId,
       initialCategoryId: initialCategoryId,
       initialDate: initialDate,
+      precision: precision,
     );
 
     final provider = transactionFormProvider(args);
@@ -104,8 +110,6 @@ class TransactionFormSheet extends HookConsumerWidget {
 
     final accounts = ref.watch(dashboardProvider).accounts;
     final categories = ref.watch(categoryListProvider).value ?? <CategoryModel>[];
-    final settings = ref.watch(settingsProvider).settings;
-    final currencyCode = settings?.baseCurrency?.symbol;
 
     useEffect(() {
       if (accounts.isNotEmpty) {
@@ -241,7 +245,6 @@ class TransactionFormSheet extends HookConsumerWidget {
     }).toList();
 
     final currencySymbol = settings?.baseCurrency?.symbol ?? '';
-    final precision = settings?.baseCurrency?.precision ?? 0;
     final localeFormat = settings?.numberFormat ?? 'system';
 
     Future<void> handleSave() async {
@@ -249,9 +252,13 @@ class TransactionFormSheet extends HookConsumerWidget {
 
       final isOutgoing = state.type == TransactionType.expense || state.type == TransactionType.transfer;
       if (isOutgoing && selectedAccount != null) {
+        var rawExpr = state.amountExpression;
+        if (MathEvaluator.hasUnresolvedOperator(rawExpr)) {
+          rawExpr = MathEvaluator.evaluate(rawExpr) ?? rawExpr;
+        }
         final amount = isSplit
             ? (state.splitItems?.fold<int>(0, (sum, i) => sum + i.amount) ?? 0)
-            : (int.tryParse(state.amountExpression) ?? 0);
+            : rawExpr.toMinorUnits(precision: precision);
 
         if (amount > 0) {
           final isSameAccountOutgoing =

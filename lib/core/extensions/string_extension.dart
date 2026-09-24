@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -52,5 +54,25 @@ extension StringExtension on String {
       }
     }
     return buffer.toString().trim();
+  }
+
+  /// Parses a user-entered monetary amount string into ISO 4217 minor units,
+  /// scaling by 10^[precision].
+  int toMinorUnits({int precision = 0}) {
+    if (trim().isEmpty) return 0;
+    var s = trim();
+    if (s.contains('.') && s.contains(',')) {
+      if (s.lastIndexOf(',') > s.lastIndexOf('.')) {
+        s = s.replaceAll('.', '').replaceAll(',', '.');
+      } else {
+        s = s.replaceAll(',', '');
+      }
+    } else if (s.contains(',')) {
+      s = s.replaceAll(',', '.');
+    }
+    final cleaned = s.replaceAll(RegExp(r'[^0-9.\-]'), '');
+    final val = double.tryParse(cleaned) ?? 0.0;
+    if (precision <= 0) return val.round();
+    return (val * pow(10, precision)).round();
   }
 }

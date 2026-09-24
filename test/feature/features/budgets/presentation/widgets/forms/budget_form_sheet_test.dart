@@ -18,12 +18,22 @@ import 'package:poka_ce/features/budgets/presentation/widgets/forms/budget_form_
 import 'package:poka_ce/features/categories/domain/category_model.dart';
 import 'package:poka_ce/features/categories/presentation/controllers/category_list_notifier.dart';
 import 'package:poka_ce/features/dashboard/presentation/controllers/dashboard_notifier.dart';
+import 'package:poka_ce/features/settings/domain/currency_model.dart';
+import 'package:poka_ce/features/settings/domain/settings_model.dart';
+import 'package:poka_ce/features/settings/presentation/controllers/settings_notifier.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class MockBudgetRepository extends Mock implements IBudgetRepository {}
 
 class FakeBudgetModel extends Fake implements BudgetModel {}
+
+class _FakeSettingsNotifier extends SettingsNotifier {
+  _FakeSettingsNotifier(this._state);
+  final SettingsState _state;
+  @override
+  SettingsState build() => _state;
+}
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -80,7 +90,14 @@ void main() {
     categoryId: 'c1',
   );
 
-  Widget buildWidget({BudgetModel? initialBudget}) {
+  Widget buildWidget({BudgetModel? initialBudget, int precision = 0}) {
+    final settingsState = SettingsState(
+      settings: SettingsModel(
+        themeMode: 'system',
+        baseCurrency: CurrencyModel(id: 'c1', code: 'USD', name: 'US Dollar', symbol: r'$', precision: precision),
+      ),
+    );
+
     return ProviderScope(
       overrides: [
         budgetRepositoryProvider.overrideWithValue(mockRepo),
@@ -92,6 +109,7 @@ void main() {
           (ref) => AsyncValue.data(AccountListState(accounts: sampleAccounts(), aggregates: [])),
         ),
         categoryListProvider.overrideWith(() => _FakeCategoryNotifier(sampleCategories())),
+        settingsProvider.overrideWith(() => _FakeSettingsNotifier(settingsState)),
       ],
       child: TranslationProvider(
         child: MaterialApp(
@@ -405,6 +423,36 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.text('Entertainment'), findsOneWidget);
     });
+
+    testWidgets('pre-fills amount using toMajorExpression with precision 2', (tester) async {
+      final budget = sampleBudget().copyWith(amount: 50000); // 500.00
+      await tester.pumpWidget(buildWidget(initialBudget: budget, precision: 2));
+      await tester.pumpAndSettle();
+
+      expect(find.text('500'), findsOneWidget);
+    });
+
+    testWidgets('creates budget converting entered amount to minor units with precision 2', (tester) async {
+      await tester.pumpWidget(buildWidget(precision: 2));
+      await tester.pumpAndSettle();
+
+      final fields = find.byType(EditableText);
+      // First is name
+      await tester.enterText(fields.first, 'Monthly Groceries');
+      // Second is amount: '150.75' -> 15075 minor units
+      await tester.enterText(fields.at(1), '150.75');
+      await tester.pumpAndSettle();
+
+      await tester.ensureVisible(find.text('Create Budget'));
+      await tester.tap(find.text('Create Budget'), warnIfMissed: false);
+      await tester.pumpAndSettle();
+
+      final captured = verify(() => mockRepo.createBudget(captureAny())).captured;
+      expect(captured.isNotEmpty, isTrue);
+      final createdBudget = captured.first as BudgetModel;
+      expect(createdBudget.name, 'Monthly Groceries');
+      expect(createdBudget.amount, 15075);
+    });
   });
 }
 
@@ -437,6 +485,9 @@ class _FakeBudgetListNotifier extends BudgetListNotifier {
       ErrorResult(error: final failure) => throw Exception(failure.message),
     };
   }
+
+  @override
+  Future<void> refresh() async {}
 
   @override
   Future<void> deleteBudget(String id) async {

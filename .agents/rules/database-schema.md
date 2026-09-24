@@ -9,6 +9,21 @@ trigger: always_on
 > ALL `Enum` values (e.g., `type`, `status`, `role`) **MUST** be stored in lowercase in the database (e.g., `income`,
 `expense`, `transfer`, `active`, `synced`). Uppercase or CamelCase is prohibited in the database.
 
+> [!IMPORTANT]
+> **ISO 4217 MINOR CURRENCY UNITS:**
+> ALL monetary `amount` columns (transactions, accounts, budgets, goals, debts) **MUST** be stored as **integer minor units** per ISO 4217.
+>
+> | Currency | `precision` | Example stored value | Displayed as |
+> |----------|-------------|----------------------|--------------|
+> | IDR      | `2`         | `800000`             | `Rp 8.000,00`|
+> | USD      | `2`         | `300`                | `$ 3.00`     |
+> | JPY      | `0`         | `500`                | `¥ 500`      |
+> | EUR      | `2`         | `150`                | `€ 1.50`     |
+>
+> The `currencies.precision` column is the **single source of truth** for the minor-unit exponent.
+> `toCurrencyFormat(precision: N)` divides the stored integer by `10^N` before display — never store or pass major units (e.g. `3` for three dollars).
+> `convertDouble(fromPrecision, toPrecision)` normalises amounts through major units during cross-currency conversion and returns **target minor units**.
+
 Blueprint of the database structure and core business logic for the Poka application.
 
 ## Entity-Relationship Diagram (ERD)

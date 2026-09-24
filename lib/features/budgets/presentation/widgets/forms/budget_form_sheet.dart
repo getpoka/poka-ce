@@ -4,6 +4,7 @@ import 'package:forui/forui.dart';
 import 'package:forui_phosphor/forui_phosphor.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poka_ce/core/enums.dart';
+import 'package:poka_ce/core/extensions/num_extension.dart';
 import 'package:poka_ce/core/extensions/string_extension.dart';
 import 'package:poka_ce/core/utils/icon_util.dart';
 import 'package:poka_ce/features/accounts/presentation/controllers/account_list_notifier.dart';
@@ -14,6 +15,7 @@ import 'package:poka_ce/features/budgets/presentation/widgets/pickers/period_sel
 import 'package:poka_ce/features/budgets/presentation/widgets/tiles/scope_tile.dart';
 import 'package:poka_ce/features/categories/domain/category_model.dart';
 import 'package:poka_ce/features/categories/presentation/controllers/category_list_notifier.dart';
+import 'package:poka_ce/features/settings/presentation/controllers/settings_notifier.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/poka_category_selector.dart';
 import 'package:poka_ce/shared/widgets/poka_form_label.dart';
@@ -82,13 +84,14 @@ class BudgetFormSheet extends HookConsumerWidget {
       return null;
     }, [initialBudget, initialName, initialAmount, initialPeriod, initialCategoryId, initialAccountId]);
 
+    final precision = ref.watch(settingsProvider).settings?.baseCurrency?.precision ?? 0;
     final nameController = useTextEditingController(text: initialBudget?.name ?? initialName ?? state.name);
     final amountController = useTextEditingController(
       text: initialBudget != null && initialBudget!.amount > 0
-          ? initialBudget!.amount.toString()
+          ? initialBudget!.amount.toMajorExpression(precision: precision)
           : (initialAmount != null && initialAmount! > 0
-                ? initialAmount.toString()
-                : (state.amount > 0 ? state.amount.toString() : '')),
+                ? initialAmount!.toMajorExpression(precision: precision)
+                : (state.amount > 0 ? state.amount.toMajorExpression(precision: precision) : '')),
     );
     final resetDayController = useTextEditingController(
       text: initialBudget?.resetDay?.toString() ?? (state.resetDay != null ? state.resetDay.toString() : ''),
@@ -105,7 +108,7 @@ class BudgetFormSheet extends HookConsumerWidget {
       }
 
       void onAmount() {
-        final val = int.tryParse(amountController.text) ?? 0;
+        final val = amountController.text.toMinorUnits(precision: precision);
         if (state.amount != val) notifier.setAmount(val);
       }
 
@@ -129,7 +132,7 @@ class BudgetFormSheet extends HookConsumerWidget {
         resetDayController.removeListener(onResetDay);
         alertThresholdController.removeListener(onAlertThreshold);
       };
-    }, [nameController, amountController, resetDayController, alertThresholdController]);
+    }, [nameController, amountController, resetDayController, alertThresholdController, precision]);
 
     ref.listen(budgetFormProvider, (prev, next) {
       if (next.isSuccess && (prev?.isSuccess != true)) {
@@ -173,8 +176,8 @@ class BudgetFormSheet extends HookConsumerWidget {
               keyboardType: TextInputType.number,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               validator: (value) {
-                final amount = int.tryParse(value ?? '');
-                if (amount == null || amount <= 0) return t.budgets.amountGreaterThanZero;
+                final amount = (value ?? '').toMinorUnits(precision: precision);
+                if (amount <= 0) return t.budgets.amountGreaterThanZero;
                 return null;
               },
             ),

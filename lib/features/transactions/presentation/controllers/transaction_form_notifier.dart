@@ -3,6 +3,8 @@ import 'package:poka_ce/app/providers/use_case_providers.dart';
 import 'package:poka_ce/core/enums.dart';
 import 'package:poka_ce/core/error/failure.dart';
 import 'package:poka_ce/core/error/result.dart';
+import 'package:poka_ce/core/extensions/num_extension.dart';
+import 'package:poka_ce/core/extensions/string_extension.dart';
 import 'package:poka_ce/features/budgets/domain/budget_alert_service_provider.dart';
 import 'package:poka_ce/features/transactions/domain/split_item.dart';
 import 'package:poka_ce/features/transactions/domain/transaction_model.dart';
@@ -24,6 +26,7 @@ class TransactionFormArgs {
     this.initialDestinationAccountId,
     this.initialCategoryId,
     this.initialDate,
+    this.precision = 0,
   });
 
   final TransactionType? initialType;
@@ -34,6 +37,7 @@ class TransactionFormArgs {
   final String? initialDestinationAccountId;
   final String? initialCategoryId;
   final DateTime? initialDate;
+  final int precision;
 
   @override
   bool operator ==(Object other) =>
@@ -47,7 +51,8 @@ class TransactionFormArgs {
           initialAccountId == other.initialAccountId &&
           initialDestinationAccountId == other.initialDestinationAccountId &&
           initialCategoryId == other.initialCategoryId &&
-          initialDate == other.initialDate;
+          initialDate == other.initialDate &&
+          precision == other.precision;
 
   @override
   int get hashCode =>
@@ -58,7 +63,8 @@ class TransactionFormArgs {
       initialAccountId.hashCode ^
       initialDestinationAccountId.hashCode ^
       initialCategoryId.hashCode ^
-      initialDate.hashCode;
+      initialDate.hashCode ^
+      precision.hashCode;
 }
 
 /// State representing an active transaction form entry.
@@ -149,9 +155,13 @@ class TransactionFormNotifier extends _$TransactionFormNotifier {
 
     final initialDate = initialTransaction?.transactionDate.toLocal() ?? args.initialDate ?? DateTime.now();
 
+    final initialExpr = initialTransaction != null
+        ? initialTransaction.amount.toMajorExpression(precision: args.precision)
+        : args.initialAmount ?? '';
+
     return TransactionFormState(
       type: initialTransaction?.type ?? args.initialType ?? TransactionType.expense,
-      amountExpression: initialTransaction?.amount.toString() ?? args.initialAmount ?? '',
+      amountExpression: initialExpr,
       note: initialTransaction?.note ?? args.initialNote ?? '',
       date: initialDate,
       accountId: initialTransaction?.accountId ?? args.initialAccountId,
@@ -197,7 +207,11 @@ class TransactionFormNotifier extends _$TransactionFormNotifier {
     }
 
     final total = items.fold<int>(0, (sum, item) => sum + item.amount);
-    state = state.copyWith(splitItems: () => items, amountExpression: total.toString(), historyExpression: () => null);
+    state = state.copyWith(
+      splitItems: () => items,
+      amountExpression: total.toMajorExpression(precision: args.precision),
+      historyExpression: () => null,
+    );
   }
 
   /// Swaps source and destination accounts (convenience for transfer transactions).
@@ -249,7 +263,7 @@ class TransactionFormNotifier extends _$TransactionFormNotifier {
     if (MathEvaluator.hasUnresolvedOperator(rawExpr)) {
       rawExpr = MathEvaluator.evaluate(rawExpr) ?? rawExpr;
     }
-    final amount = int.tryParse(rawExpr) ?? 0;
+    final amount = rawExpr.toMinorUnits(precision: args.precision);
     if (amount <= 0) return;
     final catId = state.type == TransactionType.transfer ? state.destinationAccountId : state.categoryId;
     if (state.type == TransactionType.transfer && catId == null) return;

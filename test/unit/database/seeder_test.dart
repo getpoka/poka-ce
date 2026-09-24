@@ -30,7 +30,7 @@ void main() {
       );
       expect(accounts.where((a) => a.type == AccountType.assets).length, 5);
       expect(accounts.where((a) => a.type == AccountType.goal).length, 3);
-      expect(accounts.firstWhere((a) => a.name == 'Cash').balance, 750000); // Updated to match actual seeder data
+      expect(accounts.firstWhere((a) => a.name == 'Cash').balance, 750_000); // Rp 750.000 (IDR precision=0)
 
       final categories = await db.select(db.categories).get();
       expect(categories.length, 62);
@@ -64,7 +64,7 @@ void main() {
 
     test('seed also creates currencies, budgets, goals, debts, transactions', () async {
       await DatabaseSeeder.seed(db, overrideSeedDummyData: true);
-      expect((await db.select(db.currencies).get()).length, greaterThanOrEqualTo(26));
+      expect((await db.select(db.currencies).get()).length, greaterThanOrEqualTo(32));
       expect((await db.select(db.budgets).get()).length, 4);
       expect((await db.select(db.goals).get()).length, 3);
       expect((await db.select(db.debts).get()).length, 4);
@@ -82,7 +82,7 @@ void main() {
         expect(await cleanDb.select(cleanDb.categories).get(), isEmpty);
         expect(await cleanDb.select(cleanDb.transactions).get(), isEmpty);
         expect(await cleanDb.select(cleanDb.budgets).get(), isEmpty);
-        expect((await cleanDb.select(cleanDb.currencies).get()).length, greaterThanOrEqualTo(26));
+        expect((await cleanDb.select(cleanDb.currencies).get()).length, greaterThanOrEqualTo(32));
         expect(await cleanDb.select(cleanDb.settings).get(), isNotEmpty);
       } finally {
         await cleanDb.close();

@@ -19,9 +19,9 @@ void main() {
   });
 
   Widget createWidgetUnderTest({
-    double netWorth = 1000.0,
-    double totalAssets = 1500.0,
-    double totalLiabilities = 500.0,
+    double netWorth = 100000.0,
+    double totalAssets = 150000.0,
+    double totalLiabilities = 50000.0,
     int activeAccountCount = 2,
     String currency = 'USD',
     bool isBalanceVisible = true,
@@ -54,7 +54,7 @@ void main() {
   group('AccountNetworthCard', () {
     testWidgets('displays correct text when visible', (tester) async {
       await tester.pumpWidget(
-        createWidgetUnderTest(netWorth: 1234.56, totalAssets: 2000, totalLiabilities: 765.44, activeAccountCount: 3),
+        createWidgetUnderTest(netWorth: 123456, totalAssets: 200000, totalLiabilities: 76544, activeAccountCount: 3),
       );
       await tester.pump();
 
@@ -70,7 +70,7 @@ void main() {
     });
 
     testWidgets('obscures text when isBalanceVisible is false', (tester) async {
-      await tester.pumpWidget(createWidgetUnderTest(netWorth: 1234.56, isBalanceVisible: false));
+      await tester.pumpWidget(createWidgetUnderTest(netWorth: 123456, isBalanceVisible: false));
       await tester.pump();
 
       expect(find.text('USD ••••••'), findsNWidgets(3)); // net worth, assets, liabilities
@@ -95,7 +95,7 @@ void main() {
     });
 
     testWidgets('tapping eye when hidden makes visible again', (tester) async {
-      await tester.pumpWidget(createWidgetUnderTest(netWorth: 500, isBalanceVisible: false));
+      await tester.pumpWidget(createWidgetUnderTest(netWorth: 50000, isBalanceVisible: false));
       await tester.pump();
       expect(find.byWidgetPredicate((w) => w is Icon && w.icon == FPhosphorIcons.eyeClosed), findsOneWidget);
       await tester.tap(find.byWidgetPredicate((w) => w is Icon && w.icon == FPhosphorIcons.eyeClosed));

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poka_ce/core/enums.dart';
+import 'package:poka_ce/core/extensions/num_extension.dart';
+import 'package:poka_ce/core/extensions/string_extension.dart';
 import 'package:poka_ce/features/categories/domain/category_model.dart';
 import 'package:poka_ce/features/categories/presentation/controllers/category_list_notifier.dart';
 import 'package:poka_ce/features/settings/presentation/controllers/settings_notifier.dart';
@@ -63,8 +65,9 @@ class _TransactionSplitItemFormSheetState extends ConsumerState<TransactionSplit
     final item = widget.initialItem;
     if (item == null) return;
 
+    final precision = ref.read(settingsProvider).settings?.baseCurrency?.precision ?? 0;
     _currentId = item.id;
-    _amountExpr = item.amount.toString();
+    _amountExpr = item.amount.toMajorExpression(precision: precision);
 
     // Resolve whether the saved categoryId is a sub-category
     final allCats = ref.read(categoryListProvider).value ?? <CategoryModel>[];
@@ -111,7 +114,12 @@ class _TransactionSplitItemFormSheetState extends ConsumerState<TransactionSplit
   }
 
   void _confirm() {
-    final amount = int.tryParse(_amountExpr) ?? 0;
+    final precision = ref.read(settingsProvider).settings?.baseCurrency?.precision ?? 0;
+    var raw = _amountExpr;
+    if (MathEvaluator.hasUnresolvedOperator(raw)) {
+      raw = MathEvaluator.evaluate(raw) ?? raw;
+    }
+    final amount = raw.toMinorUnits(precision: precision);
     if (amount <= 0) return;
 
     // Resolve display name from category list

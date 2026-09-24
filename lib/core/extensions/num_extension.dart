@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:intl/intl.dart';
 
 /// Standard placeholder string used across the app to mask sensitive financial amounts.
@@ -6,15 +8,24 @@ const String kPrivacyMask = '••••••';
 /// Formatting helpers for numeric values (integers and doubles).
 extension NumExtension on num {
   /// Converts the number to compact abbreviated string (e.g. 1.2K, 3.4M, 5.0B).
-  String toCompactFormat({bool isVisible = true}) {
+  ///
+  /// [precision] is the ISO 4217 minor-unit exponent for the currency (e.g. 2 for USD, 0 for IDR).
+  /// The raw value is divided by `10^precision` before formatting so that minor-unit amounts
+  /// (e.g. 300 cents) are displayed as major-unit strings (e.g. "3.00").
+  String toCompactFormat({int precision = 0, bool isVisible = true}) {
     if (!isVisible) return kPrivacyMask;
-    if (this >= 1000000000) return '${(this / 1000000000).toStringAsFixed(1)}B';
-    if (this >= 1000000) return '${(this / 1000000).toStringAsFixed(1)}M';
-    if (this >= 1000) return '${(this / 1000).toStringAsFixed(1)}K';
-    return toStringAsFixed(0);
+    final major = this / pow(10, precision);
+    if (major >= 1_000_000_000) return '${(major / 1_000_000_000).toStringAsFixed(1)}B';
+    if (major >= 1_000_000) return '${(major / 1_000_000).toStringAsFixed(1)}M';
+    if (major >= 1_000) return '${(major / 1_000).toStringAsFixed(1)}K';
+    return major.toStringAsFixed(0);
   }
 
-  /// Formats the number as currency with symbol, decimals, and optional obfuscation.
+  /// Formats the number as a currency string with symbol, decimals, and optional obfuscation.
+  ///
+  /// Expects the value in ISO 4217 **minor units** (e.g. cents for USD, whole rupiah for IDR).
+  /// Divides by `10^precision` internally before formatting so that `300.toCurrencyFormat(precision: 2)`
+  /// produces `"$ 3.00"` rather than `"$ 300.00"`.
   String toCurrencyFormat({required String symbol, required int precision, String? locale, bool isVisible = true}) {
     // Trim the symbol to ensure no double-spaces, then add exactly one space.
     final cleanSymbol = symbol.trim();
@@ -22,12 +33,27 @@ extension NumExtension on num {
 
     if (!isVisible) return '$effectiveSymbol$kPrivacyMask';
 
+    // Convert minor units → major units before formatting.
+    final majorValue = this / pow(10, precision);
+
     final format = NumberFormat.currency(
       locale: (locale == 'system') ? null : locale,
       symbol: effectiveSymbol,
       decimalDigits: precision,
     );
 
-    return format.format(this);
+    return format.format(majorValue);
+  }
+
+  /// Converts stored minor units into a human-readable major unit expression string
+  /// suitable for display in calculators or text edit fields (e.g. 800000 -> "8000", 625 -> "6.25").
+  String toMajorExpression({int precision = 0}) {
+    if (precision <= 0) return toInt().toString();
+    final factor = pow(10, precision);
+    final major = this / factor;
+    if (this % factor == 0) {
+      return major.toInt().toString();
+    }
+    return major.toString();
   }
 }

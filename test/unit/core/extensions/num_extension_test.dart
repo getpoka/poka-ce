@@ -82,24 +82,43 @@ void main() {
 
     test('formats visible currency with IDR', () {
       expect(0.toCurrencyFormat(symbol: 'IDR', precision: 2), 'IDR 0.00');
-      expect(1234.5.toCurrencyFormat(symbol: 'IDR', precision: 2), 'IDR 1,234.50');
-      expect(1000000.toCurrencyFormat(symbol: 'IDR', precision: 2), 'IDR 1,000,000.00');
+      expect(123450.toCurrencyFormat(symbol: 'IDR', precision: 2), 'IDR 1,234.50');
+      expect(100000000.toCurrencyFormat(symbol: 'IDR', precision: 2), 'IDR 1,000,000.00');
     });
 
     test('formats visible currency with USD', () {
-      final result = 1234.56.toCurrencyFormat(symbol: 'USD', precision: 2);
+      final result = 123456.toCurrencyFormat(symbol: 'USD', precision: 2);
       expect(result, 'USD 1,234.56');
     });
 
     test('formats negative amount when visible', () {
-      final result = (-500).toCurrencyFormat(symbol: 'IDR', precision: 2);
+      final result = (-50000).toCurrencyFormat(symbol: 'IDR', precision: 2);
       expect(result.contains('IDR'), isTrue);
       expect(result.contains('500.00'), isTrue);
     });
 
     test('formats double fractional amount', () {
-      expect(0.5.toCurrencyFormat(symbol: 'IDR', precision: 2), 'IDR 0.50');
-      expect(99.9.toCurrencyFormat(symbol: 'USD', precision: 2), 'USD 99.90');
+      expect(50.toCurrencyFormat(symbol: 'IDR', precision: 2), 'IDR 0.50');
+      expect(9990.toCurrencyFormat(symbol: 'USD', precision: 2), 'USD 99.90');
+    });
+  });
+
+  group('NumExtension toMajorExpression', () {
+    test('returns integer string when precision is 0', () {
+      expect(50000.toMajorExpression(precision: 0), '50000');
+      expect(0.toMajorExpression(precision: 0), '0');
+    });
+
+    test('returns clean integer string when whole unit with precision 2', () {
+      expect(5000.toMajorExpression(precision: 2), '50');
+      expect(100.toMajorExpression(precision: 2), '1');
+      expect(0.toMajorExpression(precision: 2), '0');
+    });
+
+    test('returns decimal string when fractional minor units with precision 2', () {
+      expect(625.toMajorExpression(precision: 2), '6.25');
+      expect(50.toMajorExpression(precision: 2), '0.5');
+      expect(5.toMajorExpression(precision: 2), '0.05');
     });
   });
 }

@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:poka_ce/core/extensions/num_extension.dart';
+import 'package:poka_ce/core/extensions/string_extension.dart';
 import 'package:poka_ce/features/accounts/presentation/controllers/account_list_notifier.dart';
 import 'package:poka_ce/features/goals/domain/goal_model.dart';
 import 'package:poka_ce/features/goals/presentation/controllers/goal_form_notifier.dart';
 import 'package:poka_ce/features/goals/presentation/widgets/forms/fields/goal_account_picker_tile.dart';
 import 'package:poka_ce/features/goals/presentation/widgets/forms/fields/goal_auto_pocket_banner.dart';
 import 'package:poka_ce/features/goals/presentation/widgets/goal_date_picker_tile.dart';
+import 'package:poka_ce/features/settings/presentation/controllers/settings_notifier.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/poka_toast.dart';
 import 'package:poka_ce/shared/widgets/sheets/poka_sheet.dart';
@@ -91,19 +94,20 @@ class GoalFormSheet extends HookConsumerWidget {
       return null;
     }, [regularAccounts, state.parentAccountId, initialGoal, initialParentAccountId]);
 
+    final precision = ref.watch(settingsProvider).settings?.baseCurrency?.precision ?? 0;
     final nameController = useTextEditingController(text: initialGoal?.name ?? initialName ?? state.name);
     final amountController = useTextEditingController(
       text: initialGoal != null && initialGoal!.targetAmount > 0
-          ? initialGoal!.targetAmount.toString()
+          ? initialGoal!.targetAmount.toMajorExpression(precision: precision)
           : (initialTargetAmount != null && initialTargetAmount! > 0
-                ? initialTargetAmount.toString()
-                : (state.targetAmount > 0 ? state.targetAmount.toString() : '')),
+                ? initialTargetAmount!.toMajorExpression(precision: precision)
+                : (state.targetAmount > 0 ? state.targetAmount.toMajorExpression(precision: precision) : '')),
     );
 
     useEffect(() {
       void syncInputs() {
         if (state.name != nameController.text) notifier.setName(nameController.text);
-        final val = int.tryParse(amountController.text) ?? 0;
+        final val = amountController.text.toMinorUnits(precision: precision);
         if (state.targetAmount != val) notifier.setTargetAmount(val);
       }
 
@@ -113,7 +117,7 @@ class GoalFormSheet extends HookConsumerWidget {
         nameController.removeListener(syncInputs);
         amountController.removeListener(syncInputs);
       };
-    }, [nameController, amountController]);
+    }, [nameController, amountController, precision]);
 
     ref.listen(goalFormProvider, (prev, next) {
       if (next.isSuccess && (prev?.isSuccess != true)) {
@@ -149,8 +153,8 @@ class GoalFormSheet extends HookConsumerWidget {
               keyboardType: TextInputType.number,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               validator: (value) {
-                final amount = int.tryParse(value ?? '');
-                if (amount == null || amount <= 0) return t.goals.targetAmountGreaterThanZero;
+                final amount = (value ?? '').toMinorUnits(precision: precision);
+                if (amount <= 0) return t.goals.targetAmountGreaterThanZero;
                 return null;
               },
             ),

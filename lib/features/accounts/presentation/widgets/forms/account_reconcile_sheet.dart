@@ -4,9 +4,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poka_ce/app/providers/use_case_providers.dart';
 import 'package:poka_ce/core/enums.dart';
 import 'package:poka_ce/core/error/result.dart';
+import 'package:poka_ce/core/extensions/num_extension.dart';
 import 'package:poka_ce/core/extensions/string_extension.dart';
 import 'package:poka_ce/core/utils/icon_util.dart';
 import 'package:poka_ce/features/accounts/domain/account_model.dart';
+import 'package:poka_ce/features/settings/presentation/controllers/settings_notifier.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/poka_amount_text.dart';
 import 'package:poka_ce/shared/widgets/poka_icon.dart';
@@ -40,20 +42,23 @@ class AccountReconcileSheet extends HookConsumerWidget {
     final accentColor = account.color?.toColor() ?? theme.colors.primary;
     final accountIcon = IconUtil.getIcon(account.icon);
 
-    final targetBalanceController = useTextEditingController(text: currentBalance.toString());
+    final precision = ref.watch(settingsProvider).settings?.baseCurrency?.precision ?? 0;
+    final targetBalanceController = useTextEditingController(
+      text: currentBalance.toMajorExpression(precision: precision),
+    );
     final noteController = useTextEditingController();
     final targetBalanceState = useState<int>(currentBalance);
     final isSubmitting = useState<bool>(false);
 
     useEffect(() {
       void listener() {
-        final parsed = int.tryParse(targetBalanceController.text.replaceAll(RegExp(r'[^0-9\-]'), '')) ?? 0;
+        final parsed = targetBalanceController.text.toMinorUnits(precision: precision);
         targetBalanceState.value = parsed;
       }
 
       targetBalanceController.addListener(listener);
       return () => targetBalanceController.removeListener(listener);
-    }, [targetBalanceController]);
+    }, [targetBalanceController, precision]);
 
     final delta = targetBalanceState.value - currentBalance;
 

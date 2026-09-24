@@ -6,6 +6,7 @@ import 'package:poka_ce/features/dashboard/presentation/controllers/balance_visi
 import 'package:poka_ce/features/dashboard/presentation/controllers/daily_budget_notifier.dart';
 import 'package:poka_ce/features/dashboard/presentation/controllers/dashboard_notifier.dart';
 import 'package:poka_ce/features/dashboard/presentation/widgets/sheets/dashboard_budget_sheet.dart';
+import 'package:poka_ce/features/settings/presentation/controllers/settings_notifier.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/theme/theme.dart';
 
@@ -19,14 +20,18 @@ class DashboardSpendingChart extends HookConsumerWidget {
     final theme = context.theme;
     final state = ref.watch(dashboardProvider);
     final isBalanceVisible = ref.watch(balanceVisibilityProvider);
+    final precision = ref.watch(settingsProvider).settings?.baseCurrency?.precision ?? 0;
 
-    final totalExpenseFormatted = state.totalExpense.toCompactFormat(isVisible: isBalanceVisible);
-    final avgExpenseFormatted = (state.totalExpense / 7).toCompactFormat(isVisible: isBalanceVisible);
+    final totalExpenseFormatted = state.totalExpense.toCompactFormat(precision: precision, isVisible: isBalanceVisible);
+    final avgExpenseFormatted = (state.totalExpense / 7).toCompactFormat(
+      precision: precision,
+      isVisible: isBalanceVisible,
+    );
 
     // Get daily budget
     final dailyBudget = ref.watch(dailyBudgetProvider);
     final dailyBudgetFormatted = dailyBudget > 0
-        ? dailyBudget.toCompactFormat(isVisible: isBalanceVisible)
+        ? dailyBudget.toCompactFormat(precision: precision, isVisible: isBalanceVisible)
         : context.t.dashboard.notSet;
 
     // Use pre-computed state from DashboardState

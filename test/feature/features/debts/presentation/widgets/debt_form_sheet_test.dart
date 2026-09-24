@@ -16,12 +16,22 @@ import 'package:poka_ce/features/debts/domain/debt_model.dart';
 import 'package:poka_ce/features/debts/domain/i_debt_repository.dart';
 import 'package:poka_ce/features/debts/presentation/controllers/debt_form_notifier.dart';
 import 'package:poka_ce/features/debts/presentation/widgets/debt_form_sheet.dart';
+import 'package:poka_ce/features/settings/domain/currency_model.dart';
+import 'package:poka_ce/features/settings/domain/settings_model.dart';
+import 'package:poka_ce/features/settings/presentation/controllers/settings_notifier.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class MockDebtRepository extends Mock implements IDebtRepository {}
 
 class FakeDebtModel extends Fake implements DebtModel {}
+
+class _FakeSettingsNotifier extends SettingsNotifier {
+  _FakeSettingsNotifier(this._state);
+  final SettingsState _state;
+  @override
+  SettingsState build() => _state;
+}
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -89,7 +99,14 @@ void main() {
     note: 'dinner',
   );
 
-  Widget buildWidget({DebtModel? initialDebt}) {
+  Widget buildWidget({DebtModel? initialDebt, int precision = 0}) {
+    final settingsState = SettingsState(
+      settings: SettingsModel(
+        themeMode: 'system',
+        baseCurrency: CurrencyModel(id: 'c1', code: 'USD', name: 'US Dollar', symbol: r'$', precision: precision),
+      ),
+    );
+
     return ProviderScope(
       overrides: [
         debtRepositoryProvider.overrideWithValue(mockDebtRepo),
@@ -97,6 +114,7 @@ void main() {
           () => _FakeDashboardNotifier(DashboardState(accounts: sampleAccounts(), isLoading: false)),
         ),
         categoryListProvider.overrideWith(() => _FakeCategoryNotifier(sampleCategories())),
+        settingsProvider.overrideWith(() => _FakeSettingsNotifier(settingsState)),
       ],
       child: TranslationProvider(
         child: MaterialApp(
@@ -375,6 +393,34 @@ void main() {
       await tester.tap(closeButton);
       await tester.pumpAndSettle();
       expect(find.text('Edit Record'), findsNothing);
+    });
+
+    testWidgets('pre-fills amount using toMajorExpression with precision 2', (tester) async {
+      final debt = sampleDebt().copyWith(amount: 50000); // 500.00
+      await tester.pumpWidget(buildWidget(initialDebt: debt, precision: 2));
+      await tester.pumpAndSettle();
+
+      expect(find.text('500'), findsOneWidget);
+    });
+
+    testWidgets('updates debt in edit mode converting entered amount to minor units with precision 2', (tester) async {
+      final debt = sampleDebt();
+      await tester.pumpWidget(buildWidget(initialDebt: debt, precision: 2));
+      await tester.pumpAndSettle();
+
+      final fields = find.byType(EditableText);
+      // Amount field is second EditableText
+      await tester.enterText(fields.at(1), '75.25');
+      await tester.pumpAndSettle();
+
+      await tester.ensureVisible(find.text('Save Changes'));
+      await tester.tap(find.text('Save Changes'), warnIfMissed: false);
+      await tester.pumpAndSettle();
+
+      final captured = verify(() => mockDebtRepo.updateDebt(captureAny())).captured;
+      expect(captured.isNotEmpty, isTrue);
+      final updatedDebt = captured.first as DebtModel;
+      expect(updatedDebt.amount, 7525);
     });
   });
 }

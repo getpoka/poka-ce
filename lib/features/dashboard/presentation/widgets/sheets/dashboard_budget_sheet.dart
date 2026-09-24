@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:forui/forui.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:poka_ce/core/extensions/num_extension.dart';
+import 'package:poka_ce/core/extensions/string_extension.dart';
 import 'package:poka_ce/features/dashboard/presentation/controllers/daily_budget_notifier.dart';
+import 'package:poka_ce/features/settings/presentation/controllers/settings_notifier.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/sheets/poka_sheet.dart';
 
@@ -20,7 +23,10 @@ class DashboardBudgetSheet extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final controller = useTextEditingController(text: currentBudget > 0 ? currentBudget.toInt().toString() : '');
+    final precision = ref.watch(settingsProvider).settings?.baseCurrency?.precision ?? 0;
+    final controller = useTextEditingController(
+      text: currentBudget > 0 ? currentBudget.toMajorExpression(precision: precision) : '',
+    );
 
     return PokaSheet(
       title: context.t.dashboard.setDailyBudget,
@@ -40,9 +46,9 @@ class DashboardBudgetSheet extends HookConsumerWidget {
             width: double.infinity,
             child: FButton(
               onPress: () {
-                final amount = double.tryParse(controller.text);
-                if (amount != null) {
-                  ref.read(dailyBudgetProvider.notifier).setBudget(amount);
+                final amount = controller.text.toMinorUnits(precision: precision);
+                if (amount > 0) {
+                  ref.read(dailyBudgetProvider.notifier).setBudget(amount.toDouble());
                 }
                 Navigator.of(context).pop();
               },

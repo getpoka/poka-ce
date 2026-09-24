@@ -127,13 +127,14 @@ class DatabaseSeeder {
       // 1. Seed Accounts
       batch
         ..insertAll(db.accounts, [
+          // Balances stored as ISO 4217 minor units (IDR precision=0 — whole rupiah).
           AccountsCompanion.insert(
             id: Value(bcaId),
             name: 'Bank BCA',
             type: AccountType.assets,
             icon: const Value('account_balance'),
             color: const Value('#2196F3'),
-            balance: const Value(15000000),
+            balance: const Value(15_000_000), // Rp 15.000.000
           ),
           AccountsCompanion.insert(
             id: Value(ewalletId),
@@ -141,7 +142,7 @@ class DatabaseSeeder {
             type: AccountType.assets,
             icon: const Value('account_balance_wallet'),
             color: const Value('#FF9800'),
-            balance: const Value(200000),
+            balance: const Value(200_000), // Rp 200.000
           ),
           // Sub-accounts / Pockets
           AccountsCompanion.insert(
@@ -151,7 +152,7 @@ class DatabaseSeeder {
             type: AccountType.assets,
             icon: const Value('savings'),
             color: const Value('#03A9F4'),
-            balance: const Value(5000000),
+            balance: const Value(5_000_000), // Rp 5.000.000
           ),
           AccountsCompanion.insert(
             id: Value(gopayId),
@@ -160,7 +161,7 @@ class DatabaseSeeder {
             type: AccountType.assets,
             icon: const Value('wallet'),
             color: const Value('#8BC34A'),
-            balance: const Value(150000),
+            balance: const Value(150_000), // Rp 150.000
           ),
           // Account for Goal
           AccountsCompanion.insert(
@@ -191,12 +192,12 @@ class DatabaseSeeder {
             balance: const Value(0),
           ),
         ])
-        // 3. Seed Budgets
+        // 3. Seed Budgets (amounts in ISO 4217 minor units, IDR precision=0)
         ..insertAll(db.budgets, [
           BudgetsCompanion.insert(
             id: Value(budgetId),
             name: 'Monthly Food Budget',
-            amount: 2000000,
+            amount: 2_000_000, // Rp 2.000.000
             categoryId: const Value(foodId),
             period: BudgetPeriod.monthly,
             startDate: DateTime(now.year, now.month),
@@ -204,7 +205,7 @@ class DatabaseSeeder {
           BudgetsCompanion.insert(
             id: Value(budget2Id),
             name: 'Transportation',
-            amount: 500000,
+            amount: 500_000, // Rp 500.000
             categoryId: const Value(transportId),
             period: BudgetPeriod.monthly,
             startDate: DateTime(now.year, now.month),
@@ -212,7 +213,7 @@ class DatabaseSeeder {
           BudgetsCompanion.insert(
             id: Value(budget3Id),
             name: 'Utility Bills',
-            amount: 1000000,
+            amount: 1_000_000, // Rp 1.000.000
             categoryId: const Value(billsId),
             period: BudgetPeriod.monthly,
             startDate: DateTime(now.year, now.month),
@@ -220,7 +221,7 @@ class DatabaseSeeder {
           BudgetsCompanion.insert(
             id: Value(budget4Id),
             name: 'Electricity',
-            amount: 300000,
+            amount: 300_000, // Rp 300.000
             categoryId: const Value(electricityId),
             period: BudgetPeriod.monthly,
             startDate: DateTime(now.year, now.month),
@@ -229,19 +230,19 @@ class DatabaseSeeder {
         ..insertAll(db.budgetRecords, [
           BudgetRecordsCompanion.insert(
             budgetId: budgetId,
-            spentAmount: const Value(50000),
+            spentAmount: const Value(50_000), // Rp 50.000
             periodStart: DateTime(now.year, now.month),
             periodEnd: DateTime(now.year, now.month + 1).subtract(const Duration(days: 1)),
           ),
           BudgetRecordsCompanion.insert(
             budgetId: budget2Id,
-            spentAmount: const Value(120000),
+            spentAmount: const Value(120_000), // Rp 120.000
             periodStart: DateTime(now.year, now.month),
             periodEnd: DateTime(now.year, now.month + 1).subtract(const Duration(days: 1)),
           ),
           BudgetRecordsCompanion.insert(
             budgetId: budget3Id,
-            spentAmount: const Value(450000),
+            spentAmount: const Value(450_000), // Rp 450.000
             periodStart: DateTime(now.year, now.month),
             periodEnd: DateTime(now.year, now.month + 1).subtract(const Duration(days: 1)),
           ),
@@ -252,13 +253,13 @@ class DatabaseSeeder {
             periodEnd: DateTime(now.year, now.month + 1).subtract(const Duration(days: 1)),
           ),
         ])
-        // 4. Seed Goals
+        // 4. Seed Goals (target amounts in ISO 4217 minor units, IDR precision=0)
         ..insertAll(db.goals, [
           GoalsCompanion.insert(
             id: Value(goalId),
             accountId: goalAccountId,
             name: 'Bali Vacation',
-            targetAmount: 10000000,
+            targetAmount: 10_000_000, // Rp 10.000.000
             targetDate: Value(now.add(const Duration(days: 90))),
             icon: const Value('beach_access'),
             color: const Value('#00BCD4'),
@@ -267,7 +268,7 @@ class DatabaseSeeder {
             id: Value(goal2Id),
             accountId: goalAccount2Id,
             name: 'Geekom A7 Max',
-            targetAmount: 14000000,
+            targetAmount: 14_000_000, // Rp 14.000.000
             targetDate: Value(now.add(const Duration(days: 120))),
             icon: const Value('computer'),
             color: const Value('#3F51B5'),
@@ -276,20 +277,20 @@ class DatabaseSeeder {
             id: Value(goal3Id),
             accountId: goalAccount3Id,
             name: 'Emergency Fund',
-            targetAmount: 30000000,
+            targetAmount: 30_000_000, // Rp 30.000.000
             targetDate: Value(now.add(const Duration(days: 365))),
             icon: const Value('health_and_safety'),
             color: const Value('#F44336'),
           ),
         ])
-        // 5. Seed Debts (2 owe, 2 they owe)
+        // 5. Seed Debts (amounts in ISO 4217 minor units, IDR precision=0)
         ..insertAll(db.debts, [
           DebtsCompanion.insert(
             id: Value(debtId),
             personName: 'John Doe',
             type: DebtType.debt, // I owe
-            amount: 500000,
-            remainingAmount: 500000,
+            amount: 500_000, // Rp 500.000
+            remainingAmount: 500_000,
             status: DebtStatus.active,
             dueDate: Value(now.add(const Duration(days: 30))),
             note: const Value('Borrowed for lunch'),
@@ -298,8 +299,8 @@ class DatabaseSeeder {
             id: Value(debt2Id),
             personName: 'Bank Loan',
             type: DebtType.debt, // I owe
-            amount: 15000000,
-            remainingAmount: 12000000,
+            amount: 15_000_000, // Rp 15.000.000
+            remainingAmount: 12_000_000, // Rp 12.000.000
             status: DebtStatus.active,
             dueDate: Value(now.add(const Duration(days: 180))),
             note: const Value('Motorcycle loan'),
@@ -308,8 +309,8 @@ class DatabaseSeeder {
             id: Value(debt3Id),
             personName: 'Alice',
             type: DebtType.loan, // They owe
-            amount: 200000,
-            remainingAmount: 200000,
+            amount: 200_000, // Rp 200.000
+            remainingAmount: 200_000,
             status: DebtStatus.active,
             dueDate: Value(now.add(const Duration(days: 15))),
             note: const Value('Movie tickets'),
@@ -318,21 +319,21 @@ class DatabaseSeeder {
             id: Value(debt4Id),
             personName: 'Bob',
             type: DebtType.loan, // They owe
-            amount: 1000000,
-            remainingAmount: 500000,
+            amount: 1_000_000, // Rp 1.000.000
+            remainingAmount: 500_000, // Rp 500.000
             status: DebtStatus.active,
             dueDate: Value(now.add(const Duration(days: 60))),
             note: const Value('Rent share'),
           ),
         ])
-        // 6. Seed Recurring Transactions
+        // 6. Seed Recurring Transactions (amounts in ISO 4217 minor units, IDR precision=0)
         ..insertAll(db.recurringTransactions, [
           RecurringTransactionsCompanion.insert(
             id: Value(recurringId),
             accountId: bcaId,
             categoryId: const Value(billsId),
             type: TransactionType.expense,
-            amount: 300000,
+            amount: 300_000, // Rp 300.000
             period: RecurringPeriod.monthly,
             nextDate: now.subtract(Duration(days: 30 * (random.nextInt(3) + 1))),
             note: const Value('Monthly Internet Bill'),
@@ -342,7 +343,7 @@ class DatabaseSeeder {
             accountId: ewalletId,
             categoryId: const Value(transportId),
             type: TransactionType.expense,
-            amount: 50000,
+            amount: 50_000, // Rp 50.000
             period: RecurringPeriod.weekly,
             nextDate: now.subtract(Duration(days: 7 * (random.nextInt(3) + 1))),
             note: const Value('Weekly Commute Top-up'),
@@ -352,7 +353,7 @@ class DatabaseSeeder {
             accountId: bcaId,
             categoryId: const Value(salaryId),
             type: TransactionType.income,
-            amount: 10000000,
+            amount: 10_000_000, // Rp 10.000.000
             period: RecurringPeriod.monthly,
             nextDate: now.subtract(Duration(days: 30 * (random.nextInt(3) + 1))),
             note: const Value('Monthly Salary'),
@@ -362,19 +363,20 @@ class DatabaseSeeder {
             accountId: ewalletId,
             categoryId: const Value(foodId),
             type: TransactionType.expense,
-            amount: 120000,
+            amount: 120_000, // Rp 120.000
             period: RecurringPeriod.monthly,
             nextDate: now.subtract(Duration(days: 30 * (random.nextInt(3) + 1))),
             note: const Value('Netflix Subscription (Trigger)'),
           ),
         ])
+        // Transactions in ISO 4217 minor units (IDR precision=0)
         ..insertAll(db.transactions, [
           // ── Today's New Seeders ──
           TransactionsCompanion.insert(
             id: Value(txTodayIncomeId),
             accountId: bcaId,
             type: TransactionType.income,
-            amount: 5000000,
+            amount: 5_000_000, // Rp 5.000.000
             transactionDate: now,
             note: const Value('Freelance project'),
           ),
@@ -383,7 +385,7 @@ class DatabaseSeeder {
             accountId: bcaId,
             destinationAccountId: Value(ewalletId),
             type: TransactionType.transfer,
-            amount: 500000,
+            amount: 500_000, // Rp 500.000
             transactionDate: now,
             note: const Value('Monthly topup'),
           ),
@@ -391,7 +393,7 @@ class DatabaseSeeder {
             id: Value(txTodaySplit1Id),
             accountId: bcaId,
             type: TransactionType.expense,
-            amount: 300000,
+            amount: 300_000, // Rp 300.000
             transactionDate: now,
             note: const Value('Supermarket & Cafe'),
           ),
@@ -399,7 +401,7 @@ class DatabaseSeeder {
             id: Value(txTodaySplit2Id),
             accountId: _defaultCashAccountId,
             type: TransactionType.expense,
-            amount: 150000,
+            amount: 150_000, // Rp 150.000
             transactionDate: now,
             note: const Value('Transport & Snacks'),
           ),
@@ -407,7 +409,7 @@ class DatabaseSeeder {
             id: Value(txTodayExpense1Id),
             accountId: bcaId,
             type: TransactionType.expense,
-            amount: 75000,
+            amount: 75_000, // Rp 75.000
             transactionDate: now,
             note: const Value('Movie ticket'),
           ),
@@ -415,7 +417,7 @@ class DatabaseSeeder {
             id: Value(txTodayExpense2Id),
             accountId: ewalletId,
             type: TransactionType.expense,
-            amount: 25000,
+            amount: 25_000, // Rp 25.000
             transactionDate: now,
             note: const Value('Coffee'),
           ),
@@ -425,7 +427,7 @@ class DatabaseSeeder {
             id: Value(txIncomeId),
             accountId: bcaId,
             type: TransactionType.income,
-            amount: 15000000,
+            amount: 15_000_000, // Rp 15.000.000
             transactionDate: now.subtract(const Duration(days: 15)),
             note: const Value('Monthly Salary'),
           ),
@@ -434,7 +436,7 @@ class DatabaseSeeder {
             id: Value(txExpense1Id),
             accountId: _defaultCashAccountId,
             type: TransactionType.expense,
-            amount: 50000,
+            amount: 50_000, // Rp 50.000
             transactionDate: now.subtract(Duration.zero), // Today
             note: const Value('Lunch at cafe'),
           ),
@@ -442,7 +444,7 @@ class DatabaseSeeder {
             id: Value(txExpense2Id),
             accountId: bcaId,
             type: TransactionType.expense,
-            amount: 250000,
+            amount: 250_000, // Rp 250.000
             transactionDate: now.subtract(const Duration(days: 1)), // 1 day ago
             note: const Value('Gasoline'),
           ),
@@ -450,7 +452,7 @@ class DatabaseSeeder {
             id: Value(txExpense3Id),
             accountId: bcaId,
             type: TransactionType.expense,
-            amount: 450000,
+            amount: 450_000, // Rp 450.000
             transactionDate: now.subtract(const Duration(days: 2)), // 2 days ago
             note: const Value('Electricity Token'),
           ),
@@ -458,7 +460,7 @@ class DatabaseSeeder {
             id: Value(txExpense4Id),
             accountId: ewalletId,
             type: TransactionType.expense,
-            amount: 150000,
+            amount: 150_000, // Rp 150.000
             transactionDate: now.subtract(const Duration(days: 3)), // 3 days ago
             note: const Value('Groceries'),
           ),
@@ -466,7 +468,7 @@ class DatabaseSeeder {
             id: Value(txExpense5Id),
             accountId: bcaId,
             type: TransactionType.expense,
-            amount: 300000,
+            amount: 300_000, // Rp 300.000
             transactionDate: now.subtract(const Duration(days: 5)), // 5 days ago
             note: const Value('Internet Bill'),
           ),
@@ -476,49 +478,49 @@ class DatabaseSeeder {
             accountId: bcaId,
             destinationAccountId: Value(gopayId),
             type: TransactionType.transfer,
-            amount: 200000,
+            amount: 200_000, // Rp 200.000
             transactionDate: now.subtract(const Duration(days: 1)),
             note: const Value('Topup GoPay'),
           ),
         ])
-        // 8. Seed Transaction Items
+        // 8. Seed Transaction Items (amounts in ISO 4217 minor units, IDR precision=0)
         ..insertAll(db.transactionItems, [
           // ── Today's New Items ──
           TransactionItemsCompanion.insert(
             transactionId: txTodayIncomeId,
             categoryId: const Value(salaryId),
             allocation: const Value(TransactionAllocation.need),
-            amount: 5000000,
+            amount: 5_000_000, // Rp 5.000.000
             note: const Value('Project Payment'),
           ),
-          // Items for txTodaySplit1 (Supermarket 200k, Cafe 100k)
+          // Items for txTodaySplit1 (Supermarket Rp200k, Cafe Rp100k)
           TransactionItemsCompanion.insert(
             transactionId: txTodaySplit1Id,
             categoryId: const Value(foodId),
             allocation: const Value(TransactionAllocation.need),
-            amount: 200000,
+            amount: 200_000, // Rp 200.000
             note: const Value('Groceries'),
           ),
           TransactionItemsCompanion.insert(
             transactionId: txTodaySplit1Id,
             categoryId: const Value(lunchId),
             allocation: const Value(TransactionAllocation.want),
-            amount: 100000,
+            amount: 100_000, // Rp 100.000
             note: const Value('Coffee at Cafe'),
           ),
-          // Items for txTodaySplit2 (Transport 100k, Snacks 50k)
+          // Items for txTodaySplit2 (Transport Rp100k, Snacks Rp50k)
           TransactionItemsCompanion.insert(
             transactionId: txTodaySplit2Id,
             categoryId: const Value(transportId),
             allocation: const Value(TransactionAllocation.need),
-            amount: 100000,
+            amount: 100_000, // Rp 100.000
             note: const Value('Train Ticket'),
           ),
           TransactionItemsCompanion.insert(
             transactionId: txTodaySplit2Id,
             categoryId: const Value(lunchId),
             allocation: const Value(TransactionAllocation.want),
-            amount: 50000,
+            amount: 50_000, // Rp 50.000
             note: const Value('Snacks'),
           ),
           // Items for txTodayExpense1
@@ -526,7 +528,7 @@ class DatabaseSeeder {
             transactionId: txTodayExpense1Id,
             categoryId: const Value(lunchId),
             allocation: const Value(TransactionAllocation.want),
-            amount: 75000,
+            amount: 75_000, // Rp 75.000
             note: const Value('Movie ticket'),
           ),
           // Items for txTodayExpense2
@@ -534,7 +536,7 @@ class DatabaseSeeder {
             transactionId: txTodayExpense2Id,
             categoryId: const Value(lunchId),
             allocation: const Value(TransactionAllocation.want),
-            amount: 25000,
+            amount: 25_000, // Rp 25.000
             note: const Value('Americano'),
           ),
           // ── Past Items ──
@@ -542,54 +544,56 @@ class DatabaseSeeder {
             transactionId: txIncomeId,
             categoryId: const Value(salaryId),
             allocation: const Value(TransactionAllocation.need),
-            amount: 15000000,
+            amount: 15_000_000, // Rp 15.000.000
             note: const Value('Main Salary'),
           ),
           TransactionItemsCompanion.insert(
             transactionId: txExpense1Id,
             categoryId: const Value(lunchId),
             allocation: const Value(TransactionAllocation.want),
-            amount: 50000,
+            amount: 50_000, // Rp 50.000
             note: const Value('Nasi Goreng'),
           ),
           TransactionItemsCompanion.insert(
             transactionId: txExpense2Id,
             categoryId: const Value(transportId),
             allocation: const Value(TransactionAllocation.need),
-            amount: 250000,
+            amount: 250_000, // Rp 250.000
             note: const Value('Pertamax'),
           ),
           TransactionItemsCompanion.insert(
             transactionId: txExpense3Id,
             categoryId: const Value(electricityId),
             allocation: const Value(TransactionAllocation.need),
-            amount: 450000,
+            amount: 450_000, // Rp 450.000
             note: const Value('Token Listrik'),
           ),
           TransactionItemsCompanion.insert(
             transactionId: txExpense4Id,
             categoryId: const Value(foodId),
             allocation: const Value(TransactionAllocation.need),
-            amount: 150000,
+            amount: 150_000, // Rp 150.000
             note: const Value('Supermarket'),
           ),
           TransactionItemsCompanion.insert(
             transactionId: txExpense5Id,
             categoryId: const Value(billsId),
             allocation: const Value(TransactionAllocation.need),
-            amount: 300000,
+            amount: 300_000, // Rp 300.000
             note: const Value('IndiHome'),
           ),
         ])
-        // Update Cash account balance for dummy data
+        // Update Cash account balance for dummy data (IDR precision=0, whole rupiah)
         ..update(
           db.accounts,
-          const AccountsCompanion(balance: Value(500000)),
+          const AccountsCompanion(
+            balance: Value(500_000),
+          ), // Rp 500.000 (becomes Rp 750.000 after 250.000 transfer from Goal 3)
           where: (tbl) => tbl.id.equals(_defaultCashAccountId),
         );
     });
 
-    // 9. Insert Goal Transactions via DAO (to compute balances automatically)
+    // 9. Insert Goal Transactions via DAO (amounts in ISO 4217 minor units, IDR precision=0)
     final goalTransactions = [
       // Goal 1: Vacation Fund
       TransactionsCompanion.insert(
@@ -597,7 +601,7 @@ class DatabaseSeeder {
         accountId: bcaId,
         destinationAccountId: Value(goalAccountId),
         type: TransactionType.transfer,
-        amount: 500000,
+        amount: 500_000, // Rp 500.000
         transactionDate: now.subtract(const Duration(days: 30)),
         note: const Value('Vacation saving 1'),
       ),
@@ -606,7 +610,7 @@ class DatabaseSeeder {
         accountId: bcaId,
         destinationAccountId: Value(goalAccountId),
         type: TransactionType.transfer,
-        amount: 1000000,
+        amount: 1_000_000, // Rp 1.000.000
         transactionDate: now.subtract(const Duration(days: 15)),
         note: const Value('Vacation saving 2 (bonus)'),
       ),
@@ -615,7 +619,7 @@ class DatabaseSeeder {
         accountId: bcaId,
         destinationAccountId: Value(goalAccountId),
         type: TransactionType.transfer,
-        amount: 500000,
+        amount: 500_000, // Rp 500.000
         transactionDate: now.subtract(const Duration(days: 2)),
         note: const Value('Vacation saving 3'),
       ),
@@ -625,7 +629,7 @@ class DatabaseSeeder {
         accountId: bcaId,
         destinationAccountId: Value(goalAccount2Id),
         type: TransactionType.transfer,
-        amount: 2000000,
+        amount: 2_000_000, // Rp 2.000.000
         transactionDate: now.subtract(const Duration(days: 60)),
         note: const Value('Mini PC saving start'),
       ),
@@ -634,7 +638,7 @@ class DatabaseSeeder {
         accountId: ewalletId,
         destinationAccountId: Value(goalAccount2Id),
         type: TransactionType.transfer,
-        amount: 1000000,
+        amount: 1_000_000, // Rp 1.000.000
         transactionDate: now.subtract(const Duration(days: 30)),
         note: const Value('From freelance cash'),
       ),
@@ -643,7 +647,7 @@ class DatabaseSeeder {
         accountId: bcaId,
         destinationAccountId: Value(goalAccount2Id),
         type: TransactionType.transfer,
-        amount: 2000000,
+        amount: 2_000_000, // Rp 2.000.000
         transactionDate: now.subtract(const Duration(days: 5)),
         note: const Value('Monthly saving'),
       ),
@@ -653,7 +657,7 @@ class DatabaseSeeder {
         accountId: bcaId,
         destinationAccountId: Value(goalAccount3Id),
         type: TransactionType.transfer,
-        amount: 1000000,
+        amount: 1_000_000, // Rp 1.000.000
         transactionDate: now.subtract(const Duration(days: 90)),
         note: const Value('Emergency fund start'),
       ),
@@ -662,7 +666,7 @@ class DatabaseSeeder {
         accountId: bcaId,
         destinationAccountId: Value(goalAccount3Id),
         type: TransactionType.transfer,
-        amount: 1000000,
+        amount: 1_000_000, // Rp 1.000.000
         transactionDate: now.subtract(const Duration(days: 45)),
         note: const Value('Emergency fund topup'),
       ),
@@ -671,7 +675,7 @@ class DatabaseSeeder {
         accountId: goalAccount3Id,
         destinationAccountId: Value(bcaId),
         type: TransactionType.transfer,
-        amount: 250000,
+        amount: 250_000, // Rp 250.000
         transactionDate: now.subtract(const Duration(days: 20)),
         note: const Value('Emergency car repair'),
       ),
@@ -680,7 +684,7 @@ class DatabaseSeeder {
         accountId: goalAccount3Id,
         destinationAccountId: const Value(_defaultCashAccountId),
         type: TransactionType.transfer,
-        amount: 250000,
+        amount: 250_000, // Rp 250.000
         transactionDate: now.subtract(const Duration(days: 10)),
         note: const Value('Medical emergency'),
       ),
@@ -698,6 +702,7 @@ class DatabaseSeeder {
     final currencyData = {
       'AED': ('د.إ', 'UAE Dirham', 2),
       'AUD': (r'A$', 'Australian Dollar', 2),
+      'BDT': ('৳', 'Bangladeshi Taka', 2),
       'BND': (r'B$', 'Brunei Dollar', 2),
       'CAD': (r'C$', 'Canadian Dollar', 2),
       'CHF': ('CHF', 'Swiss Franc', 2),
@@ -708,19 +713,24 @@ class DatabaseSeeder {
       'GBP': ('£', 'British Pound', 2),
       'HKD': (r'HK$', 'Hong Kong Dollar', 2),
       'IDR': ('Rp', 'Indonesian Rupiah', 0),
+      'INR': ('₹', 'Indian Rupee', 2),
       'JPY': ('¥', 'Japanese Yen', 0),
+      'KHR': ('៛', 'Cambodian Riel', 2),
       'KRW': ('₩', 'South Korean Won', 0),
       'KWD': ('د.ك', 'Kuwaiti Dinar', 3),
       'LAK': ('₭', 'Lao Kip', 0),
+      'MMK': ('K', 'Myanmar Kyat', 2),
       'MYR': ('RM', 'Malaysian Ringgit', 2),
       'NOK': ('kr', 'Norwegian Krone', 2),
       'NZD': (r'NZ$', 'New Zealand Dollar', 2),
       'PGK': ('K', 'Papua New Guinean Kina', 2),
       'PHP': ('₱', 'Philippine Peso', 2),
+      'PKR': ('₨', 'Pakistani Rupee', 2),
       'SAR': ('﷼', 'Saudi Riyal', 2),
       'SEK': ('kr', 'Swedish Krona', 2),
       'SGD': (r'S$', 'Singapore Dollar', 2),
       'THB': ('฿', 'Thai Baht', 2),
+      'TWD': (r'NT$', 'Taiwan New Dollar', 2),
       'USD': (r'$', 'United States Dollar', 2),
       'VND': ('₫', 'Vietnamese Dong', 0),
     };

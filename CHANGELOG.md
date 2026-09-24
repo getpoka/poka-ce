@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed financial forms across goals, budgets, debts, accounts, and recurring transactions to correctly pre-fill and convert monetary amounts based on currency precision.
+- [internal] Updated form sheets and validation logic to use `toMajorExpression` for initial input values and `toMinorUnits` for minor currency unit persistence.
+
 ## [v1.1.5] - 2026-09-24
 
 ### Fixed

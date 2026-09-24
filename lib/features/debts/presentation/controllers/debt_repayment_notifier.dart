@@ -1,5 +1,6 @@
 import 'package:poka_ce/app/providers/use_case_providers.dart';
 import 'package:poka_ce/core/enums.dart';
+import 'package:poka_ce/core/extensions/string_extension.dart';
 import 'package:poka_ce/features/dashboard/presentation/controllers/dashboard_notifier.dart';
 import 'package:poka_ce/features/debts/domain/debt_model.dart';
 import 'package:poka_ce/shared/utils/math_evaluator.dart';
@@ -120,9 +121,13 @@ class DebtRepaymentNotifier extends _$DebtRepaymentNotifier {
   }
 
   /// Records the repayment transaction and reduces the debt's outstanding balance.
-  Future<bool> saveRepayment({required DebtModel debt}) async {
+  Future<bool> saveRepayment({required DebtModel debt, int precision = 0}) async {
     if (state.accountId == null) return false;
-    final amount = int.tryParse(state.amountExpression) ?? 0;
+    var rawExpr = state.amountExpression;
+    if (MathEvaluator.hasUnresolvedOperator(rawExpr)) {
+      rawExpr = MathEvaluator.evaluate(rawExpr) ?? rawExpr;
+    }
+    final amount = rawExpr.toMinorUnits(precision: precision);
     if (amount <= 0) return false;
 
     state = state.copyWith(isSaving: true);

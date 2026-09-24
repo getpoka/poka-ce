@@ -304,7 +304,7 @@ void main() {
         () => mockCreate.execute(
           type: TransactionType.expense,
           accountId: any(named: 'accountId'),
-          amount: 500,
+          amount: 50000,
           categoryId: any(named: 'categoryId'),
           note: any(named: 'note'),
           allocation: any(named: 'allocation'),
@@ -342,7 +342,7 @@ void main() {
 
       verify(
         () => mockTransfer.execute(
-          amount: 200,
+          amount: 20000,
           sourceAccountId: any(named: 'sourceAccountId'),
           destinationAccountId: any(named: 'destinationAccountId'),
           note: any(named: 'note'),
@@ -677,7 +677,7 @@ void main() {
         () => mockCreate.execute(
           type: TransactionType.expense,
           accountId: 'a1',
-          amount: 500,
+          amount: 50000,
           categoryId: any(named: 'categoryId'),
           note: any(named: 'note'),
           allocation: any(named: 'allocation'),
@@ -743,7 +743,7 @@ void main() {
 
       verify(
         () => mockTransfer.execute(
-          amount: 200,
+          amount: 20000,
           sourceAccountId: 'a1',
           destinationAccountId: 'a2',
           note: any(named: 'note'),
@@ -800,7 +800,7 @@ void main() {
         () => mockCreate.execute(
           type: TransactionType.income,
           accountId: 'a1',
-          amount: 500,
+          amount: 50000,
           categoryId: any(named: 'categoryId'),
           note: any(named: 'note'),
           allocation: any(named: 'allocation'),
@@ -812,7 +812,7 @@ void main() {
     });
 
     testWidgets('Editing existing transaction on same account with same amount does not show warning', (tester) async {
-      final existingTx = sampleTx().copyWith(amount: 500);
+      final existingTx = sampleTx().copyWith(amount: 50000);
       when(
         () => mockUpdate.execute(
           any(),
@@ -854,7 +854,7 @@ void main() {
           type: any(named: 'type'),
           accountId: any(named: 'accountId'),
           destinationAccountId: any(named: 'destinationAccountId'),
-          amount: 500,
+          amount: 50000,
           categoryId: any(named: 'categoryId'),
           note: any(named: 'note'),
           transactionDate: any(named: 'transactionDate'),
@@ -867,7 +867,7 @@ void main() {
     testWidgets(
       'Editing existing transaction on same account with increased amount exceeding available balance shows warning',
       (tester) async {
-        final existingTx = sampleTx().copyWith(amount: 100);
+        final existingTx = sampleTx().copyWith(amount: 10000);
         when(
           () => mockUpdate.execute(
             any(),
@@ -927,7 +927,7 @@ void main() {
             type: any(named: 'type'),
             accountId: any(named: 'accountId'),
             destinationAccountId: any(named: 'destinationAccountId'),
-            amount: 500,
+            amount: 50000,
             categoryId: any(named: 'categoryId'),
             note: any(named: 'note'),
             transactionDate: any(named: 'transactionDate'),
