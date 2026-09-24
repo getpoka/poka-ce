@@ -9,6 +9,7 @@ import 'package:poka_ce/core/error/result.dart';
 import 'package:poka_ce/features/accounts/domain/account_model.dart';
 import 'package:poka_ce/features/accounts/presentation/controllers/account_list_notifier.dart';
 import 'package:poka_ce/features/budgets/domain/budget_model.dart';
+import 'package:poka_ce/features/budgets/presentation/controllers/budget_form_sheet_builder_provider.dart';
 import 'package:poka_ce/features/budgets/presentation/controllers/budget_list_notifier.dart';
 import 'package:poka_ce/features/budgets/presentation/widgets/cards/budget_card.dart';
 import 'package:poka_ce/features/budgets/presentation/widgets/forms/budget_form_sheet.dart';
@@ -118,7 +119,9 @@ class BudgetDetailPage extends ConsumerWidget {
         suffixes: [
           FHeaderAction(
             icon: const Icon(FPhosphorIcons.pencilSimple, size: 20),
-            onPress: () => BudgetFormSheet.show(context, initialBudget: activeBudget),
+            onPress: () => ref.read(budgetFormSheetBuilderProvider) != null
+                ? ref.read(budgetFormSheetBuilderProvider)!(context, initialBudget: activeBudget)
+                : BudgetFormSheet.show(context, initialBudget: activeBudget),
           ),
           FHeaderAction(
             icon: Icon(FPhosphorIcons.trash, size: 20, color: context.theme.colors.destructive),

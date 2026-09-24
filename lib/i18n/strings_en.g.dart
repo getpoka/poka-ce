@@ -1873,6 +1873,9 @@ class Translations$settings$en {
 
 	/// en: 'Failed to export Excel file'
 	String get exportExcelError => 'Failed to export Excel file';
+
+	/// en: 'Currency cannot be changed after transactions are recorded. Please reset data if you wish to change it.'
+	String get currencyLockedToast => 'Currency cannot be changed after transactions are recorded. Please reset data if you wish to change it.';
 }
 
 // Path: shared
@@ -2810,6 +2813,7 @@ extension on Translations {
 			'settings.exportExcelDesc' => 'Export transactions, accounts, and categories to .xlsx',
 			'settings.exportExcelSuccess' => 'Excel exported successfully',
 			'settings.exportExcelError' => 'Failed to export Excel file',
+			'settings.currencyLockedToast' => 'Currency cannot be changed after transactions are recorded. Please reset data if you wish to change it.',
 			'shared.authRequired' => 'Authentication Required',
 			'shared.hexColorCode' => 'Hex Color Code',
 			'shared.apply' => 'Apply',

@@ -750,6 +750,7 @@ class _Translations$settings$id extends Translations$settings$en {
 	@override String get exportExcelDesc => 'Ekspor transaksi, akun, dan kategori ke file .xlsx';
 	@override String get exportExcelSuccess => 'Berhasil mengekspor ke Excel';
 	@override String get exportExcelError => 'Gagal mengekspor file Excel';
+	@override String get currencyLockedToast => 'Mata uang tidak dapat diubah setelah ada transaksi. Silakan reset data jika ingin mengubahnya.';
 }
 
 // Path: shared
@@ -1487,6 +1488,7 @@ extension on TranslationsId {
 			'settings.exportExcelDesc' => 'Ekspor transaksi, akun, dan kategori ke file .xlsx',
 			'settings.exportExcelSuccess' => 'Berhasil mengekspor ke Excel',
 			'settings.exportExcelError' => 'Gagal mengekspor file Excel',
+			'settings.currencyLockedToast' => 'Mata uang tidak dapat diubah setelah ada transaksi. Silakan reset data jika ingin mengubahnya.',
 			'shared.authRequired' => 'Dibutuhkan Autentikasi',
 			'shared.hexColorCode' => 'Kode Warna Hex',
 			'shared.apply' => 'Terapkan',

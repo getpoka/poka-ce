@@ -6,6 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poka_ce/app/router/router.dart';
 import 'package:poka_ce/core/enums.dart';
 import 'package:poka_ce/features/recurring/domain/recurring_model.dart';
+import 'package:poka_ce/features/recurring/presentation/controllers/recurring_form_sheet_builder_provider.dart';
 import 'package:poka_ce/features/recurring/presentation/controllers/recurring_list_notifier.dart';
 import 'package:poka_ce/features/recurring/presentation/widgets/recurring_form_sheet.dart';
 import 'package:poka_ce/features/recurring/presentation/widgets/recurring_next_date_chip.dart';
@@ -142,7 +143,9 @@ class RecurringCard extends ConsumerWidget {
             icon: FPhosphorIcons.pencilSimple,
             color: theme.colors.primary,
             onPressed: () {
-              RecurringFormSheet.show(context, initialRecurring: recurring);
+              ref.read(recurringFormSheetBuilderProvider) != null
+                  ? ref.read(recurringFormSheetBuilderProvider)!(context, initialRecurring: recurring)
+                  : RecurringFormSheet.show(context, initialRecurring: recurring);
             },
           ),
         ],

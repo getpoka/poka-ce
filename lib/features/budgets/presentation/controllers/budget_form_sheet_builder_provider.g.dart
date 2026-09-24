@@ -1,0 +1,63 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'budget_form_sheet_builder_provider.dart';
+
+// **************************************************************************
+// RiverpodGenerator
+// **************************************************************************
+
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+/// Provides an optional [BudgetFormSheetBuilder] override for the budget form.
+///
+/// In CE, returns `null` — callers fall back to the default BudgetFormSheet.show.
+/// Poka PE overrides this in the root ProviderScope to inject
+/// PeBudgetFormSheet.show, which adds a currency selector.
+
+@ProviderFor(budgetFormSheetBuilder)
+final budgetFormSheetBuilderProvider = BudgetFormSheetBuilderProvider._();
+
+/// Provides an optional [BudgetFormSheetBuilder] override for the budget form.
+///
+/// In CE, returns `null` — callers fall back to the default BudgetFormSheet.show.
+/// Poka PE overrides this in the root ProviderScope to inject
+/// PeBudgetFormSheet.show, which adds a currency selector.
+
+final class BudgetFormSheetBuilderProvider
+    extends $FunctionalProvider<BudgetFormSheetBuilder?, BudgetFormSheetBuilder?, BudgetFormSheetBuilder?>
+    with $Provider<BudgetFormSheetBuilder?> {
+  /// Provides an optional [BudgetFormSheetBuilder] override for the budget form.
+  ///
+  /// In CE, returns `null` — callers fall back to the default BudgetFormSheet.show.
+  /// Poka PE overrides this in the root ProviderScope to inject
+  /// PeBudgetFormSheet.show, which adds a currency selector.
+  BudgetFormSheetBuilderProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'budgetFormSheetBuilderProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$budgetFormSheetBuilderHash();
+
+  @$internal
+  @override
+  $ProviderElement<BudgetFormSheetBuilder?> $createElement($ProviderPointer pointer) => $ProviderElement(pointer);
+
+  @override
+  BudgetFormSheetBuilder? create(Ref ref) {
+    return budgetFormSheetBuilder(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(BudgetFormSheetBuilder? value) {
+    return $ProviderOverride(origin: this, providerOverride: $SyncValueProvider<BudgetFormSheetBuilder?>(value));
+  }
+}
+
+String _$budgetFormSheetBuilderHash() => r'ba91c702078b58c3cd143e09e303cd1b8c9b1889';

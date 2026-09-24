@@ -69,5 +69,6 @@
   "exportExcel": "Eksport ke Excel",
   "exportExcelDesc": "Eksport transaksi, akaun dan kategori ke .xlsx",
   "exportExcelSuccess": "Excel berjaya dieksport",
-  "exportExcelError": "Gagal mengeksport fail Excel"
+  "exportExcelError": "Gagal mengeksport fail Excel",
+  "currencyLockedToast": "Mata wang tidak boleh ditukar selepas transaksi direkodkan. Sila tetapkan semula data jika anda mahu menukarnya."
 }

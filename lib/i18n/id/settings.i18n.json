@@ -69,5 +69,6 @@
   "exportExcel": "Ekspor ke Excel",
   "exportExcelDesc": "Ekspor transaksi, akun, dan kategori ke file .xlsx",
   "exportExcelSuccess": "Berhasil mengekspor ke Excel",
-  "exportExcelError": "Gagal mengekspor file Excel"
+  "exportExcelError": "Gagal mengekspor file Excel",
+  "currencyLockedToast": "Mata uang tidak dapat diubah setelah ada transaksi. Silakan reset data jika ingin mengubahnya."
 }

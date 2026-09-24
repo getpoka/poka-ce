@@ -69,5 +69,6 @@
   "exportExcel": "Export to Excel",
   "exportExcelDesc": "Export transactions, accounts, and categories to .xlsx",
   "exportExcelSuccess": "Excel exported successfully",
-  "exportExcelError": "Failed to export Excel file"
+  "exportExcelError": "Failed to export Excel file",
+  "currencyLockedToast": "Currency cannot be changed after transactions are recorded. Please reset data if you wish to change it."
 }

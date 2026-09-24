@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poka_ce/features/budgets/domain/budget_model.dart';
+import 'package:poka_ce/features/budgets/presentation/controllers/budget_form_sheet_builder_provider.dart';
 import 'package:poka_ce/features/budgets/presentation/controllers/budget_list_notifier.dart';
 import 'package:poka_ce/features/budgets/presentation/widgets/cards/budget_card.dart';
 import 'package:poka_ce/features/budgets/presentation/widgets/cards/budget_summary_card.dart';
@@ -51,7 +52,9 @@ class _BudgetContent extends ConsumerWidget {
           subtitle: t.budgets.setSpendingLimitsToTrackWhereYourMoneyGoesEachPeriod,
           actionLabel: t.budgets.createBudget,
           actionKey: const Key('budget-add-button'),
-          onAction: () => BudgetFormSheet.show(context),
+          onAction: () => ref.read(budgetFormSheetBuilderProvider) != null
+              ? ref.read(budgetFormSheetBuilderProvider)!(context)
+              : BudgetFormSheet.show(context),
         ),
       );
     }
@@ -73,7 +76,9 @@ class _BudgetContent extends ConsumerWidget {
                 Builder(
                   builder: (context) => GestureDetector(
                     key: const Key('budget-add-button'),
-                    onTap: () => BudgetFormSheet.show(context),
+                    onTap: () => ref.read(budgetFormSheetBuilderProvider) != null
+                        ? ref.read(budgetFormSheetBuilderProvider)!(context)
+                        : BudgetFormSheet.show(context),
                     child: Row(
                       children: [
                         Icon(FPhosphorIcons.plus, size: 14, color: context.theme.colors.primary),
