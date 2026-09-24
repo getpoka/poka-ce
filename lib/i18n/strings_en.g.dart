@@ -1873,6 +1873,9 @@ class Translations$settings$en {
 
 	/// en: 'Failed to export Excel file'
 	String get exportExcelError => 'Failed to export Excel file';
+
+	/// en: 'Poka CE is single-currency. Currency is locked because you have existing transactions. Please reset app data to change it.'
+	String get currencyLockedToast => 'Poka CE is single-currency. Currency is locked because you have existing transactions. Please reset app data to change it.';
 }
 
 // Path: shared
@@ -2810,6 +2813,7 @@ extension on Translations {
 			'settings.exportExcelDesc' => 'Export transactions, accounts, and categories to .xlsx',
 			'settings.exportExcelSuccess' => 'Excel exported successfully',
 			'settings.exportExcelError' => 'Failed to export Excel file',
+			'settings.currencyLockedToast' => 'Poka CE is single-currency. Currency is locked because you have existing transactions. Please reset app data to change it.',
 			'shared.authRequired' => 'Authentication Required',
 			'shared.hexColorCode' => 'Hex Color Code',
 			'shared.apply' => 'Apply',

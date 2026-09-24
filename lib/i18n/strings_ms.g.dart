@@ -751,6 +751,7 @@ class _Translations$settings$ms extends Translations$settings$en {
 	@override String get exportExcelDesc => 'Eksport transaksi, akaun dan kategori ke .xlsx';
 	@override String get exportExcelSuccess => 'Excel berjaya dieksport';
 	@override String get exportExcelError => 'Gagal mengeksport fail Excel';
+	@override String get currencyLockedToast => 'Poka CE ialah aplikasi mata wang tunggal. Mata wang dikunci kerana anda mempunyai transaksi sedia ada. Sila tetapkan semula data aplikasi untuk menukarnya.';
 }
 
 // Path: shared
@@ -1488,6 +1489,7 @@ extension on TranslationsMs {
 			'settings.exportExcelDesc' => 'Eksport transaksi, akaun dan kategori ke .xlsx',
 			'settings.exportExcelSuccess' => 'Excel berjaya dieksport',
 			'settings.exportExcelError' => 'Gagal mengeksport fail Excel',
+			'settings.currencyLockedToast' => 'Poka CE ialah aplikasi mata wang tunggal. Mata wang dikunci kerana anda mempunyai transaksi sedia ada. Sila tetapkan semula data aplikasi untuk menukarnya.',
 			'shared.authRequired' => 'Pengesahan Diperlukan',
 			'shared.hexColorCode' => 'Kod Warna Hex',
 			'shared.apply' => 'Guna',
