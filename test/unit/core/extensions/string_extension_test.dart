@@ -87,4 +87,37 @@ void main() {
       expect('5+5'.formatMathExpression(), '5 + 5');
     });
   });
+
+  group('StringExtension toMinorUnits', () {
+    test('returns 0 for empty or whitespace string', () {
+      expect(''.toMinorUnits(precision: 2), 0);
+      expect('   '.toMinorUnits(precision: 2), 0);
+    });
+
+    test('parses integer string with precision 0', () {
+      expect('50000'.toMinorUnits(precision: 0), 50000);
+      expect('100'.toMinorUnits(precision: 0), 100);
+    });
+
+    test('parses decimal string with precision 2 (USD/IDR)', () {
+      expect('50.25'.toMinorUnits(precision: 2), 5025);
+      expect('10'.toMinorUnits(precision: 2), 1000);
+      expect('0.5'.toMinorUnits(precision: 2), 50);
+      expect('0.05'.toMinorUnits(precision: 2), 5);
+      expect('6.25'.toMinorUnits(precision: 2), 625);
+    });
+
+    test('handles localized thousands and decimal separators', () {
+      // "1,234.56" (dot decimal)
+      expect('1,234.56'.toMinorUnits(precision: 2), 123456);
+      // "1.234,56" (comma decimal)
+      expect('1.234,56'.toMinorUnits(precision: 2), 123456);
+      // "12,5" (comma decimal)
+      expect('12,5'.toMinorUnits(precision: 2), 1250);
+    });
+
+    test('handles negative values', () {
+      expect('-50.25'.toMinorUnits(precision: 2), -5025);
+    });
+  });
 }

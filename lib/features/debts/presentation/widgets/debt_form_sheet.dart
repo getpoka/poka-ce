@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poka_ce/core/enums.dart';
+import 'package:poka_ce/core/extensions/num_extension.dart';
+import 'package:poka_ce/core/extensions/string_extension.dart';
 import 'package:poka_ce/features/categories/domain/category_model.dart';
 import 'package:poka_ce/features/categories/presentation/controllers/category_list_notifier.dart';
 import 'package:poka_ce/features/dashboard/presentation/controllers/dashboard_notifier.dart';
@@ -10,6 +12,7 @@ import 'package:poka_ce/features/debts/presentation/controllers/debt_form_notifi
 import 'package:poka_ce/features/debts/presentation/widgets/debt_date_picker.dart';
 import 'package:poka_ce/features/debts/presentation/widgets/debt_scope_tile.dart';
 import 'package:poka_ce/features/debts/presentation/widgets/debt_type_selector.dart';
+import 'package:poka_ce/features/settings/presentation/controllers/settings_notifier.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/poka_category_selector.dart';
 import 'package:poka_ce/shared/widgets/poka_form_label.dart';
@@ -100,15 +103,16 @@ class DebtFormSheet extends HookConsumerWidget {
       ],
     );
 
+    final precision = ref.watch(settingsProvider).settings?.baseCurrency?.precision ?? 0;
     final personController = useTextEditingController(
       text: initialDebt?.personName ?? initialPersonName ?? state.personName,
     );
     final amountController = useTextEditingController(
       text: initialDebt != null && initialDebt!.amount > 0
-          ? initialDebt!.amount.toString()
+          ? initialDebt!.amount.toMajorExpression(precision: precision)
           : (initialAmount != null && initialAmount! > 0
-                ? initialAmount.toString()
-                : (state.amount > 0 ? state.amount.toString() : '')),
+                ? initialAmount!.toMajorExpression(precision: precision)
+                : (state.amount > 0 ? state.amount.toMajorExpression(precision: precision) : '')),
     );
     final noteController = useTextEditingController(text: initialDebt?.note ?? initialNote ?? state.note ?? '');
 
@@ -118,7 +122,7 @@ class DebtFormSheet extends HookConsumerWidget {
       }
 
       void onAmount() {
-        final val = int.tryParse(amountController.text) ?? 0;
+        final val = amountController.text.toMinorUnits(precision: precision);
         if (state.amount != val) notifier.setAmount(val);
       }
 
@@ -134,7 +138,7 @@ class DebtFormSheet extends HookConsumerWidget {
         amountController.removeListener(onAmount);
         noteController.removeListener(onNote);
       };
-    }, [personController, amountController, noteController]);
+    }, [personController, amountController, noteController, precision]);
 
     ref.listen(debtFormProvider, (prev, next) {
       if (next.isSuccess && (prev?.isSuccess != true)) {
@@ -178,8 +182,8 @@ class DebtFormSheet extends HookConsumerWidget {
               keyboardType: TextInputType.number,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               validator: (value) {
-                final amount = int.tryParse(value ?? '');
-                if (amount == null || amount <= 0) return t.debts.amountGreaterThanZero;
+                final amount = (value ?? '').toMinorUnits(precision: precision);
+                if (amount <= 0) return t.debts.amountGreaterThanZero;
                 return null;
               },
             ),

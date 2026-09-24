@@ -9,6 +9,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:poka_ce/core/enums.dart';
+import 'package:poka_ce/core/extensions/num_extension.dart';
 import 'package:poka_ce/core/extensions/string_extension.dart';
 import 'package:poka_ce/core/utils/icon_util.dart';
 import 'package:poka_ce/features/categories/domain/category_model.dart';
@@ -17,6 +18,7 @@ import 'package:poka_ce/features/dashboard/presentation/controllers/dashboard_no
 import 'package:poka_ce/features/recurring/domain/recurring_model.dart';
 import 'package:poka_ce/features/recurring/presentation/controllers/recurring_form_notifier.dart';
 import 'package:poka_ce/features/recurring/presentation/controllers/recurring_list_notifier.dart';
+import 'package:poka_ce/features/settings/presentation/controllers/settings_notifier.dart';
 import 'package:poka_ce/features/transactions/presentation/widgets/forms/components/transaction_create_meta_bar.dart';
 import 'package:poka_ce/features/transactions/presentation/widgets/forms/components/transaction_type_switcher.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
@@ -307,33 +309,34 @@ class RecurringFormSheet extends HookConsumerWidget {
 // Amount tile — tappable row that opens a simple number input dialog
 // ─────────────────────────────────────────────────────────────────────────────
 
-class _AmountTile extends HookWidget {
+class _AmountTile extends HookConsumerWidget {
   const new({required this.amount, required this.onChanged});
 
   final int amount;
   final ValueChanged<int> onChanged;
 
   @override
-  Widget build(BuildContext context) {
-    final controller = useTextEditingController(text: amount > 0 ? amount.toString() : '');
+  Widget build(BuildContext context, WidgetRef ref) {
+    final precision = ref.watch(settingsProvider).settings?.baseCurrency?.precision ?? 0;
+    final controller = useTextEditingController(text: amount > 0 ? amount.toMajorExpression(precision: precision) : '');
 
     useEffect(() {
-      final newText = amount > 0 ? amount.toString() : '';
+      final newText = amount > 0 ? amount.toMajorExpression(precision: precision) : '';
       if (controller.text != newText && newText.isNotEmpty) {
         Future.microtask(() => controller.text = newText);
       }
       return null;
-    }, [amount]);
+    }, [amount, precision]);
 
     useEffect(() {
       void listener() {
-        final parsed = int.tryParse(controller.text) ?? 0;
+        final parsed = controller.text.toMinorUnits(precision: precision);
         onChanged(parsed);
       }
 
       controller.addListener(listener);
       return () => controller.removeListener(listener);
-    }, [controller]);
+    }, [controller, precision]);
 
     return FTextFormField(
       control: FTextFieldControl.managed(controller: controller),
@@ -342,8 +345,8 @@ class _AmountTile extends HookWidget {
       keyboardType: TextInputType.number,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: (value) {
-        final amount = int.tryParse(value ?? '');
-        if (amount == null || amount <= 0) return t.recurring.amountGreaterThanZero;
+        final val = (value ?? '').toMinorUnits(precision: precision);
+        if (val <= 0) return t.recurring.amountGreaterThanZero;
         return null;
       },
     );

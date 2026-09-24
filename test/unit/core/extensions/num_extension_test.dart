@@ -102,4 +102,23 @@ void main() {
       expect(9990.toCurrencyFormat(symbol: 'USD', precision: 2), 'USD 99.90');
     });
   });
+
+  group('NumExtension toMajorExpression', () {
+    test('returns integer string when precision is 0', () {
+      expect(50000.toMajorExpression(precision: 0), '50000');
+      expect(0.toMajorExpression(precision: 0), '0');
+    });
+
+    test('returns clean integer string when whole unit with precision 2', () {
+      expect(5000.toMajorExpression(precision: 2), '50');
+      expect(100.toMajorExpression(precision: 2), '1');
+      expect(0.toMajorExpression(precision: 2), '0');
+    });
+
+    test('returns decimal string when fractional minor units with precision 2', () {
+      expect(625.toMajorExpression(precision: 2), '6.25');
+      expect(50.toMajorExpression(precision: 2), '0.5');
+      expect(5.toMajorExpression(precision: 2), '0.05');
+    });
+  });
 }

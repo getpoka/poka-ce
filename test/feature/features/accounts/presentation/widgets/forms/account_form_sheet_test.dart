@@ -13,6 +13,9 @@ import 'package:poka_ce/features/accounts/domain/use_cases/create_account_use_ca
 import 'package:poka_ce/features/accounts/domain/use_cases/update_account_use_case.dart';
 import 'package:poka_ce/features/accounts/presentation/widgets/forms/account_form_sheet.dart';
 import 'package:poka_ce/features/accounts/presentation/controllers/account_form_notifier.dart';
+import 'package:poka_ce/features/settings/domain/currency_model.dart';
+import 'package:poka_ce/features/settings/domain/settings_model.dart';
+import 'package:poka_ce/features/settings/presentation/controllers/settings_notifier.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/theme/theme.dart';
 
@@ -23,6 +26,13 @@ class MockCreateAccountUseCase extends Mock implements CreateAccountUseCase {}
 class MockUpdateAccountUseCase extends Mock implements UpdateAccountUseCase {}
 
 class FakeAccountModel extends Fake implements AccountModel {}
+
+class _FakeSettingsNotifier extends SettingsNotifier {
+  _FakeSettingsNotifier(this._state);
+  final SettingsState _state;
+  @override
+  SettingsState build() => _state;
+}
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -45,12 +55,20 @@ void main() {
     when(() => mockAccountRepo.getAccounts()).thenAnswer((_) async => const Success([]));
   });
 
-  Widget createWidgetUnderTest({AccountModel? initialAccount, String? parentAccountId}) {
+  Widget createWidgetUnderTest({AccountModel? initialAccount, String? parentAccountId, int precision = 0}) {
+    final settingsState = SettingsState(
+      settings: SettingsModel(
+        themeMode: 'system',
+        baseCurrency: CurrencyModel(id: 'c1', code: 'USD', name: 'US Dollar', symbol: r'$', precision: precision),
+      ),
+    );
+
     return ProviderScope(
       overrides: [
         accountRepositoryProvider.overrideWithValue(mockAccountRepo),
         createAccountUseCaseProvider.overrideWithValue(mockCreate),
         updateAccountUseCaseProvider.overrideWithValue(mockUpdate),
+        settingsProvider.overrideWith(() => _FakeSettingsNotifier(settingsState)),
       ],
       child: TranslationProvider(
         child: MaterialApp(
@@ -223,6 +241,62 @@ void main() {
           isActive: true,
         ),
       ).called(1);
+    });
+
+    testWidgets('creates account converting initial balance to minor units with precision 2', (tester) async {
+      when(
+        () => mockCreate.execute(
+          name: any(named: 'name'),
+          type: any(named: 'type'),
+          balance: any(named: 'balance'),
+          icon: any(named: 'icon'),
+          color: any(named: 'color'),
+          parentId: any(named: 'parentId'),
+          isActive: any(named: 'isActive'),
+        ),
+      ).thenAnswer((_) async => Success(FakeAccountModel()));
+
+      await tester.pumpWidget(createWidgetUnderTest(precision: 2));
+      await tester.pumpAndSettle();
+
+      // Enter name
+      await tester.enterText(find.byType(EditableText).first, 'Savings');
+      // Enter balance: '125.50' -> 12550 minor units
+      await tester.enterText(find.byType(EditableText).last, '125.50');
+      await tester.pumpAndSettle();
+
+      await tester.ensureVisible(find.text('Save'));
+      await tester.tap(find.text('Save'));
+      await tester.pumpAndSettle();
+
+      verify(
+        () => mockCreate.execute(
+          name: 'Savings',
+          type: AccountType.assets,
+          balance: 12550,
+          icon: null,
+          color: null,
+          parentId: null,
+          isActive: true,
+        ),
+      ).called(1);
+    });
+
+    testWidgets('pre-fills initial balance using toMajorExpression with precision 2', (tester) async {
+      final account = AccountModel(
+        id: 'acc-99',
+        name: 'Checking',
+        type: AccountType.assets,
+        balance: 500000,
+        initialBalance: 500000, // 5,000.00
+        createdAt: DateTime.utc(2024, 1, 1),
+        updatedAt: DateTime.utc(2024, 1, 1),
+      );
+
+      await tester.pumpWidget(createWidgetUnderTest(initialAccount: account, precision: 2));
+      await tester.pumpAndSettle();
+
+      expect(find.text('5000'), findsOneWidget);
     });
   });
 }

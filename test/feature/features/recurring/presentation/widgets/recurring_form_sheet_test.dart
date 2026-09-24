@@ -15,6 +15,9 @@ import 'package:poka_ce/features/recurring/domain/recurring_model.dart';
 import 'package:poka_ce/features/recurring/presentation/controllers/recurring_form_notifier.dart';
 import 'package:poka_ce/features/recurring/presentation/controllers/recurring_list_notifier.dart';
 import 'package:poka_ce/features/recurring/presentation/widgets/recurring_form_sheet.dart';
+import 'package:poka_ce/features/settings/domain/currency_model.dart';
+import 'package:poka_ce/features/settings/domain/settings_model.dart';
+import 'package:poka_ce/features/settings/presentation/controllers/settings_notifier.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/theme/theme.dart';
 
@@ -23,6 +26,13 @@ class MockRecurringRepository extends Mock implements IRecurringRepository {}
 class MockAccountRepository extends Mock implements IAccountRepository {}
 
 class MockCategoryRepository extends Mock implements ICategoryRepository {}
+
+class _FakeSettingsNotifier extends SettingsNotifier {
+  _FakeSettingsNotifier(this._state);
+  final SettingsState _state;
+  @override
+  SettingsState build() => _state;
+}
 
 void main() {
   setUpAll(() {
@@ -141,5 +151,50 @@ void main() {
 
     verify(() => mockRecurringRepo.updateRecurring(any())).called(1);
     expect(container.read(recurringFormProvider).isSuccess, true);
+  });
+
+  testWidgets('RecurringFormSheet pre-fills and converts amount to minor units with precision 2', (tester) async {
+    final settingsState = SettingsState(
+      settings: SettingsModel(
+        themeMode: 'system',
+        baseCurrency: CurrencyModel(id: 'c1', code: 'USD', name: 'US Dollar', symbol: r'$', precision: 2),
+      ),
+    );
+
+    final container = ProviderContainer(
+      overrides: [
+        recurringRepositoryProvider.overrideWithValue(mockRecurringRepo),
+        accountRepositoryProvider.overrideWithValue(mockAccountRepo),
+        categoryRepositoryProvider.overrideWithValue(mockCategoryRepo),
+        settingsProvider.overrideWith(() => _FakeSettingsNotifier(settingsState)),
+      ],
+    );
+    container.listen(recurringListProvider, (_, __) {});
+
+    final initialRecurring = RecurringTransactionModel(
+      id: 'r1',
+      accountId: 'a1',
+      type: TransactionType.expense,
+      amount: 50000, // 500.00 in precision 2
+      period: RecurringPeriod.monthly,
+      nextDate: DateTime.utc(2025, 1, 1),
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+    );
+
+    await tester.pumpWidget(createWidgetUnderTest(container, initialRecurring: initialRecurring));
+    await tester.tap(find.text('Open'));
+    await tester.pumpAndSettle();
+
+    // Verify pre-filled as '500'
+    expect(find.text('500'), findsOneWidget);
+
+    // Enter new amount '75.25' -> converts to 7525 minor units
+    final amountField = find.byType(EditableText).first;
+    await tester.enterText(amountField, '75.25');
+    await tester.pumpAndSettle();
+
+    final formState = container.read(recurringFormProvider);
+    expect(formState.amount, 7525);
   });
 }

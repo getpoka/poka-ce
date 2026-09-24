@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poka_ce/core/enums.dart';
+import 'package:poka_ce/core/extensions/num_extension.dart';
+import 'package:poka_ce/core/extensions/string_extension.dart';
 import 'package:poka_ce/features/accounts/presentation/widgets/pickers/account_selector_shelf.dart';
 import 'package:poka_ce/features/dashboard/presentation/controllers/dashboard_notifier.dart';
 import 'package:poka_ce/features/debts/domain/debt_model.dart';
@@ -12,6 +14,7 @@ import 'package:poka_ce/features/transactions/presentation/widgets/calculator/tr
 import 'package:poka_ce/features/transactions/presentation/widgets/calculator/transaction_calculator_numpad.dart';
 import 'package:poka_ce/features/transactions/presentation/widgets/forms/components/transaction_date_nav.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
+import 'package:poka_ce/shared/utils/math_evaluator.dart';
 import 'package:poka_ce/shared/widgets/sheets/poka_sheet.dart';
 import 'package:poka_ce/theme/theme.dart';
 
@@ -54,11 +57,20 @@ class DebtRepaymentSheet extends HookConsumerWidget {
     // For loan (we lent), repayment means money comes IN (Income).
     final isPayable = debt.type == DebtType.debt;
     final typeColor = isPayable ? theme.colors.app.expense : theme.colors.app.income;
-    final currentAmount = int.tryParse(state.amountExpression) ?? 0;
+    final precision = settings?.baseCurrency?.precision ?? 0;
+    var rawExpr = state.amountExpression;
+    if (MathEvaluator.hasUnresolvedOperator(rawExpr)) {
+      rawExpr = MathEvaluator.evaluate(rawExpr) ?? rawExpr;
+    }
+    final currentAmount = rawExpr.toMinorUnits(precision: precision);
     final isFullAmount = currentAmount == debt.remainingAmount && debt.remainingAmount > 0;
 
     Future<void> handleSave() async {
-      final amount = int.tryParse(state.amountExpression) ?? 0;
+      var rawExpr = state.amountExpression;
+      if (MathEvaluator.hasUnresolvedOperator(rawExpr)) {
+        rawExpr = MathEvaluator.evaluate(rawExpr) ?? rawExpr;
+      }
+      final amount = rawExpr.toMinorUnits(precision: precision);
       if (amount > debt.remainingAmount) {
         if (context.mounted) {
           await showFDialog<void>(
@@ -93,7 +105,7 @@ class DebtRepaymentSheet extends HookConsumerWidget {
         return;
       }
 
-      final success = await notifier.saveRepayment(debt: debt);
+      final success = await notifier.saveRepayment(debt: debt, precision: precision);
       if (success && context.mounted) {
         Navigator.of(context).pop(true);
       }
@@ -211,7 +223,7 @@ class DebtRepaymentSheet extends HookConsumerWidget {
                       ..setHistoryExpression(null);
                   } else {
                     notifier
-                      ..setAmountExpression(debt.remainingAmount.toString())
+                      ..setAmountExpression(debt.remainingAmount.toMajorExpression(precision: precision))
                       ..setHistoryExpression(null);
                   }
                 },

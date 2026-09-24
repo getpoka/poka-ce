@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poka_ce/core/enums.dart';
+import 'package:poka_ce/core/extensions/num_extension.dart';
 import 'package:poka_ce/core/extensions/string_extension.dart';
 import 'package:poka_ce/core/utils/icon_util.dart';
 import 'package:poka_ce/features/accounts/domain/account_model.dart';
@@ -9,6 +10,7 @@ import 'package:poka_ce/features/accounts/presentation/controllers/account_form_
 import 'package:poka_ce/features/accounts/presentation/controllers/account_list_notifier.dart';
 import 'package:poka_ce/features/accounts/presentation/widgets/forms/fields/active_account_toggle.dart';
 import 'package:poka_ce/features/accounts/presentation/widgets/forms/fields/category_selection_field.dart';
+import 'package:poka_ce/features/settings/presentation/controllers/settings_notifier.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/pickers/poka_color_picker.dart';
 import 'package:poka_ce/shared/widgets/pickers/poka_icon_picker.dart';
@@ -50,13 +52,14 @@ class AccountFormSheet extends HookConsumerWidget {
     final mainPocket = initialAccount != null && !initialAccount!.isPocket
         ? accounts.where((a) => a.parentId == initialAccount!.id && a.isDefault).firstOrNull
         : null;
+    final precision = ref.watch(settingsProvider).settings?.baseCurrency?.precision ?? 0;
     final initialBalanceVal = initialAccount != null
         ? (mainPocket?.initialBalance ?? initialAccount!.initialBalance)
         : state.balance;
 
     final nameController = useTextEditingController(text: initialAccount?.name ?? state.name);
     final balanceController = useTextEditingController(
-      text: initialBalanceVal != 0 ? initialBalanceVal.toString() : '',
+      text: initialBalanceVal != 0 ? initialBalanceVal.toMajorExpression(precision: precision) : '',
     );
 
     useEffect(() {
@@ -67,7 +70,7 @@ class AccountFormSheet extends HookConsumerWidget {
       }
 
       void balanceListener() {
-        final val = int.tryParse(balanceController.text) ?? 0;
+        final val = balanceController.text.toMinorUnits(precision: precision);
         if (state.balance != val) {
           notifier.setBalance(val);
         }
@@ -79,7 +82,7 @@ class AccountFormSheet extends HookConsumerWidget {
         nameController.removeListener(nameListener);
         balanceController.removeListener(balanceListener);
       };
-    }, [nameController, balanceController]);
+    }, [nameController, balanceController, precision]);
 
     ref.listen(accountFormProvider, (prev, next) {
       if (next.isSuccess && (prev?.isSuccess != true)) {
