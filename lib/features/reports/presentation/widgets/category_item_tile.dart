@@ -3,6 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poka_ce/core/extensions/num_extension.dart';
 import 'package:poka_ce/features/dashboard/presentation/controllers/balance_visibility_provider.dart';
 import 'package:poka_ce/features/reports/domain/services/report_analytics_service.dart';
+import 'package:poka_ce/features/settings/presentation/controllers/settings_notifier.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 /// Row widget rendering a category rank, dot, title, compact amount, and percentage.
@@ -34,6 +35,7 @@ class CategoryItemTile extends ConsumerWidget {
     final color = _parseColor(context, item.color);
     final v = ref.watch(balanceVisibilityProvider);
     final effectiveVisible = isVisible ?? v;
+    final precision = ref.watch(settingsProvider).settings?.baseCurrency?.precision ?? 0;
 
     return Row(
       children: [
@@ -70,7 +72,7 @@ class CategoryItemTile extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Text(
-              item.amount.toCompactFormat(isVisible: effectiveVisible),
+              item.amount.toCompactFormat(precision: precision, isVisible: effectiveVisible),
               style: theme.typography.bodySecondary.copyWith(fontWeight: FontWeight.w700),
             ),
             Text(

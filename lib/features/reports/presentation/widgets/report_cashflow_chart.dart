@@ -4,6 +4,7 @@ import 'package:poka_ce/core/extensions/num_extension.dart';
 import 'package:poka_ce/features/dashboard/presentation/controllers/balance_visibility_provider.dart';
 import 'package:poka_ce/features/reports/presentation/controllers/report_notifier.dart';
 import 'package:poka_ce/features/reports/presentation/widgets/charts/report_cashflow_bar_chart.dart';
+import 'package:poka_ce/features/settings/presentation/controllers/settings_notifier.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/theme/theme.dart';
 
@@ -17,6 +18,7 @@ class ReportCashflowChart extends ConsumerWidget {
     final theme = context.theme;
     final state = ref.watch(reportProvider);
     final isBalanceVisible = ref.watch(balanceVisibilityProvider);
+    final precision = ref.watch(settingsProvider).settings?.baseCurrency?.precision ?? 0;
     final trendPoints = state.data.trendPoints;
     final t = context.t.reports;
     final expenseColor = theme.colors.app.expense;
@@ -39,6 +41,7 @@ class ReportCashflowChart extends ConsumerWidget {
                   label: t.average,
                   value: trendPoints.isNotEmpty
                       ? (state.data.summary.totalExpense / trendPoints.length).toCompactFormat(
+                          precision: precision,
                           isVisible: isBalanceVisible,
                         )
                       : (isBalanceVisible ? '0' : '••••••'),
@@ -68,6 +71,7 @@ class ReportCashflowChart extends ConsumerWidget {
                   expenseColor: expenseColor,
                   theme: theme,
                   isBalanceVisible: isBalanceVisible,
+                  precision: precision,
                 ),
               ),
           ],

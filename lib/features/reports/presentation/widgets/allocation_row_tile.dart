@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poka_ce/core/extensions/num_extension.dart';
 import 'package:poka_ce/features/dashboard/presentation/controllers/balance_visibility_provider.dart';
+import 'package:poka_ce/features/settings/presentation/controllers/settings_notifier.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 /// Row widget rendering an allocation category (e.g. 50% Needs), ratio, and compact amount.
@@ -41,6 +42,7 @@ class AllocationRowTile extends ConsumerWidget {
     final pct = '${(ratio * 100).toStringAsFixed(1)}%';
     final v = ref.watch(balanceVisibilityProvider);
     final effectiveVisible = isVisible ?? v;
+    final precision = ref.watch(settingsProvider).settings?.baseCurrency?.precision ?? 0;
 
     return Row(
       children: [
@@ -68,7 +70,7 @@ class AllocationRowTile extends ConsumerWidget {
         ),
         const SizedBox(width: 6),
         Text(
-          amount.toCompactFormat(isVisible: effectiveVisible),
+          amount.toCompactFormat(precision: precision, isVisible: effectiveVisible),
           style: theme.typography.bodySecondary.copyWith(fontWeight: FontWeight.bold),
         ),
       ],
