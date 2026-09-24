@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.1.7] - 2026-09-24
+
+### Added
+
+- Added full app translations for Bahasa Melayu (`ms`) and Tiếng Việt (`vi`).
+- Added extensible form sheet builder providers for budget, debt, and recurring forms to support modular UI customization via Riverpod overrides.
+
+### Changed
+
+- Prevented base currency modification when transactions are recorded in single-currency mode, with disabled visual styling and toast notice.
+
 ## [v1.1.6] - 2026-09-24
 
 ### Changed
