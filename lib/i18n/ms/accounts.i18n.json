@@ -40,7 +40,7 @@
   "noAccountsFound": "Tiada akaun ditemui.",
   "addPocket": "Tambah Poket",
   "noPocketsYet": "Belum ada poket",
-  "pocketsHelpYouSplitYourWalletIntoCategories": "Poket membantu anda membahagikan dompet kepada beberapa kategori",
+  "pocketsHelpYouSplitYourWalletIntoCategories": "Poket membantu anda membahagikan dompet kepada beberapa kategori. Baki anda akan dipindahkan secara automatik ke poket \"Utama\".",
   "activeAccount": "Akaun Aktif",
   "inactiveAccountsWillBeHidden": "Akaun tidak aktif akan disembunyikan",
   "noCategoriesAvailable": "Tiada kategori tersedia.",

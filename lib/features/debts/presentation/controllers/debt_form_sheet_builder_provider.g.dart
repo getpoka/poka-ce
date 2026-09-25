@@ -10,27 +10,24 @@ part of 'debt_form_sheet_builder_provider.dart';
 // ignore_for_file: type=lint, type=warning
 /// Provides an optional [DebtFormSheetBuilder] override for the debt form.
 ///
-/// In CE, returns `null` — callers fall back to the default DebtFormSheet.show.
-/// Poka PE overrides this in the root ProviderScope to inject
-/// PeDebtFormSheet.show, which adds a currency selector.
+/// Returns `null` by default — callers fall back to the default [DebtFormSheet.show].
+/// Can be overridden in the root ProviderScope to inject a custom form sheet.
 
 @ProviderFor(debtFormSheetBuilder)
 final debtFormSheetBuilderProvider = DebtFormSheetBuilderProvider._();
 
 /// Provides an optional [DebtFormSheetBuilder] override for the debt form.
 ///
-/// In CE, returns `null` — callers fall back to the default DebtFormSheet.show.
-/// Poka PE overrides this in the root ProviderScope to inject
-/// PeDebtFormSheet.show, which adds a currency selector.
+/// Returns `null` by default — callers fall back to the default [DebtFormSheet.show].
+/// Can be overridden in the root ProviderScope to inject a custom form sheet.
 
 final class DebtFormSheetBuilderProvider
     extends $FunctionalProvider<DebtFormSheetBuilder?, DebtFormSheetBuilder?, DebtFormSheetBuilder?>
     with $Provider<DebtFormSheetBuilder?> {
   /// Provides an optional [DebtFormSheetBuilder] override for the debt form.
   ///
-  /// In CE, returns `null` — callers fall back to the default DebtFormSheet.show.
-  /// Poka PE overrides this in the root ProviderScope to inject
-  /// PeDebtFormSheet.show, which adds a currency selector.
+  /// Returns `null` by default — callers fall back to the default [DebtFormSheet.show].
+  /// Can be overridden in the root ProviderScope to inject a custom form sheet.
   DebtFormSheetBuilderProvider._()
     : super(
         from: null,

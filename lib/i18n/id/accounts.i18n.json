@@ -40,7 +40,7 @@
   "noAccountsFound": "Akun tidak ditemukan.",
   "addPocket": "Tambah Kantong",
   "noPocketsYet": "Belum ada kantong",
-  "pocketsHelpYouSplitYourWalletIntoCategories": "Kantong membantu Anda membagi dompet ke dalam beberapa kategori",
+  "pocketsHelpYouSplitYourWalletIntoCategories": "Kantong membantu Anda membagi dompet ke beberapa kategori. Saldo Anda akan otomatis masuk ke kantong \"Utama\".",
   "activeAccount": "Akun Aktif",
   "inactiveAccountsWillBeHidden": "Akun tidak aktif akan disembunyikan",
   "noCategoriesAvailable": "Tidak ada kategori yang tersedia.",

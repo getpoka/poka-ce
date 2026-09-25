@@ -10,27 +10,24 @@ part of 'recurring_form_sheet_builder_provider.dart';
 // ignore_for_file: type=lint, type=warning
 /// Provides an optional [RecurringFormSheetBuilder] override for the recurring form.
 ///
-/// In CE, returns `null` — callers fall back to the default RecurringFormSheet.show.
-/// Poka PE overrides this in the root ProviderScope to inject
-/// PeRecurringFormSheet.show, which adds a currency selector.
+/// Returns `null` by default — callers fall back to the default [RecurringFormSheet.show].
+/// Can be overridden in the root ProviderScope to inject a custom form sheet.
 
 @ProviderFor(recurringFormSheetBuilder)
 final recurringFormSheetBuilderProvider = RecurringFormSheetBuilderProvider._();
 
 /// Provides an optional [RecurringFormSheetBuilder] override for the recurring form.
 ///
-/// In CE, returns `null` — callers fall back to the default RecurringFormSheet.show.
-/// Poka PE overrides this in the root ProviderScope to inject
-/// PeRecurringFormSheet.show, which adds a currency selector.
+/// Returns `null` by default — callers fall back to the default [RecurringFormSheet.show].
+/// Can be overridden in the root ProviderScope to inject a custom form sheet.
 
 final class RecurringFormSheetBuilderProvider
     extends $FunctionalProvider<RecurringFormSheetBuilder?, RecurringFormSheetBuilder?, RecurringFormSheetBuilder?>
     with $Provider<RecurringFormSheetBuilder?> {
   /// Provides an optional [RecurringFormSheetBuilder] override for the recurring form.
   ///
-  /// In CE, returns `null` — callers fall back to the default RecurringFormSheet.show.
-  /// Poka PE overrides this in the root ProviderScope to inject
-  /// PeRecurringFormSheet.show, which adds a currency selector.
+  /// Returns `null` by default — callers fall back to the default [RecurringFormSheet.show].
+  /// Can be overridden in the root ProviderScope to inject a custom form sheet.
   RecurringFormSheetBuilderProvider._()
     : super(
         from: null,

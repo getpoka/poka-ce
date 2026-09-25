@@ -128,6 +128,12 @@ class AccountMiniCard extends StatelessWidget {
                           ),
                         ),
                       ],
+                      // Pin icon marks the Main Pocket as auto-generated so users
+                      // are not surprised when it appears alongside their first pocket.
+                      if (account.isMainPocket) ...[
+                        const SizedBox(width: 4),
+                        Icon(FPhosphorIcons.pushPin, size: 11, color: theme.colors.mutedForeground),
+                      ],
                     ],
                   ),
                   if (onEdit != null || onReconcile != null)

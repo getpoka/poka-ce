@@ -48,7 +48,9 @@ class AccountGrid extends ConsumerWidget {
             balance: aggregate.totalBalance,
             ratio: aggregate.calculateRatio(totalAssets),
             ratioLabel: aggregate.formatRatioLabel(totalAssets),
-            pocketCount: aggregate.pockets.length,
+            // Only count custom (non-default) pockets for the badge; the auto-generated
+            // Main Pocket is invisible to users until they add a second pocket.
+            pocketCount: aggregate.pockets.where((p) => !p.isDefault).length,
             onEdit: () => AccountFormSheet.show(context, initialAccount: aggregate.account),
             onReconcile: () =>
                 AccountReconcileSheet.show(context, account: aggregate.account, currentBalance: aggregate.totalBalance),

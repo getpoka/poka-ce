@@ -10,27 +10,24 @@ part of 'budget_form_sheet_builder_provider.dart';
 // ignore_for_file: type=lint, type=warning
 /// Provides an optional [BudgetFormSheetBuilder] override for the budget form.
 ///
-/// In CE, returns `null` — callers fall back to the default BudgetFormSheet.show.
-/// Poka PE overrides this in the root ProviderScope to inject
-/// PeBudgetFormSheet.show, which adds a currency selector.
+/// Returns `null` by default — callers fall back to the default [BudgetFormSheet.show].
+/// Can be overridden in the root ProviderScope to inject a custom form sheet.
 
 @ProviderFor(budgetFormSheetBuilder)
 final budgetFormSheetBuilderProvider = BudgetFormSheetBuilderProvider._();
 
 /// Provides an optional [BudgetFormSheetBuilder] override for the budget form.
 ///
-/// In CE, returns `null` — callers fall back to the default BudgetFormSheet.show.
-/// Poka PE overrides this in the root ProviderScope to inject
-/// PeBudgetFormSheet.show, which adds a currency selector.
+/// Returns `null` by default — callers fall back to the default [BudgetFormSheet.show].
+/// Can be overridden in the root ProviderScope to inject a custom form sheet.
 
 final class BudgetFormSheetBuilderProvider
     extends $FunctionalProvider<BudgetFormSheetBuilder?, BudgetFormSheetBuilder?, BudgetFormSheetBuilder?>
     with $Provider<BudgetFormSheetBuilder?> {
   /// Provides an optional [BudgetFormSheetBuilder] override for the budget form.
   ///
-  /// In CE, returns `null` — callers fall back to the default BudgetFormSheet.show.
-  /// Poka PE overrides this in the root ProviderScope to inject
-  /// PeBudgetFormSheet.show, which adds a currency selector.
+  /// Returns `null` by default — callers fall back to the default [BudgetFormSheet.show].
+  /// Can be overridden in the root ProviderScope to inject a custom form sheet.
   BudgetFormSheetBuilderProvider._()
     : super(
         from: null,
