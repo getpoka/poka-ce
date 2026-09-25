@@ -64,7 +64,7 @@ class TransactionTileIcon extends StatelessWidget {
                           duration: const Duration(milliseconds: 280),
                           child: Icon(FPhosphorIcons.caretDown, size: 9, color: theme.colors.secondaryForeground),
                         )
-                      : Icon(subCatIcon, size: 9, color: Colors.white),
+                      : Icon(subCatIcon, size: 9, color: theme.colors.primaryForeground),
                 ),
               ),
             ),

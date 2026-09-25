@@ -37,8 +37,8 @@ void main() {
       // income formatted with Rp by default fallback
       expect(find.textContaining('Rp'), findsOneWidget);
       final text = tester.widget<Text>(find.byType(Text));
-      // lightTheme income color is emerald600
-      expect(text.style!.color, const Color(0xFF059669));
+      // lightTheme income color matches theme extension token
+      expect(text.style!.color, lightTheme.colors.app.income);
     });
 
     testWidgets('expense shows - prefix and destructive color', (tester) async {
@@ -116,7 +116,7 @@ void main() {
       expect(text.style!.fontSize, 99);
       expect(text.style!.fontWeight, FontWeight.bold);
       // color still emerald for income
-      expect(text.style!.color, const Color(0xFF059669));
+      expect(text.style!.color, lightTheme.colors.app.income);
     });
   });
 }

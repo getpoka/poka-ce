@@ -2,11 +2,12 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:poka_ce/theme/theme.dart';
 
 /// String manipulation and color/number parsing extensions.
 extension StringExtension on String {
   /// Parses a hex color string (e.g. "#FF0000" or "FF0000") into a [Color].
-  Color toColor([Color defaultColor = const Color(0xFFCCCCCC)]) {
+  Color toColor([Color defaultColor = PokaColors.colorFallback]) {
     try {
       final hexCodeClean = replaceAll('#', '');
       return Color(int.parse('FF$hexCodeClean', radix: 16));

@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:poka_ce/theme/tailwind.dart';
+import 'package:poka_ce/theme/theme.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 /// Helper to convert Flutter [Color] to [AnsiPen] for console logging
@@ -15,12 +15,12 @@ final Talker talker = TalkerFlutter.init(
   logger: TalkerLogger(
     settings: TalkerLoggerSettings(
       colors: {
-        LogLevel.critical: _penFromColor(TWind.red600),
-        LogLevel.error: _penFromColor(TWind.red500),
-        LogLevel.warning: _penFromColor(TWind.amber500),
-        LogLevel.info: _penFromColor(TWind.blue500),
-        LogLevel.debug: _penFromColor(TWind.slate400),
-        LogLevel.verbose: _penFromColor(TWind.slate500),
+        LogLevel.critical: _penFromColor(PokaColors.red600),
+        LogLevel.error: _penFromColor(PokaColors.rose500),
+        LogLevel.warning: _penFromColor(PokaColors.amber500),
+        LogLevel.info: _penFromColor(PokaColors.brand500),
+        LogLevel.debug: _penFromColor(PokaColors.darkMutedForeground),
+        LogLevel.verbose: _penFromColor(PokaColors.lightMutedForeground),
       },
     ),
   ),

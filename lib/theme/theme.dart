@@ -7,7 +7,6 @@ import 'package:poka_ce/theme/styles/card_style.dart';
 import 'package:poka_ce/theme/styles/item_group_style.dart';
 import 'package:poka_ce/theme/styles/tabs_style.dart';
 import 'package:poka_ce/theme/styles/tile_group_style.dart';
-import 'package:poka_ce/theme/tailwind.dart';
 
 export 'package:forui/forui.dart';
 export 'package:forui_phosphor/forui_phosphor.dart';

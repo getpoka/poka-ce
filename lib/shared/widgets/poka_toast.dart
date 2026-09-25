@@ -1,7 +1,13 @@
+import 'dart:async';
+
 import 'package:flutter/widgets.dart';
 import 'package:forui/forui.dart';
 
-/// Displays an auto-dismissing toast notification.
+/// Displays an auto-dismissing toast notification with watchdog timer protection.
+///
+/// Prevents mobile touch hover traps, gesture arena cancel traps, and route transition
+/// race conditions by attaching an independent timer that safely dismisses the toast
+/// post-frame if ForUI's internal timer is cancelled or interrupted.
 FToasterEntry showPokaToast({
   required BuildContext context,
   required Widget title,
@@ -14,20 +20,70 @@ FToasterEntry showPokaToast({
   Duration duration = const Duration(seconds: 4),
   VoidCallback? onDismiss,
 }) {
-  return showRawFToast(
+  Timer? watchdogTimer;
+  late final FToasterEntry entry;
+
+  entry = showRawFToast(
     context: context,
-    builder: (context, entry) => FToast(
-      variant: variant,
-      icon: icon,
-      title: title,
-      description: description,
-      suffix: suffixBuilder?.call(context, entry),
+    builder: (context, entry) => _WatchdogToastLifecycleWrapper(
+      onDispose: () {
+        watchdogTimer?.cancel();
+        watchdogTimer = null;
+      },
+      child: FToast(
+        variant: variant,
+        icon: icon,
+        title: title,
+        description: description,
+        suffix: suffixBuilder?.call(context, entry),
+      ),
     ),
     alignment: alignment,
     swipeToDismiss: swipeToDismiss,
     duration: duration,
-    onDismiss: onDismiss,
+    onDismiss: () {
+      watchdogTimer?.cancel();
+      watchdogTimer = null;
+      onDismiss?.call();
+    },
   );
+
+  // Watchdog timer ensures the toast auto-dismisses even if mobile touch / hover events
+  // or gesture arena cancellations froze the internal timer.
+  watchdogTimer = Timer(duration + const Duration(milliseconds: 300), () {
+    if (entry.showing) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (entry.showing) {
+          entry.dismiss();
+        }
+      });
+      WidgetsBinding.instance.ensureVisualUpdate();
+    }
+  });
+
+  return entry;
+}
+
+/// Internal lifecycle wrapper that ensures watchdog timer is cancelled when toast widget is disposed.
+class _WatchdogToastLifecycleWrapper extends StatefulWidget {
+  const new({required this.child, required this.onDispose});
+
+  final Widget child;
+  final VoidCallback onDispose;
+
+  @override
+  State<_WatchdogToastLifecycleWrapper> createState() => _WatchdogToastLifecycleWrapperState();
+}
+
+class _WatchdogToastLifecycleWrapperState extends State<_WatchdogToastLifecycleWrapper> {
+  @override
+  void dispose() {
+    widget.onDispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) => widget.child;
 }
 
 /// Displays an actionable toast notification (e.g. Delete with Undo button)

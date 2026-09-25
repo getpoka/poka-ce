@@ -45,7 +45,7 @@ class GoalSummaryCard extends ConsumerWidget {
         type: TransactionType.income,
         isObscured: !isBalanceVisible,
         style: theme.typography.display.sm.copyWith(
-          color: Colors.white,
+          color: theme.colors.primaryForeground,
           fontWeight: FontWeight.w800,
           letterSpacing: -1,
           height: 1,
