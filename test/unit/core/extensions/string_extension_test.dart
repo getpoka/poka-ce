@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:poka_ce/core/extensions/string_extension.dart';
+import 'package:poka_ce/theme/theme.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +21,7 @@ void main() {
     test('returns default color on invalid hex', () {
       const invalid = 'ZZZZZZ';
       final color = invalid.toColor();
-      expect(color, const Color(0xFFCCCCCC));
+      expect(color, PokaColors.colorFallback);
     });
 
     test('returns custom default on invalid hex', () {

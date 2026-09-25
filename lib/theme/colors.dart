@@ -27,35 +27,83 @@ part of 'theme.dart';
 ///
 /// **Reference only.** Widgets must read `context.theme.colors` instead.
 abstract final class PokaColors {
-  /// 50 — very light tint, hover/chip backgrounds.
-  static const Color brand50 = Color(0xFFDCDDF7);
-
-  /// 100 — soft accent, subtle borders.
-  static const Color brand100 = Color(0xFFAFB3ED);
-
-  /// 200 — muted primary, hover states.
-  static const Color brand200 = Color(0xFF8389E3);
-
-  /// 300 — desaturated lift used as the dark-mode primary (`L 67% / S 51%`).
-  ///
-  /// Reads 6.02:1 on the dark base and 5.71:1 on the dark card, while staying dull enough to avoid
-  /// the halation a fully saturated indigo produces on a near-black canvas.
-  static const Color brand300 = Color(0xFF8189D6);
-
-  /// 400 — dark-mode hover step above [brand300].
-  static const Color brand400 = Color(0xFF9AA1E1);
-
-  /// 500 — main brand / primary accent. Fixed, never re-tuned.
+  // ── Brand Palette ──────────────────────────────────────────────────────────
+  /// 500 — Main brand / primary accent. Fixed, never re-tuned (#5560D6).
   static const Color brand500 = Color(0xFF5560D6);
 
-  /// 700 — dark primary, focus rings, on-tint foreground in light mode.
+  /// 700 — Dark primary, focus rings, on-tint foreground in light mode (#313DAA).
   static const Color brand700 = Color(0xFF313DAA);
 
-  /// 800 — deep navy, elevated dark surfaces.
-  static const Color brand800 = Color(0xFF1A2268);
+  /// 300 — Desaturated lift used as dark-mode transfer (#8189D6).
+  static const Color brand300 = Color(0xFF8189D6);
 
-  /// 900 — darkest navy, deep dark surfaces.
-  static const Color brand900 = Color(0xFF080C32);
+  // ── Base Neutrals ──────────────────────────────────────────────────────────
+  static const Color white = Color(0xFFFFFFFF);
+  static const Color transparent = Color(0x00000000);
+  static const Color barrierLight = Color(0x33000000);
+  static const Color barrierDark = Color(0x99000000);
+
+  /// Default fallback for invalid hex color strings (#CCCCCC).
+  static const Color colorFallback = Color(0xFFCCCCCC);
+
+  // ── Semantic Finance & Feedback Palette ────────────────────────────────────
+  // Emerald / Income & Success
+  static const Color emerald700 = Color(0xFF047857);
+  static const Color emerald600 = Color(0xFF059669);
+  static const Color emerald500 = Color(0xFF10B981);
+  static const Color emerald400 = Color(0xFF34D399);
+  static const Color emeraldSoftLight = Color(0xFFE6F4F0);
+  static const Color emeraldSoftDark = Color(0xFF162A2B);
+
+  // Rose / Expense
+  static const Color rose700 = Color(0xFFBE123C);
+  static const Color rose500 = Color(0xFFF43F5E);
+  static const Color rose400 = Color(0xFFFB7185);
+  static const Color roseSoftLight = Color(0xFFFEECEF);
+  static const Color roseSoftDark = Color(0xFF2E1E29);
+
+  // Indigo / Transfer
+  static const Color indigo600 = Color(0xFF4F46E5);
+  static const Color indigo500 = Color(0xFF6366F1);
+  static const Color indigoSoftLight = Color(0xFFEFF0FE);
+  static const Color indigoSoftDark = Color(0xFF1F2132);
+
+  // Amber / Warning
+  static const Color amber700 = Color(0xFFB45309);
+  static const Color amber500 = Color(0xFFF59E0B);
+  static const Color amber400 = Color(0xFFFBBF24);
+  static const Color warningSoftLight = Color(0xFFFEF5E7);
+  static const Color warningSoftDark = Color(0xFF2E281D);
+
+  // Destructive & Error
+  static const Color red600 = Color(0xFFDC2626);
+  static const Color red400 = Color(0xFFF87171);
+
+  // ── Light Mode Surface & Neutral Tokens ────────────────────────────────────
+  static const Color lightSunken = Color(0xFFF4F5FA);
+  static const Color lightInput = Color(0xFFF5F6FB);
+  static const Color lightBorderSubtle = Color(0xFFE8EAF3);
+  static const Color lightBorder = Color(0xFFDBDFEE);
+  static const Color lightBorderStrong = Color(0xFFA9B1CC);
+  static const Color lightForeground = Color(0xFF0F172A);
+  static const Color lightSecondary = Color(0xFFEEF0FB);
+  static const Color lightMutedForeground = Color(0xFF5F6B85);
+  static const Color lightHover = Color(0x0F5560D6);
+  static const Color lightPressed = Color(0x1F5560D6);
+
+  // ── Dark Mode Surface & Neutral Tokens (Better Stack Near-Black) ───────────
+  static const Color darkSunken = Color(0xFF07080E);
+  static const Color darkCanvas = Color(0xFF0B0C14);
+  static const Color darkRaised = Color(0xFF12131C);
+  static const Color darkOverlay = Color(0xFF171825);
+  static const Color darkInput = Color(0xFF1B1D2B);
+  static const Color darkBorder = Color(0xFF24263A);
+  static const Color darkBorderStrong = Color(0xFF313349);
+  static const Color darkForeground = Color(0xFFE6E8F0);
+  static const Color darkSecondaryForeground = Color(0xFFD5D8E4);
+  static const Color darkMutedForeground = Color(0xFF8E94AB);
+  static const Color darkHover = Color(0x0FFFFFFF);
+  static const Color darkPressed = Color(0x1FFFFFFF);
 }
 
 // ---------------------------------------------------------------------------
@@ -372,74 +420,53 @@ class PokaFinanceColors {
 
 /// Surface ladder for light mode. Steps are cool-tinted so they sit under the indigo primary.
 const PokaSurfaceColors _lightSurfaces = PokaSurfaceColors(
-  // Slate-tinted well — reads as recessed against the white page.
-  sunken: Color(0xFFF4F5FA),
-  canvas: Color(0xFFFFFFFF),
-  raised: Color(0xFFFFFFFF),
-  // Sheets and dialogs stay white; the barrier does the separating.
-  overlay: Color(0xFFFFFFFF),
-  // Filled fields — the fill, not the border, is what marks the control.
-  input: Color(0xFFF5F6FB),
-  // Hairline dividers inside cards and tiles.
-  borderSubtle: Color(0xFFE8EAF3),
-  border: Color(0xFFDBDFEE),
-  // Selected/focused outlines and input borders.
-  borderStrong: Color(0xFFA9B1CC),
-  // 6% brand wash — warmer than a grey overlay, keeps hover on-brand.
-  hover: Color(0x0F5560D6),
-  // 12% brand wash.
-  pressed: Color(0x1F5560D6),
+  sunken: PokaColors.lightSunken,
+  canvas: PokaColors.white,
+  raised: PokaColors.white,
+  overlay: PokaColors.white,
+  input: PokaColors.lightInput,
+  borderSubtle: PokaColors.lightBorderSubtle,
+  border: PokaColors.lightBorder,
+  borderStrong: PokaColors.lightBorderStrong,
+  hover: PokaColors.lightHover,
+  pressed: PokaColors.lightPressed,
 );
 
 /// Finance semantics for light mode, tuned so every base token clears AA on white *and* on its own tint.
 const PokaFinanceColors _lightFinance = PokaFinanceColors(
-  // Emerald-700 — 5.48:1 on white (emerald-600 only reached 3.77:1 and failed AA).
-  income: Color(0xFF047857),
-  incomeFill: Color(0xFF059669),
-  incomeSoft: Color(0xFFE6F4F0),
-  // Rose-700 — 6.29:1 on white, 5.36:1 on its own tint.
-  expense: Color(0xFFBE123C),
-  expenseFill: Color(0xFFF43F5E),
-  expenseSoft: Color(0xFFFEECEF),
-  // Indigo-600 — one stop off the brand primary so transfers read neutral-but-related.
-  transfer: Color(0xFF4F46E5),
-  transferFill: Color(0xFF6366F1),
-  transferSoft: Color(0xFFEFF0FE),
-  success: Color(0xFF047857),
-  successFill: Color(0xFF10B981),
-  successSoft: Color(0xFFE6F4F0),
-  // Amber-700 — amber-500 is only 2.15:1 on white and is fill-only.
-  warning: Color(0xFFB45309),
-  warningFill: Color(0xFFF59E0B),
-  warningSoft: Color(0xFFFEF5E7),
+  income: PokaColors.emerald700,
+  incomeFill: PokaColors.emerald600,
+  incomeSoft: PokaColors.emeraldSoftLight,
+  expense: PokaColors.rose700,
+  expenseFill: PokaColors.rose500,
+  expenseSoft: PokaColors.roseSoftLight,
+  transfer: PokaColors.indigo600,
+  transferFill: PokaColors.indigo500,
+  transferSoft: PokaColors.indigoSoftLight,
+  success: PokaColors.emerald700,
+  successFill: PokaColors.emerald500,
+  successSoft: PokaColors.emeraldSoftLight,
+  warning: PokaColors.amber700,
+  warningFill: PokaColors.amber500,
+  warningSoft: PokaColors.warningSoftLight,
 );
 
 final FColors lightColors = FColors(
   brightness: .light,
   systemOverlayStyle: .dark,
-  barrier: const Color(0x33000000),
-  // Pure white — lets #5560D6 primary own the accent role completely.
+  barrier: PokaColors.barrierLight,
   background: _lightSurfaces.canvas,
-  // Near-black foreground — 17.85:1 on white, WCAG AAA.
-  foreground: const Color(0xFF0F172A),
-  // Brand primary fixed at #5560D6 — vibrant indigo-blue, unchanged.
+  foreground: PokaColors.lightForeground,
   primary: PokaColors.brand500,
-  // White on #5560D6 — 5.21:1, WCAG AA.
-  primaryForeground: const Color(0xFFFFFFFF),
-  // Light brand tint for secondary surfaces — comfortable, not stark.
-  secondary: const Color(0xFFEEF0FB),
-  // 7.77:1 on the secondary tint.
+  primaryForeground: PokaColors.white,
+  secondary: PokaColors.lightSecondary,
   secondaryForeground: PokaColors.brand700,
-  // Muted zones share the sunken step so recessed areas stay consistent.
   muted: _lightSurfaces.sunken,
-  // Slate-blue subtext — 5.35:1 on white and 4.91:1 on the sunken step.
-  // (The previous #64748B dropped to 4.48:1 on tinted surfaces and missed AA.)
-  mutedForeground: const Color(0xFF5F6B85),
-  destructive: TWind.red600,
-  destructiveForeground: TWind.white,
-  error: TWind.red600,
-  errorForeground: TWind.white,
-  // White card — floats above bg via border, no shadow needed.
+  mutedForeground: PokaColors.lightMutedForeground,
+  destructive: PokaColors.red600,
+  destructiveForeground: PokaColors.white,
+  error: PokaColors.red600,
+  errorForeground: PokaColors.white,
   card: _lightSurfaces.raised,
   border: _lightSurfaces.border,
   extensions: const [AppColors(finance: _lightFinance, surfaces: _lightSurfaces)],
@@ -450,76 +477,54 @@ final FColors lightColors = FColors(
 // ---------------------------------------------------------------------------
 
 /// Surface ladder for dark mode.
-///
-/// Five steps of near-black blue. Each rung lifts luminance by roughly 1.05–1.15× the one below, which
-/// is the smallest step that still separates planes on an OLED panel without turning grey.
 const PokaSurfaceColors _darkSurfaces = PokaSurfaceColors(
-  // Below the base — chart plots and inset wells recede instead of floating.
-  sunken: Color(0xFF07080E),
-  canvas: Color(0xFF0B0C14),
-  raised: Color(0xFF12131C),
-  // Sheets, dialogs and popovers sit a visible step above any card behind them.
-  overlay: Color(0xFF171825),
-  // Inputs read as the topmost plane — the classic dashboard "lit field".
-  input: Color(0xFF1B1D2B),
-  // Dev-tool hairlines: present, never harsh.
-  borderSubtle: Color(0xFF1B1D2B),
-  border: Color(0xFF24263A),
-  borderStrong: Color(0xFF313349),
-  // 6% white wash.
-  hover: Color(0x0FFFFFFF),
-  // 12% white wash.
-  pressed: Color(0x1FFFFFFF),
+  sunken: PokaColors.darkSunken,
+  canvas: PokaColors.darkCanvas,
+  raised: PokaColors.darkRaised,
+  overlay: PokaColors.darkOverlay,
+  input: PokaColors.darkInput,
+  borderSubtle: PokaColors.darkInput,
+  border: PokaColors.darkBorder,
+  borderStrong: PokaColors.darkBorderStrong,
+  hover: PokaColors.darkHover,
+  pressed: PokaColors.darkPressed,
 );
 
 /// Finance semantics for dark mode — 400-level hues, all ≥ 4.7:1 on both the card and its own tint.
 const PokaFinanceColors _darkFinance = PokaFinanceColors(
-  // Emerald-400 — 9.62:1 on the card.
-  income: Color(0xFF34D399),
-  incomeFill: Color(0xFF10B981),
-  incomeSoft: Color(0xFF162A2B),
-  // Rose-400 — 6.87:1 on the card, soft enough to avoid vibrating on near-black.
-  expense: Color(0xFFFB7185),
-  expenseFill: Color(0xFFF43F5E),
-  expenseSoft: Color(0xFF2E1E29),
-  // Matches the dark primary family so transfers stay on-brand.
+  income: PokaColors.emerald400,
+  incomeFill: PokaColors.emerald500,
+  incomeSoft: PokaColors.emeraldSoftDark,
+  expense: PokaColors.rose400,
+  expenseFill: PokaColors.rose500,
+  expenseSoft: PokaColors.roseSoftDark,
   transfer: PokaColors.brand300,
-  transferFill: Color(0xFF6366F1),
-  transferSoft: Color(0xFF1F2132),
-  success: Color(0xFF34D399),
-  successFill: Color(0xFF10B981),
-  successSoft: Color(0xFF162A2B),
-  // Amber-400 — 11.08:1 on the card.
-  warning: Color(0xFFFBBF24),
-  warningFill: Color(0xFFF59E0B),
-  warningSoft: Color(0xFF2E281D),
+  transferFill: PokaColors.indigo500,
+  transferSoft: PokaColors.indigoSoftDark,
+  success: PokaColors.emerald400,
+  successFill: PokaColors.emerald500,
+  successSoft: PokaColors.emeraldSoftDark,
+  warning: PokaColors.amber400,
+  warningFill: PokaColors.amber500,
+  warningSoft: PokaColors.warningSoftDark,
 );
 
 final FColors darkColors = FColors(
   brightness: .dark,
   systemOverlayStyle: .light,
-  // Deeper scrim so the near-black overlay still separates from the page.
-  barrier: const Color(0x99000000),
+  barrier: PokaColors.barrierDark,
   background: _darkSurfaces.canvas,
-  // Cool off-white — 15.94:1 on the base. Pure white would bloom on this tone.
-  foreground: const Color(0xFFE6E8F0),
-  // Set to match light mode primary (#5560D6).
+  foreground: PokaColors.darkForeground,
   primary: PokaColors.brand500,
-  // White on #5560D6 — 5.21:1, WCAG AA.
-  primaryForeground: const Color(0xFFFFFFFF),
+  primaryForeground: PokaColors.white,
   secondary: _darkSurfaces.input,
-  // 11.75:1 on the secondary surface.
-  secondaryForeground: const Color(0xFFD5D8E4),
+  secondaryForeground: PokaColors.darkSecondaryForeground,
   muted: _darkSurfaces.overlay,
-  // 6.48:1 on the base, 5.84:1 on the overlay.
-  mutedForeground: const Color(0xFF8E94AB),
-  // Solid red for filled destructive actions — white text clears AA at 4.83:1.
-  destructive: TWind.red600,
-  destructiveForeground: TWind.white,
-  // Error is rendered as *text* by ForUI form fields, so it needs the light rose, not the solid red:
-  // #F87171 is 7.05:1 on the base where red-600 would be 4.04:1.
-  error: const Color(0xFFF87171),
-  errorForeground: const Color(0xFF0B0C14),
+  mutedForeground: PokaColors.darkMutedForeground,
+  destructive: PokaColors.red600,
+  destructiveForeground: PokaColors.white,
+  error: PokaColors.red400,
+  errorForeground: PokaColors.darkCanvas,
   card: _darkSurfaces.canvas,
   border: _darkSurfaces.border,
   extensions: const [AppColors(finance: _darkFinance, surfaces: _darkSurfaces)],

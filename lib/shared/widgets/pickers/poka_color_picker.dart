@@ -77,7 +77,9 @@ class _ColorItem extends StatelessWidget {
           shape: BoxShape.circle,
           border: isSelected ? Border.all(color: context.theme.colors.foreground, width: 2) : null,
         ),
-        child: isSelected ? const Center(child: Icon(FPhosphorIcons.check, color: Colors.white, size: 16)) : null,
+        child: isSelected
+            ? Center(child: Icon(FPhosphorIcons.check, color: context.theme.colors.primaryForeground, size: 16))
+            : null,
       ),
     );
   }
@@ -108,7 +110,7 @@ class _CustomColorItem extends StatelessWidget {
         ),
         child: Center(
           child: isSelected
-              ? const Icon(FPhosphorIcons.check, color: Colors.white, size: 16)
+              ? Icon(FPhosphorIcons.check, color: theme.colors.primaryForeground, size: 16)
               : Icon(FPhosphorIcons.palette, size: 16, color: theme.colors.primary),
         ),
       ),
@@ -212,7 +214,7 @@ class _VisualColorPickerSheet extends HookWidget {
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: hsvColor.value.toColor(),
-                                border: Border.all(color: Colors.white, width: 2),
+                                border: Border.all(color: context.theme.colors.primaryForeground, width: 2),
                               ),
                             ),
                           ),
@@ -250,8 +252,8 @@ class _VisualColorPickerSheet extends HookWidget {
                               width: 24,
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: Colors.white,
-                                border: Border.all(color: Colors.black12, width: 2),
+                                color: context.theme.colors.primaryForeground,
+                                border: Border.all(color: context.theme.colors.border, width: 2),
                               ),
                             ),
                           ),

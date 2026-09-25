@@ -30,10 +30,10 @@ class CategoryHeroCard extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.2),
+              color: theme.colors.primaryForeground.withValues(alpha: 0.2),
               borderRadius: theme.style.borderRadius.md,
             ),
-            child: Icon(parentIcon, color: Colors.white, size: 28),
+            child: Icon(parentIcon, color: theme.colors.primaryForeground, size: 28),
           ),
           const SizedBox(width: 16),
           Expanded(
@@ -43,7 +43,7 @@ class CategoryHeroCard extends StatelessWidget {
                 Text(
                   category.name,
                   style: theme.typography.display.sm.copyWith(
-                    color: Colors.white,
+                    color: theme.colors.primaryForeground,
                     fontWeight: FontWeight.w800,
                     letterSpacing: -0.5,
                   ),
@@ -52,12 +52,14 @@ class CategoryHeroCard extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                   decoration: BoxDecoration(
-                    color: Colors.white.withValues(alpha: 0.15),
+                    color: theme.colors.primaryForeground.withValues(alpha: 0.15),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Text(
                     category.type.name.toUpperCase(),
-                    style: theme.typography.labelBadge.copyWith(color: Colors.white.withValues(alpha: 0.9)),
+                    style: theme.typography.labelBadge.copyWith(
+                      color: theme.colors.primaryForeground.withValues(alpha: 0.9),
+                    ),
                   ),
                 ),
               ],

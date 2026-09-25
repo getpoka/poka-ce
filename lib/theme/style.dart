@@ -38,7 +38,7 @@ FStyle _style({required FColors colors, required FTypography typography, require
     borderRadius: _borderRadius,
     borderWidth: 1,
     pagePadding: const .symmetric(vertical: 8, horizontal: 12),
-    shadow: const [BoxShadow(color: Color(0x0d000000), offset: Offset(0, 1), blurRadius: 2)],
+    shadow: const [],
     extensions: const [AppStyle()],
   );
 }

@@ -86,9 +86,9 @@ class _EasterEggIconState extends State<EasterEggIcon> {
                       behavior: HitTestBehavior.opaque,
                       onTap: () => Navigator.of(ctx).pop(),
                       child: Container(
-                        decoration: const BoxDecoration(color: Colors.black54, shape: BoxShape.circle),
+                        decoration: BoxDecoration(color: context.theme.colors.barrier, shape: BoxShape.circle),
                         padding: const EdgeInsets.all(8),
-                        child: const Icon(FPhosphorIcons.x, size: 16, color: Colors.white),
+                        child: Icon(FPhosphorIcons.x, size: 16, color: context.theme.colors.primaryForeground),
                       ),
                     ),
                   ),

@@ -55,7 +55,7 @@ class BudgetSummaryCard extends ConsumerWidget {
         type: totalRemaining >= 0 ? TransactionType.income : TransactionType.expense,
         isObscured: !isBalanceVisible,
         style: theme.typography.display.sm.copyWith(
-          color: Colors.white,
+          color: theme.colors.primaryForeground,
           fontWeight: FontWeight.w800,
           letterSpacing: -1,
           height: 1,
