@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.1.9] - 2026-09-25
+
+WCAG AA accessibility color compliance, dark mode contrast refinements, and extensible quick actions architecture.
+
+### Added
+
+- WCAG AA accessibility compliant color tokens across light and dark theme palettes to guarantee text and UI element contrast readability.
+- Dynamic icon alpha boost in dark mode to preserve vibrant category and account branding across dark surfaces.
+- Extensible `QuickActionsService` hooks (`buildShortcutItems` and `onActionTriggered`) enabling modular subclassing and custom app shortcuts.
+
+### Changed
+
+- Refined dark mode primary brand color, surface pill tabs, and filter controls for enhanced contrast and visual hierarchy.
+- Centralized theme color tokens and eliminated legacy, unused color palettes across the application.
+- Refined account pocket badge counts to accurately display all active sub-pockets and improved pocket section visibility.
+
 ## [v1.1.8] - 2026-09-24
 
 ### Added
