@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Prevent bottom navigation bar clipping on Android devices with 3-button navigation by enabling safe area bottom padding.
+
 ## [v1.1.10] - 2026-09-26
 
 ### Fixed

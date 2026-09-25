@@ -35,6 +35,7 @@ class MainShellPage extends HookConsumerWidget {
     return FScaffold(
       childPad: false,
       footer: FBottomNavigationBar(
+        safeAreaBottom: true,
         index: navigationShell.currentIndex,
         onChange: (index) {
           navigationShell.goBranch(index, initialLocation: index == navigationShell.currentIndex);

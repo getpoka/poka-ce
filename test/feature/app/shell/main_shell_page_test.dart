@@ -115,6 +115,8 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.byType(FBottomNavigationBar), findsOneWidget);
+      final navBar = tester.widget<FBottomNavigationBar>(find.byType(FBottomNavigationBar));
+      expect(navBar.safeAreaBottom, isTrue);
       expect(find.text('Home'), findsOneWidget);
       expect(find.text('Transactions'), findsOneWidget);
     });
