@@ -208,8 +208,8 @@ void main() {
       await tester.tap(find.text('Solo'));
       await tester.pumpAndSettle();
 
-      expect(find.text('No pockets yet'), findsOneWidget);
-      expect(find.text('Pockets help you split your wallet into categories'), findsOneWidget);
+      expect(find.text(t.accounts.noPocketsYet), findsOneWidget);
+      expect(find.text(t.accounts.pocketsHelpYouSplitYourWalletIntoCategories), findsOneWidget);
       // expect(find.text('No transactions yet'), findsOneWidget); // Empty transaction list now renders nothing
     });
 

@@ -40,7 +40,7 @@
   "noAccountsFound": "No accounts found.",
   "addPocket": "Add Pocket",
   "noPocketsYet": "No pockets yet",
-  "pocketsHelpYouSplitYourWalletIntoCategories": "Pockets help you split your wallet into categories",
+  "pocketsHelpYouSplitYourWalletIntoCategories": "Pockets help you split your wallet into categories. Your current balance will move to a \"Main\" pocket automatically.",
   "activeAccount": "Active Account",
   "inactiveAccountsWillBeHidden": "Inactive accounts will be hidden",
   "noCategoriesAvailable": "No categories available.",

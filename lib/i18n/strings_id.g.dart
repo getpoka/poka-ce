@@ -110,7 +110,7 @@ class _Translations$accounts$id extends Translations$accounts$en {
 	@override String get noAccountsFound => 'Akun tidak ditemukan.';
 	@override String get addPocket => 'Tambah Kantong';
 	@override String get noPocketsYet => 'Belum ada kantong';
-	@override String get pocketsHelpYouSplitYourWalletIntoCategories => 'Kantong membantu Anda membagi dompet ke dalam beberapa kategori';
+	@override String get pocketsHelpYouSplitYourWalletIntoCategories => 'Kantong membantu Anda membagi dompet ke beberapa kategori. Saldo Anda akan otomatis masuk ke kantong "Utama".';
 	@override String get activeAccount => 'Akun Aktif';
 	@override String get inactiveAccountsWillBeHidden => 'Akun tidak aktif akan disembunyikan';
 	@override String get noCategoriesAvailable => 'Tidak ada kategori yang tersedia.';
@@ -947,7 +947,7 @@ extension on TranslationsId {
 			'accounts.noAccountsFound' => 'Akun tidak ditemukan.',
 			'accounts.addPocket' => 'Tambah Kantong',
 			'accounts.noPocketsYet' => 'Belum ada kantong',
-			'accounts.pocketsHelpYouSplitYourWalletIntoCategories' => 'Kantong membantu Anda membagi dompet ke dalam beberapa kategori',
+			'accounts.pocketsHelpYouSplitYourWalletIntoCategories' => 'Kantong membantu Anda membagi dompet ke beberapa kategori. Saldo Anda akan otomatis masuk ke kantong "Utama".',
 			'accounts.activeAccount' => 'Akun Aktif',
 			'accounts.inactiveAccountsWillBeHidden' => 'Akun tidak aktif akan disembunyikan',
 			'accounts.noCategoriesAvailable' => 'Tidak ada kategori yang tersedia.',

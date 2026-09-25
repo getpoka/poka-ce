@@ -15,6 +15,10 @@ import 'package:poka_ce/shared/widgets/poka_section_label.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 /// Section in AccountDetailPage presenting operational pockets (spending, bills, etc.).
+///
+/// The Main Pocket (isDefault) is hidden when it is the only pocket — the account
+/// appears as a simple flat wallet. Once the user creates at least one custom pocket,
+/// both the Main Pocket and all custom pockets become visible, making the split clear.
 class AccountPocketsSection extends HookConsumerWidget {
   const new({required this.accountId, required this.pockets, required this.totalBalance, super.key});
 
@@ -25,6 +29,14 @@ class AccountPocketsSection extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = context.theme;
+
+    // Only custom (non-default) pockets created by the user.
+    final customPockets = pockets.where((p) => !p.isDefault).toList();
+
+    // When custom pockets exist, show all pockets (Main + custom) so the split is
+    // immediately visible. When only the auto-generated Main Pocket exists, hide it
+    // and show an empty state prompting the user to create their first pocket.
+    final visiblePockets = customPockets.isNotEmpty ? pockets : <AccountModel>[];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -52,7 +64,7 @@ class AccountPocketsSection extends HookConsumerWidget {
           ],
         ).animate().fade(duration: 300.ms, delay: 60.ms).slideY(begin: 0.05, end: 0),
         const SizedBox(height: 8),
-        if (pockets.isEmpty)
+        if (visiblePockets.isEmpty)
           PokaEmptyView(
             icon: FPhosphorIcons.wallet,
             title: t.accounts.noPocketsYet,
@@ -81,7 +93,7 @@ class AccountPocketsSection extends HookConsumerWidget {
                 children: children,
               );
             },
-            children: pockets.map((pocket) {
+            children: visiblePockets.map((pocket) {
               final ratio = totalBalance > 0 ? (pocket.balance / totalBalance).clamp(0.0, 1.0) : 0.0;
               final ratioLabel = t.accounts.ratioOfAccount(percent: (ratio * 100).toStringAsFixed(0));
 

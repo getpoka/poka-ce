@@ -195,8 +195,8 @@ class Translations$accounts$en {
 	/// en: 'No pockets yet'
 	String get noPocketsYet => 'No pockets yet';
 
-	/// en: 'Pockets help you split your wallet into categories'
-	String get pocketsHelpYouSplitYourWalletIntoCategories => 'Pockets help you split your wallet into categories';
+	/// en: 'Pockets help you split your wallet into categories. Your current balance will move to a "Main" pocket automatically.'
+	String get pocketsHelpYouSplitYourWalletIntoCategories => 'Pockets help you split your wallet into categories. Your current balance will move to a "Main" pocket automatically.';
 
 	/// en: 'Active Account'
 	String get activeAccount => 'Active Account';
@@ -2272,7 +2272,7 @@ extension on Translations {
 			'accounts.noAccountsFound' => 'No accounts found.',
 			'accounts.addPocket' => 'Add Pocket',
 			'accounts.noPocketsYet' => 'No pockets yet',
-			'accounts.pocketsHelpYouSplitYourWalletIntoCategories' => 'Pockets help you split your wallet into categories',
+			'accounts.pocketsHelpYouSplitYourWalletIntoCategories' => 'Pockets help you split your wallet into categories. Your current balance will move to a "Main" pocket automatically.',
 			'accounts.activeAccount' => 'Active Account',
 			'accounts.inactiveAccountsWillBeHidden' => 'Inactive accounts will be hidden',
 			'accounts.noCategoriesAvailable' => 'No categories available.',

@@ -49,6 +49,9 @@ class AccountDetailPage extends HookConsumerWidget {
         : null;
 
     final operationalPockets = pockets.where((p) => p.type != AccountType.goal).toList();
+    // Custom pockets only: excludes the auto-generated Main Pocket so the badge
+    // reflects user-created pockets rather than the invisible default pocket.
+    final customPocketCount = operationalPockets.where((p) => !p.isDefault).length;
 
     return FScaffold(
       header: PokaHeader(
@@ -83,7 +86,7 @@ class AccountDetailPage extends HookConsumerWidget {
               accentColor: accentColor,
               accountIcon: accountIcon,
               label: account.isPocket ? t.accounts.balance : t.accounts.totalBalance,
-              pocketCount: account.isPocket ? null : pockets.length,
+              pocketCount: account.isPocket ? null : customPocketCount,
               transactionCount: accountTransactions.length,
             ).animate().fade(duration: 300.ms).slideY(begin: 0.05, end: 0),
 
