@@ -19,9 +19,8 @@ void main() {
   });
 
   group('QuickActionsService', () {
-    test('is a singleton via instance getter', () {
+    test('instance is set by default', () {
       expect(QuickActionsService.instance, isNotNull);
-      expect(identical(QuickActionsService.instance, QuickActionsService.instance), isTrue);
     });
 
     test('initialize registers action handler and sets shortcut items', () async {
@@ -37,6 +36,22 @@ void main() {
 
       verify(() => mockQuickActions.initialize(any())).called(1);
       verify(() => mockQuickActions.setShortcutItems(any())).called(1);
+    });
+
+    test('additionalShortcutItems defaults to empty list', () {
+      expect(service.additionalShortcutItems, isEmpty);
+    });
+
+    test('setShortcutItems includes CE defaults plus additionalShortcutItems', () async {
+      service.initialize();
+
+      final captured = verify(() => mockQuickActions.setShortcutItems(captureAny())).captured;
+
+      final items = captured.first as List<ShortcutItem>;
+      expect(
+        items.map((e) => e.type),
+        containsAll(['action_add_transaction', 'action_add_account', 'action_add_category', 'action_add_goal']),
+      );
     });
   });
 }

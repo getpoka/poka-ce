@@ -10,12 +10,17 @@ import 'package:poka_ce/features/transactions/presentation/widgets/forms/transac
 import 'package:quick_actions/quick_actions.dart';
 
 /// Service responsible for managing app shortcuts (Quick Actions).
+///
+/// Designed for extension: subclasses can override [additionalShortcutItems]
+/// and [handleAdditionalAction] to inject extra platform shortcuts. Set
+/// [instance] to a custom subclass instance before calling [initialize].
 class QuickActionsService {
   /// Creates a [QuickActionsService] instance.
   new({QuickActions? quickActions}) : _quickActions = quickActions ?? const QuickActions();
 
-  /// Global singleton instance.
-  static final QuickActionsService instance = QuickActionsService();
+  /// Global singleton instance. Can be replaced by a custom subclass before
+  /// [initialize] is called.
+  static QuickActionsService instance = QuickActionsService();
   final QuickActions _quickActions;
 
   bool _initialized = false;
@@ -47,6 +52,7 @@ class QuickActionsService {
             icon: 'ic_shortcut_add_category',
           ),
           const ShortcutItem(type: 'action_add_goal', localizedTitle: 'Add Goal', icon: 'ic_shortcut_add_goal'),
+          ...additionalShortcutItems,
         ])
         .catchError((Object e, StackTrace st) {
           talker.error('Failed to set shortcut items', e, st);
@@ -54,6 +60,19 @@ class QuickActionsService {
 
     _initialized = true;
   }
+
+  /// Extra [ShortcutItem]s appended after the CE defaults.
+  ///
+  /// Override in a subclass to inject additional platform shortcuts.
+  @protected
+  List<ShortcutItem> get additionalShortcutItems => const [];
+
+  /// Called for action types not handled by CE.
+  ///
+  /// Return `true` if the action was handled, `false` to fall through
+  /// to the default unknown-action warning.
+  @protected
+  bool handleAdditionalAction(String type, BuildContext context) => false;
 
   void _handleAction(String type) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -79,7 +98,9 @@ class QuickActionsService {
             GoalFormSheet.show(context);
           }
         default:
-          talker.warning('Unknown QuickAction type: $type');
+          if (!handleAdditionalAction(type, context)) {
+            talker.warning('Unknown QuickAction type: $type');
+          }
       }
     });
   }
