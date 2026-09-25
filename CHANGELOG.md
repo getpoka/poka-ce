@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.1.10] - 2026-09-26
+
+### Fixed
+
+- Fixed bottom navigation bar being cut off on Android devices with 3-button navigation (ref: duobaseio/forui#1204, duobaseio/forui#1205).
+
 ## [v1.1.9] - 2026-09-25
 
 WCAG AA accessibility color compliance, dark mode contrast refinements, and extensible quick actions architecture.
