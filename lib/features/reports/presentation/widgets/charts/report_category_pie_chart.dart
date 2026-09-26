@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:poka_ce/core/extensions/string_extension.dart';
 import 'package:poka_ce/features/reports/domain/services/report_analytics_service.dart';
 import 'package:poka_ce/shared/widgets/poka_donut_chart.dart';
 import 'package:poka_ce/theme/theme.dart';
@@ -14,15 +15,6 @@ class ReportCategoryPieChart extends StatelessWidget {
   /// The active theme data.
   final FThemeData theme;
 
-  Color _parseColor(BuildContext context, String hex) {
-    try {
-      final cleaned = hex.replaceAll('#', '');
-      return Color(int.parse('FF$cleaned', radix: 16));
-    } on FormatException {
-      return context.theme.colors.mutedForeground;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -30,7 +22,7 @@ class ReportCategoryPieChart extends StatelessWidget {
         size: 156,
         thickness: 18,
         sections: items.map((item) {
-          return PokaDonutSection(value: item.ratio, color: _parseColor(context, item.color));
+          return PokaDonutSection(value: item.ratio, color: item.color.toColor(theme.colors.mutedForeground));
         }).toList(),
       ),
     );

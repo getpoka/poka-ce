@@ -48,7 +48,7 @@ class FaqPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+                  padding: const EdgeInsets.symmetric(vertical: 20),
                   child: Column(
                     children: [
                       Container(
@@ -81,7 +81,7 @@ class FaqPage extends StatelessWidget {
                 FAccordion(
                   children: items.map((item) {
                     return FAccordionItem(
-                      title: Text(item.question, style: const TextStyle(fontWeight: FontWeight.w600)),
+                      title: Text(item.question, style: theme.typography.titleCard),
                       child: MarkdownBody(
                         data: item.answer,
                         styleSheet: MarkdownStyleSheet(

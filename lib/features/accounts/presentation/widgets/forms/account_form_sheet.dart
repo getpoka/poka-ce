@@ -192,11 +192,11 @@ class AccountFormSheet extends HookConsumerWidget {
             isActive: state.isActive,
             onChanged: (val) => notifier.setIsActive(isActive: val),
           ),
-          const SizedBox(height: 12),
           if (state.parentAccountId == null) ...[
+            const SizedBox(height: 12),
             CategorySelectionField(notifier: notifier, restrictedCategoryIds: state.restrictedCategoryIds.toSet()),
-            const SizedBox(height: 20),
           ],
+          const SizedBox(height: 20),
           FButton(
             mainAxisSize: MainAxisSize.min,
             onPress: state.isSaving

@@ -180,7 +180,6 @@ class DebtRepaymentSheet extends HookConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const SizedBox(height: 10),
               TransactionDateNav(
                 selectedDate: state.date,
                 onStepDate: (step) {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:poka_ce/core/extensions/string_extension.dart';
 import 'package:poka_ce/core/utils/icon_util.dart';
 import 'package:poka_ce/features/categories/domain/category_model.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
@@ -38,7 +39,7 @@ class CategorySelectorShelf extends StatelessWidget {
         PokaPillScrollRow(
           children: parents.map((cat) {
             final isSel = activeParentId == cat.id;
-            final catColor = Color(int.parse(cat.color?.replaceFirst('#', '0xFF') ?? '0xFF94A3B8'));
+            final catColor = cat.color?.toColor() ?? theme.colors.mutedForeground;
             return PokaPill(
               icon: IconUtil.getIcon(cat.icon),
               label: cat.name,
@@ -59,7 +60,7 @@ class CategorySelectorShelf extends StatelessWidget {
           PokaPillScrollRow(
             children: subs.map((sub) {
               final isSel = selectedCategoryId == sub.id;
-              final subColor = Color(int.parse(sub.color?.replaceFirst('#', '0xFF') ?? '0xFF94A3B8'));
+              final subColor = sub.color?.toColor() ?? theme.colors.mutedForeground;
               return PokaPill(
                 icon: IconUtil.getIcon(sub.icon),
                 label: sub.name,

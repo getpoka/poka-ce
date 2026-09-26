@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:poka_ce/core/extensions/string_extension.dart';
 import 'package:poka_ce/core/utils/icon_util.dart';
 import 'package:poka_ce/features/accounts/domain/account_model.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
@@ -25,8 +26,8 @@ class TransactionTransferSelector extends StatelessWidget {
   final ValueChanged<AccountModel> onPickToAccount;
   final VoidCallback onSwapAccounts;
 
-  Color _accountColor(AccountModel a) {
-    return Color(int.parse(a.color?.replaceFirst('#', '0xFF') ?? '0xFF94A3B8'));
+  Color _accountColor(AccountModel a, Color fallback) {
+    return a.color?.toColor(fallback) ?? fallback;
   }
 
   @override
@@ -40,8 +41,8 @@ class TransactionTransferSelector extends StatelessWidget {
     final effectiveFrom = fromAccount ?? accounts.first;
     final effectiveTo = toAccount ?? (accounts.length > 1 ? accounts[1] : accounts.first);
 
-    final fromColor = _accountColor(effectiveFrom);
-    final toColor = _accountColor(effectiveTo);
+    final fromColor = _accountColor(effectiveFrom, theme.colors.primary);
+    final toColor = _accountColor(effectiveTo, theme.colors.primary);
 
     Future<void> pickAccount({required bool isFrom}) async {
       final acc = await PokaPocketSelector.show(

@@ -34,7 +34,7 @@ class CategoryListTab extends ConsumerWidget {
     }
 
     return ReorderableListView.builder(
-      padding: const EdgeInsets.only(bottom: 24),
+      padding: const EdgeInsets.only(bottom: 20),
       shrinkWrap: true,
       physics: const AlwaysScrollableScrollPhysics(),
       itemCount: categories.length,
@@ -42,7 +42,7 @@ class CategoryListTab extends ConsumerWidget {
         HapticFeedback.mediumImpact();
       },
       proxyDecorator: (child, index, animation) {
-        return Material(color: Colors.transparent, child: child);
+        return child;
       },
       onReorderItem: (oldIndex, newIndex) {
         ref.read(categoryListProvider.notifier).reorderCategories(oldIndex, newIndex, type);

@@ -72,7 +72,7 @@ class OnboardingPage extends HookConsumerWidget {
               onSelect: (currency) => selectedCurrency.value = currency,
             ),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 20),
           FButton(
             onPress: selectedCurrency.value == null
                 ? null

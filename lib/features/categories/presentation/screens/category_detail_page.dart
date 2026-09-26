@@ -45,7 +45,7 @@ class CategoryDetailPage extends ConsumerWidget {
                   ref.read(categoryListProvider.notifier).toggleActive(activeCategory, isActive: value);
                 },
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 20),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -96,7 +96,7 @@ class CategoryDetailPage extends ConsumerWidget {
                     HapticFeedback.mediumImpact();
                   },
                   proxyDecorator: (child, index, animation) {
-                    return Material(color: Colors.transparent, child: child);
+                    return child;
                   },
                   onReorderItem: (oldIndex, newIndex) {
                     ref
@@ -120,6 +120,7 @@ class CategoryDetailPage extends ConsumerWidget {
                     );
                   },
                 ),
+              const SizedBox(height: 20),
             ],
           ),
         ),

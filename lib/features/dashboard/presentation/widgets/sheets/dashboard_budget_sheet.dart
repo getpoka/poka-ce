@@ -41,7 +41,7 @@ class DashboardBudgetSheet extends HookConsumerWidget {
             hint: context.t.dashboard.amountHint,
             keyboardType: TextInputType.number,
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 20),
           SizedBox(
             width: double.infinity,
             child: FButton(

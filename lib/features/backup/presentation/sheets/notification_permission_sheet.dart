@@ -29,7 +29,6 @@ class _NotificationRationaleSheet extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const SizedBox(height: 8),
           Center(
             child: PokaIcon(
               icon: FPhosphorIcons.bellSimpleRinging,
@@ -44,7 +43,7 @@ class _NotificationRationaleSheet extends StatelessWidget {
             style: typography.body.md.copyWith(color: colors.mutedForeground, height: 1.5),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 20),
           Row(
             children: [
               Expanded(

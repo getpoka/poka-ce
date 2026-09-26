@@ -22,6 +22,7 @@ class AboutPage extends StatelessWidget {
     return FScaffold(
       header: PokaHeader(title: t.settings.about, showBack: true),
       child: SingleChildScrollView(
+        padding: EdgeInsets.zero,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
