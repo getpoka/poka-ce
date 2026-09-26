@@ -3,6 +3,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poka_ce/core/enums.dart';
+import 'package:poka_ce/core/extensions/string_extension.dart';
 import 'package:poka_ce/core/utils/icon_util.dart';
 import 'package:poka_ce/features/categories/domain/category_model.dart';
 import 'package:poka_ce/features/categories/presentation/controllers/category_list_notifier.dart';
@@ -78,9 +79,7 @@ class _SplitItemCard extends ConsumerWidget {
     final categoryList = ref.watch(categoryListProvider).value ?? <CategoryModel>[];
     final categoryData = categoryList.where((c) => c.id == item.categoryId).firstOrNull;
 
-    final catColor = categoryData?.color != null
-        ? Color(int.parse(categoryData!.color!.replaceFirst('#', '0xFF')))
-        : colors.primary;
+    final catColor = categoryData?.color?.toColor(colors.primary) ?? colors.primary;
     final catIcon = categoryData?.icon != null ? IconUtil.getIcon(categoryData!.icon) : FPhosphorIcons.tag;
     final catName = item.categoryName ?? categoryData?.name ?? t.common.uncategorized;
 
@@ -212,11 +211,7 @@ class _SplitItemCard extends ConsumerWidget {
                     ),
                   ),
                 ),
-                if (!isLast)
-                  Padding(
-                    padding: const EdgeInsets.only(left: 64),
-                    child: Divider(height: 1, thickness: 1, color: colors.border),
-                  ),
+                if (!isLast) const Padding(padding: EdgeInsets.only(left: 64), child: FDivider()),
               ],
             ),
           ),

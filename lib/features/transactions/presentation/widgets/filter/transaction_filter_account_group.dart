@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:forui/forui.dart';
+import 'package:poka_ce/core/extensions/string_extension.dart';
 import 'package:poka_ce/core/utils/icon_util.dart';
 import 'package:poka_ce/features/accounts/domain/account_model.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/poka_pill.dart';
+import 'package:poka_ce/theme/theme.dart';
 
 /// A group of selectable pills for filtering by account.
 class TransactionFilterAccountGroup extends HookWidget {
@@ -36,7 +38,7 @@ class TransactionFilterAccountGroup extends HookWidget {
             children: topAccounts.map((account) {
               final isSelected = selectedIds.contains(account.id);
               final isExpanded = activeParentId.value == account.id;
-              final color = Color(int.parse(account.color?.replaceFirst('#', '0xFF') ?? '0xFF94A3B8'));
+              final color = account.color?.toColor() ?? context.theme.colors.mutedForeground;
               return PokaPill(
                 icon: IconUtil.getIcon(account.icon),
                 label: account.name,
@@ -70,7 +72,7 @@ class TransactionFilterAccountGroup extends HookWidget {
             PokaPillScrollRow(
               children: accountChildren.map((pocket) {
                 final isSelected = selectedIds.contains(pocket.id);
-                final color = Color(int.parse(pocket.color?.replaceFirst('#', '0xFF') ?? '0xFF94A3B8'));
+                final color = pocket.color?.toColor() ?? context.theme.colors.mutedForeground;
                 return PokaPill(
                   icon: IconUtil.getIcon(pocket.icon),
                   label: pocket.name,

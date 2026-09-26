@@ -38,7 +38,7 @@ class BackupPasswordForm extends StatelessWidget {
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 12),
         ],
         FTextField.password(
           control: FTextFieldControl.managed(controller: passwordController),
@@ -48,7 +48,7 @@ class BackupPasswordForm extends StatelessWidget {
           enabled: !isSubmitting,
         ),
         if (isBackup) ...[
-          const SizedBox(height: 16),
+          const SizedBox(height: 12),
           FTextField.password(
             control: FTextFieldControl.managed(controller: confirmController),
             label: Text(context.t.backup.confirmPassword),
@@ -57,7 +57,7 @@ class BackupPasswordForm extends StatelessWidget {
             enabled: !isSubmitting,
           ),
         ],
-        const SizedBox(height: 24),
+        const SizedBox(height: 20),
         FButton(
           onPress: isSubmitting ? null : onSubmit,
           prefix: isSubmitting ? const FCircularProgress() : null,

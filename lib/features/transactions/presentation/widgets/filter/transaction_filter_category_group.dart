@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:forui/forui.dart';
 import 'package:poka_ce/core/enums.dart';
+import 'package:poka_ce/core/extensions/string_extension.dart';
 import 'package:poka_ce/core/utils/icon_util.dart';
 import 'package:poka_ce/features/categories/domain/category_model.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
@@ -124,7 +125,7 @@ class _CategoryPillRow extends HookWidget {
           children: categories.map((cat) {
             final isSelected = selectedIds.contains(cat.id);
             final isExpanded = activeParentId.value == cat.id;
-            final color = Color(int.parse(cat.color?.replaceFirst('#', '0xFF') ?? '0xFF94A3B8'));
+            final color = cat.color?.toColor() ?? context.theme.colors.mutedForeground;
             return PokaPill(
               icon: IconUtil.getIcon(cat.icon),
               label: cat.name,
@@ -158,7 +159,7 @@ class _CategoryPillRow extends HookWidget {
           PokaPillScrollRow(
             children: categoryChildren.map((sub) {
               final isSelected = selectedIds.contains(sub.id);
-              final color = Color(int.parse(sub.color?.replaceFirst('#', '0xFF') ?? '0xFF94A3B8'));
+              final color = sub.color?.toColor() ?? context.theme.colors.mutedForeground;
               return PokaPill(
                 icon: IconUtil.getIcon(sub.icon),
                 label: sub.name,

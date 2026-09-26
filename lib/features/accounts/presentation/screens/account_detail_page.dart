@@ -104,7 +104,7 @@ class AccountDetailPage extends HookConsumerWidget {
               accountTransactions: accountTransactions,
             ).animate().fade(duration: 300.ms, delay: 100.ms).slideY(begin: 0.05, end: 0),
 
-            const SizedBox(height: 40),
+            const SizedBox(height: 20),
           ],
         ),
       ),

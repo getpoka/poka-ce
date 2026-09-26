@@ -146,7 +146,7 @@ class BudgetDetailPage extends ConsumerWidget {
         physics: const AlwaysScrollableScrollPhysics(),
         slivers: [
           SliverToBoxAdapter(child: BudgetCard(budget: activeBudget, isInteractive: false)),
-          const SliverToBoxAdapter(child: SizedBox(height: 24)),
+          const SliverToBoxAdapter(child: SizedBox(height: 20)),
           SliverToBoxAdapter(child: PokaSectionLabel(title: t.budgets.transactions)),
           const SliverToBoxAdapter(child: SizedBox(height: 8)),
           transactionsAsync.when(
@@ -169,7 +169,7 @@ class BudgetDetailPage extends ConsumerWidget {
                   final account = accountsById[transaction.accountId];
 
                   return Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding: EdgeInsets.only(bottom: index == transactions.length - 1 ? 0 : 10),
                     child: RecentTransactionTile(
                       transaction: transaction,
                       isBalanceVisible: true,

@@ -79,7 +79,7 @@ class LicensesScreen extends StatelessWidget {
           final packages = byPackage.keys.toList()..sort();
 
           return ListView.separated(
-            padding: EdgeInsets.symmetric(vertical: theme.style.app.lg),
+            padding: EdgeInsets.zero,
             itemCount: packages.length,
             separatorBuilder: (_, _) => const SizedBox(height: 12),
             itemBuilder: (context, index) {

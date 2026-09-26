@@ -51,12 +51,17 @@ trigger: always_on
 **Prefer defaults.** Only deviate from the ForUI default style when there is a clear, justified design reason. Do not
 customize just because you can — every deviation increases maintenance burden. If the default works, use it.
 
-## Spacing & Gap
+## Spacing & Gap (Tiered Rhythm System)
+
+Rhythm spacing follows a tiered scale (*bertingkat*) to maintain clear visual hierarchy. It is not uniform across every element:
 
 **1. Global Screens & List Pages**
 
-- Gap between major *sections* on a *screen*: **`20`** (`SizedBox(height: 20)`).
-- *Padding* before the bottom of the *screen* (bottom safe area): **`20`**.
+- **Tier 1 — Gap between major sections**: Strictly **`20`** (`SizedBox(height: 20)`). This separates distinct functional blocks (e.g. Hero summary card to list sections, Pockets to Transactions, or between menu groups).
+- **Tier 2 — Padding to bottom of screen (safe area)**: Strictly **`20`** (`SizedBox(height: 20)` or `EdgeInsets.only(bottom: 20)`).
+- **Tier 3 — Section header to content**: **`8`** to **`12`** (`8` for `PokaSectionLabel` to card lists, `12` for label to grids/pockets).
+- **Tier 4 — Intra-list item gap (card to card)**: **`8`** to **`10`** (e.g. `10` between `GoalCard` / `RecentTransactionTile`, `8` between simple list tiles).
+- **Tier 5 — Micro spacing**: **`2`** to **`6`** (title to subtitle, badge padding, icon to label).
 
 **2. Global PokaSheet Layout**
 
@@ -67,8 +72,8 @@ customize just because you can — every deviation increases maintenance burden.
 
 **3. Standard Form Sheets (Account, Budget, Goal, Debt, Category)**
 
-- Gap between form fields / inputs: **`12`**.
-- Gap before the main bottom action button (Save Button): **`20`**.
+- Gap between form fields / inputs: **`12`** (`SizedBox(height: 12)`).
+- Gap before the main bottom action button (Save Button): Strictly **`20`** (`SizedBox(height: 20)`).
 
 **4. Transaction Form Sheet Exceptions (Ultra-Compact)**
 Due to its complexity, the Transaction Sheet uses tighter gaps:

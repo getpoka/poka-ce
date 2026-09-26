@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Standardized section spacing and layout rhythms across detail pages and forms for a more consistent visual hierarchy.
+- Improved dark mode tab and pill contrast across dashboard analytics, report period filters, and icon pickers.
+- [internal] Cleaned up legacy color parsing, removed Material widgets, and updated ForUI spacing guidelines documentation.
+
 ### Fixed
 
 - Prevent bottom navigation bar clipping on Android devices with 3-button navigation by enabling safe area bottom padding.

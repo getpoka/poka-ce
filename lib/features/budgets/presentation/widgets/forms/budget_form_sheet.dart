@@ -235,7 +235,7 @@ class BudgetFormSheet extends HookConsumerWidget {
                         }
                       },
                     ),
-                    Divider(height: 1, color: context.theme.colors.border),
+                    const FDivider(),
                     ScopeTile(
                       defaultIcon: FPhosphorIcons.wallet,
                       prefixWidget: selectedAccount != null

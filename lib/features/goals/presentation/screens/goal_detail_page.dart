@@ -88,7 +88,7 @@ class GoalDetailPage extends ConsumerWidget {
                 ),
               ),
             ),
-          const SliverToBoxAdapter(child: SizedBox(height: 24)),
+          const SliverToBoxAdapter(child: SizedBox(height: 20)),
           SliverToBoxAdapter(child: PokaSectionLabel(title: t.goals.transactions)),
           const SliverToBoxAdapter(child: SizedBox(height: 8)),
           transactionsAsync.when(
@@ -111,7 +111,7 @@ class GoalDetailPage extends ConsumerWidget {
                   final account = accountsById[transaction.accountId];
 
                   return Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding: EdgeInsets.only(bottom: index == transactions.length - 1 ? 0 : 10),
                     child: RecentTransactionTile(
                       transaction: transaction,
                       isBalanceVisible: true,

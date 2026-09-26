@@ -32,6 +32,7 @@ class MarkdownPage extends StatelessWidget {
           }
           final content = snapshot.data ?? '';
           return Markdown(
+            padding: EdgeInsets.zero,
             data: content,
             styleSheet: MarkdownStyleSheet(
               h1: theme.typography.display.lg.copyWith(color: theme.colors.foreground, fontWeight: FontWeight.bold),

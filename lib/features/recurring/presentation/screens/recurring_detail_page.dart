@@ -93,7 +93,7 @@ class RecurringDetailPage extends ConsumerWidget {
         physics: const AlwaysScrollableScrollPhysics(),
         slivers: [
           SliverToBoxAdapter(child: RecurringCard(recurring: activeRecurring, isInteractive: false)),
-          const SliverToBoxAdapter(child: SizedBox(height: 24)),
+          const SliverToBoxAdapter(child: SizedBox(height: 20)),
           SliverToBoxAdapter(child: PokaSectionLabel(title: t.recurring.triggerHistory)),
           const SliverToBoxAdapter(child: SizedBox(height: 8)),
           transactionsAsync.when(
@@ -116,7 +116,7 @@ class RecurringDetailPage extends ConsumerWidget {
                   final account = accountsById[transaction.accountId];
 
                   return Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding: EdgeInsets.only(bottom: index == transactions.length - 1 ? 0 : 10),
                     child: RecentTransactionTile(
                       transaction: transaction,
                       isBalanceVisible: true,

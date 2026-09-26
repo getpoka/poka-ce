@@ -162,7 +162,7 @@ class RecurringFormSheet extends HookConsumerWidget {
                         },
                       ),
                       if (isTransfer) ...[
-                        Divider(height: 1, color: context.theme.colors.border),
+                        const FDivider(),
                         _ScopeTile(
                           icon: FPhosphorIcons.arrowRight,
                           customIcon: selectedDestAccount != null
@@ -184,7 +184,7 @@ class RecurringFormSheet extends HookConsumerWidget {
                           },
                         ),
                       ] else ...[
-                        Divider(height: 1, color: context.theme.colors.border),
+                        const FDivider(),
                         _ScopeTile(
                           key: const Key('recurring-category-selector'),
                           icon: FPhosphorIcons.tag,
@@ -207,7 +207,7 @@ class RecurringFormSheet extends HookConsumerWidget {
                           },
                         ),
                         if (state.type == TransactionType.expense) ...[
-                          Divider(height: 1, color: context.theme.colors.border),
+                          const FDivider(),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
                             child: Row(

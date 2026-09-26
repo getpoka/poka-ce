@@ -27,8 +27,8 @@ class ReportPeriodChip extends StatelessWidget {
         decoration: BoxDecoration(
           color: isSelected
               ? theme.colors.primary
-              : (theme.colors.brightness == Brightness.light ? theme.colors.secondary : theme.colors.muted),
-          borderRadius: BorderRadius.circular(20),
+              : (theme.colors.brightness == Brightness.light ? theme.colors.secondary : theme.colors.card),
+          borderRadius: theme.style.borderRadius.pill,
         ),
         child: Text(
           label,

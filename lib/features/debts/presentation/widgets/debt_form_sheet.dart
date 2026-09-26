@@ -214,7 +214,7 @@ class DebtFormSheet extends HookConsumerWidget {
                             }
                           },
                         ),
-                        Divider(height: 1, color: context.theme.colors.border),
+                        const FDivider(),
                         DebtScopeTile(
                           key: const Key('debt-account-selector'),
                           icon: FPhosphorIcons.wallet,
