@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/widgets.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// Indicates whether the app supports multi-currency features.
 /// Defaults to `false` for single-currency mode. Can be overridden in `ProviderScope`.

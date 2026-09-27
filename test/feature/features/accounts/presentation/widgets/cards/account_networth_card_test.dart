@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:forui_phosphor/forui_phosphor.dart';
 import 'package:poka_ce/features/accounts/presentation/widgets/cards/account_networth_card.dart';

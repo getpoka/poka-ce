@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:forui/forui.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poka_ce/core/services/notification_service.dart';
 import 'package:poka_ce/core/services/preferences_service.dart';
 import 'package:poka_ce/features/backup/domain/backup_reminder_service.dart';

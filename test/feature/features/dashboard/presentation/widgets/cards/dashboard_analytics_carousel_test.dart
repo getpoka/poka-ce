@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:forui/forui.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poka_ce/features/dashboard/presentation/widgets/cards/dashboard_analytics_carousel.dart';
 import 'package:poka_ce/theme/theme.dart';
 import 'package:poka_ce/i18n/strings.g.dart';

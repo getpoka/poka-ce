@@ -24,8 +24,6 @@ dependencies:
   material_ui: any
 
   # State Management
-  riverpod: any
-  flutter_riverpod: any
   hooks_riverpod: ^3.4.2
   riverpod_annotation: ^4.0.6
   flutter_hooks: ^0.21.3+1
@@ -51,22 +49,18 @@ dependencies:
   # Utilities
   uuid: ^4.6.0
   result_dart: ^2.2.0
-  rxdart: ^0.28.0
   talker_flutter: ^5.1.20
   math_expressions: ^3.2.0
   path_provider: ^2.1.6
   path: ^1.9.1
   local_auth: ^3.0.2
   cryptography: ^2.9.0
-  cryptography_flutter: ^2.3.4
   url_launcher: ^6.3.2
   file_picker: ^13.0.0
   share_plus: ^13.3.0
   flutter_local_notifications: ^22.3.0
   quick_actions: ^1.1.0
   excel: ^4.0.6
-
-  cupertino_ui: any
 dev_dependencies:
   flutter_test:
     sdk: flutter
