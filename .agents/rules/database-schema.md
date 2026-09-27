@@ -24,6 +24,27 @@ trigger: always_on
 > `toCurrencyFormat(precision: N)` divides the stored integer by `10^N` before display — never store or pass major units (e.g. `3` for three dollars).
 > `convertDouble(fromPrecision, toPrecision)` normalises amounts through major units during cross-currency conversion and returns **target minor units**.
 
+> [!IMPORTANT]
+> **TEMPORAL ARCHITECTURE & DATE/TIME RULES (THREE-TIER SYSTEM):**
+> Temporal values are strictly categorized into three distinct semantic domains:
+>
+> 1. **Calendar Date (`LocalDate`)**:
+>    - **Applies to**: `goals.target_date`, `debts.due_date`, `budgets.start_date`, `budgets.end_date`, `recurring_transactions.next_date`.
+>    - **Format**: ISO-8601 string `'YYYY-MM-DD'` (e.g. `'2026-12-31'`).
+>    - **Semantics**: Pure civil/calendar date without time-of-day, without timezone, and without UTC offset.
+>    - **Rule**: NEVER convert to/from UTC or local timezone with `.toUtc()` or `.toLocal()`. Must remain completely immutable regardless of device travel or system timezone changes.
+>
+> 2. **Wall-Clock Event DateTime (`LocalDateTime`)**:
+>    - **Applies to**: `transactions.transaction_date`.
+>    - **Format**: ISO-8601 string `'YYYY-MM-DDTHH:mm:ss'` (e.g. `'2026-09-28T01:30:00'`).
+>    - **Semantics**: The local date and time of the physical receipt chosen in the UI (`FDateField` + `FTimeField`).
+>    - **Rule**: Do NOT convert to UTC on save or during date grouping. Preserves the exact receipt time and prevents midnight transactions (e.g. 01:30 AM) from shifting to the preceding calendar day.
+>
+> 3. **System Audit Instant (`DateTime` / `Instant`)**:
+>    - **Applies to**: `created_at`, `updated_at`.
+>    - **Format**: Integer Unix Epoch / UTC Timestamp.
+>    - **Semantics**: Physical timestamp marking when the local record was generated or updated.
+
 Blueprint of the database structure and core business logic for the Poka application.
 
 ## Entity-Relationship Diagram (ERD)
