@@ -134,3 +134,23 @@ lib/features/accounts/data/account_repository.dart
   - `pubspec.yaml`: `version: <major>.<minor>.<patch>+<build>` (e.g. `version: 1.1.3+7`). **No `-beta` anywhere.**
   - Google Play `versionName`: `<major>.<minor>.<patch>` (e.g. `1.1.3`).
   - Google Play `versionCode`: `<build>` integer (e.g. `7`).
+
+## 15. Temporal Architecture & Date/Time Standards
+
+Time values are strictly categorized into three distinct semantic domains:
+
+1. **Calendar Date (`LocalDate`)**:
+   - **Applies to**: `goals.target_date`, `debts.due_date`, `budgets.start_date`, `budgets.end_date`, `recurring_transactions.next_date`.
+   - **Format**: ISO-8601 string `'YYYY-MM-DD'` (e.g. `'2026-12-31'`).
+   - Pure civil calendar date without time-of-day, without timezone, and without UTC offset.
+   - **Mandatory constraint**: NEVER apply `.toUtc()` or `.toLocal()` to calendar dates.
+
+2. **Wall-Clock Event DateTime (`LocalDateTime`)**:
+   - **Applies to**: `transactions.transaction_date`.
+   - **Format**: ISO-8601 string `'YYYY-MM-DDTHH:mm:ss'` (e.g. `'2026-09-28T01:30:00'`).
+   - Represents the local date and time of the physical receipt chosen in the UI (`FDateField` + `FTimeField`).
+   - **Mandatory constraint**: Do NOT convert to UTC on save or during date grouping. Preserves the exact receipt time and prevents midnight transactions (e.g. 01:30 AM) from shifting to the preceding calendar day.
+
+3. **System Audit Instant (`DateTime`)**:
+   - **Applies to**: `created_at`, `updated_at`.
+   - **Format**: Integer Unix Epoch / UTC Timestamp.

@@ -35,6 +35,10 @@ Poka CE uses a **Feature-First Clean Architecture** with strict layer separation
 - **Database**: Drift ORM — never expose `*Data` classes to UI, always map to domain models
 - **UI**: ForUI only — no Material widgets, no shadows, no inline styles
 - **CE is local-first and single-currency** — no sync or multi-currency logic
+- **Date & Time Standards (Three-Tier System)**:
+  - **Calendar Dates (`LocalDate`)**: `target_date`, `due_date`, `start_date`, `end_date`, `next_date` are civil calendar dates without timezone, formatted as `'YYYY-MM-DD'`. Never apply `.toUtc()` or `.toLocal()` to calendar dates.
+  - **Wall-Clock DateTime (`LocalDateTime`)**: `transaction_date` stores the physical receipt date & time (`'YYYY-MM-DDTHH:mm:ss'`) without UTC offset, preventing date-shifting bugs when viewing transactions in different timezones.
+  - **Audit Instants (`DateTime`)**: `created_at` and `updated_at` record physical instant timestamps in UTC.
 
 All rules and constraints are documented in the sections below. Read them before writing code.
 
