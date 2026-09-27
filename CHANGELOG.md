@@ -12,6 +12,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Standardized section spacing and layout rhythms across detail pages and forms for a more consistent visual hierarchy.
 - Improved dark mode tab and pill contrast across dashboard analytics, report period filters, and icon pickers.
 - [internal] Cleaned up legacy color parsing, removed Material widgets, and updated ForUI spacing guidelines documentation.
+- [internal] Standardized `DateTimeUtils.nowUtc()` to delegate directly to standard Dart `DateTime.timestamp()`.
+
+### Removed
+
+- [internal] Pruned unused dependencies (`riverpod`, `flutter_riverpod`, `rxdart`, `cryptography_flutter`, `cupertino_ui`) from `pubspec.yaml`.
+- [internal] Pruned obsolete and dead input widgets (`PokaAmountInput`, `PokaNumpad`, `PokaDateTimeDisplay`, `AccountPickerSheet`, `AccountTile`, and `NumpadNotifier`) and their tests.
 
 ### Fixed
 
