@@ -60,7 +60,7 @@ final class TransactionFormNotifierProvider extends $NotifierProvider<Transactio
   }
 }
 
-String _$transactionFormNotifierHash() => r'4f81bfbb1427c27ec128617bdf3466fb5e11d18b';
+String _$transactionFormNotifierHash() => r'9564bcfbd692c423afd57992572fa51fdf52ddd6';
 
 /// Controller managing form input, split items, in-place math evaluation, and submission
 /// for creating and updating transactions.

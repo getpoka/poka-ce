@@ -21,7 +21,7 @@ void main() {
     name: name,
     amount: amount,
     period: BudgetPeriod.monthly,
-    startDate: DateTime(2026, 1, 1),
+    startDate: '2026-01-01',
     createdAt: DateTime(2026, 1, 1),
     updatedAt: DateTime(2026, 1, 1),
   );

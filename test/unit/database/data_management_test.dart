@@ -38,7 +38,7 @@ void main() {
               accountId: 'acc1',
               type: TransactionType.income,
               amount: 1000,
-              transactionDate: DateTime.now(),
+              transactionDate: '2026-08-01T00:00:00',
             ),
           );
 
@@ -73,9 +73,6 @@ void main() {
             ),
           );
 
-      final today = DateTime.now();
-      final twoYearsAgo = today.subtract(const Duration(days: 730));
-
       // Insert recent tx
       await db
           .into(db.transactions)
@@ -85,7 +82,7 @@ void main() {
               accountId: 'acc2',
               type: TransactionType.income,
               amount: 1000,
-              transactionDate: today,
+              transactionDate: '2026-08-01T00:00:00',
             ),
           );
 
@@ -98,7 +95,7 @@ void main() {
               accountId: 'acc2',
               type: TransactionType.income,
               amount: 4000,
-              transactionDate: twoYearsAgo,
+              transactionDate: '2024-08-01T00:00:00',
             ),
           );
 
@@ -106,8 +103,7 @@ void main() {
       expect(transactions.length, 2);
 
       // Clear old transactions (older than 1 year)
-      final oneYearAgo = today.subtract(const Duration(days: 365));
-      await db.transactionsDao.clearOldTransactions(oneYearAgo);
+      await db.transactionsDao.clearOldTransactions('2025-08-01T00:00:00');
 
       transactions = await db.select(db.transactions).get();
       expect(transactions.length, 1); // Only the recent one should remain

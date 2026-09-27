@@ -5,6 +5,7 @@ import 'package:poka_ce/core/error/failure.dart';
 import 'package:poka_ce/core/error/result.dart';
 import 'package:poka_ce/core/extensions/num_extension.dart';
 import 'package:poka_ce/core/extensions/string_extension.dart';
+import 'package:poka_ce/database/converters/local_date_converter.dart';
 import 'package:poka_ce/features/budgets/domain/budget_alert_service_provider.dart';
 import 'package:poka_ce/features/transactions/domain/split_item.dart';
 import 'package:poka_ce/features/transactions/domain/transaction_model.dart';
@@ -153,7 +154,9 @@ class TransactionFormNotifier extends _$TransactionFormNotifier {
         ? initialTransaction.items.first.allocation
         : null;
 
-    final initialDate = initialTransaction?.transactionDate.toLocal() ?? args.initialDate ?? DateTime.now();
+    final initialDate = initialTransaction != null
+        ? DateTime.parse(initialTransaction.transactionDate)
+        : (args.initialDate ?? DateTime.now());
 
     final initialExpr = initialTransaction != null
         ? initialTransaction.amount.toMajorExpression(precision: args.precision)
@@ -285,7 +288,7 @@ class TransactionFormNotifier extends _$TransactionFormNotifier {
                 destinationAccountId: catId,
                 amount: amount,
                 note: state.note.isNotEmpty ? state.note : null,
-                transactionDate: state.date,
+                transactionDate: nowAsLocalDateTime(state.date),
               );
         } else {
           result = await ref
@@ -295,7 +298,7 @@ class TransactionFormNotifier extends _$TransactionFormNotifier {
                 sourceAccountId: state.accountId!,
                 destinationAccountId: catId!, // Reusing categoryId as destination for transfer
                 note: state.note.isNotEmpty ? state.note : null,
-                transactionDate: state.date,
+                transactionDate: nowAsLocalDateTime(state.date),
               );
         }
       } else {
@@ -309,7 +312,7 @@ class TransactionFormNotifier extends _$TransactionFormNotifier {
                 accountId: state.accountId!,
                 categoryId: catId,
                 note: state.note.isNotEmpty ? state.note : null,
-                transactionDate: state.date,
+                transactionDate: nowAsLocalDateTime(state.date),
                 allocation: state.allocation,
               );
         } else {
@@ -321,7 +324,7 @@ class TransactionFormNotifier extends _$TransactionFormNotifier {
                 accountId: state.accountId!,
                 categoryId: catId,
                 note: state.note.isNotEmpty ? state.note : null,
-                transactionDate: state.date,
+                transactionDate: nowAsLocalDateTime(state.date),
                 allocation: state.allocation,
               );
         }
@@ -365,7 +368,7 @@ class TransactionFormNotifier extends _$TransactionFormNotifier {
               args.initialTransaction!,
               type: state.type,
               accountId: state.accountId!,
-              transactionDate: state.date,
+              transactionDate: nowAsLocalDateTime(state.date),
               note: state.note.isNotEmpty ? state.note : null,
               splitItems: splitData,
             );
@@ -376,7 +379,7 @@ class TransactionFormNotifier extends _$TransactionFormNotifier {
               amount: 0, // amount is ignored when splitItems is provided
               type: state.type,
               accountId: state.accountId!,
-              transactionDate: state.date,
+              transactionDate: nowAsLocalDateTime(state.date),
               note: state.note.isNotEmpty ? state.note : null,
               splitItems: splitData,
             );

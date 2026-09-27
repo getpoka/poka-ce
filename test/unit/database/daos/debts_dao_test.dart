@@ -143,7 +143,7 @@ void main() {
     });
 
     test('with dueDate and note', () async {
-      final due = DateTime.utc(2026, 12, 31);
+      const due = '2026-12-31';
       await db.debtsDao.insertDebt(
         DebtsCompanion.insert(
           id: const Value('d1'),
@@ -152,12 +152,12 @@ void main() {
           amount: 500000,
           remainingAmount: 300000,
           status: DebtStatus.active,
-          dueDate: Value(due),
+          dueDate: const Value(due),
           note: const Value('urgent'),
         ),
       );
       final d = await db.debtsDao.getDebt('d1');
-      expect(d!.dueDate!.toUtc(), due.toUtc());
+      expect(d!.dueDate, due);
       expect(d.note, 'urgent');
     });
 
@@ -188,7 +188,7 @@ void main() {
         type: TransactionType.income,
         amount: 20000,
         debtId: const Value('d1'),
-        transactionDate: DateTime.now().toUtc(),
+        transactionDate: '2026-08-23T12:00:00',
       );
 
       final item = TransactionItemsCompanion.insert(id: const Value('item1'), transactionId: 'tx1', amount: 20000);
@@ -235,7 +235,7 @@ void main() {
         type: TransactionType.expense,
         amount: 30000,
         debtId: const Value('d1'),
-        transactionDate: DateTime.now().toUtc(),
+        transactionDate: '2026-08-23T12:00:00',
       );
 
       final item = TransactionItemsCompanion.insert(id: const Value('item1'), transactionId: 'tx1', amount: 30000);
@@ -268,9 +268,8 @@ void main() {
           );
 
       // Create a monthly budget covering this period
-      final now = DateTime.now().toUtc();
-      final start = DateTime.utc(now.year, now.month, 1);
-      final end = DateTime.utc(now.year, now.month + 1, 0, 23, 59, 59);
+      const start = '2026-08-01';
+      const end = '2026-08-31';
       await db
           .into(db.budgets)
           .insert(
@@ -282,7 +281,7 @@ void main() {
               resetDay: const Value(1),
               alertThreshold: const Value(80),
               startDate: start,
-              endDate: Value(end),
+              endDate: const Value(end),
             ),
           );
       await db
@@ -313,7 +312,7 @@ void main() {
         type: TransactionType.expense,
         amount: 30000,
         debtId: const Value('d1'),
-        transactionDate: now,
+        transactionDate: '2026-08-15T12:00:00',
       );
 
       final item = TransactionItemsCompanion.insert(id: const Value('item1'), transactionId: 'tx1', amount: 30000);

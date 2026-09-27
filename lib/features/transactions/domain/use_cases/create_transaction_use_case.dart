@@ -6,6 +6,7 @@ import 'package:poka_ce/core/enums.dart';
 import 'package:poka_ce/core/error/failure.dart';
 import 'package:poka_ce/core/error/result.dart';
 import 'package:poka_ce/core/utils/datetime_utils.dart';
+import 'package:poka_ce/database/converters/local_date_converter.dart';
 import 'package:poka_ce/features/transactions/domain/i_transaction_repository.dart';
 import 'package:poka_ce/features/transactions/domain/transaction_model.dart';
 import 'package:uuid/uuid.dart';
@@ -26,12 +27,12 @@ class CreateTransactionUseCase {
     String? categoryId,
     String? note,
     String? debtId,
-    DateTime? transactionDate,
+    String? transactionDate,
     TransactionAllocation? allocation,
     List<({String? categoryId, int amount, String? note, TransactionAllocation? allocation})>? splitItems,
   }) async {
     final nowUtc = DateTimeUtils.nowUtc();
-    final txDateUtc = transactionDate?.toUtc() ?? nowUtc;
+    final txDate = transactionDate ?? nowAsLocalDateTime();
     final transactionId = const Uuid().v7();
 
     final txItems = <TransactionItemModel>[];
@@ -82,7 +83,7 @@ class CreateTransactionUseCase {
       accountId: accountId,
       type: type,
       amount: totalAmount,
-      transactionDate: txDateUtc,
+      transactionDate: txDate,
       createdAt: nowUtc,
       updatedAt: nowUtc,
       note: note,

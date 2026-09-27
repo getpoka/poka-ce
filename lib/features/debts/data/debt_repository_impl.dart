@@ -4,6 +4,7 @@ import 'package:poka_ce/core/error/failure.dart';
 import 'package:poka_ce/core/error/result.dart';
 import 'package:poka_ce/core/utils/datetime_utils.dart';
 import 'package:poka_ce/core/utils/logger.dart';
+import 'package:poka_ce/database/converters/local_date_converter.dart';
 import 'package:poka_ce/database/daos/debts_dao.dart';
 import 'package:poka_ce/database/database.dart' as db;
 import 'package:poka_ce/features/debts/domain/debt_model.dart';
@@ -80,7 +81,7 @@ class DebtRepositoryImpl implements IDebtRepository {
         accountId: accountId,
         type: isDebt ? TransactionType.income : TransactionType.expense,
         amount: model.amount,
-        transactionDate: now,
+        transactionDate: nowAsLocalDateTime(),
         debtId: Value(model.id),
         note: Value(isDebt ? 'Borrowed from ${model.personName}' : 'Lent to ${model.personName}'),
         createdAt: Value(now),
@@ -102,7 +103,7 @@ class DebtRepositoryImpl implements IDebtRepository {
         amount: model.amount,
         remainingAmount: model.remainingAmount,
         status: model.status,
-        dueDate: Value(model.dueDate?.toUtc()),
+        dueDate: Value(model.dueDate),
         note: Value(model.note),
         createdAt: Value(model.createdAt.toUtc()),
         updatedAt: Value(model.updatedAt.toUtc()),
@@ -128,7 +129,7 @@ class DebtRepositoryImpl implements IDebtRepository {
           amount: Value(model.amount),
           remainingAmount: Value(model.remainingAmount),
           status: Value(model.status),
-          dueDate: Value(model.dueDate?.toUtc()),
+          dueDate: Value(model.dueDate),
           note: Value(model.note),
           updatedAt: Value(DateTimeUtils.nowUtc()),
         ),

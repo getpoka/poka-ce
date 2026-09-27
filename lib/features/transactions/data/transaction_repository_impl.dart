@@ -30,8 +30,8 @@ class TransactionRepositoryImpl implements ITransactionRepository {
   /// Observes transactions filtered by dates, accounts, categories, types, debts, and recurrings.
   @override
   Stream<Result<List<TransactionModel>, Failure>> watchTransactions({
-    DateTime? startDate,
-    DateTime? endDate,
+    String? startDate,
+    String? endDate,
     Set<String> accountIds = const {},
     Set<String> categoryIds = const {},
     Set<TransactionType> types = const {},
@@ -77,14 +77,14 @@ class TransactionRepositoryImpl implements ITransactionRepository {
   @override
   Future<Result<void, Failure>> createTransaction(TransactionModel model) async {
     try {
-      // Store timestamps in UTC to keep dates consistent across system timezones.
+      // transactionDate is a LocalDateTime string — pass directly, no UTC conversion.
       final header = db.TransactionsCompanion.insert(
         id: Value(model.id),
         accountId: model.accountId,
         destinationAccountId: Value(model.destinationAccountId),
         type: model.type,
         amount: model.amount,
-        transactionDate: model.transactionDate.toUtc(),
+        transactionDate: model.transactionDate,
         note: Value(model.note),
         recurringTransactionId: Value(model.recurringTransactionId),
         debtId: Value(model.debtId),
@@ -127,7 +127,7 @@ class TransactionRepositoryImpl implements ITransactionRepository {
         destinationAccountId: Value(model.destinationAccountId),
         type: model.type,
         amount: model.amount,
-        transactionDate: model.transactionDate.toUtc(),
+        transactionDate: model.transactionDate,
         note: Value(model.note),
         recurringTransactionId: Value(model.recurringTransactionId),
         debtId: Value(model.debtId),

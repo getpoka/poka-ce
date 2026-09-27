@@ -40,7 +40,7 @@ void main() {
       accountId: 'acc1',
       type: TransactionType.income,
       amount: 50000,
-      transactionDate: DateTimeUtils.nowUtc(),
+      transactionDate: '2026-08-23T12:00:00',
       createdAt: DateTimeUtils.nowUtc(),
       updatedAt: DateTimeUtils.nowUtc(),
       items: [

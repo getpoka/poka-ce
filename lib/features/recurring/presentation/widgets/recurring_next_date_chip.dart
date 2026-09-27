@@ -6,13 +6,16 @@ import 'package:poka_ce/theme/theme.dart';
 class RecurringNextDateChip extends StatelessWidget {
   const new({required this.nextDate, super.key});
 
-  final DateTime nextDate;
+  final String nextDate;
 
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;
+    final parsed = DateTime.parse(nextDate);
     final now = DateTime.now();
-    final daysLeft = nextDate.difference(now).inDays;
+    final todayMidnight = DateTime(now.year, now.month, now.day);
+    final nextDateMidnight = DateTime(parsed.year, parsed.month, parsed.day);
+    final daysLeft = nextDateMidnight.difference(todayMidnight).inDays;
     final isOverdue = daysLeft < 0;
     final isDueToday = daysLeft == 0;
 
@@ -29,7 +32,7 @@ class RecurringNextDateChip extends StatelessWidget {
         ? t.common.overdue
         : isDueToday
         ? t.common.dueToday
-        : t.recurring.nextDateLabel(date: DateFormat.MMMd().format(nextDate));
+        : t.recurring.nextDateLabel(date: DateFormat.MMMd().format(parsed));
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),

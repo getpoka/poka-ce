@@ -7,6 +7,7 @@ import 'package:poka_ce/core/error/failure.dart';
 import 'package:poka_ce/core/error/result.dart';
 import 'package:poka_ce/core/utils/datetime_utils.dart';
 import 'package:poka_ce/core/utils/logger.dart';
+import 'package:poka_ce/database/converters/local_date_converter.dart';
 import 'package:poka_ce/features/recurring/domain/i_recurring_repository.dart';
 import 'package:poka_ce/features/recurring/domain/recurring_model.dart';
 import 'package:poka_ce/features/transactions/domain/i_transaction_repository.dart';
@@ -31,10 +32,13 @@ class RecurringProcessorService {
 
   /// Runs the processor for all transactions due on or before [asOf].
   ///
+  /// [asOf] is converted to a LocalDate string ('YYYY-MM-DD') for comparison.
   /// Returns the count of transactions created, or a [Failure] if the
   /// due-list query itself failed.
   Future<Result<int, Failure>> run(DateTime asOf) async {
-    final dueResult = await _recurringRepo.getDueRecurringTransactions(asOf);
+    // Convert to LocalDate string for comparison with nextDate TextColumn.
+    final asOfDate = todayAsLocalDate(asOf);
+    final dueResult = await _recurringRepo.getDueRecurringTransactions(asOfDate);
 
     switch (dueResult) {
       case ErrorResult(:final error):
@@ -55,6 +59,10 @@ class RecurringProcessorService {
     final now = DateTimeUtils.nowUtc();
     final transactionId = const Uuid().v7();
 
+    // transactionDate is a LocalDateTime string. recurring.nextDate is a LocalDate ('YYYY-MM-DD'),
+    // so we append midnight time to form a valid LocalDateTime ('YYYY-MM-DDTHH:mm:ss').
+    final transactionDate = '${recurring.nextDate}T00:00:00';
+
     // Build the real transaction from the recurring blueprint.
     final transaction = TransactionModel(
       id: transactionId,
@@ -62,7 +70,7 @@ class RecurringProcessorService {
       destinationAccountId: recurring.destinationAccountId,
       type: recurring.type,
       amount: recurring.amount,
-      transactionDate: recurring.nextDate.toUtc(),
+      transactionDate: transactionDate,
       note: recurring.note,
       recurringTransactionId: recurring.id,
       createdAt: now,
@@ -85,7 +93,7 @@ class RecurringProcessorService {
     if (txResult is ErrorResult) {
       talker.warning(
         'RecurringProcessorService: failed to create tx for ${recurring.id}: '
-        '${(txResult as ErrorResult).error.message}',
+        '${(txResult as ErrorResult<void, Failure>).error.message}',
       );
       return false;
     }
@@ -98,7 +106,7 @@ class RecurringProcessorService {
     if (updateResult is ErrorResult) {
       talker.warning(
         'RecurringProcessorService: failed to advance nextDate for ${recurring.id}: '
-        '${(updateResult as ErrorResult).error.message}',
+        '${(updateResult as ErrorResult<void, Failure>).error.message}',
       );
       // Transaction was already created; still count as partial success but log.
       return true;
@@ -107,28 +115,33 @@ class RecurringProcessorService {
     return true;
   }
 
-  /// Computes the next due date after [current] based on [period].
-  DateTime _advance(DateTime current, RecurringPeriod period) {
-    return switch (period) {
-      RecurringPeriod.daily => current.add(const Duration(days: 1)),
-      RecurringPeriod.weekly => current.add(const Duration(days: 7)),
+  /// Computes the next due date after [current] (LocalDate 'YYYY-MM-DD') based on [period].
+  String _advance(String current, RecurringPeriod period) {
+    final year = int.parse(current.substring(0, 4));
+    final month = int.parse(current.substring(5, 7));
+    final day = int.parse(current.substring(8, 10));
+    final date = DateTime(year, month, day);
+    final next = switch (period) {
+      RecurringPeriod.daily => date.add(const Duration(days: 1)),
+      RecurringPeriod.weekly => date.add(const Duration(days: 7)),
       RecurringPeriod.monthly => () {
-        var nextYear = current.year;
-        var nextMonth = current.month + 1;
+        var nextYear = date.year;
+        var nextMonth = date.month + 1;
         if (nextMonth > 12) {
           nextMonth = 1;
           nextYear++;
         }
-        final daysInNextMonth = DateTime.utc(nextYear, nextMonth + 1, 0).day;
-        final nextDay = current.day > daysInNextMonth ? daysInNextMonth : current.day;
-        return DateTime.utc(nextYear, nextMonth, nextDay, current.hour, current.minute, current.second);
+        final daysInNextMonth = DateTime(nextYear, nextMonth + 1, 0).day;
+        final nextDay = date.day > daysInNextMonth ? daysInNextMonth : date.day;
+        return DateTime(nextYear, nextMonth, nextDay);
       }(),
       RecurringPeriod.yearly => () {
-        final nextYear = current.year + 1;
-        final daysInTargetMonth = DateTime.utc(nextYear, current.month + 1, 0).day;
-        final nextDay = current.day > daysInTargetMonth ? daysInTargetMonth : current.day;
-        return DateTime.utc(nextYear, current.month, nextDay, current.hour, current.minute, current.second);
+        final nextYear = date.year + 1;
+        final daysInTargetMonth = DateTime(nextYear, date.month + 1, 0).day;
+        final nextDay = date.day > daysInTargetMonth ? daysInTargetMonth : date.day;
+        return DateTime(nextYear, date.month, nextDay);
       }(),
     };
+    return todayAsLocalDate(next);
   }
 }

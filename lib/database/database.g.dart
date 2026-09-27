@@ -2079,24 +2079,22 @@ class $BudgetsTable extends Budgets with TableInfo<$BudgetsTable, Budget> {
     type: DriftSqlType.int,
     requiredDuringInsert: false,
   );
-  static const VerificationMeta _startDateMeta = const VerificationMeta('startDate');
   @override
-  late final GeneratedColumn<DateTime> startDate = GeneratedColumn<DateTime>(
+  late final GeneratedColumnWithTypeConverter<String, String> startDate = GeneratedColumn<String>(
     'start_date',
     aliasedName,
     false,
-    type: DriftSqlType.dateTime,
+    type: DriftSqlType.string,
     requiredDuringInsert: true,
-  );
-  static const VerificationMeta _endDateMeta = const VerificationMeta('endDate');
+  ).withConverter<String>($BudgetsTable.$converterstartDate);
   @override
-  late final GeneratedColumn<DateTime> endDate = GeneratedColumn<DateTime>(
+  late final GeneratedColumnWithTypeConverter<String?, String> endDate = GeneratedColumn<String>(
     'end_date',
     aliasedName,
     true,
-    type: DriftSqlType.dateTime,
+    type: DriftSqlType.string,
     requiredDuringInsert: false,
-  );
+  ).withConverter<String?>($BudgetsTable.$converterendDaten);
   static const VerificationMeta _createdAtMeta = const VerificationMeta('createdAt');
   @override
   late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
@@ -2169,14 +2167,6 @@ class $BudgetsTable extends Budgets with TableInfo<$BudgetsTable, Budget> {
         alertThreshold.isAcceptableOrUnknown(data['alert_threshold']!, _alertThresholdMeta),
       );
     }
-    if (data.containsKey('start_date')) {
-      context.handle(_startDateMeta, startDate.isAcceptableOrUnknown(data['start_date']!, _startDateMeta));
-    } else if (isInserting) {
-      context.missing(_startDateMeta);
-    }
-    if (data.containsKey('end_date')) {
-      context.handle(_endDateMeta, endDate.isAcceptableOrUnknown(data['end_date']!, _endDateMeta));
-    }
     if (data.containsKey('created_at')) {
       context.handle(_createdAtMeta, createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
     }
@@ -2202,8 +2192,12 @@ class $BudgetsTable extends Budgets with TableInfo<$BudgetsTable, Budget> {
       ),
       resetDay: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}reset_day']),
       alertThreshold: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}alert_threshold']),
-      startDate: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}start_date'])!,
-      endDate: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}end_date']),
+      startDate: $BudgetsTable.$converterstartDate.fromSql(
+        attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}start_date'])!,
+      ),
+      endDate: $BudgetsTable.$converterendDaten.fromSql(
+        attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}end_date']),
+      ),
       createdAt: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
       updatedAt: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}updated_at'])!,
     );
@@ -2217,6 +2211,9 @@ class $BudgetsTable extends Budgets with TableInfo<$BudgetsTable, Budget> {
   static JsonTypeConverter2<BudgetPeriod, String, String> $converterperiod = const EnumNameConverter(
     BudgetPeriod.values,
   );
+  static TypeConverter<String, String> $converterstartDate = const LocalDateConverter();
+  static TypeConverter<String, String> $converterendDate = const LocalDateConverter();
+  static TypeConverter<String?, String?> $converterendDaten = NullAwareTypeConverter.wrap($converterendDate);
 }
 
 class Budget extends DataClass implements Insertable<Budget> {
@@ -2228,8 +2225,8 @@ class Budget extends DataClass implements Insertable<Budget> {
   final BudgetPeriod period;
   final int? resetDay;
   final int? alertThreshold;
-  final DateTime startDate;
-  final DateTime? endDate;
+  final String startDate;
+  final String? endDate;
   final DateTime createdAt;
   final DateTime updatedAt;
   const Budget({
@@ -2267,9 +2264,11 @@ class Budget extends DataClass implements Insertable<Budget> {
     if (!nullToAbsent || alertThreshold != null) {
       map['alert_threshold'] = Variable<int>(alertThreshold);
     }
-    map['start_date'] = Variable<DateTime>(startDate);
+    {
+      map['start_date'] = Variable<String>($BudgetsTable.$converterstartDate.toSql(startDate));
+    }
     if (!nullToAbsent || endDate != null) {
-      map['end_date'] = Variable<DateTime>(endDate);
+      map['end_date'] = Variable<String>($BudgetsTable.$converterendDaten.toSql(endDate));
     }
     map['created_at'] = Variable<DateTime>(createdAt);
     map['updated_at'] = Variable<DateTime>(updatedAt);
@@ -2304,8 +2303,8 @@ class Budget extends DataClass implements Insertable<Budget> {
       period: $BudgetsTable.$converterperiod.fromJson(serializer.fromJson<String>(json['period'])),
       resetDay: serializer.fromJson<int?>(json['resetDay']),
       alertThreshold: serializer.fromJson<int?>(json['alertThreshold']),
-      startDate: serializer.fromJson<DateTime>(json['startDate']),
-      endDate: serializer.fromJson<DateTime?>(json['endDate']),
+      startDate: serializer.fromJson<String>(json['startDate']),
+      endDate: serializer.fromJson<String?>(json['endDate']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
       updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
     );
@@ -2322,8 +2321,8 @@ class Budget extends DataClass implements Insertable<Budget> {
       'period': serializer.toJson<String>($BudgetsTable.$converterperiod.toJson(period)),
       'resetDay': serializer.toJson<int?>(resetDay),
       'alertThreshold': serializer.toJson<int?>(alertThreshold),
-      'startDate': serializer.toJson<DateTime>(startDate),
-      'endDate': serializer.toJson<DateTime?>(endDate),
+      'startDate': serializer.toJson<String>(startDate),
+      'endDate': serializer.toJson<String?>(endDate),
       'createdAt': serializer.toJson<DateTime>(createdAt),
       'updatedAt': serializer.toJson<DateTime>(updatedAt),
     };
@@ -2338,8 +2337,8 @@ class Budget extends DataClass implements Insertable<Budget> {
     BudgetPeriod? period,
     Value<int?> resetDay = const Value.absent(),
     Value<int?> alertThreshold = const Value.absent(),
-    DateTime? startDate,
-    Value<DateTime?> endDate = const Value.absent(),
+    String? startDate,
+    Value<String?> endDate = const Value.absent(),
     DateTime? createdAt,
     DateTime? updatedAt,
   }) => Budget(
@@ -2434,8 +2433,8 @@ class BudgetsCompanion extends UpdateCompanion<Budget> {
   final Value<BudgetPeriod> period;
   final Value<int?> resetDay;
   final Value<int?> alertThreshold;
-  final Value<DateTime> startDate;
-  final Value<DateTime?> endDate;
+  final Value<String> startDate;
+  final Value<String?> endDate;
   final Value<DateTime> createdAt;
   final Value<DateTime> updatedAt;
   final Value<int> rowid;
@@ -2463,7 +2462,7 @@ class BudgetsCompanion extends UpdateCompanion<Budget> {
     required BudgetPeriod period,
     this.resetDay = const Value.absent(),
     this.alertThreshold = const Value.absent(),
-    required DateTime startDate,
+    required String startDate,
     this.endDate = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.updatedAt = const Value.absent(),
@@ -2481,8 +2480,8 @@ class BudgetsCompanion extends UpdateCompanion<Budget> {
     Expression<String>? period,
     Expression<int>? resetDay,
     Expression<int>? alertThreshold,
-    Expression<DateTime>? startDate,
-    Expression<DateTime>? endDate,
+    Expression<String>? startDate,
+    Expression<String>? endDate,
     Expression<DateTime>? createdAt,
     Expression<DateTime>? updatedAt,
     Expression<int>? rowid,
@@ -2513,8 +2512,8 @@ class BudgetsCompanion extends UpdateCompanion<Budget> {
     Value<BudgetPeriod>? period,
     Value<int?>? resetDay,
     Value<int?>? alertThreshold,
-    Value<DateTime>? startDate,
-    Value<DateTime?>? endDate,
+    Value<String>? startDate,
+    Value<String?>? endDate,
     Value<DateTime>? createdAt,
     Value<DateTime>? updatedAt,
     Value<int>? rowid,
@@ -2564,10 +2563,10 @@ class BudgetsCompanion extends UpdateCompanion<Budget> {
       map['alert_threshold'] = Variable<int>(alertThreshold.value);
     }
     if (startDate.present) {
-      map['start_date'] = Variable<DateTime>(startDate.value);
+      map['start_date'] = Variable<String>($BudgetsTable.$converterstartDate.toSql(startDate.value));
     }
     if (endDate.present) {
-      map['end_date'] = Variable<DateTime>(endDate.value);
+      map['end_date'] = Variable<String>($BudgetsTable.$converterendDaten.toSql(endDate.value));
     }
     if (createdAt.present) {
       map['created_at'] = Variable<DateTime>(createdAt.value);
@@ -2637,24 +2636,22 @@ class $BudgetRecordsTable extends BudgetRecords with TableInfo<$BudgetRecordsTab
     requiredDuringInsert: false,
     defaultValue: const Constant(0),
   );
-  static const VerificationMeta _periodStartMeta = const VerificationMeta('periodStart');
   @override
-  late final GeneratedColumn<DateTime> periodStart = GeneratedColumn<DateTime>(
+  late final GeneratedColumnWithTypeConverter<String, String> periodStart = GeneratedColumn<String>(
     'period_start',
     aliasedName,
     false,
-    type: DriftSqlType.dateTime,
+    type: DriftSqlType.string,
     requiredDuringInsert: true,
-  );
-  static const VerificationMeta _periodEndMeta = const VerificationMeta('periodEnd');
+  ).withConverter<String>($BudgetRecordsTable.$converterperiodStart);
   @override
-  late final GeneratedColumn<DateTime> periodEnd = GeneratedColumn<DateTime>(
+  late final GeneratedColumnWithTypeConverter<String, String> periodEnd = GeneratedColumn<String>(
     'period_end',
     aliasedName,
     false,
-    type: DriftSqlType.dateTime,
+    type: DriftSqlType.string,
     requiredDuringInsert: true,
-  );
+  ).withConverter<String>($BudgetRecordsTable.$converterperiodEnd);
   static const VerificationMeta _createdAtMeta = const VerificationMeta('createdAt');
   @override
   late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
@@ -2697,16 +2694,6 @@ class $BudgetRecordsTable extends BudgetRecords with TableInfo<$BudgetRecordsTab
     if (data.containsKey('spent_amount')) {
       context.handle(_spentAmountMeta, spentAmount.isAcceptableOrUnknown(data['spent_amount']!, _spentAmountMeta));
     }
-    if (data.containsKey('period_start')) {
-      context.handle(_periodStartMeta, periodStart.isAcceptableOrUnknown(data['period_start']!, _periodStartMeta));
-    } else if (isInserting) {
-      context.missing(_periodStartMeta);
-    }
-    if (data.containsKey('period_end')) {
-      context.handle(_periodEndMeta, periodEnd.isAcceptableOrUnknown(data['period_end']!, _periodEndMeta));
-    } else if (isInserting) {
-      context.missing(_periodEndMeta);
-    }
     if (data.containsKey('created_at')) {
       context.handle(_createdAtMeta, createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
     }
@@ -2725,8 +2712,12 @@ class $BudgetRecordsTable extends BudgetRecords with TableInfo<$BudgetRecordsTab
       id: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}id'])!,
       budgetId: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}budget_id'])!,
       spentAmount: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}spent_amount'])!,
-      periodStart: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}period_start'])!,
-      periodEnd: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}period_end'])!,
+      periodStart: $BudgetRecordsTable.$converterperiodStart.fromSql(
+        attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}period_start'])!,
+      ),
+      periodEnd: $BudgetRecordsTable.$converterperiodEnd.fromSql(
+        attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}period_end'])!,
+      ),
       createdAt: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
       updatedAt: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}updated_at'])!,
     );
@@ -2736,14 +2727,17 @@ class $BudgetRecordsTable extends BudgetRecords with TableInfo<$BudgetRecordsTab
   $BudgetRecordsTable createAlias(String alias) {
     return $BudgetRecordsTable(attachedDatabase, alias);
   }
+
+  static TypeConverter<String, String> $converterperiodStart = const LocalDateConverter();
+  static TypeConverter<String, String> $converterperiodEnd = const LocalDateConverter();
 }
 
 class BudgetRecord extends DataClass implements Insertable<BudgetRecord> {
   final String id;
   final String budgetId;
   final int spentAmount;
-  final DateTime periodStart;
-  final DateTime periodEnd;
+  final String periodStart;
+  final String periodEnd;
   final DateTime createdAt;
   final DateTime updatedAt;
   const BudgetRecord({
@@ -2761,8 +2755,12 @@ class BudgetRecord extends DataClass implements Insertable<BudgetRecord> {
     map['id'] = Variable<String>(id);
     map['budget_id'] = Variable<String>(budgetId);
     map['spent_amount'] = Variable<int>(spentAmount);
-    map['period_start'] = Variable<DateTime>(periodStart);
-    map['period_end'] = Variable<DateTime>(periodEnd);
+    {
+      map['period_start'] = Variable<String>($BudgetRecordsTable.$converterperiodStart.toSql(periodStart));
+    }
+    {
+      map['period_end'] = Variable<String>($BudgetRecordsTable.$converterperiodEnd.toSql(periodEnd));
+    }
     map['created_at'] = Variable<DateTime>(createdAt);
     map['updated_at'] = Variable<DateTime>(updatedAt);
     return map;
@@ -2786,8 +2784,8 @@ class BudgetRecord extends DataClass implements Insertable<BudgetRecord> {
       id: serializer.fromJson<String>(json['id']),
       budgetId: serializer.fromJson<String>(json['budgetId']),
       spentAmount: serializer.fromJson<int>(json['spentAmount']),
-      periodStart: serializer.fromJson<DateTime>(json['periodStart']),
-      periodEnd: serializer.fromJson<DateTime>(json['periodEnd']),
+      periodStart: serializer.fromJson<String>(json['periodStart']),
+      periodEnd: serializer.fromJson<String>(json['periodEnd']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
       updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
     );
@@ -2799,8 +2797,8 @@ class BudgetRecord extends DataClass implements Insertable<BudgetRecord> {
       'id': serializer.toJson<String>(id),
       'budgetId': serializer.toJson<String>(budgetId),
       'spentAmount': serializer.toJson<int>(spentAmount),
-      'periodStart': serializer.toJson<DateTime>(periodStart),
-      'periodEnd': serializer.toJson<DateTime>(periodEnd),
+      'periodStart': serializer.toJson<String>(periodStart),
+      'periodEnd': serializer.toJson<String>(periodEnd),
       'createdAt': serializer.toJson<DateTime>(createdAt),
       'updatedAt': serializer.toJson<DateTime>(updatedAt),
     };
@@ -2810,8 +2808,8 @@ class BudgetRecord extends DataClass implements Insertable<BudgetRecord> {
     String? id,
     String? budgetId,
     int? spentAmount,
-    DateTime? periodStart,
-    DateTime? periodEnd,
+    String? periodStart,
+    String? periodEnd,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) => BudgetRecord(
@@ -2868,8 +2866,8 @@ class BudgetRecordsCompanion extends UpdateCompanion<BudgetRecord> {
   final Value<String> id;
   final Value<String> budgetId;
   final Value<int> spentAmount;
-  final Value<DateTime> periodStart;
-  final Value<DateTime> periodEnd;
+  final Value<String> periodStart;
+  final Value<String> periodEnd;
   final Value<DateTime> createdAt;
   final Value<DateTime> updatedAt;
   final Value<int> rowid;
@@ -2887,8 +2885,8 @@ class BudgetRecordsCompanion extends UpdateCompanion<BudgetRecord> {
     this.id = const Value.absent(),
     required String budgetId,
     this.spentAmount = const Value.absent(),
-    required DateTime periodStart,
-    required DateTime periodEnd,
+    required String periodStart,
+    required String periodEnd,
     this.createdAt = const Value.absent(),
     this.updatedAt = const Value.absent(),
     this.rowid = const Value.absent(),
@@ -2899,8 +2897,8 @@ class BudgetRecordsCompanion extends UpdateCompanion<BudgetRecord> {
     Expression<String>? id,
     Expression<String>? budgetId,
     Expression<int>? spentAmount,
-    Expression<DateTime>? periodStart,
-    Expression<DateTime>? periodEnd,
+    Expression<String>? periodStart,
+    Expression<String>? periodEnd,
     Expression<DateTime>? createdAt,
     Expression<DateTime>? updatedAt,
     Expression<int>? rowid,
@@ -2921,8 +2919,8 @@ class BudgetRecordsCompanion extends UpdateCompanion<BudgetRecord> {
     Value<String>? id,
     Value<String>? budgetId,
     Value<int>? spentAmount,
-    Value<DateTime>? periodStart,
-    Value<DateTime>? periodEnd,
+    Value<String>? periodStart,
+    Value<String>? periodEnd,
     Value<DateTime>? createdAt,
     Value<DateTime>? updatedAt,
     Value<int>? rowid,
@@ -2952,10 +2950,10 @@ class BudgetRecordsCompanion extends UpdateCompanion<BudgetRecord> {
       map['spent_amount'] = Variable<int>(spentAmount.value);
     }
     if (periodStart.present) {
-      map['period_start'] = Variable<DateTime>(periodStart.value);
+      map['period_start'] = Variable<String>($BudgetRecordsTable.$converterperiodStart.toSql(periodStart.value));
     }
     if (periodEnd.present) {
-      map['period_end'] = Variable<DateTime>(periodEnd.value);
+      map['period_end'] = Variable<String>($BudgetRecordsTable.$converterperiodEnd.toSql(periodEnd.value));
     }
     if (createdAt.present) {
       map['created_at'] = Variable<DateTime>(createdAt.value);
@@ -3073,15 +3071,14 @@ class $RecurringTransactionsTable extends RecurringTransactions
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   ).withConverter<RecurringPeriod>($RecurringTransactionsTable.$converterperiod);
-  static const VerificationMeta _nextDateMeta = const VerificationMeta('nextDate');
   @override
-  late final GeneratedColumn<DateTime> nextDate = GeneratedColumn<DateTime>(
+  late final GeneratedColumnWithTypeConverter<String, String> nextDate = GeneratedColumn<String>(
     'next_date',
     aliasedName,
     false,
-    type: DriftSqlType.dateTime,
+    type: DriftSqlType.string,
     requiredDuringInsert: true,
-  );
+  ).withConverter<String>($RecurringTransactionsTable.$converternextDate);
   static const VerificationMeta _isActiveMeta = const VerificationMeta('isActive');
   @override
   late final GeneratedColumn<bool> isActive = GeneratedColumn<bool>(
@@ -3163,11 +3160,6 @@ class $RecurringTransactionsTable extends RecurringTransactions
     if (data.containsKey('note')) {
       context.handle(_noteMeta, note.isAcceptableOrUnknown(data['note']!, _noteMeta));
     }
-    if (data.containsKey('next_date')) {
-      context.handle(_nextDateMeta, nextDate.isAcceptableOrUnknown(data['next_date']!, _nextDateMeta));
-    } else if (isInserting) {
-      context.missing(_nextDateMeta);
-    }
     if (data.containsKey('is_active')) {
       context.handle(_isActiveMeta, isActive.isAcceptableOrUnknown(data['is_active']!, _isActiveMeta));
     }
@@ -3204,7 +3196,9 @@ class $RecurringTransactionsTable extends RecurringTransactions
       period: $RecurringTransactionsTable.$converterperiod.fromSql(
         attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}period'])!,
       ),
-      nextDate: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}next_date'])!,
+      nextDate: $RecurringTransactionsTable.$converternextDate.fromSql(
+        attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}next_date'])!,
+      ),
       isActive: attachedDatabase.typeMapping.read(DriftSqlType.bool, data['${effectivePrefix}is_active'])!,
       createdAt: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
       updatedAt: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}updated_at'])!,
@@ -3227,6 +3221,7 @@ class $RecurringTransactionsTable extends RecurringTransactions
   static JsonTypeConverter2<RecurringPeriod, String, String> $converterperiod = const EnumNameConverter(
     RecurringPeriod.values,
   );
+  static TypeConverter<String, String> $converternextDate = const LocalDateConverter();
 }
 
 class RecurringTransaction extends DataClass implements Insertable<RecurringTransaction> {
@@ -3239,7 +3234,7 @@ class RecurringTransaction extends DataClass implements Insertable<RecurringTran
   final int amount;
   final String? note;
   final RecurringPeriod period;
-  final DateTime nextDate;
+  final String nextDate;
   final bool isActive;
   final DateTime createdAt;
   final DateTime updatedAt;
@@ -3282,7 +3277,9 @@ class RecurringTransaction extends DataClass implements Insertable<RecurringTran
     {
       map['period'] = Variable<String>($RecurringTransactionsTable.$converterperiod.toSql(period));
     }
-    map['next_date'] = Variable<DateTime>(nextDate);
+    {
+      map['next_date'] = Variable<String>($RecurringTransactionsTable.$converternextDate.toSql(nextDate));
+    }
     map['is_active'] = Variable<bool>(isActive);
     map['created_at'] = Variable<DateTime>(createdAt);
     map['updated_at'] = Variable<DateTime>(updatedAt);
@@ -3323,7 +3320,7 @@ class RecurringTransaction extends DataClass implements Insertable<RecurringTran
       amount: serializer.fromJson<int>(json['amount']),
       note: serializer.fromJson<String?>(json['note']),
       period: $RecurringTransactionsTable.$converterperiod.fromJson(serializer.fromJson<String>(json['period'])),
-      nextDate: serializer.fromJson<DateTime>(json['nextDate']),
+      nextDate: serializer.fromJson<String>(json['nextDate']),
       isActive: serializer.fromJson<bool>(json['isActive']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
       updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
@@ -3342,7 +3339,7 @@ class RecurringTransaction extends DataClass implements Insertable<RecurringTran
       'amount': serializer.toJson<int>(amount),
       'note': serializer.toJson<String?>(note),
       'period': serializer.toJson<String>($RecurringTransactionsTable.$converterperiod.toJson(period)),
-      'nextDate': serializer.toJson<DateTime>(nextDate),
+      'nextDate': serializer.toJson<String>(nextDate),
       'isActive': serializer.toJson<bool>(isActive),
       'createdAt': serializer.toJson<DateTime>(createdAt),
       'updatedAt': serializer.toJson<DateTime>(updatedAt),
@@ -3359,7 +3356,7 @@ class RecurringTransaction extends DataClass implements Insertable<RecurringTran
     int? amount,
     Value<String?> note = const Value.absent(),
     RecurringPeriod? period,
-    DateTime? nextDate,
+    String? nextDate,
     bool? isActive,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -3463,7 +3460,7 @@ class RecurringTransactionsCompanion extends UpdateCompanion<RecurringTransactio
   final Value<int> amount;
   final Value<String?> note;
   final Value<RecurringPeriod> period;
-  final Value<DateTime> nextDate;
+  final Value<String> nextDate;
   final Value<bool> isActive;
   final Value<DateTime> createdAt;
   final Value<DateTime> updatedAt;
@@ -3494,7 +3491,7 @@ class RecurringTransactionsCompanion extends UpdateCompanion<RecurringTransactio
     required int amount,
     this.note = const Value.absent(),
     required RecurringPeriod period,
-    required DateTime nextDate,
+    required String nextDate,
     this.isActive = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.updatedAt = const Value.absent(),
@@ -3514,7 +3511,7 @@ class RecurringTransactionsCompanion extends UpdateCompanion<RecurringTransactio
     Expression<int>? amount,
     Expression<String>? note,
     Expression<String>? period,
-    Expression<DateTime>? nextDate,
+    Expression<String>? nextDate,
     Expression<bool>? isActive,
     Expression<DateTime>? createdAt,
     Expression<DateTime>? updatedAt,
@@ -3548,7 +3545,7 @@ class RecurringTransactionsCompanion extends UpdateCompanion<RecurringTransactio
     Value<int>? amount,
     Value<String?>? note,
     Value<RecurringPeriod>? period,
-    Value<DateTime>? nextDate,
+    Value<String>? nextDate,
     Value<bool>? isActive,
     Value<DateTime>? createdAt,
     Value<DateTime>? updatedAt,
@@ -3603,7 +3600,7 @@ class RecurringTransactionsCompanion extends UpdateCompanion<RecurringTransactio
       map['period'] = Variable<String>($RecurringTransactionsTable.$converterperiod.toSql(period.value));
     }
     if (nextDate.present) {
-      map['next_date'] = Variable<DateTime>(nextDate.value);
+      map['next_date'] = Variable<String>($RecurringTransactionsTable.$converternextDate.toSql(nextDate.value));
     }
     if (isActive.present) {
       map['is_active'] = Variable<bool>(isActive.value);
@@ -3700,15 +3697,14 @@ class $DebtsTable extends Debts with TableInfo<$DebtsTable, Debt> {
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   ).withConverter<DebtStatus>($DebtsTable.$converterstatus);
-  static const VerificationMeta _dueDateMeta = const VerificationMeta('dueDate');
   @override
-  late final GeneratedColumn<DateTime> dueDate = GeneratedColumn<DateTime>(
+  late final GeneratedColumnWithTypeConverter<String?, String> dueDate = GeneratedColumn<String>(
     'due_date',
     aliasedName,
     true,
-    type: DriftSqlType.dateTime,
+    type: DriftSqlType.string,
     requiredDuringInsert: false,
-  );
+  ).withConverter<String?>($DebtsTable.$converterdueDaten);
   static const VerificationMeta _noteMeta = const VerificationMeta('note');
   @override
   late final GeneratedColumn<String> note = GeneratedColumn<String>(
@@ -3781,9 +3777,6 @@ class $DebtsTable extends Debts with TableInfo<$DebtsTable, Debt> {
     } else if (isInserting) {
       context.missing(_remainingAmountMeta);
     }
-    if (data.containsKey('due_date')) {
-      context.handle(_dueDateMeta, dueDate.isAcceptableOrUnknown(data['due_date']!, _dueDateMeta));
-    }
     if (data.containsKey('note')) {
       context.handle(_noteMeta, note.isAcceptableOrUnknown(data['note']!, _noteMeta));
     }
@@ -3812,7 +3805,9 @@ class $DebtsTable extends Debts with TableInfo<$DebtsTable, Debt> {
       status: $DebtsTable.$converterstatus.fromSql(
         attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}status'])!,
       ),
-      dueDate: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}due_date']),
+      dueDate: $DebtsTable.$converterdueDaten.fromSql(
+        attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}due_date']),
+      ),
       note: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}note']),
       createdAt: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
       updatedAt: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}updated_at'])!,
@@ -3826,6 +3821,8 @@ class $DebtsTable extends Debts with TableInfo<$DebtsTable, Debt> {
 
   static JsonTypeConverter2<DebtType, String, String> $convertertype = const EnumNameConverter(DebtType.values);
   static JsonTypeConverter2<DebtStatus, String, String> $converterstatus = const EnumNameConverter(DebtStatus.values);
+  static TypeConverter<String, String> $converterdueDate = const LocalDateConverter();
+  static TypeConverter<String?, String?> $converterdueDaten = NullAwareTypeConverter.wrap($converterdueDate);
 }
 
 class Debt extends DataClass implements Insertable<Debt> {
@@ -3835,7 +3832,7 @@ class Debt extends DataClass implements Insertable<Debt> {
   final int amount;
   final int remainingAmount;
   final DebtStatus status;
-  final DateTime? dueDate;
+  final String? dueDate;
   final String? note;
   final DateTime createdAt;
   final DateTime updatedAt;
@@ -3865,7 +3862,7 @@ class Debt extends DataClass implements Insertable<Debt> {
       map['status'] = Variable<String>($DebtsTable.$converterstatus.toSql(status));
     }
     if (!nullToAbsent || dueDate != null) {
-      map['due_date'] = Variable<DateTime>(dueDate);
+      map['due_date'] = Variable<String>($DebtsTable.$converterdueDaten.toSql(dueDate));
     }
     if (!nullToAbsent || note != null) {
       map['note'] = Variable<String>(note);
@@ -3899,7 +3896,7 @@ class Debt extends DataClass implements Insertable<Debt> {
       amount: serializer.fromJson<int>(json['amount']),
       remainingAmount: serializer.fromJson<int>(json['remainingAmount']),
       status: $DebtsTable.$converterstatus.fromJson(serializer.fromJson<String>(json['status'])),
-      dueDate: serializer.fromJson<DateTime?>(json['dueDate']),
+      dueDate: serializer.fromJson<String?>(json['dueDate']),
       note: serializer.fromJson<String?>(json['note']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
       updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
@@ -3915,7 +3912,7 @@ class Debt extends DataClass implements Insertable<Debt> {
       'amount': serializer.toJson<int>(amount),
       'remainingAmount': serializer.toJson<int>(remainingAmount),
       'status': serializer.toJson<String>($DebtsTable.$converterstatus.toJson(status)),
-      'dueDate': serializer.toJson<DateTime?>(dueDate),
+      'dueDate': serializer.toJson<String?>(dueDate),
       'note': serializer.toJson<String?>(note),
       'createdAt': serializer.toJson<DateTime>(createdAt),
       'updatedAt': serializer.toJson<DateTime>(updatedAt),
@@ -3929,7 +3926,7 @@ class Debt extends DataClass implements Insertable<Debt> {
     int? amount,
     int? remainingAmount,
     DebtStatus? status,
-    Value<DateTime?> dueDate = const Value.absent(),
+    Value<String?> dueDate = const Value.absent(),
     Value<String?> note = const Value.absent(),
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -4003,7 +4000,7 @@ class DebtsCompanion extends UpdateCompanion<Debt> {
   final Value<int> amount;
   final Value<int> remainingAmount;
   final Value<DebtStatus> status;
-  final Value<DateTime?> dueDate;
+  final Value<String?> dueDate;
   final Value<String?> note;
   final Value<DateTime> createdAt;
   final Value<DateTime> updatedAt;
@@ -4045,7 +4042,7 @@ class DebtsCompanion extends UpdateCompanion<Debt> {
     Expression<int>? amount,
     Expression<int>? remainingAmount,
     Expression<String>? status,
-    Expression<DateTime>? dueDate,
+    Expression<String>? dueDate,
     Expression<String>? note,
     Expression<DateTime>? createdAt,
     Expression<DateTime>? updatedAt,
@@ -4073,7 +4070,7 @@ class DebtsCompanion extends UpdateCompanion<Debt> {
     Value<int>? amount,
     Value<int>? remainingAmount,
     Value<DebtStatus>? status,
-    Value<DateTime?>? dueDate,
+    Value<String?>? dueDate,
     Value<String?>? note,
     Value<DateTime>? createdAt,
     Value<DateTime>? updatedAt,
@@ -4116,7 +4113,7 @@ class DebtsCompanion extends UpdateCompanion<Debt> {
       map['status'] = Variable<String>($DebtsTable.$converterstatus.toSql(status.value));
     }
     if (dueDate.present) {
-      map['due_date'] = Variable<DateTime>(dueDate.value);
+      map['due_date'] = Variable<String>($DebtsTable.$converterdueDaten.toSql(dueDate.value));
     }
     if (note.present) {
       map['note'] = Variable<String>(note.value);
@@ -4204,15 +4201,14 @@ class $TransactionsTable extends Transactions with TableInfo<$TransactionsTable,
     type: DriftSqlType.int,
     requiredDuringInsert: true,
   );
-  static const VerificationMeta _transactionDateMeta = const VerificationMeta('transactionDate');
   @override
-  late final GeneratedColumn<DateTime> transactionDate = GeneratedColumn<DateTime>(
+  late final GeneratedColumnWithTypeConverter<String, String> transactionDate = GeneratedColumn<String>(
     'transaction_date',
     aliasedName,
     false,
-    type: DriftSqlType.dateTime,
+    type: DriftSqlType.string,
     requiredDuringInsert: true,
-  );
+  ).withConverter<String>($TransactionsTable.$convertertransactionDate);
   static const VerificationMeta _noteMeta = const VerificationMeta('note');
   @override
   late final GeneratedColumn<String> note = GeneratedColumn<String>(
@@ -4304,14 +4300,6 @@ class $TransactionsTable extends Transactions with TableInfo<$TransactionsTable,
     } else if (isInserting) {
       context.missing(_amountMeta);
     }
-    if (data.containsKey('transaction_date')) {
-      context.handle(
-        _transactionDateMeta,
-        transactionDate.isAcceptableOrUnknown(data['transaction_date']!, _transactionDateMeta),
-      );
-    } else if (isInserting) {
-      context.missing(_transactionDateMeta);
-    }
     if (data.containsKey('note')) {
       context.handle(_noteMeta, note.isAcceptableOrUnknown(data['note']!, _noteMeta));
     }
@@ -4349,10 +4337,9 @@ class $TransactionsTable extends Transactions with TableInfo<$TransactionsTable,
         attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}type'])!,
       ),
       amount: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}amount'])!,
-      transactionDate: attachedDatabase.typeMapping.read(
-        DriftSqlType.dateTime,
-        data['${effectivePrefix}transaction_date'],
-      )!,
+      transactionDate: $TransactionsTable.$convertertransactionDate.fromSql(
+        attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}transaction_date'])!,
+      ),
       note: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}note']),
       recurringTransactionId: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
@@ -4372,6 +4359,7 @@ class $TransactionsTable extends Transactions with TableInfo<$TransactionsTable,
   static JsonTypeConverter2<TransactionType, String, String> $convertertype = const EnumNameConverter(
     TransactionType.values,
   );
+  static TypeConverter<String, String> $convertertransactionDate = const LocalDateTimeConverter();
 }
 
 class Transaction extends DataClass implements Insertable<Transaction> {
@@ -4380,7 +4368,7 @@ class Transaction extends DataClass implements Insertable<Transaction> {
   final String? destinationAccountId;
   final TransactionType type;
   final int amount;
-  final DateTime transactionDate;
+  final String transactionDate;
   final String? note;
   final String? recurringTransactionId;
   final String? debtId;
@@ -4411,7 +4399,9 @@ class Transaction extends DataClass implements Insertable<Transaction> {
       map['type'] = Variable<String>($TransactionsTable.$convertertype.toSql(type));
     }
     map['amount'] = Variable<int>(amount);
-    map['transaction_date'] = Variable<DateTime>(transactionDate);
+    {
+      map['transaction_date'] = Variable<String>($TransactionsTable.$convertertransactionDate.toSql(transactionDate));
+    }
     if (!nullToAbsent || note != null) {
       map['note'] = Variable<String>(note);
     }
@@ -4454,7 +4444,7 @@ class Transaction extends DataClass implements Insertable<Transaction> {
       destinationAccountId: serializer.fromJson<String?>(json['destinationAccountId']),
       type: $TransactionsTable.$convertertype.fromJson(serializer.fromJson<String>(json['type'])),
       amount: serializer.fromJson<int>(json['amount']),
-      transactionDate: serializer.fromJson<DateTime>(json['transactionDate']),
+      transactionDate: serializer.fromJson<String>(json['transactionDate']),
       note: serializer.fromJson<String?>(json['note']),
       recurringTransactionId: serializer.fromJson<String?>(json['recurringTransactionId']),
       debtId: serializer.fromJson<String?>(json['debtId']),
@@ -4471,7 +4461,7 @@ class Transaction extends DataClass implements Insertable<Transaction> {
       'destinationAccountId': serializer.toJson<String?>(destinationAccountId),
       'type': serializer.toJson<String>($TransactionsTable.$convertertype.toJson(type)),
       'amount': serializer.toJson<int>(amount),
-      'transactionDate': serializer.toJson<DateTime>(transactionDate),
+      'transactionDate': serializer.toJson<String>(transactionDate),
       'note': serializer.toJson<String?>(note),
       'recurringTransactionId': serializer.toJson<String?>(recurringTransactionId),
       'debtId': serializer.toJson<String?>(debtId),
@@ -4486,7 +4476,7 @@ class Transaction extends DataClass implements Insertable<Transaction> {
     Value<String?> destinationAccountId = const Value.absent(),
     TransactionType? type,
     int? amount,
-    DateTime? transactionDate,
+    String? transactionDate,
     Value<String?> note = const Value.absent(),
     Value<String?> recurringTransactionId = const Value.absent(),
     Value<String?> debtId = const Value.absent(),
@@ -4580,7 +4570,7 @@ class TransactionsCompanion extends UpdateCompanion<Transaction> {
   final Value<String?> destinationAccountId;
   final Value<TransactionType> type;
   final Value<int> amount;
-  final Value<DateTime> transactionDate;
+  final Value<String> transactionDate;
   final Value<String?> note;
   final Value<String?> recurringTransactionId;
   final Value<String?> debtId;
@@ -4607,7 +4597,7 @@ class TransactionsCompanion extends UpdateCompanion<Transaction> {
     this.destinationAccountId = const Value.absent(),
     required TransactionType type,
     required int amount,
-    required DateTime transactionDate,
+    required String transactionDate,
     this.note = const Value.absent(),
     this.recurringTransactionId = const Value.absent(),
     this.debtId = const Value.absent(),
@@ -4624,7 +4614,7 @@ class TransactionsCompanion extends UpdateCompanion<Transaction> {
     Expression<String>? destinationAccountId,
     Expression<String>? type,
     Expression<int>? amount,
-    Expression<DateTime>? transactionDate,
+    Expression<String>? transactionDate,
     Expression<String>? note,
     Expression<String>? recurringTransactionId,
     Expression<String>? debtId,
@@ -4654,7 +4644,7 @@ class TransactionsCompanion extends UpdateCompanion<Transaction> {
     Value<String?>? destinationAccountId,
     Value<TransactionType>? type,
     Value<int>? amount,
-    Value<DateTime>? transactionDate,
+    Value<String>? transactionDate,
     Value<String?>? note,
     Value<String?>? recurringTransactionId,
     Value<String?>? debtId,
@@ -4697,7 +4687,9 @@ class TransactionsCompanion extends UpdateCompanion<Transaction> {
       map['amount'] = Variable<int>(amount.value);
     }
     if (transactionDate.present) {
-      map['transaction_date'] = Variable<DateTime>(transactionDate.value);
+      map['transaction_date'] = Variable<String>(
+        $TransactionsTable.$convertertransactionDate.toSql(transactionDate.value),
+      );
     }
     if (note.present) {
       map['note'] = Variable<String>(note.value);
@@ -5213,15 +5205,14 @@ class $GoalsTable extends Goals with TableInfo<$GoalsTable, Goal> {
     type: DriftSqlType.int,
     requiredDuringInsert: true,
   );
-  static const VerificationMeta _targetDateMeta = const VerificationMeta('targetDate');
   @override
-  late final GeneratedColumn<DateTime> targetDate = GeneratedColumn<DateTime>(
+  late final GeneratedColumnWithTypeConverter<String?, String> targetDate = GeneratedColumn<String>(
     'target_date',
     aliasedName,
     true,
-    type: DriftSqlType.dateTime,
+    type: DriftSqlType.string,
     requiredDuringInsert: false,
-  );
+  ).withConverter<String?>($GoalsTable.$convertertargetDaten);
   static const VerificationMeta _iconMeta = const VerificationMeta('icon');
   @override
   late final GeneratedColumn<String> icon = GeneratedColumn<String>(
@@ -5309,9 +5300,6 @@ class $GoalsTable extends Goals with TableInfo<$GoalsTable, Goal> {
     } else if (isInserting) {
       context.missing(_targetAmountMeta);
     }
-    if (data.containsKey('target_date')) {
-      context.handle(_targetDateMeta, targetDate.isAcceptableOrUnknown(data['target_date']!, _targetDateMeta));
-    }
     if (data.containsKey('icon')) {
       context.handle(_iconMeta, icon.isAcceptableOrUnknown(data['icon']!, _iconMeta));
     }
@@ -5337,7 +5325,9 @@ class $GoalsTable extends Goals with TableInfo<$GoalsTable, Goal> {
       accountId: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}account_id'])!,
       name: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}name'])!,
       targetAmount: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}target_amount'])!,
-      targetDate: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}target_date']),
+      targetDate: $GoalsTable.$convertertargetDaten.fromSql(
+        attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}target_date']),
+      ),
       icon: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}icon']),
       color: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}color']),
       createdAt: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
@@ -5353,6 +5343,8 @@ class $GoalsTable extends Goals with TableInfo<$GoalsTable, Goal> {
     return $GoalsTable(attachedDatabase, alias);
   }
 
+  static TypeConverter<String, String> $convertertargetDate = const LocalDateConverter();
+  static TypeConverter<String?, String?> $convertertargetDaten = NullAwareTypeConverter.wrap($convertertargetDate);
   static JsonTypeConverter2<GoalStatus, String, String> $converterstatus = const EnumNameConverter(GoalStatus.values);
 }
 
@@ -5361,7 +5353,7 @@ class Goal extends DataClass implements Insertable<Goal> {
   final String accountId;
   final String name;
   final int targetAmount;
-  final DateTime? targetDate;
+  final String? targetDate;
   final String? icon;
   final String? color;
   final DateTime createdAt;
@@ -5387,7 +5379,7 @@ class Goal extends DataClass implements Insertable<Goal> {
     map['name'] = Variable<String>(name);
     map['target_amount'] = Variable<int>(targetAmount);
     if (!nullToAbsent || targetDate != null) {
-      map['target_date'] = Variable<DateTime>(targetDate);
+      map['target_date'] = Variable<String>($GoalsTable.$convertertargetDaten.toSql(targetDate));
     }
     if (!nullToAbsent || icon != null) {
       map['icon'] = Variable<String>(icon);
@@ -5425,7 +5417,7 @@ class Goal extends DataClass implements Insertable<Goal> {
       accountId: serializer.fromJson<String>(json['accountId']),
       name: serializer.fromJson<String>(json['name']),
       targetAmount: serializer.fromJson<int>(json['targetAmount']),
-      targetDate: serializer.fromJson<DateTime?>(json['targetDate']),
+      targetDate: serializer.fromJson<String?>(json['targetDate']),
       icon: serializer.fromJson<String?>(json['icon']),
       color: serializer.fromJson<String?>(json['color']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
@@ -5441,7 +5433,7 @@ class Goal extends DataClass implements Insertable<Goal> {
       'accountId': serializer.toJson<String>(accountId),
       'name': serializer.toJson<String>(name),
       'targetAmount': serializer.toJson<int>(targetAmount),
-      'targetDate': serializer.toJson<DateTime?>(targetDate),
+      'targetDate': serializer.toJson<String?>(targetDate),
       'icon': serializer.toJson<String?>(icon),
       'color': serializer.toJson<String?>(color),
       'createdAt': serializer.toJson<DateTime>(createdAt),
@@ -5455,7 +5447,7 @@ class Goal extends DataClass implements Insertable<Goal> {
     String? accountId,
     String? name,
     int? targetAmount,
-    Value<DateTime?> targetDate = const Value.absent(),
+    Value<String?> targetDate = const Value.absent(),
     Value<String?> icon = const Value.absent(),
     Value<String?> color = const Value.absent(),
     DateTime? createdAt,
@@ -5529,7 +5521,7 @@ class GoalsCompanion extends UpdateCompanion<Goal> {
   final Value<String> accountId;
   final Value<String> name;
   final Value<int> targetAmount;
-  final Value<DateTime?> targetDate;
+  final Value<String?> targetDate;
   final Value<String?> icon;
   final Value<String?> color;
   final Value<DateTime> createdAt;
@@ -5569,7 +5561,7 @@ class GoalsCompanion extends UpdateCompanion<Goal> {
     Expression<String>? accountId,
     Expression<String>? name,
     Expression<int>? targetAmount,
-    Expression<DateTime>? targetDate,
+    Expression<String>? targetDate,
     Expression<String>? icon,
     Expression<String>? color,
     Expression<DateTime>? createdAt,
@@ -5597,7 +5589,7 @@ class GoalsCompanion extends UpdateCompanion<Goal> {
     Value<String>? accountId,
     Value<String>? name,
     Value<int>? targetAmount,
-    Value<DateTime?>? targetDate,
+    Value<String?>? targetDate,
     Value<String?>? icon,
     Value<String?>? color,
     Value<DateTime>? createdAt,
@@ -5636,7 +5628,7 @@ class GoalsCompanion extends UpdateCompanion<Goal> {
       map['target_amount'] = Variable<int>(targetAmount.value);
     }
     if (targetDate.present) {
-      map['target_date'] = Variable<DateTime>(targetDate.value);
+      map['target_date'] = Variable<String>($GoalsTable.$convertertargetDaten.toSql(targetDate.value));
     }
     if (icon.present) {
       map['icon'] = Variable<String>(icon.value);
@@ -7876,8 +7868,8 @@ typedef $$BudgetsTableCreateCompanionBuilder = BudgetsCompanion Function({
   required BudgetPeriod period,
   Value<int?> resetDay,
   Value<int?> alertThreshold,
-  required DateTime startDate,
-  Value<DateTime?> endDate,
+  required String startDate,
+  Value<String?> endDate,
   Value<DateTime> createdAt,
   Value<DateTime> updatedAt,
   Value<int> rowid,
@@ -7891,8 +7883,8 @@ typedef $$BudgetsTableUpdateCompanionBuilder = BudgetsCompanion Function({
   Value<BudgetPeriod> period,
   Value<int?> resetDay,
   Value<int?> alertThreshold,
-  Value<DateTime> startDate,
-  Value<DateTime?> endDate,
+  Value<String> startDate,
+  Value<String?> endDate,
   Value<DateTime> createdAt,
   Value<DateTime> updatedAt,
   Value<int> rowid,
@@ -7963,11 +7955,11 @@ class $$BudgetsTableFilterComposer extends Composer<_$AppDatabase, $BudgetsTable
   ColumnFilters<int> get alertThreshold =>
       $composableBuilder(column: $table.alertThreshold, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<DateTime> get startDate =>
-      $composableBuilder(column: $table.startDate, builder: (column) => ColumnFilters(column));
+  ColumnWithTypeConverterFilters<String, String, String> get startDate =>
+      $composableBuilder(column: $table.startDate, builder: (column) => ColumnWithTypeConverterFilters(column));
 
-  ColumnFilters<DateTime> get endDate =>
-      $composableBuilder(column: $table.endDate, builder: (column) => ColumnFilters(column));
+  ColumnWithTypeConverterFilters<String?, String, String> get endDate =>
+      $composableBuilder(column: $table.endDate, builder: (column) => ColumnWithTypeConverterFilters(column));
 
   ColumnFilters<DateTime> get createdAt =>
       $composableBuilder(column: $table.createdAt, builder: (column) => ColumnFilters(column));
@@ -8055,10 +8047,10 @@ class $$BudgetsTableOrderingComposer extends Composer<_$AppDatabase, $BudgetsTab
   ColumnOrderings<int> get alertThreshold =>
       $composableBuilder(column: $table.alertThreshold, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get startDate =>
+  ColumnOrderings<String> get startDate =>
       $composableBuilder(column: $table.startDate, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get endDate =>
+  ColumnOrderings<String> get endDate =>
       $composableBuilder(column: $table.endDate, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<DateTime> get createdAt =>
@@ -8126,9 +8118,11 @@ class $$BudgetsTableAnnotationComposer extends Composer<_$AppDatabase, $BudgetsT
   GeneratedColumn<int> get alertThreshold =>
       $composableBuilder(column: $table.alertThreshold, builder: (column) => column);
 
-  GeneratedColumn<DateTime> get startDate => $composableBuilder(column: $table.startDate, builder: (column) => column);
+  GeneratedColumnWithTypeConverter<String, String> get startDate =>
+      $composableBuilder(column: $table.startDate, builder: (column) => column);
 
-  GeneratedColumn<DateTime> get endDate => $composableBuilder(column: $table.endDate, builder: (column) => column);
+  GeneratedColumnWithTypeConverter<String?, String> get endDate =>
+      $composableBuilder(column: $table.endDate, builder: (column) => column);
 
   GeneratedColumn<DateTime> get createdAt => $composableBuilder(column: $table.createdAt, builder: (column) => column);
 
@@ -8224,8 +8218,8 @@ class $$BudgetsTableTableManager
                 Value<BudgetPeriod> period = const Value.absent(),
                 Value<int?> resetDay = const Value.absent(),
                 Value<int?> alertThreshold = const Value.absent(),
-                Value<DateTime> startDate = const Value.absent(),
-                Value<DateTime?> endDate = const Value.absent(),
+                Value<String> startDate = const Value.absent(),
+                Value<String?> endDate = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<DateTime> updatedAt = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
@@ -8254,8 +8248,8 @@ class $$BudgetsTableTableManager
                 required BudgetPeriod period,
                 Value<int?> resetDay = const Value.absent(),
                 Value<int?> alertThreshold = const Value.absent(),
-                required DateTime startDate,
-                Value<DateTime?> endDate = const Value.absent(),
+                required String startDate,
+                Value<String?> endDate = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<DateTime> updatedAt = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
@@ -8353,8 +8347,8 @@ typedef $$BudgetRecordsTableCreateCompanionBuilder = BudgetRecordsCompanion Func
   Value<String> id,
   required String budgetId,
   Value<int> spentAmount,
-  required DateTime periodStart,
-  required DateTime periodEnd,
+  required String periodStart,
+  required String periodEnd,
   Value<DateTime> createdAt,
   Value<DateTime> updatedAt,
   Value<int> rowid,
@@ -8363,8 +8357,8 @@ typedef $$BudgetRecordsTableUpdateCompanionBuilder = BudgetRecordsCompanion Func
   Value<String> id,
   Value<String> budgetId,
   Value<int> spentAmount,
-  Value<DateTime> periodStart,
-  Value<DateTime> periodEnd,
+  Value<String> periodStart,
+  Value<String> periodEnd,
   Value<DateTime> createdAt,
   Value<DateTime> updatedAt,
   Value<int> rowid,
@@ -8399,11 +8393,11 @@ class $$BudgetRecordsTableFilterComposer extends Composer<_$AppDatabase, $Budget
   ColumnFilters<int> get spentAmount =>
       $composableBuilder(column: $table.spentAmount, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<DateTime> get periodStart =>
-      $composableBuilder(column: $table.periodStart, builder: (column) => ColumnFilters(column));
+  ColumnWithTypeConverterFilters<String, String, String> get periodStart =>
+      $composableBuilder(column: $table.periodStart, builder: (column) => ColumnWithTypeConverterFilters(column));
 
-  ColumnFilters<DateTime> get periodEnd =>
-      $composableBuilder(column: $table.periodEnd, builder: (column) => ColumnFilters(column));
+  ColumnWithTypeConverterFilters<String, String, String> get periodEnd =>
+      $composableBuilder(column: $table.periodEnd, builder: (column) => ColumnWithTypeConverterFilters(column));
 
   ColumnFilters<DateTime> get createdAt =>
       $composableBuilder(column: $table.createdAt, builder: (column) => ColumnFilters(column));
@@ -8443,10 +8437,10 @@ class $$BudgetRecordsTableOrderingComposer extends Composer<_$AppDatabase, $Budg
   ColumnOrderings<int> get spentAmount =>
       $composableBuilder(column: $table.spentAmount, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get periodStart =>
+  ColumnOrderings<String> get periodStart =>
       $composableBuilder(column: $table.periodStart, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get periodEnd =>
+  ColumnOrderings<String> get periodEnd =>
       $composableBuilder(column: $table.periodEnd, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<DateTime> get createdAt =>
@@ -8486,10 +8480,11 @@ class $$BudgetRecordsTableAnnotationComposer extends Composer<_$AppDatabase, $Bu
 
   GeneratedColumn<int> get spentAmount => $composableBuilder(column: $table.spentAmount, builder: (column) => column);
 
-  GeneratedColumn<DateTime> get periodStart =>
+  GeneratedColumnWithTypeConverter<String, String> get periodStart =>
       $composableBuilder(column: $table.periodStart, builder: (column) => column);
 
-  GeneratedColumn<DateTime> get periodEnd => $composableBuilder(column: $table.periodEnd, builder: (column) => column);
+  GeneratedColumnWithTypeConverter<String, String> get periodEnd =>
+      $composableBuilder(column: $table.periodEnd, builder: (column) => column);
 
   GeneratedColumn<DateTime> get createdAt => $composableBuilder(column: $table.createdAt, builder: (column) => column);
 
@@ -8542,8 +8537,8 @@ class $$BudgetRecordsTableTableManager
                 Value<String> id = const Value.absent(),
                 Value<String> budgetId = const Value.absent(),
                 Value<int> spentAmount = const Value.absent(),
-                Value<DateTime> periodStart = const Value.absent(),
-                Value<DateTime> periodEnd = const Value.absent(),
+                Value<String> periodStart = const Value.absent(),
+                Value<String> periodEnd = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<DateTime> updatedAt = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
@@ -8562,8 +8557,8 @@ class $$BudgetRecordsTableTableManager
                 Value<String> id = const Value.absent(),
                 required String budgetId,
                 Value<int> spentAmount = const Value.absent(),
-                required DateTime periodStart,
-                required DateTime periodEnd,
+                required String periodStart,
+                required String periodEnd,
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<DateTime> updatedAt = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
@@ -8649,7 +8644,7 @@ typedef $$RecurringTransactionsTableCreateCompanionBuilder = RecurringTransactio
   required int amount,
   Value<String?> note,
   required RecurringPeriod period,
-  required DateTime nextDate,
+  required String nextDate,
   Value<bool> isActive,
   Value<DateTime> createdAt,
   Value<DateTime> updatedAt,
@@ -8665,7 +8660,7 @@ typedef $$RecurringTransactionsTableUpdateCompanionBuilder = RecurringTransactio
   Value<int> amount,
   Value<String?> note,
   Value<RecurringPeriod> period,
-  Value<DateTime> nextDate,
+  Value<String> nextDate,
   Value<bool> isActive,
   Value<DateTime> createdAt,
   Value<DateTime> updatedAt,
@@ -8753,8 +8748,8 @@ class $$RecurringTransactionsTableFilterComposer extends Composer<_$AppDatabase,
   ColumnWithTypeConverterFilters<RecurringPeriod, RecurringPeriod, String> get period =>
       $composableBuilder(column: $table.period, builder: (column) => ColumnWithTypeConverterFilters(column));
 
-  ColumnFilters<DateTime> get nextDate =>
-      $composableBuilder(column: $table.nextDate, builder: (column) => ColumnFilters(column));
+  ColumnWithTypeConverterFilters<String, String, String> get nextDate =>
+      $composableBuilder(column: $table.nextDate, builder: (column) => ColumnWithTypeConverterFilters(column));
 
   ColumnFilters<bool> get isActive =>
       $composableBuilder(column: $table.isActive, builder: (column) => ColumnFilters(column));
@@ -8863,7 +8858,7 @@ class $$RecurringTransactionsTableOrderingComposer extends Composer<_$AppDatabas
   ColumnOrderings<String> get period =>
       $composableBuilder(column: $table.period, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get nextDate =>
+  ColumnOrderings<String> get nextDate =>
       $composableBuilder(column: $table.nextDate, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<bool> get isActive =>
@@ -8953,7 +8948,8 @@ class $$RecurringTransactionsTableAnnotationComposer extends Composer<_$AppDatab
   GeneratedColumnWithTypeConverter<RecurringPeriod, String> get period =>
       $composableBuilder(column: $table.period, builder: (column) => column);
 
-  GeneratedColumn<DateTime> get nextDate => $composableBuilder(column: $table.nextDate, builder: (column) => column);
+  GeneratedColumnWithTypeConverter<String, String> get nextDate =>
+      $composableBuilder(column: $table.nextDate, builder: (column) => column);
 
   GeneratedColumn<bool> get isActive => $composableBuilder(column: $table.isActive, builder: (column) => column);
 
@@ -9068,7 +9064,7 @@ class $$RecurringTransactionsTableTableManager
                 Value<int> amount = const Value.absent(),
                 Value<String?> note = const Value.absent(),
                 Value<RecurringPeriod> period = const Value.absent(),
-                Value<DateTime> nextDate = const Value.absent(),
+                Value<String> nextDate = const Value.absent(),
                 Value<bool> isActive = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<DateTime> updatedAt = const Value.absent(),
@@ -9100,7 +9096,7 @@ class $$RecurringTransactionsTableTableManager
                 required int amount,
                 Value<String?> note = const Value.absent(),
                 required RecurringPeriod period,
-                required DateTime nextDate,
+                required String nextDate,
                 Value<bool> isActive = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<DateTime> updatedAt = const Value.absent(),
@@ -9218,7 +9214,7 @@ typedef $$DebtsTableCreateCompanionBuilder = DebtsCompanion Function({
   required int amount,
   required int remainingAmount,
   required DebtStatus status,
-  Value<DateTime?> dueDate,
+  Value<String?> dueDate,
   Value<String?> note,
   Value<DateTime> createdAt,
   Value<DateTime> updatedAt,
@@ -9231,7 +9227,7 @@ typedef $$DebtsTableUpdateCompanionBuilder = DebtsCompanion Function({
   Value<int> amount,
   Value<int> remainingAmount,
   Value<DebtStatus> status,
-  Value<DateTime?> dueDate,
+  Value<String?> dueDate,
   Value<String?> note,
   Value<DateTime> createdAt,
   Value<DateTime> updatedAt,
@@ -9280,8 +9276,8 @@ class $$DebtsTableFilterComposer extends Composer<_$AppDatabase, $DebtsTable> {
   ColumnWithTypeConverterFilters<DebtStatus, DebtStatus, String> get status =>
       $composableBuilder(column: $table.status, builder: (column) => ColumnWithTypeConverterFilters(column));
 
-  ColumnFilters<DateTime> get dueDate =>
-      $composableBuilder(column: $table.dueDate, builder: (column) => ColumnFilters(column));
+  ColumnWithTypeConverterFilters<String?, String, String> get dueDate =>
+      $composableBuilder(column: $table.dueDate, builder: (column) => ColumnWithTypeConverterFilters(column));
 
   ColumnFilters<String> get note => $composableBuilder(column: $table.note, builder: (column) => ColumnFilters(column));
 
@@ -9335,7 +9331,7 @@ class $$DebtsTableOrderingComposer extends Composer<_$AppDatabase, $DebtsTable> 
   ColumnOrderings<String> get status =>
       $composableBuilder(column: $table.status, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get dueDate =>
+  ColumnOrderings<String> get dueDate =>
       $composableBuilder(column: $table.dueDate, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get note =>
@@ -9371,7 +9367,8 @@ class $$DebtsTableAnnotationComposer extends Composer<_$AppDatabase, $DebtsTable
   GeneratedColumnWithTypeConverter<DebtStatus, String> get status =>
       $composableBuilder(column: $table.status, builder: (column) => column);
 
-  GeneratedColumn<DateTime> get dueDate => $composableBuilder(column: $table.dueDate, builder: (column) => column);
+  GeneratedColumnWithTypeConverter<String?, String> get dueDate =>
+      $composableBuilder(column: $table.dueDate, builder: (column) => column);
 
   GeneratedColumn<String> get note => $composableBuilder(column: $table.note, builder: (column) => column);
 
@@ -9429,7 +9426,7 @@ class $$DebtsTableTableManager
                 Value<int> amount = const Value.absent(),
                 Value<int> remainingAmount = const Value.absent(),
                 Value<DebtStatus> status = const Value.absent(),
-                Value<DateTime?> dueDate = const Value.absent(),
+                Value<String?> dueDate = const Value.absent(),
                 Value<String?> note = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<DateTime> updatedAt = const Value.absent(),
@@ -9455,7 +9452,7 @@ class $$DebtsTableTableManager
                 required int amount,
                 required int remainingAmount,
                 required DebtStatus status,
-                Value<DateTime?> dueDate = const Value.absent(),
+                Value<String?> dueDate = const Value.absent(),
                 Value<String?> note = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<DateTime> updatedAt = const Value.absent(),
@@ -9519,7 +9516,7 @@ typedef $$TransactionsTableCreateCompanionBuilder = TransactionsCompanion Functi
   Value<String?> destinationAccountId,
   required TransactionType type,
   required int amount,
-  required DateTime transactionDate,
+  required String transactionDate,
   Value<String?> note,
   Value<String?> recurringTransactionId,
   Value<String?> debtId,
@@ -9533,7 +9530,7 @@ typedef $$TransactionsTableUpdateCompanionBuilder = TransactionsCompanion Functi
   Value<String?> destinationAccountId,
   Value<TransactionType> type,
   Value<int> amount,
-  Value<DateTime> transactionDate,
+  Value<String> transactionDate,
   Value<String?> note,
   Value<String?> recurringTransactionId,
   Value<String?> debtId,
@@ -9629,8 +9626,8 @@ class $$TransactionsTableFilterComposer extends Composer<_$AppDatabase, $Transac
   ColumnFilters<int> get amount =>
       $composableBuilder(column: $table.amount, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<DateTime> get transactionDate =>
-      $composableBuilder(column: $table.transactionDate, builder: (column) => ColumnFilters(column));
+  ColumnWithTypeConverterFilters<String, String, String> get transactionDate =>
+      $composableBuilder(column: $table.transactionDate, builder: (column) => ColumnWithTypeConverterFilters(column));
 
   ColumnFilters<String> get note => $composableBuilder(column: $table.note, builder: (column) => ColumnFilters(column));
 
@@ -9747,7 +9744,7 @@ class $$TransactionsTableOrderingComposer extends Composer<_$AppDatabase, $Trans
   ColumnOrderings<int> get amount =>
       $composableBuilder(column: $table.amount, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get transactionDate =>
+  ColumnOrderings<String> get transactionDate =>
       $composableBuilder(column: $table.transactionDate, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get note =>
@@ -9847,7 +9844,7 @@ class $$TransactionsTableAnnotationComposer extends Composer<_$AppDatabase, $Tra
 
   GeneratedColumn<int> get amount => $composableBuilder(column: $table.amount, builder: (column) => column);
 
-  GeneratedColumn<DateTime> get transactionDate =>
+  GeneratedColumnWithTypeConverter<String, String> get transactionDate =>
       $composableBuilder(column: $table.transactionDate, builder: (column) => column);
 
   GeneratedColumn<String> get note => $composableBuilder(column: $table.note, builder: (column) => column);
@@ -9985,7 +9982,7 @@ class $$TransactionsTableTableManager
                 Value<String?> destinationAccountId = const Value.absent(),
                 Value<TransactionType> type = const Value.absent(),
                 Value<int> amount = const Value.absent(),
-                Value<DateTime> transactionDate = const Value.absent(),
+                Value<String> transactionDate = const Value.absent(),
                 Value<String?> note = const Value.absent(),
                 Value<String?> recurringTransactionId = const Value.absent(),
                 Value<String?> debtId = const Value.absent(),
@@ -10013,7 +10010,7 @@ class $$TransactionsTableTableManager
                 Value<String?> destinationAccountId = const Value.absent(),
                 required TransactionType type,
                 required int amount,
-                required DateTime transactionDate,
+                required String transactionDate,
                 Value<String?> note = const Value.absent(),
                 Value<String?> recurringTransactionId = const Value.absent(),
                 Value<String?> debtId = const Value.absent(),
@@ -10517,7 +10514,7 @@ typedef $$GoalsTableCreateCompanionBuilder = GoalsCompanion Function({
   required String accountId,
   required String name,
   required int targetAmount,
-  Value<DateTime?> targetDate,
+  Value<String?> targetDate,
   Value<String?> icon,
   Value<String?> color,
   Value<DateTime> createdAt,
@@ -10530,7 +10527,7 @@ typedef $$GoalsTableUpdateCompanionBuilder = GoalsCompanion Function({
   Value<String> accountId,
   Value<String> name,
   Value<int> targetAmount,
-  Value<DateTime?> targetDate,
+  Value<String?> targetDate,
   Value<String?> icon,
   Value<String?> color,
   Value<DateTime> createdAt,
@@ -10569,8 +10566,8 @@ class $$GoalsTableFilterComposer extends Composer<_$AppDatabase, $GoalsTable> {
   ColumnFilters<int> get targetAmount =>
       $composableBuilder(column: $table.targetAmount, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<DateTime> get targetDate =>
-      $composableBuilder(column: $table.targetDate, builder: (column) => ColumnFilters(column));
+  ColumnWithTypeConverterFilters<String?, String, String> get targetDate =>
+      $composableBuilder(column: $table.targetDate, builder: (column) => ColumnWithTypeConverterFilters(column));
 
   ColumnFilters<String> get icon => $composableBuilder(column: $table.icon, builder: (column) => ColumnFilters(column));
 
@@ -10621,7 +10618,7 @@ class $$GoalsTableOrderingComposer extends Composer<_$AppDatabase, $GoalsTable> 
   ColumnOrderings<int> get targetAmount =>
       $composableBuilder(column: $table.targetAmount, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get targetDate =>
+  ColumnOrderings<String> get targetDate =>
       $composableBuilder(column: $table.targetDate, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get icon =>
@@ -10672,7 +10669,7 @@ class $$GoalsTableAnnotationComposer extends Composer<_$AppDatabase, $GoalsTable
 
   GeneratedColumn<int> get targetAmount => $composableBuilder(column: $table.targetAmount, builder: (column) => column);
 
-  GeneratedColumn<DateTime> get targetDate =>
+  GeneratedColumnWithTypeConverter<String?, String> get targetDate =>
       $composableBuilder(column: $table.targetDate, builder: (column) => column);
 
   GeneratedColumn<String> get icon => $composableBuilder(column: $table.icon, builder: (column) => column);
@@ -10734,7 +10731,7 @@ class $$GoalsTableTableManager
                 Value<String> accountId = const Value.absent(),
                 Value<String> name = const Value.absent(),
                 Value<int> targetAmount = const Value.absent(),
-                Value<DateTime?> targetDate = const Value.absent(),
+                Value<String?> targetDate = const Value.absent(),
                 Value<String?> icon = const Value.absent(),
                 Value<String?> color = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
@@ -10760,7 +10757,7 @@ class $$GoalsTableTableManager
                 required String accountId,
                 required String name,
                 required int targetAmount,
-                Value<DateTime?> targetDate = const Value.absent(),
+                Value<String?> targetDate = const Value.absent(),
                 Value<String?> icon = const Value.absent(),
                 Value<String?> color = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),

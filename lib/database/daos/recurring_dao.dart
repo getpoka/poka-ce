@@ -18,11 +18,10 @@ class RecurringDao extends DatabaseAccessor<AppDatabase> with _$RecurringDaoMixi
       (select(recurringTransactions)..where((t) => t.isActive.equals(true))).get();
 
   /// Returns all active recurring transactions whose `nextDate` is on or before [asOf].
-  Future<List<RecurringTransaction>> getDueRecurring(DateTime asOf) {
-    final asOfUtc = asOf.toUtc();
+  Future<List<RecurringTransaction>> getDueRecurring(String asOf) {
     return (select(
       recurringTransactions,
-    )..where((t) => t.isActive.equals(true) & t.nextDate.isSmallerOrEqualValue(asOfUtc))).get();
+    )..where((t) => t.isActive.equals(true) & t.nextDate.isSmallerOrEqualValue(asOf))).get();
   }
 
   /// Retrieves a specific recurring transaction blueprint by its unique [id].

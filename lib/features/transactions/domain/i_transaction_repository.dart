@@ -10,8 +10,8 @@ abstract class ITransactionRepository {
 
   /// Watches all transactions.
   Stream<Result<List<TransactionModel>, Failure>> watchTransactions({
-    DateTime? startDate,
-    DateTime? endDate,
+    String? startDate,
+    String? endDate,
     Set<String> accountIds = const {},
     Set<String> categoryIds = const {},
     Set<TransactionType> types = const {},

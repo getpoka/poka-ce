@@ -3,6 +3,7 @@ import 'package:poka_ce/app/providers/repository_providers.dart';
 import 'package:poka_ce/core/enums.dart';
 import 'package:poka_ce/core/error/result.dart';
 import 'package:poka_ce/core/utils/datetime_utils.dart';
+import 'package:poka_ce/database/converters/local_date_converter.dart';
 import 'package:poka_ce/features/budgets/domain/budget_model.dart';
 import 'package:poka_ce/features/budgets/presentation/controllers/budget_list_notifier.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
@@ -56,7 +57,7 @@ class BudgetFormNotifier extends _$BudgetFormNotifier {
         period: budget.period,
         resetDay: budget.resetDay,
         alertThreshold: budget.alertThreshold,
-        endDate: budget.endDate,
+        endDate: budget.endDate != null ? DateTime.parse(budget.endDate!) : null,
         categoryId: budget.categoryId,
         accountId: budget.accountId,
       );
@@ -116,7 +117,9 @@ class BudgetFormNotifier extends _$BudgetFormNotifier {
           period: state.period,
           resetDay: state.period == BudgetPeriod.monthly ? (state.resetDay ?? 1) : null,
           alertThreshold: state.alertThreshold,
-          endDate: state.period == BudgetPeriod.custom ? state.endDate : null,
+          endDate: state.period == BudgetPeriod.custom && state.endDate != null
+              ? todayAsLocalDate(state.endDate)
+              : null,
           categoryId: state.categoryId,
           accountId: state.accountId,
           updatedAt: now,
@@ -126,10 +129,12 @@ class BudgetFormNotifier extends _$BudgetFormNotifier {
           name: state.name.trim(),
           amount: state.amount,
           period: state.period,
-          startDate: now,
+          startDate: todayAsLocalDate(),
           resetDay: state.period == BudgetPeriod.monthly ? (state.resetDay ?? 1) : null,
           alertThreshold: state.alertThreshold,
-          endDate: state.period == BudgetPeriod.custom ? state.endDate : null,
+          endDate: state.period == BudgetPeriod.custom && state.endDate != null
+              ? todayAsLocalDate(state.endDate)
+              : null,
           categoryId: state.categoryId,
           accountId: state.accountId,
           createdAt: now,

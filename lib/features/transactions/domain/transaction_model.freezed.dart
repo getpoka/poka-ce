@@ -307,7 +307,7 @@ as String?,
 /// @nodoc
 mixin _$TransactionModel {
 
- String get id; String get accountId; TransactionType get type; int get amount; DateTime get transactionDate; DateTime get createdAt; DateTime get updatedAt; String? get destinationAccountId; String? get note; String? get recurringTransactionId; String? get debtId; List<TransactionItemModel> get items;
+ String get id; String get accountId; TransactionType get type; int get amount; String get transactionDate; DateTime get createdAt; DateTime get updatedAt; String? get destinationAccountId; String? get note; String? get recurringTransactionId; String? get debtId; List<TransactionItemModel> get items;
 /// Create a copy of TransactionModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -345,7 +345,7 @@ abstract mixin class $TransactionModelCopyWith<$Res>  {
   factory $TransactionModelCopyWith(TransactionModel value, $Res Function(TransactionModel) _then) = _$TransactionModelCopyWithImpl;
 @useResult
 $Res call({
- String id, String accountId, TransactionType type, int amount, DateTime transactionDate, DateTime createdAt, DateTime updatedAt, String? destinationAccountId, String? note, String? recurringTransactionId, String? debtId, List<TransactionItemModel> items
+ String id, String accountId, TransactionType type, int amount, String transactionDate, DateTime createdAt, DateTime updatedAt, String? destinationAccountId, String? note, String? recurringTransactionId, String? debtId, List<TransactionItemModel> items
 });
 
 
@@ -369,7 +369,7 @@ as String,accountId: null == accountId ? _self.accountId : accountId // ignore: 
 as String,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
 as TransactionType,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
 as int,transactionDate: null == transactionDate ? _self.transactionDate : transactionDate // ignore: cast_nullable_to_non_nullable
-as DateTime,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as DateTime,destinationAccountId: freezed == destinationAccountId ? _self.destinationAccountId : destinationAccountId // ignore: cast_nullable_to_non_nullable
 as String?,note: freezed == note ? _self.note : note // ignore: cast_nullable_to_non_nullable
@@ -461,7 +461,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String accountId,  TransactionType type,  int amount,  DateTime transactionDate,  DateTime createdAt,  DateTime updatedAt,  String? destinationAccountId,  String? note,  String? recurringTransactionId,  String? debtId,  List<TransactionItemModel> items)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String accountId,  TransactionType type,  int amount,  String transactionDate,  DateTime createdAt,  DateTime updatedAt,  String? destinationAccountId,  String? note,  String? recurringTransactionId,  String? debtId,  List<TransactionItemModel> items)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _TransactionModel() when $default != null:
 return $default(_that.id,_that.accountId,_that.type,_that.amount,_that.transactionDate,_that.createdAt,_that.updatedAt,_that.destinationAccountId,_that.note,_that.recurringTransactionId,_that.debtId,_that.items);case _:
@@ -482,7 +482,7 @@ return $default(_that.id,_that.accountId,_that.type,_that.amount,_that.transacti
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String accountId,  TransactionType type,  int amount,  DateTime transactionDate,  DateTime createdAt,  DateTime updatedAt,  String? destinationAccountId,  String? note,  String? recurringTransactionId,  String? debtId,  List<TransactionItemModel> items)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String accountId,  TransactionType type,  int amount,  String transactionDate,  DateTime createdAt,  DateTime updatedAt,  String? destinationAccountId,  String? note,  String? recurringTransactionId,  String? debtId,  List<TransactionItemModel> items)  $default,) {final _that = this;
 switch (_that) {
 case _TransactionModel():
 return $default(_that.id,_that.accountId,_that.type,_that.amount,_that.transactionDate,_that.createdAt,_that.updatedAt,_that.destinationAccountId,_that.note,_that.recurringTransactionId,_that.debtId,_that.items);case _:
@@ -502,7 +502,7 @@ return $default(_that.id,_that.accountId,_that.type,_that.amount,_that.transacti
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String accountId,  TransactionType type,  int amount,  DateTime transactionDate,  DateTime createdAt,  DateTime updatedAt,  String? destinationAccountId,  String? note,  String? recurringTransactionId,  String? debtId,  List<TransactionItemModel> items)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String accountId,  TransactionType type,  int amount,  String transactionDate,  DateTime createdAt,  DateTime updatedAt,  String? destinationAccountId,  String? note,  String? recurringTransactionId,  String? debtId,  List<TransactionItemModel> items)?  $default,) {final _that = this;
 switch (_that) {
 case _TransactionModel() when $default != null:
 return $default(_that.id,_that.accountId,_that.type,_that.amount,_that.transactionDate,_that.createdAt,_that.updatedAt,_that.destinationAccountId,_that.note,_that.recurringTransactionId,_that.debtId,_that.items);case _:
@@ -524,7 +524,7 @@ class _TransactionModel implements TransactionModel {
 @override final  String accountId;
 @override final  TransactionType type;
 @override final  int amount;
-@override final  DateTime transactionDate;
+@override final  String transactionDate;
 @override final  DateTime createdAt;
 @override final  DateTime updatedAt;
 @override final  String? destinationAccountId;
@@ -574,7 +574,7 @@ abstract mixin class _$TransactionModelCopyWith<$Res> implements $TransactionMod
   factory _$TransactionModelCopyWith(_TransactionModel value, $Res Function(_TransactionModel) _then) = __$TransactionModelCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String accountId, TransactionType type, int amount, DateTime transactionDate, DateTime createdAt, DateTime updatedAt, String? destinationAccountId, String? note, String? recurringTransactionId, String? debtId, List<TransactionItemModel> items
+ String id, String accountId, TransactionType type, int amount, String transactionDate, DateTime createdAt, DateTime updatedAt, String? destinationAccountId, String? note, String? recurringTransactionId, String? debtId, List<TransactionItemModel> items
 });
 
 
@@ -598,7 +598,7 @@ as String,accountId: null == accountId ? _self.accountId : accountId // ignore: 
 as String,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
 as TransactionType,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
 as int,transactionDate: null == transactionDate ? _self.transactionDate : transactionDate // ignore: cast_nullable_to_non_nullable
-as DateTime,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as DateTime,destinationAccountId: freezed == destinationAccountId ? _self.destinationAccountId : destinationAccountId // ignore: cast_nullable_to_non_nullable
 as String?,note: freezed == note ? _self.note : note // ignore: cast_nullable_to_non_nullable

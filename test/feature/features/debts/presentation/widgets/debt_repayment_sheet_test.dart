@@ -53,7 +53,7 @@ void main() {
           accountId: 'a1',
           type: TransactionType.expense,
           amount: 100,
-          transactionDate: now,
+          transactionDate: '2024-01-01T00:00:00',
           createdAt: now,
           updatedAt: now,
         ),

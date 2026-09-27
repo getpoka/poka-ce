@@ -12,7 +12,7 @@ abstract class RecurringTransactionModel with _$RecurringTransactionModel {
     required TransactionType type,
     required int amount,
     required RecurringPeriod period,
-    required DateTime nextDate,
+    required String nextDate,
     required DateTime createdAt,
     required DateTime updatedAt,
     String? destinationAccountId,

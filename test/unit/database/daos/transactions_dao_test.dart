@@ -35,7 +35,7 @@ void main() {
         accountId: accountId,
         type: TransactionType.income,
         amount: 50000,
-        transactionDate: DateTime.now().toUtc(),
+        transactionDate: '2026-08-23T12:00:00',
       ),
       [const TransactionItemsCompanion(id: Value('item1'), amount: Value(50000))],
     );
@@ -63,7 +63,7 @@ void main() {
         accountId: accountId,
         type: TransactionType.expense,
         amount: 20000,
-        transactionDate: DateTime.now().toUtc(),
+        transactionDate: '2026-08-23T12:00:00',
       ),
       [],
     );
@@ -103,7 +103,7 @@ void main() {
         destinationAccountId: const Value('acc2'),
         type: TransactionType.transfer,
         amount: 30000,
-        transactionDate: DateTime.now().toUtc(),
+        transactionDate: '2026-08-23T12:00:00',
       ),
       [],
     );

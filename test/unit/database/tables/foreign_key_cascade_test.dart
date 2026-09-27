@@ -108,7 +108,7 @@ void main() {
             accountId: accountId,
             type: TransactionType.expense,
             amount: 10000,
-            transactionDate: DateTime.now(),
+            transactionDate: '2026-08-01T00:00:00',
           ),
         );
 
@@ -185,7 +185,7 @@ void main() {
             amount: 500000,
             period: BudgetPeriod.monthly,
             resetDay: const Value(1),
-            startDate: DateTime.now(),
+            startDate: '2026-08-01',
             accountId: const Value(accountId),
           ),
         );
@@ -196,8 +196,8 @@ void main() {
           BudgetRecordsCompanion.insert(
             budgetId: budgetId,
             spentAmount: const Value(10000),
-            periodStart: DateTime.now(),
-            periodEnd: DateTime.now().add(const Duration(days: 30)),
+            periodStart: '2026-08-01',
+            periodEnd: '2026-08-31',
           ),
         );
 

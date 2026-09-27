@@ -10,13 +10,14 @@ import 'package:poka_ce/features/goals/presentation/controllers/goal_notifier.da
 import 'package:poka_ce/features/goals/presentation/screens/goal_list_page.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/theme/theme.dart';
+import 'package:poka_ce/database/converters/local_date_converter.dart';
 
 GoalModel _goal(
   String id,
   String name,
   int targetAmount, {
   String accountId = 'acc1',
-  DateTime? targetDate,
+  String? targetDate,
   GoalStatus status = GoalStatus.active,
 }) {
   return GoalModel(
@@ -121,7 +122,7 @@ void main() {
     });
 
     testWidgets('in progress goal with targetDate shows deadline badge', (tester) async {
-      final future = DateTime.now().add(const Duration(days: 60));
+      final future = todayAsLocalDate(DateTime.now().add(const Duration(days: 60)));
       final g = _goal('g1', 'Future Goal', 5000, accountId: 'a1', targetDate: future);
       final dash = DashboardState(isLoading: false, accounts: [_acc('a1', 100)]);
       final goals = [g];
@@ -139,7 +140,7 @@ void main() {
     });
 
     testWidgets('urgent targetDate shows amber badge (within 30 days)', (tester) async {
-      final urgent = DateTime.now().add(const Duration(days: 5));
+      final urgent = todayAsLocalDate(DateTime.now().add(const Duration(days: 5)));
       final g = _goal('g1', 'Urgent Goal', 10000, accountId: 'a1', targetDate: urgent);
       final dash = DashboardState(isLoading: false, accounts: [_acc('a1', 2000)]);
       final goals = [g];

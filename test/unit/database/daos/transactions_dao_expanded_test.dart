@@ -15,8 +15,8 @@ void main() {
       await db
           .into(db.accounts)
           .insert(AccountsCompanion.insert(id: const Value('acc1'), name: 'W', type: AccountType.assets));
-      final t1 = DateTime.utc(2026);
-      final t2 = DateTime.utc(2026, 6);
+      const t1 = '2026-01-01T00:00:00';
+      const t2 = '2026-06-01T00:00:00';
       await db.transactionsDao.insertTransactionWithItems(
         TransactionsCompanion.insert(
           id: const Value('txn1'),
@@ -52,7 +52,7 @@ void main() {
           accountId: 'acc1',
           type: TransactionType.expense,
           amount: 500,
-          transactionDate: DateTime.now().toUtc(),
+          transactionDate: '2026-08-23T12:00:00',
         ),
         [],
       );
@@ -73,7 +73,7 @@ void main() {
           accountId: 'acc1',
           type: TransactionType.expense,
           amount: 15000,
-          transactionDate: DateTime.now().toUtc(),
+          transactionDate: '2026-08-23T12:00:00',
         ),
         [
           TransactionItemsCompanion.insert(
@@ -108,7 +108,7 @@ void main() {
           accountId: 'acc1',
           type: TransactionType.income,
           amount: 1,
-          transactionDate: DateTime.now().toUtc(),
+          transactionDate: '2026-08-23T12:00:00',
         ),
         [],
       );
@@ -133,7 +133,7 @@ void main() {
           accountId: 'acc1',
           type: TransactionType.expense,
           amount: 1,
-          transactionDate: DateTime.now().toUtc(),
+          transactionDate: '2026-08-23T12:00:00',
         ),
         [],
       );
@@ -169,7 +169,7 @@ void main() {
           destinationAccountId: const Value('dst'),
           type: TransactionType.transfer,
           amount: 4000,
-          transactionDate: DateTime.now().toUtc(),
+          transactionDate: '2026-08-23T12:00:00',
         ),
         [],
       );
@@ -196,7 +196,7 @@ void main() {
           accountId: 'src',
           type: TransactionType.transfer,
           amount: 3000,
-          transactionDate: DateTime.now().toUtc(),
+          transactionDate: '2026-08-23T12:00:00',
         ),
         [],
       );
@@ -227,7 +227,7 @@ void main() {
           accountId: 'acc1',
           type: TransactionType.expense,
           amount: 30000,
-          transactionDate: DateTime.now().toUtc(),
+          transactionDate: '2026-08-23T12:00:00',
         ),
         [
           TransactionItemsCompanion.insert(
@@ -268,7 +268,7 @@ void main() {
           accountId: 'acc1',
           type: TransactionType.income,
           amount: 100000,
-          transactionDate: DateTime.utc(2026),
+          transactionDate: '2026-01-01T00:00:00',
         ),
         [],
       );
@@ -278,7 +278,7 @@ void main() {
           accountId: 'acc1',
           type: TransactionType.expense,
           amount: 30000,
-          transactionDate: DateTime.utc(2026, 1, 2),
+          transactionDate: '2026-01-02T00:00:00',
         ),
         [],
       );
@@ -288,7 +288,7 @@ void main() {
           accountId: 'acc1',
           type: TransactionType.expense,
           amount: 20000,
-          transactionDate: DateTime.utc(2026, 1, 3),
+          transactionDate: '2026-01-03T00:00:00',
         ),
         [],
       );
@@ -318,7 +318,7 @@ void main() {
           accountId: 'acc1',
           type: TransactionType.income,
           amount: 10000,
-          transactionDate: DateTime.now().toUtc(),
+          transactionDate: '2026-08-23T12:00:00',
           debtId: const Value('d1'),
         ),
         [],
@@ -340,7 +340,7 @@ void main() {
               type: TransactionType.expense,
               amount: 5000,
               period: RecurringPeriod.monthly,
-              nextDate: DateTime.now().toUtc(),
+              nextDate: '2026-08-23',
             ),
           );
       await db.transactionsDao.insertTransactionWithItems(
@@ -349,7 +349,7 @@ void main() {
           accountId: 'acc1',
           type: TransactionType.expense,
           amount: 5000,
-          transactionDate: DateTime.now().toUtc(),
+          transactionDate: '2026-08-23T12:00:00',
           recurringTransactionId: const Value('rec1'),
         ),
         [],
@@ -375,7 +375,7 @@ void main() {
           accountId: 'acc1',
           type: TransactionType.expense,
           amount: 0,
-          transactionDate: DateTime.now().toUtc(),
+          transactionDate: '2026-08-23T12:00:00',
         ),
         [],
       );

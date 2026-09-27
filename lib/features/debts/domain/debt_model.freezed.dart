@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$DebtModel {
 
- String get id; String get personName; DebtType get type; int get amount; int get remainingAmount; DebtStatus get status; DateTime get createdAt; DateTime get updatedAt; DateTime? get dueDate; String? get note;
+ String get id; String get personName; DebtType get type; int get amount; int get remainingAmount; DebtStatus get status; DateTime get createdAt; DateTime get updatedAt; String? get dueDate; String? get note;
 /// Create a copy of DebtModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -54,7 +54,7 @@ abstract mixin class $DebtModelCopyWith<$Res>  {
   factory $DebtModelCopyWith(DebtModel value, $Res Function(DebtModel) _then) = _$DebtModelCopyWithImpl;
 @useResult
 $Res call({
- String id, String personName, DebtType type, int amount, int remainingAmount, DebtStatus status, DateTime createdAt, DateTime updatedAt, DateTime? dueDate, String? note
+ String id, String personName, DebtType type, int amount, int remainingAmount, DebtStatus status, DateTime createdAt, DateTime updatedAt, String? dueDate, String? note
 });
 
 
@@ -82,7 +82,7 @@ as int,status: null == status ? _self.status : status // ignore: cast_nullable_t
 as DebtStatus,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as DateTime,dueDate: freezed == dueDate ? _self.dueDate : dueDate // ignore: cast_nullable_to_non_nullable
-as DateTime?,note: freezed == note ? _self.note : note // ignore: cast_nullable_to_non_nullable
+as String?,note: freezed == note ? _self.note : note // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
@@ -168,7 +168,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String personName,  DebtType type,  int amount,  int remainingAmount,  DebtStatus status,  DateTime createdAt,  DateTime updatedAt,  DateTime? dueDate,  String? note)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String personName,  DebtType type,  int amount,  int remainingAmount,  DebtStatus status,  DateTime createdAt,  DateTime updatedAt,  String? dueDate,  String? note)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _DebtModel() when $default != null:
 return $default(_that.id,_that.personName,_that.type,_that.amount,_that.remainingAmount,_that.status,_that.createdAt,_that.updatedAt,_that.dueDate,_that.note);case _:
@@ -189,7 +189,7 @@ return $default(_that.id,_that.personName,_that.type,_that.amount,_that.remainin
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String personName,  DebtType type,  int amount,  int remainingAmount,  DebtStatus status,  DateTime createdAt,  DateTime updatedAt,  DateTime? dueDate,  String? note)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String personName,  DebtType type,  int amount,  int remainingAmount,  DebtStatus status,  DateTime createdAt,  DateTime updatedAt,  String? dueDate,  String? note)  $default,) {final _that = this;
 switch (_that) {
 case _DebtModel():
 return $default(_that.id,_that.personName,_that.type,_that.amount,_that.remainingAmount,_that.status,_that.createdAt,_that.updatedAt,_that.dueDate,_that.note);case _:
@@ -209,7 +209,7 @@ return $default(_that.id,_that.personName,_that.type,_that.amount,_that.remainin
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String personName,  DebtType type,  int amount,  int remainingAmount,  DebtStatus status,  DateTime createdAt,  DateTime updatedAt,  DateTime? dueDate,  String? note)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String personName,  DebtType type,  int amount,  int remainingAmount,  DebtStatus status,  DateTime createdAt,  DateTime updatedAt,  String? dueDate,  String? note)?  $default,) {final _that = this;
 switch (_that) {
 case _DebtModel() when $default != null:
 return $default(_that.id,_that.personName,_that.type,_that.amount,_that.remainingAmount,_that.status,_that.createdAt,_that.updatedAt,_that.dueDate,_that.note);case _:
@@ -235,7 +235,7 @@ class _DebtModel implements DebtModel {
 @override final  DebtStatus status;
 @override final  DateTime createdAt;
 @override final  DateTime updatedAt;
-@override final  DateTime? dueDate;
+@override final  String? dueDate;
 @override final  String? note;
 
 /// Create a copy of DebtModel
@@ -273,7 +273,7 @@ abstract mixin class _$DebtModelCopyWith<$Res> implements $DebtModelCopyWith<$Re
   factory _$DebtModelCopyWith(_DebtModel value, $Res Function(_DebtModel) _then) = __$DebtModelCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String personName, DebtType type, int amount, int remainingAmount, DebtStatus status, DateTime createdAt, DateTime updatedAt, DateTime? dueDate, String? note
+ String id, String personName, DebtType type, int amount, int remainingAmount, DebtStatus status, DateTime createdAt, DateTime updatedAt, String? dueDate, String? note
 });
 
 
@@ -301,7 +301,7 @@ as int,status: null == status ? _self.status : status // ignore: cast_nullable_t
 as DebtStatus,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as DateTime,dueDate: freezed == dueDate ? _self.dueDate : dueDate // ignore: cast_nullable_to_non_nullable
-as DateTime?,note: freezed == note ? _self.note : note // ignore: cast_nullable_to_non_nullable
+as String?,note: freezed == note ? _self.note : note // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }

@@ -1,6 +1,7 @@
 import 'package:poka_ce/app/providers/use_case_providers.dart';
 import 'package:poka_ce/core/enums.dart';
 import 'package:poka_ce/core/extensions/string_extension.dart';
+import 'package:poka_ce/database/converters/local_date_converter.dart';
 import 'package:poka_ce/features/dashboard/presentation/controllers/dashboard_notifier.dart';
 import 'package:poka_ce/features/debts/domain/debt_model.dart';
 import 'package:poka_ce/shared/utils/math_evaluator.dart';
@@ -144,7 +145,7 @@ class DebtRepaymentNotifier extends _$DebtRepaymentNotifier {
             amount: amount,
             debtId: debt.id,
             note: state.note.isNotEmpty ? state.note : 'Repayment for ${debt.personName}',
-            transactionDate: state.date,
+            transactionDate: nowAsLocalDateTime(state.date),
           );
 
       return await result.fold(

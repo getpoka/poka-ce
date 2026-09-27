@@ -41,7 +41,7 @@ void main() {
     type: TransactionType.expense,
     amount: 100,
     period: RecurringPeriod.monthly,
-    nextDate: testDate,
+    nextDate: '2023-10-10',
     createdAt: testDate,
     updatedAt: testDate,
   );
@@ -81,7 +81,7 @@ void main() {
       final updatedRecurring = captured.first as RecurringTransactionModel;
 
       // Check if nextDate advanced by a month
-      expect(updatedRecurring.nextDate, DateTime.utc(2023, 11, 10));
+      expect(updatedRecurring.nextDate, '2023-11-10');
     });
 
     test('run handles transaction creation failure', () async {
@@ -123,7 +123,7 @@ void main() {
         await service.run(testDate);
 
         final captured = verify(() => recurringRepo.updateRecurring(captureAny())).captured;
-        expect((captured.first as RecurringTransactionModel).nextDate, testDate.add(const Duration(days: 1)));
+        expect((captured.first as RecurringTransactionModel).nextDate, '2023-10-11');
       });
 
       test('Weekly advancement', () async {
@@ -135,7 +135,7 @@ void main() {
         await service.run(testDate);
 
         final captured = verify(() => recurringRepo.updateRecurring(captureAny())).captured;
-        expect((captured.first as RecurringTransactionModel).nextDate, testDate.add(const Duration(days: 7)));
+        expect((captured.first as RecurringTransactionModel).nextDate, '2023-10-17');
       });
 
       test('Yearly advancement', () async {
@@ -147,12 +147,12 @@ void main() {
         await service.run(testDate);
 
         final captured = verify(() => recurringRepo.updateRecurring(captureAny())).captured;
-        expect((captured.first as RecurringTransactionModel).nextDate, DateTime.utc(2024, 10, 10));
+        expect((captured.first as RecurringTransactionModel).nextDate, '2024-10-10');
       });
 
       test('Monthly advancement clamps days when target month has fewer days', () async {
         final jan31 = DateTime.utc(2023, 1, 31);
-        final recurring = testRecurring.copyWith(period: RecurringPeriod.monthly, nextDate: jan31);
+        final recurring = testRecurring.copyWith(period: RecurringPeriod.monthly, nextDate: '2023-01-31');
         when(() => recurringRepo.getDueRecurringTransactions(any())).thenAnswer((_) async => Success([recurring]));
         when(() => transactionRepo.createTransaction(any())).thenAnswer((_) async => const Success(null));
         when(() => recurringRepo.updateRecurring(any())).thenAnswer((_) async => const Success(null));
@@ -161,12 +161,12 @@ void main() {
 
         final captured = verify(() => recurringRepo.updateRecurring(captureAny())).captured;
         // 2023 is non-leap year, February has 28 days -> must be Feb 28, not March
-        expect((captured.first as RecurringTransactionModel).nextDate, DateTime.utc(2023, 2, 28));
+        expect((captured.first as RecurringTransactionModel).nextDate, '2023-02-28');
       });
 
       test('Yearly advancement clamps leap day (Feb 29) to Feb 28 in non-leap year', () async {
         final leapDay = DateTime.utc(2024, 2, 29);
-        final recurring = testRecurring.copyWith(period: RecurringPeriod.yearly, nextDate: leapDay);
+        final recurring = testRecurring.copyWith(period: RecurringPeriod.yearly, nextDate: '2024-02-29');
         when(() => recurringRepo.getDueRecurringTransactions(any())).thenAnswer((_) async => Success([recurring]));
         when(() => transactionRepo.createTransaction(any())).thenAnswer((_) async => const Success(null));
         when(() => recurringRepo.updateRecurring(any())).thenAnswer((_) async => const Success(null));
@@ -174,7 +174,7 @@ void main() {
         await service.run(leapDay);
 
         final captured = verify(() => recurringRepo.updateRecurring(captureAny())).captured;
-        expect((captured.first as RecurringTransactionModel).nextDate, DateTime.utc(2025, 2, 28));
+        expect((captured.first as RecurringTransactionModel).nextDate, '2025-02-28');
       });
     });
   });

@@ -12,6 +12,7 @@ import 'package:poka_ce/features/accounts/domain/i_account_repository.dart';
 import 'package:poka_ce/features/transactions/domain/i_transaction_repository.dart';
 import 'package:poka_ce/features/categories/domain/i_category_repository.dart';
 import 'package:poka_ce/core/error/result.dart';
+import 'package:poka_ce/database/converters/local_date_converter.dart';
 
 class MockAccountRepo extends Mock implements IAccountRepository {}
 
@@ -51,14 +52,14 @@ void main() {
 
   group('DashboardState dailySpending branches (mutation hardening)', () {
     test('dailySpending excludes income, future tx, and >=7 days (mutation <7 -> <=7)', () {
-      final now = DateTime.now().toUtc();
+      final now = DateTime.now();
       final txs = [
         TransactionModel(
           id: '1',
           accountId: 'a',
           type: TransactionType.expense,
           amount: 100,
-          transactionDate: now.subtract(const Duration(days: 6)),
+          transactionDate: formatAsLocalDateTime(now.subtract(const Duration(days: 6))),
           createdAt: now,
           updatedAt: now,
         ),
@@ -67,7 +68,7 @@ void main() {
           accountId: 'a',
           type: TransactionType.expense,
           amount: 999,
-          transactionDate: now.subtract(const Duration(days: 7, hours: 2)),
+          transactionDate: formatAsLocalDateTime(now.subtract(const Duration(days: 7, hours: 2))),
           createdAt: now,
           updatedAt: now,
         ),
@@ -76,7 +77,7 @@ void main() {
           accountId: 'a',
           type: TransactionType.expense,
           amount: 888,
-          transactionDate: now.add(const Duration(days: 2)),
+          transactionDate: formatAsLocalDateTime(now.add(const Duration(days: 2))),
           createdAt: now,
           updatedAt: now,
         ),
@@ -85,7 +86,7 @@ void main() {
           accountId: 'a',
           type: TransactionType.income,
           amount: 500,
-          transactionDate: now,
+          transactionDate: formatAsLocalDateTime(now),
           createdAt: now,
           updatedAt: now,
         ),
@@ -98,14 +99,14 @@ void main() {
     });
 
     test('dailySpending today expense at index 6', () {
-      final now = DateTime.now().toUtc();
+      final now = DateTime.now();
       final txs = [
         TransactionModel(
           id: '1',
           accountId: 'a',
           type: TransactionType.expense,
           amount: 42,
-          transactionDate: now,
+          transactionDate: formatAsLocalDateTime(now),
           createdAt: now,
           updatedAt: now,
         ),
@@ -122,14 +123,14 @@ void main() {
     });
 
     test('normalizedDailySpending scales correctly', () {
-      final now = DateTime.now().toUtc();
+      final now = DateTime.now();
       final txs = [
         TransactionModel(
           id: '1',
           accountId: 'a',
           type: TransactionType.expense,
           amount: 20,
-          transactionDate: now,
+          transactionDate: formatAsLocalDateTime(now),
           createdAt: now,
           updatedAt: now,
         ),
@@ -138,7 +139,7 @@ void main() {
           accountId: 'a',
           type: TransactionType.expense,
           amount: 10,
-          transactionDate: now.subtract(const Duration(days: 1)),
+          transactionDate: formatAsLocalDateTime(now.subtract(const Duration(days: 1))),
           createdAt: now,
           updatedAt: now,
         ),
@@ -160,7 +161,7 @@ void main() {
           accountId: 'a',
           type: TransactionType.expense,
           amount: 150,
-          transactionDate: now,
+          transactionDate: '2024-01-01T00:00:00',
           createdAt: now,
           updatedAt: now,
           items: [
@@ -239,7 +240,7 @@ void main() {
           accountId: 'a',
           type: TransactionType.expense,
           amount: 300,
-          transactionDate: now,
+          transactionDate: '2024-01-01T00:00:00',
           createdAt: now,
           updatedAt: now,
           items: [

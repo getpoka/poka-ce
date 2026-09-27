@@ -13,7 +13,7 @@ void main() {
         type: TransactionType.expense,
         amount: 1000,
         period: RecurringPeriod.monthly,
-        nextDate: now,
+        nextDate: '2024-01-01',
         createdAt: now,
         updatedAt: now,
         destinationAccountId: 'a2',
@@ -35,7 +35,7 @@ void main() {
         type: TransactionType.expense,
         amount: 1000,
         period: RecurringPeriod.monthly,
-        nextDate: now,
+        nextDate: '2024-01-01',
         createdAt: now,
         updatedAt: now,
       );
@@ -52,7 +52,7 @@ void main() {
         type: TransactionType.income,
         amount: 1000,
         period: RecurringPeriod.weekly,
-        nextDate: now,
+        nextDate: '2024-01-01',
         createdAt: now,
         updatedAt: now,
       );
@@ -62,7 +62,7 @@ void main() {
         type: TransactionType.income,
         amount: 1000,
         period: RecurringPeriod.weekly,
-        nextDate: now,
+        nextDate: '2024-01-01',
         createdAt: now,
         updatedAt: now,
       );
@@ -77,7 +77,7 @@ void main() {
         type: TransactionType.expense,
         amount: 1000,
         period: RecurringPeriod.monthly,
-        nextDate: now,
+        nextDate: '2024-01-01',
         createdAt: now,
         updatedAt: now,
       );

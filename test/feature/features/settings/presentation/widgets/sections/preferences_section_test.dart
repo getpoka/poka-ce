@@ -88,7 +88,7 @@ void main() {
       accountId: 'acc-1',
       type: TransactionType.expense,
       amount: 1000,
-      transactionDate: DateTime.now(),
+      transactionDate: '2024-01-01T00:00:00',
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
     );
@@ -122,7 +122,7 @@ void main() {
       accountId: 'acc-1',
       type: TransactionType.expense,
       amount: 1000,
-      transactionDate: DateTime.now(),
+      transactionDate: '2024-01-01T00:00:00',
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
     );

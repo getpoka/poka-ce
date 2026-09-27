@@ -43,7 +43,7 @@ void main() {
         type: TransactionType.expense,
         amount: 100,
         period: RecurringPeriod.monthly,
-        nextDate: DateTime.utc(2025, 1, 1),
+        nextDate: '2025-01-01',
         createdAt: DateTime.now(),
         updatedAt: DateTime.now(),
       ),
@@ -136,7 +136,7 @@ void main() {
       type: TransactionType.expense,
       amount: 100,
       period: RecurringPeriod.monthly,
-      nextDate: DateTime.utc(2025, 1, 1),
+      nextDate: '2025-01-01',
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
     );
@@ -177,7 +177,7 @@ void main() {
       type: TransactionType.expense,
       amount: 50000, // 500.00 in precision 2
       period: RecurringPeriod.monthly,
-      nextDate: DateTime.utc(2025, 1, 1),
+      nextDate: '2025-01-01',
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
     );

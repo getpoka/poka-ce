@@ -26,7 +26,7 @@ class UpdateTransactionUseCase {
     int? amount, // Total amount. If null, calculated from items
     String? categoryId,
     String? note,
-    DateTime? transactionDate,
+    String? transactionDate,
     TransactionAllocation? allocation,
     List<({String? categoryId, int amount, String? note, TransactionAllocation? allocation})>? splitItems,
   }) async {

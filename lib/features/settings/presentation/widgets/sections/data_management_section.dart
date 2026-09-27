@@ -7,6 +7,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poka_ce/app/providers/repository_providers.dart';
 import 'package:poka_ce/app/router/router.dart';
 import 'package:poka_ce/core/services/preferences_service.dart';
+import 'package:poka_ce/database/converters/local_date_converter.dart';
 import 'package:poka_ce/features/accounts/presentation/controllers/account_list_notifier.dart';
 import 'package:poka_ce/features/backup/domain/backup_reminder_service.dart';
 import 'package:poka_ce/features/backup/presentation/controllers/backup_controller.dart';
@@ -189,7 +190,8 @@ class DataManagementSection extends ConsumerWidget {
             if (!isSecure) return;
 
             final oneYearAgo = DateTime.now().subtract(const Duration(days: 365));
-            await ref.read(databaseProvider).transactionsDao.clearOldTransactions(oneYearAgo);
+            final cutoffDate = formatAsLocalDateTime(oneYearAgo);
+            await ref.read(databaseProvider).transactionsDao.clearOldTransactions(cutoffDate);
 
             if (!context.mounted) return;
             showPokaToast(context: context, title: Text(t.settings.oldTransactionsCleared));

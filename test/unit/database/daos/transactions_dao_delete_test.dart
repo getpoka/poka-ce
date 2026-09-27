@@ -27,7 +27,7 @@ void main() {
           accountId: 'acc1',
           type: TransactionType.income,
           amount: 50000,
-          transactionDate: DateTime.now().toUtc(),
+          transactionDate: '2026-08-23T12:00:00',
         ),
         [],
       );
@@ -47,7 +47,7 @@ void main() {
           accountId: 'acc1',
           type: TransactionType.expense,
           amount: 20000,
-          transactionDate: DateTime.now().toUtc(),
+          transactionDate: '2026-08-23T12:00:00',
         ),
         [],
       );
@@ -68,7 +68,7 @@ void main() {
           destinationAccountId: const Value('dst'),
           type: TransactionType.transfer,
           amount: 30000,
-          transactionDate: DateTime.now().toUtc(),
+          transactionDate: '2026-08-23T12:00:00',
         ),
         [],
       );
@@ -91,7 +91,7 @@ void main() {
           accountId: 'src',
           type: TransactionType.transfer,
           amount: 10000,
-          transactionDate: DateTime.now().toUtc(),
+          transactionDate: '2026-08-23T12:00:00',
         ),
         [],
       );
@@ -118,7 +118,7 @@ void main() {
           accountId: 'acc1',
           type: TransactionType.income,
           amount: 100,
-          transactionDate: DateTime.utc(2026, 1, 1),
+          transactionDate: '2026-01-01T00:00:00',
         ),
         [],
       );
@@ -135,7 +135,7 @@ void main() {
           accountId: 'acc1',
           type: TransactionType.expense,
           amount: 100,
-          transactionDate: DateTime.now().toUtc(),
+          transactionDate: '2026-08-23T12:00:00',
         ),
         [const TransactionItemsCompanion(id: Value('i1'), amount: Value(100))],
       );
@@ -152,7 +152,7 @@ void main() {
           accountId: 'acc1',
           type: TransactionType.expense,
           amount: 200,
-          transactionDate: DateTime.now().toUtc(),
+          transactionDate: '2026-08-23T12:00:00',
         ),
         [
           const TransactionItemsCompanion(id: Value('i1'), amount: Value(100)),
@@ -172,7 +172,7 @@ void main() {
           accountId: 'acc1',
           type: TransactionType.income,
           amount: 5000,
-          transactionDate: DateTime.now().toUtc(),
+          transactionDate: '2026-08-23T12:00:00',
         ),
         [],
       );
@@ -205,7 +205,7 @@ void main() {
           type: TransactionType.income,
           amount: 5000,
           debtId: const Value('debt1'),
-          transactionDate: DateTime.now().toUtc(),
+          transactionDate: '2026-08-23T12:00:00',
         ),
         [],
       );

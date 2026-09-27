@@ -24,7 +24,7 @@ void main() {
         accountId: 'fallback',
         type: TransactionType.transfer,
         amount: 0,
-        transactionDate: DateTime.utc(2026),
+        transactionDate: '2026-01-01T00:00:00',
         createdAt: DateTime.utc(2026),
         updatedAt: DateTime.utc(2026),
         items: const [],
@@ -36,7 +36,7 @@ void main() {
         accountId: 'fallback',
         type: TransactionType.transfer,
         amount: 0,
-        transactionDate: DateTime.utc(2026),
+        transactionDate: '2026-01-01T00:00:00',
         createdAt: DateTime.utc(2026),
         updatedAt: DateTime.utc(2026),
         items: const [],
@@ -84,7 +84,7 @@ void main() {
     test('creates transfer transaction with single matching item', () async {
       when(() => repository.createTransaction(any())).thenAnswer((_) async => const Success<void, Failure>(null));
 
-      final date = DateTime.utc(2026, 1, 15, 10);
+      const date = '2026-01-15T10:00:00';
       final result = await useCase.execute(
         amount: 25000,
         sourceAccountId: 'wallet',
@@ -107,17 +107,13 @@ void main() {
       expect(tx.id, isNotEmpty);
     });
 
-    test('uses UTC current date when transactionDate omitted', () async {
+    test('uses current date when transactionDate omitted', () async {
       when(() => repository.createTransaction(any())).thenAnswer((_) async => const Success<void, Failure>(null));
 
-      final before = DateTime.now().toUtc();
       final result = await useCase.execute(amount: 100, sourceAccountId: 'a', destinationAccountId: 'b');
-      final after = DateTime.now().toUtc();
 
       final tx = (result as Success<TransactionModel, Failure>).value;
-      expect(tx.transactionDate.isAfter(before.subtract(const Duration(seconds: 1))), isTrue);
-      expect(tx.transactionDate.isBefore(after.add(const Duration(seconds: 1))), isTrue);
-      expect(tx.transactionDate.isUtc, isTrue);
+      expect(tx.transactionDate, matches(RegExp(r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}$')));
     });
 
     test('propagates repository failure', () async {

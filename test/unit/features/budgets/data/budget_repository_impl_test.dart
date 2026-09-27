@@ -26,7 +26,7 @@ void main() {
     name: 'Budget $id',
     amount: 100000,
     period: BudgetPeriod.monthly,
-    startDate: now,
+    startDate: '2026-08-01',
     categoryId: cat,
     accountId: acc,
     resetDay: 1,
@@ -61,7 +61,7 @@ void main() {
       name: 'Updated',
       amount: 999,
       period: BudgetPeriod.weekly,
-      startDate: now,
+      startDate: '2026-08-01',
       createdAt: now,
       updatedAt: now,
     );

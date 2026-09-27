@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$RecurringTransactionModel {
 
- String get id; String get accountId; TransactionType get type; int get amount; RecurringPeriod get period; DateTime get nextDate; DateTime get createdAt; DateTime get updatedAt; String? get destinationAccountId; String? get categoryId; TransactionAllocation? get allocation; String? get note; bool get isActive;
+ String get id; String get accountId; TransactionType get type; int get amount; RecurringPeriod get period; String get nextDate; DateTime get createdAt; DateTime get updatedAt; String? get destinationAccountId; String? get categoryId; TransactionAllocation? get allocation; String? get note; bool get isActive;
 /// Create a copy of RecurringTransactionModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -54,7 +54,7 @@ abstract mixin class $RecurringTransactionModelCopyWith<$Res>  {
   factory $RecurringTransactionModelCopyWith(RecurringTransactionModel value, $Res Function(RecurringTransactionModel) _then) = _$RecurringTransactionModelCopyWithImpl;
 @useResult
 $Res call({
- String id, String accountId, TransactionType type, int amount, RecurringPeriod period, DateTime nextDate, DateTime createdAt, DateTime updatedAt, String? destinationAccountId, String? categoryId, TransactionAllocation? allocation, String? note, bool isActive
+ String id, String accountId, TransactionType type, int amount, RecurringPeriod period, String nextDate, DateTime createdAt, DateTime updatedAt, String? destinationAccountId, String? categoryId, TransactionAllocation? allocation, String? note, bool isActive
 });
 
 
@@ -79,7 +79,7 @@ as String,type: null == type ? _self.type : type // ignore: cast_nullable_to_non
 as TransactionType,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
 as int,period: null == period ? _self.period : period // ignore: cast_nullable_to_non_nullable
 as RecurringPeriod,nextDate: null == nextDate ? _self.nextDate : nextDate // ignore: cast_nullable_to_non_nullable
-as DateTime,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as DateTime,destinationAccountId: freezed == destinationAccountId ? _self.destinationAccountId : destinationAccountId // ignore: cast_nullable_to_non_nullable
 as String?,categoryId: freezed == categoryId ? _self.categoryId : categoryId // ignore: cast_nullable_to_non_nullable
@@ -171,7 +171,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String accountId,  TransactionType type,  int amount,  RecurringPeriod period,  DateTime nextDate,  DateTime createdAt,  DateTime updatedAt,  String? destinationAccountId,  String? categoryId,  TransactionAllocation? allocation,  String? note,  bool isActive)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String accountId,  TransactionType type,  int amount,  RecurringPeriod period,  String nextDate,  DateTime createdAt,  DateTime updatedAt,  String? destinationAccountId,  String? categoryId,  TransactionAllocation? allocation,  String? note,  bool isActive)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _RecurringTransactionModel() when $default != null:
 return $default(_that.id,_that.accountId,_that.type,_that.amount,_that.period,_that.nextDate,_that.createdAt,_that.updatedAt,_that.destinationAccountId,_that.categoryId,_that.allocation,_that.note,_that.isActive);case _:
@@ -192,7 +192,7 @@ return $default(_that.id,_that.accountId,_that.type,_that.amount,_that.period,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String accountId,  TransactionType type,  int amount,  RecurringPeriod period,  DateTime nextDate,  DateTime createdAt,  DateTime updatedAt,  String? destinationAccountId,  String? categoryId,  TransactionAllocation? allocation,  String? note,  bool isActive)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String accountId,  TransactionType type,  int amount,  RecurringPeriod period,  String nextDate,  DateTime createdAt,  DateTime updatedAt,  String? destinationAccountId,  String? categoryId,  TransactionAllocation? allocation,  String? note,  bool isActive)  $default,) {final _that = this;
 switch (_that) {
 case _RecurringTransactionModel():
 return $default(_that.id,_that.accountId,_that.type,_that.amount,_that.period,_that.nextDate,_that.createdAt,_that.updatedAt,_that.destinationAccountId,_that.categoryId,_that.allocation,_that.note,_that.isActive);case _:
@@ -212,7 +212,7 @@ return $default(_that.id,_that.accountId,_that.type,_that.amount,_that.period,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String accountId,  TransactionType type,  int amount,  RecurringPeriod period,  DateTime nextDate,  DateTime createdAt,  DateTime updatedAt,  String? destinationAccountId,  String? categoryId,  TransactionAllocation? allocation,  String? note,  bool isActive)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String accountId,  TransactionType type,  int amount,  RecurringPeriod period,  String nextDate,  DateTime createdAt,  DateTime updatedAt,  String? destinationAccountId,  String? categoryId,  TransactionAllocation? allocation,  String? note,  bool isActive)?  $default,) {final _that = this;
 switch (_that) {
 case _RecurringTransactionModel() when $default != null:
 return $default(_that.id,_that.accountId,_that.type,_that.amount,_that.period,_that.nextDate,_that.createdAt,_that.updatedAt,_that.destinationAccountId,_that.categoryId,_that.allocation,_that.note,_that.isActive);case _:
@@ -235,7 +235,7 @@ class _RecurringTransactionModel implements RecurringTransactionModel {
 @override final  TransactionType type;
 @override final  int amount;
 @override final  RecurringPeriod period;
-@override final  DateTime nextDate;
+@override final  String nextDate;
 @override final  DateTime createdAt;
 @override final  DateTime updatedAt;
 @override final  String? destinationAccountId;
@@ -279,7 +279,7 @@ abstract mixin class _$RecurringTransactionModelCopyWith<$Res> implements $Recur
   factory _$RecurringTransactionModelCopyWith(_RecurringTransactionModel value, $Res Function(_RecurringTransactionModel) _then) = __$RecurringTransactionModelCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String accountId, TransactionType type, int amount, RecurringPeriod period, DateTime nextDate, DateTime createdAt, DateTime updatedAt, String? destinationAccountId, String? categoryId, TransactionAllocation? allocation, String? note, bool isActive
+ String id, String accountId, TransactionType type, int amount, RecurringPeriod period, String nextDate, DateTime createdAt, DateTime updatedAt, String? destinationAccountId, String? categoryId, TransactionAllocation? allocation, String? note, bool isActive
 });
 
 
@@ -304,7 +304,7 @@ as String,type: null == type ? _self.type : type // ignore: cast_nullable_to_non
 as TransactionType,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
 as int,period: null == period ? _self.period : period // ignore: cast_nullable_to_non_nullable
 as RecurringPeriod,nextDate: null == nextDate ? _self.nextDate : nextDate // ignore: cast_nullable_to_non_nullable
-as DateTime,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as DateTime,destinationAccountId: freezed == destinationAccountId ? _self.destinationAccountId : destinationAccountId // ignore: cast_nullable_to_non_nullable
 as String?,categoryId: freezed == categoryId ? _self.categoryId : categoryId // ignore: cast_nullable_to_non_nullable

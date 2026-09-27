@@ -11,14 +11,14 @@ abstract class BudgetModel with _$BudgetModel {
     required String name,
     required int amount,
     required BudgetPeriod period,
-    required DateTime startDate,
+    required String startDate,
     required DateTime createdAt,
     required DateTime updatedAt,
     String? categoryId,
     String? accountId,
     int? resetDay,
     int? alertThreshold,
-    DateTime? endDate,
+    String? endDate,
   }) = _BudgetModel;
 
   factory fromJson(Map<String, dynamic> json) => _$BudgetModelFromJson(json);
@@ -31,8 +31,8 @@ abstract class BudgetRecordModel with _$BudgetRecordModel {
     required String id,
     required String budgetId,
     required int spentAmount,
-    required DateTime periodStart,
-    required DateTime periodEnd,
+    required String periodStart,
+    required String periodEnd,
     required DateTime createdAt,
     required DateTime updatedAt,
   }) = _BudgetRecordModel;

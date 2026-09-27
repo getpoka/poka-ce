@@ -34,7 +34,7 @@ void main() {
       accountId: 'a1',
       type: TransactionType.expense,
       amount: 500,
-      transactionDate: DateTime.now(),
+      transactionDate: '2024-01-01T00:00:00',
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
       items: [
@@ -93,7 +93,7 @@ void main() {
       accountId: 'acc_1',
       type: TransactionType.expense,
       amount: 150000,
-      transactionDate: DateTime.now(),
+      transactionDate: '2024-01-01T00:00:00',
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
       items: [
@@ -153,7 +153,7 @@ void main() {
       type: TransactionType.expense,
       amount: 250000,
       debtId: 'debt-123',
-      transactionDate: DateTime.now(),
+      transactionDate: '2024-01-01T00:00:00',
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
       items: [
@@ -191,7 +191,7 @@ void main() {
       type: TransactionType.income,
       amount: 150000,
       debtId: 'loan-123',
-      transactionDate: DateTime.now(),
+      transactionDate: '2024-01-01T00:00:00',
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
       items: [

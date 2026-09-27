@@ -82,8 +82,8 @@ class TransactionsDao extends DatabaseAccessor<AppDatabase> with _$TransactionsD
 
   /// Observes transactions filtered by optional dates, accounts, categories, types, debts, and recurring IDs.
   Stream<List<TransactionWithItems>> watchTransactionsFiltered({
-    DateTime? startDate,
-    DateTime? endDate,
+    String? startDate,
+    String? endDate,
     Set<String> accountIds = const {},
     Set<String> categoryIds = const {},
     Set<TransactionType> types = const {},
@@ -341,7 +341,7 @@ class TransactionsDao extends DatabaseAccessor<AppDatabase> with _$TransactionsD
   }
 
   /// Deletes transactions older than [beforeDate] without altering current account balances.
-  Future<int> clearOldTransactions(DateTime beforeDate) async {
+  Future<int> clearOldTransactions(String beforeDate) async {
     // Delete transactions older than beforeDate without touching current balances.
     // The detail items are pruned automatically via SQLite cascade delete.
     return await (delete(transactions)..where((t) => t.transactionDate.isSmallerThanValue(beforeDate))).go();

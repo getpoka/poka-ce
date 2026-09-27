@@ -39,20 +39,13 @@ class TransactionGroupingService {
     final grouped = <String, List<TransactionModel>>{};
 
     for (final t in transactions) {
-      final local = t.transactionDate.toLocal();
-      // Use YYYY-MM-DD for sorting stability
-      final dateKey =
-          '${local.year.toString().padLeft(4, '0')}-${local.month.toString().padLeft(2, '0')}-${local.day.toString().padLeft(2, '0')}';
+      // Extract YYYY-MM-DD from 'YYYY-MM-DDTHH:mm:ss' wall-clock string
+      final dateKey = t.transactionDate.length >= 10 ? t.transactionDate.substring(0, 10) : t.transactionDate;
       grouped.putIfAbsent(dateKey, () => []).add(t);
     }
 
     // Sort groups newest-first
-    final sortedKeys = grouped.keys.toList()
-      ..sort((a, b) {
-        final dateA = grouped[a]!.first.transactionDate;
-        final dateB = grouped[b]!.first.transactionDate;
-        return dateB.compareTo(dateA);
-      });
+    final sortedKeys = grouped.keys.toList()..sort((a, b) => b.compareTo(a));
 
     final result = <TransactionGroup>[];
 

@@ -14,7 +14,7 @@ void main() {
         createdAt: now,
         updatedAt: now,
         parentAccountId: 'p1',
-        targetDate: now,
+        targetDate: '2024-01-01',
         icon: 'i',
         color: 'c',
       );

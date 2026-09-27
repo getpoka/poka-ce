@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:poka_ce/core/enums.dart';
+import 'package:poka_ce/database/converters/local_date_converter.dart';
 import 'package:poka_ce/features/categories/domain/category_model.dart';
 import 'package:poka_ce/features/reports/domain/services/report_analytics_service.dart';
 import 'package:poka_ce/features/transactions/domain/transaction_model.dart';
@@ -67,7 +68,7 @@ void main() {
         accountId: 'a1',
         type: type,
         amount: amount,
-        transactionDate: date,
+        transactionDate: formatAsLocalDateTime(date),
         createdAt: date,
         updatedAt: date,
         items: [

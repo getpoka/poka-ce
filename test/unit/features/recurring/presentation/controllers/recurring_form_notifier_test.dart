@@ -36,7 +36,7 @@ void main() {
     type: TransactionType.expense,
     amount: 1000,
     period: RecurringPeriod.monthly,
-    nextDate: DateTime.utc(2024, 1, 1),
+    nextDate: '2024-01-01',
     createdAt: DateTime.utc(2024, 1, 1),
     updatedAt: DateTime.utc(2024, 1, 1),
   );

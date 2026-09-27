@@ -9,8 +9,8 @@ abstract class IBudgetRepository {
   Future<Result<void, Failure>> updateBudget(BudgetModel model);
   Future<Result<void, Failure>> deleteBudget(String id);
   Future<Result<int, Failure>> getSpentAmountForBudget({
-    required DateTime startDate,
-    required DateTime endDate,
+    required String startDate,
+    required String endDate,
     String? categoryId,
     String? accountId,
   });

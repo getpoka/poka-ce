@@ -37,7 +37,7 @@ void main() {
     targetAmount: 5000,
     createdAt: DateTime.utc(2024, 1, 1),
     updatedAt: DateTime.utc(2024, 1, 1),
-    targetDate: DateTime.utc(2025, 1, 1),
+    targetDate: '2025-01-01',
   );
 
   group('GoalFormNotifier', () {

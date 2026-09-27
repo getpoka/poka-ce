@@ -19,6 +19,7 @@ void main() {
   });
   tearDown(() async => db.close());
   final now = DateTimeUtils.nowUtc();
+  const txDate = '2026-08-23T12:00:00';
 
   Future<void> seedAccount(String id, {int balance = 0}) async => db
       .into(db.accounts)
@@ -46,7 +47,7 @@ void main() {
       accountId: 'acc1',
       type: TransactionType.expense,
       amount: 25000,
-      transactionDate: now,
+      transactionDate: txDate,
       createdAt: now,
       updatedAt: now,
       items: [
@@ -77,7 +78,7 @@ void main() {
       accountId: 'acc1',
       type: TransactionType.income,
       amount: 10000,
-      transactionDate: now,
+      transactionDate: txDate,
       createdAt: now,
       updatedAt: now,
       items: [TransactionItemModel(id: 'i1', transactionId: 'txn1', amount: 10000, createdAt: now, updatedAt: now)],
@@ -87,7 +88,7 @@ void main() {
       accountId: 'acc1',
       type: TransactionType.expense,
       amount: 5000,
-      transactionDate: now,
+      transactionDate: txDate,
       createdAt: now,
       updatedAt: now,
       items: [TransactionItemModel(id: 'i2', transactionId: 'txn2', amount: 5000, createdAt: now, updatedAt: now)],
@@ -105,7 +106,7 @@ void main() {
       accountId: 'acc1',
       type: TransactionType.expense,
       amount: 30000,
-      transactionDate: now,
+      transactionDate: txDate,
       createdAt: now,
       updatedAt: now,
       items: [
@@ -127,7 +128,7 @@ void main() {
       destinationAccountId: 'dst',
       type: TransactionType.transfer,
       amount: 30000,
-      transactionDate: now,
+      transactionDate: txDate,
       createdAt: now,
       updatedAt: now,
       items: [TransactionItemModel(id: 'i1', transactionId: 'txn1', amount: 30000, createdAt: now, updatedAt: now)],
@@ -146,7 +147,7 @@ void main() {
       accountId: 'acc1',
       type: TransactionType.income,
       amount: 50000,
-      transactionDate: now,
+      transactionDate: txDate,
       createdAt: now,
       updatedAt: now,
       items: [TransactionItemModel(id: 'i1', transactionId: 'txn1', amount: 50000, createdAt: now, updatedAt: now)],

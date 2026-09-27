@@ -1,6 +1,7 @@
 // coverage:ignore-file
 import 'package:drift/drift.dart';
 import 'package:poka_ce/core/enums.dart';
+import 'package:poka_ce/database/converters/local_date_converter.dart';
 import 'package:poka_ce/database/tables/accounts_table.dart';
 import 'package:poka_ce/database/tables/categories_table.dart';
 import 'package:poka_ce/database/tables/debts_table.dart';
@@ -19,7 +20,7 @@ class Transactions extends Table {
   TextColumn get destinationAccountId => text().nullable().references(Accounts, #id, onDelete: KeyAction.cascade)();
   TextColumn get type => text().map(const EnumNameConverter(TransactionType.values))();
   IntColumn get amount => integer()();
-  DateTimeColumn get transactionDate => dateTime()();
+  TextColumn get transactionDate => text().map(const LocalDateTimeConverter())();
   TextColumn get note => text().nullable()();
   TextColumn get recurringTransactionId =>
       text().nullable().references(RecurringTransactions, #id, onDelete: KeyAction.setNull)();

@@ -53,12 +53,12 @@ class BudgetRepositoryImpl implements IBudgetRepository {
           name: model.name,
           amount: model.amount,
           period: model.period,
-          startDate: model.startDate.toUtc(),
+          startDate: model.startDate,
           categoryId: Value(model.categoryId),
           accountId: Value(model.accountId),
           resetDay: Value(model.resetDay),
           alertThreshold: Value(model.alertThreshold),
-          endDate: Value(model.endDate?.toUtc()),
+          endDate: Value(model.endDate),
           createdAt: Value(model.createdAt.toUtc()),
           updatedAt: Value(model.updatedAt.toUtc()),
         ),
@@ -80,12 +80,12 @@ class BudgetRepositoryImpl implements IBudgetRepository {
           name: Value(model.name),
           amount: Value(model.amount),
           period: Value(model.period),
-          startDate: Value(model.startDate.toUtc()),
+          startDate: Value(model.startDate),
           categoryId: Value(model.categoryId),
           accountId: Value(model.accountId),
           resetDay: Value(model.resetDay),
           alertThreshold: Value(model.alertThreshold),
-          endDate: Value(model.endDate?.toUtc()),
+          endDate: Value(model.endDate),
           updatedAt: Value(DateTimeUtils.nowUtc()),
         ),
       );
@@ -111,15 +111,15 @@ class BudgetRepositoryImpl implements IBudgetRepository {
   /// Computes the actual total expenses recorded within [startDate] and [endDate] matching the budget's scope.
   @override
   Future<Result<int, Failure>> getSpentAmountForBudget({
-    required DateTime startDate,
-    required DateTime endDate,
+    required String startDate,
+    required String endDate,
     String? categoryId,
     String? accountId,
   }) async {
     try {
       final spent = await _dao.getSpentAmountForBudget(
-        startDate: startDate.toUtc(),
-        endDate: endDate.toUtc(),
+        startDate: startDate,
+        endDate: endDate,
         categoryId: categoryId,
         accountId: accountId,
       );

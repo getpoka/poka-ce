@@ -23,17 +23,21 @@ class GoalStatusBadge extends StatelessWidget {
 class GoalDeadlineBadge extends StatelessWidget {
   const new({required this.targetDate, super.key});
 
-  final DateTime targetDate;
+  final String targetDate;
 
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;
-    final daysLeft = targetDate.difference(DateTime.now()).inDays;
+    final parsed = DateTime.parse(targetDate);
+    final now = DateTime.now();
+    final todayMidnight = DateTime(now.year, now.month, now.day);
+    final targetDateMidnight = DateTime(parsed.year, parsed.month, parsed.day);
+    final daysLeft = targetDateMidnight.difference(todayMidnight).inDays;
     final isUrgent = daysLeft <= 30;
     final urgentColor = theme.colors.app.warning;
 
     final color = isUrgent ? urgentColor : theme.colors.mutedForeground;
-    final label = daysLeft <= 0 ? t.common.dueToday : DateFormat.MMMd().format(targetDate);
+    final label = daysLeft <= 0 ? t.common.dueToday : DateFormat.MMMd().format(parsed);
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),

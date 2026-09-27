@@ -13,7 +13,7 @@ void main() {
 
   group('Budgets table', () {
     test('insert with nullable refs, copyWith, json round trip', () async {
-      final start = DateTime(2026, 1, 1);
+      const start = '2026-01-01';
       await db
           .into(db.budgets)
           .insert(
@@ -49,7 +49,7 @@ void main() {
     });
 
     test('bound to category and account with yearly period', () async {
-      final start = DateTime(2026, 2, 1);
+      const start = '2026-02-01';
       await db
           .into(db.categories)
           .insert(CategoriesCompanion.insert(id: const Value('cat'), name: 'Food', type: CategoryType.expense));
@@ -67,7 +67,7 @@ void main() {
               accountId: const Value('acc'),
               period: BudgetPeriod.yearly,
               startDate: start,
-              endDate: Value(DateTime(2026, 12, 31)),
+              endDate: const Value('2026-12-31'),
               resetDay: const Value(1),
             ),
           );
@@ -75,7 +75,7 @@ void main() {
       final row = await (db.select(db.budgets)..where((b) => b.id.equals('b2'))).getSingle();
       expect(row.categoryId, 'cat');
       expect(row.accountId, 'acc');
-      expect(row.endDate, DateTime(2026, 12, 31));
+      expect(row.endDate, '2026-12-31');
       expect(Budget.fromJson(row.toJson()), row);
 
       await (db.delete(db.budgets)..where((b) => b.id.equals('b2'))).go();
@@ -85,7 +85,7 @@ void main() {
 
   group('BudgetRecords table', () {
     test('spent amount defaults to zero and round trips through json', () async {
-      final start = DateTime(2026, 3, 1);
+      const start = '2026-03-01';
       await db
           .into(db.budgets)
           .insert(
@@ -104,7 +104,7 @@ void main() {
               id: const Value('br1'),
               budgetId: 'b1',
               periodStart: start,
-              periodEnd: DateTime(2026, 3, 31),
+              periodEnd: '2026-03-31',
             ),
           );
       final row = await db.select(db.budgetRecords).getSingle();
@@ -118,7 +118,7 @@ void main() {
     });
 
     test('update spent amount persists', () async {
-      final start = DateTime(2026, 4, 1);
+      const start = '2026-04-01';
       await db
           .into(db.budgets)
           .insert(
@@ -137,7 +137,7 @@ void main() {
               id: const Value('br9'),
               budgetId: 'b9',
               periodStart: start,
-              periodEnd: DateTime(2026, 4, 7),
+              periodEnd: '2026-04-07',
             ),
           );
 

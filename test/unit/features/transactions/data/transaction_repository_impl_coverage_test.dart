@@ -62,7 +62,7 @@ void main() {
       destinationAccountId: destId,
       type: type,
       amount: amount,
-      transactionDate: now,
+      transactionDate: '2026-08-23T12:00:00',
       createdAt: now,
       updatedAt: now,
       items: [TransactionItemModel(id: 'item-$id', transactionId: id, amount: amount, createdAt: now, updatedAt: now)],

@@ -20,6 +20,8 @@ void main() {
   tearDown(() async => db.close());
   final now = DateTimeUtils.nowUtc();
 
+  const today = '2026-08-23';
+
   Future<void> seedAcc(String id) async =>
       db.into(db.accounts).insert(AccountsCompanion.insert(id: Value(id), name: 'Acc $id', type: AccountType.assets));
 
@@ -34,7 +36,7 @@ void main() {
         type: TransactionType.expense,
         amount: 100,
         period: RecurringPeriod.monthly,
-        nextDate: now,
+        nextDate: today,
         createdAt: now,
         updatedAt: now,
       ),
@@ -52,7 +54,7 @@ void main() {
         type: TransactionType.expense,
         amount: 100,
         period: RecurringPeriod.daily,
-        nextDate: now,
+        nextDate: today,
         createdAt: now,
         updatedAt: now,
       ),
@@ -64,7 +66,7 @@ void main() {
         type: TransactionType.expense,
         amount: 200,
         period: RecurringPeriod.daily,
-        nextDate: now,
+        nextDate: today,
         createdAt: now,
         updatedAt: now,
         isActive: false,
@@ -87,7 +89,7 @@ void main() {
         type: TransactionType.income,
         amount: 50000,
         period: RecurringPeriod.weekly,
-        nextDate: now,
+        nextDate: today,
         createdAt: now,
         updatedAt: now,
       ),
@@ -104,7 +106,7 @@ void main() {
         type: TransactionType.expense,
         amount: 100,
         period: RecurringPeriod.monthly,
-        nextDate: now,
+        nextDate: today,
         createdAt: now,
         updatedAt: now,
       ),
@@ -116,7 +118,7 @@ void main() {
         type: TransactionType.expense,
         amount: 999,
         period: RecurringPeriod.yearly,
-        nextDate: now,
+        nextDate: today,
         createdAt: now,
         updatedAt: now,
       ),
@@ -134,7 +136,7 @@ void main() {
         type: TransactionType.expense,
         amount: 100,
         period: RecurringPeriod.daily,
-        nextDate: now,
+        nextDate: today,
         createdAt: now,
         updatedAt: now,
       ),
