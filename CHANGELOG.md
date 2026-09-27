@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- [internal] Refactored `PokaIcon` coverage tests to use `FPhosphorIcons` instead of Material icons.
+
 ## [v1.1.11] - 2026-09-27
 
 ### Added

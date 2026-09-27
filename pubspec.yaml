@@ -22,6 +22,7 @@ dependencies:
   flutter_slidable: ^4.0.3
   flutter_reorderable_grid_view: ^5.7.0
   material_ui: any
+  cupertino_icons: ^1.0.8
 
   # State Management
   hooks_riverpod: ^3.4.2
