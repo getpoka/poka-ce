@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.1.11] - 2026-09-27
+
+### Added
+
+- [internal] Implemented Three-Tier Temporal Architecture: `LocalDate` (Tier 1 calendar dates), `LocalDateTime` (Tier 2 wall-clock transactions), and `Instant` (Tier 3 audit/sync timestamps).
+
 ### Changed
 
 - Standardized section spacing and layout rhythms across detail pages and forms for a more consistent visual hierarchy.
