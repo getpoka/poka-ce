@@ -64,7 +64,7 @@ void main() {
         accountId: 'a1',
         type: TransactionType.expense,
         amount: 1,
-        transactionDate: DateTime(2026, 1, 1),
+        transactionDate: '2026-01-01T00:00:00',
         createdAt: DateTime(2026, 1, 1),
         updatedAt: DateTime(2026, 1, 1),
       ),
@@ -81,7 +81,7 @@ void main() {
     name: 'Groceries',
     amount: 1000000,
     period: BudgetPeriod.monthly,
-    startDate: DateTime(2026, 1, 1),
+    startDate: '2026-01-01',
     createdAt: DateTime(2026, 1, 1),
     updatedAt: DateTime(2026, 1, 1),
   );
@@ -124,7 +124,7 @@ void main() {
     accountId: 'a1',
     type: TransactionType.expense,
     amount: 1000,
-    transactionDate: DateTime(2026, 8, 1),
+    transactionDate: '2026-08-01T00:00:00',
     createdAt: DateTime(2026, 8, 1),
     updatedAt: DateTime(2026, 8, 1),
   );

@@ -109,7 +109,7 @@ void main() {
           accountId: '1',
           type: TransactionType.income,
           amount: 500,
-          transactionDate: DateTime.now(),
+          transactionDate: '2024-01-01T00:00:00',
           createdAt: DateTime.now(),
           updatedAt: DateTime.now(),
         ),

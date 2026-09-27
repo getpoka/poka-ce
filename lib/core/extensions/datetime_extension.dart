@@ -34,3 +34,19 @@ extension DateTimeExtension on DateTime {
     }
   }
 }
+
+/// Convenience formatting helpers on String-formatted ISO dates.
+extension TemporalStringExtension on String {
+  /// Formats the time component as HH:mm with leading zeros.
+  ///
+  /// Works with `'YYYY-MM-DDTHH:mm:ss'` wall-clock strings without timezone drift.
+  String toFormattedTime() {
+    if (length >= 16 && contains('T')) {
+      final tIndex = indexOf('T');
+      if (length >= tIndex + 6) {
+        return substring(tIndex + 1, tIndex + 6);
+      }
+    }
+    return DateTime.parse(this).toFormattedTime();
+  }
+}

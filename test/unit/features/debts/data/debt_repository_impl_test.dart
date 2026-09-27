@@ -92,7 +92,7 @@ void main() {
   });
 
   test('loan type and dueDate persisted', () async {
-    final due = DateTime.utc(2026, 12, 31);
+    const due = '2026-12-31';
     final m = DebtModel(
       id: 'd1',
       personName: 'Lender',
@@ -109,7 +109,7 @@ void main() {
     final res = await repo.getDebtById('d1');
     res.fold((v) {
       expect(v.type, DebtType.loan);
-      expect(v.dueDate!.toUtc(), due.toUtc());
+      expect(v.dueDate, due);
       expect(v.note, 'note');
     }, (e) => fail('fail'));
   });

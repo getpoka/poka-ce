@@ -85,7 +85,7 @@ class ExcelExportService {
 
       final dateFormatter = DateFormat('yyyy-MM-dd HH:mm');
       for (final tx in transactions) {
-        final dateStr = dateFormatter.format(tx.transactionDate);
+        final dateStr = dateFormatter.format(DateTime.parse(tx.transactionDate));
         final accountName = accountsMap[tx.accountId]?.name ?? tx.accountId;
         final destName = tx.destinationAccountId != null
             ? (accountsMap[tx.destinationAccountId]?.name ?? tx.destinationAccountId!)

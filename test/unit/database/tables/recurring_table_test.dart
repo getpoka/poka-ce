@@ -28,7 +28,7 @@ void main() {
               amount: 250000,
               note: const Value(null),
               period: RecurringPeriod.monthly,
-              nextDate: DateTime(2026, 9, 1),
+              nextDate: '2026-09-01',
             ),
           );
       final row = await db.select(db.recurringTransactions).getSingle();
@@ -65,7 +65,7 @@ void main() {
               amount: 1000000,
               note: const Value('tabungan'),
               period: RecurringPeriod.weekly,
-              nextDate: DateTime(2026, 8, 30),
+              nextDate: '2026-08-30',
             ),
           );
       final row = await db.select(db.recurringTransactions).getSingle();

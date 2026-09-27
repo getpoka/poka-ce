@@ -105,20 +105,20 @@ void main() {
       await db
           .into(db.accounts)
           .insert(AccountsCompanion.insert(id: const Value('acc1'), name: 'Pocket', type: AccountType.goal));
-      final target = DateTime.utc(2027);
+      const target = '2027-01-01';
       await db.goalsDao.insertGoal(
         GoalsCompanion.insert(
           id: const Value('g1'),
           accountId: 'acc1',
           name: 'House',
           targetAmount: 50000000,
-          targetDate: Value(target),
+          targetDate: const Value(target),
           icon: const Value('home'),
           color: const Value('#123456'),
         ),
       );
       final g = await db.goalsDao.getGoal('g1');
-      expect(g!.targetDate!.toUtc(), target.toUtc());
+      expect(g!.targetDate, target);
       expect(g.icon, 'home');
       expect(g.color, '#123456');
     });

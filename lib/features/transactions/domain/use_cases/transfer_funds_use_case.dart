@@ -7,6 +7,7 @@ import 'package:poka_ce/core/enums.dart';
 import 'package:poka_ce/core/error/failure.dart';
 import 'package:poka_ce/core/error/result.dart';
 import 'package:poka_ce/core/utils/datetime_utils.dart';
+import 'package:poka_ce/database/converters/local_date_converter.dart';
 import 'package:poka_ce/features/transactions/domain/i_transaction_repository.dart';
 import 'package:poka_ce/features/transactions/domain/transaction_model.dart';
 import 'package:uuid/uuid.dart';
@@ -26,7 +27,7 @@ class TransferFundsUseCase {
     required String sourceAccountId,
     required String destinationAccountId,
     String? note,
-    DateTime? transactionDate,
+    String? transactionDate,
   }) async {
     if (amount <= 0) {
       return const ErrorResult(ValidationFailure('Transfer amount must be greater than 0'));
@@ -38,7 +39,7 @@ class TransferFundsUseCase {
     try {
       return await _unitOfWork.execute(() async {
         final nowUtc = DateTimeUtils.nowUtc();
-        final txDateUtc = transactionDate?.toUtc() ?? nowUtc;
+        final txDate = transactionDate ?? nowAsLocalDateTime();
         final transactionId = const Uuid().v7();
 
         final transaction = TransactionModel(
@@ -47,7 +48,7 @@ class TransferFundsUseCase {
           destinationAccountId: destinationAccountId,
           type: TransactionType.transfer,
           amount: amount,
-          transactionDate: txDateUtc,
+          transactionDate: txDate,
           createdAt: nowUtc,
           updatedAt: nowUtc,
           note: note,

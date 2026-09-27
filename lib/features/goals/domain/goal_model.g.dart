@@ -15,7 +15,7 @@ _GoalModel _$GoalModelFromJson(Map<String, dynamic> json) => _GoalModel(
   updatedAt: DateTime.parse(json['updatedAt'] as String),
   status: $enumDecodeNullable(_$GoalStatusEnumMap, json['status']) ?? GoalStatus.active,
   parentAccountId: json['parentAccountId'] as String?,
-  targetDate: json['targetDate'] == null ? null : DateTime.parse(json['targetDate'] as String),
+  targetDate: json['targetDate'] as String?,
   icon: json['icon'] as String?,
   color: json['color'] as String?,
 );
@@ -29,7 +29,7 @@ Map<String, dynamic> _$GoalModelToJson(_GoalModel instance) => <String, dynamic>
   'updatedAt': instance.updatedAt.toIso8601String(),
   'status': _$GoalStatusEnumMap[instance.status]!,
   'parentAccountId': instance.parentAccountId,
-  'targetDate': instance.targetDate?.toIso8601String(),
+  'targetDate': instance.targetDate,
   'icon': instance.icon,
   'color': instance.color,
 };

@@ -83,7 +83,7 @@ void main() {
     name: 'Groceries',
     amount: 1000,
     period: BudgetPeriod.monthly,
-    startDate: DateTime.utc(2024, 1, 1),
+    startDate: '2024-01-01',
     resetDay: 1,
     createdAt: DateTime.utc(2024, 1, 1),
     updatedAt: DateTime.utc(2024, 1, 1),
@@ -236,11 +236,7 @@ void main() {
     });
 
     testWidgets('budget with custom end date shows formatted date', (tester) async {
-      final budget = sampleBudget().copyWith(
-        period: BudgetPeriod.custom,
-        endDate: DateTime.utc(2025, 12, 31),
-        resetDay: null,
-      );
+      final budget = sampleBudget().copyWith(period: BudgetPeriod.custom, endDate: '2025-12-31', resetDay: null);
       await tester.pumpWidget(
         buildWithState(
           BudgetFormState(

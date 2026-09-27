@@ -35,14 +35,14 @@ void main() {
     container.dispose();
   });
 
-  BudgetModel createBudget(BudgetPeriod period, {int? resetDay, DateTime? startDate, DateTime? endDate}) {
+  BudgetModel createBudget(BudgetPeriod period, {int? resetDay, String? startDate, String? endDate}) {
     final now = DateTime.now();
     return BudgetModel(
       id: 'b1',
       name: 'Test',
       amount: 1000,
       period: period,
-      startDate: startDate ?? now,
+      startDate: startDate ?? '2024-01-01',
       endDate: endDate,
       categoryId: 'c1',
       accountId: 'a1',
@@ -123,7 +123,7 @@ void main() {
         ),
       ).thenAnswer((_) async => const Success(150));
 
-      final budget = createBudget(BudgetPeriod.custom, startDate: DateTime(2020), endDate: DateTime(2021));
+      final budget = createBudget(BudgetPeriod.custom, startDate: '2020-01-01', endDate: '2021-01-01');
       final spent = await container.read(budgetProgressProvider(budget).future);
       expect(spent, 150);
     });

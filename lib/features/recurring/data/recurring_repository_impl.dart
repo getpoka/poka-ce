@@ -43,7 +43,7 @@ class RecurringRepositoryImpl implements IRecurringRepository {
 
   /// Retrieves recurring schedules that have fallen due on or before [asOf].
   @override
-  Future<Result<List<RecurringTransactionModel>, Failure>> getDueRecurringTransactions(DateTime asOf) async {
+  Future<Result<List<RecurringTransactionModel>, Failure>> getDueRecurringTransactions(String asOf) async {
     try {
       final recurrings = await _dao.getDueRecurring(asOf);
       final models = recurrings.map(_mapToModel).toList();
@@ -83,7 +83,7 @@ class RecurringRepositoryImpl implements IRecurringRepository {
           type: model.type,
           amount: model.amount,
           period: model.period,
-          nextDate: model.nextDate.toUtc(),
+          nextDate: model.nextDate,
           note: Value(model.note),
           isActive: Value(model.isActive),
           createdAt: Value(model.createdAt.toUtc()),
@@ -111,7 +111,7 @@ class RecurringRepositoryImpl implements IRecurringRepository {
           type: Value(model.type),
           amount: Value(model.amount),
           period: Value(model.period),
-          nextDate: Value(model.nextDate.toUtc()),
+          nextDate: Value(model.nextDate),
           note: Value(model.note),
           isActive: Value(model.isActive),
           updatedAt: Value(DateTimeUtils.nowUtc()),

@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$BudgetModel {
 
- String get id; String get name; int get amount; BudgetPeriod get period; DateTime get startDate; DateTime get createdAt; DateTime get updatedAt; String? get categoryId; String? get accountId; int? get resetDay; int? get alertThreshold; DateTime? get endDate;
+ String get id; String get name; int get amount; BudgetPeriod get period; String get startDate; DateTime get createdAt; DateTime get updatedAt; String? get categoryId; String? get accountId; int? get resetDay; int? get alertThreshold; String? get endDate;
 /// Create a copy of BudgetModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -54,7 +54,7 @@ abstract mixin class $BudgetModelCopyWith<$Res>  {
   factory $BudgetModelCopyWith(BudgetModel value, $Res Function(BudgetModel) _then) = _$BudgetModelCopyWithImpl;
 @useResult
 $Res call({
- String id, String name, int amount, BudgetPeriod period, DateTime startDate, DateTime createdAt, DateTime updatedAt, String? categoryId, String? accountId, int? resetDay, int? alertThreshold, DateTime? endDate
+ String id, String name, int amount, BudgetPeriod period, String startDate, DateTime createdAt, DateTime updatedAt, String? categoryId, String? accountId, int? resetDay, int? alertThreshold, String? endDate
 });
 
 
@@ -78,14 +78,14 @@ as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non
 as String,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
 as int,period: null == period ? _self.period : period // ignore: cast_nullable_to_non_nullable
 as BudgetPeriod,startDate: null == startDate ? _self.startDate : startDate // ignore: cast_nullable_to_non_nullable
-as DateTime,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as DateTime,categoryId: freezed == categoryId ? _self.categoryId : categoryId // ignore: cast_nullable_to_non_nullable
 as String?,accountId: freezed == accountId ? _self.accountId : accountId // ignore: cast_nullable_to_non_nullable
 as String?,resetDay: freezed == resetDay ? _self.resetDay : resetDay // ignore: cast_nullable_to_non_nullable
 as int?,alertThreshold: freezed == alertThreshold ? _self.alertThreshold : alertThreshold // ignore: cast_nullable_to_non_nullable
 as int?,endDate: freezed == endDate ? _self.endDate : endDate // ignore: cast_nullable_to_non_nullable
-as DateTime?,
+as String?,
   ));
 }
 
@@ -170,7 +170,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name,  int amount,  BudgetPeriod period,  DateTime startDate,  DateTime createdAt,  DateTime updatedAt,  String? categoryId,  String? accountId,  int? resetDay,  int? alertThreshold,  DateTime? endDate)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name,  int amount,  BudgetPeriod period,  String startDate,  DateTime createdAt,  DateTime updatedAt,  String? categoryId,  String? accountId,  int? resetDay,  int? alertThreshold,  String? endDate)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _BudgetModel() when $default != null:
 return $default(_that.id,_that.name,_that.amount,_that.period,_that.startDate,_that.createdAt,_that.updatedAt,_that.categoryId,_that.accountId,_that.resetDay,_that.alertThreshold,_that.endDate);case _:
@@ -191,7 +191,7 @@ return $default(_that.id,_that.name,_that.amount,_that.period,_that.startDate,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name,  int amount,  BudgetPeriod period,  DateTime startDate,  DateTime createdAt,  DateTime updatedAt,  String? categoryId,  String? accountId,  int? resetDay,  int? alertThreshold,  DateTime? endDate)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name,  int amount,  BudgetPeriod period,  String startDate,  DateTime createdAt,  DateTime updatedAt,  String? categoryId,  String? accountId,  int? resetDay,  int? alertThreshold,  String? endDate)  $default,) {final _that = this;
 switch (_that) {
 case _BudgetModel():
 return $default(_that.id,_that.name,_that.amount,_that.period,_that.startDate,_that.createdAt,_that.updatedAt,_that.categoryId,_that.accountId,_that.resetDay,_that.alertThreshold,_that.endDate);case _:
@@ -211,7 +211,7 @@ return $default(_that.id,_that.name,_that.amount,_that.period,_that.startDate,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name,  int amount,  BudgetPeriod period,  DateTime startDate,  DateTime createdAt,  DateTime updatedAt,  String? categoryId,  String? accountId,  int? resetDay,  int? alertThreshold,  DateTime? endDate)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name,  int amount,  BudgetPeriod period,  String startDate,  DateTime createdAt,  DateTime updatedAt,  String? categoryId,  String? accountId,  int? resetDay,  int? alertThreshold,  String? endDate)?  $default,) {final _that = this;
 switch (_that) {
 case _BudgetModel() when $default != null:
 return $default(_that.id,_that.name,_that.amount,_that.period,_that.startDate,_that.createdAt,_that.updatedAt,_that.categoryId,_that.accountId,_that.resetDay,_that.alertThreshold,_that.endDate);case _:
@@ -233,14 +233,14 @@ class _BudgetModel implements BudgetModel {
 @override final  String name;
 @override final  int amount;
 @override final  BudgetPeriod period;
-@override final  DateTime startDate;
+@override final  String startDate;
 @override final  DateTime createdAt;
 @override final  DateTime updatedAt;
 @override final  String? categoryId;
 @override final  String? accountId;
 @override final  int? resetDay;
 @override final  int? alertThreshold;
-@override final  DateTime? endDate;
+@override final  String? endDate;
 
 /// Create a copy of BudgetModel
 /// with the given fields replaced by the non-null parameter values.
@@ -277,7 +277,7 @@ abstract mixin class _$BudgetModelCopyWith<$Res> implements $BudgetModelCopyWith
   factory _$BudgetModelCopyWith(_BudgetModel value, $Res Function(_BudgetModel) _then) = __$BudgetModelCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String name, int amount, BudgetPeriod period, DateTime startDate, DateTime createdAt, DateTime updatedAt, String? categoryId, String? accountId, int? resetDay, int? alertThreshold, DateTime? endDate
+ String id, String name, int amount, BudgetPeriod period, String startDate, DateTime createdAt, DateTime updatedAt, String? categoryId, String? accountId, int? resetDay, int? alertThreshold, String? endDate
 });
 
 
@@ -301,14 +301,14 @@ as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non
 as String,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
 as int,period: null == period ? _self.period : period // ignore: cast_nullable_to_non_nullable
 as BudgetPeriod,startDate: null == startDate ? _self.startDate : startDate // ignore: cast_nullable_to_non_nullable
-as DateTime,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as DateTime,categoryId: freezed == categoryId ? _self.categoryId : categoryId // ignore: cast_nullable_to_non_nullable
 as String?,accountId: freezed == accountId ? _self.accountId : accountId // ignore: cast_nullable_to_non_nullable
 as String?,resetDay: freezed == resetDay ? _self.resetDay : resetDay // ignore: cast_nullable_to_non_nullable
 as int?,alertThreshold: freezed == alertThreshold ? _self.alertThreshold : alertThreshold // ignore: cast_nullable_to_non_nullable
 as int?,endDate: freezed == endDate ? _self.endDate : endDate // ignore: cast_nullable_to_non_nullable
-as DateTime?,
+as String?,
   ));
 }
 
@@ -319,7 +319,7 @@ as DateTime?,
 /// @nodoc
 mixin _$BudgetRecordModel {
 
- String get id; String get budgetId; int get spentAmount; DateTime get periodStart; DateTime get periodEnd; DateTime get createdAt; DateTime get updatedAt;
+ String get id; String get budgetId; int get spentAmount; String get periodStart; String get periodEnd; DateTime get createdAt; DateTime get updatedAt;
 /// Create a copy of BudgetRecordModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -357,7 +357,7 @@ abstract mixin class $BudgetRecordModelCopyWith<$Res>  {
   factory $BudgetRecordModelCopyWith(BudgetRecordModel value, $Res Function(BudgetRecordModel) _then) = _$BudgetRecordModelCopyWithImpl;
 @useResult
 $Res call({
- String id, String budgetId, int spentAmount, DateTime periodStart, DateTime periodEnd, DateTime createdAt, DateTime updatedAt
+ String id, String budgetId, int spentAmount, String periodStart, String periodEnd, DateTime createdAt, DateTime updatedAt
 });
 
 
@@ -380,8 +380,8 @@ id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,budgetId: null == budgetId ? _self.budgetId : budgetId // ignore: cast_nullable_to_non_nullable
 as String,spentAmount: null == spentAmount ? _self.spentAmount : spentAmount // ignore: cast_nullable_to_non_nullable
 as int,periodStart: null == periodStart ? _self.periodStart : periodStart // ignore: cast_nullable_to_non_nullable
-as DateTime,periodEnd: null == periodEnd ? _self.periodEnd : periodEnd // ignore: cast_nullable_to_non_nullable
-as DateTime,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as String,periodEnd: null == periodEnd ? _self.periodEnd : periodEnd // ignore: cast_nullable_to_non_nullable
+as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as DateTime,
   ));
@@ -468,7 +468,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String budgetId,  int spentAmount,  DateTime periodStart,  DateTime periodEnd,  DateTime createdAt,  DateTime updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String budgetId,  int spentAmount,  String periodStart,  String periodEnd,  DateTime createdAt,  DateTime updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _BudgetRecordModel() when $default != null:
 return $default(_that.id,_that.budgetId,_that.spentAmount,_that.periodStart,_that.periodEnd,_that.createdAt,_that.updatedAt);case _:
@@ -489,7 +489,7 @@ return $default(_that.id,_that.budgetId,_that.spentAmount,_that.periodStart,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String budgetId,  int spentAmount,  DateTime periodStart,  DateTime periodEnd,  DateTime createdAt,  DateTime updatedAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String budgetId,  int spentAmount,  String periodStart,  String periodEnd,  DateTime createdAt,  DateTime updatedAt)  $default,) {final _that = this;
 switch (_that) {
 case _BudgetRecordModel():
 return $default(_that.id,_that.budgetId,_that.spentAmount,_that.periodStart,_that.periodEnd,_that.createdAt,_that.updatedAt);case _:
@@ -509,7 +509,7 @@ return $default(_that.id,_that.budgetId,_that.spentAmount,_that.periodStart,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String budgetId,  int spentAmount,  DateTime periodStart,  DateTime periodEnd,  DateTime createdAt,  DateTime updatedAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String budgetId,  int spentAmount,  String periodStart,  String periodEnd,  DateTime createdAt,  DateTime updatedAt)?  $default,) {final _that = this;
 switch (_that) {
 case _BudgetRecordModel() when $default != null:
 return $default(_that.id,_that.budgetId,_that.spentAmount,_that.periodStart,_that.periodEnd,_that.createdAt,_that.updatedAt);case _:
@@ -530,8 +530,8 @@ class _BudgetRecordModel implements BudgetRecordModel {
 @override final  String id;
 @override final  String budgetId;
 @override final  int spentAmount;
-@override final  DateTime periodStart;
-@override final  DateTime periodEnd;
+@override final  String periodStart;
+@override final  String periodEnd;
 @override final  DateTime createdAt;
 @override final  DateTime updatedAt;
 
@@ -570,7 +570,7 @@ abstract mixin class _$BudgetRecordModelCopyWith<$Res> implements $BudgetRecordM
   factory _$BudgetRecordModelCopyWith(_BudgetRecordModel value, $Res Function(_BudgetRecordModel) _then) = __$BudgetRecordModelCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String budgetId, int spentAmount, DateTime periodStart, DateTime periodEnd, DateTime createdAt, DateTime updatedAt
+ String id, String budgetId, int spentAmount, String periodStart, String periodEnd, DateTime createdAt, DateTime updatedAt
 });
 
 
@@ -593,8 +593,8 @@ id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,budgetId: null == budgetId ? _self.budgetId : budgetId // ignore: cast_nullable_to_non_nullable
 as String,spentAmount: null == spentAmount ? _self.spentAmount : spentAmount // ignore: cast_nullable_to_non_nullable
 as int,periodStart: null == periodStart ? _self.periodStart : periodStart // ignore: cast_nullable_to_non_nullable
-as DateTime,periodEnd: null == periodEnd ? _self.periodEnd : periodEnd // ignore: cast_nullable_to_non_nullable
-as DateTime,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as String,periodEnd: null == periodEnd ? _self.periodEnd : periodEnd // ignore: cast_nullable_to_non_nullable
+as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as DateTime,
   ));

@@ -285,7 +285,7 @@ class ReportAnalyticsService {
 
   static List<TransactionModel> _filterTx(List<TransactionModel> txs, DateTime start, DateTime end) {
     return txs.where((t) {
-      final d = t.transactionDate.toLocal();
+      final d = DateTime.parse(t.transactionDate);
       return d.isAfter(start.subtract(const Duration(seconds: 1))) && d.isBefore(end.add(const Duration(seconds: 1)));
     }).toList();
   }
@@ -301,7 +301,7 @@ class ReportAnalyticsService {
   static List<ReportTrendPoint> _buildWeeklyTrend(List<TransactionModel> txs, DateTime start) {
     final buckets = List.generate(4, (_) => (income: 0.0, expense: 0.0));
     for (final tx in txs) {
-      final d = tx.transactionDate.toLocal();
+      final d = DateTime.parse(tx.transactionDate);
       final dayOffset = d.difference(start).inDays;
       final week = (dayOffset ~/ 7).clamp(0, 3);
       if (tx.type == TransactionType.income) {
@@ -340,7 +340,7 @@ class ReportAnalyticsService {
     }
 
     for (final tx in txs) {
-      final d = tx.transactionDate.toLocal();
+      final d = DateTime.parse(tx.transactionDate);
       final key = '${d.year}-${d.month.toString().padLeft(2, '0')}';
       if (monthlyData.containsKey(key)) {
         final cur = monthlyData[key]!;

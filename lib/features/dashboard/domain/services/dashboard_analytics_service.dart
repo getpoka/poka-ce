@@ -82,7 +82,7 @@ class DashboardAnalyticsService {
     double lastMonthIncome = 0;
     double lastMonthExpense = 0;
 
-    final now = DateTime.now().toUtc();
+    final now = DateTime.now();
     final currentMonth = now.month;
     final currentYear = now.year;
 
@@ -95,7 +95,7 @@ class DashboardAnalyticsService {
       if (tx.type == TransactionType.income) totalIncome += tx.amount;
       if (tx.type == TransactionType.expense) totalExpense += tx.amount;
 
-      final txDate = tx.transactionDate.toUtc();
+      final txDate = DateTime.parse(tx.transactionDate);
       if (txDate.year == currentYear && txDate.month == currentMonth) {
         if (tx.type == TransactionType.income) currentMonthIncome += tx.amount;
         if (tx.type == TransactionType.expense) currentMonthExpense += tx.amount;
@@ -120,9 +120,12 @@ class DashboardAnalyticsService {
     }).toList()..sort((a, b) => b.amount.compareTo(a.amount));
 
     final spending = List<double>.filled(7, 0);
+    final todayStart = DateTime(now.year, now.month, now.day);
     for (final tx in transactions) {
       if (tx.type == TransactionType.expense) {
-        final daysDiff = now.difference(tx.transactionDate.toUtc()).inDays;
+        final txDate = DateTime.parse(tx.transactionDate);
+        final txDayStart = DateTime(txDate.year, txDate.month, txDate.day);
+        final daysDiff = todayStart.difference(txDayStart).inDays;
         if (daysDiff >= 0 && daysDiff < 7) {
           spending[6 - daysDiff] += tx.amount;
         }
@@ -175,15 +178,15 @@ class DashboardAnalyticsService {
   }) {
     if (days <= 0) return const [];
 
-    final now = DateTime.now().toUtc();
-    final todayMidnight = DateTime.utc(now.year, now.month, now.day);
+    final now = DateTime.now();
+    final todayMidnight = DateTime(now.year, now.month, now.day);
 
     // Group transactions by daysAgo (0 = today, 1 = yesterday, ..., days - 1 = days - 1 days ago)
     final dailyNetChanges = List<double>.filled(days, 0);
 
     for (final tx in transactions) {
-      final txDate = tx.transactionDate.toUtc();
-      final txMidnight = DateTime.utc(txDate.year, txDate.month, txDate.day);
+      final txDate = DateTime.parse(tx.transactionDate);
+      final txMidnight = DateTime(txDate.year, txDate.month, txDate.day);
       final daysAgo = todayMidnight.difference(txMidnight).inDays;
 
       if (daysAgo >= 0 && daysAgo < days) {

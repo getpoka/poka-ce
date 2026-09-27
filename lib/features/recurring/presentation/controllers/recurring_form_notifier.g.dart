@@ -37,7 +37,7 @@ final class RecurringFormNotifierProvider extends $NotifierProvider<RecurringFor
   }
 }
 
-String _$recurringFormNotifierHash() => r'08cd585690a0a7db9a39186742803925dfdf87d3';
+String _$recurringFormNotifierHash() => r'5c8ade1255be669e6e91e47576406ce0cfbb61c0';
 
 abstract class _$RecurringFormNotifier extends $Notifier<RecurringFormState> {
   RecurringFormState build();

@@ -11,14 +11,14 @@ _BudgetModel _$BudgetModelFromJson(Map<String, dynamic> json) => _BudgetModel(
   name: json['name'] as String,
   amount: (json['amount'] as num).toInt(),
   period: $enumDecode(_$BudgetPeriodEnumMap, json['period']),
-  startDate: DateTime.parse(json['startDate'] as String),
+  startDate: json['startDate'] as String,
   createdAt: DateTime.parse(json['createdAt'] as String),
   updatedAt: DateTime.parse(json['updatedAt'] as String),
   categoryId: json['categoryId'] as String?,
   accountId: json['accountId'] as String?,
   resetDay: (json['resetDay'] as num?)?.toInt(),
   alertThreshold: (json['alertThreshold'] as num?)?.toInt(),
-  endDate: json['endDate'] == null ? null : DateTime.parse(json['endDate'] as String),
+  endDate: json['endDate'] as String?,
 );
 
 Map<String, dynamic> _$BudgetModelToJson(_BudgetModel instance) => <String, dynamic>{
@@ -26,14 +26,14 @@ Map<String, dynamic> _$BudgetModelToJson(_BudgetModel instance) => <String, dyna
   'name': instance.name,
   'amount': instance.amount,
   'period': _$BudgetPeriodEnumMap[instance.period]!,
-  'startDate': instance.startDate.toIso8601String(),
+  'startDate': instance.startDate,
   'createdAt': instance.createdAt.toIso8601String(),
   'updatedAt': instance.updatedAt.toIso8601String(),
   'categoryId': instance.categoryId,
   'accountId': instance.accountId,
   'resetDay': instance.resetDay,
   'alertThreshold': instance.alertThreshold,
-  'endDate': instance.endDate?.toIso8601String(),
+  'endDate': instance.endDate,
 };
 
 const _$BudgetPeriodEnumMap = {
@@ -47,8 +47,8 @@ _BudgetRecordModel _$BudgetRecordModelFromJson(Map<String, dynamic> json) => _Bu
   id: json['id'] as String,
   budgetId: json['budgetId'] as String,
   spentAmount: (json['spentAmount'] as num).toInt(),
-  periodStart: DateTime.parse(json['periodStart'] as String),
-  periodEnd: DateTime.parse(json['periodEnd'] as String),
+  periodStart: json['periodStart'] as String,
+  periodEnd: json['periodEnd'] as String,
   createdAt: DateTime.parse(json['createdAt'] as String),
   updatedAt: DateTime.parse(json['updatedAt'] as String),
 );
@@ -57,8 +57,8 @@ Map<String, dynamic> _$BudgetRecordModelToJson(_BudgetRecordModel instance) => <
   'id': instance.id,
   'budgetId': instance.budgetId,
   'spentAmount': instance.spentAmount,
-  'periodStart': instance.periodStart.toIso8601String(),
-  'periodEnd': instance.periodEnd.toIso8601String(),
+  'periodStart': instance.periodStart,
+  'periodEnd': instance.periodEnd,
   'createdAt': instance.createdAt.toIso8601String(),
   'updatedAt': instance.updatedAt.toIso8601String(),
 };

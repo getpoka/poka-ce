@@ -30,7 +30,7 @@ void main() {
     accountId: 'a1',
     type: TransactionType.expense,
     amount: 5000,
-    transactionDate: DateTime(2026, 8, 1),
+    transactionDate: '2026-08-01T00:00:00',
     createdAt: DateTime(2026, 8, 1),
     updatedAt: DateTime(2026, 8, 1),
   );
@@ -74,7 +74,7 @@ void main() {
       amount: 10000,
       categoryId: 'c9',
       note: 'updated',
-      transactionDate: DateTime(2026, 8, 15),
+      transactionDate: '2026-08-15T00:00:00',
     );
 
     expect(result, isA<Success>());
@@ -84,7 +84,7 @@ void main() {
     expect(captured.type, TransactionType.income);
     expect(captured.accountId, 'a2');
     expect(captured.note, 'updated');
-    expect(captured.transactionDate, DateTime(2026, 8, 15));
+    expect(captured.transactionDate, '2026-08-15T00:00:00');
     expect(captured.id, 'tx1');
     expect(captured.items.length, 1);
     expect(captured.items.first.categoryId, 'c9');

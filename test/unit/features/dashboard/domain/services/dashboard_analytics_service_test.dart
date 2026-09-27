@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:poka_ce/core/enums.dart';
+import 'package:poka_ce/database/converters/local_date_converter.dart';
 import 'package:poka_ce/features/accounts/domain/account_model.dart';
 import 'package:poka_ce/features/categories/domain/category_model.dart';
 import 'package:poka_ce/features/dashboard/domain/services/dashboard_analytics_service.dart';
@@ -143,7 +144,7 @@ void main() {
             accountId: 'acc1',
             type: TransactionType.expense,
             amount: 200,
-            transactionDate: today,
+            transactionDate: formatAsLocalDateTime(today),
             items: const [],
             createdAt: today,
             updatedAt: today,
@@ -154,7 +155,7 @@ void main() {
             accountId: 'acc1',
             type: TransactionType.income,
             amount: 500,
-            transactionDate: yesterday,
+            transactionDate: formatAsLocalDateTime(yesterday),
             items: const [],
             createdAt: yesterday,
             updatedAt: yesterday,
@@ -207,7 +208,7 @@ void main() {
             accountId: 'a1',
             type: TransactionType.income,
             amount: 1500,
-            transactionDate: today,
+            transactionDate: formatAsLocalDateTime(today),
             items: const [],
             createdAt: today,
             updatedAt: today,
@@ -217,7 +218,7 @@ void main() {
             accountId: 'a1',
             type: TransactionType.expense,
             amount: 300,
-            transactionDate: today,
+            transactionDate: formatAsLocalDateTime(today),
             items: [
               TransactionItemModel(
                 id: 'item1',

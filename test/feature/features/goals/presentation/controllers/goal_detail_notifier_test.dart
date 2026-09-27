@@ -140,8 +140,8 @@ void main() {
 class _FakeTransactionRepo implements ITransactionRepository {
   @override
   Stream<Result<List<TransactionModel>, Failure>> watchTransactions({
-    DateTime? startDate,
-    DateTime? endDate,
+    String? startDate,
+    String? endDate,
     String? accountId,
     String? categoryId,
     String? goalId,

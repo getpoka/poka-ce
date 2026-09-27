@@ -6,12 +6,16 @@ import 'package:poka_ce/theme/theme.dart';
 class DebtDueDateChip extends StatelessWidget {
   const new({required this.dueDate, super.key});
 
-  final DateTime dueDate;
+  final String dueDate;
 
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;
-    final daysLeft = dueDate.difference(DateTime.now()).inDays;
+    final parsed = DateTime.parse(dueDate);
+    final now = DateTime.now();
+    final todayMidnight = DateTime(now.year, now.month, now.day);
+    final dueMidnight = DateTime(parsed.year, parsed.month, parsed.day);
+    final daysLeft = dueMidnight.difference(todayMidnight).inDays;
     final isOverdue = daysLeft < 0;
     final isUrgent = daysLeft >= 0 && daysLeft <= 7;
 
@@ -23,7 +27,7 @@ class DebtDueDateChip extends StatelessWidget {
         ? t.common.overdue
         : daysLeft == 0
         ? t.common.dueToday
-        : DateFormat.MMMd().format(dueDate);
+        : DateFormat.MMMd().format(parsed);
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),

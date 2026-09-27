@@ -1,6 +1,7 @@
 import 'package:poka_ce/app/providers/repository_providers.dart';
 import 'package:poka_ce/core/error/result.dart';
 import 'package:poka_ce/core/utils/datetime_utils.dart';
+import 'package:poka_ce/database/converters/local_date_converter.dart';
 import 'package:poka_ce/features/goals/domain/goal_model.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -91,7 +92,7 @@ class GoalFormNotifier extends _$GoalFormNotifier {
         initialGoal: goal,
         name: goal.name,
         targetAmount: goal.targetAmount,
-        targetDate: goal.targetDate,
+        targetDate: goal.targetDate != null ? DateTime.tryParse(goal.targetDate!) : null,
         parentAccountId: goal.parentAccountId,
       );
     } else {
@@ -153,7 +154,7 @@ class GoalFormNotifier extends _$GoalFormNotifier {
         state.initialGoal?.copyWith(
           name: state.name.trim(),
           targetAmount: state.targetAmount,
-          targetDate: state.targetDate,
+          targetDate: state.targetDate != null ? todayAsLocalDate(state.targetDate) : null,
           parentAccountId: state.parentAccountId,
           updatedAt: now,
         ) ??
@@ -163,7 +164,7 @@ class GoalFormNotifier extends _$GoalFormNotifier {
           targetAmount: state.targetAmount,
           accountId: const Uuid().v7(),
           parentAccountId: state.parentAccountId,
-          targetDate: state.targetDate,
+          targetDate: state.targetDate != null ? todayAsLocalDate(state.targetDate) : null,
           createdAt: now,
           updatedAt: now,
         );

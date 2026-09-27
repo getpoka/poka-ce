@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$GoalModel {
 
- String get id; String get accountId; String get name; int get targetAmount; DateTime get createdAt; DateTime get updatedAt; GoalStatus get status; String? get parentAccountId; DateTime? get targetDate; String? get icon; String? get color;
+ String get id; String get accountId; String get name; int get targetAmount; DateTime get createdAt; DateTime get updatedAt; GoalStatus get status; String? get parentAccountId; String? get targetDate; String? get icon; String? get color;
 /// Create a copy of GoalModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -54,7 +54,7 @@ abstract mixin class $GoalModelCopyWith<$Res>  {
   factory $GoalModelCopyWith(GoalModel value, $Res Function(GoalModel) _then) = _$GoalModelCopyWithImpl;
 @useResult
 $Res call({
- String id, String accountId, String name, int targetAmount, DateTime createdAt, DateTime updatedAt, GoalStatus status, String? parentAccountId, DateTime? targetDate, String? icon, String? color
+ String id, String accountId, String name, int targetAmount, DateTime createdAt, DateTime updatedAt, GoalStatus status, String? parentAccountId, String? targetDate, String? icon, String? color
 });
 
 
@@ -82,7 +82,7 @@ as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore
 as DateTime,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as GoalStatus,parentAccountId: freezed == parentAccountId ? _self.parentAccountId : parentAccountId // ignore: cast_nullable_to_non_nullable
 as String?,targetDate: freezed == targetDate ? _self.targetDate : targetDate // ignore: cast_nullable_to_non_nullable
-as DateTime?,icon: freezed == icon ? _self.icon : icon // ignore: cast_nullable_to_non_nullable
+as String?,icon: freezed == icon ? _self.icon : icon // ignore: cast_nullable_to_non_nullable
 as String?,color: freezed == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
@@ -169,7 +169,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String accountId,  String name,  int targetAmount,  DateTime createdAt,  DateTime updatedAt,  GoalStatus status,  String? parentAccountId,  DateTime? targetDate,  String? icon,  String? color)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String accountId,  String name,  int targetAmount,  DateTime createdAt,  DateTime updatedAt,  GoalStatus status,  String? parentAccountId,  String? targetDate,  String? icon,  String? color)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _GoalModel() when $default != null:
 return $default(_that.id,_that.accountId,_that.name,_that.targetAmount,_that.createdAt,_that.updatedAt,_that.status,_that.parentAccountId,_that.targetDate,_that.icon,_that.color);case _:
@@ -190,7 +190,7 @@ return $default(_that.id,_that.accountId,_that.name,_that.targetAmount,_that.cre
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String accountId,  String name,  int targetAmount,  DateTime createdAt,  DateTime updatedAt,  GoalStatus status,  String? parentAccountId,  DateTime? targetDate,  String? icon,  String? color)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String accountId,  String name,  int targetAmount,  DateTime createdAt,  DateTime updatedAt,  GoalStatus status,  String? parentAccountId,  String? targetDate,  String? icon,  String? color)  $default,) {final _that = this;
 switch (_that) {
 case _GoalModel():
 return $default(_that.id,_that.accountId,_that.name,_that.targetAmount,_that.createdAt,_that.updatedAt,_that.status,_that.parentAccountId,_that.targetDate,_that.icon,_that.color);case _:
@@ -210,7 +210,7 @@ return $default(_that.id,_that.accountId,_that.name,_that.targetAmount,_that.cre
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String accountId,  String name,  int targetAmount,  DateTime createdAt,  DateTime updatedAt,  GoalStatus status,  String? parentAccountId,  DateTime? targetDate,  String? icon,  String? color)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String accountId,  String name,  int targetAmount,  DateTime createdAt,  DateTime updatedAt,  GoalStatus status,  String? parentAccountId,  String? targetDate,  String? icon,  String? color)?  $default,) {final _that = this;
 switch (_that) {
 case _GoalModel() when $default != null:
 return $default(_that.id,_that.accountId,_that.name,_that.targetAmount,_that.createdAt,_that.updatedAt,_that.status,_that.parentAccountId,_that.targetDate,_that.icon,_that.color);case _:
@@ -236,7 +236,7 @@ class _GoalModel implements GoalModel {
 @override final  DateTime updatedAt;
 @override@JsonKey() final  GoalStatus status;
 @override final  String? parentAccountId;
-@override final  DateTime? targetDate;
+@override final  String? targetDate;
 @override final  String? icon;
 @override final  String? color;
 
@@ -275,7 +275,7 @@ abstract mixin class _$GoalModelCopyWith<$Res> implements $GoalModelCopyWith<$Re
   factory _$GoalModelCopyWith(_GoalModel value, $Res Function(_GoalModel) _then) = __$GoalModelCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String accountId, String name, int targetAmount, DateTime createdAt, DateTime updatedAt, GoalStatus status, String? parentAccountId, DateTime? targetDate, String? icon, String? color
+ String id, String accountId, String name, int targetAmount, DateTime createdAt, DateTime updatedAt, GoalStatus status, String? parentAccountId, String? targetDate, String? icon, String? color
 });
 
 
@@ -303,7 +303,7 @@ as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore
 as DateTime,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as GoalStatus,parentAccountId: freezed == parentAccountId ? _self.parentAccountId : parentAccountId // ignore: cast_nullable_to_non_nullable
 as String?,targetDate: freezed == targetDate ? _self.targetDate : targetDate // ignore: cast_nullable_to_non_nullable
-as DateTime?,icon: freezed == icon ? _self.icon : icon // ignore: cast_nullable_to_non_nullable
+as String?,icon: freezed == icon ? _self.icon : icon // ignore: cast_nullable_to_non_nullable
 as String?,color: freezed == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
 as String?,
   ));

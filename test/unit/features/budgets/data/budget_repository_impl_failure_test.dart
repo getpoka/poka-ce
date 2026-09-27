@@ -79,7 +79,7 @@ BudgetModel _buildBudget() {
     name: 'Food Budget',
     amount: 2000000,
     period: BudgetPeriod.monthly,
-    startDate: DateTimeUtils.nowUtc(),
+    startDate: '2026-08-01',
     resetDay: 1,
     createdAt: DateTimeUtils.nowUtc(),
     updatedAt: DateTimeUtils.nowUtc(),

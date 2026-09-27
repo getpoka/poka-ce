@@ -15,7 +15,7 @@ abstract class DebtModel with _$DebtModel {
     required DebtStatus status,
     required DateTime createdAt,
     required DateTime updatedAt,
-    DateTime? dueDate,
+    String? dueDate,
     String? note,
   }) = _DebtModel;
 

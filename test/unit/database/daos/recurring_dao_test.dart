@@ -23,7 +23,7 @@ void main() {
 
     test('insert and getRecurring', () async {
       await seedAccount('acc1');
-      final next = DateTime.now().toUtc();
+      const next = '2026-08-23';
       await db.recurringDao.insertRecurring(
         RecurringTransactionsCompanion.insert(
           id: const Value('r1'),
@@ -46,7 +46,7 @@ void main() {
 
     test('getActiveRecurring filters inactive', () async {
       await seedAccount('acc1');
-      final next = DateTime.now().toUtc();
+      const next = '2026-08-23';
       await db.recurringDao.insertRecurring(
         RecurringTransactionsCompanion.insert(
           id: const Value('r1'),
@@ -75,7 +75,7 @@ void main() {
 
     test('updateRecurring modifies', () async {
       await seedAccount('acc1');
-      final next = DateTime.now().toUtc();
+      const next = '2026-08-23';
       await db.recurringDao.insertRecurring(
         RecurringTransactionsCompanion.insert(
           id: const Value('r1'),
@@ -95,7 +95,7 @@ void main() {
 
     test('getDueRecurring returns only active rows due on or before asOf', () async {
       await seedAccount('acc1');
-      final now = DateTime.now().toUtc();
+      const now = '2026-08-23';
       await db.recurringDao.insertRecurring(
         RecurringTransactionsCompanion.insert(
           id: const Value('due1'),
@@ -103,7 +103,7 @@ void main() {
           type: TransactionType.expense,
           amount: 100,
           period: RecurringPeriod.monthly,
-          nextDate: now.subtract(const Duration(days: 2)),
+          nextDate: '2026-08-21',
         ),
       );
       await db.recurringDao.insertRecurring(
@@ -113,7 +113,7 @@ void main() {
           type: TransactionType.expense,
           amount: 200,
           period: RecurringPeriod.monthly,
-          nextDate: now,
+          nextDate: '2026-08-23',
         ),
       );
       await db.recurringDao.insertRecurring(
@@ -123,7 +123,7 @@ void main() {
           type: TransactionType.expense,
           amount: 300,
           period: RecurringPeriod.monthly,
-          nextDate: now.add(const Duration(days: 2)),
+          nextDate: '2026-08-25',
         ),
       );
       await db.recurringDao.insertRecurring(
@@ -133,7 +133,7 @@ void main() {
           type: TransactionType.expense,
           amount: 400,
           period: RecurringPeriod.monthly,
-          nextDate: now.subtract(const Duration(days: 1)),
+          nextDate: '2026-08-22',
           isActive: const Value(false),
         ),
       );
@@ -151,7 +151,7 @@ void main() {
           type: TransactionType.expense,
           amount: 100,
           period: RecurringPeriod.yearly,
-          nextDate: DateTime.now().toUtc(),
+          nextDate: '2026-08-23',
         ),
       );
       await db.recurringDao.deleteRecurring('r1');
@@ -173,7 +173,7 @@ void main() {
           type: TransactionType.transfer,
           amount: 75000,
           period: RecurringPeriod.monthly,
-          nextDate: DateTime.now().toUtc(),
+          nextDate: '2026-08-23',
         ),
       );
       final r = await db.recurringDao.getRecurring('r1');
@@ -184,7 +184,7 @@ void main() {
 
     test('getAllRecurring returns multiple', () async {
       await seedAccount('acc1');
-      final now = DateTime.now().toUtc();
+      const now = '2026-08-23';
       await db.recurringDao.insertRecurring(
         RecurringTransactionsCompanion.insert(
           id: const Value('r1'),

@@ -66,7 +66,7 @@ void main() {
   });
 
   test('goal with targetDate persisted', () async {
-    final target = DateTime.utc(2027, 5);
+    const target = '2027-05-01';
     await repo.createGoal(
       GoalModel(
         id: 'g1',
@@ -79,6 +79,6 @@ void main() {
       ),
     );
     final res = await repo.getGoalById('g1');
-    res.fold((v) => expect(v.targetDate!.toUtc(), target.toUtc()), (e) => fail('fail'));
+    res.fold((v) => expect(v.targetDate, target), (e) => fail('fail'));
   });
 }

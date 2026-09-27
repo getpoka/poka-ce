@@ -89,7 +89,7 @@ RecurringTransactionModel _buildRecurring() {
     type: TransactionType.expense,
     amount: 150000,
     period: RecurringPeriod.monthly,
-    nextDate: DateTimeUtils.nowUtc(),
+    nextDate: '2026-08-23',
     createdAt: DateTimeUtils.nowUtc(),
     updatedAt: DateTimeUtils.nowUtc(),
   );

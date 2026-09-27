@@ -63,7 +63,7 @@ void main() {
     accountId: 'a1',
     type: TransactionType.expense,
     amount: 500,
-    transactionDate: DateTime.utc(2024, 1, 1),
+    transactionDate: '2024-01-01T00:00:00',
     createdAt: DateTime.utc(2024, 1, 1),
     updatedAt: DateTime.utc(2024, 1, 1),
   );
@@ -73,7 +73,7 @@ void main() {
     accountId: 'a1',
     type: TransactionType.expense,
     amount: 700,
-    transactionDate: DateTime.utc(2024, 2, 2),
+    transactionDate: '2024-02-02T00:00:00',
     createdAt: DateTime.utc(2024, 2, 2),
     updatedAt: DateTime.utc(2024, 2, 2),
     note: 'receipt',
@@ -497,7 +497,7 @@ void main() {
       expect(s.amountExpression, '500');
       expect(s.note, 'edited');
       expect(s.accountId, 'a1');
-      expect(s.date, tx.transactionDate.toLocal());
+      expect(s.date, DateTime.parse(tx.transactionDate));
     });
 
     test('build seeds split items from multi-item transaction', () {

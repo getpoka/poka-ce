@@ -7,6 +7,7 @@ import 'package:poka_ce/core/enums.dart';
 import 'package:poka_ce/core/error/failure.dart';
 import 'package:poka_ce/core/error/result.dart';
 import 'package:poka_ce/core/extensions/datetime_extension.dart';
+import 'package:poka_ce/database/converters/local_date_converter.dart';
 import 'package:poka_ce/features/transactions/domain/transaction_model.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 
@@ -208,8 +209,8 @@ class TransactionListNotifier extends Notifier<TransactionListState> {
     _subscription = ref
         .read(transactionRepositoryProvider)
         .watchTransactions(
-          startDate: windowStart,
-          endDate: windowEnd,
+          startDate: formatAsLocalDateTime(windowStart),
+          endDate: formatAsLocalDateTime(windowEnd),
           accountIds: targetState.filter.accountIds,
           categoryIds: targetState.filter.categoryIds,
           types: targetState.filter.types,

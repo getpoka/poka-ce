@@ -3,6 +3,7 @@ import 'package:poka_ce/app/providers/repository_providers.dart';
 import 'package:poka_ce/core/enums.dart';
 import 'package:poka_ce/core/error/result.dart';
 import 'package:poka_ce/core/utils/datetime_utils.dart';
+import 'package:poka_ce/database/converters/local_date_converter.dart';
 import 'package:poka_ce/features/recurring/domain/recurring_model.dart';
 import 'package:poka_ce/features/recurring/presentation/controllers/recurring_list_notifier.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
@@ -52,7 +53,7 @@ class RecurringFormNotifier extends _$RecurringFormNotifier {
         allocation: recurring.allocation,
         note: recurring.note,
         isActive: recurring.isActive,
-        nextDate: recurring.nextDate,
+        nextDate: DateTime.parse(recurring.nextDate),
       );
     } else {
       state = const RecurringFormState();
@@ -93,7 +94,8 @@ class RecurringFormNotifier extends _$RecurringFormNotifier {
     final repo = ref.read(recurringRepositoryProvider);
 
     final now = DateTimeUtils.nowUtc();
-    final tomorrow = DateTime.utc(now.year, now.month, now.day + 1);
+    final tomorrow = DateTime.now().add(const Duration(days: 1));
+    final defaultNextDate = todayAsLocalDate(tomorrow);
     final model =
         state.initialRecurring?.copyWith(
           type: state.type,
@@ -105,7 +107,7 @@ class RecurringFormNotifier extends _$RecurringFormNotifier {
           allocation: state.allocation,
           note: state.note,
           isActive: state.isActive,
-          nextDate: state.nextDate!,
+          nextDate: todayAsLocalDate(state.nextDate),
           updatedAt: now,
         ) ??
         RecurringTransactionModel(
@@ -119,7 +121,7 @@ class RecurringFormNotifier extends _$RecurringFormNotifier {
           allocation: state.allocation,
           note: state.note,
           isActive: state.isActive,
-          nextDate: state.nextDate ?? tomorrow,
+          nextDate: state.nextDate != null ? todayAsLocalDate(state.nextDate) : defaultNextDate,
           createdAt: now,
           updatedAt: now,
         );

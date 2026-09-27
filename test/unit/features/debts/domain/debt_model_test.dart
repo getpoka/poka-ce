@@ -16,7 +16,7 @@ void main() {
         status: DebtStatus.active,
         createdAt: now,
         updatedAt: now,
-        dueDate: now,
+        dueDate: '2024-01-01',
         note: 'note',
       );
       final json = m.toJson();

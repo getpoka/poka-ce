@@ -40,7 +40,7 @@ final class GoalFormNotifierProvider extends $NotifierProvider<GoalFormNotifier,
   }
 }
 
-String _$goalFormNotifierHash() => r'3dd5777e5888c6be9dfa83ee9d9c734579da7d38';
+String _$goalFormNotifierHash() => r'acb5d31c4bdc490940e4165426bfd0a0b731e541';
 
 /// Notifier driving the savings goal creation and edit form sheet.
 

@@ -40,7 +40,7 @@ final class BudgetFormNotifierProvider extends $NotifierProvider<BudgetFormNotif
   }
 }
 
-String _$budgetFormNotifierHash() => r'30292d6af8d811432bfebfca813ca7ca14d05b2b';
+String _$budgetFormNotifierHash() => r'2f79d26f3ba35d0647e8824d45269588e6e0ac22';
 
 /// Notifier managing budget creation and editing form state and persistence.
 

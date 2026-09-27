@@ -7,18 +7,19 @@ void main() {
   group('BudgetModel', () {
     test('fromJson/toJson', () {
       final now = DateTime.utc(2024, 1, 1);
+      const dateStr = '2024-01-01';
       final model = BudgetModel(
         id: 'b1',
         name: 'Food',
         amount: 1000,
         period: BudgetPeriod.monthly,
-        startDate: now,
+        startDate: dateStr,
         createdAt: now,
         updatedAt: now,
         categoryId: 'c1',
         accountId: 'a1',
         resetDay: 1,
-        endDate: now,
+        endDate: dateStr,
       );
       final json = model.toJson();
       final restored = BudgetModel.fromJson(json);
@@ -27,12 +28,13 @@ void main() {
 
     test('copyWith', () {
       final now = DateTime.utc(2024, 1, 1);
+      const dateStr = '2024-01-01';
       final model = BudgetModel(
         id: 'b1',
         name: 'Food',
         amount: 1000,
         period: BudgetPeriod.monthly,
-        startDate: now,
+        startDate: dateStr,
         createdAt: now,
         updatedAt: now,
       );
@@ -44,12 +46,13 @@ void main() {
 
     test('equality', () {
       final now = DateTime.utc(2024, 1, 1);
+      const dateStr = '2024-01-01';
       final a = BudgetModel(
         id: 'b1',
         name: 'Food',
         amount: 1000,
         period: BudgetPeriod.weekly,
-        startDate: now,
+        startDate: dateStr,
         createdAt: now,
         updatedAt: now,
       );
@@ -58,7 +61,7 @@ void main() {
         name: 'Food',
         amount: 1000,
         period: BudgetPeriod.weekly,
-        startDate: now,
+        startDate: dateStr,
         createdAt: now,
         updatedAt: now,
       );
@@ -67,12 +70,13 @@ void main() {
 
     test('optional fields null by default', () {
       final now = DateTime.utc(2024, 1, 1);
+      const dateStr = '2024-01-01';
       final m = BudgetModel(
         id: 'b1',
         name: 'Food',
         amount: 1000,
         period: BudgetPeriod.monthly,
-        startDate: now,
+        startDate: dateStr,
         createdAt: now,
         updatedAt: now,
       );
@@ -84,12 +88,13 @@ void main() {
   group('BudgetRecordModel', () {
     test('fromJson/toJson', () {
       final now = DateTime.utc(2024, 1, 1);
+      const dateStr = '2024-01-01';
       final model = BudgetRecordModel(
         id: 'r1',
         budgetId: 'b1',
         spentAmount: 500,
-        periodStart: now,
-        periodEnd: now,
+        periodStart: dateStr,
+        periodEnd: dateStr,
         createdAt: now,
         updatedAt: now,
       );
@@ -100,12 +105,13 @@ void main() {
 
     test('copyWith', () {
       final now = DateTime.utc(2024, 1, 1);
+      const dateStr = '2024-01-01';
       final model = BudgetRecordModel(
         id: 'r1',
         budgetId: 'b1',
         spentAmount: 500,
-        periodStart: now,
-        periodEnd: now,
+        periodStart: dateStr,
+        periodEnd: dateStr,
         createdAt: now,
         updatedAt: now,
       );

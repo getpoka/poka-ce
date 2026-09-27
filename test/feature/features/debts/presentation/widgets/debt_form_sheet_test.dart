@@ -95,7 +95,7 @@ void main() {
     status: DebtStatus.active,
     createdAt: DateTime.utc(2024, 1, 1),
     updatedAt: DateTime.utc(2024, 1, 1),
-    dueDate: DateTime.utc(2025, 1, 1),
+    dueDate: '2025-01-01',
     note: 'dinner',
   );
 

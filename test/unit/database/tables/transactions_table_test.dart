@@ -27,7 +27,7 @@ void main() {
               destinationAccountId: const Value(null),
               type: TransactionType.expense,
               amount: 50000,
-              transactionDate: DateTime(2026, 8, 1),
+              transactionDate: '2026-08-01T00:00:00',
               note: const Value('lunch'),
             ),
           );
@@ -58,7 +58,7 @@ void main() {
               destinationAccountId: const Value('dst'),
               type: TransactionType.transfer,
               amount: 750000,
-              transactionDate: DateTime(2026, 8, 2),
+              transactionDate: '2026-08-02T00:00:00',
             ),
           );
       final row = await db.select(db.transactions).getSingle();
@@ -90,7 +90,7 @@ void main() {
               accountId: 'acc',
               type: TransactionType.expense,
               amount: 100000,
-              transactionDate: DateTime(2026, 8, 3),
+              transactionDate: '2026-08-03T00:00:00',
             ),
           );
       await db
@@ -146,7 +146,7 @@ void main() {
               accountId: 'acc',
               type: TransactionType.income,
               amount: 10,
-              transactionDate: DateTime(2026, 8, 4),
+              transactionDate: '2026-08-04T00:00:00',
             ),
           );
       await db

@@ -41,8 +41,8 @@ class BudgetsDao extends DatabaseAccessor<AppDatabase> with _$BudgetsDaoMixin {
   /// OR any of its child categories (resolving 1-level hierarchy).
   /// If [accountId] is provided, it further filters by account.
   Future<int> getSpentAmountForBudget({
-    required DateTime startDate,
-    required DateTime endDate,
+    required String startDate,
+    required String endDate,
     String? categoryId,
     String? accountId,
   }) async {

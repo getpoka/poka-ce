@@ -148,7 +148,7 @@ void main() {
     accountId: 'a1',
     type: TransactionType.expense,
     amount: 500,
-    transactionDate: DateTime.utc(2024, 1, 1),
+    transactionDate: '2024-01-01T00:00:00',
     createdAt: DateTime.utc(2024, 1, 1),
     updatedAt: DateTime.utc(2024, 1, 1),
   );

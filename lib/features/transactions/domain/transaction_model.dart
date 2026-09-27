@@ -29,7 +29,7 @@ abstract class TransactionModel with _$TransactionModel {
     required String accountId,
     required TransactionType type,
     required int amount,
-    required DateTime transactionDate,
+    required String transactionDate,
     required DateTime createdAt,
     required DateTime updatedAt,
     String? destinationAccountId,

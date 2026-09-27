@@ -16,7 +16,7 @@ void main() {
     });
 
     test('insert and getBudget', () async {
-      final now = DateTime.now().toUtc();
+      const now = '2026-08-23';
       await db.budgetsDao.insertBudget(
         BudgetsCompanion.insert(
           id: const Value('b1'),
@@ -39,7 +39,7 @@ void main() {
     });
 
     test('updateBudget modifies fields', () async {
-      final now = DateTime.now().toUtc();
+      const now = '2026-08-23';
       await db.budgetsDao.insertBudget(
         BudgetsCompanion.insert(
           id: const Value('b1'),
@@ -59,7 +59,7 @@ void main() {
     });
 
     test('deleteBudget removes', () async {
-      final now = DateTime.now().toUtc();
+      const now = '2026-08-23';
       await db.budgetsDao.insertBudget(
         BudgetsCompanion.insert(
           id: const Value('b1'),
@@ -74,7 +74,7 @@ void main() {
     });
 
     test('BudgetRecords: insert and getRecordsForBudget', () async {
-      final now = DateTime.now().toUtc();
+      const now = '2026-08-23';
       await db.budgetsDao.insertBudget(
         BudgetsCompanion.insert(
           id: const Value('b1'),
@@ -90,7 +90,7 @@ void main() {
           budgetId: 'b1',
           spentAmount: const Value(250),
           periodStart: now,
-          periodEnd: now.add(const Duration(days: 30)),
+          periodEnd: '2026-09-22',
         ),
       );
       await db.budgetsDao.insertBudgetRecord(
@@ -98,7 +98,7 @@ void main() {
           budgetId: 'b1',
           spentAmount: const Value(100),
           periodStart: now,
-          periodEnd: now.add(const Duration(days: 30)),
+          periodEnd: '2026-09-22',
         ),
       );
       final records = await db.budgetsDao.getRecordsForBudget('b1');
@@ -107,7 +107,7 @@ void main() {
     });
 
     test('budget deletion cascades to records', () async {
-      final now = DateTime.now().toUtc();
+      const now = '2026-08-23';
       await db.budgetsDao.insertBudget(
         BudgetsCompanion.insert(
           id: const Value('b1'),
@@ -118,7 +118,7 @@ void main() {
         ),
       );
       await db.budgetsDao.insertBudgetRecord(
-        BudgetRecordsCompanion.insert(budgetId: 'b1', periodStart: now, periodEnd: now.add(const Duration(days: 30))),
+        BudgetRecordsCompanion.insert(budgetId: 'b1', periodStart: now, periodEnd: '2026-09-22'),
       );
       expect((await db.select(db.budgetRecords).get()).length, 1);
       await db.budgetsDao.deleteBudget('b1');
@@ -132,7 +132,7 @@ void main() {
       await db
           .into(db.categories)
           .insert(CategoriesCompanion.insert(id: const Value('cat1'), name: 'Food', type: CategoryType.expense));
-      final now = DateTime.now().toUtc();
+      const now = '2026-08-23';
       await db.budgetsDao.insertBudget(
         BudgetsCompanion.insert(
           id: const Value('b1'),
@@ -150,7 +150,7 @@ void main() {
     });
 
     test('getAllBudgets returns multiple', () async {
-      final now = DateTime.now().toUtc();
+      const now = '2026-08-23';
       await db.budgetsDao.insertBudget(
         BudgetsCompanion.insert(
           id: const Value('b1'),
@@ -173,7 +173,7 @@ void main() {
     });
 
     test('getRecordsForBudget empty if none', () async {
-      final now = DateTime.now().toUtc();
+      const now = '2026-08-23';
       await db.budgetsDao.insertBudget(
         BudgetsCompanion.insert(
           id: const Value('b1'),
@@ -187,16 +187,15 @@ void main() {
     });
 
     test('getSpentAmountForBudget returns 0 with no transactions', () async {
-      final now = DateTime.now().toUtc();
       final spent = await db.budgetsDao.getSpentAmountForBudget(
-        startDate: now.subtract(const Duration(days: 30)),
-        endDate: now,
+        startDate: '2026-07-23T00:00:00',
+        endDate: '2026-08-23T23:59:59',
       );
       expect(spent, 0);
     });
 
     test('getSpentAmountForBudget sums expense transactions in range', () async {
-      final now = DateTime.now().toUtc();
+      const txDate = '2026-08-23T12:00:00';
       // Setup account and category
       await db
           .into(db.accounts)
@@ -213,7 +212,7 @@ void main() {
               accountId: 'acc1',
               type: TransactionType.expense,
               amount: 300,
-              transactionDate: now,
+              transactionDate: txDate,
             ),
           );
       await db
@@ -228,20 +227,20 @@ void main() {
               accountId: 'acc1',
               type: TransactionType.income,
               amount: 1000,
-              transactionDate: now,
+              transactionDate: txDate,
             ),
           );
       await db.into(db.transactionItems).insert(TransactionItemsCompanion.insert(transactionId: 'tx2', amount: 1000));
 
       final spent = await db.budgetsDao.getSpentAmountForBudget(
-        startDate: now.subtract(const Duration(days: 1)),
-        endDate: now.add(const Duration(days: 1)),
+        startDate: '2026-08-22T00:00:00',
+        endDate: '2026-08-24T23:59:59',
       );
       expect(spent, 300);
     });
 
     test('getSpentAmountForBudget filters by categoryId', () async {
-      final now = DateTime.now().toUtc();
+      const txDate = '2026-08-23T12:00:00';
       await db
           .into(db.accounts)
           .insert(AccountsCompanion.insert(id: const Value('acc1'), name: 'Wallet', type: AccountType.assets));
@@ -259,7 +258,7 @@ void main() {
               accountId: 'acc1',
               type: TransactionType.expense,
               amount: 500,
-              transactionDate: now,
+              transactionDate: txDate,
             ),
           );
       await db
@@ -270,15 +269,15 @@ void main() {
           .insert(TransactionItemsCompanion.insert(transactionId: 'tx1', categoryId: const Value('cat2'), amount: 300));
 
       final spent = await db.budgetsDao.getSpentAmountForBudget(
-        startDate: now.subtract(const Duration(days: 1)),
-        endDate: now.add(const Duration(days: 1)),
+        startDate: '2026-08-22T00:00:00',
+        endDate: '2026-08-24T23:59:59',
         categoryId: 'cat1',
       );
       expect(spent, 200);
     });
 
     test('getSpentAmountForBudget filters by accountId', () async {
-      final now = DateTime.now().toUtc();
+      const txDate = '2026-08-23T12:00:00';
       await db
           .into(db.accounts)
           .insert(AccountsCompanion.insert(id: const Value('acc1'), name: 'Wallet', type: AccountType.assets));
@@ -293,7 +292,7 @@ void main() {
               accountId: 'acc1',
               type: TransactionType.expense,
               amount: 100,
-              transactionDate: now,
+              transactionDate: txDate,
             ),
           );
       await db.into(db.transactionItems).insert(TransactionItemsCompanion.insert(transactionId: 'tx1', amount: 100));
@@ -305,14 +304,14 @@ void main() {
               accountId: 'acc2',
               type: TransactionType.expense,
               amount: 400,
-              transactionDate: now,
+              transactionDate: txDate,
             ),
           );
       await db.into(db.transactionItems).insert(TransactionItemsCompanion.insert(transactionId: 'tx2', amount: 400));
 
       final spent = await db.budgetsDao.getSpentAmountForBudget(
-        startDate: now.subtract(const Duration(days: 1)),
-        endDate: now.add(const Duration(days: 1)),
+        startDate: '2026-08-22T00:00:00',
+        endDate: '2026-08-24T23:59:59',
         accountId: 'acc1',
       );
       expect(spent, 100);

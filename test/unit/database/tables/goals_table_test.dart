@@ -57,11 +57,11 @@ void main() {
               accountId: 'acc2',
               name: 'Trip',
               targetAmount: 10000000,
-              targetDate: Value(DateTime(2027, 1, 1)),
+              targetDate: const Value('2027-01-01'),
             ),
           );
       final row = await db.select(db.goals).getSingle();
-      expect(row.targetDate, DateTime(2027, 1, 1));
+      expect(row.targetDate, '2027-01-01');
 
       await (db.update(
         db.goals,

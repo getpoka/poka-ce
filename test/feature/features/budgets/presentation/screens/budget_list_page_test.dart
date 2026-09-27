@@ -27,8 +27,8 @@ BudgetModel _budget(
   int amount,
   BudgetPeriod period, {
   int? resetDay,
-  DateTime? startDate,
-  DateTime? endDate,
+  String? startDate,
+  String? endDate,
 }) {
   final now = DateTime.utc(2024, 1, 1);
   return BudgetModel(
@@ -36,7 +36,7 @@ BudgetModel _budget(
     name: name,
     amount: amount,
     period: period,
-    startDate: startDate ?? now,
+    startDate: startDate ?? '2024-01-01',
     endDate: endDate,
     resetDay: resetDay,
     createdAt: now,
@@ -135,14 +135,7 @@ void main() {
         _budget('1', 'Monthly B', 1000, BudgetPeriod.monthly),
         _budget('2', 'Weekly B', 1000, BudgetPeriod.weekly),
         _budget('3', 'Yearly B', 1000, BudgetPeriod.yearly),
-        _budget(
-          '4',
-          'Custom B',
-          1000,
-          BudgetPeriod.custom,
-          startDate: DateTime(2024, 1, 1),
-          endDate: DateTime(2024, 12, 31),
-        ),
+        _budget('4', 'Custom B', 1000, BudgetPeriod.custom, startDate: '2024-01-01', endDate: '2024-12-31'),
       ];
 
       await tester.pumpWidget(wrapBudget(budgets));

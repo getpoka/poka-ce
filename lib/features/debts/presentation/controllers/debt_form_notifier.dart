@@ -3,6 +3,7 @@ import 'package:poka_ce/app/providers/repository_providers.dart';
 import 'package:poka_ce/core/enums.dart';
 import 'package:poka_ce/core/error/result.dart';
 import 'package:poka_ce/core/utils/datetime_utils.dart';
+import 'package:poka_ce/database/converters/local_date_converter.dart';
 import 'package:poka_ce/features/debts/domain/debt_model.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -56,7 +57,7 @@ class DebtForm extends _$DebtForm {
         type: debt.type,
         amount: debt.amount,
         status: debt.status,
-        dueDate: debt.dueDate,
+        dueDate: debt.dueDate != null ? DateTime.tryParse(debt.dueDate!) : null,
         note: debt.note,
       );
     } else {
@@ -116,7 +117,7 @@ class DebtForm extends _$DebtForm {
           type: state.type,
           amount: state.amount,
           status: state.status,
-          dueDate: state.dueDate,
+          dueDate: state.dueDate != null ? todayAsLocalDate(state.dueDate) : null,
           note: state.note,
           updatedAt: now,
         ) ??
@@ -127,7 +128,7 @@ class DebtForm extends _$DebtForm {
           amount: state.amount,
           remainingAmount: state.amount,
           status: state.status,
-          dueDate: state.dueDate,
+          dueDate: state.dueDate != null ? todayAsLocalDate(state.dueDate) : null,
           note: state.note,
           createdAt: now,
           updatedAt: now,

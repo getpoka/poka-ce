@@ -17,6 +17,7 @@ import 'package:poka_ce/features/settings/presentation/controllers/settings_noti
 import 'package:poka_ce/features/transactions/domain/transaction_model.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/theme/theme.dart';
+import 'package:poka_ce/database/converters/local_date_converter.dart';
 
 class MockAccountRepo extends Mock implements IAccountRepository {}
 
@@ -56,7 +57,7 @@ void main() {
       accountId: accountId,
       type: type,
       amount: amount,
-      transactionDate: date,
+      transactionDate: formatAsLocalDateTime(date),
       note: note,
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),

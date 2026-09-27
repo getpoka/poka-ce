@@ -58,7 +58,7 @@ final class BudgetProgressProvider extends $FunctionalProvider<AsyncValue<int>, 
   }
 }
 
-String _$budgetProgressHash() => r'5d43323347de03a8b8c5789ac2a53c9be9b2ca46';
+String _$budgetProgressHash() => r'7ac75929349063e7fb802741dd6276ac7f4a69ff';
 
 /// Calculates the current cycle's total spent amount for [budget], reactively recomputing whenever transactions mutate.
 

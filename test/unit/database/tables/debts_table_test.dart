@@ -53,7 +53,7 @@ void main() {
               amount: 1000000,
               remainingAmount: 400000,
               status: DebtStatus.paid,
-              dueDate: Value(DateTime(2026, 9, 30)),
+              dueDate: const Value('2026-09-30'),
               note: const Value('cicilan'),
             ),
           );
@@ -63,7 +63,7 @@ void main() {
       expect(restored, row);
       expect(restored.type, DebtType.loan);
       expect(restored.status, DebtStatus.paid);
-      expect(restored.dueDate, DateTime(2026, 9, 30));
+      expect(restored.dueDate, '2026-09-30');
     });
 
     test('update and delete persist correctly', () async {

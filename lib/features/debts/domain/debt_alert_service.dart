@@ -27,10 +27,9 @@ class DebtAlertService {
       final today = DateTime(now.year, now.month, now.day);
 
       for (final debt in debts) {
-        if (debt.status == DebtStatus.paid || debt.dueDate == null) continue;
-
-        final dueDate = debt.dueDate;
-        if (dueDate == null) continue; // Safety check
+        final dueDateStr = debt.dueDate;
+        if (dueDateStr == null) continue; // Safety check
+        final dueDate = DateTime.parse(dueDateStr);
         final dueDay = DateTime(dueDate.year, dueDate.month, dueDate.day);
 
         final difference = dueDay.difference(today).inDays;
