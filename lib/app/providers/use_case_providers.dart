@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poka_ce/app/providers/repository_providers.dart';
 import 'package:poka_ce/features/accounts/domain/use_cases/create_account_use_case.dart';
 import 'package:poka_ce/features/accounts/domain/use_cases/reconcile_account_balance_use_case.dart';

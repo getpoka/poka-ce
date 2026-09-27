@@ -217,14 +217,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.9.0"
-  cryptography_flutter:
-    dependency: "direct main"
-    description:
-      name: cryptography_flutter
-      sha256: d1c7e7a31a072d63b27ce0537b89868f9bda9188f2b1651ae728a295762921d4
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.3.4"
   csslib:
     dependency: transitive
     description:
@@ -234,7 +226,7 @@ packages:
     source: hosted
     version: "1.0.2"
   cupertino_ui:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: cupertino_ui
       sha256: c23816577a1280cff409e989541767887011f8f1d8c1863a794ed308af46f2a9
@@ -500,7 +492,7 @@ packages:
     source: hosted
     version: "5.7.0"
   flutter_riverpod:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: flutter_riverpod
       sha256: "2b7f9d2a3c730ac1a98221b420cef966b990fca7ab546ede324642ca57a533e3"
@@ -1142,7 +1134,7 @@ packages:
     source: hosted
     version: "2.2.0"
   riverpod:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: riverpod
       sha256: "484dfc873ea4c4f4240e5635444fa066f87b07862b7279ebd004a2b71fba4b7a"
@@ -1173,14 +1165,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.9"
-  rxdart:
-    dependency: "direct main"
-    description:
-      name: rxdart
-      sha256: "5c3004a4a8dbb94bd4bf5412a4def4acdaa12e12f269737a5751369e12d1a962"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.28.0"
   serial_csv:
     dependency: transitive
     description:

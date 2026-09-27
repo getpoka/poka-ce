@@ -1,5 +1,5 @@
 import 'package:drift/native.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:poka_ce/app/providers/repository_providers.dart';
 import 'package:poka_ce/database/database.dart';

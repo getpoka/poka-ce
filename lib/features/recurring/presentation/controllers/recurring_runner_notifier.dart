@@ -3,7 +3,7 @@
 /// Watch [recurringRunnerProvider] once from the shell to trigger processing.
 library;
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poka_ce/app/providers/repository_providers.dart';
 import 'package:poka_ce/core/error/result.dart';
 import 'package:poka_ce/core/utils/logger.dart';

@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poka_ce/core/data/drift_unit_of_work.dart';
 import 'package:poka_ce/core/domain/i_unit_of_work.dart';
 import 'package:poka_ce/database/database.dart';
