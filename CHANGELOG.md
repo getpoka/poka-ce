@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.1.13] - 2026-10-02
+
 ### Changed
 
 - Defaulted transaction list grouping to the monthly view to immediately display the active month's transactions and summaries.
