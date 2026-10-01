@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poka_ce/core/enums.dart';
 import 'package:poka_ce/core/extensions/string_extension.dart';
 import 'package:poka_ce/core/utils/icon_util.dart';
 import 'package:poka_ce/features/accounts/domain/account_model.dart';
+import 'package:poka_ce/features/accounts/presentation/controllers/account_balance_builder_provider.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/poka_amount_text.dart';
 import 'package:poka_ce/shared/widgets/poka_icon.dart';
@@ -13,7 +15,11 @@ import 'package:poka_ce/theme/theme.dart';
 /// PokaPocketSelector is a custom sheet for selecting a wallet or pocket.
 /// It uses a split-tap UX where tapping the chevron expands the pockets,
 /// while tapping the row selects the item and closes the sheet.
-class PokaPocketSelector extends HookWidget {
+///
+/// The balance row supports an optional [accountBalanceBuilderProvider] override
+/// so that downstream consumers (e.g. PE) can render per-account currency-aware
+/// balances without modifying this CE widget.
+class PokaPocketSelector extends HookConsumerWidget {
   /// Creates a PokaPocketSelector.
   const new({required this.accounts, this.selectedId, super.key});
 
@@ -38,7 +44,8 @@ class PokaPocketSelector extends HookWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final balanceBuilder = ref.watch(accountBalanceBuilderProvider);
     if (accounts.isEmpty) {
       return Padding(
         padding: const EdgeInsets.all(32),
@@ -121,13 +128,15 @@ class PokaPocketSelector extends HookWidget {
                                           ),
                                         ),
                                         Flexible(
-                                          child: PokaAmountText(
-                                            amount: parent.balance,
-                                            type: TransactionType.transfer,
-                                            style: context.theme.typography.caption.copyWith(
-                                              color: context.theme.colors.mutedForeground,
-                                            ),
-                                          ),
+                                          child:
+                                              balanceBuilder?.call(context, parent) ??
+                                              PokaAmountText(
+                                                amount: parent.balance,
+                                                type: TransactionType.transfer,
+                                                style: context.theme.typography.caption.copyWith(
+                                                  color: context.theme.colors.mutedForeground,
+                                                ),
+                                              ),
                                         ),
                                       ],
                                     ),
@@ -204,13 +213,15 @@ class PokaPocketSelector extends HookWidget {
                                       ),
                                     ),
                                     Flexible(
-                                      child: PokaAmountText(
-                                        amount: child.balance,
-                                        type: TransactionType.transfer,
-                                        style: context.theme.typography.caption.copyWith(
-                                          color: context.theme.colors.mutedForeground,
-                                        ),
-                                      ),
+                                      child:
+                                          balanceBuilder?.call(context, child) ??
+                                          PokaAmountText(
+                                            amount: child.balance,
+                                            type: TransactionType.transfer,
+                                            style: context.theme.typography.caption.copyWith(
+                                              color: context.theme.colors.mutedForeground,
+                                            ),
+                                          ),
                                     ),
                                   ],
                                 ),
