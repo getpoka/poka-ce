@@ -7,8 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- [internal] Added `accountBalanceBuilderProvider` hook to allow external extensions to format account balances in `PokaPocketSelector`.
+
 ### Changed
 
+- Defaulted transaction list grouping to the monthly view to immediately display the active month's transactions and summaries.
 - [internal] Refactored `PokaIcon` coverage tests to use `FPhosphorIcons` instead of Material icons.
 
 ## [v1.1.11] - 2026-09-27
