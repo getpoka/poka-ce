@@ -9,6 +9,7 @@ import 'package:poka_ce/features/categories/presentation/widgets/tiles/category_
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/poka_empty_view.dart';
 import 'package:poka_ce/shared/widgets/poka_header.dart';
+import 'package:poka_ce/shared/widgets/poka_refreshable.dart';
 import 'package:poka_ce/shared/widgets/poka_section_label.dart';
 import 'package:poka_ce/theme/theme.dart';
 
@@ -30,8 +31,8 @@ class CategoryDetailPage extends ConsumerWidget {
 
     return FScaffold(
       header: PokaHeader(title: activeCategory.name, showBack: true),
-      child: RefreshIndicator(
-        onRefresh: () => ref.read(categoryListProvider.notifier).refresh(),
+      child: PokaRefreshable(
+        onLocalRefresh: () => ref.read(categoryListProvider.notifier).refresh(),
         child: SingleChildScrollView(
           physics: const AlwaysScrollableScrollPhysics(),
           padding: EdgeInsets.zero,

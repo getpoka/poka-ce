@@ -10,6 +10,7 @@ import 'package:poka_ce/features/budgets/presentation/widgets/forms/budget_form_
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/poka_empty_view.dart';
 import 'package:poka_ce/shared/widgets/poka_header.dart';
+import 'package:poka_ce/shared/widgets/poka_refreshable.dart';
 import 'package:poka_ce/shared/widgets/poka_section_label.dart';
 import 'package:poka_ce/theme/theme.dart';
 
@@ -59,8 +60,8 @@ class _BudgetContent extends ConsumerWidget {
       );
     }
 
-    return RefreshIndicator(
-      onRefresh: () => ref.read(budgetListProvider.notifier).refresh(),
+    return PokaRefreshable(
+      onLocalRefresh: () => ref.read(budgetListProvider.notifier).refresh(),
       child: CustomScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
         slivers: [

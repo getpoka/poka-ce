@@ -20,6 +20,7 @@ import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/dialogs/poka_confirm_dialog.dart';
 import 'package:poka_ce/shared/widgets/poka_empty_view.dart';
 import 'package:poka_ce/shared/widgets/poka_header.dart';
+import 'package:poka_ce/shared/widgets/poka_refreshable.dart';
 import 'package:poka_ce/shared/widgets/poka_section_label.dart';
 import 'package:poka_ce/theme/theme.dart';
 
@@ -93,91 +94,94 @@ class DebtDetailPage extends ConsumerWidget {
           ),
         ],
       ),
-      child: CustomScrollView(
-        physics: const AlwaysScrollableScrollPhysics(),
-        slivers: [
-          SliverToBoxAdapter(child: DebtCard(debt: activeDebt, isInteractive: false)),
-          if (activeDebt.status == DebtStatus.active)
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 16, bottom: 8),
-                child: FButton(
-                  onPress: () => DebtRepaymentSheet.show(context, activeDebt),
-                  child: Text(t.debts.addRepayment),
+      child: PokaRefreshable(
+        onLocalRefresh: () async => ref.invalidate(debtListProvider),
+        child: CustomScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          slivers: [
+            SliverToBoxAdapter(child: DebtCard(debt: activeDebt, isInteractive: false)),
+            if (activeDebt.status == DebtStatus.active)
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 16, bottom: 8),
+                  child: FButton(
+                    onPress: () => DebtRepaymentSheet.show(context, activeDebt),
+                    child: Text(t.debts.addRepayment),
+                  ),
+                ),
+              ),
+            const SliverToBoxAdapter(child: SizedBox(height: 20)),
+            SliverToBoxAdapter(child: PokaSectionLabel(title: t.debts.repaymentHistory)),
+            const SliverToBoxAdapter(child: SizedBox(height: 8)),
+            transactionsAsync.when(
+              data: (transactions) {
+                if (transactions.isEmpty) {
+                  return SliverToBoxAdapter(
+                    child: PokaEmptyView(
+                      icon: FPhosphorIcons.receipt,
+                      title: t.debts.noHistoryFoundForThis(type: isPayable ? t.debts.payable : t.debts.receivable),
+                      subtitle: t.debts.repaymentHistorySubtitle(
+                        type: isPayable ? t.debts.payable.toLowerCase() : t.debts.receivable.toLowerCase(),
+                      ),
+                    ),
+                  );
+                }
+
+                return SliverList(
+                  delegate: SliverChildBuilderDelegate((context, index) {
+                    final transaction = transactions[index];
+                    final firstCatId = transaction.items.isNotEmpty ? transaction.items.first.categoryId : null;
+                    final category = firstCatId != null ? categoriesById[firstCatId] : null;
+                    final account = accountsById[transaction.accountId];
+
+                    return Padding(
+                      padding: EdgeInsets.only(bottom: index == transactions.length - 1 ? 0 : 10),
+                      child: RecentTransactionTile(
+                        transaction: transaction,
+                        isBalanceVisible: true,
+                        categoriesById: categoriesById,
+                        category: category,
+                        account: account,
+                        onTap: () {
+                          TransactionFormSheet.show(context, initialTransaction: transaction);
+                        },
+                        onEdit: () {
+                          TransactionFormSheet.show(context, initialTransaction: transaction);
+                        },
+                        onDelete: () async {
+                          final confirmed = await showPokaConfirmDialog(
+                            context,
+                            title: t.transactions.deleteTransaction,
+                            body: t.transactions.deleteTransactionWarning,
+                          );
+                          if (confirmed == true) {
+                            final result = await ref.read(debtDetailProvider.notifier).deleteRepayment(transaction.id);
+                            if (context.mounted) {
+                              switch (result) {
+                                case Success():
+                                  ref.invalidate(debtTransactionsProvider(activeDebt));
+                                case ErrorResult():
+                                  showFToast(context: context, title: Text(t.common.error));
+                              }
+                            }
+                          }
+                        },
+                      ),
+                    );
+                  }, childCount: transactions.length),
+                );
+              },
+              error: (err, _) => SliverToBoxAdapter(child: Text(err.toString())),
+              loading: () => const SliverToBoxAdapter(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 32),
+                  child: Center(child: FCircularProgress()),
                 ),
               ),
             ),
-          const SliverToBoxAdapter(child: SizedBox(height: 20)),
-          SliverToBoxAdapter(child: PokaSectionLabel(title: t.debts.repaymentHistory)),
-          const SliverToBoxAdapter(child: SizedBox(height: 8)),
-          transactionsAsync.when(
-            data: (transactions) {
-              if (transactions.isEmpty) {
-                return SliverToBoxAdapter(
-                  child: PokaEmptyView(
-                    icon: FPhosphorIcons.receipt,
-                    title: t.debts.noHistoryFoundForThis(type: isPayable ? t.debts.payable : t.debts.receivable),
-                    subtitle: t.debts.repaymentHistorySubtitle(
-                      type: isPayable ? t.debts.payable.toLowerCase() : t.debts.receivable.toLowerCase(),
-                    ),
-                  ),
-                );
-              }
-
-              return SliverList(
-                delegate: SliverChildBuilderDelegate((context, index) {
-                  final transaction = transactions[index];
-                  final firstCatId = transaction.items.isNotEmpty ? transaction.items.first.categoryId : null;
-                  final category = firstCatId != null ? categoriesById[firstCatId] : null;
-                  final account = accountsById[transaction.accountId];
-
-                  return Padding(
-                    padding: EdgeInsets.only(bottom: index == transactions.length - 1 ? 0 : 10),
-                    child: RecentTransactionTile(
-                      transaction: transaction,
-                      isBalanceVisible: true,
-                      categoriesById: categoriesById,
-                      category: category,
-                      account: account,
-                      onTap: () {
-                        TransactionFormSheet.show(context, initialTransaction: transaction);
-                      },
-                      onEdit: () {
-                        TransactionFormSheet.show(context, initialTransaction: transaction);
-                      },
-                      onDelete: () async {
-                        final confirmed = await showPokaConfirmDialog(
-                          context,
-                          title: t.transactions.deleteTransaction,
-                          body: t.transactions.deleteTransactionWarning,
-                        );
-                        if (confirmed == true) {
-                          final result = await ref.read(debtDetailProvider.notifier).deleteRepayment(transaction.id);
-                          if (context.mounted) {
-                            switch (result) {
-                              case Success():
-                                ref.invalidate(debtTransactionsProvider(activeDebt));
-                              case ErrorResult():
-                                showFToast(context: context, title: Text(t.common.error));
-                            }
-                          }
-                        }
-                      },
-                    ),
-                  );
-                }, childCount: transactions.length),
-              );
-            },
-            error: (err, _) => SliverToBoxAdapter(child: Text(err.toString())),
-            loading: () => const SliverToBoxAdapter(
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 32),
-                child: Center(child: FCircularProgress()),
-              ),
-            ),
-          ),
-          const SliverToBoxAdapter(child: SizedBox(height: 20)),
-        ],
+            const SliverToBoxAdapter(child: SizedBox(height: 20)),
+          ],
+        ),
       ),
     );
   }

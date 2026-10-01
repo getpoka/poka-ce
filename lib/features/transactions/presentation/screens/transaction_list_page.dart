@@ -11,6 +11,7 @@ import 'package:poka_ce/features/transactions/presentation/widgets/list/transact
 import 'package:poka_ce/features/transactions/presentation/widgets/list/transaction_list_sticky_nav.dart';
 import 'package:poka_ce/features/transactions/presentation/widgets/list/transaction_list_summary_card.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
+import 'package:poka_ce/shared/widgets/poka_refreshable.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 /// Transaction list page — displays all transactions for a given date window
@@ -139,8 +140,8 @@ class TransactionListPage extends HookConsumerWidget {
         ),
         child: state.isLoading && state.transactions.isEmpty && state.errorMessage == null
             ? const Center(child: FCircularProgress())
-            : RefreshIndicator(
-                onRefresh: notifier.refresh,
+            : PokaRefreshable(
+                onLocalRefresh: notifier.refresh,
                 child: CustomScrollView(
                   physics: const AlwaysScrollableScrollPhysics(),
                   slivers: [
