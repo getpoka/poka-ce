@@ -240,7 +240,8 @@ void main() {
 
     test('periodShortLabel per view mode', () {
       final s = TransactionListState(focusedDate: DateTime.utc(2024, 1, 1));
-      expect(s.periodShortLabel, 'Daily');
+      expect(s.periodShortLabel, 'Monthly');
+      expect(s.copyWith(viewMode: TransactionViewMode.day).periodShortLabel, 'Daily');
       expect(s.copyWith(viewMode: TransactionViewMode.week).periodShortLabel, 'Weekly');
       expect(s.copyWith(viewMode: TransactionViewMode.month).periodShortLabel, 'Monthly');
     });

@@ -70,7 +70,7 @@ class TransactionListState {
   const new({
     required this.focusedDate,
     this.transactions = const [],
-    this.viewMode = TransactionViewMode.day,
+    this.viewMode = TransactionViewMode.month,
     this.filter = const TransactionFilter(),
     this.isLoading = true,
     this.errorMessage,
