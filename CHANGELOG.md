@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.1.12] - 2026-10-02
+
+### Added
+
+- [internal] Added `accountBalanceBuilderProvider` hook to allow external extensions to format account balances in `PokaPocketSelector`.
+
 ### Changed
 
 - [internal] Refactored `PokaIcon` coverage tests to use `FPhosphorIcons` instead of Material icons.
