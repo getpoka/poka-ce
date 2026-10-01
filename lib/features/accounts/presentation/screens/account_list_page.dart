@@ -8,6 +8,7 @@ import 'package:poka_ce/features/accounts/presentation/widgets/lists/account_lis
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/poka_empty_view.dart';
 import 'package:poka_ce/shared/widgets/poka_header.dart';
+import 'package:poka_ce/shared/widgets/poka_refreshable.dart';
 import 'package:poka_ce/shared/widgets/poka_section_label.dart';
 import 'package:poka_ce/theme/theme.dart';
 
@@ -25,61 +26,65 @@ class AccountListPage extends HookConsumerWidget {
 
     return FScaffold(
       header: PokaHeader(title: t.accounts.accounts),
-      child: CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(child: AccountListHeader(metrics: metrics).animateEntrance()),
+      child: PokaRefreshable(
+        onLocalRefresh: () async => ref.invalidate(regularAccountListProvider),
+        child: CustomScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          slivers: [
+            SliverToBoxAdapter(child: AccountListHeader(metrics: metrics).animateEntrance()),
 
-          if (!hasRegularAccounts)
-            SliverFillRemaining(
-              hasScrollBody: false,
-              child: PokaEmptyViewCentered(
-                icon: FPhosphorIcons.wallet,
-                title: t.accounts.noAccountsYet,
-                subtitle: t.accounts.tapTheButtonBelowToAddYourFirstAccount,
-                actionLabel: t.accounts.addAccount,
-                onAction: () => AccountFormSheet.show(context),
-                actionKey: const Key('account-empty-add-button'),
-              ),
-            )
-          else ...[
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 12),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    PokaSectionLabel(title: t.accounts.mainAccounts),
-                    GestureDetector(
-                      key: const Key('account-add-button'),
-                      onTap: () => AccountFormSheet.show(context),
-                      behavior: HitTestBehavior.opaque,
-                      child: Row(
-                        children: [
-                          Icon(FPhosphorIcons.plus, size: 14, color: context.theme.colors.primary),
-                          const SizedBox(width: 4),
-                          Text(
-                            t.accounts.addAccount,
-                            style: context.theme.typography.bodySecondary.copyWith(
-                              color: context.theme.colors.primary,
-                              fontWeight: FontWeight.w600,
+            if (!hasRegularAccounts)
+              SliverFillRemaining(
+                hasScrollBody: false,
+                child: PokaEmptyViewCentered(
+                  icon: FPhosphorIcons.wallet,
+                  title: t.accounts.noAccountsYet,
+                  subtitle: t.accounts.tapTheButtonBelowToAddYourFirstAccount,
+                  actionLabel: t.accounts.addAccount,
+                  onAction: () => AccountFormSheet.show(context),
+                  actionKey: const Key('account-empty-add-button'),
+                ),
+              )
+            else ...[
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 12),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      PokaSectionLabel(title: t.accounts.mainAccounts),
+                      GestureDetector(
+                        key: const Key('account-add-button'),
+                        onTap: () => AccountFormSheet.show(context),
+                        behavior: HitTestBehavior.opaque,
+                        child: Row(
+                          children: [
+                            Icon(FPhosphorIcons.plus, size: 14, color: context.theme.colors.primary),
+                            const SizedBox(width: 4),
+                            Text(
+                              t.accounts.addAccount,
+                              style: context.theme.typography.bodySecondary.copyWith(
+                                color: context.theme.colors.primary,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
-                ).animateEntrance(delay: 80.ms),
+                    ],
+                  ).animateEntrance(delay: 80.ms),
+                ),
               ),
-            ),
 
-            SliverToBoxAdapter(
-              child: AccountGrid(
-                aggregates: regularAggregates,
-                totalAssets: metrics.totalAssets,
-              ).animateEntrance(delay: 120.ms),
-            ),
+              SliverToBoxAdapter(
+                child: AccountGrid(
+                  aggregates: regularAggregates,
+                  totalAssets: metrics.totalAssets,
+                ).animateEntrance(delay: 120.ms),
+              ),
+            ],
           ],
-        ],
+        ),
       ),
     );
   }

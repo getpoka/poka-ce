@@ -11,6 +11,7 @@ import 'package:poka_ce/features/dashboard/presentation/widgets/sections/dashboa
 import 'package:poka_ce/features/dashboard/presentation/widgets/sections/dashboard_recent_transactions.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/poka_header.dart';
+import 'package:poka_ce/shared/widgets/poka_refreshable.dart';
 
 /// Home dashboard screen presenting net worth, cashflow carousel, daily spending velocity, quick actions, and recent activity.
 class DashboardPage extends HookConsumerWidget {
@@ -29,8 +30,8 @@ class DashboardPage extends HookConsumerWidget {
       header: header,
       child: state.isLoading && state.accounts.isEmpty
           ? const Center(child: FCircularProgress())
-          : RefreshIndicator(
-              onRefresh: () => ref.read(dashboardProvider.notifier).refresh(),
+          : PokaRefreshable(
+              onLocalRefresh: ref.read(dashboardProvider.notifier).refresh,
               child: SingleChildScrollView(
                 padding: EdgeInsets.zero,
                 physics: const AlwaysScrollableScrollPhysics(),

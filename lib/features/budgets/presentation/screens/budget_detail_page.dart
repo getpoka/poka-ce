@@ -22,6 +22,7 @@ import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/dialogs/poka_confirm_dialog.dart';
 import 'package:poka_ce/shared/widgets/poka_empty_view.dart';
 import 'package:poka_ce/shared/widgets/poka_header.dart';
+import 'package:poka_ce/shared/widgets/poka_refreshable.dart';
 import 'package:poka_ce/shared/widgets/poka_section_label.dart';
 import 'package:poka_ce/theme/theme.dart';
 
@@ -150,55 +151,58 @@ class BudgetDetailPage extends ConsumerWidget {
           ),
         ],
       ),
-      child: CustomScrollView(
-        physics: const AlwaysScrollableScrollPhysics(),
-        slivers: [
-          SliverToBoxAdapter(child: BudgetCard(budget: activeBudget, isInteractive: false)),
-          const SliverToBoxAdapter(child: SizedBox(height: 20)),
-          SliverToBoxAdapter(child: PokaSectionLabel(title: t.budgets.transactions)),
-          const SliverToBoxAdapter(child: SizedBox(height: 8)),
-          transactionsAsync.when(
-            data: (transactions) {
-              if (transactions.isEmpty) {
-                return SliverToBoxAdapter(
-                  child: PokaEmptyView(
-                    icon: FPhosphorIcons.receipt,
-                    title: t.budgets.noTransactionsFoundForThisBudgetPeriod,
-                    subtitle: t.budgets.budgetTransactionsSubtitle,
-                  ),
-                );
-              }
-
-              return SliverList(
-                delegate: SliverChildBuilderDelegate((context, index) {
-                  final transaction = transactions[index];
-                  final firstCatId = transaction.items.isNotEmpty ? transaction.items.first.categoryId : null;
-                  final category = firstCatId != null ? categoriesById[firstCatId] : null;
-                  final account = accountsById[transaction.accountId];
-
-                  return Padding(
-                    padding: EdgeInsets.only(bottom: index == transactions.length - 1 ? 0 : 10),
-                    child: RecentTransactionTile(
-                      transaction: transaction,
-                      isBalanceVisible: true,
-                      categoriesById: categoriesById,
-                      category: category,
-                      account: account,
+      child: PokaRefreshable(
+        onLocalRefresh: () => ref.read(budgetListProvider.notifier).refresh(),
+        child: CustomScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          slivers: [
+            SliverToBoxAdapter(child: BudgetCard(budget: activeBudget, isInteractive: false)),
+            const SliverToBoxAdapter(child: SizedBox(height: 20)),
+            SliverToBoxAdapter(child: PokaSectionLabel(title: t.budgets.transactions)),
+            const SliverToBoxAdapter(child: SizedBox(height: 8)),
+            transactionsAsync.when(
+              data: (transactions) {
+                if (transactions.isEmpty) {
+                  return SliverToBoxAdapter(
+                    child: PokaEmptyView(
+                      icon: FPhosphorIcons.receipt,
+                      title: t.budgets.noTransactionsFoundForThisBudgetPeriod,
+                      subtitle: t.budgets.budgetTransactionsSubtitle,
                     ),
                   );
-                }, childCount: transactions.length),
-              );
-            },
-            error: (err, _) => SliverToBoxAdapter(child: Text(err.toString())),
-            loading: () => const SliverToBoxAdapter(
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 32),
-                child: Center(child: FCircularProgress()),
+                }
+
+                return SliverList(
+                  delegate: SliverChildBuilderDelegate((context, index) {
+                    final transaction = transactions[index];
+                    final firstCatId = transaction.items.isNotEmpty ? transaction.items.first.categoryId : null;
+                    final category = firstCatId != null ? categoriesById[firstCatId] : null;
+                    final account = accountsById[transaction.accountId];
+
+                    return Padding(
+                      padding: EdgeInsets.only(bottom: index == transactions.length - 1 ? 0 : 10),
+                      child: RecentTransactionTile(
+                        transaction: transaction,
+                        isBalanceVisible: true,
+                        categoriesById: categoriesById,
+                        category: category,
+                        account: account,
+                      ),
+                    );
+                  }, childCount: transactions.length),
+                );
+              },
+              error: (err, _) => SliverToBoxAdapter(child: Text(err.toString())),
+              loading: () => const SliverToBoxAdapter(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 32),
+                  child: Center(child: FCircularProgress()),
+                ),
               ),
             ),
-          ),
-          const SliverToBoxAdapter(child: SizedBox(height: 20)),
-        ],
+            const SliverToBoxAdapter(child: SizedBox(height: 20)),
+          ],
+        ),
       ),
     );
   }

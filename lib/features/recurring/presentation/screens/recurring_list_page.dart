@@ -17,6 +17,7 @@ import 'package:poka_ce/features/recurring/presentation/widgets/recurring_summar
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/poka_empty_view.dart';
 import 'package:poka_ce/shared/widgets/poka_header.dart';
+import 'package:poka_ce/shared/widgets/poka_refreshable.dart';
 import 'package:poka_ce/shared/widgets/poka_section_label.dart';
 import 'package:poka_ce/theme/theme.dart';
 
@@ -45,10 +46,7 @@ class RecurringListPage extends ConsumerWidget {
                     : RecurringFormSheet.show(context),
               ),
             )
-          : _RecurringContent(
-              recurrings: state.recurrings,
-              onRefresh: () => ref.read(recurringListProvider.notifier).refresh(),
-            ),
+          : _RecurringContent(recurrings: state.recurrings),
     );
   }
 }
@@ -58,15 +56,14 @@ class RecurringListPage extends ConsumerWidget {
 // ─────────────────────────────────────────────────────────────────────────────
 
 class _RecurringContent extends ConsumerWidget {
-  const new({required this.recurrings, required this.onRefresh});
+  const new({required this.recurrings});
 
   final List<RecurringTransactionModel> recurrings;
-  final Future<void> Function() onRefresh;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return RefreshIndicator(
-      onRefresh: onRefresh,
+    return PokaRefreshable(
+      onLocalRefresh: () => ref.read(recurringListProvider.notifier).refresh(),
       child: CustomScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
         slivers: [

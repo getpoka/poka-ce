@@ -15,6 +15,7 @@ import 'package:poka_ce/features/accounts/presentation/widgets/sections/recent_t
 import 'package:poka_ce/features/goals/presentation/controllers/goal_notifier.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/poka_header.dart';
+import 'package:poka_ce/shared/widgets/poka_refreshable.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 /// Detail page presenting the balance overview, child pockets, and transaction activity for a single account.
@@ -75,37 +76,44 @@ class AccountDetailPage extends HookConsumerWidget {
             ),
         ],
       ),
-      child: SingleChildScrollView(
-        padding: EdgeInsets.zero,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            AccountHeroCard(
-              account: account,
-              balance: totalBalance,
-              accentColor: accentColor,
-              accountIcon: accountIcon,
-              label: account.isPocket ? t.accounts.balance : t.accounts.totalBalance,
-              pocketCount: account.isPocket ? null : customPocketCount,
-              transactionCount: accountTransactions.length,
-            ).animate().fade(duration: 300.ms).slideY(begin: 0.05, end: 0),
+      child: PokaRefreshable(
+        onLocalRefresh: () async {
+          ref
+            ..invalidate(accountAggregateProvider(accountId))
+            ..invalidate(accountTransactionsProvider(accountIds));
+        },
+        child: SingleChildScrollView(
+          padding: EdgeInsets.zero,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              AccountHeroCard(
+                account: account,
+                balance: totalBalance,
+                accentColor: accentColor,
+                accountIcon: accountIcon,
+                label: account.isPocket ? t.accounts.balance : t.accounts.totalBalance,
+                pocketCount: account.isPocket ? null : customPocketCount,
+                transactionCount: accountTransactions.length,
+              ).animate().fade(duration: 300.ms).slideY(begin: 0.05, end: 0),
 
-            const SizedBox(height: 20),
+              const SizedBox(height: 20),
 
-            if (account.type != AccountType.goal && !account.isPocket) ...[
-              AccountPocketsSection(accountId: accountId, pockets: operationalPockets, totalBalance: totalBalance),
-              AccountGoalsSection(accountId: accountId),
+              if (account.type != AccountType.goal && !account.isPocket) ...[
+                AccountPocketsSection(accountId: accountId, pockets: operationalPockets, totalBalance: totalBalance),
+                AccountGoalsSection(accountId: accountId),
+                const SizedBox(height: 20),
+              ],
+
+              RecentTransactionsSection(
+                accountId: accountId,
+                accountIds: accountIds,
+                accountTransactions: accountTransactions,
+              ).animate().fade(duration: 300.ms, delay: 100.ms).slideY(begin: 0.05, end: 0),
+
               const SizedBox(height: 20),
             ],
-
-            RecentTransactionsSection(
-              accountId: accountId,
-              accountIds: accountIds,
-              accountTransactions: accountTransactions,
-            ).animate().fade(duration: 300.ms, delay: 100.ms).slideY(begin: 0.05, end: 0),
-
-            const SizedBox(height: 20),
-          ],
+          ),
         ),
       ),
     );

@@ -7,6 +7,7 @@ import 'package:poka_ce/features/debts/presentation/controllers/debt_list_notifi
 import 'package:poka_ce/features/debts/presentation/widgets/debt_list_content.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/poka_header.dart';
+import 'package:poka_ce/shared/widgets/poka_refreshable.dart';
 
 /// Overview page listing all active and settled debts (borrowed) and loans (lent).
 class DebtListPage extends ConsumerWidget {
@@ -25,32 +26,35 @@ class DebtListPage extends ConsumerWidget {
           final theyOweList = allDebts.where((d) => d.type == DebtType.loan).toList()
             ..sort((a, b) => b.createdAt.compareTo(a.createdAt));
 
-          return SingleChildScrollView(
-            physics: const AlwaysScrollableScrollPhysics(),
-            padding: EdgeInsets.zero,
-            child: FTabs(
-              children: [
-                FTabEntry(
-                  label: Text(t.debts.iOwe),
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 12),
-                    child: DebtListContent(
-                      debts: iOweList,
-                      isPayable: true,
-                    ).animate().fade(duration: 300.ms).slideY(begin: 0.05, end: 0),
+          return PokaRefreshable(
+            onLocalRefresh: () async => ref.invalidate(debtListProvider),
+            child: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              padding: EdgeInsets.zero,
+              child: FTabs(
+                children: [
+                  FTabEntry(
+                    label: Text(t.debts.iOwe),
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 12),
+                      child: DebtListContent(
+                        debts: iOweList,
+                        isPayable: true,
+                      ).animate().fade(duration: 300.ms).slideY(begin: 0.05, end: 0),
+                    ),
                   ),
-                ),
-                FTabEntry(
-                  label: Text(t.debts.theyOwe),
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 12),
-                    child: DebtListContent(
-                      debts: theyOweList,
-                      isPayable: false,
-                    ).animate().fade(duration: 300.ms).slideY(begin: 0.05, end: 0),
+                  FTabEntry(
+                    label: Text(t.debts.theyOwe),
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 12),
+                      child: DebtListContent(
+                        debts: theyOweList,
+                        isPayable: false,
+                      ).animate().fade(duration: 300.ms).slideY(begin: 0.05, end: 0),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           );
         },

@@ -11,6 +11,7 @@ import 'package:poka_ce/features/goals/presentation/widgets/goal_summary_card.da
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/poka_empty_view.dart';
 import 'package:poka_ce/shared/widgets/poka_header.dart';
+import 'package:poka_ce/shared/widgets/poka_refreshable.dart';
 import 'package:poka_ce/shared/widgets/poka_section_label.dart';
 import 'package:poka_ce/theme/theme.dart';
 
@@ -73,24 +74,65 @@ class _GoalContent extends ConsumerWidget {
     final pastGoals = viewState.pastGoals;
     final hasPastGoals = pastGoals.isNotEmpty;
 
-    return SingleChildScrollView(
-      physics: const AlwaysScrollableScrollPhysics(),
-      padding: EdgeInsets.zero,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          GoalSummaryCard(totalGoals: activeGoals.length).animate().fade(duration: 300.ms).slideY(begin: 0.05, end: 0),
-          const SizedBox(height: 20),
+    return PokaRefreshable(
+      onLocalRefresh: () async => ref.invalidate(goalProvider),
+      child: SingleChildScrollView(
+        physics: const AlwaysScrollableScrollPhysics(),
+        padding: EdgeInsets.zero,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            GoalSummaryCard(totalGoals: activeGoals.length)
+                .animate()
+                .fade(duration: 300.ms)
+                .slideY(begin: 0.05, end: 0),
+            const SizedBox(height: 20),
 
-          // ── Active Goals Section ──────────────────────────────────────────
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              PokaSectionLabel(title: hasPastGoals ? t.goals.activeGoals : context.t.dashboard.goals),
+            // ── Active Goals Section ──────────────────────────────────────────
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                PokaSectionLabel(title: hasPastGoals ? t.goals.activeGoals : context.t.dashboard.goals),
+                Builder(
+                  builder: (context) => GestureDetector(
+                    key: const Key('goal-add-button'),
+                    onTap: () {
+                      final builder = ref.read(goalFormSheetBuilderProvider);
+                      if (builder != null) {
+                        builder(context);
+                      } else {
+                        GoalFormSheet.show(context);
+                      }
+                    },
+                    behavior: HitTestBehavior.opaque,
+                    child: Row(
+                      children: [
+                        Icon(FPhosphorIcons.plus, size: 14, color: context.theme.colors.primary),
+                        const SizedBox(width: 4),
+                        Text(
+                          t.goals.addGoal,
+                          style: context.theme.typography.bodySecondary.copyWith(
+                            color: context.theme.colors.primary,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ).animate().fade(duration: 300.ms, delay: 80.ms).slideY(begin: 0.05, end: 0),
+            const SizedBox(height: 8),
+
+            if (activeGoals.isEmpty)
               Builder(
-                builder: (context) => GestureDetector(
-                  key: const Key('goal-add-button'),
-                  onTap: () {
+                builder: (context) => PokaEmptyView(
+                  icon: FPhosphorIcons.piggyBank,
+                  title: t.goals.noActiveGoalsYet,
+                  subtitle: t.goals.noActiveGoalsSubtitle,
+                  actionLabel: t.goals.createGoal,
+                  actionKey: const Key('goal-add-button'),
+                  onAction: () {
                     final builder = ref.read(goalFormSheetBuilderProvider);
                     if (builder != null) {
                       builder(context);
@@ -98,91 +140,56 @@ class _GoalContent extends ConsumerWidget {
                       GoalFormSheet.show(context);
                     }
                   },
-                  behavior: HitTestBehavior.opaque,
-                  child: Row(
-                    children: [
-                      Icon(FPhosphorIcons.plus, size: 14, color: context.theme.colors.primary),
-                      const SizedBox(width: 4),
-                      Text(
-                        t.goals.addGoal,
-                        style: context.theme.typography.bodySecondary.copyWith(
-                          color: context.theme.colors.primary,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ],
-                  ),
+                  hasBorder: hasPastGoals,
+                ),
+              ).animate().fade(duration: 300.ms, delay: 120.ms)
+            else
+              Padding(
+                padding: EdgeInsets.only(bottom: hasPastGoals ? 0 : 20),
+                child: ListView.separated(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  padding: EdgeInsets.zero,
+                  itemCount: activeGoals.length,
+                  separatorBuilder: (_, _) => const SizedBox(height: 10),
+                  itemBuilder: (context, index) {
+                    final delay = (80 + index * 50).clamp(0, 320);
+                    return GoalCard(state: activeGoals[index])
+                        .animate()
+                        .fade(duration: 280.ms, delay: delay.ms)
+                        .slideY(begin: 0.05, end: 0, duration: 280.ms, delay: delay.ms);
+                  },
+                ),
+              ),
+
+            // ── Completed / Past Goals Section ────────────────────────────────
+            if (hasPastGoals) ...[
+              const SizedBox(height: 20),
+              PokaSectionLabel(title: t.goals.completedGoals)
+                  .animate()
+                  .fade(duration: 300.ms, delay: 80.ms)
+                  .slideY(begin: 0.05, end: 0),
+              const SizedBox(height: 8),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 20),
+                child: ListView.separated(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  padding: EdgeInsets.zero,
+                  itemCount: pastGoals.length,
+                  separatorBuilder: (_, _) => const SizedBox(height: 10),
+                  itemBuilder: (context, index) {
+                    final delay = (80 + index * 50).clamp(0, 320);
+                    return GoalCard(state: pastGoals[index])
+                        .animate()
+                        .fade(duration: 280.ms, delay: delay.ms)
+                        .slideY(begin: 0.05, end: 0, duration: 280.ms, delay: delay.ms);
+                  },
                 ),
               ),
             ],
-          ).animate().fade(duration: 300.ms, delay: 80.ms).slideY(begin: 0.05, end: 0),
-          const SizedBox(height: 8),
-
-          if (activeGoals.isEmpty)
-            Builder(
-              builder: (context) => PokaEmptyView(
-                icon: FPhosphorIcons.piggyBank,
-                title: t.goals.noActiveGoalsYet,
-                subtitle: t.goals.noActiveGoalsSubtitle,
-                actionLabel: t.goals.createGoal,
-                actionKey: const Key('goal-add-button'),
-                onAction: () {
-                  final builder = ref.read(goalFormSheetBuilderProvider);
-                  if (builder != null) {
-                    builder(context);
-                  } else {
-                    GoalFormSheet.show(context);
-                  }
-                },
-                hasBorder: hasPastGoals,
-              ),
-            ).animate().fade(duration: 300.ms, delay: 120.ms)
-          else
-            Padding(
-              padding: EdgeInsets.only(bottom: hasPastGoals ? 0 : 20),
-              child: ListView.separated(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                padding: EdgeInsets.zero,
-                itemCount: activeGoals.length,
-                separatorBuilder: (_, _) => const SizedBox(height: 10),
-                itemBuilder: (context, index) {
-                  final delay = (80 + index * 50).clamp(0, 320);
-                  return GoalCard(state: activeGoals[index])
-                      .animate()
-                      .fade(duration: 280.ms, delay: delay.ms)
-                      .slideY(begin: 0.05, end: 0, duration: 280.ms, delay: delay.ms);
-                },
-              ),
-            ),
-
-          // ── Completed / Past Goals Section ────────────────────────────────
-          if (hasPastGoals) ...[
-            const SizedBox(height: 20),
-            PokaSectionLabel(title: t.goals.completedGoals)
-                .animate()
-                .fade(duration: 300.ms, delay: 80.ms)
-                .slideY(begin: 0.05, end: 0),
-            const SizedBox(height: 8),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 20),
-              child: ListView.separated(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                padding: EdgeInsets.zero,
-                itemCount: pastGoals.length,
-                separatorBuilder: (_, _) => const SizedBox(height: 10),
-                itemBuilder: (context, index) {
-                  final delay = (80 + index * 50).clamp(0, 320);
-                  return GoalCard(state: pastGoals[index])
-                      .animate()
-                      .fade(duration: 280.ms, delay: delay.ms)
-                      .slideY(begin: 0.05, end: 0, duration: 280.ms, delay: delay.ms);
-                },
-              ),
-            ),
           ],
-        ],
+        ),
       ),
     );
   }

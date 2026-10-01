@@ -10,6 +10,7 @@ import 'package:poka_ce/features/categories/presentation/widgets/forms/category_
 import 'package:poka_ce/features/categories/presentation/widgets/views/category_list_tab.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/shared/widgets/poka_header.dart';
+import 'package:poka_ce/shared/widgets/poka_refreshable.dart';
 
 /// Main screen for managing all categories.
 /// Contains tabs for displaying Expense and Income categories.
@@ -42,8 +43,8 @@ class CategoryListPage extends HookConsumerWidget {
         ],
       ),
       child: state.when(
-        data: (data) => RefreshIndicator(
-          onRefresh: () => ref.read(categoryListProvider.notifier).refresh(),
+        data: (data) => PokaRefreshable(
+          onLocalRefresh: () => ref.read(categoryListProvider.notifier).refresh(),
           child: SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
             padding: EdgeInsets.zero,
