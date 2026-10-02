@@ -22,8 +22,16 @@ class DashboardSpendingChart extends HookConsumerWidget {
     final isBalanceVisible = ref.watch(balanceVisibilityProvider);
     final precision = ref.watch(settingsProvider).settings?.baseCurrency?.precision ?? 0;
 
-    final totalExpenseFormatted = state.totalExpense.toCompactFormat(precision: precision, isVisible: isBalanceVisible);
-    final avgExpenseFormatted = (state.totalExpense / 7).toCompactFormat(
+    // Use pre-computed state from DashboardState
+    final dailySpending = state.dailySpending;
+    final normalizedSpending = state.normalizedDailySpending;
+
+    final weekTotalExpense = dailySpending.fold<double>(0, (sum, val) => sum + val);
+    final totalExpenseFormatted = weekTotalExpense.toCompactFormat(
+      precision: precision,
+      isVisible: isBalanceVisible,
+    );
+    final avgExpenseFormatted = (weekTotalExpense / 7).toCompactFormat(
       precision: precision,
       isVisible: isBalanceVisible,
     );
@@ -33,10 +41,6 @@ class DashboardSpendingChart extends HookConsumerWidget {
     final dailyBudgetFormatted = dailyBudget > 0
         ? dailyBudget.toCompactFormat(precision: precision, isVisible: isBalanceVisible)
         : context.t.dashboard.notSet;
-
-    // Use pre-computed state from DashboardState
-    final dailySpending = state.dailySpending;
-    final normalizedSpending = state.normalizedDailySpending;
 
     // Overbudget check (today is index 6)
     final todaySpending = dailySpending.last;

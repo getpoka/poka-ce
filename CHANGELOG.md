@@ -19,6 +19,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Standardized chevron icon sizes to 16px across category, pocket, and scope selector tiles.
 - Optimized vertical spacing between dashboard quick actions and analytics carousel.
+- Refined spending activity card metrics on the dashboard to calculate totals and daily averages strictly from the active 7-day window.
+- Simplified transaction category labels to show specific subcategory names directly, preventing truncation in recent transaction rows.
+- Allowed wallet card titles to wrap to two lines to prevent abrupt text cutoffs.
 - Defaulted transaction list grouping to the monthly view to immediately display the active month's transactions and summaries.
 - [internal] Refactored `PokaIcon` coverage tests to use `FPhosphorIcons` instead of Material icons.
 

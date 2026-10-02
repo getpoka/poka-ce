@@ -309,7 +309,7 @@ void main() {
     );
     await tester.pumpAndSettle();
 
-    expect(find.text('Food & Drink • Coffee'), findsOneWidget);
+    expect(find.text('Coffee'), findsOneWidget);
   });
 
   testWidgets('single item tile without handlers does not render slidable', (tester) async {

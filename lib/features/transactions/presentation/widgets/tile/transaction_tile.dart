@@ -171,7 +171,7 @@ class RecentTransactionTile extends HookConsumerWidget with FTileMixin {
     if (resolvedCategory?.parentId != null && effectiveCategoriesById.isNotEmpty) {
       final parentCat = effectiveCategoriesById[resolvedCategory!.parentId!];
       if (parentCat != null) {
-        catLabel = '${parentCat.name} • ${resolvedCategory.name}';
+        catLabel = resolvedCategory.name;
         // Prefix gets the SUB category icon
         catIcon = IconUtil.getIcon(resolvedCategory.icon);
         catColor = resolvedCategory.color?.toColor() ?? theme.colors.primary;

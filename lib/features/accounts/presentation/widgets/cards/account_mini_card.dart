@@ -164,7 +164,7 @@ class AccountMiniCard extends StatelessWidget {
               const Spacer(),
               Text(
                 account.name,
-                maxLines: 1,
+                maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: theme.typography.body.sm.copyWith(fontWeight: FontWeight.w700),
               ),
