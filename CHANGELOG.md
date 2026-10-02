@@ -7,13 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.1.12] - 2026-10-02
+
 ### Added
 
 - Added horizontal scroll indicator dots to dashboard quick actions when items exceed viewport width.
 - Pull-to-refresh support on all list and detail screens.
-- [internal] Added `accountBalanceBuilderProvider` hook to allow external extensions to format account balances in `PokaPocketSelector`.
-- [internal] Added `onSyncRefreshProvider` hook allowing external consumers (e.g. Poka PE) to inject a cloud sync callback on pull-to-refresh without modifying CE.
-- [internal] Added `PokaRefreshable` shared widget wrapping `RefreshIndicator` with optional external sync support.
+- Added extensible account balance builder provider for external consumers to format account balances in the pocket selector.
+- Added extensible sync refresh hook enabling external consumers to inject a cloud sync callback on pull-to-refresh.
+- Added shared `PokaRefreshable` widget wrapping pull-to-refresh with optional external sync support.
 
 ### Changed
 
@@ -23,25 +25,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Simplified transaction category labels to show specific subcategory names directly, preventing truncation in recent transaction rows.
 - Allowed wallet card titles to wrap to two lines to prevent abrupt text cutoffs.
 - Defaulted transaction list grouping to the monthly view to immediately display the active month's transactions and summaries.
-- [internal] Refactored `PokaIcon` coverage tests to use `FPhosphorIcons` instead of Material icons.
 
 ## [v1.1.11] - 2026-09-27
 
 ### Added
 
-- [internal] Implemented Three-Tier Temporal Architecture: `LocalDate` (Tier 1 calendar dates), `LocalDateTime` (Tier 2 wall-clock transactions), and `Instant` (Tier 3 audit/sync timestamps).
+- Established a strict three-tier date and time architecture: calendar dates, wall-clock transaction timestamps, and system audit instants are now stored and handled independently to prevent timezone drift.
 
 ### Changed
 
 - Standardized section spacing and layout rhythms across detail pages and forms for a more consistent visual hierarchy.
 - Improved dark mode tab and pill contrast across dashboard analytics, report period filters, and icon pickers.
-- [internal] Cleaned up legacy color parsing, removed Material widgets, and updated ForUI spacing guidelines documentation.
-- [internal] Standardized `DateTimeUtils.nowUtc()` to delegate directly to standard Dart `DateTime.timestamp()`.
+
 
 ### Removed
 
-- [internal] Pruned unused dependencies (`riverpod`, `flutter_riverpod`, `rxdart`, `cryptography_flutter`, `cupertino_ui`) from `pubspec.yaml`.
-- [internal] Pruned obsolete and dead input widgets (`PokaAmountInput`, `PokaNumpad`, `PokaDateTimeDisplay`, `AccountPickerSheet`, `AccountTile`, and `NumpadNotifier`) and their tests.
+- Removed unused dependencies and obsolete input widgets to reduce package size and improve build times.
 
 ### Fixed
 
@@ -73,7 +72,7 @@ WCAG AA accessibility color compliance, dark mode contrast refinements, and exte
 
 ### Added
 
-- [internal] Added `lockedCurrencyTapHandlerProvider` to allow downstream packages to handle locked currency taps with custom action or upgrade prompt.
+- Added extensible locked-currency tap handler allowing downstream packages to inject custom actions or upgrade prompts.
 
 ## [v1.1.7] - 2026-09-24
 
@@ -103,7 +102,7 @@ WCAG AA accessibility color compliance, dark mode contrast refinements, and exte
 
 - Fixed split transaction sub-items incorrectly displaying amounts in the display currency instead of the account's native currency.
 - Enhanced bottom sheet interaction to allow closing quick selection menus and filters by tapping outside, while safeguarding data entry forms from accidental closure and input loss.
-- [internal] Updated `showPokaSheet` default to non-persistent (`persistent: false`), added `showHandle` toggle, and marked all core data entry forms with `persistent: true`.
+
 
 ## [v1.1.4] - 2026-09-23
 
@@ -148,8 +147,7 @@ Component modularization and 1-class-1-file architecture refactor across goals, 
 ### Changed
 
 - Modularized goal form sheet by extracting parent account selector and automatic pocket notice into standalone components.
-- [internal] Modularized transaction list screen by extracting reusable empty period component and eliminating duplicated private widgets.
-- [internal] Modularized reports module into 1-class-1-file architecture with dedicated tabs, charts, period selectors, budget bars, and status badges.
+
 
 ## [v1.1.0] - 2026-09-20
 
@@ -186,7 +184,7 @@ UI builder slot extensibility, datetime localization, and dependency upgrades.
 
 ### Changed
 
-- [internal] Upgraded package dependencies and modernized code generation bindings.
+
 
 ### Fixed
 
@@ -215,7 +213,7 @@ Post-GA stabilization, security hardening, and database query optimization relea
 
 - Bundled regular offline fonts locally and removed runtime `google_fonts` network fetching dependency.
 - Removed redundant font fallbacks and unused Cupertino widget dependencies.
-- [internal] Overhauled automated PR review and issue triage workflows with OpenRouter app attribution and English prompt guidelines.
+
 
 ### Fixed
 
@@ -279,7 +277,7 @@ Release Candidate 1 for Poka CE v1.0.0. All planned features for v1 are code-fro
 - 5-second Undo Delete for transactions with a temporary toast allowing users to restore deleted transactions, line items, and account balance mutations.
 - Periodic backup reminder with customizable intervals (Off, Weekly, Monthly), tracking last backup timestamps and alerting users when backups are due.
 - Multi-sheet Excel export (`.xlsx`) exporting transactions, accounts, and categories via native system sharing.
-- [internal] Drift schema verification suite and schema v1 snapshot to guarantee schema integrity for upcoming releases.
+
 - Insufficient balance confirmation warning dialog when creating or editing outgoing transactions (expense and transfer) that exceed available account balance, allowing users to proceed or review.
 - Reusable `PokaDonutChart` component unifying donut chart styling across Home and Reports with modern slim geometry and crisp section dividers.
 
@@ -312,8 +310,7 @@ Comprehensive bilingual localization (English & Indonesian), visual Net Worth sp
 - Prevented date drift in recurring transactions so scheduled bills advance accurately.
 - Preserved adaptive vector icons for Android App Shortcuts on release builds (ProGuard/R8).
 - Fixed sparkline endpoint dot clipping on compact screens.
-- [internal] Added automated AI issue triage workflow with DeepSeek grounding.
-- [internal] Added Cloudflare deploy hook trigger to release workflow.
+
 
 ## [v0.1.0-beta.4] - 2026-09-05
 
