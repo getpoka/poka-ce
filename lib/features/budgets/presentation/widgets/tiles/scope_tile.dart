@@ -67,7 +67,7 @@ class ScopeTile extends StatelessWidget {
                 ),
               )
             else
-              Icon(FPhosphorIcons.caretRight, size: 14, color: theme.colors.mutedForeground),
+              Icon(FPhosphorIcons.caretRight, size: 16, color: theme.colors.mutedForeground),
           ],
         ),
       ),

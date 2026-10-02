@@ -166,6 +166,7 @@ class PokaPocketSelector extends HookConsumerWidget {
                           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                           child: Icon(
                             isExpanded ? FPhosphorIcons.caretUp : FPhosphorIcons.caretDown,
+                            size: 16,
                             color: context.theme.colors.mutedForeground,
                           ),
                         ),

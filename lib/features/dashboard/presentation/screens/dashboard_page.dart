@@ -50,7 +50,7 @@ class DashboardPage extends HookConsumerWidget {
                         .animate()
                         .fade(duration: 400.ms, delay: 100.ms)
                         .slideY(begin: 0.05, end: 0),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 12),
                     const DashboardAnalyticsCarousel()
                         .animate()
                         .fade(duration: 400.ms, delay: 200.ms)

@@ -3,9 +3,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:forui/forui.dart';
 import 'package:forui_phosphor/forui_phosphor.dart';
+import 'package:poka_ce/features/dashboard/domain/dashboard_quick_action.dart';
+import 'package:poka_ce/features/dashboard/presentation/controllers/dashboard_quick_actions_provider.dart';
 import 'package:poka_ce/features/dashboard/presentation/widgets/sections/dashboard_quick_actions.dart';
-import 'package:poka_ce/theme/theme.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
+import 'package:poka_ce/theme/theme.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -61,6 +63,53 @@ void main() {
       // Ensure the widget tree contains 5 quick action items via Row children count implicit
       // Check that each label has a corresponding PokaIcon widget type
       expect(find.byType(DashboardQuickActions), findsOneWidget);
+    });
+
+    testWidgets('does not show dot indicator when content does not overflow', (tester) async {
+      await tester.pumpWidget(createWidget());
+      await tester.pumpAndSettle();
+
+      // With default 5 actions on standard screen width (800), totalContentWidth (332) <= boxWidth (332)
+      // So no indicator dots are rendered.
+      expect(find.byType(AnimatedContainer), findsNothing);
+    });
+
+    testWidgets('shows dot indicator and scrolls on dot tap when content overflows', (tester) async {
+      final extraAction = DashboardQuickAction(
+        icon: FPhosphorIcons.sparkle,
+        labelBuilder: (context) => 'Ask AI',
+        onTap: (context) {},
+      );
+      final sixActions = [extraAction, ...getDefaultDashboardQuickActions()];
+
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [dashboardQuickActionsProvider.overrideWith((ref) => sixActions)],
+          child: TranslationProvider(
+            child: MaterialApp(
+              builder: (context, child) => FTheme(data: lightTheme, child: child!),
+              home: const Scaffold(body: DashboardQuickActions()),
+            ),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      // Now 6 actions: totalContentWidth (400) > boxWidth (332) -> hasOverflow is true
+      // pageCount is (400/332).ceil() = 2 dots
+      final dots = find.byType(AnimatedContainer);
+      expect(dots, findsNWidgets(2));
+
+      // Initially at offset 0
+      final scrollable = tester.widget<SingleChildScrollView>(find.byType(SingleChildScrollView));
+      expect(scrollable.controller!.offset, 0.0);
+
+      // Tap the second dot (index 1)
+      await tester.tap(dots.at(1));
+      await tester.pumpAndSettle();
+
+      // The controller should have scrolled to the target extent
+      expect(scrollable.controller!.offset, greaterThan(0.0));
     });
   });
 }

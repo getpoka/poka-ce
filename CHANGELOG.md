@@ -9,10 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Added horizontal scroll indicator dots to dashboard quick actions when items exceed viewport width.
+- Pull-to-refresh support on all list and detail screens.
 - [internal] Added `accountBalanceBuilderProvider` hook to allow external extensions to format account balances in `PokaPocketSelector`.
+- [internal] Added `onSyncRefreshProvider` hook allowing external consumers (e.g. Poka PE) to inject a cloud sync callback on pull-to-refresh without modifying CE.
+- [internal] Added `PokaRefreshable` shared widget wrapping `RefreshIndicator` with optional external sync support.
 
 ### Changed
 
+- Standardized chevron icon sizes to 16px across category, pocket, and scope selector tiles.
+- Optimized vertical spacing between dashboard quick actions and analytics carousel.
 - Defaulted transaction list grouping to the monthly view to immediately display the active month's transactions and summaries.
 - [internal] Refactored `PokaIcon` coverage tests to use `FPhosphorIcons` instead of Material icons.
 

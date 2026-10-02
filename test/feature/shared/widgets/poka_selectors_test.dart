@@ -98,6 +98,36 @@ void main() {
 
       expect(result, cat);
     });
+
+    testWidgets('renders caretDown with size 16 when category has children and toggles to caretUp', (tester) async {
+      final now = DateTimeUtils.nowUtc();
+      final parent = CategoryModel(id: 'p1', name: 'Food', type: CategoryType.expense, createdAt: now, updatedAt: now);
+      final child = CategoryModel(
+        id: 'c1',
+        parentId: 'p1',
+        name: 'Groceries',
+        type: CategoryType.expense,
+        createdAt: now,
+        updatedAt: now,
+      );
+
+      await tester.pumpWidget(buildTestableWidget(PokaCategorySelector(categories: [parent, child])));
+
+      final caretDownFinder = find.byIcon(FPhosphorIcons.caretDown);
+      expect(caretDownFinder, findsOneWidget);
+      final caretDown = tester.widget<Icon>(caretDownFinder);
+      expect(caretDown.size, 16);
+
+      // Tap chevron to expand
+      await tester.tap(caretDownFinder);
+      await tester.pumpAndSettle();
+
+      expect(find.text('Groceries'), findsOneWidget);
+      final caretUpFinder = find.byIcon(FPhosphorIcons.caretUp);
+      expect(caretUpFinder, findsOneWidget);
+      final caretUp = tester.widget<Icon>(caretUpFinder);
+      expect(caretUp.size, 16);
+    });
   });
 
   group('PokaPocketSelector', () {
@@ -144,6 +174,47 @@ void main() {
       await tester.pump(const Duration(milliseconds: 500));
 
       expect(result, account);
+    });
+
+    testWidgets('renders caretDown with size 16 when parent has non-default pocket and toggles to caretUp', (
+      tester,
+    ) async {
+      final now = DateTimeUtils.nowUtc();
+      final parent = AccountModel(
+        id: 'p1',
+        name: 'Bank BCA',
+        type: AccountType.assets,
+        balance: 1000,
+        createdAt: now,
+        updatedAt: now,
+      );
+      final pocket = AccountModel(
+        id: 'c1',
+        parentId: 'p1',
+        isDefault: false,
+        name: 'Savings Pocket',
+        type: AccountType.assets,
+        balance: 500,
+        createdAt: now,
+        updatedAt: now,
+      );
+
+      await tester.pumpWidget(buildTestableWidget(PokaPocketSelector(accounts: [parent, pocket])));
+
+      final caretDownFinder = find.byIcon(FPhosphorIcons.caretDown);
+      expect(caretDownFinder, findsOneWidget);
+      final caretDown = tester.widget<Icon>(caretDownFinder);
+      expect(caretDown.size, 16);
+
+      // Tap chevron to expand
+      await tester.tap(caretDownFinder);
+      await tester.pumpAndSettle();
+
+      expect(find.text('Savings Pocket'), findsOneWidget);
+      final caretUpFinder = find.byIcon(FPhosphorIcons.caretUp);
+      expect(caretUpFinder, findsOneWidget);
+      final caretUp = tester.widget<Icon>(caretUpFinder);
+      expect(caretUp.size, 16);
     });
   });
 }
