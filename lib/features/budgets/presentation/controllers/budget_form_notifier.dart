@@ -143,6 +143,10 @@ class BudgetFormNotifier extends _$BudgetFormNotifier {
 
     final result = state.initialBudget == null ? await repo.createBudget(model) : await repo.updateBudget(model);
 
+    // The form may be closed while the save is in flight; never touch
+    // ref/state after an async gap once the provider has been disposed.
+    if (!ref.mounted) return;
+
     switch (result) {
       case Success():
         await ref.read(budgetListProvider.notifier).refresh();
