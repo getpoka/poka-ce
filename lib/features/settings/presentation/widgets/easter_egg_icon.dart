@@ -103,22 +103,18 @@ class _EasterEggIconState extends State<EasterEggIcon> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.theme;
     return GestureDetector(
       onTap: _onTap,
-      child: ClipRRect(
-        borderRadius: theme.style.borderRadius.xl,
-        child: Image.asset(
-          'assets/images/logo.png',
-          package: widget.package,
-          width: 96,
-          height: 96,
-          fit: BoxFit.cover,
-          errorBuilder: widget.package == null
-              ? (context, error, stackTrace) =>
-                    Image.asset('assets/images/logo.png', package: 'poka_ce', width: 96, height: 96, fit: BoxFit.cover)
-              : null,
-        ),
+      child: Image.asset(
+        'assets/images/logo.png',
+        package: widget.package,
+        width: 96,
+        height: 96,
+        fit: BoxFit.contain,
+        errorBuilder: widget.package == null
+            ? (context, error, stackTrace) =>
+                  Image.asset('assets/images/logo.png', package: 'poka_ce', width: 96, height: 96, fit: BoxFit.contain)
+            : null,
       ),
     );
   }

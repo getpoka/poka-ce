@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Removed rectangular clipping frame from the application logo on the About screen.
 - Renamed "split transaction" terminology to "Itemized Receipt" ("Rincian Struk") for clarity on single-receipt multi-item entries.
 - Redesigned itemized receipt list to use standalone transaction cards matching the main transaction list style.
 
