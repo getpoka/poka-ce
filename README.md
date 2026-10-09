@@ -16,8 +16,8 @@
   <a href="https://github.com/getpoka/poka-ce/blob/main/LICENSE">
     <img src="https://img.shields.io/badge/license-Apache%202.0-blue?style=for-the-badge" alt="License" />
   </a>
-  <a href="https://flutter.dev">
-    <img src="https://img.shields.io/badge/Flutter-3.47%2B-02569B?style=for-the-badge&logo=flutter" alt="Flutter" />
+  <a href="https://play.google.com/store/apps/details?id=dev.octopy.poka">
+    <img src="https://img.shields.io/badge/Google_Play-Poka-black?style=for-the-badge&logo=google-play&logoColor=white" alt="Google Play" />
   </a>
 </p>
 
@@ -99,6 +99,15 @@ without being stripped of the features that matter.
 ---
 
 ## Download & Install
+
+Poka is available in two editions depending on your workflow and privacy preferences:
+
+| Edition | Highlights | Get it |
+| :--- | :--- | :--- |
+| **Poka (Official Play Store)** | Multi-device cloud sync, shared wallets & pocket collaboration, multi-currency, AI assistant, and automatic updates | <a href="https://play.google.com/store/apps/details?id=dev.octopy.poka"><img src="https://img.shields.io/badge/Google_Play-Install-black?style=for-the-badge&logo=google-play&logoColor=white" alt="Google Play" /></a> |
+| **Poka CE (Community Edition)** | 100% offline-only, local SQLite, single-currency, zero accounts required | [GitHub Releases](https://github.com/getpoka/poka-ce/releases) |
+
+### Installing Poka CE (Offline APK)
 
 Download the latest release directly from the [GitHub Releases page](https://github.com/getpoka/poka-ce/releases).
 
