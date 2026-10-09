@@ -142,5 +142,28 @@ void main() {
 
       expect(editedIndex, 0);
     });
+
+    testWidgets('renders individual FCard for each split item', (tester) async {
+      final splits = [
+        const SplitItem(id: '1', amount: 10000, categoryId: 'c1', categoryName: 'Item 1'),
+        const SplitItem(id: '2', amount: 20000, categoryId: 'c2', categoryName: 'Item 2'),
+      ];
+
+      await tester.pumpWidget(
+        buildTestableWidget(
+          TransactionSplitItemList(
+            splits: splits,
+            transactionType: TransactionType.expense,
+            onRemove: (_) {},
+            onEdit: (_) {},
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.byType(FCard), findsNWidgets(2));
+      expect(find.text('Item 1'), findsOneWidget);
+      expect(find.text('Item 2'), findsOneWidget);
+    });
   });
 }

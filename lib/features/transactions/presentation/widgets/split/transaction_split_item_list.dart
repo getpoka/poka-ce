@@ -8,8 +8,9 @@ import 'package:poka_ce/core/utils/icon_util.dart';
 import 'package:poka_ce/features/categories/domain/category_model.dart';
 import 'package:poka_ce/features/categories/presentation/controllers/category_list_notifier.dart';
 import 'package:poka_ce/features/transactions/domain/split_item.dart';
+import 'package:poka_ce/features/transactions/presentation/widgets/tile/transaction_tile_content.dart';
+import 'package:poka_ce/features/transactions/presentation/widgets/tile/transaction_tile_icon.dart';
 import 'package:poka_ce/i18n/strings.g.dart';
-import 'package:poka_ce/shared/widgets/poka_amount_text.dart';
 import 'package:poka_ce/shared/widgets/poka_slidable_action.dart';
 import 'package:poka_ce/theme/theme.dart';
 
@@ -36,13 +37,15 @@ class TransactionSplitItemList extends ConsumerWidget {
         final item = entry.value;
         final isLast = index == splits.length - 1;
 
-        return _SplitItemCard(
-              item: item,
-              index: index,
-              isLast: isLast,
-              transactionType: transactionType,
-              onEdit: onEdit,
-              onRemove: onRemove,
+        return Padding(
+              padding: EdgeInsets.only(bottom: isLast ? 0 : 8),
+              child: _SplitItemCard(
+                item: item,
+                index: index,
+                transactionType: transactionType,
+                onEdit: onEdit,
+                onRemove: onRemove,
+              ),
             )
             .animate(key: ValueKey('split_item_$index'), delay: (index * 40).ms)
             .fadeIn(duration: 250.ms)
@@ -56,7 +59,6 @@ class _SplitItemCard extends ConsumerWidget {
   const new({
     required this.item,
     required this.index,
-    required this.isLast,
     required this.transactionType,
     required this.onEdit,
     required this.onRemove,
@@ -64,7 +66,6 @@ class _SplitItemCard extends ConsumerWidget {
 
   final SplitItem item;
   final int index;
-  final bool isLast;
   final TransactionType transactionType;
   final ValueChanged<int> onEdit;
   final ValueChanged<int> onRemove;
@@ -72,151 +73,80 @@ class _SplitItemCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = context.theme;
-    final colors = theme.colors;
-    final typography = theme.typography;
 
     // Resolve category data from the live provider
     final categoryList = ref.watch(categoryListProvider).value ?? <CategoryModel>[];
     final categoryData = categoryList.where((c) => c.id == item.categoryId).firstOrNull;
 
-    final catColor = categoryData?.color?.toColor(colors.primary) ?? colors.primary;
+    final catColor = categoryData?.color?.toColor(theme.colors.primary) ?? theme.colors.primary;
     final catIcon = categoryData?.icon != null ? IconUtil.getIcon(categoryData!.icon) : FPhosphorIcons.tag;
     final catName = item.categoryName ?? categoryData?.name ?? t.common.uncategorized;
 
-    final borderRadius = theme.style.borderRadius.lg;
+    IconData? subCatIcon;
+    Color? subCatColor;
+    if (categoryData?.parentId != null) {
+      final parentCat = categoryList.where((c) => c.id == categoryData!.parentId).firstOrNull;
+      if (parentCat != null) {
+        subCatIcon = IconUtil.getIcon(parentCat.icon);
+        subCatColor = parentCat.color?.toColor() ?? theme.colors.primary;
+      }
+    }
 
-    return Column(
-      children: [
-        Slidable(
-          key: ValueKey('split_slidable_$index'),
-          startActionPane: ActionPane(
-            motion: const BehindMotion(),
-            extentRatio: 0.22,
-            children: [
-              PokaSlidableAction(
-                icon: FPhosphorIcons.trash,
-                color: theme.colors.destructive,
-                isDestructive: true,
-                onPressed: () {
-                  onRemove(index);
-                },
-              ),
-            ],
+    final cardContent = FCard(
+      clipBehavior: Clip.antiAlias,
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () => onEdit(index),
+        child: FTile(
+          enabled: true,
+          prefix: TransactionTileIcon(
+            catColor: catColor,
+            catIcon: catIcon,
+            subCatIcon: subCatIcon,
+            subCatColor: subCatColor,
           ),
-          endActionPane: ActionPane(
-            motion: const BehindMotion(),
-            extentRatio: 0.22,
-            children: [
-              PokaSlidableAction(
-                icon: FPhosphorIcons.pencilSimple,
-                color: theme.colors.primary,
-                onPressed: () {
-                  onEdit(index);
-                },
-              ),
-            ],
-          ),
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-              color: colors.card,
-              borderRadius: BorderRadius.vertical(
-                top: index == 0 ? borderRadius.topLeft : Radius.zero,
-                bottom: isLast ? borderRadius.bottomLeft : Radius.zero,
-              ),
-              border: Border(
-                left: BorderSide(color: colors.border),
-                right: BorderSide(color: colors.border),
-                top: index == 0 ? BorderSide(color: colors.border) : BorderSide.none,
-                bottom: isLast ? BorderSide(color: colors.border) : BorderSide.none,
-              ),
-            ),
-            child: Column(
-              children: [
-                GestureDetector(
-                  behavior: HitTestBehavior.opaque,
-                  onTap: () => onEdit(index),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                    child: Row(
-                      children: [
-                        // Category icon badge
-                        Container(
-                          width: 36,
-                          height: 36,
-                          decoration: BoxDecoration(
-                            color: catColor.withValues(alpha: 0.12),
-                            borderRadius: theme.style.borderRadius.md,
-                            border: Border.all(color: catColor.withValues(alpha: 0.25)),
-                          ),
-                          child: Icon(catIcon, color: catColor, size: 17),
-                        ),
-                        const SizedBox(width: 12),
-
-                        // Category + note
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  Flexible(
-                                    child: Text(
-                                      catName,
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: typography.titleItem.copyWith(color: colors.foreground),
-                                    ),
-                                  ),
-                                  if (item.allocation != null) ...[
-                                    const SizedBox(width: 6),
-                                    Container(
-                                      padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-                                      decoration: BoxDecoration(
-                                        color: colors.primary.withValues(alpha: 0.1),
-                                        borderRadius: BorderRadius.circular(4),
-                                        border: Border.all(color: colors.primary.withValues(alpha: 0.2), width: 0.5),
-                                      ),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Icon(FPhosphorIcons.chartPieSlice, size: 9, color: colors.primary),
-                                          const SizedBox(width: 3),
-                                          Text(switch (item.allocation!) {
-                                            TransactionAllocation.need => context.t.transactions.need,
-                                            TransactionAllocation.want => context.t.transactions.want,
-                                            TransactionAllocation.saving => context.t.transactions.saving,
-                                          }, style: typography.labelBadge.copyWith(color: colors.primary)),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ],
-                              ),
-                              if (item.note?.isNotEmpty == true) ...[
-                                const SizedBox(height: 2),
-                                Text(
-                                  item.note!,
-                                  style: typography.bodySecondary.copyWith(color: colors.mutedForeground),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ],
-                            ],
-                          ),
-                        ),
-
-                        // Amount
-                        PokaAmountText(amount: item.amount, type: transactionType, style: typography.titleCard),
-                      ],
-                    ),
-                  ),
-                ),
-                if (!isLast) const Padding(padding: EdgeInsets.only(left: 64), child: FDivider()),
-              ],
-            ),
+          title: TransactionTileContent(
+            catLabel: catName,
+            catColor: catColor,
+            hasMultipleItems: false,
+            itemCount: 1,
+            amount: item.amount,
+            type: transactionType,
+            isBalanceVisible: true,
+            isTransfer: false,
+            note: item.note,
+            allocation: item.allocation,
           ),
         ),
-      ],
+      ),
+    );
+
+    return Slidable(
+      key: ValueKey('split_slidable_$index'),
+      startActionPane: ActionPane(
+        motion: const BehindMotion(),
+        extentRatio: 0.22,
+        children: [
+          PokaSlidableAction(
+            icon: FPhosphorIcons.trash,
+            color: theme.colors.destructive,
+            isDestructive: true,
+            onPressed: () => onRemove(index),
+          ),
+        ],
+      ),
+      endActionPane: ActionPane(
+        motion: const BehindMotion(),
+        extentRatio: 0.22,
+        children: [
+          PokaSlidableAction(
+            icon: FPhosphorIcons.pencilSimple,
+            color: theme.colors.primary,
+            onPressed: () => onEdit(index),
+          ),
+        ],
+      ),
+      child: cardContent,
     );
   }
 }
