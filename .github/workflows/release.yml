@@ -81,8 +81,10 @@ jobs:
 
       - name: Upload Release Artifacts
         uses: actions/upload-artifact@v4
+        continue-on-error: true
         with:
           name: poka-ce-release
+          retention-days: 1
           path: |
             build/app/outputs/flutter-apk/poka-*.apk
             build/app/outputs/flutter-apk/checksums.txt
