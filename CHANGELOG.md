@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed potential crash when closing forms or sheets while background operations are still pending.
+- Guarded notifiers against `UnmountedRefException` by adding `ref.mounted` checks and using `ref.invalidate` across asynchronous gaps.
+
 ## [v1.1.12] - 2026-10-02
 
 ### Added

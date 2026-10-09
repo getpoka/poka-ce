@@ -1,5 +1,7 @@
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'dart:async';
+
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:poka_ce/app/providers/repository_providers.dart';
 import 'package:poka_ce/core/enums.dart';
@@ -8,6 +10,7 @@ import 'package:poka_ce/core/error/result.dart';
 import 'package:poka_ce/features/budgets/domain/budget_model.dart';
 import 'package:poka_ce/features/budgets/domain/i_budget_repository.dart';
 import 'package:poka_ce/features/budgets/presentation/controllers/budget_form_notifier.dart';
+import 'package:poka_ce/features/budgets/presentation/controllers/budget_list_notifier.dart';
 
 class MockBudgetRepository extends Mock implements IBudgetRepository {}
 
@@ -140,6 +143,42 @@ void main() {
       n.setName('Updated');
       await n.save();
       expect(container.read(budgetFormProvider).error, 'db');
+    });
+
+    test('save invalidates list even if sheet is popped while in-flight', () async {
+      final completer = Completer<Result<void, Failure>>();
+      when(() => mockRepo.createBudget(any())).thenAnswer((_) => completer.future);
+
+      final container = ProviderContainer(overrides: [budgetRepositoryProvider.overrideWithValue(mockRepo)]);
+      addTearDown(container.dispose);
+
+      var listBuildCount = 0;
+      container.listen(budgetListProvider, (_, __) {
+        listBuildCount++;
+      });
+      // Initial build of budgetListProvider
+      await container.read(budgetListProvider.future);
+      expect(listBuildCount, 1);
+
+      // Simulate sheet opening
+      final subscription = container.listen(budgetFormProvider, (_, __) {});
+      final notifier = container.read(budgetFormProvider.notifier);
+      notifier.setName('New Budget');
+      notifier.setAmount(1000);
+
+      // Trigger save while async createBudget is in flight
+      final saveFuture = notifier.save();
+
+      // Simulate sheet closing/popping while save is in-flight
+      subscription.close();
+
+      // Complete async save
+      completer.complete(const Success(null));
+      await saveFuture;
+
+      // Ensure budgetListProvider was invalidated and re-executed without throwing UnmountedRefException
+      await container.read(budgetListProvider.future);
+      expect(listBuildCount, greaterThan(1));
     });
 
     test('copyWith', () {

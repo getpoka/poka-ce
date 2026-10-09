@@ -111,6 +111,7 @@ class AccountListNotifier extends _$AccountListNotifier {
 
     final repo = ref.read(accountRepositoryProvider);
     final result = await repo.reorderAccounts(oldIndex, newIndex, parentId: parentId);
+    if (!ref.mounted) return;
     if (result is ErrorResult) {
       // Revert optimistic changes on failure by invalidating provider to reload from database stream
       ref.invalidateSelf();

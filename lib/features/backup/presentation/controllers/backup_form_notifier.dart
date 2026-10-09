@@ -50,17 +50,21 @@ class BackupFormNotifier extends _$BackupFormNotifier {
       state = state.copyWith(isSubmitting: true);
       try {
         final success = await onValidateRestore(password);
+        if (!ref.mounted) return success;
         if (!success && !isBackup) {
           state = state.copyWith(passwordError: incorrectPasswordText);
         }
         return success;
       } on Object catch (_) {
+        if (!ref.mounted) return false;
         if (!isBackup) {
           state = state.copyWith(passwordError: incorrectPasswordText);
         }
         return false;
       } finally {
-        state = state.copyWith(isSubmitting: false);
+        if (ref.mounted) {
+          state = state.copyWith(isSubmitting: false);
+        }
       }
     }
 

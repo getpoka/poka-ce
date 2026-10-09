@@ -136,6 +136,7 @@ class DebtRepaymentNotifier extends _$DebtRepaymentNotifier {
     final isPayable = debt.type == DebtType.debt;
     final transactionType = isPayable ? TransactionType.expense : TransactionType.income;
 
+    final link = ref.keepAlive();
     try {
       final result = await ref
           .read(createTransactionUseCaseProvider)
@@ -151,17 +152,19 @@ class DebtRepaymentNotifier extends _$DebtRepaymentNotifier {
       return await result.fold(
         (success) async {
           await ref.read(dashboardProvider.notifier).refresh();
-          state = state.copyWith(isSaving: false);
+          if (ref.mounted) state = state.copyWith(isSaving: false);
           return true;
         },
         (failure) async {
-          state = state.copyWith(isSaving: false);
+          if (ref.mounted) state = state.copyWith(isSaving: false);
           return false;
         },
       );
     } on Exception catch (_) {
-      state = state.copyWith(isSaving: false);
+      if (ref.mounted) state = state.copyWith(isSaving: false);
       return false;
+    } finally {
+      link.close();
     }
   }
 }
