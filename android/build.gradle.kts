@@ -19,7 +19,7 @@ subprojects {
     val configureSubproject: () -> Unit = {
         if (project.plugins.hasPlugin("com.android.library")) {
             project.extensions.configure<com.android.build.api.dsl.LibraryExtension> {
-                compileSdk = 36
+                compileSdk = 37
             }
         }
     }
