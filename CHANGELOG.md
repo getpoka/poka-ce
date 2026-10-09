@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.1.13] - 2026-10-09
+
 ### Fixed
 
 - Fixed potential crash when closing forms or sheets while background operations are still pending.
@@ -433,7 +435,8 @@ All core features are feature-complete and ready to be explored:
 
 > **⚠️ Important Note:** This version is still under testing. Deep edge cases (such as editing or deleting complex interconnected data) have not been fully verified. Unexpected bugs may occur — we recommend trying it with dummy data first, or regularly backing up your data from the Settings menu. Help us reach v1.0 by reporting bugs via the [Issues](https://github.com/getpoka/poka-ce/issues) tab.
 
-[Unreleased]: https://github.com/getpoka/poka-ce/compare/v1.1.2...main
+[Unreleased]: https://github.com/getpoka/poka-ce/compare/v1.1.13...main
+[v1.1.13]: https://github.com/getpoka/poka-ce/compare/v1.1.12...v1.1.13
 [v1.1.2]: https://github.com/getpoka/poka-ce/compare/v1.1.1...v1.1.2
 [v1.1.1]: https://github.com/getpoka/poka-ce/compare/v1.1.0...v1.1.1
 [v1.1.0]: https://github.com/getpoka/poka-ce/compare/v1.0.2...v1.1.0
