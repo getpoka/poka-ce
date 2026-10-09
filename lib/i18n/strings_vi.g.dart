@@ -789,7 +789,7 @@ class _Translations$transactions$vi extends Translations$transactions$en {
 	@override String get delete => 'Xóa';
 	@override String get goToToday => 'Về hôm nay';
 	@override String get addItem => 'Thêm mục';
-	@override String get saveSplitTransaction => 'Lưu giao dịch tách';
+	@override String get saveSplitTransaction => 'Lưu hóa đơn chi tiết';
 	@override String get transactionType => 'Loại giao dịch';
 	@override String get applyFilter => 'Áp dụng bộ lọc';
 	@override String get noAccountsAvailable => 'Không có tài khoản nào';
@@ -798,7 +798,7 @@ class _Translations$transactions$vi extends Translations$transactions$en {
 	@override String get done => 'Xong';
 	@override String get save => 'Lưu';
 	@override String get transactions => 'Giao dịch';
-	@override String get splitTransaction => 'Tách giao dịch';
+	@override String get splitTransaction => 'Hóa đơn chi tiết';
 	@override String get from => 'Từ';
 	@override String get to => 'Đến';
 	@override String get empty => '+/-';
@@ -815,13 +815,13 @@ class _Translations$transactions$vi extends Translations$transactions$en {
 	@override String get noTransactions => 'Không có giao dịch';
 	@override String get addNote => 'Thêm ghi chú';
 	@override String get noItemsYet => 'Chưa có mục nào';
-	@override String get tapAddItemToBeginSplittingntheTransaction => 'Nhấn "Thêm mục" để bắt đầu tách\ngiao dịch.';
+	@override String get tapAddItemToBeginSplittingntheTransaction => 'Nhấn "Thêm mục" để phân bổ các khoản mục trong hóa đơn này.';
 	@override String get addAtLeastOneMoreItemToSave => 'Thêm ít nhất một mục nữa để lưu.';
 	@override String get noTransactions1 => 'Không có giao dịch';
 	@override String get reset => 'Đặt lại';
 	@override String get incoming => 'Thu ';
 	@override String nothingRecordedFor({required Object period}) => 'Chưa ghi gì cho ${period}.';
-	@override String splitItems({required Object count}) => '${count} mục đã tách';
+	@override String splitItems({required Object count}) => '${count} mục chi tiết';
 	@override String itemsCount({required Object count}) => '${count} mục';
 	@override String transactionsCount({required Object count}) => '${count} giao dịch';
 	@override String get editTransaction => 'Sửa giao dịch';
@@ -1509,7 +1509,7 @@ extension on TranslationsVi {
 			'transactions.delete' => 'Xóa',
 			'transactions.goToToday' => 'Về hôm nay',
 			'transactions.addItem' => 'Thêm mục',
-			'transactions.saveSplitTransaction' => 'Lưu giao dịch tách',
+			'transactions.saveSplitTransaction' => 'Lưu hóa đơn chi tiết',
 			'transactions.transactionType' => 'Loại giao dịch',
 			'transactions.applyFilter' => 'Áp dụng bộ lọc',
 			'transactions.noAccountsAvailable' => 'Không có tài khoản nào',
@@ -1518,7 +1518,7 @@ extension on TranslationsVi {
 			'transactions.done' => 'Xong',
 			'transactions.save' => 'Lưu',
 			'transactions.transactions' => 'Giao dịch',
-			'transactions.splitTransaction' => 'Tách giao dịch',
+			'transactions.splitTransaction' => 'Hóa đơn chi tiết',
 			'transactions.from' => 'Từ',
 			'transactions.to' => 'Đến',
 			'transactions.empty' => '+/-',
@@ -1535,13 +1535,13 @@ extension on TranslationsVi {
 			'transactions.noTransactions' => 'Không có giao dịch',
 			'transactions.addNote' => 'Thêm ghi chú',
 			'transactions.noItemsYet' => 'Chưa có mục nào',
-			'transactions.tapAddItemToBeginSplittingntheTransaction' => 'Nhấn "Thêm mục" để bắt đầu tách\ngiao dịch.',
+			'transactions.tapAddItemToBeginSplittingntheTransaction' => 'Nhấn "Thêm mục" để phân bổ các khoản mục trong hóa đơn này.',
 			'transactions.addAtLeastOneMoreItemToSave' => 'Thêm ít nhất một mục nữa để lưu.',
 			'transactions.noTransactions1' => 'Không có giao dịch',
 			'transactions.reset' => 'Đặt lại',
 			'transactions.incoming' => 'Thu ',
 			'transactions.nothingRecordedFor' => ({required Object period}) => 'Chưa ghi gì cho ${period}.',
-			'transactions.splitItems' => ({required Object count}) => '${count} mục đã tách',
+			'transactions.splitItems' => ({required Object count}) => '${count} mục chi tiết',
 			'transactions.itemsCount' => ({required Object count}) => '${count} mục',
 			'transactions.transactionsCount' => ({required Object count}) => '${count} giao dịch',
 			'transactions.editTransaction' => 'Sửa giao dịch',

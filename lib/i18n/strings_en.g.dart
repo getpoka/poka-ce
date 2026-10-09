@@ -1952,8 +1952,8 @@ class Translations$transactions$en {
 	/// en: 'Add Item'
 	String get addItem => 'Add Item';
 
-	/// en: 'Save Split Transaction'
-	String get saveSplitTransaction => 'Save Split Transaction';
+	/// en: 'Save Itemized Receipt'
+	String get saveSplitTransaction => 'Save Itemized Receipt';
 
 	/// en: 'Transaction Type'
 	String get transactionType => 'Transaction Type';
@@ -1979,8 +1979,8 @@ class Translations$transactions$en {
 	/// en: 'Transactions'
 	String get transactions => 'Transactions';
 
-	/// en: 'Split Transaction'
-	String get splitTransaction => 'Split Transaction';
+	/// en: 'Itemized Receipt'
+	String get splitTransaction => 'Itemized Receipt';
 
 	/// en: 'From'
 	String get from => 'From';
@@ -2030,8 +2030,8 @@ class Translations$transactions$en {
 	/// en: 'No items yet'
 	String get noItemsYet => 'No items yet';
 
-	/// en: 'Tap "Add Item" to begin splitting\nthe transaction.'
-	String get tapAddItemToBeginSplittingntheTransaction => 'Tap "Add Item" to begin splitting\nthe transaction.';
+	/// en: 'Tap "Add Item" to itemize this receipt across categories.'
+	String get tapAddItemToBeginSplittingntheTransaction => 'Tap "Add Item" to itemize this receipt across categories.';
 
 	/// en: 'Add at least one more item to save.'
 	String get addAtLeastOneMoreItemToSave => 'Add at least one more item to save.';
@@ -2048,8 +2048,8 @@ class Translations$transactions$en {
 	/// en: 'Nothing recorded for {{period}}.'
 	String nothingRecordedFor({required Object period}) => 'Nothing recorded for ${period}.';
 
-	/// en: '{{count}} split items'
-	String splitItems({required Object count}) => '${count} split items';
+	/// en: '{{count}} receipt items'
+	String splitItems({required Object count}) => '${count} receipt items';
 
 	/// en: '{{count}} item(s)'
 	String itemsCount({required Object count}) => '${count} item(s)';
@@ -2833,7 +2833,7 @@ extension on Translations {
 			'transactions.delete' => 'Delete',
 			'transactions.goToToday' => 'Go to Today',
 			'transactions.addItem' => 'Add Item',
-			'transactions.saveSplitTransaction' => 'Save Split Transaction',
+			'transactions.saveSplitTransaction' => 'Save Itemized Receipt',
 			'transactions.transactionType' => 'Transaction Type',
 			'transactions.applyFilter' => 'Apply Filter',
 			'transactions.noAccountsAvailable' => 'No accounts available',
@@ -2842,7 +2842,7 @@ extension on Translations {
 			'transactions.done' => 'Done',
 			'transactions.save' => 'Save',
 			'transactions.transactions' => 'Transactions',
-			'transactions.splitTransaction' => 'Split Transaction',
+			'transactions.splitTransaction' => 'Itemized Receipt',
 			'transactions.from' => 'From',
 			'transactions.to' => 'To',
 			'transactions.empty' => '+/-',
@@ -2859,13 +2859,13 @@ extension on Translations {
 			'transactions.noTransactions' => 'No transactions',
 			'transactions.addNote' => 'Add note',
 			'transactions.noItemsYet' => 'No items yet',
-			'transactions.tapAddItemToBeginSplittingntheTransaction' => 'Tap "Add Item" to begin splitting\nthe transaction.',
+			'transactions.tapAddItemToBeginSplittingntheTransaction' => 'Tap "Add Item" to itemize this receipt across categories.',
 			'transactions.addAtLeastOneMoreItemToSave' => 'Add at least one more item to save.',
 			'transactions.noTransactions1' => 'No Transactions',
 			'transactions.reset' => 'Reset',
 			'transactions.incoming' => 'In ',
 			'transactions.nothingRecordedFor' => ({required Object period}) => 'Nothing recorded for ${period}.',
-			'transactions.splitItems' => ({required Object count}) => '${count} split items',
+			'transactions.splitItems' => ({required Object count}) => '${count} receipt items',
 			'transactions.itemsCount' => ({required Object count}) => '${count} item(s)',
 			'transactions.transactionsCount' => ({required Object count}) => '${count} transactions',
 			'transactions.editTransaction' => 'Edit Transaction',
