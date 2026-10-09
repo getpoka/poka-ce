@@ -149,7 +149,7 @@ class BudgetFormNotifier extends _$BudgetFormNotifier {
 
     switch (result) {
       case Success():
-        await ref.read(budgetListProvider.notifier).refresh();
+        ref.invalidate(budgetListProvider);
         state = state.copyWith(isSaving: false, isSuccess: true);
       case ErrorResult(error: final failure):
         state = state.copyWith(error: failure.message, isSaving: false);

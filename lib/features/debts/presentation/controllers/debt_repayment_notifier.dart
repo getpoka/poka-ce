@@ -148,19 +148,23 @@ class DebtRepaymentNotifier extends _$DebtRepaymentNotifier {
             transactionDate: nowAsLocalDateTime(state.date),
           );
 
+      if (!ref.mounted) return false;
+
       return await result.fold(
         (success) async {
-          await ref.read(dashboardProvider.notifier).refresh();
-          state = state.copyWith(isSaving: false);
+          if (ref.mounted) {
+            await ref.read(dashboardProvider.notifier).refresh();
+          }
+          if (ref.mounted) state = state.copyWith(isSaving: false);
           return true;
         },
         (failure) async {
-          state = state.copyWith(isSaving: false);
+          if (ref.mounted) state = state.copyWith(isSaving: false);
           return false;
         },
       );
     } on Exception catch (_) {
-      state = state.copyWith(isSaving: false);
+      if (ref.mounted) state = state.copyWith(isSaving: false);
       return false;
     }
   }

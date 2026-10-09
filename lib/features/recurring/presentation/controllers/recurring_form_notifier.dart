@@ -130,9 +130,11 @@ class RecurringFormNotifier extends _$RecurringFormNotifier {
         ? await repo.createRecurring(model)
         : await repo.updateRecurring(model);
 
+    if (!ref.mounted) return;
+
     switch (result) {
       case Success():
-        await ref.read(recurringListProvider.notifier).refresh();
+        ref.invalidate(recurringListProvider);
         state = state.copyWith(isSaving: false, isSuccess: true);
       case ErrorResult(error: final failure):
         state = state.copyWith(error: failure.message, isSaving: false);

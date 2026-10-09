@@ -103,9 +103,11 @@ class CategoryFormNotifier extends _$CategoryFormNotifier {
 
     final result = state.initialCategory == null ? await repo.createCategory(model) : await repo.updateCategory(model);
 
+    if (!ref.mounted) return;
+
     switch (result) {
       case Success():
-        await ref.read(categoryListProvider.notifier).refresh();
+        ref.invalidate(categoryListProvider);
         state = state.copyWith(isSaving: false, isSuccess: true);
       case ErrorResult(error: final failure):
         state = state.copyWith(error: failure.message, isSaving: false);

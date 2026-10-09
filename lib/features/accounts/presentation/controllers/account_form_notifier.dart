@@ -185,6 +185,8 @@ class AccountFormNotifier extends _$AccountFormNotifier {
                 initialBalance: isPocket ? state.initialAccount!.initialBalance : state.balance,
               );
 
+    if (!ref.mounted) return;
+
     switch (result) {
       case Success():
         state = state.copyWith(isSaving: false, isSuccess: true);

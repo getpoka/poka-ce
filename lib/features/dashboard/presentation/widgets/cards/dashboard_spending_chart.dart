@@ -27,10 +27,7 @@ class DashboardSpendingChart extends HookConsumerWidget {
     final normalizedSpending = state.normalizedDailySpending;
 
     final weekTotalExpense = dailySpending.fold<double>(0, (sum, val) => sum + val);
-    final totalExpenseFormatted = weekTotalExpense.toCompactFormat(
-      precision: precision,
-      isVisible: isBalanceVisible,
-    );
+    final totalExpenseFormatted = weekTotalExpense.toCompactFormat(precision: precision, isVisible: isBalanceVisible);
     final avgExpenseFormatted = (weekTotalExpense / 7).toCompactFormat(
       precision: precision,
       isVisible: isBalanceVisible,

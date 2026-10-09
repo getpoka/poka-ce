@@ -138,6 +138,8 @@ class DebtForm extends _$DebtForm {
         ? await repo.createDebt(model, state.accountId, state.categoryId)
         : await repo.updateDebt(model);
 
+    if (!ref.mounted) return;
+
     switch (result) {
       case Success():
         state = state.copyWith(isSaving: false, isSuccess: true);

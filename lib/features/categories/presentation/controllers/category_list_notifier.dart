@@ -22,15 +22,8 @@ class CategoryListNotifier extends _$CategoryListNotifier {
 
   /// Refreshes the category list from the repository.
   Future<void> refresh() async {
-    state = const AsyncLoading();
-    state = await AsyncValue.guard(() async {
-      final repo = ref.read(categoryRepositoryProvider);
-      final result = await repo.getCategories();
-      return switch (result) {
-        Success(value: final categories) => categories,
-        ErrorResult(error: final failure) => await Future.error(failure, StackTrace.current),
-      };
-    });
+    ref.invalidateSelf();
+    await future;
   }
 
   /// Toggles the active status of a specific category and refreshes the list upon success.

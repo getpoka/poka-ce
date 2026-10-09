@@ -171,6 +171,8 @@ class GoalFormNotifier extends _$GoalFormNotifier {
 
     final result = state.initialGoal == null ? await repo.createGoal(model) : await repo.updateGoal(model);
 
+    if (!ref.mounted) return;
+
     switch (result) {
       case Success():
         state = state.copyWith(isSaving: false, isSuccess: true);

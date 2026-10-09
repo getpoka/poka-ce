@@ -19,23 +19,10 @@ class BudgetListNotifier extends _$BudgetListNotifier {
     };
   }
 
-  /// Reloads the full list of budgets, updating the state to loading during the fetch.
+  /// Reloads the full list of budgets.
   Future<void> refresh() async {
-    // The provider is auto-dispose: the page may be popped (e.g. back button)
-    // while the fetch is in flight. Never touch ref/state after an async gap
-    // once the provider has been disposed.
-    if (!ref.mounted) return;
-    state = const AsyncLoading();
-    final next = await AsyncValue.guard(() async {
-      final repo = ref.read(budgetRepositoryProvider);
-      final result = await repo.getBudgets();
-      return switch (result) {
-        Success(value: final budgets) => budgets,
-        ErrorResult(error: final failure) => await Future.error(failure, StackTrace.current),
-      };
-    });
-    if (!ref.mounted) return;
-    state = next;
+    ref.invalidateSelf();
+    await future;
   }
 
   /// Permanently removes a budget by [id] and refreshes the list on success.

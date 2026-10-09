@@ -330,6 +330,8 @@ class TransactionFormNotifier extends _$TransactionFormNotifier {
         }
       }
 
+      if (!ref.mounted) return;
+
       result.fold(
         (success) {
           state = state.copyWith(isLoading: false, isSuccess: true);
@@ -342,6 +344,7 @@ class TransactionFormNotifier extends _$TransactionFormNotifier {
         },
       );
     } on Exception catch (e) {
+      if (!ref.mounted) return;
       state = state.copyWith(isLoading: false, error: e.toString);
     }
   }
@@ -385,6 +388,8 @@ class TransactionFormNotifier extends _$TransactionFormNotifier {
             );
       }
 
+      if (!ref.mounted) return;
+
       result.fold(
         (success) {
           state = state.copyWith(isLoading: false, isSuccess: true);
@@ -397,6 +402,7 @@ class TransactionFormNotifier extends _$TransactionFormNotifier {
         },
       );
     } on Exception catch (e) {
+      if (!ref.mounted) return;
       state = state.copyWith(isLoading: false, error: e.toString);
     }
   }
