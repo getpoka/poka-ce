@@ -7,11 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.1.14] - 2026-10-10
+
 ### Changed
 
 - Removed rectangular clipping frame from the application logo on the About screen.
 - Renamed "split transaction" terminology to "Itemized Receipt" ("Rincian Struk") for clarity on single-receipt multi-item entries.
 - Redesigned itemized receipt list to use standalone transaction cards matching the main transaction list style.
+
+### Fixed
+
+- Fixed Android release build failure by updating Android Gradle Plugin to 9.1.0, Gradle Wrapper to 9.3.1, Kotlin to 2.4.0, and library compileSdk to 37.
 
 ## [v1.1.13] - 2026-10-09
 
