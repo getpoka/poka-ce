@@ -8,9 +8,7 @@ part 'budget_list_notifier.g.dart';
 /// Notifier managing the asynchronous collection of user budgets and associated CRUD lifecycles.
 @riverpod
 class BudgetListNotifier extends _$BudgetListNotifier {
-  /// Fetches the initial list of budgets from the database repository.
-  @override
-  Future<List<BudgetModel>> build() async {
+  Future<List<BudgetModel>> _fetch() async {
     final repo = ref.read(budgetRepositoryProvider);
     final result = await repo.getBudgets();
     return switch (result) {
@@ -19,10 +17,17 @@ class BudgetListNotifier extends _$BudgetListNotifier {
     };
   }
 
+  /// Fetches the initial list of budgets from the database repository.
+  @override
+  Future<List<BudgetModel>> build() => _fetch();
+
   /// Reloads the full list of budgets.
   Future<void> refresh() async {
-    ref.invalidateSelf();
-    await future;
+    if (!ref.mounted) return;
+    state = const AsyncLoading();
+    final next = await AsyncValue.guard(_fetch);
+    if (!ref.mounted) return;
+    state = next;
   }
 
   /// Permanently removes a budget by [id] and refreshes the list on success.

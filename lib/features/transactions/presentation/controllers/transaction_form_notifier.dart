@@ -252,12 +252,17 @@ class TransactionFormNotifier extends _$TransactionFormNotifier {
 
   /// Saves the transaction as either a simple or split transaction.
   Future<void> save() async {
-    final isSplit = state.splitItems != null;
+    final link = ref.keepAlive();
+    try {
+      final isSplit = state.splitItems != null;
 
-    if (isSplit) {
-      await _handleSplitSave();
-    } else {
-      await _handleSimpleSave();
+      if (isSplit) {
+        await _handleSplitSave();
+      } else {
+        await _handleSimpleSave();
+      }
+    } finally {
+      link.close();
     }
   }
 

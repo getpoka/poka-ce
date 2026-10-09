@@ -10,8 +10,7 @@ part 'category_list_notifier.g.dart';
 /// Handles fetching, refreshing, toggling active status, deleting, and reordering.
 @riverpod
 class CategoryListNotifier extends _$CategoryListNotifier {
-  @override
-  Future<List<CategoryModel>> build() async {
+  Future<List<CategoryModel>> _fetch() async {
     final repo = ref.read(categoryRepositoryProvider);
     final result = await repo.getCategories();
     return switch (result) {
@@ -20,16 +19,23 @@ class CategoryListNotifier extends _$CategoryListNotifier {
     };
   }
 
+  @override
+  Future<List<CategoryModel>> build() => _fetch();
+
   /// Refreshes the category list from the repository.
   Future<void> refresh() async {
-    ref.invalidateSelf();
-    await future;
+    if (!ref.mounted) return;
+    state = const AsyncLoading();
+    final next = await AsyncValue.guard(_fetch);
+    if (!ref.mounted) return;
+    state = next;
   }
 
   /// Toggles the active status of a specific category and refreshes the list upon success.
   Future<void> toggleActive(CategoryModel category, {required bool isActive}) async {
     final repo = ref.read(categoryRepositoryProvider);
     final result = await repo.toggleCategoryActiveStatus(category.id, isActive: isActive);
+    if (!ref.mounted) return;
     if (result is Success) {
       await refresh();
     }
@@ -39,6 +45,7 @@ class CategoryListNotifier extends _$CategoryListNotifier {
   Future<void> deleteCategory(String id) async {
     final repo = ref.read(categoryRepositoryProvider);
     final result = await repo.deleteCategory(id);
+    if (!ref.mounted) return;
     if (result is Success) {
       await refresh();
     }

@@ -141,18 +141,23 @@ class BudgetFormNotifier extends _$BudgetFormNotifier {
           updatedAt: now,
         );
 
-    final result = state.initialBudget == null ? await repo.createBudget(model) : await repo.updateBudget(model);
+    final link = ref.keepAlive();
+    try {
+      final result = state.initialBudget == null ? await repo.createBudget(model) : await repo.updateBudget(model);
 
-    // The form may be closed while the save is in flight; never touch
-    // ref/state after an async gap once the provider has been disposed.
-    if (!ref.mounted) return;
-
-    switch (result) {
-      case Success():
-        ref.invalidate(budgetListProvider);
-        state = state.copyWith(isSaving: false, isSuccess: true);
-      case ErrorResult(error: final failure):
-        state = state.copyWith(error: failure.message, isSaving: false);
+      switch (result) {
+        case Success():
+          ref.invalidate(budgetListProvider);
+          if (ref.mounted) {
+            state = state.copyWith(isSaving: false, isSuccess: true);
+          }
+        case ErrorResult(error: final failure):
+          if (ref.mounted) {
+            state = state.copyWith(error: failure.message, isSaving: false);
+          }
+      }
+    } finally {
+      link.close();
     }
   }
 }
