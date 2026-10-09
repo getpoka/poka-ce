@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Renamed "split transaction" terminology to "Itemized Receipt" ("Rincian Struk") for clarity on single-receipt multi-item entries.
+
 ## [v1.1.13] - 2026-10-09
 
 ### Fixed

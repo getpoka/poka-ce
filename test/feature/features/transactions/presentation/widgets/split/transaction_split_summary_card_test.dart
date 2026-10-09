@@ -7,6 +7,7 @@ import 'package:poka_ce/core/enums.dart';
 import 'package:poka_ce/features/settings/presentation/controllers/settings_notifier.dart';
 import 'package:poka_ce/features/transactions/domain/split_item.dart';
 import 'package:poka_ce/features/transactions/presentation/widgets/split/transaction_split_summary_card.dart';
+import 'package:poka_ce/i18n/strings.g.dart';
 import 'package:poka_ce/theme/theme.dart';
 
 class FakeSettingsNotifier extends SettingsNotifier {
@@ -48,8 +49,8 @@ void main() {
         ),
       );
 
-      // Verify title "2 split items"
-      expect(find.text('2 split items'), findsOneWidget);
+      // Verify title
+      expect(find.text(t.transactions.splitItems(count: 2)), findsOneWidget);
 
       // Verify amount (50 + 25)
       expect(find.textContaining('75'), findsOneWidget);

@@ -789,7 +789,7 @@ class _Translations$transactions$ms extends Translations$transactions$en {
 	@override String get delete => 'Padam';
 	@override String get goToToday => 'Ke Hari Ini';
 	@override String get addItem => 'Tambah Item';
-	@override String get saveSplitTransaction => 'Simpan Transaksi Pecahan';
+	@override String get saveSplitTransaction => 'Simpan Butiran Resit';
 	@override String get transactionType => 'Jenis Transaksi';
 	@override String get applyFilter => 'Guna Penapis';
 	@override String get noAccountsAvailable => 'Tiada akaun tersedia';
@@ -798,7 +798,7 @@ class _Translations$transactions$ms extends Translations$transactions$en {
 	@override String get done => 'Siap';
 	@override String get save => 'Simpan';
 	@override String get transactions => 'Transaksi';
-	@override String get splitTransaction => 'Pecah Transaksi';
+	@override String get splitTransaction => 'Butiran Resit';
 	@override String get from => 'Dari';
 	@override String get to => 'Ke';
 	@override String get empty => '+/-';
@@ -815,13 +815,13 @@ class _Translations$transactions$ms extends Translations$transactions$en {
 	@override String get noTransactions => 'Tiada transaksi';
 	@override String get addNote => 'Tambah catatan';
 	@override String get noItemsYet => 'Belum ada item';
-	@override String get tapAddItemToBeginSplittingntheTransaction => 'Ketik "Tambah Item" untuk mula memecahkan\ntransaksi.';
+	@override String get tapAddItemToBeginSplittingntheTransaction => 'Ketik "Tambah Item" untuk memperincikan item resit ini mengikut kategori.';
 	@override String get addAtLeastOneMoreItemToSave => 'Tambah sekurang-kurangnya satu item lagi untuk menyimpan.';
 	@override String get noTransactions1 => 'Tiada Transaksi';
 	@override String get reset => 'Set Semula';
 	@override String get incoming => 'Masuk ';
 	@override String nothingRecordedFor({required Object period}) => 'Tiada rekod untuk ${period}.';
-	@override String splitItems({required Object count}) => '${count} item pecahan';
+	@override String splitItems({required Object count}) => '${count} item resit';
 	@override String itemsCount({required Object count}) => '${count} item';
 	@override String transactionsCount({required Object count}) => '${count} transaksi';
 	@override String get editTransaction => 'Edit Transaksi';
@@ -1509,7 +1509,7 @@ extension on TranslationsMs {
 			'transactions.delete' => 'Padam',
 			'transactions.goToToday' => 'Ke Hari Ini',
 			'transactions.addItem' => 'Tambah Item',
-			'transactions.saveSplitTransaction' => 'Simpan Transaksi Pecahan',
+			'transactions.saveSplitTransaction' => 'Simpan Butiran Resit',
 			'transactions.transactionType' => 'Jenis Transaksi',
 			'transactions.applyFilter' => 'Guna Penapis',
 			'transactions.noAccountsAvailable' => 'Tiada akaun tersedia',
@@ -1518,7 +1518,7 @@ extension on TranslationsMs {
 			'transactions.done' => 'Siap',
 			'transactions.save' => 'Simpan',
 			'transactions.transactions' => 'Transaksi',
-			'transactions.splitTransaction' => 'Pecah Transaksi',
+			'transactions.splitTransaction' => 'Butiran Resit',
 			'transactions.from' => 'Dari',
 			'transactions.to' => 'Ke',
 			'transactions.empty' => '+/-',
@@ -1535,13 +1535,13 @@ extension on TranslationsMs {
 			'transactions.noTransactions' => 'Tiada transaksi',
 			'transactions.addNote' => 'Tambah catatan',
 			'transactions.noItemsYet' => 'Belum ada item',
-			'transactions.tapAddItemToBeginSplittingntheTransaction' => 'Ketik "Tambah Item" untuk mula memecahkan\ntransaksi.',
+			'transactions.tapAddItemToBeginSplittingntheTransaction' => 'Ketik "Tambah Item" untuk memperincikan item resit ini mengikut kategori.',
 			'transactions.addAtLeastOneMoreItemToSave' => 'Tambah sekurang-kurangnya satu item lagi untuk menyimpan.',
 			'transactions.noTransactions1' => 'Tiada Transaksi',
 			'transactions.reset' => 'Set Semula',
 			'transactions.incoming' => 'Masuk ',
 			'transactions.nothingRecordedFor' => ({required Object period}) => 'Tiada rekod untuk ${period}.',
-			'transactions.splitItems' => ({required Object count}) => '${count} item pecahan',
+			'transactions.splitItems' => ({required Object count}) => '${count} item resit',
 			'transactions.itemsCount' => ({required Object count}) => '${count} item',
 			'transactions.transactionsCount' => ({required Object count}) => '${count} transaksi',
 			'transactions.editTransaction' => 'Edit Transaksi',
