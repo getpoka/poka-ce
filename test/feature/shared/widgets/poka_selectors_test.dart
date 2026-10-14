@@ -10,6 +10,8 @@ import 'package:poka_ce/shared/widgets/poka_category_selector.dart';
 import 'package:poka_ce/shared/widgets/poka_pocket_selector.dart';
 import 'package:poka_ce/theme/theme.dart';
 import 'package:poka_ce/core/utils/datetime_utils.dart';
+import 'package:poka_ce/core/utils/icon_util.dart';
+import 'package:poka_ce/i18n/strings.g.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -27,36 +29,61 @@ void main() {
     testWidgets('renders categories and icons, and triggers onIconSelected', (tester) async {
       String? selectedIcon;
       await tester.pumpWidget(
-        buildTestableWidget(PokaIconPicker(selectedIcon: 'ph_wallet', onIconSelected: (icon) => selectedIcon = icon)),
+        buildTestableWidget(PokaIconPicker(selectedIcon: 'wallet', onIconSelected: (icon) => selectedIcon = icon)),
       );
 
-      // Should render the first category "General" by default (or similar)
       expect(find.byType(PokaIconPicker), findsOneWidget);
+      expect(find.byType(FTextField), findsOneWidget);
 
-      // Tap an icon in the list (Assuming there's an icon for 'ph_money')
-      // Note: testing specific icon keys requires knowing icon mapping.
-      // We will tap the first available icon that is not the selected one.
       final icons = find.byType(Icon);
-      await tester.tap(icons.last);
+      await tester.tap(icons.at(1));
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 500));
 
       expect(selectedIcon, isNotNull);
     });
 
-    testWidgets('can switch categories', (tester) async {
+    testWidgets('has at least 150 available icons in catalogue', (tester) async {
+      expect(IconUtil.availableIcons.length, greaterThanOrEqualTo(150));
+    });
+
+    testWidgets('filters icons when search query is entered', (tester) async {
+      String? selectedIcon;
+      await tester.pumpWidget(
+        buildTestableWidget(PokaIconPicker(selectedIcon: null, onIconSelected: (icon) => selectedIcon = icon)),
+      );
+
+      await tester.enterText(find.byType(FTextField), 'coffee');
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 300));
+
+      final coffeeFinder = find.byIcon(FPhosphorIcons.coffee);
+      expect(coffeeFinder, findsWidgets);
+
+      await tester.tap(coffeeFinder.first);
+      await tester.pump();
+      expect(selectedIcon, 'coffee');
+    });
+
+    testWidgets('shows empty state when search finds no match', (tester) async {
       await tester.pumpWidget(buildTestableWidget(PokaIconPicker(selectedIcon: null, onIconSelected: (_) {})));
 
-      // Find another category, e.g., 'Food' or 'Transport'
-      // By tapping the text 'Food' if it exists.
-      final categoryTexts = find.descendant(of: find.byType(SingleChildScrollView), matching: find.byType(Text));
+      await tester.enterText(find.byType(FTextField), 'xyznonexistent12345');
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 300));
 
-      if (tester.widgetList(categoryTexts).length > 1) {
-        await tester.tap(categoryTexts.last);
-        await tester.pump();
-        await tester.pump(const Duration(milliseconds: 500));
-        // Just verify it doesn't crash and switches state.
-      }
+      expect(find.text(t.categories.noIconsFound), findsOneWidget);
+    });
+
+    testWidgets('supports multilingual search aliases across supported locales', (tester) async {
+      await tester.pumpWidget(buildTestableWidget(PokaIconPicker(selectedIcon: null, onIconSelected: (_) {})));
+
+      // Searching Indonesian alias "kopi" for coffee
+      await tester.enterText(find.byType(FTextField), 'kopi');
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 300));
+
+      expect(find.byIcon(FPhosphorIcons.coffee), findsWidgets);
     });
   });
 

@@ -25,6 +25,7 @@ class CategoryIconPickerButton extends StatelessWidget {
           context: context,
           builder: (context) => PokaSheet(
             title: t.categories.selectIcon,
+            isScrollable: false,
             child: PokaIconPicker(
               selectedIcon: selectedIcon,
               onIconSelected: (icon) {
