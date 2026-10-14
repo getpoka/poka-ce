@@ -8,6 +8,7 @@ targets:
           input_file_pattern: .i18n.json
           locale_handling: true
           namespaces: true
+          lazy: false
 
           output_directory: lib/i18n
           output_file_name: strings.g.dart
@@ -17,6 +18,7 @@ targets:
           fallback_strategy: base_locale
           maps:
             - error
+            - icons.aliases
 
       drift_dev:
         options:

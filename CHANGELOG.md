@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Expanded icon catalog to over 170 icons across comprehensive spending and lifestyle categories.
+- Instant search filter with empty-state feedback in the icon picker sheet.
+- Multilingual search support allowing icons to be found using keywords in English, Indonesian, Malay, and Vietnamese.
+
+### Changed
+
+- Replaced horizontal tab pills in the icon picker with categorized vertical sections for easier scrolling and browsing.
+
 ## [v1.1.14] - 2026-10-10
 
 ### Changed

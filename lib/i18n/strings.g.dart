@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 4
-/// Strings: 2655 (663 per locale)
+/// Strings: 3363 (840 per locale)
 ///
-/// Built on 2026-10-09 at 16:18 UTC
+/// Built on 2026-10-14 at 15:39 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
@@ -18,9 +18,9 @@ import 'package:slang/generated.dart';
 import 'package:slang_flutter/slang_flutter.dart';
 export 'package:slang_flutter/slang_flutter.dart';
 
-import 'strings_id.g.dart' deferred as l_id;
-import 'strings_ms.g.dart' deferred as l_ms;
-import 'strings_vi.g.dart' deferred as l_vi;
+import 'strings_id.g.dart' as l_id;
+import 'strings_ms.g.dart' as l_ms;
+import 'strings_vi.g.dart' as l_vi;
 part 'strings_en.g.dart';
 
 /// Supported locales.
@@ -51,35 +51,11 @@ enum AppLocale with BaseAppLocale<AppLocale, Translations> {
 		PluralResolver? cardinalResolver,
 		PluralResolver? ordinalResolver,
 	}) async {
-		switch (this) {
-			case AppLocale.en:
-				return TranslationsEn(
-					overrides: overrides,
-					cardinalResolver: cardinalResolver,
-					ordinalResolver: ordinalResolver,
-				);
-			case AppLocale.id:
-				await l_id.loadLibrary();
-				return l_id.TranslationsId(
-					overrides: overrides,
-					cardinalResolver: cardinalResolver,
-					ordinalResolver: ordinalResolver,
-				);
-			case AppLocale.ms:
-				await l_ms.loadLibrary();
-				return l_ms.TranslationsMs(
-					overrides: overrides,
-					cardinalResolver: cardinalResolver,
-					ordinalResolver: ordinalResolver,
-				);
-			case AppLocale.vi:
-				await l_vi.loadLibrary();
-				return l_vi.TranslationsVi(
-					overrides: overrides,
-					cardinalResolver: cardinalResolver,
-					ordinalResolver: ordinalResolver,
-				);
-		}
+		return buildSync(
+			overrides: overrides,
+			cardinalResolver: cardinalResolver,
+			ordinalResolver: ordinalResolver,
+		);
 	}
 
 	@override
@@ -165,7 +141,7 @@ extension BuildContextTranslationsExtension on BuildContext {
 class LocaleSettings extends BaseFlutterLocaleSettings<AppLocale, Translations> {
 	LocaleSettings._() : super(
 		utils: AppLocaleUtils.instance,
-		lazy: true,
+		lazy: false,
 	);
 
 	static final instance = LocaleSettings._();

@@ -129,6 +129,7 @@ class AccountFormSheet extends HookConsumerWidget {
                       context: context,
                       builder: (context) => PokaSheet(
                         title: t.accounts.selectIcon,
+                        isScrollable: false,
                         child: PokaIconPicker(
                           selectedIcon: state.icon,
                           onIconSelected: (icon) {
