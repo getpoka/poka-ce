@@ -1,23 +1,33 @@
 import 'dart:math';
 
 import 'package:intl/intl.dart';
+import 'package:poka_ce/i18n/strings.g.dart';
 
 /// Standard placeholder string used across the app to mask sensitive financial amounts.
 const String kPrivacyMask = '••••••';
 
 /// Formatting helpers for numeric values (integers and doubles).
 extension NumExtension on num {
-  /// Converts the number to compact abbreviated string (e.g. 1.2K, 3.4M, 5.0B).
+  /// Converts the number to compact abbreviated string (e.g. 1.2K, 3.4M, 5.0B or 1.5Jt in Indonesian).
   ///
   /// [precision] is the ISO 4217 minor-unit exponent for the currency (e.g. 2 for USD, 0 for IDR).
   /// The raw value is divided by `10^precision` before formatting so that minor-unit amounts
   /// (e.g. 300 cents) are displayed as major-unit strings (e.g. "3.00").
-  String toCompactFormat({int precision = 0, bool isVisible = true}) {
+  String toCompactFormat({int precision = 0, bool isVisible = true, String? locale}) {
     if (!isVisible) return kPrivacyMask;
     final major = this / pow(10, precision);
-    if (major >= 1_000_000_000) return '${(major / 1_000_000_000).toStringAsFixed(1)}B';
-    if (major >= 1_000_000) return '${(major / 1_000_000).toStringAsFixed(1)}M';
-    if (major >= 1_000) return '${(major / 1_000).toStringAsFixed(1)}K';
+    final lang = locale ?? LocaleSettings.currentLocale.languageCode;
+
+    final (suffixBillion, suffixMillion, suffixThousand) = switch (lang) {
+      'id' => ('M', 'Jt', 'K'),
+      'ms' => ('B', 'Jt', 'K'),
+      'vi' => ('tỷ', 'tr', 'k'),
+      _ => ('B', 'M', 'K'),
+    };
+
+    if (major >= 1_000_000_000) return '${(major / 1_000_000_000).toStringAsFixed(1)}$suffixBillion';
+    if (major >= 1_000_000) return '${(major / 1_000_000).toStringAsFixed(1)}$suffixMillion';
+    if (major >= 1_000) return '${(major / 1_000).toStringAsFixed(1)}$suffixThousand';
     return major.toStringAsFixed(0);
   }
 

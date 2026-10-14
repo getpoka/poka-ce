@@ -64,6 +64,13 @@ void main() {
       expect(1500.toCompactFormat(isVisible: false), kPrivacyMask);
       expect(1000000.toCompactFormat(isVisible: false), kPrivacyMask);
     });
+
+    test('formats Indonesian compact units with Jt and M', () {
+      expect(1500000.toCompactFormat(locale: 'id'), '1.5Jt');
+      expect(25000000.toCompactFormat(locale: 'id'), '25.0Jt');
+      expect(1000000000.toCompactFormat(locale: 'id'), '1.0M');
+      expect(1500.toCompactFormat(locale: 'id'), '1.5K');
+    });
   });
 
   group('NumExtension toCurrencyFormat', () {
