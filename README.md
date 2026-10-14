@@ -81,7 +81,7 @@ without being stripped of the features that matter.
 - **Multi-Sheet Data Export** — Export comprehensive financial records to Excel (`.xlsx`) or export/import JSON backups.
 - **Android App Shortcuts** — Quick-action shortcuts from your home screen for rapid transaction entry.
 - **Offline First & Private** — 100% local SQLite storage via Drift. No internet required, no analytics, no trackers.
-- **Flat Design System** — Built strictly with [ForUI](https://github.com/forui-dev/forui); zero shadows, dual typography (Plus Jakarta Sans & Tabular Inter), clean and sharp.
+- **Flat Design System** — Built strictly with [ForUI](https://forui.dev/); zero shadows, dual typography (Plus Jakarta Sans & Tabular Inter), clean and sharp.
 
 ---
 
@@ -90,7 +90,7 @@ without being stripped of the features that matter.
 - **Framework**: [Flutter](https://flutter.dev/) & Dart
 - **Database**: [Drift](https://drift.simonbinder.eu/) (SQLite, local-only)
 - **State Management**: [Riverpod](https://riverpod.dev/) with `riverpod_generator`
-- **UI & Design System**: [ForUI](https://github.com/forui-dev/forui)
+- **UI & Design System**: [ForUI](https://forui.dev/)
 - **Routing**: [GoRouter](https://pub.dev/packages/go_router) with `go_router_builder`
 - **Localization**: [Slang](https://pub.dev/packages/slang)
 - **Code
