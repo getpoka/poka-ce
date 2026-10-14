@@ -133,8 +133,8 @@ void main() {
       });
 
       test('reconstructs historical net worth accurately based on income and expenses', () {
-        final now = DateTime.now().toUtc();
-        final today = DateTime.utc(now.year, now.month, now.day, 12);
+        final now = DateTime.now();
+        final today = DateTime(now.year, now.month, now.day, 12);
         final yesterday = today.subtract(const Duration(days: 1));
 
         final transactions = [
@@ -188,8 +188,8 @@ void main() {
 
     group('calculateTransactionMetrics', () {
       test('calculates income, expense, and daily spending properly', () {
-        final now = DateTime.now().toUtc();
-        final today = DateTime.utc(now.year, now.month, now.day, 10);
+        final now = DateTime.now();
+        final today = DateTime(now.year, now.month, now.day, 10);
         final cat = CategoryModel(
           id: 'cat1',
           name: 'Food',
