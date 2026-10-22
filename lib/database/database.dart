@@ -1,4 +1,5 @@
 import 'package:drift/drift.dart';
+import 'package:flutter/foundation.dart';
 import 'package:poka_ce/core/enums.dart';
 import 'package:poka_ce/database/connection.dart';
 import 'package:poka_ce/database/converters/local_date_converter.dart';
@@ -84,12 +85,50 @@ class AppDatabase extends _$AppDatabase {
       },
       beforeOpen: (details) async {
         // Enforce foreign key constraints and configure performance PRAGMAs.
-        await customStatement('PRAGMA foreign_keys = ON;');
         await customStatement('PRAGMA synchronous = NORMAL;');
         await customStatement('PRAGMA temp_store = MEMORY;');
         await customStatement('PRAGMA cache_size = -64000;');
+        await ensureSchema();
+        await customStatement('PRAGMA foreign_keys = ON;');
       },
     );
+  }
+
+  /// Ensures all CE tables and columns exist in SQLite.
+  ///
+  /// Automatically adds missing columns (e.g. `disbursed_amount` in `debts`) on
+  /// existing databases initialized with earlier versions.
+  @visibleForTesting
+  Future<void> ensureSchema() async {
+    final migrator = createMigrator();
+
+    // Disable foreign keys temporarily during schema repair.
+    await customStatement('PRAGMA foreign_keys = OFF;');
+
+    try {
+      final existingTablesResult = await customSelect("SELECT name FROM sqlite_master WHERE type='table'").get();
+      final existingTableNames = existingTablesResult
+          .map((row) => row.data['name'] as String?)
+          .whereType<String>()
+          .toSet();
+
+      for (final table in allTables) {
+        if (!existingTableNames.contains(table.actualTableName)) {
+          await migrator.createTable(table);
+        } else {
+          final tableInfoResult = await customSelect('PRAGMA table_info("${table.actualTableName}")').get();
+          final existingColumns = tableInfoResult.map((row) => row.data['name'] as String?).whereType<String>().toSet();
+
+          for (final column in table.$columns) {
+            if (!existingColumns.contains(column.name)) {
+              await migrator.addColumn(table, column);
+            }
+          }
+        }
+      }
+    } finally {
+      await customStatement('PRAGMA foreign_keys = ON;');
+    }
   }
 
   /// Deletes all data across all tables and re-seeds the essential defaults.
