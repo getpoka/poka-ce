@@ -964,14 +964,6 @@ class Debts extends Table with TableInfo {
     requiredDuringInsert: true,
     $customConstraints: 'NOT NULL',
   );
-  late final GeneratedColumn<int> disbursedAmount = GeneratedColumn<int>(
-    'disbursed_amount',
-    aliasedName,
-    true,
-    type: DriftSqlType.int,
-    requiredDuringInsert: false,
-    $customConstraints: 'NULL',
-  );
   late final GeneratedColumn<int> remainingAmount = GeneratedColumn<int>(
     'remaining_amount',
     aliasedName,
@@ -1032,7 +1024,6 @@ class Debts extends Table with TableInfo {
     personName,
     type,
     amount,
-    disbursedAmount,
     remainingAmount,
     status,
     dueDate,

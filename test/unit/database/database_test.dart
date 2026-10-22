@@ -11,8 +11,8 @@ void main() {
   tearDown(() async => db.close());
 
   group('AppDatabase', () {
-    test('schemaVersion is 1', () {
-      expect(db.schemaVersion, 1);
+    test('schemaVersion is 2', () {
+      expect(db.schemaVersion, 2);
     });
 
     test('database opens with foreign_keys pragma', () async {
@@ -54,8 +54,8 @@ void main() {
       expect(names.contains('settings'), true);
     });
 
-    test('ensureSchema auto-migrates missing disbursed_amount column on legacy database without data loss', () async {
-      // Recreate legacy debts table without disbursed_amount to simulate an existing v1.0/v1.1 database
+    test('onUpgrade migrates legacy database to schema v2 without data loss', () async {
+      // Recreate legacy debts table without disbursed_amount to simulate an existing v1 database
       await db.customStatement('DROP TABLE debts;');
       await db.customStatement('''
         CREATE TABLE debts (
@@ -82,8 +82,9 @@ void main() {
       var columns = tableInfo.map((r) => r.data['name'] as String).toSet();
       expect(columns.contains('disbursed_amount'), isFalse);
 
-      // Trigger schema repair / migration
-      await db.ensureSchema();
+      // Trigger migration via onUpgrade
+      final migrator = db.createMigrator();
+      await db.migration.onUpgrade!(migrator, 1, 2);
 
       // Verify PRAGMA table_info confirms disbursed_amount now exists
       tableInfo = await db.customSelect('PRAGMA table_info("debts")').get();

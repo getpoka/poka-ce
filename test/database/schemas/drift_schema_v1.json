@@ -1124,16 +1124,6 @@
             "dsl_features": []
           },
           {
-            "name": "disbursed_amount",
-            "getter_name": "disbursedAmount",
-            "moor_type": "int",
-            "nullable": true,
-            "customConstraints": null,
-            "default_dart": null,
-            "default_client_dart": null,
-            "dsl_features": []
-          },
-          {
             "name": "remaining_amount",
             "getter_name": "remainingAmount",
             "moor_type": "int",
@@ -1867,7 +1857,7 @@
       "sql": [
         {
           "dialect": "sqlite",
-          "sql": "CREATE TABLE IF NOT EXISTS \"debts\" (\"id\" TEXT NOT NULL, \"person_name\" TEXT NOT NULL, \"type\" TEXT NOT NULL, \"amount\" INTEGER NOT NULL, \"disbursed_amount\" INTEGER NULL, \"remaining_amount\" INTEGER NOT NULL, \"status\" TEXT NOT NULL, \"due_date\" TEXT NULL, \"note\" TEXT NULL, \"created_at\" INTEGER NOT NULL DEFAULT (CAST(strftime('%s', CURRENT_TIMESTAMP) AS INTEGER)), \"updated_at\" INTEGER NOT NULL DEFAULT (CAST(strftime('%s', CURRENT_TIMESTAMP) AS INTEGER)), PRIMARY KEY (\"id\"));"
+          "sql": "CREATE TABLE IF NOT EXISTS \"debts\" (\"id\" TEXT NOT NULL, \"person_name\" TEXT NOT NULL, \"type\" TEXT NOT NULL, \"amount\" INTEGER NOT NULL, \"remaining_amount\" INTEGER NOT NULL, \"status\" TEXT NOT NULL, \"due_date\" TEXT NULL, \"note\" TEXT NULL, \"created_at\" INTEGER NOT NULL DEFAULT (CAST(strftime('%s', CURRENT_TIMESTAMP) AS INTEGER)), \"updated_at\" INTEGER NOT NULL DEFAULT (CAST(strftime('%s', CURRENT_TIMESTAMP) AS INTEGER)), PRIMARY KEY (\"id\"));"
         }
       ]
     },
