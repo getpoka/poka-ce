@@ -40,7 +40,7 @@ final class AccountFormNotifierProvider extends $NotifierProvider<AccountFormNot
   }
 }
 
-String _$accountFormNotifierHash() => r'3d6ba1b553806284ec5de71465030d87587aa731';
+String _$accountFormNotifierHash() => r'388b8ec0dab4aa5dd148f2cd2ff51e5e7fe7d5dd';
 
 /// Notifier managing account creation and editing form state and validation logic.
 

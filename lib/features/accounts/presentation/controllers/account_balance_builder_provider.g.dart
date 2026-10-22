@@ -9,9 +9,9 @@ part of 'account_balance_builder_provider.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 /// Provides an optional [AccountBalanceBuilder] override for rendering account
-/// balances inside selectors (e.g. [PokaPocketSelector]).
+/// balances inside selectors (e.g. `PokaPocketSelector`).
 ///
-/// Returns `null` by default — callers fall back to [PokaAmountText] with the
+/// Returns `null` by default — callers fall back to `PokaAmountText` with the
 /// app's base currency from Settings.
 ///
 /// Downstream consumers (e.g. Poka PE) can override this provider via
@@ -22,9 +22,9 @@ part of 'account_balance_builder_provider.dart';
 final accountBalanceBuilderProvider = AccountBalanceBuilderProvider._();
 
 /// Provides an optional [AccountBalanceBuilder] override for rendering account
-/// balances inside selectors (e.g. [PokaPocketSelector]).
+/// balances inside selectors (e.g. `PokaPocketSelector`).
 ///
-/// Returns `null` by default — callers fall back to [PokaAmountText] with the
+/// Returns `null` by default — callers fall back to `PokaAmountText` with the
 /// app's base currency from Settings.
 ///
 /// Downstream consumers (e.g. Poka PE) can override this provider via
@@ -35,9 +35,9 @@ final class AccountBalanceBuilderProvider
     extends $FunctionalProvider<AccountBalanceBuilder?, AccountBalanceBuilder?, AccountBalanceBuilder?>
     with $Provider<AccountBalanceBuilder?> {
   /// Provides an optional [AccountBalanceBuilder] override for rendering account
-  /// balances inside selectors (e.g. [PokaPocketSelector]).
+  /// balances inside selectors (e.g. `PokaPocketSelector`).
   ///
-  /// Returns `null` by default — callers fall back to [PokaAmountText] with the
+  /// Returns `null` by default — callers fall back to `PokaAmountText` with the
   /// app's base currency from Settings.
   ///
   /// Downstream consumers (e.g. Poka PE) can override this provider via

@@ -1058,6 +1058,39 @@ class Translations$debts$en {
 
 	/// en: '{{count}} receivable'
 	String receivableCount({required Object count}) => '${count} receivable';
+
+	/// en: 'Disbursed amount'
+	String get disbursedAmount => 'Disbursed amount';
+
+	/// en: 'Lent amount'
+	String get lentAmount => 'Lent amount';
+
+	/// en: 'Total repayment'
+	String get totalRepaymentAmount => 'Total repayment';
+
+	/// en: 'Total receivable'
+	String get totalReceivableAmount => 'Total receivable';
+
+	/// en: 'Interest / Fee'
+	String get interestFee => 'Interest / Fee';
+
+	/// en: 'Initial cash amount transferred to or from your wallet.'
+	String get disbursedAmountHelp => 'Initial cash amount transferred to or from your wallet.';
+
+	/// en: 'Total repayment cannot be less than disbursed amount'
+	String get totalAmountMustBeGreaterOrEqual => 'Total repayment cannot be less than disbursed amount';
+
+	/// en: '{{type}}:'
+	String disbursedAmountLabel({required Object type}) => '${type}:';
+
+	/// en: 'Interest:'
+	String get interestLabel => 'Interest:';
+
+	/// en: 'Received'
+	String get received => 'Received';
+
+	/// en: 'Lent'
+	String get lent => 'Lent';
 }
 
 // Path: goals
@@ -2749,6 +2782,17 @@ extension on Translations {
 			'debts.inDays' => ({required Object days}) => 'in ${days} days',
 			'debts.owedCount' => ({required Object count}) => '${count} owed',
 			'debts.receivableCount' => ({required Object count}) => '${count} receivable',
+			'debts.disbursedAmount' => 'Disbursed amount',
+			'debts.lentAmount' => 'Lent amount',
+			'debts.totalRepaymentAmount' => 'Total repayment',
+			'debts.totalReceivableAmount' => 'Total receivable',
+			'debts.interestFee' => 'Interest / Fee',
+			'debts.disbursedAmountHelp' => 'Initial cash amount transferred to or from your wallet.',
+			'debts.totalAmountMustBeGreaterOrEqual' => 'Total repayment cannot be less than disbursed amount',
+			'debts.disbursedAmountLabel' => ({required Object type}) => '${type}:',
+			'debts.interestLabel' => 'Interest:',
+			'debts.received' => 'Received',
+			'debts.lent' => 'Lent',
 			'error.generic' => 'An unexpected error occurred',
 			'error.network' => 'Please check your connection and try again',
 			'error.database' => 'Failed to access local data',
@@ -2927,6 +2971,8 @@ extension on Translations {
 			'icons.aliases.monitor_play' => 'streaming, youtube, netflix, video, watch',
 			'icons.aliases.music_notes' => 'music, song, audio, spotify, concert',
 			'icons.aliases.headphones' => 'headphones, headset, audio, podcast, listening',
+			_ => null,
+		} ?? switch (path) {
 			'icons.aliases.palette' => 'art, painting, drawing, hobby, creativity',
 			'icons.aliases.heart' => 'romance, love, partner, family, date',
 			'icons.aliases.smiley' => 'fun, recreation, entertainment, happiness',
@@ -2938,8 +2984,6 @@ extension on Translations {
 			'icons.aliases.speaker_hifi' => 'speaker, sound, audio system, hifi',
 			'icons.aliases.mask_happy' => 'theater, drama, performing arts, culture',
 			'icons.aliases.volleyball' => 'volleyball, sports, match, recreation',
-			_ => null,
-		} ?? switch (path) {
 			'icons.aliases.basketball' => 'basketball, nba, sports, court',
 			'icons.aliases.soccer_ball' => 'soccer, football, sports, match',
 			'icons.aliases.laptop' => 'laptop, computer, macbook, work, pc',

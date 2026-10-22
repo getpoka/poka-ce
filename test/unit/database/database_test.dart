@@ -11,8 +11,8 @@ void main() {
   tearDown(() async => db.close());
 
   group('AppDatabase', () {
-    test('schemaVersion is 1', () {
-      expect(db.schemaVersion, 1);
+    test('schemaVersion is 2', () {
+      expect(db.schemaVersion, 2);
     });
 
     test('database opens with foreign_keys pragma', () async {
@@ -52,6 +52,52 @@ void main() {
       expect(names.contains('recurring_transactions'), true);
       expect(names.contains('currencies'), true);
       expect(names.contains('settings'), true);
+    });
+
+    test('onUpgrade migrates legacy database to schema v2 without data loss', () async {
+      // Recreate legacy debts table without disbursed_amount to simulate an existing v1 database
+      await db.customStatement('DROP TABLE debts;');
+      await db.customStatement('''
+        CREATE TABLE debts (
+          id TEXT NOT NULL PRIMARY KEY,
+          person_name TEXT NOT NULL,
+          type TEXT NOT NULL,
+          amount INTEGER NOT NULL,
+          remaining_amount INTEGER NOT NULL,
+          status TEXT NOT NULL,
+          due_date TEXT,
+          note TEXT,
+          created_at INTEGER NOT NULL,
+          updated_at INTEGER NOT NULL
+        );
+      ''');
+      // Insert legacy debt row
+      await db.customStatement('''
+        INSERT INTO debts (id, person_name, type, amount, remaining_amount, status, created_at, updated_at)
+        VALUES ('legacy-debt-1', 'Budi', 'debt', 100000000, 100000000, 'active', 1700000000, 1700000000);
+      ''');
+
+      // Verify disbursed_amount column does NOT exist yet in legacy table
+      var tableInfo = await db.customSelect('PRAGMA table_info("debts")').get();
+      var columns = tableInfo.map((r) => r.data['name'] as String).toSet();
+      expect(columns.contains('disbursed_amount'), isFalse);
+
+      // Trigger migration via onUpgrade
+      final migrator = db.createMigrator();
+      await db.migration.onUpgrade!(migrator, 1, 2);
+
+      // Verify PRAGMA table_info confirms disbursed_amount now exists
+      tableInfo = await db.customSelect('PRAGMA table_info("debts")').get();
+      columns = tableInfo.map((r) => r.data['name'] as String).toSet();
+      expect(columns.contains('disbursed_amount'), isTrue);
+
+      // Verify querying debts via DAO succeeds and preserves legacy data
+      final debts = await db.debtsDao.getAllDebts();
+      expect(debts.length, 1);
+      expect(debts.first.id, 'legacy-debt-1');
+      expect(debts.first.personName, 'Budi');
+      expect(debts.first.amount, 100000000);
+      expect(debts.first.disbursedAmount, isNull);
     });
   });
 }

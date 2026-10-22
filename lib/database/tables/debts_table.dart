@@ -10,6 +10,7 @@ class Debts extends Table {
   TextColumn get personName => text()();
   TextColumn get type => text().map(const EnumNameConverter(DebtType.values))();
   IntColumn get amount => integer()();
+  IntColumn get disbursedAmount => integer().nullable()();
   IntColumn get remainingAmount => integer()();
   TextColumn get status => text().map(const EnumNameConverter(DebtStatus.values))();
   TextColumn get dueDate => text().nullable().map(const LocalDateConverter())();

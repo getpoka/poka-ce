@@ -686,22 +686,30 @@
           {
             "name": "start_date",
             "getter_name": "startDate",
-            "moor_type": "dateTime",
+            "moor_type": "string",
             "nullable": false,
             "customConstraints": null,
             "default_dart": null,
             "default_client_dart": null,
-            "dsl_features": []
+            "dsl_features": [],
+            "type_converter": {
+              "dart_expr": "const LocalDateConverter()",
+              "dart_type_name": "String"
+            }
           },
           {
             "name": "end_date",
             "getter_name": "endDate",
-            "moor_type": "dateTime",
+            "moor_type": "string",
             "nullable": true,
             "customConstraints": null,
             "default_dart": null,
             "default_client_dart": null,
-            "dsl_features": []
+            "dsl_features": [],
+            "type_converter": {
+              "dart_expr": "const LocalDateConverter()",
+              "dart_type_name": "String"
+            }
           },
           {
             "name": "created_at",
@@ -791,22 +799,30 @@
           {
             "name": "period_start",
             "getter_name": "periodStart",
-            "moor_type": "dateTime",
+            "moor_type": "string",
             "nullable": false,
             "customConstraints": null,
             "default_dart": null,
             "default_client_dart": null,
-            "dsl_features": []
+            "dsl_features": [],
+            "type_converter": {
+              "dart_expr": "const LocalDateConverter()",
+              "dart_type_name": "String"
+            }
           },
           {
             "name": "period_end",
             "getter_name": "periodEnd",
-            "moor_type": "dateTime",
+            "moor_type": "string",
             "nullable": false,
             "customConstraints": null,
             "default_dart": null,
             "default_client_dart": null,
-            "dsl_features": []
+            "dsl_features": [],
+            "type_converter": {
+              "dart_expr": "const LocalDateConverter()",
+              "dart_type_name": "String"
+            }
           },
           {
             "name": "created_at",
@@ -1001,12 +1017,16 @@
           {
             "name": "next_date",
             "getter_name": "nextDate",
-            "moor_type": "dateTime",
+            "moor_type": "string",
             "nullable": false,
             "customConstraints": null,
             "default_dart": null,
             "default_client_dart": null,
-            "dsl_features": []
+            "dsl_features": [],
+            "type_converter": {
+              "dart_expr": "const LocalDateConverter()",
+              "dart_type_name": "String"
+            }
           },
           {
             "name": "is_active",
@@ -1130,12 +1150,16 @@
           {
             "name": "due_date",
             "getter_name": "dueDate",
-            "moor_type": "dateTime",
+            "moor_type": "string",
             "nullable": true,
             "customConstraints": null,
             "default_dart": null,
             "default_client_dart": null,
-            "dsl_features": []
+            "dsl_features": [],
+            "type_converter": {
+              "dart_expr": "const LocalDateConverter()",
+              "dart_type_name": "String"
+            }
           },
           {
             "name": "note",
@@ -1277,12 +1301,16 @@
           {
             "name": "transaction_date",
             "getter_name": "transactionDate",
-            "moor_type": "dateTime",
+            "moor_type": "string",
             "nullable": false,
             "customConstraints": null,
             "default_dart": null,
             "default_client_dart": null,
-            "dsl_features": []
+            "dsl_features": [],
+            "type_converter": {
+              "dart_expr": "const LocalDateTimeConverter()",
+              "dart_type_name": "String"
+            }
           },
           {
             "name": "note",
@@ -1581,12 +1609,16 @@
           {
             "name": "target_date",
             "getter_name": "targetDate",
-            "moor_type": "dateTime",
+            "moor_type": "string",
             "nullable": true,
             "customConstraints": null,
             "default_dart": null,
             "default_client_dart": null,
-            "dsl_features": []
+            "dsl_features": [],
+            "type_converter": {
+              "dart_expr": "const LocalDateConverter()",
+              "dart_type_name": "String"
+            }
           },
           {
             "name": "icon",
@@ -1798,7 +1830,7 @@
       "sql": [
         {
           "dialect": "sqlite",
-          "sql": "CREATE TABLE IF NOT EXISTS \"budgets\" (\"id\" TEXT NOT NULL, \"name\" TEXT NOT NULL, \"amount\" INTEGER NOT NULL, \"category_id\" TEXT NULL REFERENCES categories (id) ON DELETE SET NULL, \"account_id\" TEXT NULL REFERENCES accounts (id) ON DELETE SET NULL, \"period\" TEXT NOT NULL, \"reset_day\" INTEGER NULL, \"alert_threshold\" INTEGER NULL, \"start_date\" INTEGER NOT NULL, \"end_date\" INTEGER NULL, \"created_at\" INTEGER NOT NULL DEFAULT (CAST(strftime('%s', CURRENT_TIMESTAMP) AS INTEGER)), \"updated_at\" INTEGER NOT NULL DEFAULT (CAST(strftime('%s', CURRENT_TIMESTAMP) AS INTEGER)), PRIMARY KEY (\"id\"));"
+          "sql": "CREATE TABLE IF NOT EXISTS \"budgets\" (\"id\" TEXT NOT NULL, \"name\" TEXT NOT NULL, \"amount\" INTEGER NOT NULL, \"category_id\" TEXT NULL REFERENCES categories (id) ON DELETE SET NULL, \"account_id\" TEXT NULL REFERENCES accounts (id) ON DELETE SET NULL, \"period\" TEXT NOT NULL, \"reset_day\" INTEGER NULL, \"alert_threshold\" INTEGER NULL, \"start_date\" TEXT NOT NULL, \"end_date\" TEXT NULL, \"created_at\" INTEGER NOT NULL DEFAULT (CAST(strftime('%s', CURRENT_TIMESTAMP) AS INTEGER)), \"updated_at\" INTEGER NOT NULL DEFAULT (CAST(strftime('%s', CURRENT_TIMESTAMP) AS INTEGER)), PRIMARY KEY (\"id\"));"
         }
       ]
     },
@@ -1807,7 +1839,7 @@
       "sql": [
         {
           "dialect": "sqlite",
-          "sql": "CREATE TABLE IF NOT EXISTS \"budget_records\" (\"id\" TEXT NOT NULL, \"budget_id\" TEXT NOT NULL REFERENCES budgets (id) ON DELETE CASCADE, \"spent_amount\" INTEGER NOT NULL DEFAULT 0, \"period_start\" INTEGER NOT NULL, \"period_end\" INTEGER NOT NULL, \"created_at\" INTEGER NOT NULL DEFAULT (CAST(strftime('%s', CURRENT_TIMESTAMP) AS INTEGER)), \"updated_at\" INTEGER NOT NULL DEFAULT (CAST(strftime('%s', CURRENT_TIMESTAMP) AS INTEGER)), PRIMARY KEY (\"id\"));"
+          "sql": "CREATE TABLE IF NOT EXISTS \"budget_records\" (\"id\" TEXT NOT NULL, \"budget_id\" TEXT NOT NULL REFERENCES budgets (id) ON DELETE CASCADE, \"spent_amount\" INTEGER NOT NULL DEFAULT 0, \"period_start\" TEXT NOT NULL, \"period_end\" TEXT NOT NULL, \"created_at\" INTEGER NOT NULL DEFAULT (CAST(strftime('%s', CURRENT_TIMESTAMP) AS INTEGER)), \"updated_at\" INTEGER NOT NULL DEFAULT (CAST(strftime('%s', CURRENT_TIMESTAMP) AS INTEGER)), PRIMARY KEY (\"id\"));"
         }
       ]
     },
@@ -1816,7 +1848,7 @@
       "sql": [
         {
           "dialect": "sqlite",
-          "sql": "CREATE TABLE IF NOT EXISTS \"recurring_transactions\" (\"id\" TEXT NOT NULL, \"account_id\" TEXT NOT NULL REFERENCES accounts (id) ON DELETE CASCADE, \"destination_account_id\" TEXT NULL REFERENCES accounts (id) ON DELETE SET NULL, \"category_id\" TEXT NULL REFERENCES categories (id) ON DELETE SET NULL, \"allocation\" TEXT NULL, \"type\" TEXT NOT NULL, \"amount\" INTEGER NOT NULL, \"note\" TEXT NULL, \"period\" TEXT NOT NULL, \"next_date\" INTEGER NOT NULL, \"is_active\" INTEGER NOT NULL DEFAULT 1 CHECK (\"is_active\" IN (0, 1)), \"created_at\" INTEGER NOT NULL DEFAULT (CAST(strftime('%s', CURRENT_TIMESTAMP) AS INTEGER)), \"updated_at\" INTEGER NOT NULL DEFAULT (CAST(strftime('%s', CURRENT_TIMESTAMP) AS INTEGER)), PRIMARY KEY (\"id\"));"
+          "sql": "CREATE TABLE IF NOT EXISTS \"recurring_transactions\" (\"id\" TEXT NOT NULL, \"account_id\" TEXT NOT NULL REFERENCES accounts (id) ON DELETE CASCADE, \"destination_account_id\" TEXT NULL REFERENCES accounts (id) ON DELETE SET NULL, \"category_id\" TEXT NULL REFERENCES categories (id) ON DELETE SET NULL, \"allocation\" TEXT NULL, \"type\" TEXT NOT NULL, \"amount\" INTEGER NOT NULL, \"note\" TEXT NULL, \"period\" TEXT NOT NULL, \"next_date\" TEXT NOT NULL, \"is_active\" INTEGER NOT NULL DEFAULT 1 CHECK (\"is_active\" IN (0, 1)), \"created_at\" INTEGER NOT NULL DEFAULT (CAST(strftime('%s', CURRENT_TIMESTAMP) AS INTEGER)), \"updated_at\" INTEGER NOT NULL DEFAULT (CAST(strftime('%s', CURRENT_TIMESTAMP) AS INTEGER)), PRIMARY KEY (\"id\"));"
         }
       ]
     },
@@ -1825,7 +1857,7 @@
       "sql": [
         {
           "dialect": "sqlite",
-          "sql": "CREATE TABLE IF NOT EXISTS \"debts\" (\"id\" TEXT NOT NULL, \"person_name\" TEXT NOT NULL, \"type\" TEXT NOT NULL, \"amount\" INTEGER NOT NULL, \"remaining_amount\" INTEGER NOT NULL, \"status\" TEXT NOT NULL, \"due_date\" INTEGER NULL, \"note\" TEXT NULL, \"created_at\" INTEGER NOT NULL DEFAULT (CAST(strftime('%s', CURRENT_TIMESTAMP) AS INTEGER)), \"updated_at\" INTEGER NOT NULL DEFAULT (CAST(strftime('%s', CURRENT_TIMESTAMP) AS INTEGER)), PRIMARY KEY (\"id\"));"
+          "sql": "CREATE TABLE IF NOT EXISTS \"debts\" (\"id\" TEXT NOT NULL, \"person_name\" TEXT NOT NULL, \"type\" TEXT NOT NULL, \"amount\" INTEGER NOT NULL, \"remaining_amount\" INTEGER NOT NULL, \"status\" TEXT NOT NULL, \"due_date\" TEXT NULL, \"note\" TEXT NULL, \"created_at\" INTEGER NOT NULL DEFAULT (CAST(strftime('%s', CURRENT_TIMESTAMP) AS INTEGER)), \"updated_at\" INTEGER NOT NULL DEFAULT (CAST(strftime('%s', CURRENT_TIMESTAMP) AS INTEGER)), PRIMARY KEY (\"id\"));"
         }
       ]
     },
@@ -1834,7 +1866,7 @@
       "sql": [
         {
           "dialect": "sqlite",
-          "sql": "CREATE TABLE IF NOT EXISTS \"transactions\" (\"id\" TEXT NOT NULL, \"account_id\" TEXT NOT NULL REFERENCES accounts (id) ON DELETE CASCADE, \"destination_account_id\" TEXT NULL REFERENCES accounts (id) ON DELETE CASCADE, \"type\" TEXT NOT NULL, \"amount\" INTEGER NOT NULL, \"transaction_date\" INTEGER NOT NULL, \"note\" TEXT NULL, \"recurring_transaction_id\" TEXT NULL REFERENCES recurring_transactions (id) ON DELETE SET NULL, \"debt_id\" TEXT NULL REFERENCES debts (id) ON DELETE SET NULL, \"created_at\" INTEGER NOT NULL DEFAULT (CAST(strftime('%s', CURRENT_TIMESTAMP) AS INTEGER)), \"updated_at\" INTEGER NOT NULL DEFAULT (CAST(strftime('%s', CURRENT_TIMESTAMP) AS INTEGER)), PRIMARY KEY (\"id\"));"
+          "sql": "CREATE TABLE IF NOT EXISTS \"transactions\" (\"id\" TEXT NOT NULL, \"account_id\" TEXT NOT NULL REFERENCES accounts (id) ON DELETE CASCADE, \"destination_account_id\" TEXT NULL REFERENCES accounts (id) ON DELETE CASCADE, \"type\" TEXT NOT NULL, \"amount\" INTEGER NOT NULL, \"transaction_date\" TEXT NOT NULL, \"note\" TEXT NULL, \"recurring_transaction_id\" TEXT NULL REFERENCES recurring_transactions (id) ON DELETE SET NULL, \"debt_id\" TEXT NULL REFERENCES debts (id) ON DELETE SET NULL, \"created_at\" INTEGER NOT NULL DEFAULT (CAST(strftime('%s', CURRENT_TIMESTAMP) AS INTEGER)), \"updated_at\" INTEGER NOT NULL DEFAULT (CAST(strftime('%s', CURRENT_TIMESTAMP) AS INTEGER)), PRIMARY KEY (\"id\"));"
         }
       ]
     },
@@ -1852,7 +1884,7 @@
       "sql": [
         {
           "dialect": "sqlite",
-          "sql": "CREATE TABLE IF NOT EXISTS \"goals\" (\"id\" TEXT NOT NULL, \"account_id\" TEXT NOT NULL UNIQUE REFERENCES accounts (id) ON DELETE CASCADE, \"name\" TEXT NOT NULL, \"target_amount\" INTEGER NOT NULL, \"target_date\" INTEGER NULL, \"icon\" TEXT NULL, \"color\" TEXT NULL, \"created_at\" INTEGER NOT NULL DEFAULT (CAST(strftime('%s', CURRENT_TIMESTAMP) AS INTEGER)), \"updated_at\" INTEGER NOT NULL DEFAULT (CAST(strftime('%s', CURRENT_TIMESTAMP) AS INTEGER)), \"status\" TEXT NOT NULL DEFAULT 'active', PRIMARY KEY (\"id\"));"
+          "sql": "CREATE TABLE IF NOT EXISTS \"goals\" (\"id\" TEXT NOT NULL, \"account_id\" TEXT NOT NULL UNIQUE REFERENCES accounts (id) ON DELETE CASCADE, \"name\" TEXT NOT NULL, \"target_amount\" INTEGER NOT NULL, \"target_date\" TEXT NULL, \"icon\" TEXT NULL, \"color\" TEXT NULL, \"created_at\" INTEGER NOT NULL DEFAULT (CAST(strftime('%s', CURRENT_TIMESTAMP) AS INTEGER)), \"updated_at\" INTEGER NOT NULL DEFAULT (CAST(strftime('%s', CURRENT_TIMESTAMP) AS INTEGER)), \"status\" TEXT NOT NULL DEFAULT 'active', PRIMARY KEY (\"id\"));"
         }
       ]
     },

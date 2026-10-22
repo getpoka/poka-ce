@@ -35,7 +35,7 @@ final class AccountListNotifierProvider extends $StreamNotifierProvider<AccountL
   AccountListNotifier create() => AccountListNotifier();
 }
 
-String _$accountListNotifierHash() => r'39ef2379c54b16dbcd706c33ac33211889a23236';
+String _$accountListNotifierHash() => r'14b0c3f2e41ea2940186a5b1cad8e7bb601111e5';
 
 /// Riverpod StreamNotifier managing the live stream of accounts and their hierarchical aggregates.
 

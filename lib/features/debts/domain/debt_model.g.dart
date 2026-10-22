@@ -15,6 +15,7 @@ _DebtModel _$DebtModelFromJson(Map<String, dynamic> json) => _DebtModel(
   status: $enumDecode(_$DebtStatusEnumMap, json['status']),
   createdAt: DateTime.parse(json['createdAt'] as String),
   updatedAt: DateTime.parse(json['updatedAt'] as String),
+  disbursedAmount: (json['disbursedAmount'] as num?)?.toInt(),
   dueDate: json['dueDate'] as String?,
   note: json['note'] as String?,
 );
@@ -28,6 +29,7 @@ Map<String, dynamic> _$DebtModelToJson(_DebtModel instance) => <String, dynamic>
   'status': _$DebtStatusEnumMap[instance.status]!,
   'createdAt': instance.createdAt.toIso8601String(),
   'updatedAt': instance.updatedAt.toIso8601String(),
+  'disbursedAmount': instance.disbursedAmount,
   'dueDate': instance.dueDate,
   'note': instance.note,
 };

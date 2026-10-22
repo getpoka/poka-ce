@@ -13,10 +13,10 @@ void main() {
     verifier = SchemaVerifier(GeneratedHelper());
   });
 
-  test('verify schema v1 matches current database definition', () async {
+  test('verify schema v1 to v2 migration matches current database definition', () async {
     final connection = await verifier.startAt(1);
     final db = AppDatabase(connection: connection);
-    await verifier.migrateAndValidate(db, 1);
+    await verifier.migrateAndValidate(db, 2);
     await db.close();
   }, timeout: const Timeout(Duration(seconds: 5)));
 

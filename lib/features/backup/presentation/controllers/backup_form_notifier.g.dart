@@ -40,7 +40,7 @@ final class BackupFormNotifierProvider extends $NotifierProvider<BackupFormNotif
   }
 }
 
-String _$backupFormNotifierHash() => r'a3d9e038571e6a92fa484b62d5a4712796fb9b04';
+String _$backupFormNotifierHash() => r'29473cc92c40ca86ea4a7e6d538eac14b7b89e30';
 
 /// Notifier handling validation and submission logic for backup password sheets.
 

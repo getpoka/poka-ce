@@ -443,6 +443,17 @@ class _Translations$debts$id extends Translations$debts$en {
 	@override String inDays({required Object days}) => 'dalam ${days} hari';
 	@override String owedCount({required Object count}) => '${count} harus dibayar';
 	@override String receivableCount({required Object count}) => '${count} harus ditagih';
+	@override String get disbursedAmount => 'Dana diterima';
+	@override String get lentAmount => 'Dana dipinjamkan';
+	@override String get totalRepaymentAmount => 'Total pelunasan';
+	@override String get totalReceivableAmount => 'Total pengembalian';
+	@override String get interestFee => 'Bunga / Biaya';
+	@override String get disbursedAmountHelp => 'Nominal uang yang masuk atau keluar dari dompet pada awal transaksi.';
+	@override String get totalAmountMustBeGreaterOrEqual => 'Total pelunasan tidak boleh lebih kecil dari dana awal';
+	@override String disbursedAmountLabel({required Object type}) => '${type}:';
+	@override String get interestLabel => 'Bunga:';
+	@override String get received => 'Diterima';
+	@override String get lent => 'Dipinjamkan';
 }
 
 // Path: goals
@@ -1418,6 +1429,17 @@ extension on TranslationsId {
 			'debts.inDays' => ({required Object days}) => 'dalam ${days} hari',
 			'debts.owedCount' => ({required Object count}) => '${count} harus dibayar',
 			'debts.receivableCount' => ({required Object count}) => '${count} harus ditagih',
+			'debts.disbursedAmount' => 'Dana diterima',
+			'debts.lentAmount' => 'Dana dipinjamkan',
+			'debts.totalRepaymentAmount' => 'Total pelunasan',
+			'debts.totalReceivableAmount' => 'Total pengembalian',
+			'debts.interestFee' => 'Bunga / Biaya',
+			'debts.disbursedAmountHelp' => 'Nominal uang yang masuk atau keluar dari dompet pada awal transaksi.',
+			'debts.totalAmountMustBeGreaterOrEqual' => 'Total pelunasan tidak boleh lebih kecil dari dana awal',
+			'debts.disbursedAmountLabel' => ({required Object type}) => '${type}:',
+			'debts.interestLabel' => 'Bunga:',
+			'debts.received' => 'Diterima',
+			'debts.lent' => 'Dipinjamkan',
 			'error.generic' => 'Terjadi kesalahan yang tidak terduga',
 			'error.network' => 'Periksa koneksi Anda dan coba lagi',
 			'error.database' => 'Gagal mengakses data lokal',
@@ -1596,6 +1618,8 @@ extension on TranslationsId {
 			'icons.aliases.monitor_play' => 'nonton, youtube, netflix, streaming video, vidio',
 			'icons.aliases.music_notes' => 'musik, lagu, spotify, konser musik, audio',
 			'icons.aliases.headphones' => 'headphone, earphone, headset, denger lagu, podcast',
+			_ => null,
+		} ?? switch (path) {
 			'icons.aliases.palette' => 'seni, lukis, menggambar, hobi, kreativitas',
 			'icons.aliases.heart' => 'cinta, pacar, kencan, pasangan, romantis',
 			'icons.aliases.smiley' => 'hiburan, senang, rekreasi, liburan santai',
@@ -1607,8 +1631,6 @@ extension on TranslationsId {
 			'icons.aliases.speaker_hifi' => 'speaker, salon, sound system, audio',
 			'icons.aliases.mask_happy' => 'teater, seni peran, drama, pementasan',
 			'icons.aliases.volleyball' => 'voli, bola voli, olahraga',
-			_ => null,
-		} ?? switch (path) {
 			'icons.aliases.basketball' => 'basket, bola basket, olahraga',
 			'icons.aliases.soccer_ball' => 'sepak bola, futsal, main bola, olahraga',
 			'icons.aliases.laptop' => 'laptop, komputer jinjing, macbook, kerja, wfh',

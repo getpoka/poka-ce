@@ -594,19 +594,19 @@ class Budgets extends Table with TableInfo {
     requiredDuringInsert: false,
     $customConstraints: 'NULL',
   );
-  late final GeneratedColumn<int> startDate = GeneratedColumn<int>(
+  late final GeneratedColumn<String> startDate = GeneratedColumn<String>(
     'start_date',
     aliasedName,
     false,
-    type: DriftSqlType.int,
+    type: DriftSqlType.string,
     requiredDuringInsert: true,
     $customConstraints: 'NOT NULL',
   );
-  late final GeneratedColumn<int> endDate = GeneratedColumn<int>(
+  late final GeneratedColumn<String> endDate = GeneratedColumn<String>(
     'end_date',
     aliasedName,
     true,
-    type: DriftSqlType.int,
+    type: DriftSqlType.string,
     requiredDuringInsert: false,
     $customConstraints: 'NULL',
   );
@@ -700,19 +700,19 @@ class BudgetRecords extends Table with TableInfo {
     $customConstraints: 'NOT NULL DEFAULT 0',
     defaultValue: const CustomExpression('0'),
   );
-  late final GeneratedColumn<int> periodStart = GeneratedColumn<int>(
+  late final GeneratedColumn<String> periodStart = GeneratedColumn<String>(
     'period_start',
     aliasedName,
     false,
-    type: DriftSqlType.int,
+    type: DriftSqlType.string,
     requiredDuringInsert: true,
     $customConstraints: 'NOT NULL',
   );
-  late final GeneratedColumn<int> periodEnd = GeneratedColumn<int>(
+  late final GeneratedColumn<String> periodEnd = GeneratedColumn<String>(
     'period_end',
     aliasedName,
     false,
-    type: DriftSqlType.int,
+    type: DriftSqlType.string,
     requiredDuringInsert: true,
     $customConstraints: 'NOT NULL',
   );
@@ -849,11 +849,11 @@ class RecurringTransactions extends Table with TableInfo {
     requiredDuringInsert: true,
     $customConstraints: 'NOT NULL',
   );
-  late final GeneratedColumn<int> nextDate = GeneratedColumn<int>(
+  late final GeneratedColumn<String> nextDate = GeneratedColumn<String>(
     'next_date',
     aliasedName,
     false,
-    type: DriftSqlType.int,
+    type: DriftSqlType.string,
     requiredDuringInsert: true,
     $customConstraints: 'NOT NULL',
   );
@@ -980,11 +980,11 @@ class Debts extends Table with TableInfo {
     requiredDuringInsert: true,
     $customConstraints: 'NOT NULL',
   );
-  late final GeneratedColumn<int> dueDate = GeneratedColumn<int>(
+  late final GeneratedColumn<String> dueDate = GeneratedColumn<String>(
     'due_date',
     aliasedName,
     true,
-    type: DriftSqlType.int,
+    type: DriftSqlType.string,
     requiredDuringInsert: false,
     $customConstraints: 'NULL',
   );
@@ -1100,11 +1100,11 @@ class Transactions extends Table with TableInfo {
     requiredDuringInsert: true,
     $customConstraints: 'NOT NULL',
   );
-  late final GeneratedColumn<int> transactionDate = GeneratedColumn<int>(
+  late final GeneratedColumn<String> transactionDate = GeneratedColumn<String>(
     'transaction_date',
     aliasedName,
     false,
-    type: DriftSqlType.int,
+    type: DriftSqlType.string,
     requiredDuringInsert: true,
     $customConstraints: 'NOT NULL',
   );
@@ -1340,11 +1340,11 @@ class Goals extends Table with TableInfo {
     requiredDuringInsert: true,
     $customConstraints: 'NOT NULL',
   );
-  late final GeneratedColumn<int> targetDate = GeneratedColumn<int>(
+  late final GeneratedColumn<String> targetDate = GeneratedColumn<String>(
     'target_date',
     aliasedName,
     true,
-    type: DriftSqlType.int,
+    type: DriftSqlType.string,
     requiredDuringInsert: false,
     $customConstraints: 'NULL',
   );
