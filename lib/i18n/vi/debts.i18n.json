@@ -68,5 +68,16 @@
   "today": "hôm nay",
   "inDays": "trong {{days}} ngày nữa",
   "owedCount": "{{count}} khoản nợ",
-  "receivableCount": "{{count}} khoản phải thu"
+  "receivableCount": "{{count}} khoản phải thu",
+  "disbursedAmount": "Số tiền nhận",
+  "lentAmount": "Số tiền cho vay",
+  "totalRepaymentAmount": "Tổng tiền phải trả",
+  "totalReceivableAmount": "Tổng tiền phải thu",
+  "interestFee": "Lãi / Phí",
+  "disbursedAmountHelp": "Số tiền vào hoặc ra khỏi ví của bạn trong giao dịch ban đầu.",
+  "totalAmountMustBeGreaterOrEqual": "Tổng số tiền trả không được nhỏ hơn số tiền ban đầu",
+  "disbursedAmountLabel": "{{type}}:",
+  "interestLabel": "Tiền lãi:",
+  "received": "Đã nhận",
+  "lent": "Cho vay"
 }

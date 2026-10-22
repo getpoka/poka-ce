@@ -90,5 +90,25 @@ void main() {
       await (db.delete(db.debts)..where((d) => d.id.equals('d3'))).go();
       expect(await db.select(db.debts).get(), isEmpty);
     });
+
+    test('insert debt with disbursedAmount preserves interest difference', () async {
+      await db
+          .into(db.debts)
+          .insert(
+            DebtsCompanion.insert(
+              id: const Value('d4'),
+              personName: 'Dewi',
+              type: DebtType.debt,
+              amount: 1200000,
+              disbursedAmount: const Value(1000000),
+              remainingAmount: 1200000,
+              status: DebtStatus.active,
+            ),
+          );
+      final row = await db.select(db.debts).getSingle();
+      expect(row.amount, 1200000);
+      expect(row.disbursedAmount, 1000000);
+      expect(row.remainingAmount, 1200000);
+    });
   });
 }

@@ -76,11 +76,12 @@ class DebtRepositoryImpl implements IDebtRepository {
 
       // Cash flow binding: Debts print an income transaction (borrowed funds added to wallet),
       // while Loans print an expense transaction (lent funds deducted from wallet)
+      final initialTransactionAmount = model.effectiveDisbursedAmount;
       final txHeader = db.TransactionsCompanion.insert(
         id: Value(transactionId),
         accountId: accountId,
         type: isDebt ? TransactionType.income : TransactionType.expense,
-        amount: model.amount,
+        amount: initialTransactionAmount,
         transactionDate: nowAsLocalDateTime(),
         debtId: Value(model.id),
         note: Value(isDebt ? 'Borrowed from ${model.personName}' : 'Lent to ${model.personName}'),
@@ -91,7 +92,7 @@ class DebtRepositoryImpl implements IDebtRepository {
       final txItem = db.TransactionItemsCompanion.insert(
         transactionId: transactionId,
         categoryId: Value(categoryId),
-        amount: model.amount,
+        amount: initialTransactionAmount,
         createdAt: Value(now),
         updatedAt: Value(now),
       );
@@ -101,6 +102,7 @@ class DebtRepositoryImpl implements IDebtRepository {
         personName: model.personName,
         type: model.type,
         amount: model.amount,
+        disbursedAmount: Value(model.disbursedAmount),
         remainingAmount: model.remainingAmount,
         status: model.status,
         dueDate: Value(model.dueDate),
@@ -127,6 +129,7 @@ class DebtRepositoryImpl implements IDebtRepository {
           personName: Value(model.personName),
           type: Value(model.type),
           amount: Value(model.amount),
+          disbursedAmount: Value(model.disbursedAmount),
           remainingAmount: Value(model.remainingAmount),
           status: Value(model.status),
           dueDate: Value(model.dueDate),
@@ -160,6 +163,7 @@ class DebtRepositoryImpl implements IDebtRepository {
       personName: debt.personName,
       type: debt.type,
       amount: debt.amount,
+      disbursedAmount: debt.disbursedAmount,
       remainingAmount: debt.remainingAmount,
       status: debt.status,
       dueDate: debt.dueDate,

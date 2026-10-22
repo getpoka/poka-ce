@@ -444,6 +444,17 @@ class _Translations$debts$vi extends Translations$debts$en {
 	@override String inDays({required Object days}) => 'trong ${days} ngày nữa';
 	@override String owedCount({required Object count}) => '${count} khoản nợ';
 	@override String receivableCount({required Object count}) => '${count} khoản phải thu';
+	@override String get disbursedAmount => 'Số tiền nhận';
+	@override String get lentAmount => 'Số tiền cho vay';
+	@override String get totalRepaymentAmount => 'Tổng tiền phải trả';
+	@override String get totalReceivableAmount => 'Tổng tiền phải thu';
+	@override String get interestFee => 'Lãi / Phí';
+	@override String get disbursedAmountHelp => 'Số tiền vào hoặc ra khỏi ví của bạn trong giao dịch ban đầu.';
+	@override String get totalAmountMustBeGreaterOrEqual => 'Tổng số tiền trả không được nhỏ hơn số tiền ban đầu';
+	@override String disbursedAmountLabel({required Object type}) => '${type}:';
+	@override String get interestLabel => 'Tiền lãi:';
+	@override String get received => 'Đã nhận';
+	@override String get lent => 'Cho vay';
 }
 
 // Path: goals
@@ -1419,6 +1430,17 @@ extension on TranslationsVi {
 			'debts.inDays' => ({required Object days}) => 'trong ${days} ngày nữa',
 			'debts.owedCount' => ({required Object count}) => '${count} khoản nợ',
 			'debts.receivableCount' => ({required Object count}) => '${count} khoản phải thu',
+			'debts.disbursedAmount' => 'Số tiền nhận',
+			'debts.lentAmount' => 'Số tiền cho vay',
+			'debts.totalRepaymentAmount' => 'Tổng tiền phải trả',
+			'debts.totalReceivableAmount' => 'Tổng tiền phải thu',
+			'debts.interestFee' => 'Lãi / Phí',
+			'debts.disbursedAmountHelp' => 'Số tiền vào hoặc ra khỏi ví của bạn trong giao dịch ban đầu.',
+			'debts.totalAmountMustBeGreaterOrEqual' => 'Tổng số tiền trả không được nhỏ hơn số tiền ban đầu',
+			'debts.disbursedAmountLabel' => ({required Object type}) => '${type}:',
+			'debts.interestLabel' => 'Tiền lãi:',
+			'debts.received' => 'Đã nhận',
+			'debts.lent' => 'Cho vay',
 			'error.generic' => 'Đã xảy ra lỗi không mong muốn',
 			'error.network' => 'Vui lòng kiểm tra kết nối và thử lại',
 			'error.database' => 'Không thể truy cập dữ liệu cục bộ',
@@ -1597,6 +1619,8 @@ extension on TranslationsVi {
 			'icons.aliases.monitor_play' => 'xem video, youtube, netflix',
 			'icons.aliases.music_notes' => 'âm nhạc, bài hát, spotify, hòa nhạc',
 			'icons.aliases.headphones' => 'tai nghe, nghe nhạc, podcast',
+			_ => null,
+		} ?? switch (path) {
 			'icons.aliases.palette' => 'nghệ thuật, vẽ tranh, sở thích',
 			'icons.aliases.heart' => 'tình yêu, hẹn hò, cặp đôi',
 			'icons.aliases.smiley' => 'vui chơi, giải trí, hạnh phúc',
@@ -1608,8 +1632,6 @@ extension on TranslationsVi {
 			'icons.aliases.speaker_hifi' => 'loa, dàn âm thanh',
 			'icons.aliases.mask_happy' => 'kịch, sân khấu, văn hóa',
 			'icons.aliases.volleyball' => 'bóng chuyền, thể thao',
-			_ => null,
-		} ?? switch (path) {
 			'icons.aliases.basketball' => 'bóng rổ, thể thao',
 			'icons.aliases.soccer_ball' => 'bóng đá, đá banh, thể thao',
 			'icons.aliases.laptop' => 'máy tính xách tay, laptop, làm việc',

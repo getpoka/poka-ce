@@ -293,7 +293,7 @@ void main() {
       await tester.pumpWidget(buildWidget(initialDebt: debt));
       await tester.pumpAndSettle();
       expect(find.text('Alice'), findsOneWidget);
-      expect(find.text('1000'), findsOneWidget);
+      expect(find.text('1000'), findsWidgets);
       expect(find.text('dinner'), findsOneWidget);
     });
 
@@ -400,7 +400,15 @@ void main() {
       await tester.pumpWidget(buildWidget(initialDebt: debt, precision: 2));
       await tester.pumpAndSettle();
 
-      expect(find.text('500'), findsOneWidget);
+      expect(find.text('500'), findsWidgets);
+    });
+
+    testWidgets('shows interest preview when total repayment exceeds principal amount', (tester) async {
+      final debt = sampleDebt().copyWith(amount: 1200, disbursedAmount: 1000);
+      await tester.pumpWidget(buildWidget(initialDebt: debt));
+      await tester.pumpAndSettle();
+
+      expect(find.textContaining('Interest / Fee:'), findsOneWidget);
     });
 
     testWidgets('updates debt in edit mode converting entered amount to minor units with precision 2', (tester) async {
@@ -454,6 +462,7 @@ class _FakeDebtFormNotifier extends DebtForm {
     String? initialPersonName,
     DebtType? initialType,
     int? initialAmount,
+    int? initialDisbursedAmount,
     DateTime? initialDueDate,
     String? initialNote,
     String? initialAccountId,

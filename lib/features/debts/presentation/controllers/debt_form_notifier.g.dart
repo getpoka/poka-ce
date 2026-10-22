@@ -40,7 +40,7 @@ final class DebtFormProvider extends $NotifierProvider<DebtForm, DebtFormState> 
   }
 }
 
-String _$debtFormHash() => r'f8125ef598bdf6fcaba27ae5dd126e7ecaa8bcac';
+String _$debtFormHash() => r'36a0b4602cc78c72b15a0ff3170b6b9b9109ccff';
 
 /// Notifier managing input state and validation for creating or editing debts and loans.
 

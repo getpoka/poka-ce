@@ -65,5 +65,36 @@ void main() {
       );
       expect(a, equals(b));
     });
+
+    test('effectiveDisbursedAmount and interestAmount calculations', () {
+      final now = DateTime.utc(2024, 1, 1);
+      final debtWithInterest = DebtModel(
+        id: 'd1',
+        personName: 'Bob',
+        type: DebtType.debt,
+        amount: 120000,
+        disbursedAmount: 100000,
+        remainingAmount: 120000,
+        status: DebtStatus.active,
+        createdAt: now,
+        updatedAt: now,
+      );
+      expect(debtWithInterest.effectiveDisbursedAmount, 100000);
+      expect(debtWithInterest.interestAmount, 20000);
+
+      final debtZeroInterest = DebtModel(
+        id: 'd2',
+        personName: 'Charlie',
+        type: DebtType.debt,
+        amount: 50000,
+        disbursedAmount: null,
+        remainingAmount: 50000,
+        status: DebtStatus.active,
+        createdAt: now,
+        updatedAt: now,
+      );
+      expect(debtZeroInterest.effectiveDisbursedAmount, 50000);
+      expect(debtZeroInterest.interestAmount, 0);
+    });
   });
 }
