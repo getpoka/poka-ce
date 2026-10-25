@@ -45,8 +45,8 @@ void main() {
     await tester.pump(const Duration(milliseconds: 100));
 
     // Note
-    await tester.ensureVisible(textFields.at(2));
-    await tester.enterText(textFields.at(2), 'Lunch money');
+    await tester.ensureVisible(textFields.at(3));
+    await tester.enterText(textFields.at(3), 'Lunch money');
     await tester.pump(const Duration(milliseconds: 100));
 
     // Select Category
@@ -129,7 +129,6 @@ void main() {
     // Verify it is deleted
     expect(find.text('Jane Doe'), findsNothing);
 
-    print('DEBTS TEST FINISHED');
     await tearDownAppForTesting(tester, db);
   });
 }
