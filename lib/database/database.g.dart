@@ -3680,6 +3680,15 @@ class $DebtsTable extends Debts with TableInfo<$DebtsTable, Debt> {
     type: DriftSqlType.int,
     requiredDuringInsert: true,
   );
+  static const VerificationMeta _disbursedAmountMeta = const VerificationMeta('disbursedAmount');
+  @override
+  late final GeneratedColumn<int> disbursedAmount = GeneratedColumn<int>(
+    'disbursed_amount',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
   static const VerificationMeta _remainingAmountMeta = const VerificationMeta('remainingAmount');
   @override
   late final GeneratedColumn<int> remainingAmount = GeneratedColumn<int>(
@@ -3740,6 +3749,7 @@ class $DebtsTable extends Debts with TableInfo<$DebtsTable, Debt> {
     personName,
     type,
     amount,
+    disbursedAmount,
     remainingAmount,
     status,
     dueDate,
@@ -3768,6 +3778,12 @@ class $DebtsTable extends Debts with TableInfo<$DebtsTable, Debt> {
       context.handle(_amountMeta, amount.isAcceptableOrUnknown(data['amount']!, _amountMeta));
     } else if (isInserting) {
       context.missing(_amountMeta);
+    }
+    if (data.containsKey('disbursed_amount')) {
+      context.handle(
+        _disbursedAmountMeta,
+        disbursedAmount.isAcceptableOrUnknown(data['disbursed_amount']!, _disbursedAmountMeta),
+      );
     }
     if (data.containsKey('remaining_amount')) {
       context.handle(
@@ -3801,6 +3817,7 @@ class $DebtsTable extends Debts with TableInfo<$DebtsTable, Debt> {
         attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}type'])!,
       ),
       amount: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}amount'])!,
+      disbursedAmount: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}disbursed_amount']),
       remainingAmount: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}remaining_amount'])!,
       status: $DebtsTable.$converterstatus.fromSql(
         attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}status'])!,
@@ -3830,6 +3847,7 @@ class Debt extends DataClass implements Insertable<Debt> {
   final String personName;
   final DebtType type;
   final int amount;
+  final int? disbursedAmount;
   final int remainingAmount;
   final DebtStatus status;
   final String? dueDate;
@@ -3841,6 +3859,7 @@ class Debt extends DataClass implements Insertable<Debt> {
     required this.personName,
     required this.type,
     required this.amount,
+    this.disbursedAmount,
     required this.remainingAmount,
     required this.status,
     this.dueDate,
@@ -3857,6 +3876,9 @@ class Debt extends DataClass implements Insertable<Debt> {
       map['type'] = Variable<String>($DebtsTable.$convertertype.toSql(type));
     }
     map['amount'] = Variable<int>(amount);
+    if (!nullToAbsent || disbursedAmount != null) {
+      map['disbursed_amount'] = Variable<int>(disbursedAmount);
+    }
     map['remaining_amount'] = Variable<int>(remainingAmount);
     {
       map['status'] = Variable<String>($DebtsTable.$converterstatus.toSql(status));
@@ -3878,6 +3900,7 @@ class Debt extends DataClass implements Insertable<Debt> {
       personName: Value(personName),
       type: Value(type),
       amount: Value(amount),
+      disbursedAmount: disbursedAmount == null && nullToAbsent ? const Value.absent() : Value(disbursedAmount),
       remainingAmount: Value(remainingAmount),
       status: Value(status),
       dueDate: dueDate == null && nullToAbsent ? const Value.absent() : Value(dueDate),
@@ -3894,6 +3917,7 @@ class Debt extends DataClass implements Insertable<Debt> {
       personName: serializer.fromJson<String>(json['personName']),
       type: $DebtsTable.$convertertype.fromJson(serializer.fromJson<String>(json['type'])),
       amount: serializer.fromJson<int>(json['amount']),
+      disbursedAmount: serializer.fromJson<int?>(json['disbursedAmount']),
       remainingAmount: serializer.fromJson<int>(json['remainingAmount']),
       status: $DebtsTable.$converterstatus.fromJson(serializer.fromJson<String>(json['status'])),
       dueDate: serializer.fromJson<String?>(json['dueDate']),
@@ -3910,6 +3934,7 @@ class Debt extends DataClass implements Insertable<Debt> {
       'personName': serializer.toJson<String>(personName),
       'type': serializer.toJson<String>($DebtsTable.$convertertype.toJson(type)),
       'amount': serializer.toJson<int>(amount),
+      'disbursedAmount': serializer.toJson<int?>(disbursedAmount),
       'remainingAmount': serializer.toJson<int>(remainingAmount),
       'status': serializer.toJson<String>($DebtsTable.$converterstatus.toJson(status)),
       'dueDate': serializer.toJson<String?>(dueDate),
@@ -3924,6 +3949,7 @@ class Debt extends DataClass implements Insertable<Debt> {
     String? personName,
     DebtType? type,
     int? amount,
+    Value<int?> disbursedAmount = const Value.absent(),
     int? remainingAmount,
     DebtStatus? status,
     Value<String?> dueDate = const Value.absent(),
@@ -3935,6 +3961,7 @@ class Debt extends DataClass implements Insertable<Debt> {
     personName: personName ?? this.personName,
     type: type ?? this.type,
     amount: amount ?? this.amount,
+    disbursedAmount: disbursedAmount.present ? disbursedAmount.value : this.disbursedAmount,
     remainingAmount: remainingAmount ?? this.remainingAmount,
     status: status ?? this.status,
     dueDate: dueDate.present ? dueDate.value : this.dueDate,
@@ -3948,6 +3975,7 @@ class Debt extends DataClass implements Insertable<Debt> {
       personName: data.personName.present ? data.personName.value : this.personName,
       type: data.type.present ? data.type.value : this.type,
       amount: data.amount.present ? data.amount.value : this.amount,
+      disbursedAmount: data.disbursedAmount.present ? data.disbursedAmount.value : this.disbursedAmount,
       remainingAmount: data.remainingAmount.present ? data.remainingAmount.value : this.remainingAmount,
       status: data.status.present ? data.status.value : this.status,
       dueDate: data.dueDate.present ? data.dueDate.value : this.dueDate,
@@ -3964,6 +3992,7 @@ class Debt extends DataClass implements Insertable<Debt> {
           ..write('personName: $personName, ')
           ..write('type: $type, ')
           ..write('amount: $amount, ')
+          ..write('disbursedAmount: $disbursedAmount, ')
           ..write('remainingAmount: $remainingAmount, ')
           ..write('status: $status, ')
           ..write('dueDate: $dueDate, ')
@@ -3975,8 +4004,19 @@ class Debt extends DataClass implements Insertable<Debt> {
   }
 
   @override
-  int get hashCode =>
-      Object.hash(id, personName, type, amount, remainingAmount, status, dueDate, note, createdAt, updatedAt);
+  int get hashCode => Object.hash(
+    id,
+    personName,
+    type,
+    amount,
+    disbursedAmount,
+    remainingAmount,
+    status,
+    dueDate,
+    note,
+    createdAt,
+    updatedAt,
+  );
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -3985,6 +4025,7 @@ class Debt extends DataClass implements Insertable<Debt> {
           other.personName == this.personName &&
           other.type == this.type &&
           other.amount == this.amount &&
+          other.disbursedAmount == this.disbursedAmount &&
           other.remainingAmount == this.remainingAmount &&
           other.status == this.status &&
           other.dueDate == this.dueDate &&
@@ -3998,6 +4039,7 @@ class DebtsCompanion extends UpdateCompanion<Debt> {
   final Value<String> personName;
   final Value<DebtType> type;
   final Value<int> amount;
+  final Value<int?> disbursedAmount;
   final Value<int> remainingAmount;
   final Value<DebtStatus> status;
   final Value<String?> dueDate;
@@ -4010,6 +4052,7 @@ class DebtsCompanion extends UpdateCompanion<Debt> {
     this.personName = const Value.absent(),
     this.type = const Value.absent(),
     this.amount = const Value.absent(),
+    this.disbursedAmount = const Value.absent(),
     this.remainingAmount = const Value.absent(),
     this.status = const Value.absent(),
     this.dueDate = const Value.absent(),
@@ -4023,6 +4066,7 @@ class DebtsCompanion extends UpdateCompanion<Debt> {
     required String personName,
     required DebtType type,
     required int amount,
+    this.disbursedAmount = const Value.absent(),
     required int remainingAmount,
     required DebtStatus status,
     this.dueDate = const Value.absent(),
@@ -4040,6 +4084,7 @@ class DebtsCompanion extends UpdateCompanion<Debt> {
     Expression<String>? personName,
     Expression<String>? type,
     Expression<int>? amount,
+    Expression<int>? disbursedAmount,
     Expression<int>? remainingAmount,
     Expression<String>? status,
     Expression<String>? dueDate,
@@ -4053,6 +4098,7 @@ class DebtsCompanion extends UpdateCompanion<Debt> {
       if (personName != null) 'person_name': personName,
       if (type != null) 'type': type,
       if (amount != null) 'amount': amount,
+      if (disbursedAmount != null) 'disbursed_amount': disbursedAmount,
       if (remainingAmount != null) 'remaining_amount': remainingAmount,
       if (status != null) 'status': status,
       if (dueDate != null) 'due_date': dueDate,
@@ -4068,6 +4114,7 @@ class DebtsCompanion extends UpdateCompanion<Debt> {
     Value<String>? personName,
     Value<DebtType>? type,
     Value<int>? amount,
+    Value<int?>? disbursedAmount,
     Value<int>? remainingAmount,
     Value<DebtStatus>? status,
     Value<String?>? dueDate,
@@ -4081,6 +4128,7 @@ class DebtsCompanion extends UpdateCompanion<Debt> {
       personName: personName ?? this.personName,
       type: type ?? this.type,
       amount: amount ?? this.amount,
+      disbursedAmount: disbursedAmount ?? this.disbursedAmount,
       remainingAmount: remainingAmount ?? this.remainingAmount,
       status: status ?? this.status,
       dueDate: dueDate ?? this.dueDate,
@@ -4105,6 +4153,9 @@ class DebtsCompanion extends UpdateCompanion<Debt> {
     }
     if (amount.present) {
       map['amount'] = Variable<int>(amount.value);
+    }
+    if (disbursedAmount.present) {
+      map['disbursed_amount'] = Variable<int>(disbursedAmount.value);
     }
     if (remainingAmount.present) {
       map['remaining_amount'] = Variable<int>(remainingAmount.value);
@@ -4137,6 +4188,7 @@ class DebtsCompanion extends UpdateCompanion<Debt> {
           ..write('personName: $personName, ')
           ..write('type: $type, ')
           ..write('amount: $amount, ')
+          ..write('disbursedAmount: $disbursedAmount, ')
           ..write('remainingAmount: $remainingAmount, ')
           ..write('status: $status, ')
           ..write('dueDate: $dueDate, ')
@@ -9212,6 +9264,7 @@ typedef $$DebtsTableCreateCompanionBuilder = DebtsCompanion Function({
   required String personName,
   required DebtType type,
   required int amount,
+  Value<int?> disbursedAmount,
   required int remainingAmount,
   required DebtStatus status,
   Value<String?> dueDate,
@@ -9225,6 +9278,7 @@ typedef $$DebtsTableUpdateCompanionBuilder = DebtsCompanion Function({
   Value<String> personName,
   Value<DebtType> type,
   Value<int> amount,
+  Value<int?> disbursedAmount,
   Value<int> remainingAmount,
   Value<DebtStatus> status,
   Value<String?> dueDate,
@@ -9269,6 +9323,9 @@ class $$DebtsTableFilterComposer extends Composer<_$AppDatabase, $DebtsTable> {
 
   ColumnFilters<int> get amount =>
       $composableBuilder(column: $table.amount, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get disbursedAmount =>
+      $composableBuilder(column: $table.disbursedAmount, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<int> get remainingAmount =>
       $composableBuilder(column: $table.remainingAmount, builder: (column) => ColumnFilters(column));
@@ -9325,6 +9382,9 @@ class $$DebtsTableOrderingComposer extends Composer<_$AppDatabase, $DebtsTable> 
   ColumnOrderings<int> get amount =>
       $composableBuilder(column: $table.amount, builder: (column) => ColumnOrderings(column));
 
+  ColumnOrderings<int> get disbursedAmount =>
+      $composableBuilder(column: $table.disbursedAmount, builder: (column) => ColumnOrderings(column));
+
   ColumnOrderings<int> get remainingAmount =>
       $composableBuilder(column: $table.remainingAmount, builder: (column) => ColumnOrderings(column));
 
@@ -9360,6 +9420,9 @@ class $$DebtsTableAnnotationComposer extends Composer<_$AppDatabase, $DebtsTable
       $composableBuilder(column: $table.type, builder: (column) => column);
 
   GeneratedColumn<int> get amount => $composableBuilder(column: $table.amount, builder: (column) => column);
+
+  GeneratedColumn<int> get disbursedAmount =>
+      $composableBuilder(column: $table.disbursedAmount, builder: (column) => column);
 
   GeneratedColumn<int> get remainingAmount =>
       $composableBuilder(column: $table.remainingAmount, builder: (column) => column);
@@ -9424,6 +9487,7 @@ class $$DebtsTableTableManager
                 Value<String> personName = const Value.absent(),
                 Value<DebtType> type = const Value.absent(),
                 Value<int> amount = const Value.absent(),
+                Value<int?> disbursedAmount = const Value.absent(),
                 Value<int> remainingAmount = const Value.absent(),
                 Value<DebtStatus> status = const Value.absent(),
                 Value<String?> dueDate = const Value.absent(),
@@ -9436,6 +9500,7 @@ class $$DebtsTableTableManager
                 personName: personName,
                 type: type,
                 amount: amount,
+                disbursedAmount: disbursedAmount,
                 remainingAmount: remainingAmount,
                 status: status,
                 dueDate: dueDate,
@@ -9450,6 +9515,7 @@ class $$DebtsTableTableManager
                 required String personName,
                 required DebtType type,
                 required int amount,
+                Value<int?> disbursedAmount = const Value.absent(),
                 required int remainingAmount,
                 required DebtStatus status,
                 Value<String?> dueDate = const Value.absent(),
@@ -9462,6 +9528,7 @@ class $$DebtsTableTableManager
                 personName: personName,
                 type: type,
                 amount: amount,
+                disbursedAmount: disbursedAmount,
                 remainingAmount: remainingAmount,
                 status: status,
                 dueDate: dueDate,

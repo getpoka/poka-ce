@@ -68,5 +68,16 @@
   "today": "hari ini",
   "inDays": "dalam masa {{days}} hari",
   "owedCount": "{{count}} perlu dibayar",
-  "receivableCount": "{{count}} perlu dikutip"
+  "receivableCount": "{{count}} perlu dikutip",
+  "disbursedAmount": "Dana diterima",
+  "lentAmount": "Dana dipinjamkan",
+  "totalRepaymentAmount": "Jumlah bayaran balik",
+  "totalReceivableAmount": "Jumlah kutipan",
+  "interestFee": "Faedah / Yuran",
+  "disbursedAmountHelp": "Jumlah wang yang masuk atau keluar dari dompet pada transaksi awal.",
+  "totalAmountMustBeGreaterOrEqual": "Jumlah bayaran balik tidak boleh kurang daripada dana asal",
+  "disbursedAmountLabel": "{{type}}:",
+  "interestLabel": "Faedah:",
+  "received": "Diterima",
+  "lent": "Dipinjamkan"
 }

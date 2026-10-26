@@ -10,6 +10,7 @@ import 'package:poka_ce/database/daos/goals_dao.dart';
 import 'package:poka_ce/database/daos/recurring_dao.dart';
 import 'package:poka_ce/database/daos/settings_dao.dart';
 import 'package:poka_ce/database/daos/transactions_dao.dart';
+import 'package:poka_ce/database/migrations/migration_v2.dart';
 import 'package:poka_ce/database/seeder.dart';
 import 'package:poka_ce/database/tables/accounts_table.dart';
 import 'package:poka_ce/database/tables/budgets_table.dart';
@@ -73,7 +74,7 @@ class AppDatabase extends _$AppDatabase {
   late final TransactionsDao transactionsDao = TransactionsDao(this);
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
 
   @override
   MigrationStrategy get migration {
@@ -81,6 +82,11 @@ class AppDatabase extends _$AppDatabase {
       onCreate: (m) async {
         await m.createAll();
         await DatabaseSeeder.seed(this);
+      },
+      onUpgrade: (m, from, to) async {
+        if (from < 2) {
+          await const MigrationV2().up(m, this);
+        }
       },
       beforeOpen: (details) async {
         // Enforce foreign key constraints and configure performance PRAGMAs.

@@ -28,6 +28,7 @@ class DebtFormSheet extends HookConsumerWidget {
     this.initialPersonName,
     this.initialType,
     this.initialAmount,
+    this.initialDisbursedAmount,
     this.initialDueDate,
     this.initialNote,
     this.initialAccountId,
@@ -38,6 +39,7 @@ class DebtFormSheet extends HookConsumerWidget {
   final String? initialPersonName;
   final DebtType? initialType;
   final int? initialAmount;
+  final int? initialDisbursedAmount;
   final DateTime? initialDueDate;
   final String? initialNote;
   final String? initialAccountId;
@@ -49,6 +51,7 @@ class DebtFormSheet extends HookConsumerWidget {
     String? initialPersonName,
     DebtType? initialType,
     int? initialAmount,
+    int? initialDisbursedAmount,
     DateTime? initialDueDate,
     String? initialNote,
     String? initialAccountId,
@@ -62,6 +65,7 @@ class DebtFormSheet extends HookConsumerWidget {
         initialPersonName: initialPersonName,
         initialType: initialType,
         initialAmount: initialAmount,
+        initialDisbursedAmount: initialDisbursedAmount,
         initialDueDate: initialDueDate,
         initialNote: initialNote,
         initialAccountId: initialAccountId,
@@ -83,6 +87,7 @@ class DebtFormSheet extends HookConsumerWidget {
             initialPersonName: initialPersonName,
             initialType: initialType,
             initialAmount: initialAmount,
+            initialDisbursedAmount: initialDisbursedAmount,
             initialDueDate: initialDueDate,
             initialNote: initialNote,
             initialAccountId: initialAccountId,
@@ -96,6 +101,7 @@ class DebtFormSheet extends HookConsumerWidget {
         initialPersonName,
         initialType,
         initialAmount,
+        initialDisbursedAmount,
         initialDueDate,
         initialNote,
         initialAccountId,
@@ -104,25 +110,49 @@ class DebtFormSheet extends HookConsumerWidget {
     );
 
     final precision = ref.watch(settingsProvider).settings?.baseCurrency?.precision ?? 0;
+    final currencySymbol = ref.watch(settingsProvider).settings?.baseCurrency?.symbol ?? '';
+    final isEditing = initialDebt != null;
+
+    final initialDisbursed = initialDebt != null
+        ? initialDebt!.effectiveDisbursedAmount
+        : (initialDisbursedAmount ?? initialAmount ?? state.disbursedAmount ?? state.amount);
+
+    final initialTotal = initialDebt?.amount ?? initialAmount ?? state.amount;
+
     final personController = useTextEditingController(
       text: initialDebt?.personName ?? initialPersonName ?? state.personName,
     );
+    final disbursedAmountController = useTextEditingController(
+      text: initialDisbursed > 0 ? initialDisbursed.toMajorExpression(precision: precision) : '',
+    );
     final amountController = useTextEditingController(
-      text: initialDebt != null && initialDebt!.amount > 0
-          ? initialDebt!.amount.toMajorExpression(precision: precision)
-          : (initialAmount != null && initialAmount! > 0
-                ? initialAmount!.toMajorExpression(precision: precision)
-                : (state.amount > 0 ? state.amount.toMajorExpression(precision: precision) : '')),
+      text: initialTotal > 0 ? initialTotal.toMajorExpression(precision: precision) : '',
     );
     final noteController = useTextEditingController(text: initialDebt?.note ?? initialNote ?? state.note ?? '');
+
+    final hasCustomTotal = useRef<bool>(isEditing && (initialDebt?.interestAmount ?? 0) > 0);
 
     useEffect(() {
       void onPerson() {
         if (state.personName != personController.text) notifier.setPersonName(personController.text);
       }
 
+      void onDisbursedAmount() {
+        final val = disbursedAmountController.text.toMinorUnits(precision: precision);
+        if (state.disbursedAmount != val) notifier.setDisbursedAmount(val);
+
+        if (!hasCustomTotal.value) {
+          amountController.text = disbursedAmountController.text;
+          if (state.amount != val) notifier.setAmount(val);
+        }
+      }
+
       void onAmount() {
         final val = amountController.text.toMinorUnits(precision: precision);
+        final disbursedVal = disbursedAmountController.text.toMinorUnits(precision: precision);
+        if (val != disbursedVal && amountController.text.isNotEmpty) {
+          hasCustomTotal.value = true;
+        }
         if (state.amount != val) notifier.setAmount(val);
       }
 
@@ -131,14 +161,16 @@ class DebtFormSheet extends HookConsumerWidget {
       }
 
       personController.addListener(onPerson);
+      disbursedAmountController.addListener(onDisbursedAmount);
       amountController.addListener(onAmount);
       noteController.addListener(onNote);
       return () {
         personController.removeListener(onPerson);
+        disbursedAmountController.removeListener(onDisbursedAmount);
         amountController.removeListener(onAmount);
         noteController.removeListener(onNote);
       };
-    }, [personController, amountController, noteController, precision]);
+    }, [personController, disbursedAmountController, amountController, noteController, precision]);
 
     ref.listen(debtFormProvider, (prev, next) {
       if (next.isSuccess && (prev?.isSuccess != true)) {
@@ -155,8 +187,9 @@ class DebtFormSheet extends HookConsumerWidget {
     final selectedCategory = categories.where((c) => c.id == state.categoryId).firstOrNull;
     final selectedAccount = accounts.where((a) => a.id == state.accountId).firstOrNull;
 
-    final isEditing = initialDebt != null;
     final formKey = useMemoized(GlobalKey<FormState>.new);
+    final effectiveDisbursed = state.disbursedAmount ?? state.amount;
+    final interestAmount = state.amount > effectiveDisbursed ? state.amount - effectiveDisbursed : 0;
 
     return PokaSheet(
       title: isEditing ? t.debts.editRecord : t.debts.newRecord,
@@ -176,7 +209,7 @@ class DebtFormSheet extends HookConsumerWidget {
             ),
             const SizedBox(height: 12),
             FTextFormField(
-              control: FTextFieldControl.managed(controller: amountController),
+              control: FTextFieldControl.managed(controller: disbursedAmountController),
               label: Text(t.debts.principalAmount),
               hint: '0',
               keyboardType: TextInputType.number,
@@ -187,6 +220,44 @@ class DebtFormSheet extends HookConsumerWidget {
                 return null;
               },
             ),
+            const SizedBox(height: 12),
+            FTextFormField(
+              control: FTextFieldControl.managed(controller: amountController),
+              label: Text(state.type == DebtType.debt ? t.debts.totalRepaymentAmount : t.debts.totalReceivableAmount),
+              hint: '0',
+              keyboardType: TextInputType.number,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              validator: (value) {
+                final total = (value ?? '').toMinorUnits(precision: precision);
+                final disbursed = disbursedAmountController.text.toMinorUnits(precision: precision);
+                if (total <= 0) return t.debts.amountGreaterThanZero;
+                if (total < disbursed) return t.debts.totalAmountMustBeGreaterOrEqual;
+                return null;
+              },
+            ),
+            if (interestAmount > 0) ...[
+              const SizedBox(height: 6),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                decoration: BoxDecoration(
+                  color: context.theme.colors.muted,
+                  borderRadius: context.theme.style.borderRadius.sm,
+                ),
+                child: Row(
+                  children: [
+                    Icon(FPhosphorIcons.trendUp, size: 14, color: context.theme.colors.primary),
+                    const SizedBox(width: 6),
+                    Text(
+                      '${t.debts.interestFee}: ${interestAmount.toCurrencyFormat(symbol: currencySymbol, precision: precision)}',
+                      style: context.theme.typography.bodySecondary.copyWith(
+                        color: context.theme.colors.foreground,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
             const SizedBox(height: 12),
             if (!isEditing) ...[
               FormField<String>(

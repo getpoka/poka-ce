@@ -130,6 +130,52 @@ class DebtCard extends ConsumerWidget {
                 ),
               ],
             ),
+            if (debt.interestAmount > 0) ...[
+              const SizedBox(height: 10),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                decoration: BoxDecoration(color: theme.colors.muted, borderRadius: theme.style.borderRadius.sm),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          t.debts.disbursedAmountLabel(type: isPayable ? t.debts.received : t.debts.lent),
+                          style: theme.typography.bodySecondary.copyWith(color: theme.colors.mutedForeground),
+                        ),
+                        const SizedBox(width: 4),
+                        PokaAmountText(
+                          amount: debt.effectiveDisbursedAmount,
+                          type: TransactionType.income,
+                          style: theme.typography.bodySecondary.copyWith(
+                            color: theme.colors.foreground,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          t.debts.interestLabel,
+                          style: theme.typography.bodySecondary.copyWith(color: theme.colors.mutedForeground),
+                        ),
+                        const SizedBox(width: 4),
+                        PokaAmountText(
+                          amount: debt.interestAmount,
+                          type: isPayable ? TransactionType.expense : TransactionType.income,
+                          style: theme.typography.bodySecondary.copyWith(
+                            color: theme.colors.foreground,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
             if (debt.note != null && debt.note!.isNotEmpty) ...[
               const SizedBox(height: 10),
               Container(

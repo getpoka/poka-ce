@@ -444,6 +444,17 @@ class _Translations$debts$ms extends Translations$debts$en {
 	@override String inDays({required Object days}) => 'dalam masa ${days} hari';
 	@override String owedCount({required Object count}) => '${count} perlu dibayar';
 	@override String receivableCount({required Object count}) => '${count} perlu dikutip';
+	@override String get disbursedAmount => 'Dana diterima';
+	@override String get lentAmount => 'Dana dipinjamkan';
+	@override String get totalRepaymentAmount => 'Jumlah bayaran balik';
+	@override String get totalReceivableAmount => 'Jumlah kutipan';
+	@override String get interestFee => 'Faedah / Yuran';
+	@override String get disbursedAmountHelp => 'Jumlah wang yang masuk atau keluar dari dompet pada transaksi awal.';
+	@override String get totalAmountMustBeGreaterOrEqual => 'Jumlah bayaran balik tidak boleh kurang daripada dana asal';
+	@override String disbursedAmountLabel({required Object type}) => '${type}:';
+	@override String get interestLabel => 'Faedah:';
+	@override String get received => 'Diterima';
+	@override String get lent => 'Dipinjamkan';
 }
 
 // Path: goals
@@ -1419,6 +1430,17 @@ extension on TranslationsMs {
 			'debts.inDays' => ({required Object days}) => 'dalam masa ${days} hari',
 			'debts.owedCount' => ({required Object count}) => '${count} perlu dibayar',
 			'debts.receivableCount' => ({required Object count}) => '${count} perlu dikutip',
+			'debts.disbursedAmount' => 'Dana diterima',
+			'debts.lentAmount' => 'Dana dipinjamkan',
+			'debts.totalRepaymentAmount' => 'Jumlah bayaran balik',
+			'debts.totalReceivableAmount' => 'Jumlah kutipan',
+			'debts.interestFee' => 'Faedah / Yuran',
+			'debts.disbursedAmountHelp' => 'Jumlah wang yang masuk atau keluar dari dompet pada transaksi awal.',
+			'debts.totalAmountMustBeGreaterOrEqual' => 'Jumlah bayaran balik tidak boleh kurang daripada dana asal',
+			'debts.disbursedAmountLabel' => ({required Object type}) => '${type}:',
+			'debts.interestLabel' => 'Faedah:',
+			'debts.received' => 'Diterima',
+			'debts.lent' => 'Dipinjamkan',
 			'error.generic' => 'Berlaku ralat yang tidak dijangka',
 			'error.network' => 'Sila semak sambungan anda dan cuba lagi',
 			'error.database' => 'Gagal mengakses data setempat',
@@ -1597,6 +1619,8 @@ extension on TranslationsMs {
 			'icons.aliases.monitor_play' => 'strim, youtube, netflix, tonton',
 			'icons.aliases.music_notes' => 'muzik, lagu, spotify, konsert',
 			'icons.aliases.headphones' => 'fon kepala, dengar lagu, podcast',
+			_ => null,
+		} ?? switch (path) {
 			'icons.aliases.palette' => 'seni, lukisan, hobi, kreativiti',
 			'icons.aliases.heart' => 'cinta, pasangan, kasih sayang',
 			'icons.aliases.smiley' => 'hiburan, gembira, santai',
@@ -1608,8 +1632,6 @@ extension on TranslationsMs {
 			'icons.aliases.speaker_hifi' => 'pembesar suara, sistem audio',
 			'icons.aliases.mask_happy' => 'teater, lakonan, seni persembahan',
 			'icons.aliases.volleyball' => 'bola tampar, sukan',
-			_ => null,
-		} ?? switch (path) {
 			'icons.aliases.basketball' => 'bola keranjang, sukan',
 			'icons.aliases.soccer_ball' => 'bola sepak, futsal, sukan',
 			'icons.aliases.laptop' => 'komputer riba, laptop, macbook, kerja',

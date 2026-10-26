@@ -68,5 +68,16 @@
   "today": "today",
   "inDays": "in {{days}} days",
   "owedCount": "{{count}} owed",
-  "receivableCount": "{{count}} receivable"
+  "receivableCount": "{{count}} receivable",
+  "disbursedAmount": "Disbursed amount",
+  "lentAmount": "Lent amount",
+  "totalRepaymentAmount": "Total repayment",
+  "totalReceivableAmount": "Total receivable",
+  "interestFee": "Interest / Fee",
+  "disbursedAmountHelp": "Initial cash amount transferred to or from your wallet.",
+  "totalAmountMustBeGreaterOrEqual": "Total repayment cannot be less than disbursed amount",
+  "disbursedAmountLabel": "{{type}}:",
+  "interestLabel": "Interest:",
+  "received": "Received",
+  "lent": "Lent"
 }

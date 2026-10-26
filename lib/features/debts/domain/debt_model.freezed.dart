@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$DebtModel {
 
- String get id; String get personName; DebtType get type; int get amount; int get remainingAmount; DebtStatus get status; DateTime get createdAt; DateTime get updatedAt; String? get dueDate; String? get note;
+ String get id; String get personName; DebtType get type; int get amount; int get remainingAmount; DebtStatus get status; DateTime get createdAt; DateTime get updatedAt; int? get disbursedAmount; String? get dueDate; String? get note;
 /// Create a copy of DebtModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -30,20 +30,20 @@ $DebtModelCopyWith<DebtModel> get copyWith => _$DebtModelCopyWithImpl<DebtModel>
 @override
 bool operator ==(Object other) {
   final _this = this as DebtModel;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DebtModel&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.personName, _this.personName) || other.personName == _this.personName)&&(identical(other.type, _this.type) || other.type == _this.type)&&(identical(other.amount, _this.amount) || other.amount == _this.amount)&&(identical(other.remainingAmount, _this.remainingAmount) || other.remainingAmount == _this.remainingAmount)&&(identical(other.status, _this.status) || other.status == _this.status)&&(identical(other.createdAt, _this.createdAt) || other.createdAt == _this.createdAt)&&(identical(other.updatedAt, _this.updatedAt) || other.updatedAt == _this.updatedAt)&&(identical(other.dueDate, _this.dueDate) || other.dueDate == _this.dueDate)&&(identical(other.note, _this.note) || other.note == _this.note));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DebtModel&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.personName, _this.personName) || other.personName == _this.personName)&&(identical(other.type, _this.type) || other.type == _this.type)&&(identical(other.amount, _this.amount) || other.amount == _this.amount)&&(identical(other.remainingAmount, _this.remainingAmount) || other.remainingAmount == _this.remainingAmount)&&(identical(other.status, _this.status) || other.status == _this.status)&&(identical(other.createdAt, _this.createdAt) || other.createdAt == _this.createdAt)&&(identical(other.updatedAt, _this.updatedAt) || other.updatedAt == _this.updatedAt)&&(identical(other.disbursedAmount, _this.disbursedAmount) || other.disbursedAmount == _this.disbursedAmount)&&(identical(other.dueDate, _this.dueDate) || other.dueDate == _this.dueDate)&&(identical(other.note, _this.note) || other.note == _this.note));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as DebtModel;
-  return Object.hash(runtimeType,_this.id,_this.personName,_this.type,_this.amount,_this.remainingAmount,_this.status,_this.createdAt,_this.updatedAt,_this.dueDate,_this.note);
+  return Object.hash(runtimeType,_this.id,_this.personName,_this.type,_this.amount,_this.remainingAmount,_this.status,_this.createdAt,_this.updatedAt,_this.disbursedAmount,_this.dueDate,_this.note);
 }
 
 @override
 String toString() {
   final _this = this as DebtModel;
-  return 'DebtModel(id: ${_this.id}, personName: ${_this.personName}, type: ${_this.type}, amount: ${_this.amount}, remainingAmount: ${_this.remainingAmount}, status: ${_this.status}, createdAt: ${_this.createdAt}, updatedAt: ${_this.updatedAt}, dueDate: ${_this.dueDate}, note: ${_this.note})';
+  return 'DebtModel(id: ${_this.id}, personName: ${_this.personName}, type: ${_this.type}, amount: ${_this.amount}, remainingAmount: ${_this.remainingAmount}, status: ${_this.status}, createdAt: ${_this.createdAt}, updatedAt: ${_this.updatedAt}, disbursedAmount: ${_this.disbursedAmount}, dueDate: ${_this.dueDate}, note: ${_this.note})';
 }
 
 
@@ -54,7 +54,7 @@ abstract mixin class $DebtModelCopyWith<$Res>  {
   factory $DebtModelCopyWith(DebtModel value, $Res Function(DebtModel) _then) = _$DebtModelCopyWithImpl;
 @useResult
 $Res call({
- String id, String personName, DebtType type, int amount, int remainingAmount, DebtStatus status, DateTime createdAt, DateTime updatedAt, String? dueDate, String? note
+ String id, String personName, DebtType type, int amount, int remainingAmount, DebtStatus status, DateTime createdAt, DateTime updatedAt, int? disbursedAmount, String? dueDate, String? note
 });
 
 
@@ -71,7 +71,7 @@ class _$DebtModelCopyWithImpl<$Res>
 
 /// Create a copy of DebtModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? personName = null,Object? type = null,Object? amount = null,Object? remainingAmount = null,Object? status = null,Object? createdAt = null,Object? updatedAt = null,Object? dueDate = freezed,Object? note = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? personName = null,Object? type = null,Object? amount = null,Object? remainingAmount = null,Object? status = null,Object? createdAt = null,Object? updatedAt = null,Object? disbursedAmount = freezed,Object? dueDate = freezed,Object? note = freezed,}) {
   return _then(DebtModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,personName: null == personName ? _self.personName : personName // ignore: cast_nullable_to_non_nullable
@@ -81,7 +81,8 @@ as int,remainingAmount: null == remainingAmount ? _self.remainingAmount : remain
 as int,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as DebtStatus,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
-as DateTime,dueDate: freezed == dueDate ? _self.dueDate : dueDate // ignore: cast_nullable_to_non_nullable
+as DateTime,disbursedAmount: freezed == disbursedAmount ? _self.disbursedAmount : disbursedAmount // ignore: cast_nullable_to_non_nullable
+as int?,dueDate: freezed == dueDate ? _self.dueDate : dueDate // ignore: cast_nullable_to_non_nullable
 as String?,note: freezed == note ? _self.note : note // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
@@ -168,10 +169,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String personName,  DebtType type,  int amount,  int remainingAmount,  DebtStatus status,  DateTime createdAt,  DateTime updatedAt,  String? dueDate,  String? note)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String personName,  DebtType type,  int amount,  int remainingAmount,  DebtStatus status,  DateTime createdAt,  DateTime updatedAt,  int? disbursedAmount,  String? dueDate,  String? note)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _DebtModel() when $default != null:
-return $default(_that.id,_that.personName,_that.type,_that.amount,_that.remainingAmount,_that.status,_that.createdAt,_that.updatedAt,_that.dueDate,_that.note);case _:
+return $default(_that.id,_that.personName,_that.type,_that.amount,_that.remainingAmount,_that.status,_that.createdAt,_that.updatedAt,_that.disbursedAmount,_that.dueDate,_that.note);case _:
   return orElse();
 
 }
@@ -189,10 +190,10 @@ return $default(_that.id,_that.personName,_that.type,_that.amount,_that.remainin
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String personName,  DebtType type,  int amount,  int remainingAmount,  DebtStatus status,  DateTime createdAt,  DateTime updatedAt,  String? dueDate,  String? note)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String personName,  DebtType type,  int amount,  int remainingAmount,  DebtStatus status,  DateTime createdAt,  DateTime updatedAt,  int? disbursedAmount,  String? dueDate,  String? note)  $default,) {final _that = this;
 switch (_that) {
 case _DebtModel():
-return $default(_that.id,_that.personName,_that.type,_that.amount,_that.remainingAmount,_that.status,_that.createdAt,_that.updatedAt,_that.dueDate,_that.note);case _:
+return $default(_that.id,_that.personName,_that.type,_that.amount,_that.remainingAmount,_that.status,_that.createdAt,_that.updatedAt,_that.disbursedAmount,_that.dueDate,_that.note);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -209,10 +210,10 @@ return $default(_that.id,_that.personName,_that.type,_that.amount,_that.remainin
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String personName,  DebtType type,  int amount,  int remainingAmount,  DebtStatus status,  DateTime createdAt,  DateTime updatedAt,  String? dueDate,  String? note)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String personName,  DebtType type,  int amount,  int remainingAmount,  DebtStatus status,  DateTime createdAt,  DateTime updatedAt,  int? disbursedAmount,  String? dueDate,  String? note)?  $default,) {final _that = this;
 switch (_that) {
 case _DebtModel() when $default != null:
-return $default(_that.id,_that.personName,_that.type,_that.amount,_that.remainingAmount,_that.status,_that.createdAt,_that.updatedAt,_that.dueDate,_that.note);case _:
+return $default(_that.id,_that.personName,_that.type,_that.amount,_that.remainingAmount,_that.status,_that.createdAt,_that.updatedAt,_that.disbursedAmount,_that.dueDate,_that.note);case _:
   return null;
 
 }
@@ -223,8 +224,8 @@ return $default(_that.id,_that.personName,_that.type,_that.amount,_that.remainin
 /// @nodoc
 @JsonSerializable()
 
-class _DebtModel implements DebtModel {
-  const _DebtModel({required this.id, required this.personName, required this.type, required this.amount, required this.remainingAmount, required this.status, required this.createdAt, required this.updatedAt, this.dueDate, this.note});
+class _DebtModel extends DebtModel {
+  const _DebtModel({required this.id, required this.personName, required this.type, required this.amount, required this.remainingAmount, required this.status, required this.createdAt, required this.updatedAt, this.disbursedAmount, this.dueDate, this.note}): super._();
   factory _DebtModel.fromJson(Map<String, dynamic> json) => _$DebtModelFromJson(json);
 
 @override final  String id;
@@ -235,6 +236,7 @@ class _DebtModel implements DebtModel {
 @override final  DebtStatus status;
 @override final  DateTime createdAt;
 @override final  DateTime updatedAt;
+@override final  int? disbursedAmount;
 @override final  String? dueDate;
 @override final  String? note;
 
@@ -251,18 +253,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _DebtModel&&(identical(other.id, id) || other.id == id)&&(identical(other.personName, personName) || other.personName == personName)&&(identical(other.type, type) || other.type == type)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.remainingAmount, remainingAmount) || other.remainingAmount == remainingAmount)&&(identical(other.status, status) || other.status == status)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.dueDate, dueDate) || other.dueDate == dueDate)&&(identical(other.note, note) || other.note == note));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _DebtModel&&(identical(other.id, id) || other.id == id)&&(identical(other.personName, personName) || other.personName == personName)&&(identical(other.type, type) || other.type == type)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.remainingAmount, remainingAmount) || other.remainingAmount == remainingAmount)&&(identical(other.status, status) || other.status == status)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.disbursedAmount, disbursedAmount) || other.disbursedAmount == disbursedAmount)&&(identical(other.dueDate, dueDate) || other.dueDate == dueDate)&&(identical(other.note, note) || other.note == note));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,id,personName,type,amount,remainingAmount,status,createdAt,updatedAt,dueDate,note);
+    return Object.hash(runtimeType,id,personName,type,amount,remainingAmount,status,createdAt,updatedAt,disbursedAmount,dueDate,note);
 }
 
 @override
 String toString() {
-    return 'DebtModel(id: $id, personName: $personName, type: $type, amount: $amount, remainingAmount: $remainingAmount, status: $status, createdAt: $createdAt, updatedAt: $updatedAt, dueDate: $dueDate, note: $note)';
+    return 'DebtModel(id: $id, personName: $personName, type: $type, amount: $amount, remainingAmount: $remainingAmount, status: $status, createdAt: $createdAt, updatedAt: $updatedAt, disbursedAmount: $disbursedAmount, dueDate: $dueDate, note: $note)';
 }
 
 
@@ -273,7 +275,7 @@ abstract mixin class _$DebtModelCopyWith<$Res> implements $DebtModelCopyWith<$Re
   factory _$DebtModelCopyWith(_DebtModel value, $Res Function(_DebtModel) _then) = __$DebtModelCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String personName, DebtType type, int amount, int remainingAmount, DebtStatus status, DateTime createdAt, DateTime updatedAt, String? dueDate, String? note
+ String id, String personName, DebtType type, int amount, int remainingAmount, DebtStatus status, DateTime createdAt, DateTime updatedAt, int? disbursedAmount, String? dueDate, String? note
 });
 
 
@@ -290,7 +292,7 @@ class __$DebtModelCopyWithImpl<$Res>
 
 /// Create a copy of DebtModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? personName = null,Object? type = null,Object? amount = null,Object? remainingAmount = null,Object? status = null,Object? createdAt = null,Object? updatedAt = null,Object? dueDate = freezed,Object? note = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? personName = null,Object? type = null,Object? amount = null,Object? remainingAmount = null,Object? status = null,Object? createdAt = null,Object? updatedAt = null,Object? disbursedAmount = freezed,Object? dueDate = freezed,Object? note = freezed,}) {
   return _then(_DebtModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,personName: null == personName ? _self.personName : personName // ignore: cast_nullable_to_non_nullable
@@ -300,7 +302,8 @@ as int,remainingAmount: null == remainingAmount ? _self.remainingAmount : remain
 as int,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as DebtStatus,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
-as DateTime,dueDate: freezed == dueDate ? _self.dueDate : dueDate // ignore: cast_nullable_to_non_nullable
+as DateTime,disbursedAmount: freezed == disbursedAmount ? _self.disbursedAmount : disbursedAmount // ignore: cast_nullable_to_non_nullable
+as int?,dueDate: freezed == dueDate ? _self.dueDate : dueDate // ignore: cast_nullable_to_non_nullable
 as String?,note: freezed == note ? _self.note : note // ignore: cast_nullable_to_non_nullable
 as String?,
   ));

@@ -22,6 +22,7 @@ abstract class DebtFormState with _$DebtFormState {
     @Default('') String personName,
     @Default(DebtType.debt) DebtType type,
     @Default(0) int amount,
+    int? disbursedAmount,
     @Default(DebtStatus.active) DebtStatus status,
     DateTime? dueDate,
     String? note,
@@ -45,6 +46,7 @@ class DebtForm extends _$DebtForm {
     String? initialPersonName,
     DebtType? initialType,
     int? initialAmount,
+    int? initialDisbursedAmount,
     DateTime? initialDueDate,
     String? initialNote,
     String? initialAccountId,
@@ -56,6 +58,7 @@ class DebtForm extends _$DebtForm {
         personName: debt.personName,
         type: debt.type,
         amount: debt.amount,
+        disbursedAmount: debt.disbursedAmount,
         status: debt.status,
         dueDate: debt.dueDate != null ? DateTime.tryParse(debt.dueDate!) : null,
         note: debt.note,
@@ -67,6 +70,7 @@ class DebtForm extends _$DebtForm {
         personName: initialPersonName ?? '',
         type: initialType ?? DebtType.debt,
         amount: initialAmount ?? 0,
+        disbursedAmount: initialDisbursedAmount,
         dueDate: initialDueDate,
         note: initialNote,
       );
@@ -85,8 +89,11 @@ class DebtForm extends _$DebtForm {
   /// Sets whether this record is a debt (borrowed) or loan (lent).
   void setType(DebtType type) => state = state.copyWith(type: type);
 
-  /// Sets the principal amount in the smallest currency unit.
+  /// Sets the total repayment obligation amount in the smallest currency unit.
   void setAmount(int amount) => state = state.copyWith(amount: amount);
+
+  /// Sets the initial cash disbursed or lent in the smallest currency unit.
+  void setDisbursedAmount(int? amount) => state = state.copyWith(disbursedAmount: amount);
 
   /// Sets the current settlement status (active or paid).
   void setStatus(DebtStatus status) => state = state.copyWith(status: status);
@@ -107,6 +114,16 @@ class DebtForm extends _$DebtForm {
       state = state.copyWith(error: t.debts.amountGreaterThanZero, isSaving: false);
       return;
     }
+    final effectiveDisbursed = state.disbursedAmount ?? state.amount;
+    if (effectiveDisbursed <= 0) {
+      state = state.copyWith(error: t.debts.amountGreaterThanZero, isSaving: false);
+      return;
+    }
+    if (state.amount < effectiveDisbursed) {
+      state = state.copyWith(error: t.debts.totalAmountMustBeGreaterOrEqual, isSaving: false);
+      return;
+    }
+
     state = state.copyWith(isSaving: true, error: null);
     final repo = ref.read(debtRepositoryProvider);
 
@@ -116,6 +133,7 @@ class DebtForm extends _$DebtForm {
           personName: state.personName.trim(),
           type: state.type,
           amount: state.amount,
+          disbursedAmount: state.disbursedAmount,
           status: state.status,
           dueDate: state.dueDate != null ? todayAsLocalDate(state.dueDate) : null,
           note: state.note,
@@ -126,6 +144,7 @@ class DebtForm extends _$DebtForm {
           personName: state.personName.trim(),
           type: state.type,
           amount: state.amount,
+          disbursedAmount: state.disbursedAmount,
           remainingAmount: state.amount,
           status: state.status,
           dueDate: state.dueDate != null ? todayAsLocalDate(state.dueDate) : null,
