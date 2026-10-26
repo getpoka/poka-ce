@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.1.16] - 2026-10-26
+
 ### Added
 
 - Added support for interest and extra fees on debts and loans with dedicated fields for received or lent principal amount and total repayment obligation.
