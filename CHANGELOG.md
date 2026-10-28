@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.1.17] - 2026-10-29
+
 ### Added
 - Expanded base currency list to 161 sovereign fiat ISO 4217 currencies worldwide.
 - Added full multilingual support for Russian, Spanish, Portuguese, and German across settings, navigation, and core modules.
