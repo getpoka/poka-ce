@@ -10,7 +10,6 @@ Future<String?> showLanguagePickerSheet(BuildContext context, String currentLang
     context: context,
     builder: (context) => PokaSheet(
       title: context.t.settings.selectLanguage,
-      isScrollable: false,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -37,6 +36,30 @@ Future<String?> showLanguagePickerSheet(BuildContext context, String currentLang
             icon: FPhosphorIcons.translate,
             trailing: currentLanguage == 'vi' ? Icon(FPhosphorIcons.check, color: context.theme.colors.primary) : null,
             onTap: () => Navigator.of(context).pop('vi'),
+          ),
+          PokaSheetActionItem(
+            title: context.t.settings.russian,
+            icon: FPhosphorIcons.translate,
+            trailing: currentLanguage == 'ru' ? Icon(FPhosphorIcons.check, color: context.theme.colors.primary) : null,
+            onTap: () => Navigator.of(context).pop('ru'),
+          ),
+          PokaSheetActionItem(
+            title: context.t.settings.spanish,
+            icon: FPhosphorIcons.translate,
+            trailing: currentLanguage == 'es' ? Icon(FPhosphorIcons.check, color: context.theme.colors.primary) : null,
+            onTap: () => Navigator.of(context).pop('es'),
+          ),
+          PokaSheetActionItem(
+            title: context.t.settings.portuguese,
+            icon: FPhosphorIcons.translate,
+            trailing: currentLanguage == 'pt' ? Icon(FPhosphorIcons.check, color: context.theme.colors.primary) : null,
+            onTap: () => Navigator.of(context).pop('pt'),
+          ),
+          PokaSheetActionItem(
+            title: context.t.settings.german,
+            icon: FPhosphorIcons.translate,
+            trailing: currentLanguage == 'de' ? Icon(FPhosphorIcons.check, color: context.theme.colors.primary) : null,
+            onTap: () => Navigator.of(context).pop('de'),
           ),
         ],
       ),

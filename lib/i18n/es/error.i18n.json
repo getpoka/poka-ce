@@ -1,0 +1,5 @@
+{
+  "generic": "Ha ocurrido un error inesperado",
+  "network": "Comprueba tu conexión a internet e inténtalo de nuevo",
+  "database": "No se pudo acceder a los datos locales"
+}

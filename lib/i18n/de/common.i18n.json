@@ -1,0 +1,22 @@
+{
+  "save": "Speichern",
+  "cancel": "Abbrechen",
+  "delete": "Löschen",
+  "edit": "Bearbeiten",
+  "confirm": "Bestätigen",
+  "back": "Zurück",
+  "loading": "Laden...",
+  "error": "Ein Fehler ist aufgetreten",
+  "retry": "Wiederholen",
+  "empty": "Noch keine Daten",
+  "cannotBeUndone": "Diese Aktion kann nicht rückgängig gemacht werden.",
+  "pleaseWait": "Bitte warten",
+  "today": "Heute",
+  "yesterday": "Gestern",
+  "dueToday": "Heute fällig",
+  "overdue": "Überfällig",
+  "uncategorized": "Unkategorisiert",
+  "unknown": "Unbekannt",
+  "notSet": "Nicht festgelegt",
+  "undo": "Rückgängig"
+}

@@ -1,6 +1,7 @@
 /// Tests for [accountBalanceBuilderProvider] extension point.
 library;
 
+import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poka_ce/features/accounts/presentation/controllers/account_balance_builder_provider.dart';

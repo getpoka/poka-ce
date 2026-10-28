@@ -127,6 +127,10 @@ void main() {
       expect(find.text('Indonesia'), findsOneWidget);
       expect(find.text('Bahasa Melayu'), findsOneWidget);
       expect(find.text('Tiếng Việt'), findsOneWidget);
+      expect(find.text('Russian'), findsOneWidget);
+      expect(find.text('Spanish'), findsOneWidget);
+      expect(find.text('Portuguese'), findsOneWidget);
+      expect(find.text('German'), findsOneWidget);
 
       await tester.tap(find.text('Indonesia'));
       await tester.pumpAndSettle();

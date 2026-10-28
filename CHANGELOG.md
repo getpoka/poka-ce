@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Added full multilingual support for Russian, Spanish, Portuguese, and German across settings, navigation, and core modules.
+- [internal] Added Slang translation modules for `ru`, `es`, `pt`, and `de` locales.
+
 ## [v1.1.16] - 2026-10-26
 
 ### Added

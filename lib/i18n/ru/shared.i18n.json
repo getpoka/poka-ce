@@ -1,0 +1,15 @@
+{
+  "authRequired": "Требуется аутентификация",
+  "hexColorCode": "Код цвета Hex",
+  "apply": "Применить",
+  "enterAmount": "Введите сумму",
+  "selectCategory": "Выберите категорию",
+  "egFf5733": "например: FF5733",
+  "amount": "Сумма",
+  "noCategoriesAvailable": "Нет доступных категорий.",
+  "noWalletsFoundPleaseCreateOneFirst": "Кошельки не найдены. Сначала создайте кошелек.",
+  "balance": "Баланс: ",
+  "optional": "Необязательно",
+  "customColor": "Свой цвет",
+  "selectWallet": "Выбрать кошелек"
+}

@@ -1,0 +1,15 @@
+{
+  "authRequired": "Authentifizierung erforderlich",
+  "hexColorCode": "Hex-Farbcode",
+  "apply": "Anwenden",
+  "enterAmount": "Betrag eingeben",
+  "selectCategory": "Kategorie wählen",
+  "egFf5733": "z.B. FF5733",
+  "amount": "Betrag",
+  "noCategoriesAvailable": "Keine Kategorien verfügbar.",
+  "noWalletsFoundPleaseCreateOneFirst": "Keine Wallets gefunden. Bitte erstelle zuerst eine.",
+  "balance": "Saldo: ",
+  "optional": "Optional",
+  "customColor": "Eigene Farbe",
+  "selectWallet": "Wallet auswählen"
+}
