@@ -1,0 +1,22 @@
+{
+  "save": "Salvar",
+  "cancel": "Cancelar",
+  "delete": "Excluir",
+  "edit": "Editar",
+  "confirm": "Confirmar",
+  "back": "Voltar",
+  "loading": "Carregando...",
+  "error": "Ocorreu um erro",
+  "retry": "Tentar novamente",
+  "empty": "Nenhum dado ainda",
+  "cannotBeUndone": "Esta ação não pode ser desfeita.",
+  "pleaseWait": "Por favor, aguarde",
+  "today": "Hoje",
+  "yesterday": "Ontem",
+  "dueToday": "Vence hoje",
+  "overdue": "Vencido",
+  "uncategorized": "Sem categoria",
+  "unknown": "Desconhecido",
+  "notSet": "Não definido",
+  "undo": "Desfazer"
+}

@@ -1,0 +1,15 @@
+{
+  "authRequired": "Autenticação necessária",
+  "hexColorCode": "Código Hex da cor",
+  "apply": "Aplicar",
+  "enterAmount": "Digite o valor",
+  "selectCategory": "Selecionar categoria",
+  "egFf5733": "ex.: FF5733",
+  "amount": "Valor",
+  "noCategoriesAvailable": "Nenhuma categoria disponível.",
+  "noWalletsFoundPleaseCreateOneFirst": "Nenhuma carteira encontrada. Crie uma primeiro.",
+  "balance": "Saldo: ",
+  "optional": "Opcional",
+  "customColor": "Cor personalizada",
+  "selectWallet": "Selecionar carteira"
+}

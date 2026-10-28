@@ -1937,6 +1937,18 @@ class Translations$settings$en {
 	/// en: 'Tiếng Việt'
 	String get vietnam => 'Tiếng Việt';
 
+	/// en: 'Russian'
+	String get russian => 'Russian';
+
+	/// en: 'Spanish'
+	String get spanish => 'Spanish';
+
+	/// en: 'Portuguese'
+	String get portuguese => 'Portuguese';
+
+	/// en: 'German'
+	String get german => 'German';
+
 	/// en: 'Security'
 	String get security => 'Security';
 
@@ -3174,6 +3186,10 @@ extension on Translations {
 			'settings.indonesia' => 'Indonesia',
 			'settings.malay' => 'Bahasa Melayu',
 			'settings.vietnam' => 'Tiếng Việt',
+			'settings.russian' => 'Russian',
+			'settings.spanish' => 'Spanish',
+			'settings.portuguese' => 'Portuguese',
+			'settings.german' => 'German',
 			'settings.security' => 'Security',
 			'settings.appLock' => 'App Lock',
 			'settings.appLockDesc' => 'Protect app with PIN',

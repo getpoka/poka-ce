@@ -1,0 +1,19 @@
+{
+  "confirmPin": "PIN bestätigen",
+  "createPin": "PIN erstellen",
+  "pinsDoNotMatch": "PINs stimmen nicht überein",
+  "reenterPin": "PIN erneut eingeben",
+  "enterPinAppLock": "PIN zur Entsperrung eingeben",
+  "incorrectPin": "Falsche PIN",
+  "verifyIdentity": "Identität bestätigen",
+  "retryInSeconds": "In {{seconds}} Sekunden erneut versuchen",
+  "setupPinTitle": "PIN einrichten",
+  "setupPinBody": "Bitte erstelle eine PIN, bevor du App-Sperre oder Biometrie aktivierst.",
+  "unlocked": "Entsperrt",
+  "enter6DigitPin": "6-stellige PIN eingeben",
+  "enterPin": "PIN eingeben",
+  "invalidPin": "Ungültige PIN",
+  "tooManyAttempts": "Zu viele Versuche",
+  "temporarilyLocked": "Vorübergehend gesperrt",
+  "authenticateReason": "Bestätige deine Identität für Poka"
+}

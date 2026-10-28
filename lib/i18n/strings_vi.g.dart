@@ -896,6 +896,10 @@ class _Translations$settings$vi extends Translations$settings$en {
 	@override String get indonesia => 'Indonesia';
 	@override String get malay => 'Bahasa Melayu';
 	@override String get vietnam => 'Tiếng Việt';
+	@override String get russian => 'Tiếng Nga';
+	@override String get spanish => 'Tiếng Tây Ban Nha';
+	@override String get portuguese => 'Tiếng Bồ Đào Nha';
+	@override String get german => 'Tiếng Đức';
 	@override String get security => 'Bảo mật';
 	@override String get appLock => 'Khóa ứng dụng';
 	@override String get appLockDesc => 'Bảo vệ ứng dụng bằng PIN';
@@ -1822,6 +1826,10 @@ extension on TranslationsVi {
 			'settings.indonesia' => 'Indonesia',
 			'settings.malay' => 'Bahasa Melayu',
 			'settings.vietnam' => 'Tiếng Việt',
+			'settings.russian' => 'Tiếng Nga',
+			'settings.spanish' => 'Tiếng Tây Ban Nha',
+			'settings.portuguese' => 'Tiếng Bồ Đào Nha',
+			'settings.german' => 'Tiếng Đức',
 			'settings.security' => 'Bảo mật',
 			'settings.appLock' => 'Khóa ứng dụng',
 			'settings.appLockDesc' => 'Bảo vệ ứng dụng bằng PIN',

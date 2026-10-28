@@ -1,0 +1,19 @@
+{
+  "confirmPin": "Confirmar PIN",
+  "createPin": "Criar PIN",
+  "pinsDoNotMatch": "Os PINs não coincidem",
+  "reenterPin": "Digite o PIN novamente",
+  "enterPinAppLock": "Digite o PIN para desbloquear",
+  "incorrectPin": "PIN incorreto",
+  "verifyIdentity": "Verificar identidade",
+  "retryInSeconds": "Tente novamente em {{seconds}} segundos",
+  "setupPinTitle": "Configurar PIN",
+  "setupPinBody": "Crie um PIN antes de ativar o bloqueio do app ou biometria.",
+  "unlocked": "Desbloqueado",
+  "enter6DigitPin": "Digite o PIN de 6 dígitos",
+  "enterPin": "Digite o PIN",
+  "invalidPin": "PIN inválido",
+  "tooManyAttempts": "Muitas tentativas",
+  "temporarilyLocked": "Bloqueado temporariamente",
+  "authenticateReason": "Autentique-se para acessar o Poka"
+}

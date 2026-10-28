@@ -1,0 +1,19 @@
+{
+  "confirmPin": "Подтвердите PIN",
+  "createPin": "Создайте PIN",
+  "pinsDoNotMatch": "PIN-коды не совпадают",
+  "reenterPin": "Повторите PIN",
+  "enterPinAppLock": "Введите PIN для входа",
+  "incorrectPin": "Неверный PIN",
+  "verifyIdentity": "Подтвердите личность",
+  "retryInSeconds": "Повторите через {{seconds}} сек.",
+  "setupPinTitle": "Установка PIN-кода",
+  "setupPinBody": "Создайте PIN перед включением блокировки или биометрии.",
+  "unlocked": "Разблокировано",
+  "enter6DigitPin": "Введите 6-значный PIN",
+  "enterPin": "Введите PIN",
+  "invalidPin": "Неверный PIN",
+  "tooManyAttempts": "Слишком много попыток",
+  "temporarilyLocked": "Временно заблокировано",
+  "authenticateReason": "Подтвердите личность для входа в Poka"
+}

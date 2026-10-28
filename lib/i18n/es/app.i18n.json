@@ -1,0 +1,13 @@
+{
+  "name": "Poka",
+  "tagline": "Tu compañero de finanzas personales",
+  "nav": {
+    "home": "Inicio",
+    "transactions": "Transacciones",
+    "reports": "Informes",
+    "accounts": "Cuentas",
+    "settings": "Ajustes"
+  },
+  "termsOfService": "Términos del servicio",
+  "privacyPolicy": "Política de privacidad"
+}

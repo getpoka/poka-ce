@@ -1,0 +1,15 @@
+{
+  "authRequired": "Autenticación requerida",
+  "hexColorCode": "Código de color Hex",
+  "apply": "Aplicar",
+  "enterAmount": "Introduce importe",
+  "selectCategory": "Seleccionar categoría",
+  "egFf5733": "ej. FF5733",
+  "amount": "Importe",
+  "noCategoriesAvailable": "No hay categorías disponibles.",
+  "noWalletsFoundPleaseCreateOneFirst": "No se encontraron billeteras. Por favor, crea una primero.",
+  "balance": "Saldo: ",
+  "optional": "Opcional",
+  "customColor": "Color personalizado",
+  "selectWallet": "Seleccionar billetera"
+}
