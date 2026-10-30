@@ -247,5 +247,21 @@ void main() {
       FocusManager.instance.primaryFocus?.unfocus();
       await tester.pump(const Duration(milliseconds: 200));
     });
+
+    testWidgets('shows the search term when nothing matches', (tester) async {
+      final currencies = [CurrencyModel(id: 'USD', code: 'USD', name: 'US Dollar', symbol: '\$', precision: 2)];
+
+      await tester.pumpWidget(buildTestableWidget(CurrencySearchList(currencies: currencies, onSelect: (_) {})));
+      await tester.pumpAndSettle();
+
+      await tester.enterText(find.byType(FTextField), 'Rupiah');
+      await tester.pumpAndSettle();
+
+      expect(find.text(t.settings.noResultsFound), findsOneWidget);
+      expect(find.text('We couldn\'t find any currency matching "Rupiah".'), findsOneWidget);
+
+      FocusManager.instance.primaryFocus?.unfocus();
+      await tester.pump(const Duration(milliseconds: 200));
+    });
   });
 }

@@ -57,7 +57,7 @@ class CurrencySearchList extends HookWidget {
                         Text(t.settings.noResultsFound, style: theme.typography.titleCard),
                         SizedBox(height: theme.style.app.xs),
                         Text(
-                          t.settings.weCouldntFindAnyCurrencyMatching,
+                          t.settings.weCouldntFindAnyCurrencyMatching(search: searchController.text.trim()),
                           style: theme.typography.bodyPrimary.copyWith(color: theme.colors.mutedForeground),
                           textAlign: TextAlign.center,
                         ),

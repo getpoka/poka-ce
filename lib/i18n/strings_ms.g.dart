@@ -949,7 +949,7 @@ class _Translations$settings$ms extends Translations$settings$en {
 	@override String get aboutDescription => 'Pengurus kewangan peribadi sumber terbuka dan percuma yang direka untuk membantu anda menjejaki perbelanjaan, mengurus belanjawan dan memantau akaun anda secara setempat.';
 	@override String get copyright => '© 2026 POKA. All rights reserved.';
 	@override String get noResultsFound => 'Tiada Hasil Ditemui';
-	@override String get weCouldntFindAnyCurrencyMatching => 'Kami tidak menemui mata wang yang sepadan dengan "{search}".';
+	@override String weCouldntFindAnyCurrencyMatching({required Object search}) => 'Kami tidak menemui mata wang yang sepadan dengan "${search}".';
 	@override String get notSet => 'Belum Ditetapkan';
 	@override String get exportExcel => 'Eksport ke Excel';
 	@override String get exportExcelDesc => 'Eksport transaksi, akaun dan kategori ke .xlsx';
@@ -1879,7 +1879,7 @@ extension on TranslationsMs {
 			'settings.aboutDescription' => 'Pengurus kewangan peribadi sumber terbuka dan percuma yang direka untuk membantu anda menjejaki perbelanjaan, mengurus belanjawan dan memantau akaun anda secara setempat.',
 			'settings.copyright' => '© 2026 POKA. All rights reserved.',
 			'settings.noResultsFound' => 'Tiada Hasil Ditemui',
-			'settings.weCouldntFindAnyCurrencyMatching' => 'Kami tidak menemui mata wang yang sepadan dengan "{search}".',
+			'settings.weCouldntFindAnyCurrencyMatching' => ({required Object search}) => 'Kami tidak menemui mata wang yang sepadan dengan "${search}".',
 			'settings.notSet' => 'Belum Ditetapkan',
 			'settings.exportExcel' => 'Eksport ke Excel',
 			'settings.exportExcelDesc' => 'Eksport transaksi, akaun dan kategori ke .xlsx',

@@ -949,7 +949,7 @@ class _Translations$settings$es extends Translations$settings$en {
 	@override String get aboutDescription => 'Un gestor de finanzas personales gratuito y de código abierto diseñado para ayudarte a registrar gastos, gestionar presupuestos y controlar tus cuentas de forma local.';
 	@override String get copyright => '© 2026 POKA. Todos los derechos reservados.';
 	@override String get noResultsFound => 'No se encontraron resultados';
-	@override String get weCouldntFindAnyCurrencyMatching => 'No pudimos encontrar ninguna moneda que coincida con "{search}".';
+	@override String weCouldntFindAnyCurrencyMatching({required Object search}) => 'No pudimos encontrar ninguna moneda que coincida con "${search}".';
 	@override String get notSet => 'No establecido';
 	@override String get exportExcel => 'Exportar a Excel';
 	@override String get exportExcelDesc => 'Exportar transacciones, cuentas y categorías a .xlsx';
@@ -1879,7 +1879,7 @@ extension on TranslationsEs {
 			'settings.aboutDescription' => 'Un gestor de finanzas personales gratuito y de código abierto diseñado para ayudarte a registrar gastos, gestionar presupuestos y controlar tus cuentas de forma local.',
 			'settings.copyright' => '© 2026 POKA. Todos los derechos reservados.',
 			'settings.noResultsFound' => 'No se encontraron resultados',
-			'settings.weCouldntFindAnyCurrencyMatching' => 'No pudimos encontrar ninguna moneda que coincida con "{search}".',
+			'settings.weCouldntFindAnyCurrencyMatching' => ({required Object search}) => 'No pudimos encontrar ninguna moneda que coincida con "${search}".',
 			'settings.notSet' => 'No establecido',
 			'settings.exportExcel' => 'Exportar a Excel',
 			'settings.exportExcelDesc' => 'Exportar transacciones, cuentas y categorías a .xlsx',

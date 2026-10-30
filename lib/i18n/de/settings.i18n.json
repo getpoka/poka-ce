@@ -68,7 +68,7 @@
   "aboutDescription": "Ein kostenloser und quelloffener persönlicher Finanzmanager, mit dem du Ausgaben erfassen, Budgets verwalten und deine Konten lokal überwachen kannst.",
   "copyright": "© 2026 POKA. Alle Rechte vorbehalten.",
   "noResultsFound": "Keine Ergebnisse gefunden",
-  "weCouldntFindAnyCurrencyMatching": "Keine Währung passend zu „{search}“ gefunden.",
+  "weCouldntFindAnyCurrencyMatching": "Keine Währung passend zu „{{search}}“ gefunden.",
   "notSet": "Nicht festgelegt",
   "exportExcel": "Nach Excel exportieren",
   "exportExcelDesc": "Buchungen, Konten und Kategorien als .xlsx exportieren",

@@ -68,7 +68,7 @@
   "aboutDescription": "Бесплатный менеджер личных финансов с открытым исходным кодом, который помогает отслеживать расходы, управлять бюджетами и контролировать счета локально.",
   "copyright": "© 2026 POKA. Все права защищены.",
   "noResultsFound": "Ничего не найдено",
-  "weCouldntFindAnyCurrencyMatching": "Валюта по запросу \"{search}\" не найдена.",
+  "weCouldntFindAnyCurrencyMatching": "Валюта по запросу \"{{search}}\" не найдена.",
   "notSet": "Не задано",
   "exportExcel": "Экспорт в Excel",
   "exportExcelDesc": "Экспорт транзакций, счетов и категорий в .xlsx",

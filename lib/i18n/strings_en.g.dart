@@ -2096,8 +2096,8 @@ class Translations$settings$en {
 	/// en: 'No Results Found'
 	String get noResultsFound => 'No Results Found';
 
-	/// en: 'We couldn't find any currency matching "{search}".'
-	String get weCouldntFindAnyCurrencyMatching => 'We couldn\'t find any currency matching "{search}".';
+	/// en: 'We couldn't find any currency matching "{{search}}".'
+	String weCouldntFindAnyCurrencyMatching({required Object search}) => 'We couldn\'t find any currency matching "${search}".';
 
 	/// en: 'Not Set'
 	String get notSet => 'Not Set';
@@ -3239,7 +3239,7 @@ extension on Translations {
 			'settings.aboutDescription' => 'A free and open-source personal finance manager designed to help you track expenses, manage budgets, and monitor your accounts locally.',
 			'settings.copyright' => '© 2026 POKA. All rights reserved.',
 			'settings.noResultsFound' => 'No Results Found',
-			'settings.weCouldntFindAnyCurrencyMatching' => 'We couldn\'t find any currency matching "{search}".',
+			'settings.weCouldntFindAnyCurrencyMatching' => ({required Object search}) => 'We couldn\'t find any currency matching "${search}".',
 			'settings.notSet' => 'Not Set',
 			'settings.exportExcel' => 'Export to Excel',
 			'settings.exportExcelDesc' => 'Export transactions, accounts, and categories to .xlsx',
