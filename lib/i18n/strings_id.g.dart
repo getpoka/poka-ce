@@ -352,7 +352,7 @@ class _Translations$dashboard$id extends Translations$dashboard$en {
 	@override String get average => 'Rata-rata';
 	@override String get budgetPerDay => 'Anggaran/Hari';
 	@override String get todaysBudget => 'Anggaran Hari Ini';
-	@override String get overbudget => 'Lebih batas!';
+	@override String get overbudget => 'Melebihi batas!';
 	@override String get setDailyBudget => 'Atur Anggaran Harian';
 	@override String get amount => 'Jumlah';
 	@override String get amountHint => 'Cth: 100000';
@@ -389,13 +389,13 @@ class _Translations$debts$id extends Translations$debts$en {
 	@override String get debtsLoans => 'Utang & Piutang';
 	@override String get deleteDebt => 'Hapus Utang';
 	@override String get delete => 'Hapus';
-	@override String get writeoffDebt => 'Penghapusan Utang';
-	@override String get areYouSureYouWantToWriteoffThisDebtItWillBeMarkedAsPaidWithoutAffectingYourWalletBalances => 'Apakah Anda yakin ingin menghapus utang ini? Utang akan ditandai lunas tanpa memengaruhi saldo dompet Anda.';
-	@override String get writeoff => 'Hapus Utang';
+	@override String get writeoffDebt => 'Putihkan Utang';
+	@override String get areYouSureYouWantToWriteoffThisDebtItWillBeMarkedAsPaidWithoutAffectingYourWalletBalances => 'Apakah Anda yakin ingin memutihkan utang ini? Utang akan ditandai lunas tanpa memengaruhi saldo dompet Anda.';
+	@override String get writeoff => 'Putihkan';
 	@override String get egJohnDoe => 'misal, John Doe';
 	@override String get category => 'Kategori';
 	@override String get account => 'Akun';
-	@override String get egDinnerLastFriday => 'misal, Makan malam jumat lalu';
+	@override String get egDinnerLastFriday => 'misal, Makan malam Jumat lalu';
 	@override String get selectDueDate => 'Pilih tanggal jatuh tempo';
 	@override String get outstanding => 'Belum Lunas';
 	@override String get paid => 'Lunas';
@@ -474,7 +474,7 @@ class _Translations$goals$id extends Translations$goals$en {
 	@override String get active => 'Aktif';
 	@override String get past => 'Selesai';
 	@override String get actionDenied => 'Aksi Ditolak';
-	@override String get emptyBalanceBeforeDelete => 'Kosongkan saldo (transfer keluar) sebelum menghapus Goal ini.';
+	@override String get emptyBalanceBeforeDelete => 'Kosongkan saldo (transfer keluar) sebelum menghapus target ini.';
 	@override String get ok => 'OK';
 	@override String get deleteGoal => 'Hapus Target';
 	@override String get areYouSureYouWantToDeleteThisGoalTheAssociatedPocketAccountAndItsHistoryWillAlsoBeRemovedThisActionCannotBeUndone => 'Apakah Anda yakin ingin menghapus target ini? Akun kantong terkait dan riwayatnya juga akan dihapus. Tindakan ini tidak dapat dibatalkan.';
@@ -720,7 +720,7 @@ class _Translations$lock$id extends Translations$lock$en {
 	@override String get setupPinTitle => 'Atur PIN';
 	@override String get setupPinBody => 'Harap buat PIN terlebih dahulu sebelum mengaktifkan Kunci Aplikasi atau Biometrik.';
 	@override String get unlocked => 'Terbuka';
-	@override String get enter6DigitPin => 'Masukkan 6-digit PIN';
+	@override String get enter6DigitPin => 'Masukkan PIN 6 digit';
 	@override String get enterPin => 'Masukkan PIN';
 	@override String get invalidPin => 'PIN tidak valid';
 	@override String get tooManyAttempts => 'Terlalu banyak percobaan';
@@ -737,7 +737,7 @@ class _Translations$onboarding$id extends Translations$onboarding$en {
 	// Translations
 	@override String get continueWithCurrency => 'Lanjutkan dengan mata uang pilihan';
 	@override String get chooseYourBaseCurrency => 'Pilih Mata Uang Utama Anda';
-	@override String get thisCurrencyWillBeUsedForAllAccountsPocketsAndTransactionsYouCanChangeThisLaterInSettings => 'This currency will be used for all accounts, pockets, and transactions. You can change this later in settings.';
+	@override String get thisCurrencyWillBeUsedForAllAccountsPocketsAndTransactionsYouCanChangeThisLaterInSettings => 'Mata uang ini akan digunakan untuk semua akun, kantong, dan transaksi. Anda dapat mengubahnya nanti di Pengaturan.';
 }
 
 // Path: recurring
@@ -1048,8 +1048,8 @@ class _Translations$transactions$id extends Translations$transactions$en {
 	@override String get transfer => 'Transfer';
 	@override String weekNumber({required Object weekNum, required Object date}) => 'Minggu ${weekNum} · ${date}';
 	@override String get insufficientBalance => 'Saldo Tidak Cukup';
-	@override String insufficientBalanceWarning({required Object amount, required Object account, required Object balance}) => 'Jumlah transaksi (${amount}) melebihi saldo akun ${account} (${balance}). Mungkin kamu belum mencatat pemasukan terlebih dahulu?';
-	@override String get insufficientBalanceConsequence => 'Saldo akun kamu akan menjadi minus jika tetap melanjutkan.';
+	@override String insufficientBalanceWarning({required Object amount, required Object account, required Object balance}) => 'Jumlah transaksi (${amount}) melebihi saldo akun ${account} (${balance}). Mungkin Anda belum mencatat pemasukan terlebih dahulu?';
+	@override String get insufficientBalanceConsequence => 'Saldo akun Anda akan menjadi minus jika tetap melanjutkan.';
 	@override String get continueAnyway => 'Tetap Simpan';
 	@override String get checkAgain => 'Periksa Kembali';
 	@override String get transactionDeleted => 'Transaksi dihapus';
@@ -1340,7 +1340,7 @@ extension on TranslationsId {
 			'dashboard.average' => 'Rata-rata',
 			'dashboard.budgetPerDay' => 'Anggaran/Hari',
 			'dashboard.todaysBudget' => 'Anggaran Hari Ini',
-			'dashboard.overbudget' => 'Lebih batas!',
+			'dashboard.overbudget' => 'Melebihi batas!',
 			'dashboard.setDailyBudget' => 'Atur Anggaran Harian',
 			'dashboard.amount' => 'Jumlah',
 			'dashboard.amountHint' => 'Cth: 100000',
@@ -1379,13 +1379,13 @@ extension on TranslationsId {
 			'debts.debtsLoans' => 'Utang & Piutang',
 			'debts.deleteDebt' => 'Hapus Utang',
 			'debts.delete' => 'Hapus',
-			'debts.writeoffDebt' => 'Penghapusan Utang',
-			'debts.areYouSureYouWantToWriteoffThisDebtItWillBeMarkedAsPaidWithoutAffectingYourWalletBalances' => 'Apakah Anda yakin ingin menghapus utang ini? Utang akan ditandai lunas tanpa memengaruhi saldo dompet Anda.',
-			'debts.writeoff' => 'Hapus Utang',
+			'debts.writeoffDebt' => 'Putihkan Utang',
+			'debts.areYouSureYouWantToWriteoffThisDebtItWillBeMarkedAsPaidWithoutAffectingYourWalletBalances' => 'Apakah Anda yakin ingin memutihkan utang ini? Utang akan ditandai lunas tanpa memengaruhi saldo dompet Anda.',
+			'debts.writeoff' => 'Putihkan',
 			'debts.egJohnDoe' => 'misal, John Doe',
 			'debts.category' => 'Kategori',
 			'debts.account' => 'Akun',
-			'debts.egDinnerLastFriday' => 'misal, Makan malam jumat lalu',
+			'debts.egDinnerLastFriday' => 'misal, Makan malam Jumat lalu',
 			'debts.selectDueDate' => 'Pilih tanggal jatuh tempo',
 			'debts.outstanding' => 'Belum Lunas',
 			'debts.paid' => 'Lunas',
@@ -1458,7 +1458,7 @@ extension on TranslationsId {
 			'goals.active' => 'Aktif',
 			'goals.past' => 'Selesai',
 			'goals.actionDenied' => 'Aksi Ditolak',
-			'goals.emptyBalanceBeforeDelete' => 'Kosongkan saldo (transfer keluar) sebelum menghapus Goal ini.',
+			'goals.emptyBalanceBeforeDelete' => 'Kosongkan saldo (transfer keluar) sebelum menghapus target ini.',
 			'goals.ok' => 'OK',
 			'goals.deleteGoal' => 'Hapus Target',
 			'goals.areYouSureYouWantToDeleteThisGoalTheAssociatedPocketAccountAndItsHistoryWillAlsoBeRemovedThisActionCannotBeUndone' => 'Apakah Anda yakin ingin menghapus target ini? Akun kantong terkait dan riwayatnya juga akan dihapus. Tindakan ini tidak dapat dibatalkan.',
@@ -1686,7 +1686,7 @@ extension on TranslationsId {
 			'lock.setupPinTitle' => 'Atur PIN',
 			'lock.setupPinBody' => 'Harap buat PIN terlebih dahulu sebelum mengaktifkan Kunci Aplikasi atau Biometrik.',
 			'lock.unlocked' => 'Terbuka',
-			'lock.enter6DigitPin' => 'Masukkan 6-digit PIN',
+			'lock.enter6DigitPin' => 'Masukkan PIN 6 digit',
 			'lock.enterPin' => 'Masukkan PIN',
 			'lock.invalidPin' => 'PIN tidak valid',
 			'lock.tooManyAttempts' => 'Terlalu banyak percobaan',
@@ -1694,7 +1694,7 @@ extension on TranslationsId {
 			'lock.authenticateReason' => 'Autentikasi untuk mengakses Poka',
 			'onboarding.continueWithCurrency' => 'Lanjutkan dengan mata uang pilihan',
 			'onboarding.chooseYourBaseCurrency' => 'Pilih Mata Uang Utama Anda',
-			'onboarding.thisCurrencyWillBeUsedForAllAccountsPocketsAndTransactionsYouCanChangeThisLaterInSettings' => 'This currency will be used for all accounts, pockets, and transactions. You can change this later in settings.',
+			'onboarding.thisCurrencyWillBeUsedForAllAccountsPocketsAndTransactionsYouCanChangeThisLaterInSettings' => 'Mata uang ini akan digunakan untuk semua akun, kantong, dan transaksi. Anda dapat mengubahnya nanti di Pengaturan.',
 			'recurring.addSchedule' => 'Tambah Jadwal',
 			'recurring.transactionDetails' => 'Detail Transaksi',
 			'recurring.amount' => 'Jumlah',
@@ -1960,8 +1960,8 @@ extension on TranslationsId {
 			'transactions.transfer' => 'Transfer',
 			'transactions.weekNumber' => ({required Object weekNum, required Object date}) => 'Minggu ${weekNum} · ${date}',
 			'transactions.insufficientBalance' => 'Saldo Tidak Cukup',
-			'transactions.insufficientBalanceWarning' => ({required Object amount, required Object account, required Object balance}) => 'Jumlah transaksi (${amount}) melebihi saldo akun ${account} (${balance}). Mungkin kamu belum mencatat pemasukan terlebih dahulu?',
-			'transactions.insufficientBalanceConsequence' => 'Saldo akun kamu akan menjadi minus jika tetap melanjutkan.',
+			'transactions.insufficientBalanceWarning' => ({required Object amount, required Object account, required Object balance}) => 'Jumlah transaksi (${amount}) melebihi saldo akun ${account} (${balance}). Mungkin Anda belum mencatat pemasukan terlebih dahulu?',
+			'transactions.insufficientBalanceConsequence' => 'Saldo akun Anda akan menjadi minus jika tetap melanjutkan.',
 			'transactions.continueAnyway' => 'Tetap Simpan',
 			'transactions.checkAgain' => 'Periksa Kembali',
 			'transactions.transactionDeleted' => 'Transaksi dihapus',

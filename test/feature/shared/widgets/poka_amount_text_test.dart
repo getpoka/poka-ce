@@ -108,6 +108,25 @@ void main() {
       expect(find.textContaining('USD'), findsNothing);
     });
 
+    testWidgets('explicit currencySymbol and precision override settings.baseCurrency', (tester) async {
+      const state = SettingsState(
+        settings: SettingsModel(
+          themeMode: 'system',
+          baseCurrency: CurrencyModel(id: 'c1', name: 'Dollar', code: 'USD', symbol: r'$', precision: 2),
+        ),
+      );
+      await tester.pumpWidget(
+        wrap(
+          const PokaAmountText(amount: 15000, type: TransactionType.expense, currencySymbol: 'Rp', precision: 0),
+          state: state,
+        ),
+      );
+      await tester.pump();
+      expect(find.textContaining('Rp'), findsOneWidget);
+      expect(find.textContaining(r'$'), findsNothing);
+      expect(find.textContaining('15'), findsOneWidget);
+    });
+
     testWidgets('custom style is respected but color overridden', (tester) async {
       const custom = TextStyle(fontSize: 99, fontWeight: FontWeight.bold);
       await tester.pumpWidget(wrap(const PokaAmountText(amount: 100, type: TransactionType.income, style: custom)));
