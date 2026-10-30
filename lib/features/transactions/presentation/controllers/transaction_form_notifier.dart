@@ -146,7 +146,15 @@ class TransactionFormNotifier extends _$TransactionFormNotifier {
     final isInitialSplit = initialTransaction != null && initialTransaction.items.length > 1;
     final initialSplits = isInitialSplit
         ? initialTransaction.items
-              .map((i) => SplitItem(categoryId: i.categoryId, amount: i.amount, note: i.note, allocation: i.allocation))
+              .map(
+                (i) => SplitItem(
+                  id: i.id,
+                  categoryId: i.categoryId,
+                  amount: i.amount,
+                  note: i.note,
+                  allocation: i.allocation,
+                ),
+              )
               .toList()
         : null;
 
@@ -364,7 +372,7 @@ class TransactionFormNotifier extends _$TransactionFormNotifier {
 
     try {
       final splitData = items
-          .map((e) => (categoryId: e.categoryId, amount: e.amount, note: e.note, allocation: e.allocation))
+          .map((e) => (id: e.id, categoryId: e.categoryId, amount: e.amount, note: e.note, allocation: e.allocation))
           .toList();
 
       final Result<TransactionModel, Failure> result;
@@ -389,7 +397,9 @@ class TransactionFormNotifier extends _$TransactionFormNotifier {
               accountId: state.accountId!,
               transactionDate: nowAsLocalDateTime(state.date),
               note: state.note.isNotEmpty ? state.note : null,
-              splitItems: splitData,
+              splitItems: items
+                  .map((e) => (categoryId: e.categoryId, amount: e.amount, note: e.note, allocation: e.allocation))
+                  .toList(),
             );
       }
 

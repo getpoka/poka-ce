@@ -28,11 +28,12 @@ class UpdateTransactionUseCase {
     String? note,
     String? transactionDate,
     TransactionAllocation? allocation,
-    List<({String? categoryId, int amount, String? note, TransactionAllocation? allocation})>? splitItems,
+    List<({String? id, String? categoryId, int amount, String? note, TransactionAllocation? allocation})>? splitItems,
   }) async {
     final nowUtc = DateTimeUtils.nowUtc();
     final transactionId = existingTransaction.id;
     final txDate = transactionDate ?? existingTransaction.transactionDate;
+    final existingItemsById = {for (final item in existingTransaction.items) item.id: item};
 
     final txItems = <TransactionItemModel>[];
     var totalAmount = 0;
@@ -41,13 +42,14 @@ class UpdateTransactionUseCase {
       for (final item in splitItems) {
         if (item.amount <= 0) continue;
         totalAmount += item.amount;
+        final existingItem = item.id != null ? existingItemsById[item.id] : null;
+        final itemId = existingItem?.id ?? ((item.id != null && item.id!.isNotEmpty) ? item.id! : const Uuid().v7());
         txItems.add(
           TransactionItemModel(
-            id: const Uuid()
-                .v7(), // We regenerate IDs for split items for simplicity since old ones are deleted by cascade
+            id: itemId,
             transactionId: transactionId,
             amount: item.amount,
-            createdAt: nowUtc,
+            createdAt: existingItem?.createdAt ?? nowUtc,
             updatedAt: nowUtc,
             categoryId: item.categoryId,
             note: item.note,

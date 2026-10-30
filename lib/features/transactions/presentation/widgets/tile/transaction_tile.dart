@@ -70,6 +70,7 @@ class RecentTransactionTile extends HookConsumerWidget with FTileMixin {
     Future<void> handleEditItem(int index) async {
       final oldItem = transaction.items[index];
       final splitItem = SplitItem(
+        id: oldItem.id,
         categoryId: oldItem.categoryId,
         amount: oldItem.amount,
         note: oldItem.note,
@@ -86,6 +87,7 @@ class RecentTransactionTile extends HookConsumerWidget with FTileMixin {
 
       final newItems = List<TransactionItemModel>.from(transaction.items);
       newItems[index] = oldItem.copyWith(
+        id: updatedSplit.id ?? oldItem.id,
         categoryId: updatedSplit.categoryId,
         amount: updatedSplit.amount,
         note: updatedSplit.note,
@@ -100,7 +102,7 @@ class RecentTransactionTile extends HookConsumerWidget with FTileMixin {
         transactionDate: transaction.transactionDate,
         note: transaction.note,
         splitItems: newItems
-            .map((i) => (categoryId: i.categoryId, amount: i.amount, note: i.note, allocation: i.allocation))
+            .map((i) => (id: i.id, categoryId: i.categoryId, amount: i.amount, note: i.note, allocation: i.allocation))
             .toList(),
       );
     }
@@ -118,7 +120,7 @@ class RecentTransactionTile extends HookConsumerWidget with FTileMixin {
         transactionDate: transaction.transactionDate,
         note: transaction.note,
         splitItems: newItems
-            .map((i) => (categoryId: i.categoryId, amount: i.amount, note: i.note, allocation: i.allocation))
+            .map((i) => (id: i.id, categoryId: i.categoryId, amount: i.amount, note: i.note, allocation: i.allocation))
             .toList(),
       );
     }

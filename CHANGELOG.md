@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- Fixed itemized receipt item editing and deletion unintentionally duplicating items by preserving existing item identifiers.
+- [internal] Preserved split item IDs and timestamps in `UpdateTransactionUseCase`, `TransactionTile`, and `TransactionFormNotifier`.
+
 ## [v1.1.17] - 2026-10-29
 
 ### Added
