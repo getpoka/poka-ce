@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.1.18] - 2026-10-31
+
 ### Fixed
 - Fixed currency search empty state displaying literal variable syntax instead of the searched keyword.
 - Corrected Indonesian translation inconsistencies across onboarding currency notes, debt actions, and localized phrasing.
