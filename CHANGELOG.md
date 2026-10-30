@@ -8,18 +8,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Fixed
+- Fixed currency search empty state displaying literal variable syntax instead of the searched keyword.
+- Corrected Indonesian translation inconsistencies across onboarding currency notes, debt actions, and localized phrasing.
 - Fixed split transaction item lists, forms, and summary tiles ignoring custom currency formatting parameters.
-- [internal] Added optional `currencySymbol` and `precision` parameters across `PokaAmountText`, `TransactionTileContent`, `TransactionSplitItemList`, `TransactionSplitSheet`, `TransactionSplitItemFormSheet`, `TransactionSplitSummaryCard`, and `TransactionFormNotifier`.
 - Fixed itemized receipt item editing and deletion unintentionally duplicating items by preserving existing item identifiers.
-- [internal] Preserved split item IDs and timestamps in `UpdateTransactionUseCase`, `TransactionTile`, and `TransactionFormNotifier`.
 
 ## [v1.1.17] - 2026-10-29
 
 ### Added
 - Expanded base currency list to 161 sovereign fiat ISO 4217 currencies worldwide.
 - Added full multilingual support for Russian, Spanish, Portuguese, and German across settings, navigation, and core modules.
-- [internal] Seeded 161 currencies with correct ISO minor units in the database seeder.
-- [internal] Added Slang translation modules for `ru`, `es`, `pt`, and `de` locales.
 
 ## [v1.1.16] - 2026-10-26
 
