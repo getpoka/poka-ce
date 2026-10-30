@@ -204,17 +204,23 @@ void main() {
     await tester.tap(find.byIcon(FPhosphorIcons.trash).first);
     await tester.pumpAndSettle();
 
-    verify(
-      () => mockUpdate.execute(
-        any(),
-        type: TransactionType.expense,
-        accountId: 'a1',
-        destinationAccountId: null,
-        transactionDate: any(named: 'transactionDate'),
-        note: any(named: 'note'),
-        splitItems: any(named: 'splitItems'),
-      ),
-    ).called(1);
+    final capturedSplits =
+        verify(
+              () => mockUpdate.execute(
+                any(),
+                type: TransactionType.expense,
+                accountId: 'a1',
+                destinationAccountId: null,
+                transactionDate: any(named: 'transactionDate'),
+                note: any(named: 'note'),
+                splitItems: captureAny(named: 'splitItems'),
+              ),
+            ).captured.first
+            as List<({String? id, TransactionAllocation? allocation, int amount, String? categoryId, String? note})>;
+
+    expect(capturedSplits.length, 1);
+    expect(capturedSplits.first.id, 'i2');
+    expect(capturedSplits.first.amount, 400);
   });
 
   testWidgets('transfer tile resolves destination account label', (tester) async {
