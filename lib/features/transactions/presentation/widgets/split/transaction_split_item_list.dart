@@ -21,6 +21,8 @@ class TransactionSplitItemList extends ConsumerWidget {
     required this.transactionType,
     required this.onRemove,
     required this.onEdit,
+    this.currencySymbol,
+    this.precision,
     super.key,
   });
 
@@ -28,6 +30,8 @@ class TransactionSplitItemList extends ConsumerWidget {
   final TransactionType transactionType;
   final ValueChanged<int> onRemove;
   final ValueChanged<int> onEdit;
+  final String? currencySymbol;
+  final int? precision;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -43,6 +47,8 @@ class TransactionSplitItemList extends ConsumerWidget {
                 item: item,
                 index: index,
                 transactionType: transactionType,
+                currencySymbol: currencySymbol,
+                precision: precision,
                 onEdit: onEdit,
                 onRemove: onRemove,
               ),
@@ -62,6 +68,8 @@ class _SplitItemCard extends ConsumerWidget {
     required this.transactionType,
     required this.onEdit,
     required this.onRemove,
+    this.currencySymbol,
+    this.precision,
   });
 
   final SplitItem item;
@@ -69,6 +77,8 @@ class _SplitItemCard extends ConsumerWidget {
   final TransactionType transactionType;
   final ValueChanged<int> onEdit;
   final ValueChanged<int> onRemove;
+  final String? currencySymbol;
+  final int? precision;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -112,6 +122,8 @@ class _SplitItemCard extends ConsumerWidget {
             itemCount: 1,
             amount: item.amount,
             type: transactionType,
+            currencySymbol: currencySymbol,
+            precision: precision,
             isBalanceVisible: true,
             isTransfer: false,
             note: item.note,

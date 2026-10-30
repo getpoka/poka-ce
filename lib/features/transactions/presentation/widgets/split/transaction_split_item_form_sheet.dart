@@ -21,12 +21,18 @@ import 'package:poka_ce/theme/theme.dart';
 /// Shown from [TransactionSplitSheet]. Pops with the resulting [SplitItem],
 /// or null when the user cancels with the X button.
 class TransactionSplitItemFormSheet extends ConsumerStatefulWidget {
-  const new({required this.transactionType, this.initialItem, super.key});
+  const new({required this.transactionType, this.initialItem, this.currencySymbol, this.precision, super.key});
 
   final TransactionType transactionType;
 
   /// Existing item to edit; null means a new item is being created.
   final SplitItem? initialItem;
+
+  /// Optional explicit currency symbol overriding settings.baseCurrency.
+  final String? currencySymbol;
+
+  /// Optional explicit minor unit precision overriding settings.baseCurrency.
+  final int? precision;
 
   /// Shows the form sheet and resolves to the created/edited [SplitItem],
   /// or null when the user cancels.
@@ -34,12 +40,19 @@ class TransactionSplitItemFormSheet extends ConsumerStatefulWidget {
     BuildContext context, {
     required TransactionType transactionType,
     SplitItem? initialItem,
+    String? currencySymbol,
+    int? precision,
   }) {
     return showPokaSheet<SplitItem>(
       context: context,
       persistent: true,
       isScrollControlled: true,
-      builder: (_) => TransactionSplitItemFormSheet(transactionType: transactionType, initialItem: initialItem),
+      builder: (_) => TransactionSplitItemFormSheet(
+        transactionType: transactionType,
+        initialItem: initialItem,
+        currencySymbol: currencySymbol,
+        precision: precision,
+      ),
     );
   }
 
@@ -65,7 +78,7 @@ class _TransactionSplitItemFormSheetState extends ConsumerState<TransactionSplit
     final item = widget.initialItem;
     if (item == null) return;
 
-    final precision = ref.read(settingsProvider).settings?.baseCurrency?.precision ?? 0;
+    final precision = widget.precision ?? ref.read(settingsProvider).settings?.baseCurrency?.precision ?? 0;
     _currentId = item.id;
     _amountExpr = item.amount.toMajorExpression(precision: precision);
 
@@ -114,7 +127,7 @@ class _TransactionSplitItemFormSheetState extends ConsumerState<TransactionSplit
   }
 
   void _confirm() {
-    final precision = ref.read(settingsProvider).settings?.baseCurrency?.precision ?? 0;
+    final precision = widget.precision ?? ref.read(settingsProvider).settings?.baseCurrency?.precision ?? 0;
     var raw = _amountExpr;
     if (MathEvaluator.hasUnresolvedOperator(raw)) {
       raw = MathEvaluator.evaluate(raw) ?? raw;
@@ -217,7 +230,7 @@ class _TransactionSplitItemFormSheetState extends ConsumerState<TransactionSplit
     }).toList();
 
     final settings = ref.watch(settingsProvider).settings;
-    final currencyCode = settings?.baseCurrency?.symbol;
+    final currencyCode = widget.currencySymbol ?? settings?.baseCurrency?.symbol;
 
     return PokaSheet(
       title: isEditing ? t.transactions.editItem : t.transactions.newItem,

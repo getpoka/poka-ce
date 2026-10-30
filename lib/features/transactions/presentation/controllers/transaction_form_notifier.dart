@@ -211,16 +211,17 @@ class TransactionFormNotifier extends _$TransactionFormNotifier {
   void setAllocation(TransactionAllocation? allocation) => state = state.copyWith(allocation: () => allocation);
 
   /// Sets the list of split items, updating total amount expression accordingly.
-  void setSplitItems(List<SplitItem>? items) {
+  void setSplitItems(List<SplitItem>? items, {int? precision}) {
     if (items == null) {
       state = state.copyWith(splitItems: () => null, amountExpression: '', historyExpression: () => null);
       return;
     }
 
+    final effectivePrecision = precision ?? args.precision;
     final total = items.fold<int>(0, (sum, item) => sum + item.amount);
     state = state.copyWith(
       splitItems: () => items,
-      amountExpression: total.toMajorExpression(precision: args.precision),
+      amountExpression: total.toMajorExpression(precision: effectivePrecision),
       historyExpression: () => null,
     );
   }

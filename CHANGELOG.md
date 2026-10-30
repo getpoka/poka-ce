@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Fixed
+- Fixed split transaction item lists, forms, and summary tiles ignoring custom currency formatting parameters.
+- [internal] Added optional `currencySymbol` and `precision` parameters across `PokaAmountText`, `TransactionTileContent`, `TransactionSplitItemList`, `TransactionSplitSheet`, `TransactionSplitItemFormSheet`, `TransactionSplitSummaryCard`, and `TransactionFormNotifier`.
 - Fixed itemized receipt item editing and deletion unintentionally duplicating items by preserving existing item identifiers.
 - [internal] Preserved split item IDs and timestamps in `UpdateTransactionUseCase`, `TransactionTile`, and `TransactionFormNotifier`.
 

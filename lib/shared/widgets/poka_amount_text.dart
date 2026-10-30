@@ -15,6 +15,8 @@ class PokaAmountText extends ConsumerWidget {
     required this.type,
     this.style,
     this.fallbackCurrencySymbol = 'Rp',
+    this.currencySymbol,
+    this.precision,
     this.isObscured = false,
     super.key,
   });
@@ -34,12 +36,18 @@ class PokaAmountText extends ConsumerWidget {
   /// Fallback currency symbol if settings are not loaded yet.
   final String fallbackCurrencySymbol;
 
+  /// Optional explicit currency symbol overriding settings.baseCurrency.
+  final String? currencySymbol;
+
+  /// Optional explicit minor unit precision overriding settings.baseCurrency.
+  final int? precision;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final settingsState = ref.watch(settingsProvider);
     final currency = settingsState.settings?.baseCurrency;
-    final currencySymbol = currency?.symbol ?? fallbackCurrencySymbol;
-    final precision = currency?.precision ?? 0;
+    final effectiveCurrencySymbol = currencySymbol ?? currency?.symbol ?? fallbackCurrencySymbol;
+    final effectivePrecision = precision ?? currency?.precision ?? 0;
     final localeFormat = settingsState.settings?.numberFormat ?? 'system';
     final isBalanceVisible = ref.watch(balanceVisibilityProvider);
 
@@ -74,7 +82,7 @@ class PokaAmountText extends ConsumerWidget {
     return Text(
       shouldObscure
           ? '$prefix$kPrivacyMask'
-          : '$prefix${amount.abs().toCurrencyFormat(symbol: currencySymbol, precision: precision, locale: localeFormat)}',
+          : '$prefix${amount.abs().toCurrencyFormat(symbol: effectiveCurrencySymbol, precision: effectivePrecision, locale: localeFormat)}',
       style: effectiveStyle,
     );
   }
