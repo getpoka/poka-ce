@@ -14,10 +14,12 @@ import 'package:poka_ce/theme/theme.dart';
 /// User adds sub-items freely; the total is the sum of all items.
 /// Minimum 2 items are required to confirm and return to the main form.
 class TransactionSplitSheet extends ConsumerStatefulWidget {
-  const new({required this.transactionType, this.initialSplits, super.key});
+  const new({required this.transactionType, this.initialSplits, this.currencySymbol, this.precision, super.key});
 
   final TransactionType transactionType;
   final List<SplitItem>? initialSplits;
+  final String? currencySymbol;
+  final int? precision;
 
   /// Shows the split sheet and resolves to the updated list of [SplitItem],
   /// or null when the user dismisses without saving.
@@ -25,12 +27,19 @@ class TransactionSplitSheet extends ConsumerStatefulWidget {
     BuildContext context, {
     required TransactionType transactionType,
     List<SplitItem>? initialSplits,
+    String? currencySymbol,
+    int? precision,
   }) {
     return showPokaSheet<List<SplitItem>>(
       context: context,
       isScrollControlled: true,
       maxRatio: 0.85,
-      builder: (_) => TransactionSplitSheet(transactionType: transactionType, initialSplits: initialSplits),
+      builder: (_) => TransactionSplitSheet(
+        transactionType: transactionType,
+        initialSplits: initialSplits,
+        currencySymbol: currencySymbol,
+        precision: precision,
+      ),
     );
   }
 
@@ -53,7 +62,12 @@ class _TransactionSplitSheetState extends ConsumerState<TransactionSplitSheet> {
   }
 
   Future<void> _addItem() async {
-    final item = await TransactionSplitItemFormSheet.show(context, transactionType: widget.transactionType);
+    final item = await TransactionSplitItemFormSheet.show(
+      context,
+      transactionType: widget.transactionType,
+      currencySymbol: widget.currencySymbol,
+      precision: widget.precision,
+    );
     if (item != null && mounted) {
       setState(() => _splits.add(item));
     }
@@ -64,6 +78,8 @@ class _TransactionSplitSheetState extends ConsumerState<TransactionSplitSheet> {
       context,
       transactionType: widget.transactionType,
       initialItem: _splits[index],
+      currencySymbol: widget.currencySymbol,
+      precision: widget.precision,
     );
     if (item != null && mounted) {
       setState(() => _splits[index] = item);
@@ -95,6 +111,8 @@ class _TransactionSplitSheetState extends ConsumerState<TransactionSplitSheet> {
               child: PokaAmountText(
                 amount: _totalAmount,
                 type: widget.transactionType,
+                currencySymbol: widget.currencySymbol,
+                precision: widget.precision,
                 style: typography.bodySecondary.copyWith(fontWeight: FontWeight.w700, color: colors.primary),
               ),
             )
@@ -145,6 +163,8 @@ class _TransactionSplitSheetState extends ConsumerState<TransactionSplitSheet> {
                 : TransactionSplitItemList(
                     splits: _splits,
                     transactionType: widget.transactionType,
+                    currencySymbol: widget.currencySymbol,
+                    precision: widget.precision,
                     onRemove: _removeItem,
                     onEdit: _editItem,
                   ),

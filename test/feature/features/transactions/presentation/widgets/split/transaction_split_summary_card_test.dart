@@ -65,5 +65,29 @@ void main() {
 
       await tester.pumpAndSettle();
     });
+
+    testWidgets('renders custom currencySymbol and precision', (tester) async {
+      final splits = [
+        const SplitItem(id: '1', amount: 15000, categoryId: 'c1'),
+        const SplitItem(id: '2', amount: 2000, categoryId: 'c2'),
+      ];
+
+      await tester.pumpWidget(
+        buildTestableWidget(
+          TransactionSplitSummaryCard(
+            splits: splits,
+            transactionType: TransactionType.expense,
+            currencySymbol: 'Rp',
+            precision: 0,
+            onEdit: () {},
+            onClear: () {},
+          ),
+        ),
+      );
+
+      expect(find.textContaining('Rp'), findsOneWidget);
+      expect(find.textContaining('17'), findsOneWidget);
+      await tester.pumpAndSettle();
+    });
   });
 }

@@ -12,6 +12,8 @@ class TransactionSplitSummaryCard extends StatelessWidget {
     required this.transactionType,
     required this.onEdit,
     required this.onClear,
+    this.currencySymbol,
+    this.precision,
     super.key,
   });
 
@@ -19,6 +21,8 @@ class TransactionSplitSummaryCard extends StatelessWidget {
   final TransactionType transactionType;
   final VoidCallback onEdit;
   final VoidCallback onClear;
+  final String? currencySymbol;
+  final int? precision;
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +37,8 @@ class TransactionSplitSummaryCard extends StatelessWidget {
           subtitle: PokaAmountText(
             amount: total,
             type: transactionType,
+            currencySymbol: currencySymbol,
+            precision: precision,
             style: theme.typography.bodySecondary.copyWith(color: theme.colors.mutedForeground),
           ),
           suffix: Row(

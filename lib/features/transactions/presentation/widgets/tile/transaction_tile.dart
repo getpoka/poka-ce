@@ -33,6 +33,8 @@ class RecentTransactionTile extends HookConsumerWidget with FTileMixin {
     this.categoriesById,
     this.category,
     this.account,
+    this.currencySymbol,
+    this.precision,
     this.isFirst = false,
     this.isLast = false,
     this.isSubItem = false,
@@ -52,6 +54,12 @@ class RecentTransactionTile extends HookConsumerWidget with FTileMixin {
 
   /// Resolved account for this transaction.
   final AccountModel? account;
+
+  /// Optional explicit currency symbol.
+  final String? currencySymbol;
+
+  /// Optional explicit minor unit precision.
+  final int? precision;
 
   final bool isFirst;
   final bool isLast;
@@ -81,6 +89,8 @@ class RecentTransactionTile extends HookConsumerWidget with FTileMixin {
         context,
         transactionType: transaction.type,
         initialItem: splitItem,
+        currencySymbol: currencySymbol,
+        precision: precision,
       );
 
       if (updatedSplit == null) return;
@@ -232,6 +242,8 @@ class RecentTransactionTile extends HookConsumerWidget with FTileMixin {
           itemCount: transaction.items.length,
           amount: transaction.amount,
           type: transaction.type,
+          currencySymbol: currencySymbol,
+          precision: precision,
           isBalanceVisible: isBalanceVisible,
           accLabel: accLabel,
           accIcon: accIcon,
@@ -329,6 +341,8 @@ class RecentTransactionTile extends HookConsumerWidget with FTileMixin {
                     categoriesById: effectiveCategoriesById,
                     category: effectiveCategoriesById[item.categoryId],
                     account: account,
+                    currencySymbol: currencySymbol,
+                    precision: precision,
                     isSubItem: true,
                     onEdit: () => handleEditItem(entry.key),
                     onDelete: () => handleRemoveItem(entry.key),

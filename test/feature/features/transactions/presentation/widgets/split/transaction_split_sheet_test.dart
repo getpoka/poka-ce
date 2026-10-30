@@ -92,17 +92,39 @@ Widget wrapWithRiverpod({required Widget child, List<CategoryModel>? categories,
 }
 
 // Helper to pump split sheet directly
-Widget wrapSplitSheet({required TransactionType type, List<SplitItem>? initial, List<CategoryModel>? categories}) {
+Widget wrapSplitSheet({
+  required TransactionType type,
+  List<SplitItem>? initial,
+  List<CategoryModel>? categories,
+  String? currencySymbol,
+  int? precision,
+}) {
   return wrapWithRiverpod(
     categories: categories,
-    child: TransactionSplitSheet(transactionType: type, initialSplits: initial),
+    child: TransactionSplitSheet(
+      transactionType: type,
+      initialSplits: initial,
+      currencySymbol: currencySymbol,
+      precision: precision,
+    ),
   );
 }
 
-Widget wrapSplitItemForm({required TransactionType type, SplitItem? initialItem, List<CategoryModel>? categories}) {
+Widget wrapSplitItemForm({
+  required TransactionType type,
+  SplitItem? initialItem,
+  List<CategoryModel>? categories,
+  String? currencySymbol,
+  int? precision,
+}) {
   return wrapWithRiverpod(
     categories: categories,
-    child: TransactionSplitItemFormSheet(transactionType: type, initialItem: initialItem),
+    child: TransactionSplitItemFormSheet(
+      transactionType: type,
+      initialItem: initialItem,
+      currencySymbol: currencySymbol,
+      precision: precision,
+    ),
   );
 }
 
@@ -143,6 +165,19 @@ void main() {
       await tester.pumpWidget(wrapSplitSheet(type: TransactionType.expense, initial: items));
       await tester.pumpAndSettle();
       expect(find.text(t.transactions.itemsCount(count: 2)), findsOneWidget);
+    });
+
+    testWidgets('renders custom currencySymbol and precision in list and total badge', (tester) async {
+      final items = [
+        const SplitItem(amount: 15000, categoryId: 'c_exp_1'),
+        const SplitItem(amount: 2000, categoryId: 'c_exp_1'),
+      ];
+      await tester.pumpWidget(
+        wrapSplitSheet(type: TransactionType.expense, initial: items, currencySymbol: 'Rp', precision: 0),
+      );
+      await tester.pumpAndSettle();
+      expect(find.textContaining('Rp'), findsWidgets);
+      expect(find.textContaining(r'$'), findsNothing);
     });
 
     testWidgets('shows total amount and hint when 1 item', (tester) async {
