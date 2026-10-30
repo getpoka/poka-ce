@@ -10,7 +10,7 @@
   "setupPinTitle": "Atur PIN",
   "setupPinBody": "Harap buat PIN terlebih dahulu sebelum mengaktifkan Kunci Aplikasi atau Biometrik.",
   "unlocked": "Terbuka",
-  "enter6DigitPin": "Masukkan 6-digit PIN",
+  "enter6DigitPin": "Masukkan PIN 6 digit",
   "enterPin": "Masukkan PIN",
   "invalidPin": "PIN tidak valid",
   "tooManyAttempts": "Terlalu banyak percobaan",
