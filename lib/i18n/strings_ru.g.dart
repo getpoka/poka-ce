@@ -949,7 +949,7 @@ class _Translations$settings$ru extends Translations$settings$en {
 	@override String get aboutDescription => 'Бесплатный менеджер личных финансов с открытым исходным кодом, который помогает отслеживать расходы, управлять бюджетами и контролировать счета локально.';
 	@override String get copyright => '© 2026 POKA. Все права защищены.';
 	@override String get noResultsFound => 'Ничего не найдено';
-	@override String get weCouldntFindAnyCurrencyMatching => 'Валюта по запросу "{search}" не найдена.';
+	@override String weCouldntFindAnyCurrencyMatching({required Object search}) => 'Валюта по запросу "${search}" не найдена.';
 	@override String get notSet => 'Не задано';
 	@override String get exportExcel => 'Экспорт в Excel';
 	@override String get exportExcelDesc => 'Экспорт транзакций, счетов и категорий в .xlsx';
@@ -1879,7 +1879,7 @@ extension on TranslationsRu {
 			'settings.aboutDescription' => 'Бесплатный менеджер личных финансов с открытым исходным кодом, который помогает отслеживать расходы, управлять бюджетами и контролировать счета локально.',
 			'settings.copyright' => '© 2026 POKA. Все права защищены.',
 			'settings.noResultsFound' => 'Ничего не найдено',
-			'settings.weCouldntFindAnyCurrencyMatching' => 'Валюта по запросу "{search}" не найдена.',
+			'settings.weCouldntFindAnyCurrencyMatching' => ({required Object search}) => 'Валюта по запросу "${search}" не найдена.',
 			'settings.notSet' => 'Не задано',
 			'settings.exportExcel' => 'Экспорт в Excel',
 			'settings.exportExcelDesc' => 'Экспорт транзакций, счетов и категорий в .xlsx',

@@ -948,7 +948,7 @@ class _Translations$settings$id extends Translations$settings$en {
 	@override String get aboutDescription => 'Pengelola keuangan pribadi open-source gratis yang dirancang untuk membantu Anda mencatat pengeluaran, mengatur anggaran, dan memantau akun secara lokal.';
 	@override String get copyright => '© 2026 POKA. All rights reserved.';
 	@override String get noResultsFound => 'Tidak Ada Hasil';
-	@override String get weCouldntFindAnyCurrencyMatching => 'Kami tidak menemukan mata uang yang cocok dengan "{search}".';
+	@override String weCouldntFindAnyCurrencyMatching({required Object search}) => 'Kami tidak menemukan mata uang yang cocok dengan "${search}".';
 	@override String get notSet => 'Belum Diatur';
 	@override String get exportExcel => 'Ekspor ke Excel';
 	@override String get exportExcelDesc => 'Ekspor transaksi, akun, dan kategori ke file .xlsx';
@@ -1878,7 +1878,7 @@ extension on TranslationsId {
 			'settings.aboutDescription' => 'Pengelola keuangan pribadi open-source gratis yang dirancang untuk membantu Anda mencatat pengeluaran, mengatur anggaran, dan memantau akun secara lokal.',
 			'settings.copyright' => '© 2026 POKA. All rights reserved.',
 			'settings.noResultsFound' => 'Tidak Ada Hasil',
-			'settings.weCouldntFindAnyCurrencyMatching' => 'Kami tidak menemukan mata uang yang cocok dengan "{search}".',
+			'settings.weCouldntFindAnyCurrencyMatching' => ({required Object search}) => 'Kami tidak menemukan mata uang yang cocok dengan "${search}".',
 			'settings.notSet' => 'Belum Diatur',
 			'settings.exportExcel' => 'Ekspor ke Excel',
 			'settings.exportExcelDesc' => 'Ekspor transaksi, akun, dan kategori ke file .xlsx',

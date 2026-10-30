@@ -68,7 +68,7 @@
   "aboutDescription": "Un gestor de finanzas personales gratuito y de código abierto diseñado para ayudarte a registrar gastos, gestionar presupuestos y controlar tus cuentas de forma local.",
   "copyright": "© 2026 POKA. Todos los derechos reservados.",
   "noResultsFound": "No se encontraron resultados",
-  "weCouldntFindAnyCurrencyMatching": "No pudimos encontrar ninguna moneda que coincida con \"{search}\".",
+  "weCouldntFindAnyCurrencyMatching": "No pudimos encontrar ninguna moneda que coincida con \"{{search}}\".",
   "notSet": "No establecido",
   "exportExcel": "Exportar a Excel",
   "exportExcelDesc": "Exportar transacciones, cuentas y categorías a .xlsx",

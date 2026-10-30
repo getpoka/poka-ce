@@ -68,7 +68,7 @@
   "aboutDescription": "Trình quản lý tài chính cá nhân mã nguồn mở, miễn phí, giúp bạn theo dõi chi tiêu, quản lý ngân sách và giám sát tài khoản ngay trên thiết bị.",
   "copyright": "© 2026 POKA. All rights reserved.",
   "noResultsFound": "Không tìm thấy kết quả",
-  "weCouldntFindAnyCurrencyMatching": "Không tìm thấy đơn vị tiền nào khớp với \"{search}\".",
+  "weCouldntFindAnyCurrencyMatching": "Không tìm thấy đơn vị tiền nào khớp với \"{{search}}\".",
   "notSet": "Chưa đặt",
   "exportExcel": "Xuất ra Excel",
   "exportExcelDesc": "Xuất giao dịch, tài khoản và danh mục ra tệp .xlsx",

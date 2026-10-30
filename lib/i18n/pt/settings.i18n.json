@@ -68,7 +68,7 @@
   "aboutDescription": "Um gerenciador de finanças pessoais gratuito e de código aberto feito para ajudar você a controlar gastos, gerenciar orçamentos e monitorar suas contas localmente.",
   "copyright": "© 2026 POKA. Todos os direitos reservados.",
   "noResultsFound": "Nenhum resultado encontrado",
-  "weCouldntFindAnyCurrencyMatching": "Não encontramos nenhuma moeda correspondente a \"{search}\".",
+  "weCouldntFindAnyCurrencyMatching": "Não encontramos nenhuma moeda correspondente a \"{{search}}\".",
   "notSet": "Não definido",
   "exportExcel": "Exportar para Excel",
   "exportExcelDesc": "Exportar transações, contas e categorias para .xlsx",

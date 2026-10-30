@@ -68,7 +68,7 @@
   "aboutDescription": "Pengurus kewangan peribadi sumber terbuka dan percuma yang direka untuk membantu anda menjejaki perbelanjaan, mengurus belanjawan dan memantau akaun anda secara setempat.",
   "copyright": "© 2026 POKA. All rights reserved.",
   "noResultsFound": "Tiada Hasil Ditemui",
-  "weCouldntFindAnyCurrencyMatching": "Kami tidak menemui mata wang yang sepadan dengan \"{search}\".",
+  "weCouldntFindAnyCurrencyMatching": "Kami tidak menemui mata wang yang sepadan dengan \"{{search}}\".",
   "notSet": "Belum Ditetapkan",
   "exportExcel": "Eksport ke Excel",
   "exportExcelDesc": "Eksport transaksi, akaun dan kategori ke .xlsx",

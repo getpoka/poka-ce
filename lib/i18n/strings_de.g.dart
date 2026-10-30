@@ -949,7 +949,7 @@ class _Translations$settings$de extends Translations$settings$en {
 	@override String get aboutDescription => 'Ein kostenloser und quelloffener persönlicher Finanzmanager, mit dem du Ausgaben erfassen, Budgets verwalten und deine Konten lokal überwachen kannst.';
 	@override String get copyright => '© 2026 POKA. Alle Rechte vorbehalten.';
 	@override String get noResultsFound => 'Keine Ergebnisse gefunden';
-	@override String get weCouldntFindAnyCurrencyMatching => 'Keine Währung passend zu „{search}“ gefunden.';
+	@override String weCouldntFindAnyCurrencyMatching({required Object search}) => 'Keine Währung passend zu „${search}“ gefunden.';
 	@override String get notSet => 'Nicht festgelegt';
 	@override String get exportExcel => 'Nach Excel exportieren';
 	@override String get exportExcelDesc => 'Buchungen, Konten und Kategorien als .xlsx exportieren';
@@ -1879,7 +1879,7 @@ extension on TranslationsDe {
 			'settings.aboutDescription' => 'Ein kostenloser und quelloffener persönlicher Finanzmanager, mit dem du Ausgaben erfassen, Budgets verwalten und deine Konten lokal überwachen kannst.',
 			'settings.copyright' => '© 2026 POKA. Alle Rechte vorbehalten.',
 			'settings.noResultsFound' => 'Keine Ergebnisse gefunden',
-			'settings.weCouldntFindAnyCurrencyMatching' => 'Keine Währung passend zu „{search}“ gefunden.',
+			'settings.weCouldntFindAnyCurrencyMatching' => ({required Object search}) => 'Keine Währung passend zu „${search}“ gefunden.',
 			'settings.notSet' => 'Nicht festgelegt',
 			'settings.exportExcel' => 'Nach Excel exportieren',
 			'settings.exportExcelDesc' => 'Buchungen, Konten und Kategorien als .xlsx exportieren',

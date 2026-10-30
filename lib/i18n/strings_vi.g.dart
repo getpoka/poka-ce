@@ -949,7 +949,7 @@ class _Translations$settings$vi extends Translations$settings$en {
 	@override String get aboutDescription => 'Trình quản lý tài chính cá nhân mã nguồn mở, miễn phí, giúp bạn theo dõi chi tiêu, quản lý ngân sách và giám sát tài khoản ngay trên thiết bị.';
 	@override String get copyright => '© 2026 POKA. All rights reserved.';
 	@override String get noResultsFound => 'Không tìm thấy kết quả';
-	@override String get weCouldntFindAnyCurrencyMatching => 'Không tìm thấy đơn vị tiền nào khớp với "{search}".';
+	@override String weCouldntFindAnyCurrencyMatching({required Object search}) => 'Không tìm thấy đơn vị tiền nào khớp với "${search}".';
 	@override String get notSet => 'Chưa đặt';
 	@override String get exportExcel => 'Xuất ra Excel';
 	@override String get exportExcelDesc => 'Xuất giao dịch, tài khoản và danh mục ra tệp .xlsx';
@@ -1879,7 +1879,7 @@ extension on TranslationsVi {
 			'settings.aboutDescription' => 'Trình quản lý tài chính cá nhân mã nguồn mở, miễn phí, giúp bạn theo dõi chi tiêu, quản lý ngân sách và giám sát tài khoản ngay trên thiết bị.',
 			'settings.copyright' => '© 2026 POKA. All rights reserved.',
 			'settings.noResultsFound' => 'Không tìm thấy kết quả',
-			'settings.weCouldntFindAnyCurrencyMatching' => 'Không tìm thấy đơn vị tiền nào khớp với "{search}".',
+			'settings.weCouldntFindAnyCurrencyMatching' => ({required Object search}) => 'Không tìm thấy đơn vị tiền nào khớp với "${search}".',
 			'settings.notSet' => 'Chưa đặt',
 			'settings.exportExcel' => 'Xuất ra Excel',
 			'settings.exportExcelDesc' => 'Xuất giao dịch, tài khoản và danh mục ra tệp .xlsx',

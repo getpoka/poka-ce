@@ -68,7 +68,7 @@
   "aboutDescription": "Pengelola keuangan pribadi open-source gratis yang dirancang untuk membantu Anda mencatat pengeluaran, mengatur anggaran, dan memantau akun secara lokal.",
   "copyright": "© 2026 POKA. All rights reserved.",
   "noResultsFound": "Tidak Ada Hasil",
-  "weCouldntFindAnyCurrencyMatching": "Kami tidak menemukan mata uang yang cocok dengan \"{search}\".",
+  "weCouldntFindAnyCurrencyMatching": "Kami tidak menemukan mata uang yang cocok dengan \"{{search}}\".",
   "notSet": "Belum Diatur",
   "exportExcel": "Ekspor ke Excel",
   "exportExcelDesc": "Ekspor transaksi, akun, dan kategori ke file .xlsx",
