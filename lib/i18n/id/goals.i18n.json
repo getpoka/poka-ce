@@ -10,7 +10,7 @@
   "active": "Aktif",
   "past": "Selesai",
   "actionDenied": "Aksi Ditolak",
-  "emptyBalanceBeforeDelete": "Kosongkan saldo (transfer keluar) sebelum menghapus Goal ini.",
+  "emptyBalanceBeforeDelete": "Kosongkan saldo (transfer keluar) sebelum menghapus target ini.",
   "ok": "OK",
   "deleteGoal": "Hapus Target",
   "areYouSureYouWantToDeleteThisGoalTheAssociatedPocketAccountAndItsHistoryWillAlsoBeRemovedThisActionCannotBeUndone": "Apakah Anda yakin ingin menghapus target ini? Akun kantong terkait dan riwayatnya juga akan dihapus. Tindakan ini tidak dapat dibatalkan.",
